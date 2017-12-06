@@ -23,14 +23,14 @@ configurations.all {
 
 dependencies {
 	compile 'org.slf4j:slf4j-api:1.7.25'
-	compile files('../L2J_Server/dist/libs/mmocore.jar')
-	compile project(':L2J_Server')
+	compile files('../L2JDevs_Core/dist/libs/mmocore.jar')
+	compile project(':L2JDevs_Core')
 	testCompile 'org.testng:testng:6.11'
 	testCompile 'org.jmockit:jmockit:1.35'
 }
 
 task zip(type: Zip) {
-	def fileName = 'L2J_DataPack_' + new Date().format("yyyy-MM-dd")
+	def fileName = 'L2JDevs_Data_' + new Date().format("yyyy-MM-dd")
 	baseName = fileName
 	from('dist')
 	println 'Build in build/distributions/' + fileName + '.zip'
@@ -44,8 +44,8 @@ task wrapper(type: Wrapper) {
 
 eclipse {
 	project {
-		name = 'L2J_DataPack'
-		comment 'L2J Server Project'
+		name = 'L2JDevs_Data'
+		comment 'L2JDevs Server Project'
 		natures 'org.eclipse.buildship.core.gradleprojectbuilde'
 	}
 }
