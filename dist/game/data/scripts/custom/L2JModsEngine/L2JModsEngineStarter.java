@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package custom.L2JMods;
+package custom.L2JModsEngine;
 
 import com.u3games.l2jmods.ModsManager;
 
@@ -24,15 +24,15 @@ import com.u3games.l2jmods.ModsManager;
  * This is the starter to load the Mods Manager
  * @author Zephyr
  */
-public class L2JModsStarter
+public class L2JModsEngineStarter
 {
-	private L2JModsStarter()
+	private L2JModsEngineStarter()
 	{
 		ModsManager.getInstance();
 	}
 	
 	public static void main(String[] args)
 	{
-		new L2JModsStarter();
+		new L2JModsEngineStarter();
 	}
 }
