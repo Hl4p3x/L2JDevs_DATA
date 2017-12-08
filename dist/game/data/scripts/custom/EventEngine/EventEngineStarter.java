@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package custom.events.EventEngine;
+package custom.EventEngine;
 
 import com.github.athenaengine.core.EventEngineManager;
 import ai.npc.AbstractNpcAI;
