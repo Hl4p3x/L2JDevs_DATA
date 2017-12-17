@@ -20,8 +20,6 @@ package ai.npc.CastleMercenaryManager;
 
 import java.util.StringTokenizer;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.SevenSigns;
 import com.l2jserver.gameserver.model.ClanPrivilege;
 import com.l2jserver.gameserver.model.PcCondOverride;
@@ -30,6 +28,8 @@ import com.l2jserver.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.entity.Castle;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Castle Mercenary Manager AI.

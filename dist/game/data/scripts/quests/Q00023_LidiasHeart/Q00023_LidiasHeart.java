@@ -18,9 +18,6 @@
  */
 package quests.Q00023_LidiasHeart;
 
-import quests.Q00022_TragedyInVonHellmannForest.Q00022_TragedyInVonHellmannForest;
-import quests.Q00024_InhabitantsOfTheForestOfTheDead.Q00024_InhabitantsOfTheForestOfTheDead;
-
 import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -30,6 +27,9 @@ import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
+
+import quests.Q00022_TragedyInVonHellmannForest.Q00022_TragedyInVonHellmannForest;
+import quests.Q00024_InhabitantsOfTheForestOfTheDead.Q00024_InhabitantsOfTheForestOfTheDead;
 
 /**
  * Lidia's Heart (23)

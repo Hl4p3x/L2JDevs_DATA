@@ -18,8 +18,6 @@
  */
 package ai.group_template;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.datatables.SpawnTable;
 import com.l2jserver.gameserver.model.L2Object;
@@ -31,6 +29,8 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Sel Mahum Training Ground AI for drill groups.

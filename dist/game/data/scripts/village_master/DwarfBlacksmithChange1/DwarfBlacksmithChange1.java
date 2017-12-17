@@ -18,12 +18,12 @@
  */
 package village_master.DwarfBlacksmithChange1;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.enums.CategoryType;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.base.ClassId;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Dwarf class transfer AI.

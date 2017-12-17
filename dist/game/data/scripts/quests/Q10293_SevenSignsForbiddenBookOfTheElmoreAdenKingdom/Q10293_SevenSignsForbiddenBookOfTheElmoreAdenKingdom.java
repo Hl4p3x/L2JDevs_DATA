@@ -18,12 +18,12 @@
  */
 package quests.Q10293_SevenSignsForbiddenBookOfTheElmoreAdenKingdom;
 
-import quests.Q10292_SevenSignsGirlOfDoubt.Q10292_SevenSignsGirlOfDoubt;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import quests.Q10292_SevenSignsGirlOfDoubt.Q10292_SevenSignsGirlOfDoubt;
 
 /**
  * Seven Signs, Forbidden Book of the Elmore-Aden Kingdom (10293)

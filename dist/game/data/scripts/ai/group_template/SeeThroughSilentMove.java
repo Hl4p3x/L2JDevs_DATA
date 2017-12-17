@@ -18,10 +18,10 @@
  */
 package ai.group_template;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Attackable;
 import com.l2jserver.gameserver.model.actor.L2Npc;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * See Through Silent Move AI.

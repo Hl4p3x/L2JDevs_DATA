@@ -18,8 +18,6 @@
  */
 package quests.Q00022_TragedyInVonHellmannForest;
 
-import quests.Q00021_HiddenTruth.Q00021_HiddenTruth;
-
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.model.Location;
@@ -32,6 +30,8 @@ import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
 import com.l2jserver.gameserver.util.Util;
+
+import quests.Q00021_HiddenTruth.Q00021_HiddenTruth;
 
 /**
  * Tragedy in Von Hellmann Forest (22)

@@ -18,8 +18,6 @@
  */
 package quests.Q00118_ToLeadAndBeLed;
 
-import quests.Q00123_TheLeaderAndTheFollower.Q00123_TheLeaderAndTheFollower;
-
 import com.l2jserver.gameserver.model.L2World;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -27,6 +25,8 @@ import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.model.quest.State;
 import com.l2jserver.gameserver.util.Util;
+
+import quests.Q00123_TheLeaderAndTheFollower.Q00123_TheLeaderAndTheFollower;
 
 /**
  * To Lead And Be Led (118)

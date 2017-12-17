@@ -22,9 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import quests.Q00692_HowtoOpposeEvil.Q00692_HowtoOpposeEvil;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.ThreadPoolManager;
 import com.l2jserver.gameserver.ai.CtrlIntention;
@@ -47,6 +44,9 @@ import com.l2jserver.gameserver.model.zone.L2ZoneType;
 import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
+import quests.Q00692_HowtoOpposeEvil.Q00692_HowtoOpposeEvil;
 
 /**
  * Energy Seeds AI.

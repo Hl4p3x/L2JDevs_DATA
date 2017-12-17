@@ -18,10 +18,6 @@
  */
 package village_master.KamaelChange1;
 
-import quests.Q00062_PathOfTheTrooper.Q00062_PathOfTheTrooper;
-import quests.Q00063_PathOfTheWarder.Q00063_PathOfTheWarder;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.data.xml.impl.CategoryData;
 import com.l2jserver.gameserver.enums.CategoryType;
 import com.l2jserver.gameserver.enums.Race;
@@ -29,6 +25,10 @@ import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.base.ClassId;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import ai.npc.AbstractNpcAI;
+import quests.Q00062_PathOfTheTrooper.Q00062_PathOfTheTrooper;
+import quests.Q00063_PathOfTheWarder.Q00063_PathOfTheWarder;
 
 /**
  * Kamael class transfer AI.

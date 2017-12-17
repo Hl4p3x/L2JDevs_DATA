@@ -18,12 +18,12 @@
  */
 package ai.npc.CastleBlacksmith;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.ClanPrivilege;
 import com.l2jserver.gameserver.model.PcCondOverride;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Castle Blacksmith AI.

@@ -18,9 +18,9 @@
  */
 package quests.Q00068_SagaOfTheSoulHound;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Soul Hound (68)

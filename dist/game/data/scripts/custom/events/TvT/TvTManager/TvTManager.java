@@ -18,8 +18,6 @@
  */
 package custom.events.TvT.TvTManager;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
 import com.l2jserver.gameserver.handler.VoicedCommandHandler;
@@ -29,6 +27,8 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.entity.TvTEvent;
 import com.l2jserver.gameserver.model.olympiad.OlympiadManager;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * TvT Manager AI.

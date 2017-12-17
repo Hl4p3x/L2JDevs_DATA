@@ -18,12 +18,12 @@
  */
 package ai.npc.ForgeOfTheGods;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.model.actor.L2Attackable;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Forge of the Gods AI

@@ -18,8 +18,6 @@
  */
 package ai.group_template;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.model.L2Object;
 import com.l2jserver.gameserver.model.L2World;
@@ -28,6 +26,8 @@ import com.l2jserver.gameserver.model.actor.L2Attackable;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.NpcStringId;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Turek Orcs AI - flee and return with assistance

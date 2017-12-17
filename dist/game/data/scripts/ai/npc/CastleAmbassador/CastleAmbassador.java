@@ -18,14 +18,14 @@
  */
 package ai.npc.CastleAmbassador;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.L2Object;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.entity.Castle;
 import com.l2jserver.gameserver.model.entity.Fort;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Castle Ambassador AI.

@@ -18,10 +18,8 @@
  */
 package quests.Q00236_SeedsOfChaos;
 
-import quests.Q00025_HidingBehindTheTruth.Q00025_HidingBehindTheTruth;
-
-import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.enums.Race;
+import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
@@ -30,6 +28,8 @@ import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
 import com.l2jserver.gameserver.util.Util;
+
+import quests.Q00025_HidingBehindTheTruth.Q00025_HidingBehindTheTruth;
 
 /**
  * Seeds Of Chaos (236)

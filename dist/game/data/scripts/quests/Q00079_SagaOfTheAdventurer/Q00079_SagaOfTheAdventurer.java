@@ -18,9 +18,9 @@
  */
 package quests.Q00079_SagaOfTheAdventurer;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Adventurer (79)

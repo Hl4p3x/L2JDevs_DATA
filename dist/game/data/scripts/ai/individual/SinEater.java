@@ -18,8 +18,6 @@
  */
 package ai.individual;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.L2Summon;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -33,6 +31,8 @@ import com.l2jserver.gameserver.model.events.impl.character.OnCreatureKill;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Sin Eater AI.

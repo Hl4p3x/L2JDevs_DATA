@@ -18,11 +18,11 @@
  */
 package ai.npc.Rignos;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.holders.SkillHolder;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Rignos AI.

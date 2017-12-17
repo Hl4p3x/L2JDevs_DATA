@@ -18,8 +18,6 @@
  */
 package ai.individual;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.model.L2Object;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -27,6 +25,8 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.holders.SkillHolder;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.SystemMessageId;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Ballista AI.

@@ -18,8 +18,6 @@
  */
 package ai.individual;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.instancemanager.ZoneManager;
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -27,6 +25,8 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.zone.type.L2EffectZone;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Queen Shyeed AI

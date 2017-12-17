@@ -21,8 +21,6 @@ package hellbound.AI;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -30,6 +28,8 @@ import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.util.MinionList;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Ranku's AI.

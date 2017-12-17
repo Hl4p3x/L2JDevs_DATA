@@ -20,8 +20,6 @@ package ai.npc.NpcBuffers.impl;
 
 import java.util.Collection;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.SevenSigns;
 import com.l2jserver.gameserver.ThreadPoolManager;
 import com.l2jserver.gameserver.datatables.SkillData;
@@ -31,6 +29,8 @@ import com.l2jserver.gameserver.model.skills.BuffInfo;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Preacher of Doom and Orator of Revelations AI

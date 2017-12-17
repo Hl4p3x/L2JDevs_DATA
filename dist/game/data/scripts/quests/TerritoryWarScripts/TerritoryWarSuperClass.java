@@ -22,10 +22,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import quests.Q00147_PathtoBecominganEliteMercenary.Q00147_PathtoBecominganEliteMercenary;
-import quests.Q00148_PathtoBecominganExaltedMercenary.Q00148_PathtoBecominganExaltedMercenary;
-import quests.Q00176_StepsForHonor.Q00176_StepsForHonor;
-
 import com.l2jserver.gameserver.instancemanager.CastleManager;
 import com.l2jserver.gameserver.instancemanager.GlobalVariablesManager;
 import com.l2jserver.gameserver.instancemanager.TerritoryWarManager;
@@ -43,6 +39,10 @@ import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.serverpackets.ExShowScreenMessage;
 import com.l2jserver.gameserver.util.Util;
+
+import quests.Q00147_PathtoBecominganEliteMercenary.Q00147_PathtoBecominganEliteMercenary;
+import quests.Q00148_PathtoBecominganExaltedMercenary.Q00148_PathtoBecominganExaltedMercenary;
+import quests.Q00176_StepsForHonor.Q00176_StepsForHonor;
 
 /**
  * Territory War quests superclass.

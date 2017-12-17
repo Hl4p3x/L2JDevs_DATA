@@ -18,12 +18,12 @@
  */
 package ai.group_template;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.L2Object;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.skills.Skill;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Remnants AI.

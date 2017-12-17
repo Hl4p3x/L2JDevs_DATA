@@ -23,9 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import quests.Q00230_TestOfTheSummoner.Q00230_TestOfTheSummoner;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -38,6 +35,9 @@ import com.l2jserver.gameserver.model.events.annotations.RegisterType;
 import com.l2jserver.gameserver.model.events.impl.character.OnCreatureKill;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
+import quests.Q00230_TestOfTheSummoner.Q00230_TestOfTheSummoner;
 
 /**
  * Servitor AI for quest Test Of The Summoner (230).

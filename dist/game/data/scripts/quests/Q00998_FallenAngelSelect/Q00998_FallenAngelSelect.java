@@ -18,16 +18,16 @@
  */
 package quests.Q00998_FallenAngelSelect;
 
-import quests.Q00141_ShadowFoxPart3.Q00141_ShadowFoxPart3;
-import quests.Q00142_FallenAngelRequestOfDawn.Q00142_FallenAngelRequestOfDawn;
-import quests.Q00143_FallenAngelRequestOfDusk.Q00143_FallenAngelRequestOfDusk;
-
 import com.l2jserver.gameserver.instancemanager.QuestManager;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.model.quest.State;
+
+import quests.Q00141_ShadowFoxPart3.Q00141_ShadowFoxPart3;
+import quests.Q00142_FallenAngelRequestOfDawn.Q00142_FallenAngelRequestOfDawn;
+import quests.Q00143_FallenAngelRequestOfDusk.Q00143_FallenAngelRequestOfDusk;
 
 /**
  * Fallen Angel Select (998 - Custom)<br>

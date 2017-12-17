@@ -18,18 +18,17 @@
  */
 package hellbound.AI.Zones.TowerOfInfinitum;
 
-import hellbound.HellboundEngine;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import ai.npc.AbstractNpcAI;
 
 import com.l2jserver.gameserver.model.L2Party;
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
+import hellbound.HellboundEngine;
 
 /**
  * Tower Of Infinitum.

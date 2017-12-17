@@ -18,13 +18,13 @@
  */
 package quests.Q00296_TarantulasSpiderSilk;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.util.Util;
+
+import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
 
 /**
  * Tarantula's Spider Silk (296)

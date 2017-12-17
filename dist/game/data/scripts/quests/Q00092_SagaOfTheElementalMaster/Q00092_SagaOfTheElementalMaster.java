@@ -18,9 +18,9 @@
  */
 package quests.Q00092_SagaOfTheElementalMaster;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Elemental Master (92)

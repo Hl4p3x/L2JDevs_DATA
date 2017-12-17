@@ -21,8 +21,6 @@ package ai.npc.WyvernManager;
 import java.util.HashMap;
 import java.util.Map;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.SevenSigns;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -30,6 +28,8 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.entity.Fort;
 import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Wyvern Manager

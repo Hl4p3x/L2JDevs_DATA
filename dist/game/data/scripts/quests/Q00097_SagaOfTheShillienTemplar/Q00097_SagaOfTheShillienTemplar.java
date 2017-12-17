@@ -18,9 +18,9 @@
  */
 package quests.Q00097_SagaOfTheShillienTemplar;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Shillien Templar (97)

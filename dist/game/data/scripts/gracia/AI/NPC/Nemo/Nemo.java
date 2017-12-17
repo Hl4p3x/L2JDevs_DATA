@@ -18,15 +18,15 @@
  */
 package gracia.AI.NPC.Nemo;
 
-import gracia.AI.Maguen;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.instancemanager.QuestManager;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.network.NpcStringId;
+
+import ai.npc.AbstractNpcAI;
+import gracia.AI.Maguen;
 
 /**
  * Nemo AI.

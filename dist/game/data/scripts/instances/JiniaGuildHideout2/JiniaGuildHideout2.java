@@ -18,14 +18,14 @@
  */
 package instances.JiniaGuildHideout2;
 
-import instances.AbstractInstance;
-import quests.Q10285_MeetingSirra.Q10285_MeetingSirra;
-
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.instancezone.InstanceWorld;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import instances.AbstractInstance;
+import quests.Q10285_MeetingSirra.Q10285_MeetingSirra;
 
 /**
  * Jinia Guild Hideout instance zone.

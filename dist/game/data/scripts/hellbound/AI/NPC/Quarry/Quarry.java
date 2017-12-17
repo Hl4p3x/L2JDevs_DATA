@@ -18,9 +18,6 @@
  */
 package hellbound.AI.NPC.Quarry;
 
-import hellbound.HellboundEngine;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.instancemanager.ZoneManager;
@@ -33,6 +30,9 @@ import com.l2jserver.gameserver.model.holders.ItemChanceHolder;
 import com.l2jserver.gameserver.model.zone.L2ZoneType;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
+
+import ai.npc.AbstractNpcAI;
+import hellbound.HellboundEngine;
 
 /**
  * Quarry AI.

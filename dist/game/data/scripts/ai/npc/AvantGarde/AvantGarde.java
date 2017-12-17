@@ -20,8 +20,6 @@ package ai.npc.AvantGarde;
 
 import java.util.List;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.data.xml.impl.MultisellData;
 import com.l2jserver.gameserver.data.xml.impl.SkillTreesData;
@@ -40,6 +38,7 @@ import com.l2jserver.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.util.Util;
 
+import ai.npc.AbstractNpcAI;
 import custom.Validators.SubClassSkills;
 
 /**

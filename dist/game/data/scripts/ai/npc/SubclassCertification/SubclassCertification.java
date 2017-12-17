@@ -21,8 +21,6 @@ package ai.npc.SubclassCertification;
 import java.util.HashMap;
 import java.util.Map;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.data.xml.impl.ClassListData;
 import com.l2jserver.gameserver.enums.CategoryType;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -33,6 +31,8 @@ import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.model.quest.State;
 import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Subclass certification

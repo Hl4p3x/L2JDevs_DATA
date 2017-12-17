@@ -18,8 +18,6 @@
  */
 package ai.npc.CastleTeleporter;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.instancemanager.MapRegionManager;
 import com.l2jserver.gameserver.model.L2World;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -28,6 +26,8 @@ import com.l2jserver.gameserver.model.entity.Siege;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Castle Teleporter AI.

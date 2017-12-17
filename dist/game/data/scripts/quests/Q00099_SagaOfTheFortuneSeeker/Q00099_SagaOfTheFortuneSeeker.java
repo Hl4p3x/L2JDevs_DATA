@@ -18,9 +18,9 @@
  */
 package quests.Q00099_SagaOfTheFortuneSeeker;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Fortune Seeker (99)

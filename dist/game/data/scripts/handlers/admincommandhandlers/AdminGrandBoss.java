@@ -22,9 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-import ai.individual.Antharas.Antharas;
-import ai.individual.Baium.Baium;
-
 import com.l2jserver.gameserver.cache.HtmCache;
 import com.l2jserver.gameserver.handler.IAdminCommandHandler;
 import com.l2jserver.gameserver.instancemanager.GrandBossManager;
@@ -35,6 +32,9 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.zone.type.L2NoRestartZone;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import ai.individual.Antharas.Antharas;
+import ai.individual.Baium.Baium;
 
 /**
  * @author St3eT

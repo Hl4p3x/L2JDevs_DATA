@@ -21,12 +21,12 @@ package quests.Q00654_JourneyToASettlement;
 import java.util.HashMap;
 import java.util.Map;
 
-import quests.Q00119_LastImperialPrince.Q00119_LastImperialPrince;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import quests.Q00119_LastImperialPrince.Q00119_LastImperialPrince;
 
 /**
  * Journey to a Settlement (654)

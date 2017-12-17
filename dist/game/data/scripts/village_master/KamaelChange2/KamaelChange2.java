@@ -18,11 +18,6 @@
  */
 package village_master.KamaelChange2;
 
-import quests.Q00064_CertifiedBerserker.Q00064_CertifiedBerserker;
-import quests.Q00065_CertifiedSoulBreaker.Q00065_CertifiedSoulBreaker;
-import quests.Q00066_CertifiedArbalester.Q00066_CertifiedArbalester;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.data.xml.impl.CategoryData;
 import com.l2jserver.gameserver.enums.CategoryType;
 import com.l2jserver.gameserver.enums.Race;
@@ -31,6 +26,11 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.base.ClassId;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
+import quests.Q00064_CertifiedBerserker.Q00064_CertifiedBerserker;
+import quests.Q00065_CertifiedSoulBreaker.Q00065_CertifiedSoulBreaker;
+import quests.Q00066_CertifiedArbalester.Q00066_CertifiedArbalester;
 
 /**
  * Kamael class transfer AI.

@@ -18,8 +18,6 @@
  */
 package ai.npc.TerritoryManagers;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.data.xml.impl.MultisellData;
 import com.l2jserver.gameserver.enums.Race;
 import com.l2jserver.gameserver.instancemanager.CastleManager;
@@ -35,6 +33,8 @@ import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
 import com.l2jserver.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jserver.gameserver.network.serverpackets.UserInfo;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Retail AI for Territory Managers.

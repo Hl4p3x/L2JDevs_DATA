@@ -20,8 +20,6 @@ package ai.npc.Trainers.HealerTrainer;
 
 import java.util.Collection;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.data.xml.impl.SkillTreesData;
 import com.l2jserver.gameserver.datatables.SkillData;
@@ -33,6 +31,8 @@ import com.l2jserver.gameserver.model.holders.ItemHolder;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.AcquireSkillList;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Trainer healers AI.

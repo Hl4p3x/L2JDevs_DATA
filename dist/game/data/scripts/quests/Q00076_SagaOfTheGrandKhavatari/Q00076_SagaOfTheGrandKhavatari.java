@@ -18,9 +18,9 @@
  */
 package quests.Q00076_SagaOfTheGrandKhavatari;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Grand Khavatari (76)

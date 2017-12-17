@@ -18,9 +18,9 @@
  */
 package quests.Q00089_SagaOfTheMysticMuse;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Mystic Muse (89)

@@ -18,9 +18,9 @@
  */
 package quests.Q00072_SagaOfTheSwordMuse;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Sword Muse (72)

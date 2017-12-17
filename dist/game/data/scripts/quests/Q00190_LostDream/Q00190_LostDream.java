@@ -18,12 +18,12 @@
  */
 package quests.Q00190_LostDream;
 
-import quests.Q00187_NikolasHeart.Q00187_NikolasHeart;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import quests.Q00187_NikolasHeart.Q00187_NikolasHeart;
 
 /**
  * Lost Dream (190)

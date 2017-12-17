@@ -21,13 +21,13 @@ package ai.npc.VarkaSilenosSupport;
 import java.util.HashMap;
 import java.util.Map;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.datatables.SkillData;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Varka Silenos Support AI.<br>

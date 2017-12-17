@@ -18,10 +18,8 @@
  */
 package quests.Q00107_MercilessPunishment;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
-import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.enums.Race;
+import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.holders.ItemHolder;
@@ -30,6 +28,8 @@ import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.model.quest.State;
 import com.l2jserver.gameserver.network.serverpackets.SocialAction;
 import com.l2jserver.gameserver.util.Util;
+
+import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
 
 /**
  * Merciless Punishment (107)

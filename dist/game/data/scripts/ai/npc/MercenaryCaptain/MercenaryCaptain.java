@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.data.xml.impl.MultisellData;
 import com.l2jserver.gameserver.instancemanager.TerritoryWarManager;
 import com.l2jserver.gameserver.instancemanager.TerritoryWarManager.Territory;
@@ -34,6 +32,8 @@ import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.ExShowDominionRegistry;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Mercenary Captain AI.

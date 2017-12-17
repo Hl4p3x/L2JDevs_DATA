@@ -18,9 +18,9 @@
  */
 package quests.Q00084_SagaOfTheGhostSentinel;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Ghost Sentinel (84)

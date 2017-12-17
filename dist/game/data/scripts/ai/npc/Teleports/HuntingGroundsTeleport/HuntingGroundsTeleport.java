@@ -18,12 +18,12 @@
  */
 package ai.npc.Teleports.HuntingGroundsTeleport;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.SevenSigns;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Hunting Grounds teleport AI.

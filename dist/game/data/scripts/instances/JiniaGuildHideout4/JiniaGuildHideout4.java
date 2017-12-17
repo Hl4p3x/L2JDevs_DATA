@@ -18,14 +18,14 @@
  */
 package instances.JiniaGuildHideout4;
 
-import instances.AbstractInstance;
-import quests.Q10287_StoryOfThoseLeft.Q10287_StoryOfThoseLeft;
-
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.instancezone.InstanceWorld;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import instances.AbstractInstance;
+import quests.Q10287_StoryOfThoseLeft.Q10287_StoryOfThoseLeft;
 
 /**
  * Jinia Guild Hideout instance zone.

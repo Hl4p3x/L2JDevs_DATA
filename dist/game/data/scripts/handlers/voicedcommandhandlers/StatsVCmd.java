@@ -18,6 +18,7 @@
  */
 package handlers.voicedcommandhandlers;
 
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
 import com.l2jserver.gameserver.model.L2World;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -63,7 +64,7 @@ public class StatsVCmd implements IVoicedCommandHandler
 		
 		if (!L2Event.isParticipant(pc) || (pc.getEventStatus() == null))
 		{
-			activeChar.sendMessage("That player is not an event participant.");
+			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "event_no_participant"));
 			return false;
 		}
 		

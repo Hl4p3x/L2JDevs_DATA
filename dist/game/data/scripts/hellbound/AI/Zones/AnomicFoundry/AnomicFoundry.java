@@ -18,12 +18,8 @@
  */
 package hellbound.AI.Zones.AnomicFoundry;
 
-import hellbound.HellboundEngine;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import ai.npc.AbstractNpcAI;
 
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.datatables.SpawnTable;
@@ -36,6 +32,9 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
+
+import ai.npc.AbstractNpcAI;
+import hellbound.HellboundEngine;
 
 /**
  * Anomic Foundry.

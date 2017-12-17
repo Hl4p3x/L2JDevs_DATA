@@ -18,9 +18,9 @@
  */
 package quests.Q00096_SagaOfTheSpectralDancer;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Spectral Dancer (96)

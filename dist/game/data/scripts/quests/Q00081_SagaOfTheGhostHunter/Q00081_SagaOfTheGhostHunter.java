@@ -18,9 +18,9 @@
  */
 package quests.Q00081_SagaOfTheGhostHunter;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Ghost Hunter (81)

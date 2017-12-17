@@ -18,12 +18,12 @@
  */
 package quests.Q00073_SagaOfTheDuelist;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Duelist (73)

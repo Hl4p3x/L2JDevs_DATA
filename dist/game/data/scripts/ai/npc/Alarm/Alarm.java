@@ -18,16 +18,16 @@
  */
 package ai.npc.Alarm;
 
-import quests.Q00184_ArtOfPersuasion.Q00184_ArtOfPersuasion;
-import quests.Q00185_NikolasCooperation.Q00185_NikolasCooperation;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.enums.audio.Sound;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
+
+import ai.npc.AbstractNpcAI;
+import quests.Q00184_ArtOfPersuasion.Q00184_ArtOfPersuasion;
+import quests.Q00185_NikolasCooperation.Q00185_NikolasCooperation;
 
 /**
  * Alarm AI for quests Art of Persuasion (184) and Nikola's Cooperation (185).

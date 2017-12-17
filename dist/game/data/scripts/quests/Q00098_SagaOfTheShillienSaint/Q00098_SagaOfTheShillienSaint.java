@@ -18,9 +18,9 @@
  */
 package quests.Q00098_SagaOfTheShillienSaint;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Shillien Saint (98)

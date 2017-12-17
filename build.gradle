@@ -24,6 +24,8 @@ configurations.all {
 dependencies {
 	compile 'org.slf4j:slf4j-api:1.7.25'
 	compile files('../L2JDevs_Core/dist/libs/mmocore.jar')
+	compile files('../L2JDevs_Core/dist/libs/AthenaEngine_Alpha-v3.3.jar')
+	compile files('../L2JDevs_Core/dist/libs/L2JModsEngine.jar')
 	compile project(':L2JDevs_Core')
 	testCompile 'org.testng:testng:6.11'
 	testCompile 'org.jmockit:jmockit:1.35'

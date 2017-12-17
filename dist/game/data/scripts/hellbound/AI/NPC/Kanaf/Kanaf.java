@@ -18,10 +18,10 @@
  */
 package hellbound.AI.NPC.Kanaf;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Kanaf AI.

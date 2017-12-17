@@ -18,12 +18,12 @@
  */
 package ai.npc.Jinia;
 
-import quests.Q10286_ReunionWithSirra.Q10286_ReunionWithSirra;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.QuestState;
+
+import ai.npc.AbstractNpcAI;
+import quests.Q10286_ReunionWithSirra.Q10286_ReunionWithSirra;
 
 /**
  * Jinia AI.

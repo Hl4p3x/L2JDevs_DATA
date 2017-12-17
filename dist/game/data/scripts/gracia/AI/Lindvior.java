@@ -21,13 +21,13 @@ package gracia.AI;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.datatables.SpawnTable;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Lindvior Scene AI.

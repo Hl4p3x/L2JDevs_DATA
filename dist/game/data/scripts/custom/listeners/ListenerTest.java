@@ -20,8 +20,6 @@ package custom.listeners;
 
 import java.util.logging.Level;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Attackable;
 import com.l2jserver.gameserver.model.events.Containers;
 import com.l2jserver.gameserver.model.events.EventType;
@@ -42,6 +40,8 @@ import com.l2jserver.gameserver.model.events.listeners.ConsumerEventListener;
 import com.l2jserver.gameserver.model.events.returns.TerminateReturn;
 import com.l2jserver.gameserver.model.holders.ItemHolder;
 import com.l2jserver.util.Rnd;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * An example usage of Listeners.

@@ -18,9 +18,9 @@
  */
 package quests.Q00085_SagaOfTheCardinal;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Cardinal (85)

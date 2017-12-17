@@ -18,10 +18,11 @@
  */
 package handlers.voicedcommandhandlers;
 
-import hellbound.HellboundEngine;
-
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+
+import hellbound.HellboundEngine;
 
 /**
  * Hellbound voiced command.
@@ -39,12 +40,12 @@ public class Hellbound implements IVoicedCommandHandler
 	{
 		if (HellboundEngine.getInstance().isLocked())
 		{
-			activeChar.sendMessage("Hellbound is currently locked.");
+			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "dp_handler_hellbound_locked"));
 			return true;
 		}
 		
 		final int maxTrust = HellboundEngine.getInstance().getMaxTrust();
-		activeChar.sendMessage("Hellbound level: " + HellboundEngine.getInstance().getLevel() + " trust: " + HellboundEngine.getInstance().getTrust() + (maxTrust > 0 ? "/" + maxTrust : ""));
+		activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "dp_handler_hellbound_level").replace("%s%", HellboundEngine.getInstance().getLevel() + "") + " | Trust: " + HellboundEngine.getInstance().getTrust() + (maxTrust > 0 ? "/" + maxTrust : ""));
 		return true;
 	}
 	

@@ -18,8 +18,6 @@
  */
 package hellbound;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.data.xml.impl.DoorData;
 import com.l2jserver.gameserver.instancemanager.GlobalVariablesManager;
@@ -28,6 +26,8 @@ import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.util.Broadcast;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Hellbound Engine.

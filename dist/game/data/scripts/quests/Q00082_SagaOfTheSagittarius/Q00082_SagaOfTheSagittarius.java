@@ -18,9 +18,9 @@
  */
 package quests.Q00082_SagaOfTheSagittarius;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Sagittarius (82)

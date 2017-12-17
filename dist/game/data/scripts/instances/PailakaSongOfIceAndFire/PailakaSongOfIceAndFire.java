@@ -18,8 +18,6 @@
  */
 package instances.PailakaSongOfIceAndFire;
 
-import instances.AbstractInstance;
-
 import com.l2jserver.gameserver.instancemanager.InstanceManager;
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Character;
@@ -29,6 +27,8 @@ import com.l2jserver.gameserver.model.instancezone.InstanceWorld;
 import com.l2jserver.gameserver.model.zone.L2ZoneType;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
+
+import instances.AbstractInstance;
 
 /**
  * Pailaka Song of Ice and Fire Instance zone.

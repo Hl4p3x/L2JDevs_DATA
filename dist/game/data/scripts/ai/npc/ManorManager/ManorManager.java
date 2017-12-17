@@ -18,8 +18,6 @@
  */
 package ai.npc.ManorManager;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.instancemanager.CastleManorManager;
 import com.l2jserver.gameserver.model.PcCondOverride;
@@ -40,6 +38,8 @@ import com.l2jserver.gameserver.network.serverpackets.ExShowProcureCropDetail;
 import com.l2jserver.gameserver.network.serverpackets.ExShowSeedInfo;
 import com.l2jserver.gameserver.network.serverpackets.ExShowSellCropList;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Manor manager AI.

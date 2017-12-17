@@ -18,9 +18,8 @@
  */
 package custom.events.Wedding;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.instancemanager.CoupleManager;
 import com.l2jserver.gameserver.model.L2World;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -32,6 +31,8 @@ import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jserver.gameserver.util.Broadcast;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Wedding AI.
@@ -134,10 +135,10 @@ public final class Wedding extends AbstractNpcAI
 					couple.marry();
 					
 					// Messages to the couple
-					player.sendMessage("Congratulations you are married!");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_married"));
 					player.setMarried(true);
 					player.setMarryRequest(false);
-					partner.sendMessage("Congratulations you are married!");
+					partner.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_married"));
 					partner.setMarried(true);
 					partner.setMarryRequest(false);
 					
@@ -153,8 +154,7 @@ public final class Wedding extends AbstractNpcAI
 						partner.doCast(skill);
 					}
 					
-					Broadcast.toAllOnlinePlayers("Congratulations to " + player.getName() + " and " + partner.getName() + "! They have been married.");
-					
+					Broadcast.toAllOnlinePlayers(LanguageData.getInstance().getMsgByLang(player, "dp_handler_hellbound_level").replace("%s%", player.getName() + "").replace("%i%", partner.getName() + ""));
 					htmltext = sendHtml(partner, "Accepted.html", null, null);
 				}
 				break;
@@ -166,8 +166,8 @@ public final class Wedding extends AbstractNpcAI
 				player.setMarryAccepted(false);
 				partner.setMarryAccepted(false);
 				
-				player.sendMessage("You declined your partner's marriage request.");
-				partner.sendMessage("Your partner declined your marriage request.");
+				player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_declined"));
+				partner.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_declined_notice"));
 				
 				htmltext = sendHtml(partner, "Declined.html", null, null);
 				break;

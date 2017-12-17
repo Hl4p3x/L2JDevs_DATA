@@ -18,8 +18,6 @@
  */
 package ai.npc.Teleports.SteelCitadelTeleport;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.instancemanager.GrandBossManager;
 import com.l2jserver.gameserver.instancemanager.ZoneManager;
@@ -29,6 +27,8 @@ import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.zone.type.L2BossZone;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Steel Citadel teleport AI.

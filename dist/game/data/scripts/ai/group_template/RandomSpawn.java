@@ -21,11 +21,11 @@ package ai.group_template;
 import java.util.HashMap;
 import java.util.Map;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.ThreadPoolManager;
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Manages spawn of NPCs having several random spawn points.

@@ -18,9 +18,9 @@
  */
 package quests.Q00090_SagaOfTheStormScreamer;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Storm Screamer (90)

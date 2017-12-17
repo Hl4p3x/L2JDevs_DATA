@@ -18,12 +18,12 @@
  */
 package ai.npc.FameManager;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.UserInfo;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Fame Manager AI.

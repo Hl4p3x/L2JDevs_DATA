@@ -18,9 +18,9 @@
  */
 package quests.Q00071_SagaOfEvasTemplar;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of Eva's Templar (71)

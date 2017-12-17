@@ -18,9 +18,6 @@
  */
 package ai.npc.Teleports.GrandBossTeleporters;
 
-import ai.individual.Valakas;
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.data.xml.impl.DoorData;
 import com.l2jserver.gameserver.instancemanager.GrandBossManager;
@@ -32,6 +29,9 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.model.zone.type.L2BossZone;
+
+import ai.individual.Valakas;
+import ai.npc.AbstractNpcAI;
 
 /**
  * Grand Bosses teleport AI.<br>

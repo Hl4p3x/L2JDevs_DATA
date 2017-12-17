@@ -18,9 +18,9 @@
  */
 package quests.Q00077_SagaOfTheDominator;
 
-import quests.AbstractSagaQuest;
-
 import com.l2jserver.gameserver.model.Location;
+
+import quests.AbstractSagaQuest;
 
 /**
  * Saga of the Dominator (77)

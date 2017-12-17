@@ -24,6 +24,7 @@ import java.util.Map;
 
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.ai.CtrlIntention;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.enums.MountType;
 import com.l2jserver.gameserver.enums.audio.Music;
 import com.l2jserver.gameserver.instancemanager.GrandBossManager;
@@ -516,11 +517,11 @@ public final class Antharas extends AbstractNpcAI
 				{
 					cancelQuestTimer("SPAWN_ANTHARAS", null, null);
 					notifyEvent("SPAWN_ANTHARAS", null, null);
-					player.sendMessage(getClass().getSimpleName() + ": Skipping waiting time ...");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_skipping"));
 				}
 				else
 				{
-					player.sendMessage(getClass().getSimpleName() + ": You can't skip waiting time right now!");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_no_skip"));
 				}
 				break;
 			}
@@ -531,11 +532,11 @@ public final class Antharas extends AbstractNpcAI
 					setRespawn(0);
 					cancelQuestTimer("CLEAR_STATUS", null, null);
 					notifyEvent("CLEAR_STATUS", null, null);
-					player.sendMessage(getClass().getSimpleName() + ": Antharas has been respawned.");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_antharas_respaw"));
 				}
 				else
 				{
-					player.sendMessage(getClass().getSimpleName() + ": You can't respawn antharas while antharas is alive!");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_antharas_live"));
 				}
 				break;
 			}
@@ -553,12 +554,12 @@ public final class Antharas extends AbstractNpcAI
 					}
 					if (player != null) // Player dont will be null just when is this event called from GM command
 					{
-						player.sendMessage(getClass().getSimpleName() + ": All minions have been deleted!");
+						player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_minions"));
 					}
 				}
 				else if (player != null) // Player dont will be null just when is this event called from GM command
 				{
-					player.sendMessage(getClass().getSimpleName() + ": You can't despawn minions right now!");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_no_minions"));
 				}
 				break;
 			}
@@ -590,11 +591,12 @@ public final class Antharas extends AbstractNpcAI
 							}
 						}
 					}
-					player.sendMessage(getClass().getSimpleName() + ": Fight has been aborted!");
+					
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_aborted"));
 				}
 				else
 				{
-					player.sendMessage(getClass().getSimpleName() + ": You can't abort fight right now!");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, getClass().getSimpleName() + "dp_ia_no_aborted"));
 				}
 				break;
 			}

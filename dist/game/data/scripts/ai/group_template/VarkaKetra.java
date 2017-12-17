@@ -18,6 +18,13 @@
  */
 package ai.group_template;
 
+import com.l2jserver.gameserver.model.actor.L2Attackable;
+import com.l2jserver.gameserver.model.actor.L2Npc;
+import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jserver.gameserver.model.quest.QuestState;
+import com.l2jserver.gameserver.util.Util;
+
+import ai.npc.AbstractNpcAI;
 import quests.Q00605_AllianceWithKetraOrcs.Q00605_AllianceWithKetraOrcs;
 import quests.Q00606_BattleAgainstVarkaSilenos.Q00606_BattleAgainstVarkaSilenos;
 import quests.Q00607_ProveYourCourageKetra.Q00607_ProveYourCourageKetra;
@@ -30,13 +37,6 @@ import quests.Q00613_ProveYourCourageVarka.Q00613_ProveYourCourageVarka;
 import quests.Q00614_SlayTheEnemyCommanderVarka.Q00614_SlayTheEnemyCommanderVarka;
 import quests.Q00615_MagicalPowerOfFirePart1.Q00615_MagicalPowerOfFirePart1;
 import quests.Q00616_MagicalPowerOfFirePart2.Q00616_MagicalPowerOfFirePart2;
-import ai.npc.AbstractNpcAI;
-
-import com.l2jserver.gameserver.model.actor.L2Attackable;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.util.Util;
 
 /**
  * Varka Silenos Barracks and Ketra Orc Outpost AI.

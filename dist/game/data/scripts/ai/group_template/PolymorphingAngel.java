@@ -21,11 +21,11 @@ package ai.group_template;
 import java.util.HashMap;
 import java.util.Map;
 
-import ai.npc.AbstractNpcAI;
-
 import com.l2jserver.gameserver.model.actor.L2Attackable;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+
+import ai.npc.AbstractNpcAI;
 
 /**
  * Angel spawns...when one of the angels in the keys dies, the other angel will spawn.
