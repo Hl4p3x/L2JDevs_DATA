@@ -321,7 +321,7 @@ public abstract class Chamber extends AbstractInstance
 		{
 			while (newRoom == world.currentRoom) // otherwise teleport to another room, except current
 			{
-				newRoom = getRandom(ROOM_ENTER_POINTS.length - 1);
+				newRoom = getRandom(ROOM_ENTER_POINTS.length);
 			}
 		}
 		

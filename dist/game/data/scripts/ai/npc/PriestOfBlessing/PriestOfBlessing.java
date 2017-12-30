@@ -148,7 +148,7 @@ public final class PriestOfBlessing extends AbstractNpcAI
 				if (System.currentTimeMillis() > _reuse_time)
 				{
 					int[] _hg = HOURGLASSES[_index];
-					int _nevit_hourglass = _hg[getRandom(0, _hg.length - 1)];
+					int _nevit_hourglass = _hg[getRandom(_hg.length)];
 					takeItems(player, Inventory.ADENA_ID, _price_hourglass);
 					giveItems(player, _nevit_hourglass, 1);
 					saveGlobalQuestVar(player.getAccountName() + "_hg_" + _index, Long.toString(System.currentTimeMillis() + (20 * 3600000)));

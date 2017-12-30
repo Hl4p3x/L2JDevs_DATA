@@ -159,7 +159,7 @@ public class Q00309_ForAGoodCause extends Quest
 				break;
 			case "100":
 			case "120":
-				htmltext = onItemExchangeRequest(st, MOIRAI_PIECES[getRandom(MOIRAI_PIECES.length - 1)], Integer.parseInt(event));
+				htmltext = onItemExchangeRequest(st, MOIRAI_PIECES[getRandom(MOIRAI_PIECES.length)], Integer.parseInt(event));
 				break;
 			case "192":
 			case "230":
@@ -179,7 +179,7 @@ public class Q00309_ForAGoodCause extends Quest
 				break;
 			case "180":
 			case "216":
-				htmltext = onItemExchangeRequest(st, MOIRAI_RECIPES[getRandom(MOIRAI_RECIPES.length - 1)], Integer.parseInt(event));
+				htmltext = onItemExchangeRequest(st, MOIRAI_RECIPES[getRandom(MOIRAI_RECIPES.length)], Integer.parseInt(event));
 				break;
 			case "32647-14.html":
 			case "32647-07.html":

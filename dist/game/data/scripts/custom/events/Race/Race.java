@@ -158,7 +158,7 @@ public final class Race extends Event
 		// Announce
 		Broadcast.toAllOnlinePlayers("Race started!");
 		// Get random Finish
-		int location = getRandom(0, _locations.length - 1);
+		int location = getRandom(_locations.length);
 		_randspawn = _coords[location];
 		// And spawn NPC
 		recordSpawn(_stop_npc, _randspawn[0], _randspawn[1], _randspawn[2], _randspawn[3], false, 0);
@@ -392,7 +392,7 @@ public final class Race extends Event
 	
 	private void winRace(L2PcInstance player)
 	{
-		int[] _reward = _rewards[getRandom(_rewards.length - 1)];
+		int[] _reward = _rewards[getRandom(_rewards.length)];
 		player.addItem("eventModRace", _reward[0], _reward[1], _npc, true);
 		Broadcast.toAllOnlinePlayers(player.getName() + " is a winner!");
 		eventStop();

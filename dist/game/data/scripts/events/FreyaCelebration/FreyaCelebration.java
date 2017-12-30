@@ -137,7 +137,7 @@ public final class FreyaCelebration extends LongTimeEvent
 			{
 				if (getRandom(10) < 2)
 				{
-					npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), FREYA_TEXT[getRandom(FREYA_TEXT.length - 1)]));
+					npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), FREYA_TEXT[getRandom(FREYA_TEXT.length)]));
 				}
 			}
 		}
