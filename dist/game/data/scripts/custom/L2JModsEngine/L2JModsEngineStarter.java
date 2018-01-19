@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2017 L2JDev Mods
+ * Copyright (C) 2008-2018 L2JDev Mods
  * 
  * This file is part of L2JDev Mods.
  * 
