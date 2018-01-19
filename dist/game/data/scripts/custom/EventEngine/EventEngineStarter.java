@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2016 L2J EventEngine
+ * Copyright (C) 2004-2018 L2J EventEngine
  * 
  * This file is part of L2J EventEngine.
  * 
@@ -19,11 +19,11 @@
 package custom.EventEngine;
 
 import com.github.athenaengine.core.EventEngineManager;
+
 import ai.npc.AbstractNpcAI;
 
 /**
- * This is the starter to load the Event Engine
- *  * @author Zephyr
+ * This is the starter to load the Event Engine * @author Zephyr
  */
 public class EventEngineStarter extends AbstractNpcAI
 {
