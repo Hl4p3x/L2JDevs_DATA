@@ -1322,7 +1322,7 @@
 			<target npcId="18482" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="30" />
 			</effect>
 		</effects>
@@ -1865,8 +1865,9 @@
 			</and>
 		</cond>
 		<effects>
-			<effect name="Heal">
-				<param power="1900" />
+			<effect name="Hp">
+				<param amount="1900" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>

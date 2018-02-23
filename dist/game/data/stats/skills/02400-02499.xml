@@ -34,8 +34,9 @@
 			<player level="52" />
 		</cond>
 		<effects>
-			<effect name="ManaHeal">
-				<param power="360" />
+			<effect name="Mp">
+				<param amount="360" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1924,7 +1925,7 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="15" />
 			</effect>
 		</effects>
@@ -1943,7 +1944,7 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="12" />
 			</effect>
 		</effects>

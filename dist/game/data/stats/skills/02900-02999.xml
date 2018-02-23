@@ -141,8 +141,9 @@
 			<player levelRange="61;75" />
 		</cond>
 		<effects>
-			<effect name="Heal">
-				<param power="1900" />
+			<effect name="Hp">
+				<param amount="1900" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -158,8 +159,9 @@
 			<player levelRange="61;75" />
 		</cond>
 		<effects>
-			<effect name="ManaHeal">
-				<param power="360" />
+			<effect name="Mp">
+				<param amount="360" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>

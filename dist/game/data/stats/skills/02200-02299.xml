@@ -995,10 +995,11 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="Heal">
-				<param power="60" />
+			<effect name="Hp">
+				<param amount="60" />
+				<param mode="DIFF" />
 			</effect>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="17" />
 			</effect>
 		</effects>
@@ -1018,10 +1019,11 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="ManaHeal">
-				<param power="20" />
+			<effect name="Mp">
+				<param amount="20" />
+				<param mode="DIFF" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="4" />
 			</effect>
 		</effects>
@@ -1723,7 +1725,7 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="#amount" />
 			</effect>
 		</effects>
@@ -1744,7 +1746,7 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="#amount" />
 			</effect>
 		</effects>
@@ -1928,8 +1930,9 @@
 			<player levelRange="#levelRange" />
 		</cond>
 		<effects>
-			<effect name="Heal">
-				<param power="#amount" />
+			<effect name="Hp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1946,8 +1949,9 @@
 			<player levelRange="#levelRange" />
 		</cond>
 		<effects>
-			<effect name="ManaHeal">
-				<param power="#amount" />
+			<effect name="Mp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
