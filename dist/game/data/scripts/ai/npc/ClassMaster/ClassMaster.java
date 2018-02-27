@@ -222,7 +222,7 @@ public final class ClassMaster extends AbstractNpcAI
 	
 	private void onTutorialLink(L2PcInstance player, String request)
 	{
-		if (!ALTERNATE_CLASS_MASTER || (request == null) || !request.startsWith("CO"))
+		if (!ALTERNATE_CLASS_MASTER || (request == null))
 		{
 			return;
 		}
@@ -232,15 +232,19 @@ public final class ClassMaster extends AbstractNpcAI
 			return;
 		}
 		
-		try
+		if (!request.startsWith("CO"))
 		{
-			int val = Integer.parseInt(request.substring(2));
-			checkAndChangeClass(player, val);
+			try
+			{
+				int val = Integer.parseInt(request.substring(2));
+				checkAndChangeClass(player, val);
+			}
+			catch (NumberFormatException e)
+			{
+				_log.warning("Player " + player + " send invalid class change request [" + request + "]!");
+			}
 		}
-		catch (NumberFormatException e)
-		{
-			_log.warning("Player " + player + " send invalid class change request [" + request + "]!");
-		}
+		
 		player.sendPacket(STATIC_PACKET);
 	}
 	
