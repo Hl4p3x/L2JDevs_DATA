@@ -117,8 +117,7 @@ public final class Q00654_JourneyToASettlement extends Quest
 		String htmltext = getNoQuestMsg(player);
 		if (st.isCreated())
 		{
-			st = player.getQuestState(Q00119_LastImperialPrince.class.getSimpleName());
-			htmltext = ((player.getLevel() >= MIN_LEVEL) && (st != null) && (st.isCompleted())) ? "31453-01.htm" : "31453-04.htm";
+			htmltext = ((player.getLevel() >= MIN_LEVEL) && player.hasQuestCompleted(Q00119_LastImperialPrince.class.getSimpleName())) ? "31453-01.htm" : "31453-04.htm";
 		}
 		else if (st.isStarted())
 		{

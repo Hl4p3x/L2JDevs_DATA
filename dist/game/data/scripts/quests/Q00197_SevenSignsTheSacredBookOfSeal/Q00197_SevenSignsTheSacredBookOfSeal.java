@@ -261,8 +261,7 @@ public final class Q00197_SevenSignsTheSacredBookOfSeal extends Quest
 			{
 				if (npc.getId() == WOOD)
 				{
-					st = player.getQuestState(Q00196_SevenSignsSealOfTheEmperor.class.getSimpleName());
-					htmltext = ((player.getLevel() >= MIN_LEVEL) && (st != null) && (st.isCompleted())) ? "32593-01.htm" : "32593-05.html";
+					htmltext = ((player.getLevel() >= MIN_LEVEL) && player.hasQuestCompleted(Q00196_SevenSignsSealOfTheEmperor.class.getSimpleName())) ? "32593-01.htm" : "32593-05.html";
 				}
 				break;
 			}
