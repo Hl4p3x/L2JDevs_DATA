@@ -232,7 +232,7 @@ public final class ClassMaster extends AbstractNpcAI
 			return;
 		}
 		
-		if (!request.startsWith("CO"))
+		if (!request.equals("COXX"))
 		{
 			try
 			{
