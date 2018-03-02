@@ -25,9 +25,6 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import ai.npc.AbstractNpcAI;
 import quests.Q00240_ImTheOnlyOneYouCanTrust.Q00240_ImTheOnlyOneYouCanTrust;
 
-import ai.npc.AbstractNpcAI;
-import quests.Q00240_ImTheOnlyOneYouCanTrust.Q00240_ImTheOnlyOneYouCanTrust;
-
 /**
  * Stakato Nest Teleport AI.
  * @author Charus
