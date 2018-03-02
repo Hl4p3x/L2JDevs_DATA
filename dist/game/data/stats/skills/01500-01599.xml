@@ -182,13 +182,14 @@
 				<param block="MP"/>
 			</effect>
 			<effect name="BlockDebuff" />
-			<effect name="CpHeal">
-				<param power="9000" />
+			<effect name="Cp">
+				<param amount="9000" />
+				<param mode="DIFF" />
 			</effect>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -214,13 +215,14 @@
 			</not>
 		</cond>
 		<effects>
-			<effect name="CpHeal">
-				<param power="9000" />
+			<effect name="Cp">
+				<param amount="9000" />
+				<param mode="DIFF" />
 			</effect>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="100" />
 			</effect>
 			<effect name="DispelByCategory">
@@ -1811,7 +1813,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="AREA_FRIENDLY" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="30" />
 			</effect>
 		</effects>
@@ -1844,8 +1846,9 @@
 			</effect>
 		</pveEffects>
 		<selfEffects>
-			<effect name="ManaHeal">
-				<param power="29" />
+			<effect name="Mp">
+				<param amount="29" />
+				<param mode="DIFF" />
 			</effect>
 		</selfEffects>
 	</skill>
@@ -1875,8 +1878,9 @@
 			</effect>
 		</pveEffects>
 		<selfEffects>
-			<effect name="ManaHeal">
-				<param power="25" />
+			<effect name="Mp">
+				<param amount="25" />
+				<param mode="DIFF" />
 			</effect>
 		</selfEffects>
 	</skill>

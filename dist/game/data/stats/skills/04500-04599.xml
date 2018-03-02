@@ -307,8 +307,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="HealPercent">
-				<param power="10" />
+			<effect name="Hp">
+				<param amount="-10" />
+				<param mode="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -375,7 +376,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="AURA" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="5" />
 			</effect>
 		</effects>
@@ -390,7 +391,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="AURA" />
 		<effects>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="5" />
 			</effect>
 		</effects>

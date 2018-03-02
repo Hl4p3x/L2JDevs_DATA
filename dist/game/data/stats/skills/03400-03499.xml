@@ -454,10 +454,10 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -1307,8 +1307,9 @@
 			<effect name="Heal">
 				<param power="100" />
 			</effect>
-			<effect name="CpHeal">
-				<param power="100" />
+			<effect name="Cp">
+				<param amount="100" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>

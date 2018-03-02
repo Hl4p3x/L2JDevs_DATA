@@ -54,8 +54,9 @@
 			<effect name="Debuff">
 				<mul stat="maxRecoverableHp" val="0.1" />
 			</effect>
-			<effect name="HealPercent">
-				<param power="-99" />
+			<effect name="Hp">
+				<param amount="-99" />
+				<param mode="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -289,8 +290,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="ManaHeal">
-				<param power="#amount" />
+			<effect name="Mp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1442,8 +1444,9 @@
 		<set name="rideState" val="NONE" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="ManaHeal">
-				<param power="41" />
+			<effect name="Mp">
+				<param amount="41" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1455,8 +1458,9 @@
 		<set name="rideState" val="NONE" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="ManaHeal">
-				<param power="51" />
+			<effect name="Mp">
+				<param amount="51" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1468,8 +1472,9 @@
 		<set name="rideState" val="NONE" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="ManaHeal">
-				<param power="59" />
+			<effect name="Mp">
+				<param amount="59" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1526,8 +1531,9 @@
 		<set name="staticReuse" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="CpHeal">
-				<param power="200" />
+			<effect name="Cp">
+				<param amount="200" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1887,8 +1893,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Heal">
-				<param power="#amount" />
+			<effect name="Hp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>

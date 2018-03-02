@@ -552,9 +552,6 @@
 				<sub stat="debuffVuln" val="10" />
 				<mul stat="runSpd" val="0.8" />
 			</effect>
-			<effect name="CpHealPercent">
-				<param power="20" />
-			</effect>
 		</effects>
 		<enchant3Effects>
 			<effect name="Buff">
@@ -571,9 +568,6 @@
 				<mul stat="mAtkSpd" val="1.2" />
 				<sub stat="debuffVuln" val="10" />
 				<mul stat="runSpd" val="#ench3decreasePenalty" />
-			</effect>
-			<effect name="CpHealPercent">
-				<param power="20" />
 			</effect>
 		</enchant3Effects>
 	</skill>
@@ -930,7 +924,7 @@
 		<set name="staticReuse" val="true" />
 		<set name="targetType" val="CLAN" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -3409,7 +3403,7 @@
 			<target active_effect_id="1487" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="#amount" />
 			</effect>
 			<effect name="DispelBySlot">
@@ -3417,7 +3411,7 @@
 			</effect>
 		</effects>
 		<enchant1Effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="#ench1amount" />
 			</effect>
 			<effect name="DispelBySlot">
