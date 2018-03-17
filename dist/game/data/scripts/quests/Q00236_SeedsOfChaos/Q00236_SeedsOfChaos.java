@@ -220,8 +220,7 @@ public final class Q00236_SeedsOfChaos extends Quest
 			{
 				if (qs.isMemoState(12))
 				{
-					final QuestState q25 = player.getQuestState(Q00025_HidingBehindTheTruth.class.getSimpleName());
-					if ((q25 != null) && q25.isCompleted())
+					if (player.hasQuestCompleted(Q00025_HidingBehindTheTruth.class.getSimpleName()))
 					{
 						htmltext = event;
 					}

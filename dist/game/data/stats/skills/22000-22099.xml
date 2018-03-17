@@ -249,6 +249,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="BranchSys.icon.br_xmas_scroll_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -280,6 +281,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="BranchSys.icon.br_xmas_scroll_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -311,6 +313,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="BranchSys.icon.br_xmas_scroll_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -341,6 +344,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="BranchSys.icon.br_xmas_scroll_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -718,6 +722,7 @@
 		<set name="affectRange" val="200" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="BranchSys.icon.br_birthday_cake_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -801,8 +806,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="CpHeal">
-				<param power="200" />
+			<effect name="Cp">
+				<param amount="200" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -821,8 +827,9 @@
 			<player levelRange="#levelRange" />
 		</cond>
 		<effects>
-			<effect name="CpHeal">
-				<param power="#amount" />
+			<effect name="Cp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -840,7 +847,7 @@
 			<player levelRange="#levelRange" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="50" />
 			</effect>
 		</effects>
@@ -851,6 +858,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform1" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20364" /> <!-- Transformation Scroll: Omen Beast -->
@@ -873,6 +881,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform1" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20365" /> <!-- Transformation Scroll: Death Blader -->
@@ -895,6 +904,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform2" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20366" /> <!-- Transformation Scroll: Grail Apostle -->
@@ -917,6 +927,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform2" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20367" /> <!-- Transformation Scroll: Unicorn -->
@@ -939,6 +950,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform2" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20368" /> <!-- Transformation Scroll: Lilim Knight -->
@@ -961,6 +973,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform2" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20369" /> <!-- Transformation Scroll: Golem Guardian -->
@@ -983,6 +996,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform2" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20370" /> <!-- Transformation Scroll: Inferno Drake -->
@@ -1005,6 +1019,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform2" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20371" /> <!-- Transformation Scroll: Dragon Bomber -->
@@ -1057,6 +1072,7 @@
 		<set name="abnormalVisualEffect" val="VP_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.skilltransform4" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1089,6 +1105,7 @@
 		<set name="abnormalType" val="SPEED_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1106,6 +1123,7 @@
 		<set name="abnormalType" val="ATTACK_TIME_DOWN" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1123,6 +1141,7 @@
 		<set name="abnormalType" val="PA_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1140,6 +1159,7 @@
 		<set name="abnormalType" val="PD_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1157,6 +1177,7 @@
 		<set name="abnormalType" val="CRITICAL_DMG_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1174,6 +1195,7 @@
 		<set name="abnormalType" val="HIT_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1191,6 +1213,7 @@
 		<set name="abnormalType" val="MA_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1208,6 +1231,7 @@
 		<set name="abnormalType" val="CASTING_TIME_DOWN" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1225,6 +1249,7 @@
 		<set name="abnormalType" val="VAMPIRIC_ATTACK" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1242,6 +1267,7 @@
 		<set name="abnormalType" val="MAX_HP_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1259,6 +1285,7 @@
 		<set name="abnormalType" val="BERSERKER" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1283,6 +1310,7 @@
 		<set name="abnormalType" val="MD_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1300,6 +1328,7 @@
 		<set name="abnormalType" val="MAX_MP_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1317,6 +1346,7 @@
 		<set name="abnormalType" val="CHEAP_MAGIC" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1336,6 +1366,7 @@
 		<set name="abnormalType" val="MAGIC_CRITICAL_UP" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1519,6 +1550,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="br_cashtex.item.br_cash_scroll_of_wind_walk_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20528" /> <!-- Mental Shield Scroll -->
@@ -1542,6 +1574,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="br_cashtex.item.br_cash_scroll_of_wind_walk_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20529" /> <!-- Focus Scroll -->
@@ -1563,6 +1596,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="br_cashtex.item.br_cash_scroll_of_wind_walk_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20530" /> <!-- Concentration Scroll -->
@@ -1584,6 +1618,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="br_cashtex.item.br_cash_scroll_of_wind_walk_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20531" /> <!-- Bless Shield Scroll -->
@@ -1605,6 +1640,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="br_cashtex.item.br_cash_scroll_of_wind_walk_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20532" /> <!-- Agility Scroll -->
@@ -1626,6 +1662,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="br_cashtex.item.br_cash_scroll_of_wind_walk_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20533" /> <!-- Regeneration Scroll -->
@@ -1647,6 +1684,7 @@
 		<set name="blockedInOlympiad" val="true" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="br_cashtex.item.br_cash_scroll_of_wind_walk_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="20534" /> <!-- Advanced Block Scroll -->
@@ -1785,6 +1823,7 @@
 		<set name="effectPoint" val="100" />
 		<set name="hitTime" val="100" />
 		<set name="icon" val="BranchSys.icon.br_sevenlove_girlpresent_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1816,6 +1855,7 @@
 		<set name="effectPoint" val="100" />
 		<set name="hitTime" val="100" />
 		<set name="icon" val="BranchSys.icon.br_sevenlove_boypresent_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />

@@ -109,7 +109,6 @@
 		<set name="abnormalType" val="TURN_STONE" />
 		<set name="abnormalVisualEffect" val="FLESH_STONE" />
 		<set name="affectScope" val="SINGLE" />
-		<set name="canBeDispeled" val="false" />
 		<set name="castRange" val="1500" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="2000" />
@@ -307,8 +306,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="HealPercent">
-				<param power="10" />
+			<effect name="Hp">
+				<param amount="-10" />
+				<param mode="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -375,7 +375,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="AURA" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="5" />
 			</effect>
 		</effects>
@@ -390,7 +390,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="AURA" />
 		<effects>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="5" />
 			</effect>
 		</effects>
@@ -913,8 +913,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="650" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1500" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -936,8 +936,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="650" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1500" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -959,8 +959,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="5000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -984,8 +984,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="5000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1008,8 +1008,8 @@
 		<set name="castRange" val="1000" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1500" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="2500" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1032,8 +1032,8 @@
 		<set name="castRange" val="500" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1000" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="5000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1056,8 +1056,8 @@
 		<set name="castRange" val="500" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1000" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="5000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1079,8 +1079,8 @@
 		<set name="castRange" val="1000" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1000" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="2500" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1103,8 +1103,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="5000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1129,8 +1129,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="5000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1154,8 +1154,8 @@
 		<set name="castRange" val="1000" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1500" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="2500" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1176,8 +1176,8 @@
 		<table name="#power"> 42 44 46 48 50 52 55 57 58 60 62 64 </table>
 		<set name="affectRange" val="200" />
 		<set name="effectPoint" val="-100" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="5000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
