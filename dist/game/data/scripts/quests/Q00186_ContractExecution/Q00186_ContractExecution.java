@@ -170,8 +170,7 @@ public final class Q00186_ContractExecution extends Quest
 		{
 			if (npc.getId() == RESEARCHER_LORAIN)
 			{
-				final QuestState q184 = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
-				if ((q184 != null) && q184.isCompleted() && hasQuestItems(player, LORAINES_CERTIFICATE))
+				if (player.hasQuestCompleted(Q00184_ArtOfPersuasion.class.getSimpleName()) && hasQuestItems(player, LORAINES_CERTIFICATE))
 				{
 					htmltext = player.getLevel() >= MIN_LEVEL ? "30673-01.htm" : "30673-02.htm";
 				}

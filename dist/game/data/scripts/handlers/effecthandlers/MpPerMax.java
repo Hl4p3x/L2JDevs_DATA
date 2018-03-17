@@ -22,22 +22,30 @@ import com.l2jserver.gameserver.model.StatsSet;
 import com.l2jserver.gameserver.model.actor.L2Character;
 import com.l2jserver.gameserver.model.conditions.Condition;
 import com.l2jserver.gameserver.model.effects.AbstractEffect;
+import com.l2jserver.gameserver.model.effects.L2EffectType;
 import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.model.stats.Formulas;
+import com.l2jserver.gameserver.network.SystemMessageId;
+import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * CP Damage Percent effect implementation.
- * @author Zoey76, Adry_85
+ * Mp Per Max effect implementation.
+ * @author UnAfraid
  */
-public final class CpDamPercent extends AbstractEffect
+public final class MpPerMax extends AbstractEffect
 {
 	private final double _power;
 	
-	public CpDamPercent(Condition attachCond, Condition applyCond, StatsSet set, StatsSet params)
+	public MpPerMax(Condition attachCond, Condition applyCond, StatsSet set, StatsSet params)
 	{
 		super(attachCond, applyCond, set, params);
 		
 		_power = params.getDouble("power", 0);
+	}
+	
+	@Override
+	public L2EffectType getEffectType()
+	{
+		return L2EffectType.MANAHEAL_PERCENT;
 	}
 	
 	@Override
@@ -49,28 +57,34 @@ public final class CpDamPercent extends AbstractEffect
 	@Override
 	public void onStart(BuffInfo info)
 	{
-		if (!info.getEffected().isPlayer())
+		L2Character target = info.getEffected();
+		if ((target == null) || target.isDead() || target.isDoor())
 		{
 			return;
 		}
 		
-		final L2Character target = info.getEffected();
-		if (target.isPlayer() && target.getActingPlayer().isFakeDeath())
-		{
-			target.stopFakeDeath(true);
-		}
+		double amount = 0;
+		double power = _power;
+		boolean full = (power == 100.0);
 		
-		double damage = (target.getCurrentCp() * _power) / 100;
-		// Manage attack or cast break of the target (calculating rate, sending message)
-		if (!target.isRaid() && Formulas.calcAtkBreak(target, damage))
+		amount = full ? target.getMaxMp() : (target.getMaxMp() * power) / 100.0;
+		// Prevents overheal and negative amount
+		amount = Math.max(Math.min(amount, target.getMaxRecoverableMp() - target.getCurrentMp()), 0);
+		if (amount != 0)
 		{
-			target.breakAttack();
-			target.breakCast();
+			target.setCurrentMp(amount + target.getCurrentMp());
 		}
-		
-		if (damage > 0)
+		SystemMessage sm;
+		if (info.getEffector().getObjectId() != target.getObjectId())
 		{
-			target.setCurrentCp(target.getCurrentCp() - damage);
+			sm = SystemMessage.getSystemMessage(SystemMessageId.S2_MP_HAS_BEEN_RESTORED_BY_C1);
+			sm.addCharName(info.getEffector());
 		}
+		else
+		{
+			sm = SystemMessage.getSystemMessage(SystemMessageId.S1_MP_HAS_BEEN_RESTORED);
+		}
+		sm.addInt((int) amount);
+		target.sendPacket(sm);
 	}
 }

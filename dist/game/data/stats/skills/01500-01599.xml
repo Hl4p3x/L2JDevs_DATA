@@ -182,13 +182,14 @@
 				<param block="MP"/>
 			</effect>
 			<effect name="BlockDebuff" />
-			<effect name="CpHeal">
-				<param power="9000" />
+			<effect name="Cp">
+				<param amount="9000" />
+				<param mode="DIFF" />
 			</effect>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -214,13 +215,14 @@
 			</not>
 		</cond>
 		<effects>
-			<effect name="CpHeal">
-				<param power="9000" />
+			<effect name="Cp">
+				<param amount="9000" />
+				<param mode="DIFF" />
 			</effect>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="100" />
 			</effect>
 			<effect name="DispelByCategory">
@@ -787,6 +789,7 @@
 		<set name="effectPoint" val="1" />
 		<set name="hitTime" val="5000" />
 		<set name="icon" val="icon.skill1520" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="mpConsume2" val="39" />
@@ -812,6 +815,7 @@
 		<set name="effectPoint" val="1" />
 		<set name="hitTime" val="5000" />
 		<set name="icon" val="icon.skill1520" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="mpConsume2" val="39" />
@@ -837,6 +841,7 @@
 		<set name="effectPoint" val="1" />
 		<set name="hitTime" val="5000" />
 		<set name="icon" val="icon.skill1520" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="mpConsume2" val="39" />
@@ -866,8 +871,8 @@
 		<set name="castRange" val="750" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1250" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill1523" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -941,8 +946,8 @@
 		<set name="castRange" val="750" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1250" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill1525" />
 		<set name="isDebuff" val="true" />
@@ -1010,8 +1015,8 @@
 		<set name="castRange" val="500" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1000" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill1528" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -1086,13 +1091,13 @@
 		<table name="#power"> 35 39 43 47 49 51 53 56 58 59 61 63 65 </table>
 		<table name="#ench1Power"> 66 66 67 68 69 70 70 71 72 73 73 74 75 76 76 77 78 79 79 80 81 82 82 83 84 85 86 86 87 88 </table>
 		<table name="#enchDuel"> 66 68 69 71 73 74 76 78 79 81 83 84 86 88 89 91 92 94 96 97 99 101 102 104 106 107 109 111 112 114 </table>
-		<table name="#enchElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 </table>
+		<table name="#enchAttributePower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 </table>
 		<table name="#enchMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill1148" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -1104,7 +1109,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<enchant1 name="magicLvl" val="#enchMagicLvl" />
-		<enchant2 name="elementPower" val="#enchElementPower" />
+		<enchant2 name="attributePower" val="#enchAttributePower" />
 		<enchant2 name="magicLvl" val="#enchMagicLvl" />
 		<enchant3 name="magicLvl" val="#enchMagicLvl" />
 		<effects>
@@ -1554,8 +1559,8 @@
 		<set name="channelingTickInterval" val="2" />
 		<set name="effectPoint" val="-676" />
 		<set name="effectRange" val="1000" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="15000" />
 		<set name="icon" val="icon.skill1472" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -1811,7 +1816,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="AREA_FRIENDLY" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="30" />
 			</effect>
 		</effects>
@@ -1844,8 +1849,9 @@
 			</effect>
 		</pveEffects>
 		<selfEffects>
-			<effect name="ManaHeal">
-				<param power="29" />
+			<effect name="Mp">
+				<param amount="29" />
+				<param mode="DIFF" />
 			</effect>
 		</selfEffects>
 	</skill>
@@ -1875,8 +1881,9 @@
 			</effect>
 		</pveEffects>
 		<selfEffects>
-			<effect name="ManaHeal">
-				<param power="25" />
+			<effect name="Mp">
+				<param amount="25" />
+				<param mode="DIFF" />
 			</effect>
 		</selfEffects>
 	</skill>
@@ -1909,10 +1916,10 @@
 		<set name="abnormalLvl" val="1" />
 		<set name="abnormalTime" val="1200" />
 		<set name="abnormalType" val="ABILITY_CHANGE" />
-		<set name="canBeDispeled" val="false" />
 		<set name="effectPoint" val="379" />
 		<set name="hitTime" val="1000" />
 		<set name="icon" val="icon.skill1557" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="mpConsume2" val="28" />
 		<set name="mpConsume1" val="7" />

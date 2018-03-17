@@ -1164,7 +1164,6 @@
 		<set name="affectScope" val="RANGE" />
 		<set name="basicProperty" val="CON" />
 		<set name="coolTime" val="200" />
-		<set name="flyType" val="DUMMY" />
 		<set name="hitTime" val="300" />
 		<set name="isMagic" val="1" />
 		<set name="lvlBonusRate" val="1" />
@@ -1525,7 +1524,6 @@
 		<set name="abnormalLvl" val="1" />
 		<set name="abnormalTime" val="3600" />
 		<set name="abnormalType" val="PRESERVE_ABNORMAL" />
-		<set name="canBeDispeled" val="false" />
 		<set name="castRange" val="400" />
 		<set name="effectPoint" val="1" />
 		<set name="effectRange" val="900" />

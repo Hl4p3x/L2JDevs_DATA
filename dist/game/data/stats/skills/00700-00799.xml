@@ -83,10 +83,10 @@
 			<player mp="10" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -434,6 +434,7 @@
 	</skill>
 	<skill id="715" levels="4" name="Zaken Energy Drain">
 		<!-- Confirmed CT2.5 -->
+		<table name="#amount"> -274 -348 -422 -496 </table>
 		<table name="#effectPoints"> -307 -323 -335 -342 </table>
 		<table name="#magicLvl"> 65 70 75 80 </table>
 		<table name="#mpConsume2"> 60 65 69 72 </table>
@@ -443,8 +444,8 @@
 		<set name="coolTime" val="2000" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="2000" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -459,6 +460,10 @@
 				<param power="#power" />
 				<param drain="0.4" />
 			</effect>
+			<effect name="Mp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
+ 			</effect>
 		</effects>
 	</skill>
 	<skill id="716" levels="4" name="Zaken Hold">
@@ -574,8 +579,8 @@
 		<set name="coolTime" val="720" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="400" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1080" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="magicLvl" val="#magicLvl" />
@@ -602,8 +607,8 @@
 		<set name="castRange" val="700" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1200" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="2000" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -629,8 +634,8 @@
 		<set name="castRange" val="700" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1200" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="2000" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -830,8 +835,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="3300" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -924,8 +929,8 @@
 		<!-- Confirmed CT2.5 -->
 		<set name="affectRange" val="200" />
 		<set name="effectPoint" val="-342" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="3300" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -954,8 +959,8 @@
 		<set name="coolTime" val="800" />
 		<set name="effectPoint" val="-342" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="3300" />
 		<set name="icon" val="icon.skill_transform_debuff" />
 		<set name="isDebuff" val="true" />
@@ -1123,8 +1128,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-92" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1200" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -1153,8 +1158,8 @@
 		<set name="castRange" val="500" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1000" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1800" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -1180,8 +1185,8 @@
 		<set name="affectLimit" val="5-12" />
 		<set name="affectRange" val="150" />
 		<set name="effectPoint" val="-275" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1800" />
 		<set name="hitTime" val="1800" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
@@ -1678,8 +1683,9 @@
 			<effect name="DispelByCategory">
 				<param slot="BUFF" rate="25" max="5" />
 			</effect>
-			<effect name="CpDamPercent">
-				<param power="90" />
+			<effect name="Cp">
+				<param amount="-90" />
+				<param mode="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -2120,6 +2126,7 @@
 		<set name="effectPoint" val="1" />
 		<set name="hitTime" val="2500" />
 		<set name="icon" val="icon.skill0778" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="mpConsume2" val="44" />
@@ -2342,8 +2349,8 @@
 		<set name="castRange" val="40" />
 		<set name="effectPoint" val="835" />
 		<set name="effectRange" val="400" />
-		<set name="element" val="4" /> <!-- Holy -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="HOLY" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1800" />
 		<set name="hpConsume" val="1253" />
 		<set name="icon" val="icon.skill0787" />
@@ -2364,7 +2371,7 @@
 			<effect name="HealOverTime" ticks="5">
 				<param power="50" />
 			</effect>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="50" />
 			</effect>
 		</effects>
@@ -2563,7 +2570,6 @@
 		<set name="effectPoint" val="-669" />
 		<set name="effectRange" val="800" />
 		<set name="fanRange" val="0,0,600,60" />
-		<set name="flyType" val="CHARGE" />
 		<set name="hitTime" val="800" />
 		<set name="icon" val="icon.skill0793" />
 		<set name="isDebuff" val="true" />
@@ -2581,17 +2587,17 @@
 		<enchant2 name="mpConsume1" val="#ench2Cost" />
 		<enchant3 name="activateRate" val="#ench3ActivateRates" />
 		<enchant3 name="magicLvl" val="#enchMagicLvl" />
-		<enchant4 name="element" val="0" /> <!-- Fire -->
-		<enchant4 name="elementPower" val="#enchElementAttack" />
+		<enchant4 name="attributeType" val="FIRE" />
+		<enchant4 name="attributePower" val="#enchElementAttack" />
 		<enchant4 name="magicLvl" val="#enchMagicLvl" />
-		<enchant5 name="element" val="1" /> <!-- Water -->
-		<enchant5 name="elementPower" val="#enchElementAttack" />
+		<enchant5 name="attributeType" val="WATER" />
+		<enchant5 name="attributePower" val="#enchElementAttack" />
 		<enchant5 name="magicLvl" val="#enchMagicLvl" />
-		<enchant6 name="element" val="2" /> <!-- Wind -->
-		<enchant6 name="elementPower" val="#enchElementAttack" />
+		<enchant6 name="attributeType" val="WIND" />
+		<enchant6 name="attributePower" val="#enchElementAttack" />
 		<enchant6 name="magicLvl" val="#enchMagicLvl" />
-		<enchant7 name="element" val="3" /> <!-- Earth -->
-		<enchant7 name="elementPower" val="#enchElementAttack" />
+		<enchant7 name="attributeType" val="EARTH" />
+		<enchant7 name="attributePower" val="#enchElementAttack" />
 		<enchant7 name="magicLvl" val="#enchMagicLvl" />
 		<enchant8 name="magicLvl" val="#enchMagicLvl" />
 		<cond msgId="113" addName="1">

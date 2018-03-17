@@ -48,10 +48,10 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -1309,6 +1309,7 @@
 		<set name="abnormalType" val="MULTI_BUFF" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.etc_scroll_white_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="14614" /> <!-- Lineage II Devotee Scroll -->
@@ -1344,6 +1345,7 @@
 		<set name="abnormalType" val="MULTI_BUFF" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.etc_scroll_white_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="14615" /> <!-- Scroll of Christmas Festival - Mage Type -->
@@ -1418,8 +1420,9 @@
 			<player levelRange="#levelRange" />
 		</cond>
 		<effects>
-			<effect name="Heal">
-				<param power="#amount" />
+			<effect name="Hp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1439,8 +1442,9 @@
 			<player levelRange="#levelRange" />
 		</cond>
 		<effects>
-			<effect name="ManaHeal">
-				<param power="#amount" />
+			<effect name="Mp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1460,8 +1464,9 @@
 			<player levelRange="#levelRange" />
 		</cond>
 		<effects>
-			<effect name="CpHeal">
-				<param power="#amount" />
+			<effect name="Cp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1494,8 +1499,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Heal">
-				<param power="870" />
+			<effect name="Hp">
+				<param amount="870" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1838,6 +1844,7 @@
 		<set name="effectPoint" val="100" />
 		<set name="hitTime" val="100" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="14742" /> <!-- Event - Vitality Replenishing Herb Tea 10 minutes -->
@@ -1855,6 +1862,7 @@
 		<set name="effectPoint" val="100" />
 		<set name="hitTime" val="100" />
 		<set name="icon" val="icon.etc_hot_spring_nectar_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="2" />
 		<set name="itemConsumeId" val="14743" /> <!-- Event - Vitality Replenishing Herb Tea 20 minutes -->
@@ -2009,6 +2017,7 @@
 		<set name="effectPoint" val="100" />
 		<set name="hitTime" val="100" />
 		<set name="icon" val="icon.etc_candle_yellow_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="14770" /> <!-- Solo Escape Petition -->

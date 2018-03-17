@@ -376,8 +376,9 @@
 		<set name="staticReuse" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Heal">
-				<param power="458" />
+			<effect name="Hp">
+				<param amount="687" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -524,7 +525,7 @@
 		<set name="rideState" val="NONE" />
 		<set name="targetType" val="AURA" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -567,8 +568,8 @@
 		<set name="castRange" val="1500" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="2000" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="2000" />
 		<set name="icon" val="icon.skill0096" />
 		<set name="isDebuff" val="true" />
@@ -620,8 +621,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill0100" />
 		<set name="isDebuff" val="true" />
@@ -645,8 +646,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="79" />
@@ -664,8 +665,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-1000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="33" />
@@ -700,7 +701,7 @@
 			<player hp="10" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -710,8 +711,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-337" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="77" />
@@ -738,8 +739,8 @@
 		<set name="affectRange" val="150" />
 		<set name="basicProperty" val="CON" />
 		<set name="effectPoint" val="-10000" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill0096" />
 		<set name="isDebuff" val="true" />
@@ -772,8 +773,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="2500" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="85" />
@@ -792,8 +793,8 @@
 		<!-- High Five Confirmed -->
 		<set name="affectRange" val="200" />
 		<set name="effectPoint" val="-10000" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="3000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="85" />
@@ -819,8 +820,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-655" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill1160" />
 		<set name="isDebuff" val="true" />
@@ -873,8 +874,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-1000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="3" /> <!-- Earth -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="EARTH" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="79" />
@@ -893,8 +894,8 @@
 		<!-- High Five Confirmed -->
 		<set name="affectRange" val="200" />
 		<set name="effectPoint" val="-1000" />
-		<set name="element" val="3" /> <!-- Earth -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="EARTH" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="158" />
@@ -939,8 +940,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-1000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="3" /> <!-- Earth -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="EARTH" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="79" />
@@ -960,8 +961,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-897" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="3" /> <!-- Earth -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="EARTH" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="79" />
@@ -987,7 +988,7 @@
 		<set name="rideState" val="NONE" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="100" />
 			</effect>
 		</effects>
@@ -997,8 +998,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="3" /> <!-- Earth -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="EARTH" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="2500" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="85" />
@@ -1029,8 +1030,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="3" /> <!-- Earth -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="EARTH" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill0100" />
 		<set name="isDebuff" val="true" />
@@ -1062,8 +1063,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-1000" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="3" /> <!-- Earth -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="EARTH" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="2500" />
 		<set name="icon" val="icon.skill4111" />
 		<set name="isDebuff" val="true" />
@@ -1106,7 +1107,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="10" />
 			</effect>
 		</effects>
@@ -1116,8 +1117,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="79" />
@@ -1135,8 +1136,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-1000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="33" />
@@ -1189,8 +1190,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill0100" />
 		<set name="isDebuff" val="true" />
@@ -1216,8 +1217,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-1000" />
 		<set name="effectRange" val="200" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="fanRange" val="0,0,150,60" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
@@ -1243,8 +1244,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="2500" />
 		<set name="icon" val="icon.skill1170" />
 		<set name="isDebuff" val="true" />
@@ -1273,8 +1274,8 @@
 		<set name="affectRange" val="150" />
 		<set name="basicProperty" val="CON" />
 		<set name="effectPoint" val="-323" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill0096" />
 		<set name="isDebuff" val="true" />
@@ -1306,8 +1307,8 @@
 		<set name="castRange" val="150" />
 		<set name="effectPoint" val="-10000" />
 		<set name="effectRange" val="300" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="120" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="120" />
 		<set name="hitTime" val="1500" />
 		<set name="magicLvl" val="85" />
 		<set name="mpConsume2" val="89" />
