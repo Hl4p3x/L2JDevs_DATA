@@ -34,8 +34,9 @@
 			<player level="52" />
 		</cond>
 		<effects>
-			<effect name="ManaHeal">
-				<param power="360" />
+			<effect name="Mp">
+				<param amount="360" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -51,8 +52,9 @@
 			<player level="52" />
 		</cond>
 		<effects>
-			<effect name="CpHeal">
-				<param power="1000" />
+			<effect name="Cp">
+				<param amount="1000" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -65,8 +67,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="CpHeal">
-				<param power="1000" />
+			<effect name="Cp">
+				<param amount="1000" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -537,6 +540,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="effectPoint" val="1" />
 		<set name="icon" val="icon.skill0298" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="10274" /> <!-- Transformation Scroll: Rabbit -->
@@ -1922,7 +1926,7 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="HealPercent">
+			<effect name="HpPerMax">
 				<param power="15" />
 			</effect>
 		</effects>
@@ -1941,7 +1945,7 @@
 			<player flyMounted="false" />
 		</cond>
 		<effects>
-			<effect name="ManaHealPercent">
+			<effect name="MpPerMax">
 				<param power="12" />
 			</effect>
 		</effects>

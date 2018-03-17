@@ -9,8 +9,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="2" /> <!-- Wind -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="WIND" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="#hitTime" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -33,8 +33,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -342,8 +342,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1400" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="60" />
@@ -688,9 +688,9 @@
 	</skill>
 	<skill id="4039" levels="12" name="NPC MP Drain">
 		<!-- Freya retail confirmed -->
+		<table name="#amount"> -34 -57 -78 -105 -134 -165 -194 -206 -216 -224 -229 -232 </table>
 		<table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
 		<table name="#mpConsume2"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
-		<table name="#power"> 34 57 78 105 134 165 194 206 216 224 229 232 </table>
 		<set name="affectScope" val="SINGLE" />
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
@@ -704,9 +704,10 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ENEMY_ONLY" />
 		<effects>
-			<effect name="MagicalAttackMp">
-				<param power="#power" />
-			</effect>
+			<effect name="Mp">
+				<param amount="#amount" />
+				<param mode="DIFF" />
+ 			</effect>
 		</effects>
 	</skill>
 	<skill id="4040" levels="12" name="NPC Bow Attack">
@@ -738,8 +739,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -758,8 +759,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="45" />
@@ -779,8 +780,8 @@
 		<set name="castRange" val="400" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="900" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="45" />
@@ -1230,8 +1231,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="2" /> <!-- Wind -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="WIND" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1535,8 +1536,8 @@
 		<set name="castRange" val="500" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="900" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />
@@ -1605,7 +1606,6 @@
 		<set name="abnormalTime" val="4200" />
 		<set name="abnormalType" val="FATAL_POISON" />
 		<set name="abnormalVisualEffect" val="DOT_POISON" />
-		<set name="canBeDispeled" val="false" />
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1100" />
@@ -1687,8 +1687,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="-100" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="#magicLvl" />

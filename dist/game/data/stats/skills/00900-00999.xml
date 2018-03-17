@@ -129,8 +129,8 @@
 		<set name="castRange" val="400" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="900" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill_transform_debuff" />
 		<set name="isDebuff" val="true" />
@@ -233,8 +233,8 @@
 		<set name="castRange" val="900" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1500" />
-		<set name="element" val="1" /> <!-- Water -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="WATER" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
 		<set name="magicLvl" val="83" />
@@ -294,8 +294,8 @@
 		<set name="affectRange" val="100" />
 		<set name="basicProperty" val="CON" />
 		<set name="effectPoint" val="#effectPoints" />
-		<set name="element" val="1" /> <!-- Water -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="WATER" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill_transform_debuff" />
 		<set name="isDebuff" val="true" />
@@ -344,8 +344,8 @@
 		<set name="affectRange" val="100" />
 		<set name="basicProperty" val="CON" />
 		<set name="effectPoint" val="#effectPoints" />
-		<set name="element" val="1" /> <!-- Water -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="WATER" />
+		<set name="attributePower" val="20" />
 		<set name="fanRange" val="0,0,200,900" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill_transform_s_attack" />
@@ -776,8 +776,8 @@
 		<set name="coolTime" val="720" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="400" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1080" />
 		<set name="icon" val="icon.skill0927" />
 		<set name="isDebuff" val="true" />
@@ -854,6 +854,7 @@
 		<set name="effectRange" val="1100" />
 		<set name="hitTime" val="2500" />
 		<set name="icon" val="icon.skilltransform1" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="mpConsume2" val="58" />
@@ -885,6 +886,7 @@
 		<set name="effectRange" val="1100" />
 		<set name="hitTime" val="2500" />
 		<set name="icon" val="icon.skilltransform1" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="mpConsume2" val="58" />
@@ -916,6 +918,7 @@
 		<set name="effectRange" val="1100" />
 		<set name="hitTime" val="2500" />
 		<set name="icon" val="icon.skilltransform1" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="mpConsume2" val="58" />
@@ -1246,8 +1249,8 @@
 		<set name="coolTime" val="720" />
 		<set name="effectPoint" val="-343" />
 		<set name="effectRange" val="400" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1080" />
 		<set name="icon" val="icon.skill0949" />
 		<set name="isDebuff" val="true" />
@@ -1310,7 +1313,6 @@
 		<set name="coolTime" val="200" />
 		<set name="effectPoint" val="-676" />
 		<set name="effectRange" val="600" />
-		<set name="flyType" val="CHARGE" />
 		<set name="hitTime" val="800" />
 		<set name="icon" val="icon.skill0540" />
 		<set name="magicLvl" val="#magicLvl" />
@@ -1877,8 +1879,8 @@
 		<set name="castRange" val="750" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1250" />
-		<set name="element" val="1" /> <!-- Water -->
-		<set name="elementPower" val="#elementPower" />
+		<set name="attributeType" val="WATER" />
+		<set name="attributePower" val="#elementPower" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill1175" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -1905,8 +1907,8 @@
 		<set name="castRange" val="600" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="2" /> <!-- Wind -->
-		<set name="elementPower" val="#elementPower" />
+		<set name="attributeType" val="WIND" />
+		<set name="attributePower" val="#elementPower" />
 		<set name="hitTime" val="4000" />
 		<set name="icon" val="icon.skill1177" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -1939,8 +1941,8 @@
 		<set name="coolTime" val="200" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="1100" />
-		<set name="element" val="1" /> <!-- Water -->
-		<set name="elementPower" val="#elementPower" />
+		<set name="attributeType" val="WATER" />
+		<set name="attributePower" val="#elementPower" />
 		<set name="hitTime" val="3100" />
 		<set name="icon" val="icon.skill1184" />
 		<set name="isDebuff" val="true" />
@@ -1977,7 +1979,6 @@
 		<set name="coolTime" val="200" />
 		<set name="effectPoint" val="#effectPoints" />
 		<set name="effectRange" val="800" />
-		<set name="flyType" val="CHARGE" />
 		<set name="hitTime" val="800" />
 		<set name="icon" val="icon.skill0494" />
 		<set name="isDebuff" val="true" />
@@ -1999,9 +2000,6 @@
 				<param power="1" />
 			</effect>
 			<effect name="Stun" />
-			<effect name="EnemyCharge">
-				<param flyRadius="200" />
-			</effect>
 		</effects>
 	</skill>
 	<skill id="979" levels="6" name="Aggression">
@@ -2441,7 +2439,6 @@
 		<set name="coolTime" val="200" />
 		<set name="effectPoint" val="-379" />
 		<set name="effectRange" val="600" />
-		<set name="flyType" val="CHARGE" />
 		<set name="hitTime" val="800" />
 		<set name="icon" val="icon.skill0484" />
 		<set name="magicLvl" val="40" />
@@ -2457,11 +2454,6 @@
 				<target mindistance="200" />
 			</and>
 		</cond>
-		<effects>
-			<effect name="EnemyCharge">
-				<param flyRadius="200" />
-			</effect>
-		</effects>
 	</skill>
 	<skill id="995" levels="1" name="Rush Impact">
 		<!-- High Five Confirmed -->
@@ -2478,7 +2470,6 @@
 		<set name="effectPoint" val="-681" />
 		<set name="effectRange" val="800" />
 		<set name="fanRange" val="0,0,600,60" />
-		<set name="flyType" val="CHARGE" />
 		<set name="hitTime" val="800" />
 		<set name="icon" val="icon.skill0793" />
 		<set name="isDebuff" val="true" />
@@ -2584,7 +2575,6 @@
 		<set name="coolTime" val="200" />
 		<set name="effectPoint" val="-630" />
 		<set name="effectRange" val="600" />
-		<set name="flyType" val="CHARGE" />
 		<set name="hitTime" val="800" />
 		<set name="icon" val="icon.skill0998" />
 		<set name="magicLvl" val="40" />
@@ -2600,10 +2590,5 @@
 				<target mindistance="200" />
 			</and>
 		</cond>
-		<effects>
-			<effect name="EnemyCharge">
-				<param flyRadius="200" />
-			</effect>
-		</effects>
 	</skill>
 </list>

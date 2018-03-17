@@ -211,8 +211,9 @@
 			<effect name="Buff">
 				<add stat="maxCp" val="1200" />
 			</effect>
-			<effect name="CpHeal">
-				<param power="1200" />
+			<effect name="Cp">
+				<param amount="1200" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -236,8 +237,9 @@
 			<effect name="Buff">
 				<add stat="maxCp" val="800" />
 			</effect>
-			<effect name="CpHeal">
-				<param power="800" />
+			<effect name="Cp">
+				<param amount="800" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -598,8 +600,9 @@
 			<effect name="Buff">
 				<add stat="maxCp" val="1500" />
 			</effect>
-			<effect name="CpHeal">
-				<param power="1500" />
+			<effect name="Cp">
+				<param amount="1500" />
+				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -659,6 +662,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="effectPoint" val="1" />
 		<set name="icon" val="icon.skilltransform3" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1038,6 +1042,7 @@
 		<set name="abnormalVisualEffect" val="VP_UP" />
 		<set name="effectPoint" val="100" />
 		<set name="icon" val="icon.event_energy_belt_i00" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -1152,6 +1157,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="effectPoint" val="1" />
 		<set name="icon" val="icon.skilltransform3" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />

@@ -18,6 +18,7 @@
  */
 package handlers.effecthandlers;
 
+import com.l2jserver.gameserver.enums.EffectCalculationType;
 import com.l2jserver.gameserver.model.StatsSet;
 import com.l2jserver.gameserver.model.actor.L2Character;
 import com.l2jserver.gameserver.model.conditions.Condition;
@@ -28,24 +29,27 @@ import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * Mana Heal Percent effect implementation.
- * @author UnAfraid
+ * Cp effect implementation.
+ * @author Adry_85
+ * @since 2.6.0.0
  */
-public final class ManaHealPercent extends AbstractEffect
+public final class Cp extends AbstractEffect
 {
-	private final double _power;
+	private final double _amount;
+	private final EffectCalculationType _mode;
 	
-	public ManaHealPercent(Condition attachCond, Condition applyCond, StatsSet set, StatsSet params)
+	public Cp(Condition attachCond, Condition applyCond, StatsSet set, StatsSet params)
 	{
 		super(attachCond, applyCond, set, params);
 		
-		_power = params.getDouble("power", 0);
+		_amount = params.getDouble("amount", 0);
+		_mode = params.getEnum("mode", EffectCalculationType.class, EffectCalculationType.DIFF);
 	}
 	
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.MANAHEAL_PERCENT;
+		return L2EffectType.CP;
 	}
 	
 	@Override
@@ -57,34 +61,53 @@ public final class ManaHealPercent extends AbstractEffect
 	@Override
 	public void onStart(BuffInfo info)
 	{
-		L2Character target = info.getEffected();
-		if ((target == null) || target.isDead() || target.isDoor())
+		final L2Character target = info.getEffected();
+		final L2Character activeChar = info.getEffector();
+		if ((target == null) || target.isDead() || !target.isPlayer())
 		{
 			return;
 		}
 		
 		double amount = 0;
-		double power = _power;
-		boolean full = (power == 100.0);
+		switch (_mode)
+		{
+			case DIFF:
+			{
+				amount = Math.min(_amount, target.getMaxRecoverableCp() - target.getCurrentCp());
+				break;
+			}
+			case PER:
+			{
+				if (_amount < 0)
+				{
+					amount = (target.getCurrentCp() * _amount) / 100;
+				}
+				else
+				{
+					amount = Math.min((target.getMaxCp() * _amount) / 100.0, target.getMaxRecoverableCp() - target.getCurrentCp());
+				}
+				break;
+			}
+		}
 		
-		amount = full ? target.getMaxMp() : (target.getMaxMp() * power) / 100.0;
-		// Prevents overheal and negative amount
-		amount = Math.max(Math.min(amount, target.getMaxRecoverableMp() - target.getCurrentMp()), 0);
 		if (amount != 0)
 		{
-			target.setCurrentMp(amount + target.getCurrentMp());
+			target.setCurrentCp(amount + target.getCurrentCp());
 		}
-		SystemMessage sm;
-		if (info.getEffector().getObjectId() != target.getObjectId())
+		
+		if (amount >= 0)
 		{
-			sm = SystemMessage.getSystemMessage(SystemMessageId.S2_MP_RESTORED_BY_C1);
-			sm.addCharName(info.getEffector());
+			if ((activeChar != null) && (activeChar != target))
+			{
+				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S2_CP_HAS_BEEN_RESTORED_BY_C1);
+				sm.addCharName(activeChar);
+				sm.addInt((int) amount);
+				target.sendPacket(sm);
+			}
+			else
+			{
+				target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CP_HAS_BEEN_RESTORED).addInt((int) amount));
+			}
 		}
-		else
-		{
-			sm = SystemMessage.getSystemMessage(SystemMessageId.S1_MP_RESTORED);
-		}
-		sm.addInt((int) amount);
-		target.sendPacket(sm);
 	}
 }
