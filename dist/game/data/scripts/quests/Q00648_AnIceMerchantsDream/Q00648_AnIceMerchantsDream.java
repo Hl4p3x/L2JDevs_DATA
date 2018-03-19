@@ -307,7 +307,6 @@ public final class Q00648_AnIceMerchantsDream extends Quest
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState st = getQuestState(player, true);
-		final QuestState st2 = player.getQuestState(Q00115_TheOtherSideOfTruth.class.getSimpleName());
 		String htmltext = getNoQuestMsg(player);
 		switch (npc.getId())
 		{
@@ -321,13 +320,13 @@ public final class Q00648_AnIceMerchantsDream extends Quest
 					}
 					else
 					{
-						htmltext = ((st2 != null) && (st2.isCompleted())) ? "32020-02.htm" : "32020-03.htm";
+						htmltext = (player.hasQuestCompleted(Q00115_TheOtherSideOfTruth.class.getSimpleName())) ? "32020-02.htm" : "32020-03.htm";
 					}
 				}
 				else if (st.isStarted())
 				{
 					final long hasQuestItems = getQuestItemsCount(player, SILVER_ICE_CRYSTAL, BLACK_ICE_CRYSTAL);
-					if ((st2 != null) && st2.isCompleted())
+					if (player.hasQuestCompleted(Q00115_TheOtherSideOfTruth.class.getSimpleName()))
 					{
 						htmltext = (hasQuestItems > 0) ? "32020-13.html" : "32020-11.html";
 						if (st.isCond(1))

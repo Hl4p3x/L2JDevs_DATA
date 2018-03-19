@@ -119,8 +119,7 @@ public class Q00025_HidingBehindTheTruth extends Quest
 			}
 			case "31349-03.html":
 			{
-				final QuestState q24 = player.getQuestState(Q00024_InhabitantsOfTheForestOfTheDead.class.getSimpleName());
-				if (qs.isCreated() && (q24 != null) && q24.isCompleted() && (player.getLevel() >= MIN_LVL))
+				if (qs.isCreated() && player.hasQuestCompleted(Q00024_InhabitantsOfTheForestOfTheDead.class.getSimpleName()) && (player.getLevel() >= MIN_LVL))
 				{
 					qs.setMemoState(1);
 					qs.startQuest();

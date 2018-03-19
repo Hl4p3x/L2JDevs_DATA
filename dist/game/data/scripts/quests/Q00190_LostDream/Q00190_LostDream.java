@@ -111,8 +111,7 @@ public final class Q00190_LostDream extends Quest
 		{
 			if (npc.getId() == HEAD_BLACKSMITH_KUSTO)
 			{
-				final QuestState q187 = player.getQuestState(Q00187_NikolasHeart.class.getSimpleName());
-				if ((q187 != null) && q187.isCompleted())
+				if (player.hasQuestCompleted(Q00187_NikolasHeart.class.getSimpleName()))
 				{
 					htmltext = (player.getLevel() >= MIN_LEVEL) ? "30512-01.htm" : "30512-02.htm";
 				}

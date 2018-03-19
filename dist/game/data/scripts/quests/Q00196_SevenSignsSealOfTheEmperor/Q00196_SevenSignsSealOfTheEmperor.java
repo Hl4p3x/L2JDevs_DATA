@@ -248,8 +248,7 @@ public final class Q00196_SevenSignsSealOfTheEmperor extends Quest
 			{
 				if (npc.getId() == IASON_HEINE)
 				{
-					st = player.getQuestState(Q00195_SevenSignsSecretRitualOfThePriests.class.getSimpleName());
-					htmltext = ((player.getLevel() >= MIN_LEVEL) && (st != null) && (st.isCompleted())) ? "30969-01.htm" : "30969-08.html";
+					htmltext = ((player.getLevel() >= MIN_LEVEL) && player.hasQuestCompleted(Q00195_SevenSignsSecretRitualOfThePriests.class.getSimpleName())) ? "30969-01.htm" : "30969-08.html";
 				}
 				break;
 			}

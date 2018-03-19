@@ -314,6 +314,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="effectPoint" val="1" />
 		<set name="icon" val="icon.skilltransform3" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -337,6 +338,7 @@
 		<set name="abnormalType" val="TRANSFORM" />
 		<set name="effectPoint" val="1" />
 		<set name="icon" val="icon.skilltransform3" />
+		<set name="irreplaceableBuff" val="true" />
 		<set name="isMagic" val="2" /> <!-- Static Skill -->
 		<set name="magicLvl" val="-1" />
 		<set name="operateType" val="A2" />
@@ -411,7 +413,6 @@
 		<set name="coolTime" val="200" />
 		<set name="effectPoint" val="-679" />
 		<set name="effectRange" val="600" />
-		<set name="flyType" val="CHARGE" />
 		<set name="hitTime" val="800" />
 		<set name="icon" val="icon.skill6041" />
 		<set name="magicLvl" val="81" />
@@ -426,9 +427,6 @@
 		<effects>
 			<effect name="PhysicalAttack">
 				<param power="2372" />
-			</effect>
-			<effect name="EnemyCharge">
-				<param flyRadius="200" />
 			</effect>
 		</effects>
 	</skill>
@@ -458,8 +456,8 @@
 		<set name="affectLimit" val="6-12" />
 		<set name="affectRange" val="200" />
 		<set name="effectPoint" val="-340" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="2500" />
 		<set name="icon" val="icon.skill6043" />
 		<set name="isMagic" val="1" /> <!-- Magic Skill -->
@@ -482,8 +480,8 @@
 		<set name="coolTime" val="720" />
 		<set name="effectPoint" val="-343" />
 		<set name="effectRange" val="400" />
-		<set name="element" val="0" /> <!-- Fire -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="FIRE" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1080" />
 		<set name="icon" val="icon.skill6044" />
 		<set name="magicLvl" val="81" />
@@ -1136,8 +1134,8 @@
 		<set name="castRange" val="40" />
 		<set name="effectPoint" val="-475" />
 		<set name="effectRange" val="400" />
-		<set name="element" val="5" /> <!-- Dark -->
-		<set name="elementPower" val="20" />
+		<set name="attributeType" val="DARK" />
+		<set name="attributePower" val="20" />
 		<set name="hitTime" val="1500" />
 		<set name="icon" val="icon.skill1445" />
 		<set name="isDebuff" val="true" />
