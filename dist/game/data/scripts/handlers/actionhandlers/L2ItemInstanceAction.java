@@ -19,6 +19,7 @@
 package handlers.actionhandlers;
 
 import com.l2jserver.gameserver.ai.CtrlIntention;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.enums.InstanceType;
 import com.l2jserver.gameserver.handler.IActionHandler;
 import com.l2jserver.gameserver.instancemanager.MercTicketManager;
@@ -38,11 +39,11 @@ public class L2ItemInstanceAction implements IActionHandler
 		{
 			if (activeChar.isInParty())
 			{
-				activeChar.sendMessage("You cannot pickup mercenaries while in a party.");
+				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "no_pickup_mercenaries_party"));
 			}
 			else
 			{
-				activeChar.sendMessage("Only the castle lord can pickup mercenaries.");
+				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "no_pickup_mercenaries_lord"));
 			}
 			
 			activeChar.setTarget(target);

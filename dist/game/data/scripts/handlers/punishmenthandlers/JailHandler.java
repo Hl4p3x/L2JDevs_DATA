@@ -21,6 +21,7 @@ package handlers.punishmenthandlers;
 import com.l2jserver.gameserver.LoginServerThread;
 import com.l2jserver.gameserver.ThreadPoolManager;
 import com.l2jserver.gameserver.cache.HtmCache;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IPunishmentHandler;
 import com.l2jserver.gameserver.model.L2World;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -192,11 +193,11 @@ public class JailHandler implements IPunishmentHandler
 			long delay = ((task.getExpirationTime() - System.currentTimeMillis()) / 1000);
 			if (delay > 0)
 			{
-				player.sendMessage("You've been jailed for " + (delay > 60 ? ((delay / 60) + " minutes.") : delay + " seconds."));
+				player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_jail_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
 			}
 			else
 			{
-				player.sendMessage("You've been jailed forever.");
+				player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_jail_forever"));
 			}
 		}
 	}
