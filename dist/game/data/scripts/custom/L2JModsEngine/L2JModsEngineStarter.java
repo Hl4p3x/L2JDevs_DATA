@@ -1,7 +1,7 @@
 /*
- * This file is part of L2JDevs Mods Engine.
+ * This file is part of L2JDevs Mods.
  * 
- * L2JDevs Mods Engine is free software: you can redistribute it and/or modify
+ * L2JDevs Mods is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -19,7 +19,7 @@ package custom.L2JModsEngine;
 import org.l2jdevs.mods.ModsManager;
 
 /**
- * This is the starter to load the Mods Manager.
+ * This is the starter to load the Mods Manager
  * @author Zephyr
  */
 public class L2JModsEngineStarter
