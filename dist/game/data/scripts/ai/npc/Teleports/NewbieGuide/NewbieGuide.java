@@ -149,6 +149,14 @@ public final class NewbieGuide extends AbstractNpcAI
 			{
 				return "32327.htm";
 			}
+			if (npc.getId() == NEWBIE_GUIDE_GLUDIN)
+			{
+				return "newbie-guide-18.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_GLUDIO)
+			{
+				return "newbie-guide-19.htm";
+			}
 			return talkGuide(player, qs);
 		}
 		return super.onFirstTalk(npc, player);
@@ -419,7 +427,7 @@ public final class NewbieGuide extends AbstractNpcAI
 					}
 					case 2:
 					{
-						if (talker.getClassId().level() == 2)
+						if (talker.getClassId().level() == 1)
 						{
 							if (talker.getLevel() < 40)
 							{
