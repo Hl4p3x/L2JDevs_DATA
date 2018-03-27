@@ -19,6 +19,7 @@
 package handlers.punishmenthandlers;
 
 import com.l2jserver.gameserver.LoginServerThread;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IPunishmentHandler;
 import com.l2jserver.gameserver.model.L2World;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -131,11 +132,11 @@ public class ChatBanHandler implements IPunishmentHandler
 		long delay = ((task.getExpirationTime() - System.currentTimeMillis()) / 1000);
 		if (delay > 0)
 		{
-			player.sendMessage("You've been chat banned for " + (delay > 60 ? ((delay / 60) + " minutes.") : delay + " seconds."));
+			player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_chat_banned_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
 		}
 		else
 		{
-			player.sendMessage("You've been chat banned forever.");
+			player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_chat_banned_forever"));
 		}
 		player.sendPacket(new EtcStatusUpdate(player));
 	}
@@ -146,7 +147,7 @@ public class ChatBanHandler implements IPunishmentHandler
 	 */
 	private static void removeFromPlayer(L2PcInstance player)
 	{
-		player.sendMessage("Your Chat ban has been lifted");
+		player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_chat_banned_lifted"));
 		player.sendPacket(new EtcStatusUpdate(player));
 	}
 	
