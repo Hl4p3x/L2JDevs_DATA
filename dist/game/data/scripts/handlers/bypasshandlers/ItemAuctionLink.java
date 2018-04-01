@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 
 import com.l2jserver.Config;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IBypassHandler;
 import com.l2jserver.gameserver.instancemanager.ItemAuctionManager;
 import com.l2jserver.gameserver.model.actor.L2Character;
@@ -93,7 +94,7 @@ public class ItemAuctionLink implements IBypassHandler
 					
 					if (nextAuction != null)
 					{
-						activeChar.sendMessage("The next auction will begin on the " + fmt.format(new Date(nextAuction.getStartingTime())) + ".");
+						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "auction_next").replace("%s%", fmt.format(new Date(nextAuction.getStartingTime())) + ""));
 					}
 					return true;
 				}
