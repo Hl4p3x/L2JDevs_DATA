@@ -27,25 +27,26 @@ import com.l2jserver.gameserver.model.VehiclePathPoint;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
 
+import gracia.vehicles.AirShipController;
+
 /**
- * @author DS
+ * @author DS, Sacrifice
  */
-public final class AirShipGludioGracia extends Quest implements Runnable
+public final class AirShipGludioGracia extends AirShipController implements Runnable
 {
 	private static final int[] CONTROLLERS =
 	{
-		32607,
-		32609
+		32607, // Keucereus Alliance Base Controller
+		32609 // Warf of Gludio Airship's Controller
 	};
 	
-	private static final int GLUDIO_DOCK_ID = 10;
-	private static final int GRACIA_DOCK_ID = 11;
+	private static final int GLUDIO_DOCK_ID = 10; // Warf of Gludio Airship's
+	private static final int GRACIA_DOCK_ID = 11; // Keucereus Alliance Base
 	
 	private static final Location OUST_GLUDIO = new Location(-149379, 255246, -80);
 	private static final Location OUST_GRACIA = new Location(-186563, 243590, 2608);
@@ -54,20 +55,7 @@ public final class AirShipGludioGracia extends Quest implements Runnable
 	{
 		new VehiclePathPoint(-151202, 252556, 231),
 		new VehiclePathPoint(-160403, 256144, 222),
-		new VehiclePathPoint(-167874, 256731, -509, 0, 41035)
-	// teleport: x,y,z,speed=0,heading
-	};
-	
-	private static final VehiclePathPoint[] WARPGATE_TO_GRACIA =
-	{
-		new VehiclePathPoint(-169763, 254815, 282),
-		new VehiclePathPoint(-171822, 250061, 425),
-		new VehiclePathPoint(-172595, 247737, 398),
-		new VehiclePathPoint(-174538, 246185, 39),
-		new VehiclePathPoint(-179440, 243651, 1337),
-		new VehiclePathPoint(-182601, 243957, 2739),
-		new VehiclePathPoint(-184952, 245122, 2694),
-		new VehiclePathPoint(-186936, 244563, 2617)
+		new VehiclePathPoint(-167874, 256731, -509, 0, 41035) // teleport: x, y, z, speed=0, heading
 	};
 	
 	private static final VehiclePathPoint[] GRACIA_TO_WARPGATE =
@@ -87,8 +75,7 @@ public final class AirShipGludioGracia extends Quest implements Runnable
 		new VehiclePathPoint(-171822, 250061, 425),
 		new VehiclePathPoint(-169763, 254815, 282),
 		new VehiclePathPoint(-168067, 256626, 343),
-		new VehiclePathPoint(-157261, 255664, 221, 0, 64781)
-	// teleport: x,y,z,speed=0,heading
+		new VehiclePathPoint(-157261, 255664, 221, 0, 64781) // teleport: x, y, z, speed=0, heading
 	};
 	
 	private static final VehiclePathPoint[] WARPGATE_TO_GLUDIO =
@@ -101,12 +88,25 @@ public final class AirShipGludioGracia extends Quest implements Runnable
 		new VehiclePathPoint(-149378, 252552, 198)
 	};
 	
-	private final L2AirShipInstance _ship;
+	private static final VehiclePathPoint[] WARPGATE_TO_GRACIA =
+	{
+		new VehiclePathPoint(-169763, 254815, 282),
+		new VehiclePathPoint(-171822, 250061, 425),
+		new VehiclePathPoint(-172595, 247737, 398),
+		new VehiclePathPoint(-174538, 246185, 39),
+		new VehiclePathPoint(-179440, 243651, 1337),
+		new VehiclePathPoint(-182601, 243957, 2739),
+		new VehiclePathPoint(-184952, 245122, 2694),
+		new VehiclePathPoint(-186936, 244563, 2617)
+	};
+	
 	private int _cycle = 0;
 	
+	private final L2AirShipInstance _ship;
 	private boolean _foundAtcGludio = false;
-	private L2Npc _atcGludio = null;
 	private boolean _foundAtcGracia = false;
+	
+	private L2Npc _atcGludio = null;
 	private L2Npc _atcGracia = null;
 	
 	public AirShipGludioGracia()
@@ -150,7 +150,7 @@ public final class AirShipGludioGracia extends Quest implements Runnable
 	
 	private final L2Npc findController()
 	{
-		// check objects around the ship
+		// Check objects around the ship
 		for (L2Object obj : L2World.getInstance().getVisibleObjects(_ship, 600))
 		{
 			if (obj.isNpc())
@@ -229,7 +229,6 @@ public final class AirShipGludioGracia extends Quest implements Runnable
 		{
 			_ship.addPassenger(player);
 		}
-		
 		return null;
 	}
 	
@@ -250,39 +249,53 @@ public final class AirShipGludioGracia extends Quest implements Runnable
 					broadcastInGludio(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_THAT_FLIES_TO_THE_GRACIA_CONTINENT_HAS_DEPARTED);
 					_ship.setInDock(0);
 					_ship.executePath(GLUDIO_TO_WARPGATE);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 				case 1:
-					// _ship.teleToLocation(-167874, 256731, -509, 41035, false);
 					_ship.setOustLoc(OUST_GRACIA);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 5000);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 				case 2:
 					_ship.executePath(WARPGATE_TO_GRACIA);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 				case 3:
 					broadcastInGracia(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_HAS_ARRIVED_IT_WILL_DEPART_FOR_THE_ADEN_CONTINENT_IN_1_MINUTE);
 					_ship.setInDock(GRACIA_DOCK_ID);
 					_ship.oustPlayers();
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 60000);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 				case 4:
 					broadcastInGracia(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_THAT_FLIES_TO_THE_ADEN_CONTINENT_HAS_DEPARTED);
 					_ship.setInDock(0);
 					_ship.executePath(GRACIA_TO_WARPGATE);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 				case 5:
-					// _ship.teleToLocation(-157261, 255664, 221, 64781, false);
 					_ship.setOustLoc(OUST_GLUDIO);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 5000);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 				case 6:
 					_ship.executePath(WARPGATE_TO_GLUDIO);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 				case 7:
 					broadcastInGludio(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_HAS_ARRIVED_IT_WILL_DEPART_FOR_THE_GRACIA_CONTINENT_IN_1_MINUTE);
 					_ship.setInDock(GLUDIO_DOCK_ID);
 					_ship.oustPlayers();
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 60000);
+					_ship.updatePosition();
+					_ship.updateWorldRegion();
 					break;
 			}
 			_cycle++;
