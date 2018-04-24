@@ -247,55 +247,39 @@ public final class AirShipGludioGracia extends AirShipController implements Runn
 			{
 				case 0:
 					broadcastInGludio(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_THAT_FLIES_TO_THE_GRACIA_CONTINENT_HAS_DEPARTED);
-					_ship.setInDock(0);
+					_ship.setInDock(-1);
 					_ship.executePath(GLUDIO_TO_WARPGATE);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 				case 1:
 					_ship.setOustLoc(OUST_GRACIA);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 5000);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 				case 2:
 					_ship.executePath(WARPGATE_TO_GRACIA);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 				case 3:
 					broadcastInGracia(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_HAS_ARRIVED_IT_WILL_DEPART_FOR_THE_ADEN_CONTINENT_IN_1_MINUTE);
 					_ship.setInDock(GRACIA_DOCK_ID);
 					_ship.oustPlayers();
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 60000);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 				case 4:
 					broadcastInGracia(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_THAT_FLIES_TO_THE_ADEN_CONTINENT_HAS_DEPARTED);
-					_ship.setInDock(0);
+					_ship.setInDock(-1);
 					_ship.executePath(GRACIA_TO_WARPGATE);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 				case 5:
 					_ship.setOustLoc(OUST_GLUDIO);
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 5000);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 				case 6:
 					_ship.executePath(WARPGATE_TO_GLUDIO);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 				case 7:
 					broadcastInGludio(NpcStringId.THE_REGULARLY_SCHEDULED_AIRSHIP_HAS_ARRIVED_IT_WILL_DEPART_FOR_THE_GRACIA_CONTINENT_IN_1_MINUTE);
 					_ship.setInDock(GLUDIO_DOCK_ID);
 					_ship.oustPlayers();
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 60000);
-					_ship.updatePosition();
-					_ship.updateWorldRegion();
 					break;
 			}
 			_cycle++;
