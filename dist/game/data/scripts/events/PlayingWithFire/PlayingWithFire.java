@@ -24,21 +24,19 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.event.LongTimeEvent;
 
 /**
- * Event: Playing With Fire.
- * @URL http://legacy.lineage2.com/archive/2006/06/playing_with_fi.html
- * @author U3Games
+ * Playing With Fire event.
+ * @author U3Games, Sacrifice
  */
-public class PlayingWithFire extends LongTimeEvent
+public final class PlayingWithFire extends LongTimeEvent
 {
-	// Values
-	private static final int MANAGER_EVENT = 32099;
+	private static final int EVENT_MANAGER = 32099; // Tony the Cat
 	
 	private PlayingWithFire()
 	{
 		super(PlayingWithFire.class.getSimpleName(), "events");
-		addFirstTalkId(MANAGER_EVENT);
-		addStartNpc(MANAGER_EVENT);
-		addTalkId(MANAGER_EVENT);
+		addFirstTalkId(EVENT_MANAGER);
+		addStartNpc(EVENT_MANAGER);
+		addTalkId(EVENT_MANAGER);
 	}
 	
 	@Override
