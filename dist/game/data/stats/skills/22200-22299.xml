@@ -302,8 +302,11 @@
 		<set name="reuseDelay" val="10000" />
 		<set name="targetType" val="SELF" />	
 		<effects>
+			<effect name="MaxHp">
+				<param power="20" />
+				<param type="PER" />
+			</effect>
 			<effect name="Buff">
-				<mul stat="maxHp" val="1.2" />
 				<mul stat="critRate" val="1.2" />
 				<mul stat="critDmg" val="1.2" />
 				<mul stat="pAtk" val="1.1" />
@@ -432,7 +435,6 @@
 		<effects>
 			<effect name="Cp">
 				<param amount="20000" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -450,7 +452,6 @@
 		<effects>
 			<effect name="Cp">
 				<param amount="20000" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1096,7 +1097,6 @@
 		<effects>
 			<effect name="Hp">
 				<param amount="1100" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1112,7 +1112,6 @@
 		<effects>
 			<effect name="Mp">
 				<param amount="360" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>

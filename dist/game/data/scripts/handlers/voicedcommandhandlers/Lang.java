@@ -26,7 +26,6 @@ import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jserver.util.StringUtil;
-import com.u3games.l2jmods.datatables.MessageData;
 
 public class Lang implements IVoicedCommandHandler
 {
@@ -66,7 +65,6 @@ public class Lang implements IVoicedCommandHandler
 			{
 				// Multi-Language System
 				LanguageData.getInstance().setLanguage(activeChar, lang);
-				MessageData.getInstance().setLanguage(activeChar, lang);
 				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "lang_current_successfully") + " " + lang);
 				
 				msg.setFile(activeChar.getHtmlPrefix(), "data/html/mods/Lang/Ok.htm");

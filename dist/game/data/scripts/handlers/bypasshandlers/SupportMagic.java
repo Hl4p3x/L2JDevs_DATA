@@ -18,6 +18,7 @@
  */
 package handlers.bypasshandlers;
 
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.enums.CategoryType;
 import com.l2jserver.gameserver.handler.IBypassHandler;
 import com.l2jserver.gameserver.model.actor.L2Character;
@@ -116,7 +117,7 @@ public class SupportMagic implements IBypassHandler
 		}
 		else if (player.getClassId().level() == 3)
 		{
-			player.sendMessage("Only adventurers who have not completed their 3rd class transfer may receive these buffs."); // Custom message
+			player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "no_buff_adventurer")); // Custom message
 			return;
 		}
 		

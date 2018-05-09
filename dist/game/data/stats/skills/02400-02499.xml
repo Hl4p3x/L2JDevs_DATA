@@ -36,7 +36,6 @@
 		<effects>
 			<effect name="Mp">
 				<param amount="360" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -54,7 +53,6 @@
 		<effects>
 			<effect name="Cp">
 				<param amount="1000" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -69,7 +67,6 @@
 		<effects>
 			<effect name="Cp">
 				<param amount="1000" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -212,8 +209,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxHp" val="1.2" />
+			<effect name="MaxHp">
+				<param power="20" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -309,8 +307,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxMp" val="1.2" />
+			<effect name="MaxMp">
+				<param power="20" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
