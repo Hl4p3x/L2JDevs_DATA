@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.SevenSigns;
 import com.l2jserver.gameserver.SevenSignsFestival;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IBypassHandler;
 import com.l2jserver.gameserver.model.L2Party;
 import com.l2jserver.gameserver.model.L2Party.messageType;
@@ -80,7 +81,7 @@ public class Festival implements IBypassHandler
 					// Check if a festival is in progress, then don't allow registration yet.
 					if (SevenSignsFestival.getInstance().isFestivalInitialized())
 					{
-						activeChar.sendMessage("You cannot sign up while a festival is in progress.");
+						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_sign_up"));
 						return true;
 					}
 					
@@ -153,7 +154,7 @@ public class Festival implements IBypassHandler
 					// Check if a festival is in progress, if it is don't register the score.
 					if (SevenSignsFestival.getInstance().isFestivalInProgress())
 					{
-						activeChar.sendMessage("You cannot register a score while a festival is in progress.");
+						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_register"));
 						return true;
 					}
 					
@@ -185,7 +186,7 @@ public class Festival implements IBypassHandler
 					// Check if the player collected any blood offerings during the festival.
 					if (bloodOfferings == null)
 					{
-						activeChar.sendMessage("You do not have any blood offerings to contribute.");
+						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_contribute"));
 						return true;
 					}
 					
@@ -317,14 +318,14 @@ public class Festival implements IBypassHandler
 						}
 						else
 						{
-							activeChar.sendMessage("Only the party leader can leave a festival when a party has minimum number of members.");
+							activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_leave_party"));
 						}
 					}
 					break;
 				case 0: // Distribute Accumulated Bonus
 					if (!SevenSigns.getInstance().isSealValidationPeriod())
 					{
-						activeChar.sendMessage("Bonuses cannot be paid during the competition period.");
+						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_bonus"));
 						return true;
 					}
 					

@@ -291,7 +291,6 @@
 		<effects>
 			<effect name="Mp">
 				<param amount="#amount" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -400,8 +399,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxHp" val="1.35" />
+			<effect name="MaxHp">
+				<param power="35" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -472,8 +472,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxMp" val="1.35" />
+			<effect name="MaxMp">
+				<param power="35" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -554,7 +555,7 @@
 		<table name="#abnormalLvls"> 3 4 5 6 </table>
 		<table name="#effectPoints"> 495 532 597 646 </table>
 		<table name="#magicLvl"> 52 56 64 72 </table>
-		<table name="#maxHp"> 1.2 1.25 1.3 1.35 </table>
+		<table name="#maxHp"> 20 25 30 35 </table>
 		<table name="#mpConsume2"> 38 41 48 53 </table>
 		<table name="#mpConsume1"> 10 11 12 14 </table>
 		<set name="abnormalLvl" val="#abnormalLvls" />
@@ -574,8 +575,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxHp" val="#maxHp" />
+			<effect name="MaxHp">
+				<param power="#maxHp" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -584,7 +586,7 @@
 		<table name="#abnormalLvls"> 3 4 5 6 </table>
 		<table name="#effectPoints"> 495 532 582 635 </table>
 		<table name="#magicLvl"> 52 56 62 70 </table>
-		<table name="#maxMp"> 1.2 1.25 1.3 1.35 </table>
+		<table name="#maxMp"> 20 25 30 35 </table>
 		<table name="#mpConsume2"> 38 41 46 52 </table>
 		<table name="#mpConsume1"> 10 11 12 13 </table>
 		<set name="abnormalLvl" val="#abnormalLvls" />
@@ -604,8 +606,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxMp" val="#maxMp" />
+			<effect name="MaxMp">
+				<param power="#maxMp" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -979,7 +982,7 @@
 		<set name="mpConsume2" val="31" />
 		<set name="operateType" val="A2" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1287,8 +1290,9 @@
 		<set name="targetType" val="ENEMY_ONLY" />
 		<set name="trait" val="POISON" />
 		<effects>
-			<effect name="DamOverTime" ticks="5">
-				<param power="63" />
+			<effect name="TickHp">
+				<param power="-63" />
+				<param ticks="5" />
 			</effect>
 		</effects>
 	</skill>
@@ -1446,7 +1450,6 @@
 		<effects>
 			<effect name="Mp">
 				<param amount="41" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1460,7 +1463,6 @@
 		<effects>
 			<effect name="Mp">
 				<param amount="51" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1474,7 +1476,6 @@
 		<effects>
 			<effect name="Mp">
 				<param amount="59" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1528,12 +1529,11 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
 			<effect name="Cp">
 				<param amount="200" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
@@ -1548,7 +1548,7 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="DispelByCategory">
@@ -1571,7 +1571,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="Debuff">
@@ -1591,7 +1591,7 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="PhysicalAttack">
@@ -1613,7 +1613,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
 			<effect name="Buff">
@@ -1634,7 +1634,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
 			<effect name="Buff">
@@ -1657,7 +1657,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="Debuff">
@@ -1682,7 +1682,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="Debuff">
@@ -1708,7 +1708,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
 			<effect name="Buff">
@@ -1729,7 +1729,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
 			<effect name="Buff">
@@ -1752,7 +1752,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
 			<effect name="Buff">
@@ -1769,7 +1769,7 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="Heal">
@@ -1792,7 +1792,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="Debuff">
@@ -1813,7 +1813,7 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="ONE" />
 		<effects>
 			<effect name="TargetCancel" />
@@ -1895,7 +1895,6 @@
 		<effects>
 			<effect name="Hp">
 				<param amount="#amount" />
-				<param mode="DIFF" />
 			</effect>
 		</effects>
 	</skill>
