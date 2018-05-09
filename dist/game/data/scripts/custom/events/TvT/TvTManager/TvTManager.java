@@ -19,6 +19,7 @@
 package custom.events.TvT.TvTManager;
 
 import com.l2jserver.Config;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
 import com.l2jserver.gameserver.handler.VoicedCommandHandler;
 import com.l2jserver.gameserver.instancemanager.AntiFeedManager;
@@ -124,7 +125,7 @@ public final class TvTManager extends AbstractNpcAI implements IVoicedCommandHan
 				}
 				else
 				{
-					player.sendMessage("You cannot unregister to this event.");
+					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "event_no_unregister"));
 				}
 				break;
 			}

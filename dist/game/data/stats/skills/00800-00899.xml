@@ -22,8 +22,8 @@
 		<set name="operateType" val="P" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Buff">
-				<add stat="maxCp" val="738.3" />
+			<effect name="MaxCp">
+				<param power="738.3" />
 			</effect>
 		</effects>
 	</skill>
@@ -531,7 +531,7 @@
 		<!-- Confirmed CT2.5 -->
 		<table name="#effectPoints"> 379 467 523 </table>
 		<table name="#magicLvl"> 40 49 55 </table>
-		<table name="#maxHp"> 1.05 1.08 1.1 </table>
+		<table name="#maxHp"> 5 8 10 </table>
 		<table name="#mpConsume2"> 35 44 44 </table>
 		<table name="#pDef"> 1.08 1.12 1.15 </table>
 		<set name="abnormalLvl" val="4" />
@@ -553,9 +553,12 @@
 			<target race="CONSTRUCT" />
 		</cond>
 		<effects>
+			<effect name="MaxHp">
+				<param power="#maxHp" />
+				<param type="PER" />
+			</effect>
 			<effect name="Buff">
 				<mul stat="pDef" val="#pDef" />
-				<mul stat="maxHp" val="#maxHp" />
 			</effect>
 		</effects>
 	</skill>
@@ -789,8 +792,11 @@
 		<set name="rideState" val="NONE" />
 		<set name="targetType" val="PARTY" />
 		<effects>
+			<effect name="MaxHp">
+				<param power="10" />
+				<param type="PER" />
+			</effect>
 			<effect name="Buff">
-				<mul stat="maxHp" val="1.1" />
 				<add stat="regHp" val="10" />
 			</effect>
 		</effects>
@@ -799,7 +805,7 @@
 		<table name="#calledSkillLevel"> 1 2 3 4 </table>
 		<table name="#effectPoints"> -317 -323 -328 -333 </table>
 		<table name="#magicLvl"> 68 70 72 74 </table>
-		<table name="#mdot"> 16 17 17 17 </table>
+		<table name="#mdot"> -16 -17 -17 -17 </table>
 		<set name="abnormalLvl" val="8" />
 		<set name="abnormalTime" val="20" />
 		<set name="abnormalType" val="DARK_SEED" />
@@ -826,8 +832,9 @@
 		<set name="targetType" val="ENEMY_ONLY" />
 		<set name="trait" val="BLEED" />
 		<effects>
-			<effect name="ManaDamOverTime" ticks="5">
+			<effect name="TickMp">
 				<param power="#mdot" />
+				<param ticks="5" />
 			</effect>
 		</effects>
 		<endEffects>
@@ -849,7 +856,7 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="45000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<effects>
 			<effect name="SummonTrap">
@@ -929,7 +936,7 @@
 		<set name="reuseDelay" val="10000" />
 		<set name="rideState" val="NONE" />
 		<set name="soulMaxConsumeCount" val="20" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="stayAfterDeath" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
@@ -1239,7 +1246,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1263,7 +1270,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1287,7 +1294,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1311,7 +1318,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1335,7 +1342,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1359,7 +1366,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1383,7 +1390,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1407,7 +1414,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1431,7 +1438,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1455,7 +1462,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1479,7 +1486,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -1503,7 +1510,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="14400000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="SELF" />
 		<cond>
 			<player canTransform="true" />
@@ -2181,8 +2188,11 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="SELF" />
 		<effects>
+			<effect name="MaxHp">
+				<param power="20" />
+				<param type="PER" />
+			</effect>
 			<effect name="Buff">
-				<mul stat="maxHp" val="1.2" />
 				<mul stat="pAtk" val="1.08" />
 				<mul stat="pDef" val="1.18" />
 				<mul stat="pAtkSpd" val="1.2" />
