@@ -26,18 +26,15 @@ import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Angel Cat event.
- * @author U3Games
+ * @author U3Games, Sacrifice
  */
-public class AngelCat extends LongTimeEvent
+public final class AngelCat extends LongTimeEvent
 {
-	// Values
 	private static final int ANGEL_CAT = 4308;
-	private static final int REWARD_ID = 21726;
-	private static final int REWARD_AMOUNT = 1;
-	private static final int REUSE_GIT_TIME = 24;
-	
-	// Mist
-	private static final String REUSE = AngelCat.class.getSimpleName() + "_reuse";
+	private static final int GIFT_AMOUNT = 1;
+	private static final int GIFT_ID = 21726; // Angel Cat's Blessing Event
+	private static final int GIFT_REUSE = 24; // Retail 24 hours
+	private static final String GIFT_REUSE_VARIABLE = AngelCat.class.getSimpleName() + "_reuse";
 	
 	private AngelCat()
 	{
@@ -50,34 +47,31 @@ public class AngelCat extends LongTimeEvent
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		String htmltext = event;
 		switch (event)
 		{
 			case "gift":
 			{
-				final long reuse = player.getVariables().getLong(REUSE, 0);
+				final long reuse = player.getVariables().getLong(GIFT_REUSE_VARIABLE, 0);
 				if (reuse > System.currentTimeMillis())
 				{
-					long remainingTime = (reuse - System.currentTimeMillis()) / 1000;
-					int hours = (int) (remainingTime / 3600);
-					int minutes = (int) ((remainingTime % 3600) / 60);
-					SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.AVAILABLE_AFTER_S1_S2_HOURS_S3_MINUTES);
-					sm.addItemName(REWARD_ID);
+					final long remainingTime = (reuse - System.currentTimeMillis()) / 1000;
+					final int hours = (int) (remainingTime / 3600);
+					final int minutes = (int) ((remainingTime % 3600) / 60);
+					final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.AVAILABLE_AFTER_S1_S2_HOURS_S3_MINUTES);
+					sm.addItemName(GIFT_ID);
 					sm.addInt(hours);
 					sm.addInt(minutes);
 					player.sendPacket(sm);
 				}
 				else
 				{
-					player.addItem("AngelCat-Gift", REWARD_ID, REWARD_AMOUNT, npc, true);
-					player.getVariables().set(REUSE, System.currentTimeMillis() + (REUSE_GIT_TIME * 3600000));
+					player.addItem("AngelCat-Gift", GIFT_ID, GIFT_AMOUNT, npc, true);
+					player.getVariables().set(GIFT_REUSE_VARIABLE, System.currentTimeMillis() + (GIFT_REUSE * 3600000));
 				}
-				
 				break;
 			}
 		}
-		
-		return htmltext;
+		return null;
 	}
 	
 	@Override
