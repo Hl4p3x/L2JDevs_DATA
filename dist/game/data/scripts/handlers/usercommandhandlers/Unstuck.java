@@ -29,6 +29,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.GameTimeController;
 import com.l2jserver.gameserver.ThreadPoolManager;
+import com.l2jserver.gameserver.datatables.LanguageData;
 import com.l2jserver.gameserver.handler.IUserCommandHandler;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.entity.TvTEvent;
@@ -68,7 +69,7 @@ public class Unstuck implements IUserCommandHandler
 		
 		if (activeChar.isJailed())
 		{
-			activeChar.sendMessage("You cannot use unstuck while you are in jail.");
+			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "no_unstuck_in_jail"));
 			return false;
 		}
 		
@@ -101,11 +102,11 @@ public class Unstuck implements IUserCommandHandler
 		
 		if (Config.UNSTUCK_INTERVAL > 100)
 		{
-			activeChar.sendMessage("You use Escape: " + SECONDS.toMinutes(Config.UNSTUCK_INTERVAL) + " minutes.");
+			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "unstuck_time_minutes").replace("%s%", SECONDS.toMinutes(Config.UNSTUCK_INTERVAL) + ""));
 		}
 		else
 		{
-			activeChar.sendMessage("You use Escape: " + Config.UNSTUCK_INTERVAL + " seconds.");
+			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "unstuck_time_seconds").replace("%s%", Config.UNSTUCK_INTERVAL + ""));
 		}
 		
 		activeChar.getAI().setIntention(AI_INTENTION_IDLE);

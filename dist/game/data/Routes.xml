@@ -758,7 +758,7 @@
 		<point npcStringId="1010204" X="-84066" Y="241285" Z="-3728" delay="5" run="true" />
 		<point X="-83215" Y="241170" Z="-3728" delay="0" run="true" />
 		<point X="-82364" Y="242944" Z="-3720" delay="0" run="true" />
-		<point npcStringId="1010201" X="-81674" Y="243391" Z="-3712" delay="60" run="true" />
+		<point npcStringId="1010201" X="-81675" Y="243411" Z="-3717" delay="60" run="true" />
 		<point X="-81926" Y="243894" Z="-3712" delay="0" run="true" />
 	</route>
 	<!-- Yakand -->
@@ -814,7 +814,7 @@
 		<point X="10641" Y="17282" Z="-4584" delay="0" run="false" />
 		<point npcStringId="1010213" X="7683" Y="18034" Z="-4376" delay="5" run="false" />
 		<point X="10551" Y="16775" Z="-4584" delay="0" run="false" />
-		<point X="11004" Y="15942" Z="-4584" delay="0" run="false" />
+		<point X="11047" Y="15899" Z="-4584" delay="0" run="false" />
 		<point X="10827" Y="14757" Z="-4240" delay="0" run="false" />
 		<point X="10968" Y="14620" Z="-4240" delay="0" run="false" />
 	</route>
@@ -864,7 +864,9 @@
 		<point npcStringId="1010215" X="116587" Y="-184306" Z="-1568" delay="10" run="true" />
 		<point X="116392" Y="-184090" Z="-1560" delay="0" run="true" />
 		<point X="117083" Y="-182538" Z="-1520" delay="0" run="true" />
+		<point X="117748" Y="-182440" Z="-1528" delay="0" run="true" />
 		<point npcStringId="1010216" X="117802" Y="-182541" Z="-1528" delay="10" run="true" />
+		<point X="117748" Y="-182440" Z="-1528" delay="0" run="true" />
 		<point npcStringId="1010217" X="116720" Y="-182479" Z="-1512" delay="10" run="true" />
 		<point X="115857" Y="-183287" Z="-1472" delay="0" run="true" />
 		<point X="115744" Y="-183424" Z="-1472" delay="0" run="true" />
@@ -1300,7 +1302,9 @@
 	<!-- Ghost of von Hellmann's Page -->
 	<route name="rune_ghost1b" repeat="false" repeatStyle="back">
 		<target id="31525" spawnX="51446" spawnY="-54514" spawnZ="-3136" />
-		<point X="51752" Y="-54736" Z="-3160" delay="0" run="false" />
+		<point X="51543" Y="-54579" Z="-3159" delay="0" run="false" />
+		<point X="51525" Y="-54713" Z="-3147" delay="0" run="false" />
+		<point X="51813" Y="-54745" Z="-3159" delay="0" run="false" />
 		<point X="51998" Y="-54685" Z="-3160" delay="0" run="false" />
 		<point X="52083" Y="-54439" Z="-3152" delay="0" run="false" />
 		<point X="52296" Y="-53194" Z="-3152" delay="0" run="false" />

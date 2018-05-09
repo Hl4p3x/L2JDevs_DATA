@@ -679,8 +679,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" />
 		<effects>
-			<effect name="HealOverTime" ticks="1">
+			<effect name="TickHp">
 				<param power="#hot" />
+				<param ticks="1" />
 			</effect>
 		</effects>
 	</skill>
@@ -1181,8 +1182,9 @@
 		<set name="operateType" val="P" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxCp" val="1.1" />
+			<effect name="MaxCp">
+				<param power="10" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -1192,8 +1194,9 @@
 		<set name="operateType" val="P" />
 		<set name="targetType" val="SELF" />
 		<effects>
-			<effect name="Buff">
-				<mul stat="maxCp" val="0.9" />
+			<effect name="MaxCp">
+				<param power="-10" />
+				<param type="PER" />
 			</effect>
 		</effects>
 	</skill>
@@ -1437,8 +1440,9 @@
 		<set name="targetType" val="AURA" />
 		<set name="trait" val="POISON" />
 		<effects>
-			<effect name="DamOverTime" ticks="5">
-				<param canKill="true" power="12" />
+			<effect name="TickHpFatal">
+				<param power="-12" />
+				<param ticks="5" />
 			</effect>
 		</effects>
 	</skill>

@@ -376,10 +376,9 @@ public final class ClassMaster extends AbstractNpcAI
 			
 			if (menu.length() > 0)
 			{
-				String msg = getHtm(player.getHtmlPrefix(), "template.htm").replace("%name%", ClassListData.getInstance().getClass(currentClassId).getClientCode()).replace("%menu%", menu.toString());
+				String msg = getHtm(player.getHtmlPrefix(), "template.htm").replace("%name%", ClassListData.getInstance().getClass(currentClassId).getClientCode()).replace("%menu%", menu.toString()).replace("%req_items%", getRequiredItems(level + 1).toString());
 				showResult(player, msg);
 				return;
-				
 			}
 			String msg = getHtm(player.getHtmlPrefix(), "comebacklater.htm").replace("%level%", String.valueOf(getMinLevel(level - 1)));
 			showResult(player, msg);
@@ -545,7 +544,7 @@ public final class ClassMaster extends AbstractNpcAI
 		{
 			sb.append("<tr><td><font color=\"LEVEL\">");
 			sb.append(holder.getCount());
-			sb.append("</font></td><td>");
+			sb.append("</font> - ");
 			sb.append(ItemTable.getInstance().getTemplate(holder.getId()).getName());
 			sb.append("</td></tr>");
 		}

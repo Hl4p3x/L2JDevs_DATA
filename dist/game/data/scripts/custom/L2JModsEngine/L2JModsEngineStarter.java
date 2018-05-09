@@ -1,14 +1,12 @@
 /*
- * Copyright (C) 2008-2018 L2JDev Mods
+ * This file is part of L2JDevs Mods.
  * 
- * This file is part of L2JDev Mods.
- * 
- * L2JDev Mods is free software: you can redistribute it and/or modify
+ * L2JDevs Mods is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * L2JDev Mods is distributed in the hope that it will be useful,
+ * L2JDevs Mods is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
@@ -18,7 +16,7 @@
  */
 package custom.L2JModsEngine;
 
-import com.u3games.l2jmods.ModsManager;
+import org.l2jdevs.mods.ModsManager;
 
 /**
  * This is the starter to load the Mods Manager
@@ -28,7 +26,7 @@ public class L2JModsEngineStarter
 {
 	private L2JModsEngineStarter()
 	{
-		ModsManager.getInstance();
+		ModsManager.initialize();
 	}
 	
 	public static void main(String[] args)

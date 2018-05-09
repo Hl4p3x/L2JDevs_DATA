@@ -202,7 +202,7 @@
 		<set name="operateType" val="A2" />
 		<set name="reuseDelay" val="8000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="staticReuse" val="true" />
+		<set name="reuseDelayLock" val="true" />
 		<set name="targetType" val="AURA" />
 		<effects>
 			<effect name="Debuff">
@@ -2020,8 +2020,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="CLAN_MEMBER" />
 		<effects>
-			<effect name="HealOverTime" ticks="1">
+			<effect name="TickHp">
 				<param power="#hot" />
+				<param ticks="1" />
 			</effect>
 		</effects>
 	</skill>
@@ -2046,8 +2047,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="CLAN_MEMBER" />
 		<effects>
-			<effect name="HealOverTime" ticks="1">
+			<effect name="TickHp">
 				<param power="#hot" />
+				<param ticks="1" />
 			</effect>
 		</effects>
 	</skill>
@@ -2072,8 +2074,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="CLAN_MEMBER" />
 		<effects>
-			<effect name="HealOverTime" ticks="1">
+			<effect name="TickHp">
 				<param power="#hot" />
+				<param ticks="1" />
 			</effect>
 		</effects>
 	</skill>
@@ -2098,8 +2101,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="CLAN_MEMBER" />
 		<effects>
-			<effect name="HealOverTime" ticks="1">
+			<effect name="TickHp">
 				<param power="#hot" />
+				<param ticks="1" />
 			</effect>
 		</effects>
 	</skill>
@@ -2124,8 +2128,9 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="CLAN_MEMBER" />
 		<effects>
-			<effect name="HealOverTime" ticks="1">
+			<effect name="TickHp">
 				<param power="#hot" />
+				<param ticks="1" />
 			</effect>
 		</effects>
 	</skill>
