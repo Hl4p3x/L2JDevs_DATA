@@ -60,6 +60,8 @@
 		<set name="weight" val="2" />
 		<set name="is_depositable" val="false" />
 		<set name="is_stackable" val="true" />
+		<set name="handler" val="ItemSkills" />
+		<set name="item_skill" val="23167-1" />
 	</item>
 	<item id="20905" type="EtcItem" name="One Red Rose Bud">
 		<set name="icon" val="BranchSys2.icon.br_rosalia_rose_red_i00" />
