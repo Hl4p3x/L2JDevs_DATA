@@ -410,6 +410,7 @@ public final class TowerOfNaia extends AbstractNpcAI
 				}
 				return "manager.htm";
 			}
+			return null;
 		}
 		return super.onFirstTalk(npc, player);
 	}
