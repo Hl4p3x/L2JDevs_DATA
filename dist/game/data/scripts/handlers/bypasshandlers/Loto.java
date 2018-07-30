@@ -173,8 +173,8 @@ public class Loto implements IBypassHandler
 			
 			if (count == 5)
 			{
-				String search = "0\">" + LanguageData.getInstance().getMsgByLang("dp_loto_return");
-				String replace = "22\">" + LanguageData.getInstance().getMsgByLang("dp_loto_above");
+				String search = "0\">" + LanguageData.getInstance().getMsgByLang(player, "dp_loto_return");
+				String replace = "22\">" + LanguageData.getInstance().getMsgByLang(player, "dp_loto_above");
 				html.replace(search, replace);
 			}
 		}
@@ -267,7 +267,7 @@ public class Loto implements IBypassHandler
 				}
 				if ((item.getId() == 4442) && (item.getCustomType1() < lotonumber))
 				{
-					message = message + "<a action=\"bypass -h npc_%objectId%_Loto " + item.getObjectId() + "\">" + item.getCustomType1() + " Event Number ";
+					message = message + "<a action=\"bypass -h npc_%objectId%_Loto " + item.getObjectId() + "\">" + item.getCustomType1() + " " + LanguageData.getInstance().getMsgByLang(player, "dp_loto_event_number") + " ";
 					final int[] numbers = Lottery.getInstance().decodeNumbers(item.getEnchantLevel(), item.getCustomType2());
 					for (int i = 0; i < 5; i++)
 					{
@@ -279,16 +279,16 @@ public class Loto implements IBypassHandler
 						switch ((int) check[0])
 						{
 							case 1:
-								message += "- 1st Prize";
+								message += LanguageData.getInstance().getMsgByLang(player, "dp_loto_1st_prize");
 								break;
 							case 2:
-								message += "- 2nd Prize";
+								message += LanguageData.getInstance().getMsgByLang(player, "dp_loto_2nd_prize");
 								break;
 							case 3:
-								message += "- 3th Prize";
+								message += LanguageData.getInstance().getMsgByLang(player, "dp_loto_3th_prize");
 								break;
 							case 4:
-								message += "- 4th Prize";
+								message += LanguageData.getInstance().getMsgByLang(player, "dp_loto_4th_prize");
 								break;
 						}
 						message += " " + check[1] + "a.";
@@ -298,7 +298,7 @@ public class Loto implements IBypassHandler
 			}
 			if (message.isEmpty())
 			{
-				message += LanguageData.getInstance().getMsgByLang("dp_loto_no_winning") + "<br>";
+				message += LanguageData.getInstance().getMsgByLang(player, "dp_loto_no_winning") + "<br>";
 			}
 			html.replace("%result%", message);
 		}
