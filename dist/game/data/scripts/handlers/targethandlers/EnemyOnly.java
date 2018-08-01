@@ -27,6 +27,7 @@ import com.l2jserver.gameserver.model.actor.L2Character;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.model.skills.targets.L2TargetType;
+import com.l2jserver.gameserver.model.zone.ZoneId;
 
 /**
  * Enemy Only target type handler.
@@ -48,12 +49,16 @@ public class EnemyOnly implements ITargetTypeHandler
 				}
 				
 				final L2PcInstance player = activeChar.getActingPlayer();
-				if (target.isDead() || (!target.isAttackable() && //
-					(player != null) && //
-					!player.isInPartyWith(target) && //
-					!player.isInClanWith(target) && //
-					!player.isInAllyWith(target) && // TODO(Zoey76): Confirm.
-					!player.isInCommandChannelWith(target) && // TODO(Zoey76): Confirm.
+				if (target.isDead() || (target.isNpc() || (!target.isAttackable() &&
+					(player != null) &&
+					player.isInPartyWith(target) &&
+					player.isInClanWith(target) &&
+					player.isInAllyWith(target) &&
+					player.isInCommandChannelWith(target) &&
+					player.isOnSameSiegeSideWith(target) &&
+					!(player.isInsideZone(ZoneId.PVP) && target.isInsideZone(ZoneId.PVP)) &&
+					!player.isInOlympiadMode() &&
+					!player.isAtWarWith(target) &&
 					!player.checkIfPvP(target)))
 				{
 					activeChar.sendPacket(INCORRECT_TARGET);
