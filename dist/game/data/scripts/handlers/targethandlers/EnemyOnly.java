@@ -49,17 +49,8 @@ public class EnemyOnly implements ITargetTypeHandler
 				}
 				
 				final L2PcInstance player = activeChar.getActingPlayer();
-				if (target.isDead() || (target.isNpc() || (!target.isAttackable() &&
-					(player != null) &&
-					player.isInPartyWith(target) &&
-					player.isInClanWith(target) &&
-					player.isInAllyWith(target) &&
-					player.isInCommandChannelWith(target) &&
-					player.isOnSameSiegeSideWith(target) &&
-					!(player.isInsideZone(ZoneId.PVP) && target.isInsideZone(ZoneId.PVP)) &&
-					!player.isInOlympiadMode() &&
-					!player.isAtWarWith(target) &&
-					!player.checkIfPvP(target)))
+				if (target.isDead() || (target.isNpc()) || (!target.isAttackable() && (player != null) && player.isInPartyWith(target) && player.isInClanWith(target) && player.isInAllyWith(target) && player.isInCommandChannelWith(target) && player.isOnSameSiegeSideWith(target)
+					&& !(player.isInsideZone(ZoneId.PVP) && target.isInsideZone(ZoneId.PVP)) && !player.isInOlympiadMode() && !player.isAtWarWith(target) && !player.checkIfPvP(target)))
 				{
 					activeChar.sendPacket(INCORRECT_TARGET);
 					return EMPTY_TARGET_LIST;
