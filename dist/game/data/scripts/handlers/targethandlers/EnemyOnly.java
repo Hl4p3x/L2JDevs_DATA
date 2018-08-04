@@ -24,7 +24,43 @@ import static com.l2jserver.gameserver.network.SystemMessageId.INCORRECT_TARGET;
 import com.l2jserver.gameserver.handler.ITargetTypeHandler;
 import com.l2jserver.gameserver.model.L2Object;
 import com.l2jserver.gameserver.model.actor.L2Character;
+import com.l2jserver.gameserver.model.actor.instance.L2AdventurerInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2AuctioneerInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2CastleDoormenInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2ClanHallDoormenInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2ClanHallManagerInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2DawnPriestInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2DoormenInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2DungeonGatekeeperInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2DuskPriestInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2FortDoormenInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2FortLogisticsInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2FortManagerInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2GuardInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2MerchantInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2NpcBufferInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2ObservationInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2OlympiadManagerInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2PetManagerInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2RaceManagerInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2SepulcherNpcInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2SignsPriestInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2TamedBeastInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2TeleporterInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2TerrainObjectInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2TrainerInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterDElfInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterDwarfInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterFighterInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterKamaelInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterMysticInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterOrcInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterPriestInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2WarehouseInstance;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.model.skills.targets.L2TargetType;
 import com.l2jserver.gameserver.model.zone.ZoneId;
@@ -49,8 +85,57 @@ public class EnemyOnly implements ITargetTypeHandler
 				}
 				
 				final L2PcInstance player = activeChar.getActingPlayer();
-				if (target.isDead() || (target.isNpc()) || (!target.isAttackable() && (player != null) && player.isInPartyWith(target) && player.isInClanWith(target) && player.isInAllyWith(target) && player.isInCommandChannelWith(target) && player.isOnSameSiegeSideWith(target)
-					&& !(player.isInsideZone(ZoneId.PVP) && target.isInsideZone(ZoneId.PVP)) && !player.isInOlympiadMode() && !player.isAtWarWith(target) && !player.checkIfPvP(target)))
+				if (target.isDead() //
+					|| (skill.getTargetType() == L2TargetType.SELF) //
+					|| (target instanceof L2AdventurerInstance) //
+					|| (target instanceof L2AuctioneerInstance) //
+					|| (target instanceof L2CastleDoormenInstance) //
+					|| (target instanceof L2ClanHallDoormenInstance) //
+					|| (target instanceof L2ClanHallManagerInstance) //
+					|| (target instanceof L2DoorInstance) //
+					|| (target instanceof L2DoormenInstance) //
+					|| (target instanceof L2DungeonGatekeeperInstance) //
+					|| (target instanceof L2DuskPriestInstance) //
+					|| (target instanceof L2DawnPriestInstance) //
+					|| (target instanceof L2FortDoormenInstance) //
+					|| (target instanceof L2FortLogisticsInstance) //
+					|| (target instanceof L2FortManagerInstance) //
+					|| (target instanceof L2GuardInstance) //
+					|| (target instanceof L2MerchantInstance) //
+					|| (target instanceof L2NpcBufferInstance) //
+					|| (target instanceof L2NpcInstance) //
+					|| (target instanceof L2ObservationInstance) //
+					|| (target instanceof L2OlympiadManagerInstance) //
+					|| (target instanceof L2PetManagerInstance) //
+					|| (target instanceof L2RaceManagerInstance) //
+					|| (target instanceof L2SepulcherNpcInstance) //
+					|| (target instanceof L2SignsPriestInstance) //
+					|| (target instanceof L2TamedBeastInstance) //
+					|| (target instanceof L2TeleporterInstance) //
+					|| (target instanceof L2TerrainObjectInstance) //
+					|| (target instanceof L2TrainerInstance) //
+					|| (target instanceof L2VillageMasterDElfInstance) //
+					|| (target instanceof L2VillageMasterDwarfInstance) //
+					|| (target instanceof L2VillageMasterFighterInstance) //
+					|| (target instanceof L2VillageMasterInstance) //
+					|| (target instanceof L2VillageMasterKamaelInstance) //
+					|| (target instanceof L2VillageMasterMysticInstance) //
+					|| (target instanceof L2VillageMasterOrcInstance) //
+					|| (target instanceof L2VillageMasterPriestInstance) //
+					|| (target instanceof L2WarehouseInstance) //
+					|| (!target.isAttackable() //
+						&& (player != null) //
+						&& player.isInPartyWith(target) //
+						&& player.isInClanWith(target) //
+						&& player.isInAllyWith(target) //
+						&& player.isInCommandChannelWith(target) //
+						&& player.isOnSameSiegeSideWith(target) //
+						&& !(player.isInsideZone(ZoneId.PVP) && target.isInsideZone(ZoneId.PVP)) //
+						&& !player.isAttackable() //
+						&& !player.isInOlympiadMode() //
+						&& !player.isAtWarWith(target) //
+						&& !player.checkIfPvP(target) //
+						&& !player.checkIfPvP(target)))
 				{
 					activeChar.sendPacket(INCORRECT_TARGET);
 					return EMPTY_TARGET_LIST;
