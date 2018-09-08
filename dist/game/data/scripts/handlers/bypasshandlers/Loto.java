@@ -61,6 +61,7 @@ public class Loto implements IBypassHandler
 		catch (NumberFormatException nfe)
 		{
 		}
+		
 		if (val == 0)
 		{
 			// new loto ticket
@@ -69,8 +70,8 @@ public class Loto implements IBypassHandler
 				activeChar.setLoto(i, 0);
 			}
 		}
-		showLotoWindow(activeChar, (L2Npc) target, val);
 		
+		showLotoWindow(activeChar, (L2Npc) target, val);
 		return false;
 	}
 	
@@ -113,6 +114,7 @@ public class Loto implements IBypassHandler
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
 				return;
 			}
+			
 			if (!Lottery.getInstance().isSellableTickets())
 			{
 				// tickets can't be sold
@@ -186,6 +188,7 @@ public class Loto implements IBypassHandler
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
 				return;
 			}
+			
 			if (!Lottery.getInstance().isSellableTickets())
 			{
 				// tickets can't be sold
@@ -214,16 +217,19 @@ public class Loto implements IBypassHandler
 					type2 += Math.pow(2, player.getLoto(i) - 17);
 				}
 			}
+			
 			if (player.getAdena() < price)
 			{
 				sm = SystemMessage.getSystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				player.sendPacket(sm);
 				return;
 			}
+			
 			if (!player.reduceAdena("Loto", price, npc, true))
 			{
 				return;
 			}
+			
 			Lottery.getInstance().increasePrize(price);
 			
 			sm = SystemMessage.getSystemMessage(SystemMessageId.EARNED_ITEM_S1);
@@ -265,6 +271,7 @@ public class Loto implements IBypassHandler
 				{
 					continue;
 				}
+				
 				if ((item.getId() == 4442) && (item.getCustomType1() < lotonumber))
 				{
 					message = message + "<a action=\"bypass -h npc_%objectId%_Loto " + item.getObjectId() + "\">" + item.getCustomType1() + " " + LanguageData.getInstance().getMsgByLang(player, "dp_loto_event_number") + " ";
@@ -273,6 +280,7 @@ public class Loto implements IBypassHandler
 					{
 						message += numbers[i] + " ";
 					}
+					
 					final long[] check = Lottery.getInstance().checkTicket(item);
 					if (check[0] > 0)
 					{
@@ -296,6 +304,7 @@ public class Loto implements IBypassHandler
 					message += "</a><br>";
 				}
 			}
+			
 			if (message.isEmpty())
 			{
 				message += LanguageData.getInstance().getMsgByLang(player, "dp_loto_no_winning") + "<br>";
@@ -315,6 +324,7 @@ public class Loto implements IBypassHandler
 			{
 				return;
 			}
+			
 			final long[] check = Lottery.getInstance().checkTicket(item);
 			
 			sm = SystemMessage.getSystemMessage(SystemMessageId.S1_DISAPPEARED);
@@ -329,6 +339,7 @@ public class Loto implements IBypassHandler
 			player.destroyItem("Loto", item, npc, false);
 			return;
 		}
+		
 		html.replace("%objectId%", String.valueOf(npc.getObjectId()));
 		html.replace("%race%", String.valueOf(Lottery.getInstance().getId()));
 		html.replace("%adena%", String.valueOf(Lottery.getInstance().getPrize()));
