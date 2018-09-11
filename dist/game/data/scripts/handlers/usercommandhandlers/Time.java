@@ -77,7 +77,7 @@ public class Time implements IUserCommandHandler
 		activeChar.sendPacket(sm);
 		if (Config.L2JMOD_DISPLAY_SERVER_TIME)
 		{
-			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "dp_handler_time").replace("%s%", fmt.format(new Date(System.currentTimeMillis())) + ""));
+			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "dp_handler_time").replace("%s%", fmt.format(new Date(System.currentTimeMillis())) + ""));
 		}
 		return true;
 	}

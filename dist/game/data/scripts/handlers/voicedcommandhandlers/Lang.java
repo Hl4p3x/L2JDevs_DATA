@@ -64,8 +64,8 @@ public class Lang implements IVoicedCommandHandler
 			if (activeChar.setLang(lang))
 			{
 				// Multi-Language System
-				LanguageData.getInstance().setLanguage(activeChar, lang);
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "lang_current_successfully") + " " + lang);
+				LanguageData.getInstance().setPlayerLang(activeChar, lang);
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "lang_current_successfully") + " " + lang);
 				
 				msg.setFile(activeChar.getHtmlPrefix(), "data/html/mods/Lang/Ok.htm");
 				activeChar.sendPacket(msg);

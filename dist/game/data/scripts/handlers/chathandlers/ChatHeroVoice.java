@@ -56,7 +56,7 @@ public class ChatHeroVoice implements IChatHandler
 			
 			if (!activeChar.getFloodProtectors().getHeroVoice().tryPerformAction("hero voice"))
 			{
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "no_hero_speak"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "no_hero_speak"));
 				return;
 			}
 			

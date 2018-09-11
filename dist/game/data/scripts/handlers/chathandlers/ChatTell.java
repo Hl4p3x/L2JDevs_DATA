@@ -73,7 +73,7 @@ public class ChatTell implements IChatHandler
 		{
 			if (Config.JAIL_DISABLE_CHAT && receiver.isJailed() && !activeChar.canOverrideCond(PcCondOverride.CHAT_CONDITIONS))
 			{
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "player_jailed"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "player_jailed"));
 				return;
 			}
 			if (receiver.isChatBanned())
@@ -83,7 +83,7 @@ public class ChatTell implements IChatHandler
 			}
 			if ((receiver.getClient() == null) || receiver.getClient().isDetached())
 			{
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "player_offline"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "player_offline"));
 				return;
 			}
 			if (!BlockList.isBlocked(receiver, activeChar))

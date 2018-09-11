@@ -64,17 +64,17 @@ public class ChangePassword implements IVoicedCommandHandler
 				{
 					if (!newpass.equals(repeatnewpass))
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "password_no_repeated"));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "password_no_repeated"));
 						return false;
 					}
 					if (newpass.length() < 3)
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "password_shorter"));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "password_shorter"));
 						return false;
 					}
 					if (newpass.length() > 30)
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "password_longer"));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "password_longer"));
 						return false;
 					}
 					
@@ -82,13 +82,13 @@ public class ChangePassword implements IVoicedCommandHandler
 				}
 				else
 				{
-					activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "password_invalid"));
+					activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "password_invalid"));
 					return false;
 				}
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "password_problem"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "password_problem"));
 				_log.log(Level.WARNING, "", e);
 			}
 		}

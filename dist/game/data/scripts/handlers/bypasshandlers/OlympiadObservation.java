@@ -87,7 +87,7 @@ public class OlympiadObservation implements IBypassHandler
 				
 				if (activeChar.isOnEvent())
 				{
-					activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "event_no_observe_games"));
+					activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "event_no_observe_games"));
 					return false;
 				}
 				

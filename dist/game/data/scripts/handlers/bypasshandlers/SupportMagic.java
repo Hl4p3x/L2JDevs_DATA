@@ -117,7 +117,7 @@ public class SupportMagic implements IBypassHandler
 		}
 		else if (player.getClassId().level() == 3)
 		{
-			player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "no_buff_adventurer")); // Custom message
+			player.sendMessage(LanguageData.getInstance().getMsg(player, "no_buff_adventurer")); // Custom message
 			return;
 		}
 		

@@ -81,7 +81,7 @@ public class Festival implements IBypassHandler
 					// Check if a festival is in progress, then don't allow registration yet.
 					if (SevenSignsFestival.getInstance().isFestivalInitialized())
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_sign_up"));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "ss_no_sign_up"));
 						return true;
 					}
 					
@@ -154,7 +154,7 @@ public class Festival implements IBypassHandler
 					// Check if a festival is in progress, if it is don't register the score.
 					if (SevenSignsFestival.getInstance().isFestivalInProgress())
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_register"));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "ss_no_register"));
 						return true;
 					}
 					
@@ -186,7 +186,7 @@ public class Festival implements IBypassHandler
 					// Check if the player collected any blood offerings during the festival.
 					if (bloodOfferings == null)
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_contribute"));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "ss_no_contribute"));
 						return true;
 					}
 					
@@ -318,14 +318,14 @@ public class Festival implements IBypassHandler
 						}
 						else
 						{
-							activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_leave_party"));
+							activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "ss_no_leave_party"));
 						}
 					}
 					break;
 				case 0: // Distribute Accumulated Bonus
 					if (!SevenSigns.getInstance().isSealValidationPeriod())
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "ss_no_bonus"));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "ss_no_bonus"));
 						return true;
 					}
 					

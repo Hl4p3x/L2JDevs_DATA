@@ -46,7 +46,7 @@ public class CastleVCmd implements IVoicedCommandHandler
 			case "opendoors":
 				if (!params.equals("castle"))
 				{
-					activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "castle_no_lord_open_door"));
+					activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "castle_no_lord_open_door"));
 					return false;
 				}
 				
@@ -66,7 +66,7 @@ public class CastleVCmd implements IVoicedCommandHandler
 				final Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getCastleId());
 				if (castle == null)
 				{
-					activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "castle_no_clan_own"));
+					activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "castle_no_clan_own"));
 					return false;
 				}
 				
@@ -85,7 +85,7 @@ public class CastleVCmd implements IVoicedCommandHandler
 			case "closedoors":
 				if (!params.equals("castle"))
 				{
-					activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "castle_no_lord_closed_door"));
+					activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "castle_no_lord_closed_door"));
 					return false;
 				}
 				if (!activeChar.isClanLeader())
@@ -102,7 +102,7 @@ public class CastleVCmd implements IVoicedCommandHandler
 				final Castle castle2 = CastleManager.getInstance().getCastleById(activeChar.getClan().getCastleId());
 				if (castle2 == null)
 				{
-					activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "castle_no_clan_own"));
+					activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "castle_no_clan_own"));
 					return false;
 				}
 				
@@ -114,7 +114,7 @@ public class CastleVCmd implements IVoicedCommandHandler
 				
 				if (castle2.checkIfInZone(door2.getX(), door2.getY(), door2.getZ()))
 				{
-					activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "castle_gate_closed"));
+					activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "castle_gate_closed"));
 					door2.closeMe();
 				}
 				break;
