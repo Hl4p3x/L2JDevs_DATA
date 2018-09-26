@@ -135,10 +135,10 @@ public final class Wedding extends AbstractNpcAI
 					couple.marry();
 					
 					// Messages to the couple
-					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_married"));
+					player.sendMessage(LanguageData.getInstance().getMsg(player, "dp_wedding_married"));
 					player.setMarried(true);
 					player.setMarryRequest(false);
-					partner.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_married"));
+					partner.sendMessage(LanguageData.getInstance().getMsg(player, "dp_wedding_married"));
 					partner.setMarried(true);
 					partner.setMarryRequest(false);
 					
@@ -154,7 +154,7 @@ public final class Wedding extends AbstractNpcAI
 						partner.doCast(skill);
 					}
 					
-					Broadcast.toAllOnlinePlayers(LanguageData.getInstance().getMsgByLang(player, "dp_handler_hellbound_level").replace("%s%", player.getName() + "").replace("%i%", partner.getName() + ""));
+					Broadcast.toAllOnlinePlayers(LanguageData.getInstance().getMsg(player, "dp_handler_hellbound_level").replace("%s%", player.getName() + "").replace("%i%", partner.getName() + ""));
 					htmltext = sendHtml(partner, "Accepted.html", null, null);
 				}
 				break;
@@ -166,8 +166,8 @@ public final class Wedding extends AbstractNpcAI
 				player.setMarryAccepted(false);
 				partner.setMarryAccepted(false);
 				
-				player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_declined"));
-				partner.sendMessage(LanguageData.getInstance().getMsgByLang(player, "dp_wedding_declined_notice"));
+				player.sendMessage(LanguageData.getInstance().getMsg(player, "dp_wedding_declined"));
+				partner.sendMessage(LanguageData.getInstance().getMsg(player, "dp_wedding_declined_notice"));
 				
 				htmltext = sendHtml(partner, "Declined.html", null, null);
 				break;

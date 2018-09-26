@@ -1169,7 +1169,7 @@ public final class CastleChamberlain extends AbstractNpcAI
 				}
 				else
 				{
-					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "castle_manor_deactivated"));
+					player.sendMessage(LanguageData.getInstance().getMsg(player, "castle_manor_deactivated"));
 				}
 				break;
 			}

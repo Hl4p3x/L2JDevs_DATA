@@ -64,7 +64,7 @@ public class StatsVCmd implements IVoicedCommandHandler
 		
 		if (!L2Event.isParticipant(pc) || (pc.getEventStatus() == null))
 		{
-			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "event_no_participant"));
+			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "event_no_participant"));
 			return false;
 		}
 		

@@ -43,12 +43,12 @@ public class Debug implements IVoicedCommandHandler
 			if (activeChar.isDebug())
 			{
 				activeChar.setDebug(null);
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "player_debug_on"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "player_debug_on"));
 			}
 			else
 			{
 				activeChar.setDebug(activeChar);
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "player_debug_off"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "player_debug_off"));
 			}
 		}
 		return true;

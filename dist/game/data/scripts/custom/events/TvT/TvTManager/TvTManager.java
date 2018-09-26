@@ -125,7 +125,7 @@ public final class TvTManager extends AbstractNpcAI implements IVoicedCommandHan
 				}
 				else
 				{
-					player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "event_no_unregister"));
+					player.sendMessage(LanguageData.getInstance().getMsg(player, "event_no_unregister"));
 				}
 				break;
 			}

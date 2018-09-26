@@ -39,11 +39,11 @@ public class L2ItemInstanceAction implements IActionHandler
 		{
 			if (activeChar.isInParty())
 			{
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "no_pickup_mercenaries_party"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "no_pickup_mercenaries_party"));
 			}
 			else
 			{
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "no_pickup_mercenaries_lord"));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "no_pickup_mercenaries_lord"));
 			}
 			
 			activeChar.setTarget(target);

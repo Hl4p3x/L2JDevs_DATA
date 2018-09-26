@@ -92,7 +92,7 @@ public class PcBody implements ITargetTypeHandler
 						if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
 						{
 							condGood = false;
-							activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(player, "ss_no_resurrect_player"));
+							activeChar.sendMessage(LanguageData.getInstance().getMsg(player, "ss_no_resurrect_player"));
 						}
 					}
 				}

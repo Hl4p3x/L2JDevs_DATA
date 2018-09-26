@@ -193,11 +193,11 @@ public class JailHandler implements IPunishmentHandler
 			long delay = ((task.getExpirationTime() - System.currentTimeMillis()) / 1000);
 			if (delay > 0)
 			{
-				player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_jail_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
+				player.sendMessage(LanguageData.getInstance().getMsg(player, "player_jail_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
 			}
 			else
 			{
-				player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_jail_forever"));
+				player.sendMessage(LanguageData.getInstance().getMsg(player, "player_jail_forever"));
 			}
 		}
 	}

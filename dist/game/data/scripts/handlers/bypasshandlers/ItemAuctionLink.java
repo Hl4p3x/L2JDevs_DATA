@@ -94,7 +94,7 @@ public class ItemAuctionLink implements IBypassHandler
 					
 					if (nextAuction != null)
 					{
-						activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "auction_next").replace("%s%", fmt.format(new Date(nextAuction.getStartingTime())) + ""));
+						activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "auction_next").replace("%s%", fmt.format(new Date(nextAuction.getStartingTime())) + ""));
 					}
 					return true;
 				}

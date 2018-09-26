@@ -40,12 +40,12 @@ public class Hellbound implements IVoicedCommandHandler
 	{
 		if (HellboundEngine.getInstance().isLocked())
 		{
-			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "dp_handler_hellbound_locked"));
+			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "dp_handler_hellbound_locked"));
 			return true;
 		}
 		
 		final int maxTrust = HellboundEngine.getInstance().getMaxTrust();
-		activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "dp_handler_hellbound_level").replace("%s%", HellboundEngine.getInstance().getLevel() + "") + " | Trust: " + HellboundEngine.getInstance().getTrust() + (maxTrust > 0 ? "/" + maxTrust : ""));
+		activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "dp_handler_hellbound_level").replace("%s%", HellboundEngine.getInstance().getLevel() + "") + " | Trust: " + HellboundEngine.getInstance().getTrust() + (maxTrust > 0 ? "/" + maxTrust : ""));
 		return true;
 	}
 	

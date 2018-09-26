@@ -69,7 +69,7 @@ public class Unstuck implements IUserCommandHandler
 		
 		if (activeChar.isJailed())
 		{
-			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "no_unstuck_in_jail"));
+			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "no_unstuck_in_jail"));
 			return false;
 		}
 		
@@ -102,11 +102,11 @@ public class Unstuck implements IUserCommandHandler
 		
 		if (Config.UNSTUCK_INTERVAL > 100)
 		{
-			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "unstuck_time_minutes").replace("%s%", SECONDS.toMinutes(Config.UNSTUCK_INTERVAL) + ""));
+			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "unstuck_time_minutes").replace("%s%", SECONDS.toMinutes(Config.UNSTUCK_INTERVAL) + ""));
 		}
 		else
 		{
-			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "unstuck_time_seconds").replace("%s%", Config.UNSTUCK_INTERVAL + ""));
+			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "unstuck_time_seconds").replace("%s%", Config.UNSTUCK_INTERVAL + ""));
 		}
 		
 		activeChar.getAI().setIntention(AI_INTENTION_IDLE);

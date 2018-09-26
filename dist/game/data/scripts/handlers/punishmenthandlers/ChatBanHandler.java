@@ -132,11 +132,11 @@ public class ChatBanHandler implements IPunishmentHandler
 		long delay = ((task.getExpirationTime() - System.currentTimeMillis()) / 1000);
 		if (delay > 0)
 		{
-			player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_chat_banned_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
+			player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
 		}
 		else
 		{
-			player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_chat_banned_forever"));
+			player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_forever"));
 		}
 		player.sendPacket(new EtcStatusUpdate(player));
 	}
@@ -147,7 +147,7 @@ public class ChatBanHandler implements IPunishmentHandler
 	 */
 	private static void removeFromPlayer(L2PcInstance player)
 	{
-		player.sendMessage(LanguageData.getInstance().getMsgByLang(player, "player_chat_banned_lifted"));
+		player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_lifted"));
 		player.sendPacket(new EtcStatusUpdate(player));
 	}
 	

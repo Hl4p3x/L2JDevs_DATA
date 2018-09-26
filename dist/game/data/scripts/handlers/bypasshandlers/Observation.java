@@ -105,7 +105,7 @@ public class Observation implements IBypassHandler
 		}
 		if (activeChar.isOnEvent())
 		{
-			activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "event_no_observation"));
+			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "event_no_observation"));
 			return false;
 		}
 		

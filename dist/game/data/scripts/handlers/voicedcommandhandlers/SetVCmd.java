@@ -68,7 +68,7 @@ public class SetVCmd implements IVoicedCommandHandler
 				}
 				
 				player.getClanPrivileges().setBitmask(n);
-				activeChar.sendMessage(LanguageData.getInstance().getMsgByLang(activeChar, "dp_handler_setvcmd_clan_privileges").replace("%s%", n + "").replace("%i%", activeChar.getName() + ""));
+				activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "dp_handler_setvcmd_clan_privileges").replace("%s%", n + "").replace("%i%", activeChar.getName() + ""));
 			}
 			else if (params.startsWith("title"))
 			{
