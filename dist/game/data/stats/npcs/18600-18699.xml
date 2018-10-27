@@ -3646,14 +3646,9 @@
 			<skill id="4414" level="2" /> <!--Standard Type -->
 			<skill id="4415" level="3" /> <!--One-handed Sword -->
 			<skill id="4416" level="10" /> <!--Dragons -->
-			<skill id="5715" level="1" />	<!--Electric Flame-->
-			<skill id="5716" level="1" />	<!--Stun-->
-			<skill id="5717" level="1" />	<!--Fire Breath-->
-			<skill id="5718" level="1" />	<!--Anger-->
-			<skill id="5759" level="1" />	<!--Presentation - The Rise of Latana-->
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
-		<ai aggroRange="500" clanHelpRange="300" />
+		<ai aggroRange="300" clanHelpRange="300" />
 		<collision>
 			<radius normal="60" />
 			<height normal="60" />
