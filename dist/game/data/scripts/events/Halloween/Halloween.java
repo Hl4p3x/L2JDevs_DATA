@@ -29,95 +29,40 @@ import com.l2jserver.gameserver.model.quest.QuestState;
 
 /**
  * Halloween event AI.
- * @author U3Games.
+ * @author U3Games, Sacrifice
  */
 public final class Halloween extends LongTimeEvent
 {
-	// NPCs
-	private static final int HALLOWEN_NPC = 504;
+	private static final int HALLOWEN_NPC = 125;
 	
-	// Item
 	private static final int HALLOWEEN_CANDY = 15430;
 	
-	// Pumpkin Ghost
-	private static final int PUMPKIN_GHOST = 505;
+	private static final int PUMPKIN_GHOST = 13135;
 	
-	private static final int[] ForestOfDeadNight =
+	//@formatter:off
+	private static final int[] FOREST_OF_DEATH_NIGHT =
 	{
-		18119,
-		21547,
-		21553,
-		21557,
-		21559,
-		21561,
-		21563,
-		21565,
-		21567,
-		21570,
-		21572,
-		21574,
-		21578,
-		21580,
-		21581,
-		21583,
-		21587,
-		21590,
-		21593,
-		21596,
-		21599
+		18119, 21547, 21553, 21557, 21559, 21561, 21563,
+		21565, 21567, 21570, 21572, 21574, 21578, 21580,
+		21581, 21583, 21587, 21590, 21593, 21596, 21599
 	};
 	
-	private static final int[] TheCementary =
+	private static final int[] THE_CEMENTARY =
 	{
-		20666,
-		20668,
-		20669,
-		20678,
-		20997,
-		20998,
-		20999,
-		21000
+		20666, 20668, 20669, 20678,
+		20997, 20998, 20999, 21000
 	};
 	
-	private static final int[] ImperialTomb =
+	private static final int[] IMPERIAL_TOMB =
 	{
-		21396,
-		21397,
-		21398,
-		21399,
-		21400,
-		21401,
-		21402,
-		21403,
-		21404,
-		21405,
-		21406,
-		21407,
-		21408,
-		21409,
-		21410,
-		21411,
-		21412,
-		21413,
-		21414,
-		21415,
-		21416,
-		21417,
-		21418,
-		21419,
-		21420,
-		21421,
-		21422,
-		21423,
-		21424,
-		21425,
-		21426,
-		21427,
-		21428,
-		21429,
-		21430,
+		21396, 21397, 21398, 21399, 21400, 21401, 21402,
+		21403, 21404, 21405, 21406, 21407, 21408, 21409,
+		21410, 21411, 21412, 21413, 21414, 21415, 21416,
+		21417, 21418, 21419, 21420, 21421, 21422, 21423,
+		21424, 21425, 21426, 21427, 21428, 21429, 21430,
 		21431
 	};
+	//@formatter:on
 	
 	private Halloween()
 	{
@@ -127,17 +72,17 @@ public final class Halloween extends LongTimeEvent
 		addTalkId(HALLOWEN_NPC);
 		addKillId(PUMPKIN_GHOST);
 		
-		for (int id : ForestOfDeadNight)
+		for (int id : FOREST_OF_DEATH_NIGHT)
 		{
 			addKillId(id);
 		}
 		
-		for (int id : TheCementary)
+		for (int id : THE_CEMENTARY)
 		{
 			addKillId(id);
 		}
 		
-		for (int id : ImperialTomb)
+		for (int id : IMPERIAL_TOMB)
 		{
 			addKillId(id);
 		}
@@ -147,6 +92,7 @@ public final class Halloween extends LongTimeEvent
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		QuestState st = player.getQuestState(getName());
+		
 		if (st == null)
 		{
 			st = newQuestState(player);
@@ -157,88 +103,21 @@ public final class Halloween extends LongTimeEvent
 		{
 			case "main":
 			{
-				htmltext = "504.htm";
+				htmltext = "125.htm";
 				break;
 			}
 			case "info":
 			{
-				htmltext = "504-info.htm";
+				htmltext = "125-info.htm";
 				break;
 			}
 			case "rewards":
 			{
-				MultisellData.getInstance().separateAndSend(7104001, player, npc, false); // missing multisell
+				MultisellData.getInstance().separateAndSend(7104001, player, npc, false);
 				break;
 			}
 		}
-		
 		return htmltext;
-	}
-	
-	@Override
-	public final String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		QuestState st = player.getQuestState(getName());
-		if (st == null)
-		{
-			st = newQuestState(player);
-		}
-		
-		final int npcId = npc.getId();
-		for (int Id : ForestOfDeadNight)
-		{
-			if (npcId == Id)
-			{
-				spawnGhost(npc, player);
-			}
-		}
-		
-		for (int Id : TheCementary)
-		{
-			if (npcId == Id)
-			{
-				spawnGhost(npc, player);
-			}
-		}
-		
-		for (int Id : ImperialTomb)
-		{
-			if (npcId == Id)
-			{
-				spawnGhost(npc, player);
-			}
-		}
-		
-		if (npcId == PUMPKIN_GHOST)
-		{
-			npc.dropItem(player, HALLOWEEN_CANDY, 3);
-		}
-		
-		return super.onKill(npc, player, isPet);
-	}
-	
-	private void spawnGhost(L2Npc npc, L2PcInstance player)
-	{
-		QuestState st = player.getQuestState(getName());
-		if (st == null)
-		{
-			st = newQuestState(player);
-		}
-		
-		final L2Attackable pGhost = (L2Attackable) st.addSpawn(PUMPKIN_GHOST, 60000);
-		if (pGhost != null)
-		{
-			boolean isPet = false;
-			if (player.getSummon() != null)
-			{
-				isPet = true;
-			}
-			
-			final L2Character originalAttacker = isPet ? player.getSummon() : player;
-			pGhost.setRunning();
-			pGhost.addDamageHate(originalAttacker, 0, 500);
-			pGhost.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalAttacker);
-		}
 	}
 	
 	@Override
@@ -248,8 +127,73 @@ public final class Halloween extends LongTimeEvent
 		{
 			newQuestState(player);
 		}
+		return "125.htm";
+	}
+	
+	@Override
+	public final String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
+		QuestState st = player.getQuestState(getName());
 		
-		return "504.htm";
+		if (st == null)
+		{
+			st = newQuestState(player);
+		}
+		
+		for (int Id : FOREST_OF_DEATH_NIGHT)
+		{
+			if (npc.getId() == Id)
+			{
+				spawnGhost(npc, player);
+			}
+		}
+		
+		for (int Id : THE_CEMENTARY)
+		{
+			if (npc.getId() == Id)
+			{
+				spawnGhost(npc, player);
+			}
+		}
+		
+		for (int Id : IMPERIAL_TOMB)
+		{
+			if (npc.getId() == Id)
+			{
+				spawnGhost(npc, player);
+			}
+		}
+		
+		if (npc.getId() == PUMPKIN_GHOST)
+		{
+			npc.dropItem(player, HALLOWEEN_CANDY, 3);
+		}
+		return super.onKill(npc, player, isPet);
+	}
+	
+	private void spawnGhost(L2Npc npc, L2PcInstance player)
+	{
+		QuestState st = player.getQuestState(getName());
+		
+		if (st == null)
+		{
+			st = newQuestState(player);
+		}
+		
+		final L2Attackable pumpkinGhost = (L2Attackable) st.addSpawn(PUMPKIN_GHOST, 60000);
+		if (pumpkinGhost != null)
+		{
+			boolean isPet = false;
+			
+			if (player.getSummon() != null)
+			{
+				isPet = true;
+			}
+			final L2Character originalAttacker = isPet ? player.getSummon() : player;
+			pumpkinGhost.setRunning();
+			pumpkinGhost.addDamageHate(originalAttacker, 0, 500);
+			pumpkinGhost.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalAttacker);
+		}
 	}
 	
 	public static void main(String[] args)
