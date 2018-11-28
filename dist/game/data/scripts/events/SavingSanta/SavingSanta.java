@@ -39,9 +39,6 @@ import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.holders.ItemHolder;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.quest.State;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.model.zone.ZoneId;
 import com.l2jserver.gameserver.network.NpcStringId;
@@ -113,12 +110,6 @@ public class SavingSanta extends AbstractNpcAI
 	
 	private static final List<Integer> RANDOM_A_PLUS_10_WEAPON = Arrays.asList(81, 151, 164, 213, 236, 270, 289, 2500, 7895, 7902, 5706);
 	private static final Location THOMAS_SPAWN = new Location(117935, -126003, -2585, 54625);
-	
-	// Skills
-	private static final SkillHolder SANTA_SKILL = new SkillHolder(666312, 1);
-	
-	// Misc
-	private static final int HOURS = 5; // Reuse between buffs
 	
 	private static final int[] SANTA_MAGE_BUFFS =
 	{
