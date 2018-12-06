@@ -105,7 +105,7 @@ public final class Beleth extends AbstractNpcAI
 	private L2Npc _stone;
 	private L2PcInstance _killer;
 	private int _allowedObjId;
-	private int _killedCount;
+	private int _killedCount = 0;
 	private long _lastAttack;
 	private final List<L2Npc> _minions = new CopyOnWriteArrayList<>();
 	private final GrandBossManager _grandBossManager = GrandBossManager.getInstance();
@@ -675,10 +675,10 @@ public final class Beleth extends AbstractNpcAI
 			cancelQuestTimer("CHECK_ATTACK", null, null);
 			
 			setBelethKiller(killer);
-			_grandBossManager.setBossStatus(REAL_BELETH, DEAD);
 			long respawnTime = Config.BELETH_SPAWN_INTERVAL + getRandom(-Config.BELETH_SPAWN_RANDOM, Config.BELETH_SPAWN_RANDOM);
 			respawnTime *= 3600000;
 			setBelethRespawnTime(REAL_BELETH, respawnTime);
+			_grandBossManager.setBossStatus(REAL_BELETH, DEAD);
 			startQuestTimer("BELETH_UNLOCK", respawnTime, null, null);
 			
 			deleteAll();
@@ -709,7 +709,7 @@ public final class Beleth extends AbstractNpcAI
 			deleteAll();
 			
 			_killedCount++;
-			if (_killedCount >= 1)
+			if (_killedCount >= 2)
 			{
 				startQuestTimer("SPAWN_REAL", 60000, null, null);
 			}
@@ -816,6 +816,7 @@ public final class Beleth extends AbstractNpcAI
 			n.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			n.deleteMe();
 		});
+		_minions.clear();
 		_allowedObjId = 0;
 	}
 	
