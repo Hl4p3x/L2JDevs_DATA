@@ -22,13 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.l2jserver.gameserver.ThreadPoolManager;
 import com.l2jserver.gameserver.ai.CtrlIntention;
@@ -60,8 +56,6 @@ import com.l2jserver.gameserver.util.Util;
  */
 public final class SavingSanta extends LongTimeEvent
 {
-	private static final Logger LOG = LoggerFactory.getLogger(SavingSanta.class);
-	
 	private static final int SANTA_TRAINEE = 31863;
 	private static final int THOMAS_D_TURKEY = 13183;
 	private static final int SPECIAL_CHRISTMAS_TREE_ID = 13007;
@@ -221,7 +215,6 @@ public final class SavingSanta extends LongTimeEvent
 		
 		if (isEventPeriod())
 		{
-			LOG.info("{}: Event ON", getClass().getSimpleName());
 			_christmasEvent = true;
 			startQuestTimer("SpecialTreeHeal", 5000, null, null);
 			
@@ -242,12 +235,10 @@ public final class SavingSanta extends LongTimeEvent
 		}
 		else
 		{
-			LOG.info("{}: Event OFF", getClass().getSimpleName());
-			
-			final GregorianCalendar gregorianCalendar = new GregorianCalendar();
-			final GregorianCalendar endWeek = (GregorianCalendar) getEventPeriod().getEndDate().clone();
+			final Calendar now = Calendar.getInstance();
+			final Calendar endWeek = (Calendar) now.clone();
 			endWeek.add(Calendar.DAY_OF_MONTH, 7);
-			if (gregorianCalendar.after(getEventPeriod().getEndDate()) && gregorianCalendar.before(endWeek))
+			if (now.after(endWeek) && now.before(endWeek))
 			{
 				for (Location santasHelperSpawn : SANTAS_HELPER_SPAWN)
 				{
