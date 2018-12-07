@@ -52,25 +52,24 @@ import com.l2jserver.gameserver.util.Util;
 
 /**
  * Saving Santa Christmas Event.
- * @author Sacrifice
+ * @author Zoey76, U3Games, Sacrifice
  */
 public final class SavingSanta extends LongTimeEvent
 {
 	private static final int SANTA_TRAINEE = 31863;
 	private static final int THOMAS_D_TURKEY = 13183;
-	private static final int SPECIAL_CHRISTMAS_TREE_ID = 13007;
+	private static final int SPECIAL_CHRISTMAS_TREE_NPC_ID = 13007;
 	private static final int CHRISTMAS_SANTA_MERRY_CHRISTMAS = 104;
 	private static final int CHRISTMAS_SLEED_MERRY_CHRISTMAS = 105;
 	
-	private static final int SCISSORS = 23019;
-	private static final int STUPID_TURKEYS_MISTAKE = 23018;
-	private static final int CHRISTMAS_FESTIVAL = 23017;
-	private static final int RESET_CONSECUTIVE_WINS = 23023;
-	private static final int FIRST_WIN = 23022;
-	private static final int ENERGY_RECOVERY = 21013;
-	private static final int ATTACK_TURKEY = 6116;
-	private static final int TURKEYS_CHOICE_SCISSORS = 6100;
 	private static final int SPECIAL_TREE_RECOVERY_BONUS = 2139;
+	private static final int TURKEYS_CHOICE_SCISSORS = 6100;
+	private static final int ATTACK_TURKEY = 6116;
+	private static final int CHRISTMAS_FESTIVAL = 23017;
+	private static final int STUPID_TURKEYS_MISTAKE = 23018;
+	private static final int SCISSORS = 23019;
+	private static final int FIRST_WIN = 23022;
+	private static final int RESET_CONSECUTIVE_WINS = 23023;
 	
 	private static final int[] SANTA_MAGE_BUFFS =
 	{
@@ -86,7 +85,6 @@ public final class SavingSanta extends LongTimeEvent
 		7057 // Master's Blessing - Greater Might
 	};
 	
-	// Items
 	private static final ItemHolder[] REQUIRED_ITEMS =
 	{
 		new ItemHolder(5556, 4), // Star Ornament
@@ -107,7 +105,7 @@ public final class SavingSanta extends LongTimeEvent
 	private static final int SANTAS_HAT = 7836;
 	
 	private static final int CHRISTMAS_TREE = 5560;
-	private static final int SPECIAL_CHRISTMAS_TREE = 5561;
+	private static final int SPECIAL_CHRISTMAS_TREE_ITEM_ID = 5561;
 	
 	// @formatter:off
 	private static final List<Integer> RANDOM_A_PLUS_10_WEAPON =
@@ -193,12 +191,11 @@ public final class SavingSanta extends LongTimeEvent
 	
 	// Is Saving Santa event used?
 	private static boolean _savingSanta = true;
-	
 	// Use Santa's Helpers Auto Buff?
-	private static boolean _santasHelperAutoBuff = false;
+	private static boolean _santasHelperAutoBuff = true;
 	
-	private boolean _christmasEvent = true;
-	private boolean _isSantaFree = true;
+	private boolean _christmasEvent = false;
+	private boolean _isSantaFree = false;
 	private boolean _isJackPot = false;
 	private boolean _isWaitingForPlayerSkill = false;
 	
@@ -209,7 +206,7 @@ public final class SavingSanta extends LongTimeEvent
 		addAggroRangeEnterId(THOMAS_D_TURKEY);
 		addFirstTalkId(THOMAS_D_TURKEY, CHRISTMAS_SANTA_MERRY_CHRISTMAS, CHRISTMAS_SLEED_MERRY_CHRISTMAS, SANTA_TRAINEE);
 		addSkillSeeId(THOMAS_D_TURKEY);
-		addSpawnId(SPECIAL_CHRISTMAS_TREE_ID);
+		addSpawnId(SPECIAL_CHRISTMAS_TREE_NPC_ID);
 		addSpellFinishedId(THOMAS_D_TURKEY);
 		addTalkId(SANTA_TRAINEE);
 		
@@ -236,9 +233,11 @@ public final class SavingSanta extends LongTimeEvent
 		else
 		{
 			final Calendar now = Calendar.getInstance();
-			final Calendar endWeek = (Calendar) now.clone();
-			endWeek.add(Calendar.DAY_OF_MONTH, 7);
-			if (now.after(endWeek) && now.before(endWeek))
+			final Calendar extraWeek = (Calendar) now.clone();
+			extraWeek.add(Calendar.YEAR, +1);
+			extraWeek.add(Calendar.MONTH, 0);
+			extraWeek.add(Calendar.DAY_OF_MONTH, 7);
+			if (now.after(getEventPeriod().getEndDate()) && now.before(extraWeek))
 			{
 				for (Location santasHelperSpawn : SANTAS_HELPER_SPAWN)
 				{
@@ -589,7 +588,7 @@ public final class SavingSanta extends LongTimeEvent
 							return "";
 						}
 						player.getInventory().destroyItemByItemId(event, CHRISTMAS_TREE, 10, player, npc);
-						player.getInventory().addItem(event, SPECIAL_CHRISTMAS_TREE, 1, player, npc);
+						player.getInventory().addItem(event, SPECIAL_CHRISTMAS_TREE_ITEM_ID, 1, player, npc);
 					}
 				}
 				break;
@@ -768,17 +767,18 @@ public final class SavingSanta extends LongTimeEvent
 				break;
 			}
 		}
-		return "";
+		return super.onAdvEvent(event, npc, player);
 	}
 	
 	@Override
 	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
-		if (npc.getId() == THOMAS_D_TURKEY)
+		if (!player.isInsideRadius(THOMAS_D_TURKEY_SPAWN, 600, true, true))
 		{
+			// I guess you came to rescue Santa. But you picked the wrong person.
 			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[8]));
 		}
-		return null;
+		return super.onAggroRangeEnter(npc, player, isSummon);
 	}
 	
 	@Override
@@ -815,12 +815,12 @@ public final class SavingSanta extends LongTimeEvent
 	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
-		if (_isWaitingForPlayerSkill && (skill.getId() > ENERGY_RECOVERY) && (skill.getId() < CHRISTMAS_FESTIVAL))
+		if (_isWaitingForPlayerSkill && (skill.getId() >= 21014) && (skill.getId() <= 21016))
 		{
-			caster.broadcastPacket(new MagicSkillUse(caster, caster, SCISSORS, skill.getId() - ENERGY_RECOVERY, 3000, 1));
-			SkillData.getInstance().getSkill(SCISSORS, skill.getId() - ENERGY_RECOVERY).applyEffects(caster, caster);
+			caster.broadcastPacket(new MagicSkillUse(caster, caster, SCISSORS, skill.getId() - 21013, 3000, 1));
+			SkillData.getInstance().getSkill(SCISSORS, skill.getId() - 21013).applyEffects(caster, caster);
 		}
-		return "";
+		return super.onSkillSee(npc, caster, skill, targets, isSummon);
 	}
 	
 	@Override
@@ -851,27 +851,16 @@ public final class SavingSanta extends LongTimeEvent
 				}
 				
 				final int result = playersInRadius.getEffectList().getBuffInfoBySkillId(SCISSORS).getSkill().getLevel() - skill.getLevel();
-				
 				switch (result)
 				{
-					case 0:
+					case 0: // TIE
 					{
 						// Oh. I'm bored.
 						npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[15]));
 						break;
 					}
-					case -1:
-					case 2:
-					{
-						// Now!! Those of you who lost, go away!
-						// What a bunch of losers.
-						npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[6 + getRandom(2)]));
-						playersInRadius.broadcastPacket(new MagicSkillUse(playersInRadius, playersInRadius, RESET_CONSECUTIVE_WINS, 1, 3000, 1));
-						playersInRadius.stopSkillEffects(false, FIRST_WIN);
-						break;
-					}
-					case 1:
-					case -2:
+					case -2: // player WINS
+					case 1: // player WINS
 					{
 						final int level = (playersInRadius.getEffectList().getBuffInfoBySkillId(FIRST_WIN) != null ? (playersInRadius.getEffectList().getBuffInfoBySkillId(FIRST_WIN).getSkill().getLevel() + 1) : 1);
 						playersInRadius.broadcastPacket(new MagicSkillUse(playersInRadius, playersInRadius, FIRST_WIN, level, 3000, 1));
@@ -929,6 +918,16 @@ public final class SavingSanta extends LongTimeEvent
 								break;
 							}
 						}
+						break;
+					}
+					case -1: // Player LOOSE
+					case 2: // Player LOOSE
+					{
+						// Now!! Those of you who lost, go away!
+						// What a bunch of losers.
+						npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[6 + getRandom(2)]));
+						playersInRadius.broadcastPacket(new MagicSkillUse(playersInRadius, playersInRadius, RESET_CONSECUTIVE_WINS, 1, 3000, 1));
+						playersInRadius.stopSkillEffects(false, FIRST_WIN);
 						break;
 					}
 				}
