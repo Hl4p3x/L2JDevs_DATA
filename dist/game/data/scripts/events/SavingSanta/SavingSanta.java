@@ -65,7 +65,6 @@ public final class SavingSanta extends LongTimeEvent
 	private static final int SPECIAL_TREE_RECOVERY_BONUS = 2139;
 	private static final int TURKEYS_CHOICE_SCISSORS = 6100;
 	private static final int ATTACK_TURKEY = 6116;
-	private static final int ENERGY_RECOVERY = 21013;
 	private static final int CHRISTMAS_FESTIVAL = 23017;
 	private static final int STUPID_TURKEYS_MISTAKE = 23018;
 	private static final int SCISSORS = 23019;
@@ -86,7 +85,6 @@ public final class SavingSanta extends LongTimeEvent
 		7057 // Master's Blessing - Greater Might
 	};
 	
-	// Items
 	private static final ItemHolder[] REQUIRED_ITEMS =
 	{
 		new ItemHolder(5556, 4), // Star Ornament
@@ -193,12 +191,11 @@ public final class SavingSanta extends LongTimeEvent
 	
 	// Is Saving Santa event used?
 	private static boolean _savingSanta = true;
-	
 	// Use Santa's Helpers Auto Buff?
-	private static boolean _santasHelperAutoBuff = false;
+	private static boolean _santasHelperAutoBuff = true;
 	
-	private boolean _christmasEvent = true;
-	private boolean _isSantaFree = true;
+	private boolean _christmasEvent = false;
+	private boolean _isSantaFree = false;
 	private boolean _isJackPot = false;
 	private boolean _isWaitingForPlayerSkill = false;
 	
@@ -776,8 +773,9 @@ public final class SavingSanta extends LongTimeEvent
 	@Override
 	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
-		if (npc.getId() == THOMAS_D_TURKEY)
+		if (!player.isInsideRadius(THOMAS_D_TURKEY_SPAWN, 600, true, true))
 		{
+			// I guess you came to rescue Santa. But you picked the wrong person.
 			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[8]));
 		}
 		return super.onAggroRangeEnter(npc, player, isSummon);
@@ -817,10 +815,10 @@ public final class SavingSanta extends LongTimeEvent
 	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
-		if (_isWaitingForPlayerSkill && (skill.getId() > ENERGY_RECOVERY) && (skill.getId() < CHRISTMAS_FESTIVAL))
+		if (_isWaitingForPlayerSkill && (skill.getId() >= 21014) && (skill.getId() <= 21016))
 		{
-			caster.broadcastPacket(new MagicSkillUse(caster, caster, SCISSORS, skill.getId() - ENERGY_RECOVERY, 3000, 1));
-			SkillData.getInstance().getSkill(SCISSORS, skill.getId() - ENERGY_RECOVERY).applyEffects(caster, caster);
+			caster.broadcastPacket(new MagicSkillUse(caster, caster, SCISSORS, skill.getId() - 21013, 3000, 1));
+			SkillData.getInstance().getSkill(SCISSORS, skill.getId() - 21013).applyEffects(caster, caster);
 		}
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
 	}
