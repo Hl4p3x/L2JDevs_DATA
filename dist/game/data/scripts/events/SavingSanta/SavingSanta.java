@@ -207,7 +207,6 @@ public final class SavingSanta extends LongTimeEvent
 		addFirstTalkId(THOMAS_D_TURKEY, CHRISTMAS_SANTA_MERRY_CHRISTMAS, CHRISTMAS_SLEED_MERRY_CHRISTMAS, SANTA_TRAINEE);
 		addSkillSeeId(THOMAS_D_TURKEY);
 		addSpawnId(SPECIAL_CHRISTMAS_TREE_NPC_ID);
-		addSpellFinishedId(THOMAS_D_TURKEY);
 		addTalkId(SANTA_TRAINEE);
 		
 		if (isEventPeriod())
@@ -330,8 +329,9 @@ public final class SavingSanta extends LongTimeEvent
 			{
 				if (!npc.isDecayed())
 				{
+					final Skill skill = SkillData.getInstance().getSkill(TURKEYS_CHOICE_SCISSORS, getRandom(1, 3));
 					startQuestTimer("ThomasCast1", 13000, npc, null);
-					npc.doCast(SkillData.getInstance().getSkill(TURKEYS_CHOICE_SCISSORS, getRandom(1, 3)));
+					npc.doCast(skill);
 					// It's hurting... I'm in pain... What can I do for the pain...
 					// No... When I lose that one... I'll be in more pain...
 					// Hahahah!!! I captured Santa Claus!! There will be no gifts this year!!!
@@ -339,6 +339,7 @@ public final class SavingSanta extends LongTimeEvent
 					// Come on, I'll take all of you on!
 					// How about it? I think I won?
 					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[getRandom(6)]));
+					turkeysChoiceScissorsFinished(npc, skill);
 				}
 				else
 				{
@@ -718,54 +719,48 @@ public final class SavingSanta extends LongTimeEvent
 					{
 						if ((player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, -1) > 0) && (player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, -1) > 0))
 						{
-							return "savingsanta-noweapon.htm";
+							return "savingsanta-weapon.htm";
 						}
-						return "savingsanta-weapon.htm";
+						return "savingsanta-noweapon.htm";
 					}
 				}
 				break;
 			}
-			case "weapon_":
+		}
+		
+		if (event.startsWith("weapon_") && (player != null) && _savingSanta)
+		{
+			if (player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, -1) > 0)
 			{
-				if (player != null)
-				{
-					if (_savingSanta)
-					{
-						if (player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, -1) > 0)
-						{
-							player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, 1, player, npc);
-							player.getInventory().addItem(event, RANDOM_A_PLUS_10_WEAPON.get(getRandom(RANDOM_A_PLUS_10_WEAPON.size())), 1, player, npc).setEnchantLevel(10);
-							return "";
-						}
-						
-						if ((player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, -1) <= 0) || (player.getLevel() < 20))
-						{
-							return "";
-						}
-						
-						int grade = player.getExpertiseLevel() - 1;
-						if (grade < -1)
-						{
-							return "";
-						}
-						
-						int itemId = Integer.parseInt(event.replace("weapon_", ""));
-						if ((itemId < 1) || (itemId > 14))
-						{
-							return "";
-						}
-						
-						if (grade > 4)
-						{
-							grade = 4;
-						}
-						itemId += (SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT + (grade * 14));
-						player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, 1, player, npc);
-						player.getInventory().addItem(event, RANDOM_A_PLUS_10_WEAPON.get(getRandom(RANDOM_A_PLUS_10_WEAPON.size())), 1, player, npc).setEnchantLevel(getRandom(4, 16));
-					}
-				}
-				break;
+				player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, 1, player, npc);
+				player.getInventory().addItem(event, RANDOM_A_PLUS_10_WEAPON.get(getRandom(RANDOM_A_PLUS_10_WEAPON.size())), 1, player, npc).setEnchantLevel(10);
+				return "";
 			}
+			
+			if ((player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, -1) <= 0) || (player.getLevel() < 20))
+			{
+				return "";
+			}
+			
+			int grade = player.getExpertiseLevel() - 1;
+			if (grade < -1)
+			{
+				return "";
+			}
+			
+			int itemId = Integer.parseInt(event.replace("weapon_", ""));
+			if ((itemId < 1) || (itemId > 14))
+			{
+				return "";
+			}
+			
+			if (grade > 4)
+			{
+				grade = 4;
+			}
+			itemId += (SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT + (grade * 14));
+			player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, 1, player, npc);
+			player.getInventory().addItem(event, RANDOM_A_PLUS_10_WEAPON.get(getRandom(RANDOM_A_PLUS_10_WEAPON.size())), 1, player, npc).setEnchantLevel(getRandom(4, 16));
 		}
 		return super.onAdvEvent(event, npc, player);
 	}
@@ -830,8 +825,7 @@ public final class SavingSanta extends LongTimeEvent
 		return super.onSpawn(npc);
 	}
 	
-	@Override
-	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
+	private void turkeysChoiceScissorsFinished(L2Npc npc, Skill skill)
 	{
 		// Turkey's Choice
 		// Level 1: Scissors
@@ -933,7 +927,6 @@ public final class SavingSanta extends LongTimeEvent
 				}
 			}
 		}
-		return super.onSpellFinished(npc, player, skill);
 	}
 	
 	@Override
