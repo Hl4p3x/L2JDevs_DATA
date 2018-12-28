@@ -99,8 +99,6 @@ public final class SavingSanta extends LongTimeEvent
 	private static final int SANTA_CLAUS_GIFT_SET_NORMAL = 20101;
 	private static final int SANTA_CLAUS_GIFT_SET_JACKPOT = 20102;
 	
-	private static final int SANTA_CLAUS_GIFT = 17003;
-	
 	private static final int SAVING_SANTA_HAT = 20100;
 	private static final int SANTAS_HAT = 7836;
 	
@@ -180,12 +178,6 @@ public final class SavingSanta extends LongTimeEvent
 		NpcStringId.MESSAGE_FROM_SANTA_CLAUS_MANY_BLESSINGS_TO_S1_WHO_SAVED_ME
 	};
 	
-	private static final List<L2Npc> SANTA_HELPERS = new ArrayList<>();
-	private static final List<L2Npc> SPECIAL_TREES = new ArrayList<>();
-	
-	private static final Map<String, Long> REWARDED_PLAYERS = new HashMap<>();
-	private static final Map<String, Long> BLESSED_PLAYERS = new HashMap<>();
-	
 	private static final long MIN_TIME_BETWEEN_TWO_REWARDS = 43200000; // 12 Hours
 	private static final long MIN_TIME_BETWEEN_TWO_BLESSINGS = 14400000; // 4 Hours
 	
@@ -194,10 +186,16 @@ public final class SavingSanta extends LongTimeEvent
 	// Use Santa's Helpers Auto Buff?
 	private static boolean _santasHelperAutoBuff = true;
 	
-	private boolean _christmasEvent = false;
-	private boolean _isSantaFree = false;
-	private boolean _isJackPot = false;
-	private boolean _isWaitingForPlayerSkill = false;
+	private static boolean _christmasEvent = true;
+	private static boolean _isSantaFree = true;
+	private static boolean _isJackPot = false;
+	private static boolean _isWaitingForPlayerSkill = false;
+	
+	private static List<L2Npc> _santaHelpers = new ArrayList<>();
+	private static List<L2Npc> _specialTrees = new ArrayList<>();
+	
+	private final Map<String, Long> _rewardedPlayers = new HashMap<>();
+	private final Map<String, Long> _blessedPlayers = new HashMap<>();
 	
 	private SavingSanta()
 	{
@@ -216,7 +214,7 @@ public final class SavingSanta extends LongTimeEvent
 			
 			for (Location santasHelperSpawn : SANTAS_HELPER_SPAWN)
 			{
-				SANTA_HELPERS.add(addSpawn(SANTA_TRAINEE, santasHelperSpawn.getX(), santasHelperSpawn.getY(), santasHelperSpawn.getZ(), 0, false, 0));
+				_santaHelpers.add(addSpawn(SANTA_TRAINEE, santasHelperSpawn.getX(), santasHelperSpawn.getY(), santasHelperSpawn.getZ(), 0, false, 0));
 			}
 			
 			if (_santasHelperAutoBuff)
@@ -231,16 +229,14 @@ public final class SavingSanta extends LongTimeEvent
 		}
 		else
 		{
-			final Calendar now = Calendar.getInstance();
-			final Calendar extraWeek = (Calendar) now.clone();
-			extraWeek.add(Calendar.YEAR, +1);
-			extraWeek.add(Calendar.MONTH, 0);
-			extraWeek.add(Calendar.DAY_OF_MONTH, 7);
-			if (now.after(getEventPeriod().getEndDate()) && now.before(extraWeek))
+			final Calendar calendar = Calendar.getInstance();
+			final Calendar endWeek = (Calendar) getEventPeriod().getEndDate().clone();
+			endWeek.add(Calendar.DAY_OF_MONTH, 7);
+			if (calendar.after(getEventPeriod().getEndDate()) && calendar.before(endWeek))
 			{
 				for (Location santasHelperSpawn : SANTAS_HELPER_SPAWN)
 				{
-					SANTA_HELPERS.add(addSpawn(SANTA_TRAINEE, santasHelperSpawn.getX(), santasHelperSpawn.getY(), santasHelperSpawn.getZ(), 0, false, 0));
+					_santaHelpers.add(addSpawn(SANTA_TRAINEE, santasHelperSpawn.getX(), santasHelperSpawn.getY(), santasHelperSpawn.getZ(), 0, false, 0));
 				}
 			}
 		}
@@ -271,9 +267,9 @@ public final class SavingSanta extends LongTimeEvent
 					{
 						if ((players != null) && players.isOnline() && (players.getLevel() >= 20) && players.isInCombat() && !players.isInsideZone(ZoneId.PEACE) && !players.isFlyingMounted())
 						{
-							if (REWARDED_PLAYERS.containsKey(players.getAccountName()))
+							if (_rewardedPlayers.containsKey(players.getAccountName()))
 							{
-								final long elapsedTimeSinceLastRewarded = System.currentTimeMillis() - REWARDED_PLAYERS.get(players.getAccountName());
+								final long elapsedTimeSinceLastRewarded = System.currentTimeMillis() - _rewardedPlayers.get(players.getAccountName());
 								if (elapsedTimeSinceLastRewarded < MIN_TIME_BETWEEN_TWO_REWARDS)
 								{
 									continue;
@@ -284,7 +280,7 @@ public final class SavingSanta extends LongTimeEvent
 								final String data = loadGlobalQuestVar(players.getAccountName());
 								if (!data.isEmpty() && ((System.currentTimeMillis() - Long.parseLong(data)) < MIN_TIME_BETWEEN_TWO_REWARDS))
 								{
-									REWARDED_PLAYERS.put(players.getAccountName(), Long.parseLong(data));
+									_rewardedPlayers.put(players.getAccountName(), Long.parseLong(data));
 									continue;
 								}
 							}
@@ -292,7 +288,7 @@ public final class SavingSanta extends LongTimeEvent
 							final int locy = (int) (players.getY() + (Math.pow(-1, getRandom(1, 2)) * 50));
 							final int heading = Util.calculateHeadingFrom(locx, locy, players.getX(), players.getY());
 							final L2Npc santa = addSpawn(CHRISTMAS_SANTA_MERRY_CHRISTMAS, locx, locy, players.getZ(), heading, false, 30000);
-							REWARDED_PLAYERS.put(players.getAccountName(), System.currentTimeMillis());
+							_rewardedPlayers.put(players.getAccountName(), System.currentTimeMillis());
 							saveGlobalQuestVar(players.getAccountName(), String.valueOf(System.currentTimeMillis()));
 							startQuestTimer("SantaRewarding0", 500, santa, players);
 						}
@@ -377,12 +373,12 @@ public final class SavingSanta extends LongTimeEvent
 			case "SantaRewarding3":
 			{
 				npc.broadcastPacket(new SocialAction(npc.getObjectId(), 2));
+				
 				if (_isJackPot)
 				{
 					// Take a look at the inventory. Perhaps there might be a big present~
 					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[25]));
 					player.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT_SET_JACKPOT, 1, player, npc);
-					player.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT, 1, player, npc);
 					_isJackPot = false;
 				}
 				else
@@ -390,7 +386,6 @@ public final class SavingSanta extends LongTimeEvent
 					// Take a look at the inventory. I hope you like the gift I gave you.
 					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), NPC_STRINGS[24]));
 					player.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT_SET_NORMAL, 1, player, npc);
-					player.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT, 1, player, npc);
 				}
 				break;
 			}
@@ -399,16 +394,17 @@ public final class SavingSanta extends LongTimeEvent
 				if (_christmasEvent)
 				{
 					startQuestTimer("SantaBlessings", 15000, null, null);
-					for (L2Npc santaHelper1 : SANTA_HELPERS)
+					
+					for (L2Npc santaHelper : _santaHelpers)
 					{
-						final Collection<L2PcInstance> blessList = santaHelper1.getKnownList().getKnownPlayers().values();
+						final Collection<L2PcInstance> blessList = santaHelper.getKnownList().getKnownPlayers().values();
 						for (L2PcInstance playersAlreadyBlessed : blessList)
 						{
 							if ((playersAlreadyBlessed.getLevel() >= 20) && !playersAlreadyBlessed.isFlyingMounted())
 							{
-								if (BLESSED_PLAYERS.containsKey(playersAlreadyBlessed.getAccountName()))
+								if (_blessedPlayers.containsKey(playersAlreadyBlessed.getAccountName()))
 								{
-									final long elapsedTimeSinceLastBlessed = System.currentTimeMillis() - BLESSED_PLAYERS.get(playersAlreadyBlessed.getAccountName());
+									final long elapsedTimeSinceLastBlessed = System.currentTimeMillis() - _blessedPlayers.get(playersAlreadyBlessed.getAccountName());
 									if (elapsedTimeSinceLastBlessed < MIN_TIME_BETWEEN_TWO_BLESSINGS)
 									{
 										continue;
@@ -419,14 +415,14 @@ public final class SavingSanta extends LongTimeEvent
 									final String data = loadGlobalQuestVar(playersAlreadyBlessed.getAccountName());
 									if (!data.isEmpty() && ((System.currentTimeMillis() - Long.parseLong(data)) < MIN_TIME_BETWEEN_TWO_BLESSINGS))
 									{
-										BLESSED_PLAYERS.put(playersAlreadyBlessed.getAccountName(), Long.parseLong(data));
+										_blessedPlayers.put(playersAlreadyBlessed.getAccountName(), Long.parseLong(data));
 										continue;
 									}
 								}
 								
-								for (L2Npc santaHelper : SANTA_HELPERS)
+								for (L2Npc santaHelper1 : _santaHelpers)
 								{
-									final Collection<L2PcInstance> playerList = santaHelper.getKnownList().getKnownPlayers().values();
+									final Collection<L2PcInstance> playerList = santaHelper1.getKnownList().getKnownPlayers().values();
 									for (L2PcInstance playersNotBlessed : playerList)
 									{
 										if (playersNotBlessed.getClassId().isMage())
@@ -435,9 +431,9 @@ public final class SavingSanta extends LongTimeEvent
 											{
 												if (playersNotBlessed.getEffectList().getBuffInfoBySkillId(buffId) == null)
 												{
-													playersNotBlessed.broadcastPacket(new MagicSkillUse(santaHelper, playersNotBlessed, buffId, 1, 2000, 1));
+													playersNotBlessed.broadcastPacket(new MagicSkillUse(santaHelper1, playersNotBlessed, buffId, 1, 2000, 1));
 													SkillData.getInstance().getSkill(buffId, 1).applyEffects(playersNotBlessed, playersNotBlessed);
-													BLESSED_PLAYERS.put(playersNotBlessed.getAccountName(), System.currentTimeMillis());
+													_blessedPlayers.put(playersNotBlessed.getAccountName(), System.currentTimeMillis());
 													saveGlobalQuestVar(playersNotBlessed.getAccountName(), String.valueOf(System.currentTimeMillis()));
 												}
 											}
@@ -448,9 +444,9 @@ public final class SavingSanta extends LongTimeEvent
 											{
 												if (playersNotBlessed.getEffectList().getBuffInfoBySkillId(buffId) == null)
 												{
-													playersNotBlessed.broadcastPacket(new MagicSkillUse(santaHelper, playersNotBlessed, buffId, 1, 2000, 1));
+													playersNotBlessed.broadcastPacket(new MagicSkillUse(santaHelper1, playersNotBlessed, buffId, 1, 2000, 1));
 													SkillData.getInstance().getSkill(buffId, 1).applyEffects(playersNotBlessed, playersNotBlessed);
-													BLESSED_PLAYERS.put(playersNotBlessed.getAccountName(), System.currentTimeMillis());
+													_blessedPlayers.put(playersNotBlessed.getAccountName(), System.currentTimeMillis());
 													saveGlobalQuestVar(playersNotBlessed.getAccountName(), String.valueOf(System.currentTimeMillis()));
 												}
 											}
@@ -466,7 +462,8 @@ public final class SavingSanta extends LongTimeEvent
 			case "SpecialTreeHeal":
 			{
 				startQuestTimer("SpecialTreeHeal", 9000, null, null);
-				for (L2Npc tree : SPECIAL_TREES)
+				
+				for (L2Npc tree : _specialTrees)
 				{
 					final Collection<L2PcInstance> playerList = tree.getKnownList().getKnownPlayers().values();
 					for (L2PcInstance players : playerList)
@@ -501,7 +498,6 @@ public final class SavingSanta extends LongTimeEvent
 							itemsOk = itemsOk + 1;
 							htmltext = htmltext + "<tr><td>" + ItemTable.getInstance().getTemplate(item.getId()).getName() + "</td><td width=40>" + pieceCount + "</td><td width=40><font color=0FF000>OK</font></td></tr>";
 						}
-						
 						else
 						{
 							htmltext = htmltext + "<tr><td>" + ItemTable.getInstance().getTemplate(item.getId()).getName() + "</td><td width=40>" + pieceCount + "</td><td width=40><font color=8ae2ffb>NO</font></td></tr>";
@@ -526,6 +522,7 @@ public final class SavingSanta extends LongTimeEvent
 				if (player != null)
 				{
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+					
 					for (ItemHolder item : REQUIRED_ITEMS)
 					{
 						if (player.getInventory().getInventoryItemCount(item.getId(), -1) < item.getCount())
@@ -544,53 +541,48 @@ public final class SavingSanta extends LongTimeEvent
 			}
 			case "SpecialTree":
 			{
-				if (player != null)
+				if (!_savingSanta && (player != null))
 				{
-					if (!_savingSanta)
+					htmltext = "<html><title>Christmas Event</title><body><br><br><table width=260><tr><td></td><td width=40></td><td width=40></td></tr><tr><td><font color=LEVEL>Special Christmas Tree</font></td><td width=40><img src=\"Icon.etc_x_mas_tree_i00\" width=32 height=32></td><td width=40></td></tr></table><br><br><table width=260>";
+					final long pieceCount = player.getInventory().getInventoryItemCount(CHRISTMAS_TREE, -1);
+					int itemsOk = 0;
+					
+					if (pieceCount >= 10)
 					{
-						htmltext = "<html><title>Christmas Event</title><body><br><br><table width=260><tr><td></td><td width=40></td><td width=40></td></tr><tr><td><font color=LEVEL>Special Christmas Tree</font></td><td width=40><img src=\"Icon.etc_x_mas_tree_i00\" width=32 height=32></td><td width=40></td></tr></table><br><br><table width=260>";
-						final long pieceCount = player.getInventory().getInventoryItemCount(CHRISTMAS_TREE, -1);
-						int itemsOk = 0;
-						
-						if (pieceCount >= 10)
-						{
-							itemsOk = 1;
-							htmltext = htmltext + "<tr><td>Christmas Tree</td><td width=40>" + pieceCount + "</td><td width=40><font color=0FF000>OK</font></td></tr>";
-						}
-						else
-						{
-							htmltext = htmltext + "<tr><td>Christmas Tree</td><td width=40>" + pieceCount + "</td><td width=40><font color=8ae2ffb>NO</font></td></tr>";
-						}
-						
-						if (itemsOk == 1)
-						{
-							htmltext = htmltext + "<tr><td><br></td><td width=40></td><td width=40></td></tr></table><table width=260>";
-							htmltext = htmltext + "<tr><td><br></td><td width=40></td><td width=40></td></tr></table><table width=260>";
-							htmltext = htmltext + "<tr><td><center><button value=\"Get the tree\" action=\"bypass -h Quest SavingSanta buySpecialTree\" width=110 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></td></tr></table></body></html>";
-						}
-						else if (itemsOk == 0)
-						{
-							htmltext = htmltext + "</table><br><br>You do not have enough items.</center></body></html>";
-						}
-						return htmltext;
+						itemsOk = 1;
+						htmltext = htmltext + "<tr><td>Christmas Tree</td><td width=40>" + pieceCount + "</td><td width=40><font color=0FF000>OK</font></td></tr>";
 					}
+					else
+					{
+						htmltext = htmltext + "<tr><td>Christmas Tree</td><td width=40>" + pieceCount + "</td><td width=40><font color=8ae2ffb>NO</font></td></tr>";
+					}
+					
+					if (itemsOk == 1)
+					{
+						htmltext = htmltext + "<tr><td><br></td><td width=40></td><td width=40></td></tr></table><table width=260>";
+						htmltext = htmltext + "<tr><td><br></td><td width=40></td><td width=40></td></tr></table><table width=260>";
+						htmltext = htmltext + "<tr><td><center><button value=\"Get the tree\" action=\"bypass -h Quest SavingSanta buySpecialTree\" width=110 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></td></tr></table></body></html>";
+					}
+					else if (itemsOk == 0)
+					{
+						htmltext = htmltext + "</table><br><br>You do not have enough items.</center></body></html>";
+					}
+					return htmltext;
 				}
 				break;
 			}
 			case "buySpecialTree":
 			{
-				if (player != null)
+				if (!_savingSanta && (player != null))
 				{
-					if (!_savingSanta)
+					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+					
+					if (player.getInventory().getInventoryItemCount(CHRISTMAS_TREE, -1) < 10)
 					{
-						playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
-						if (player.getInventory().getInventoryItemCount(CHRISTMAS_TREE, -1) < 10)
-						{
-							return "";
-						}
-						player.getInventory().destroyItemByItemId(event, CHRISTMAS_TREE, 10, player, npc);
-						player.getInventory().addItem(event, SPECIAL_CHRISTMAS_TREE_ITEM_ID, 1, player, npc);
+						return "";
 					}
+					player.getInventory().destroyItemByItemId(event, CHRISTMAS_TREE, 10, player, npc);
+					player.getInventory().addItem(event, SPECIAL_CHRISTMAS_TREE_ITEM_ID, 1, player, npc);
 				}
 				break;
 			}
@@ -630,6 +622,7 @@ public final class SavingSanta extends LongTimeEvent
 				if (player != null)
 				{
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+					
 					if (player.getInventory().getInventoryItemCount(CHRISTMAS_TREE, -1) < 10)
 					{
 						return "";
@@ -641,88 +634,82 @@ public final class SavingSanta extends LongTimeEvent
 			}
 			case "SavingSantaHat":
 			{
-				if (player != null)
+				if (_savingSanta && (player != null))
 				{
-					if (_savingSanta)
+					htmltext = "<html><title>Christmas Event</title><body><br><br><table width=260><tr><td></td><td width=40></td><td width=40></td></tr><tr><td><font color=LEVEL>Saving Santa's Hat</font></td><td width=40><img src=\"Icon.Accessory_santas_cap_i00\" width=32 height=32></td><td width=40></td></tr></table><br><br><table width=260>";
+					final long adenaCount = player.getInventory().getAdena();
+					int itemsOk = 0;
+					
+					if (adenaCount >= 50000)
 					{
-						htmltext = "<html><title>Christmas Event</title><body><br><br><table width=260><tr><td></td><td width=40></td><td width=40></td></tr><tr><td><font color=LEVEL>Saving Santa's Hat</font></td><td width=40><img src=\"Icon.Accessory_santas_cap_i00\" width=32 height=32></td><td width=40></td></tr></table><br><br><table width=260>";
-						final long pieceCount = player.getInventory().getAdena();
-						int itemsOk = 0;
-						
-						if (pieceCount >= 50000)
-						{
-							itemsOk = 1;
-							htmltext = htmltext + "<tr><td>Adena</td><td width=40>" + pieceCount + "</td><td width=40><font color=0FF000>OK</font></td></tr>";
-						}
-						
-						else
-						{
-							htmltext = htmltext + "<tr><td>Adena</td><td width=40>" + pieceCount + "</td><td width=40><font color=8ae2ffb>NO</font></td></tr>";
-						}
-						
-						if (itemsOk == 1)
-						{
-							htmltext = htmltext + "<tr><td><br></td><td width=40></td><td width=40></td></tr></table><table width=260>";
-							htmltext = htmltext + "<tr><td><center><button value=\"Get the hat\" action=\"bypass -h Quest SavingSanta buySavingHat\" width=110 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></td></tr></table></body></html>";
-						}
-						
-						else if (itemsOk == 0)
-						{
-							htmltext = htmltext + "</table><br><br>You do not have enough Adena.</center></body></html>";
-						}
-						return htmltext;
+						itemsOk = 1;
+						htmltext = htmltext + "<tr><td>Adena</td><td width=40>" + adenaCount + "</td><td width=40><font color=0FF000>OK</font></td></tr>";
 					}
+					else
+					{
+						htmltext = htmltext + "<tr><td>Adena</td><td width=40>" + adenaCount + "</td><td width=40><font color=8ae2ffb>NO</font></td></tr>";
+					}
+					
+					if (itemsOk == 1)
+					{
+						htmltext = htmltext + "<tr><td><br></td><td width=40></td><td width=40></td></tr></table><table width=260>";
+						htmltext = htmltext + "<tr><td><center><button value=\"Get the hat\" action=\"bypass -h Quest SavingSanta buySavingHat\" width=110 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></td></tr></table></body></html>";
+					}
+					else if (itemsOk == 0)
+					{
+						htmltext = htmltext + "</table><br><br>You do not have enough Adena.</center></body></html>";
+					}
+					return htmltext;
 				}
 				break;
 			}
 			case "buySavingHat":
 			{
-				if (player != null)
+				if (_savingSanta && (player != null))
 				{
-					if (_savingSanta)
+					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+					
+					if (player.getInventory().getAdena() < 50000)
 					{
-						playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
-						if (player.getInventory().getAdena() < 50000)
-						{
-							return "";
-						}
-						player.getInventory().reduceAdena(event, 50000, player, npc);
-						player.getInventory().addItem(event, SAVING_SANTA_HAT, 1, player, npc);
+						break;
 					}
+					player.getInventory().reduceAdena(event, 50000, player, npc);
+					player.getInventory().addItem(event, SAVING_SANTA_HAT, 1, player, npc);
 				}
 				break;
 			}
 			case "HolidayFestival":
 			{
-				if (player != null)
+				if (_savingSanta && (player != null))
 				{
-					if (_savingSanta)
+					if (_isSantaFree)
 					{
-						if (_isSantaFree)
-						{
-							npc.broadcastPacket(new MagicSkillUse(npc, player, CHRISTMAS_FESTIVAL, 1, 2000, 1));
-							SkillData.getInstance().getSkill(CHRISTMAS_FESTIVAL, 1).applyEffects(player, player);
-						}
-						else
-						{
-							return "savingsanta-nobuff.htm";
-						}
+						npc.broadcastPacket(new MagicSkillUse(npc, player, CHRISTMAS_FESTIVAL, 1, 2000, 1));
+						SkillData.getInstance().getSkill(CHRISTMAS_FESTIVAL, 1).applyEffects(player, player);
+					}
+					else
+					{
+						return "savingsanta-nobuff.htm";
 					}
 				}
 				break;
 			}
 			case "getWeapon":
 			{
-				if (player != null)
+				if (_savingSanta && (player != null))
 				{
-					if (_savingSanta)
+					if (player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, -1) > 0)
 					{
-						if ((player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, -1) > 0) && (player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, -1) > 0))
-						{
-							return "savingsanta-weapon.htm";
-						}
-						return "savingsanta-noweapon.htm";
+						return "savingsanta-weapon.htm";
 					}
+					
+					if (player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, -1) > 0)
+					{
+						player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, 1, player, npc);
+						player.getInventory().addItem(event, RANDOM_A_PLUS_10_WEAPON.get(getRandom(RANDOM_A_PLUS_10_WEAPON.size())), 1, player, npc).setEnchantLevel(10);
+						break;
+					}
+					return "savingsanta-noweapon.htm";
 				}
 				break;
 			}
@@ -730,37 +717,30 @@ public final class SavingSanta extends LongTimeEvent
 		
 		if (event.startsWith("weapon_") && (player != null) && _savingSanta)
 		{
-			if (player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, -1) > 0)
+			if ((player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, -1) <= 0) || (player.getLevel() < 20))
 			{
-				player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, 1, player, npc);
-				player.getInventory().addItem(event, RANDOM_A_PLUS_10_WEAPON.get(getRandom(RANDOM_A_PLUS_10_WEAPON.size())), 1, player, npc).setEnchantLevel(10);
-				return "";
-			}
-			
-			if ((player.getInventory().getInventoryItemCount(SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, -1) <= 0) || (player.getLevel() < 20))
-			{
-				return "";
+				return null;
 			}
 			
 			int grade = player.getExpertiseLevel() - 1;
 			if (grade < -1)
 			{
-				return "";
+				return null;
 			}
 			
 			int itemId = Integer.parseInt(event.replace("weapon_", ""));
 			if ((itemId < 1) || (itemId > 14))
 			{
-				return "";
+				return null;
 			}
 			
 			if (grade > 4)
 			{
 				grade = 4;
 			}
-			itemId += (SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT + (grade * 14));
-			player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_NORMAL, 1, player, npc);
-			player.getInventory().addItem(event, RANDOM_A_PLUS_10_WEAPON.get(getRandom(RANDOM_A_PLUS_10_WEAPON.size())), 1, player, npc).setEnchantLevel(getRandom(4, 16));
+			itemId += SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT + (grade * 14);
+			player.getInventory().destroyItemByItemId(event, SANTA_CLAUS_WEAPON_EXCHANGE_TICKET_JACKPOT, 1, player, npc);
+			player.getInventory().addItem(event, itemId, 1, player, npc).setEnchantLevel(getRandom(4, 16));
 		}
 		return super.onAdvEvent(event, npc, player);
 	}
@@ -821,8 +801,23 @@ public final class SavingSanta extends LongTimeEvent
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
-		SPECIAL_TREES.add(npc);
+		_specialTrees.add(npc);
 		return super.onSpawn(npc);
+	}
+	
+	@Override
+	public boolean unload()
+	{
+		for (L2Npc santaHelper : _santaHelpers)
+		{
+			santaHelper.deleteMe();
+		}
+		
+		for (L2Npc specialTree : _specialTrees)
+		{
+			specialTree.deleteMe();
+		}
+		return super.unload();
 	}
 	
 	private void turkeysChoiceScissorsFinished(L2Npc npc, Skill skill)
@@ -899,12 +894,10 @@ public final class SavingSanta extends LongTimeEvent
 								{
 									_isJackPot = true;
 									playersInRadius.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT_SET_JACKPOT, 1, playersInRadius, holidaySled);
-									playersInRadius.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT, 1, playersInRadius, holidaySled);
 								}
 								else
 								{
 									playersInRadius.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT_SET_NORMAL, 1, playersInRadius, holidaySled);
-									playersInRadius.getInventory().addItem("SavingSantaPresent", SANTA_CLAUS_GIFT, 1, playersInRadius, holidaySled);
 								}
 								ThreadPoolManager.getInstance().scheduleEvent(new SledAnimation(holidaySled), 7000);
 								npc.decayMe();
@@ -927,21 +920,6 @@ public final class SavingSanta extends LongTimeEvent
 				}
 			}
 		}
-	}
-	
-	@Override
-	public boolean unload()
-	{
-		for (L2Npc santaHelper : SANTA_HELPERS)
-		{
-			santaHelper.deleteMe();
-		}
-		
-		for (L2Npc specialTree : SPECIAL_TREES)
-		{
-			specialTree.deleteMe();
-		}
-		return super.unload();
 	}
 	
 	private static class SledAnimation implements Runnable
