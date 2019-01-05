@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2018 L2J DataPack
+ * Copyright (C) 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -20,7 +20,6 @@ package events.SavingSanta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -225,19 +224,6 @@ public final class SavingSanta extends LongTimeEvent
 			if (_savingSanta)
 			{
 				startQuestTimer("ThomasQuest", 1000, null, null);
-			}
-		}
-		else
-		{
-			final Calendar calendar = Calendar.getInstance();
-			final Calendar endWeek = (Calendar) getEventPeriod().getEndDate().clone();
-			endWeek.add(Calendar.DAY_OF_MONTH, 7);
-			if (calendar.after(getEventPeriod().getEndDate()) && calendar.before(endWeek))
-			{
-				for (Location santasHelperSpawn : SANTAS_HELPER_SPAWN)
-				{
-					_santaHelpers.add(addSpawn(SANTA_TRAINEE, santasHelperSpawn.getX(), santasHelperSpawn.getY(), santasHelperSpawn.getZ(), 0, false, 0));
-				}
 			}
 		}
 	}

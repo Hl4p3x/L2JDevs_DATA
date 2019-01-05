@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<event name="Saving Santa" active="16 12-30 12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../xsd/eventConfig.xsd">
+<event name="Saving Santa" active="16 12-31 12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../xsd/eventConfig.xsd">
 	<droplist>
 		<add item="5556" min="1" max="1" chance="4%" /> <!-- Star Ornament -->
 		<add item="5557" min="1" max="1" chance="4%" /> <!-- Bead Ornament -->
