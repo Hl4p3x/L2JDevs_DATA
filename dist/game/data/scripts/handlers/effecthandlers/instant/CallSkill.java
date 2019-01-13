@@ -26,7 +26,7 @@ import com.l2jserver.gameserver.model.skills.BuffInfo;
 
 /**
  * Call Skill effect implementation.
- * @author NosBit
+ * @author NosBit, Sacrifice
  */
 public final class CallSkill extends AbstractEffect
 {
@@ -48,6 +48,10 @@ public final class CallSkill extends AbstractEffect
 	@Override
 	public void onStart(BuffInfo info)
 	{
+		if (_skill.getSkill().isDebuff())
+		{
+			info.getEffected().removeSkill(_skill.getSkillId());
+		}
 		info.getEffector().makeTriggerCast(_skill.getSkill(), info.getEffected(), true);
 	}
 }
