@@ -1013,6 +1013,7 @@
 	</skill>
 	<skill id="3260" levels="1" name="Forgiveness">
 		<!-- Confirmed CT2.5 -->
+		<set name="affectScope" val="SINGLE" />
 		<set name="castRange" val="500" />
 		<set name="coolTime" val="800" />
 		<set name="effectPoint" val="-1" />
@@ -1025,7 +1026,7 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="3000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="targetType" val="ONE" />
+		<set name="targetType" val="ENEMY" />
 		<cond msgId="109">
 			<target npcId="13031,13032,13033,13034,13035,13120,13121,13122,13123,13124" />
 		</cond>
@@ -1053,6 +1054,7 @@
 	</skill>
 	<skill id="3262" levels="1" name="Pardon">
 		<!-- Confirmed CT2.5 -->
+		<set name="affectScope" val="SINGLE" />
 		<set name="castRange" val="500" />
 		<set name="coolTime" val="800" />
 		<set name="effectPoint" val="-1" />
@@ -1065,7 +1067,7 @@
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="40000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
-		<set name="targetType" val="ONE" />
+		<set name="targetType" val="ENEMY" />
 		<cond msgId="109">
 			<target npcId="13031,13032,13033,13034,13035,13120,13121,13122,13123,13124" />
 		</cond>
