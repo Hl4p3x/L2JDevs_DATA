@@ -152,7 +152,7 @@ public final class ZakenCurse extends LongTimeEvent
 						
 						final L2ItemInstance item = new L2ItemInstance(REDEMPTION_BOW);
 						player.getVariables().set("BOW_REUSE_TIME", System.currentTimeMillis() + (BOW_REUSE_TIME / (item.getReuseDelay() / 60)));
-						htmltext = "32131-02.html";
+						htmltext = "32131-02.htm";
 					}
 				}
 				break;
@@ -180,7 +180,7 @@ public final class ZakenCurse extends LongTimeEvent
 			{
 				if (player.getInventory().getInventoryItemCount(GOLDEN_APIGA, -1) >= MAX_GOLDEN_APIGA)
 				{
-					htmltext = "32131-04.html";
+					htmltext = "32131-04.htm";
 					giveItems(player, 8919, 1); // First Mate's Hat
 					takeItems(player, GOLDEN_APIGA, MAX_GOLDEN_APIGA);
 					break;
@@ -188,7 +188,7 @@ public final class ZakenCurse extends LongTimeEvent
 				
 				if (player.getInventory().getInventoryItemCount(GOLDEN_APIGA, -1) <= 50)
 				{
-					htmltext = "32131-05.html";
+					htmltext = "32131-05.htm";
 				}
 				else
 				{
@@ -268,7 +268,7 @@ public final class ZakenCurse extends LongTimeEvent
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		return "32131.html";
+		return "32131.htm";
 	}
 	
 	@Override
