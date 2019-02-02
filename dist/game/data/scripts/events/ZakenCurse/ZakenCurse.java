@@ -20,7 +20,6 @@ package events.ZakenCurse;
 
 import com.l2jserver.gameserver.data.xml.impl.NpcData;
 import com.l2jserver.gameserver.datatables.SpawnTable;
-import com.l2jserver.gameserver.enums.ItemLocation;
 import com.l2jserver.gameserver.model.L2Object;
 import com.l2jserver.gameserver.model.L2Spawn;
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -28,7 +27,6 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.actor.templates.L2NpcTemplate;
 import com.l2jserver.gameserver.model.event.LongTimeEvent;
 import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
 import com.l2jserver.gameserver.model.skills.Skill;
 import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
@@ -118,7 +116,6 @@ public final class ZakenCurse extends LongTimeEvent
 			for (int npcId : PIGS)
 			{
 				addSkillSeeId(npcId);
-				addSpellFinishedId(npcId);
 			}
 		}
 	}
@@ -154,9 +151,7 @@ public final class ZakenCurse extends LongTimeEvent
 					if (player.getLevel() >= MIN_LVL)
 					{
 						giveItems(player, REDEMPTION_BOW, 1);
-						
-						final L2ItemInstance item = new L2ItemInstance(REDEMPTION_BOW);
-						player.getVariables().set("BOW_REUSE_TIME", System.currentTimeMillis() + (BOW_REUSE_TIME / (item.getReuseDelay() / 60)));
+						player.getVariables().set("BOW_REUSE_TIME", System.currentTimeMillis() + BOW_REUSE_TIME);
 						htmltext = "32131-02.htm";
 					}
 				}
@@ -164,21 +159,21 @@ public final class ZakenCurse extends LongTimeEvent
 			}
 			case "stop":
 			{
-				final L2ItemInstance item = new L2ItemInstance(REDEMPTION_BOW);
-				if (item.getItemLocation() == ItemLocation.INVENTORY)
+				if (player.getInventory().getInventoryItemCount(REDEMPTION_BOW, -1) > 0)
 				{
-					takeItems(player, REDEMPTION_BOW, item.getCount());
+					takeItems(player, REDEMPTION_BOW, player.getInventory().getInventoryItemCount(REDEMPTION_BOW, -1));
+				}
+				else
+				{
+					player.sendMessage("Can't see the bow in your inventory");
+					break;
 				}
 				
-				if (item.getItemLocation() == ItemLocation.WAREHOUSE)
+				if (player.getVariables().hasVariable("BOW_REUSE_TIME"))
 				{
-					takeItems(player, REDEMPTION_BOW, item.getCount());
+					player.getVariables().remove("BOW_REUSE_TIME");
 				}
-				
-				if (item.getItemLocation() == ItemLocation.PET)
-				{
-					takeItems(player, REDEMPTION_BOW, item.getCount());
-				}
+				htmltext = "32131-03.htm";
 				break;
 			}
 			case "isBest":
@@ -279,17 +274,7 @@ public final class ZakenCurse extends LongTimeEvent
 	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
-		return onSkillUse(npc, caster, skill);
-	}
-	
-	private String onSkillUse(L2Npc npc, L2PcInstance player, Skill skill)
-	{
 		if (!Util.contains(PIGS, npc.getId()))
-		{
-			return null;
-		}
-		
-		if (!(skill.getId() == FORGIVENESS.getSkillId()) || !(skill.getId() == PARDON.getSkillId()))
 		{
 			return null;
 		}
@@ -308,17 +293,17 @@ public final class ZakenCurse extends LongTimeEvent
 				}
 				else
 				{
-					giveItems(player, GOLDEN_APIGA, REWARD[0]);
+					giveItems(caster, GOLDEN_APIGA, REWARD[0]);
 				}
 				return null;
 			}
 			else if (npc.getId() == 13034)
 			{
-				giveItems(player, GOLDEN_APIGA, REWARD[1]);
+				giveItems(caster, GOLDEN_APIGA, REWARD[1]);
 			}
 			else if (npc.getId() == 13035)
 			{
-				giveItems(player, GOLDEN_APIGA, REWARD[2]);
+				giveItems(caster, GOLDEN_APIGA, REWARD[2]);
 			}
 			return null;
 		}
@@ -346,23 +331,23 @@ public final class ZakenCurse extends LongTimeEvent
 				}
 				else
 				{
-					giveItems(player, GOLDEN_APIGA, REWARD[0]);
+					giveItems(caster, GOLDEN_APIGA, REWARD[0]);
 				}
 			}
 			else
 			{
 				if (npc.getId() == 13034)
 				{
-					giveItems(player, GOLDEN_APIGA, REWARD[1]);
+					giveItems(caster, GOLDEN_APIGA, REWARD[1]);
 				}
 				else if (npc.getId() == 13035)
 				{
-					giveItems(player, GOLDEN_APIGA, REWARD[2]);
+					giveItems(caster, GOLDEN_APIGA, REWARD[2]);
 				}
 				return null;
 			}
 		}
-		return null;
+		return super.onSkillSee(npc, caster, skill, targets, isSummon);
 	}
 	
 	private void spawnNpc(int npcId, int[][] spawnList)
