@@ -964,7 +964,7 @@
 			<height normal="10" />
 		</collision>
 	</npc>
-	<npc id="13031" level="80" type="L2Npc" name="Huge Pig">
+	<npc id="13031" level="80" type="L2Monster" name="Huge Pig">
 		<!-- Confirmed CT2.5 -->
 		<race>ANIMAL</race>
 		<sex>MALE</sex>
@@ -1011,7 +1011,7 @@
 			<height normal="18.3" />
 		</collision>
 	</npc>
-	<npc id="13032" level="80" type="L2Npc" name="Huge Pig">
+	<npc id="13032" level="80" type="L2Monster" name="Huge Pig">
 		<!-- Confirmed CT2.5 -->
 		<race>ANIMAL</race>
 		<sex>MALE</sex>
@@ -1051,7 +1051,7 @@
 			<height normal="18.3" />
 		</collision>
 	</npc>
-	<npc id="13033" level="80" type="L2Npc" name="Huge Pig">
+	<npc id="13033" level="80" type="L2Monster" name="Huge Pig">
 		<!-- Confirmed CT2.5 -->
 		<race>ANIMAL</race>
 		<sex>MALE</sex>
@@ -1141,7 +1141,7 @@
 			<height normal="38.7" />
 		</collision>
 	</npc>
-	<npc id="13035" level="80" type="L2Npc" name="Golden Pig">
+	<npc id="13035" level="80" type="L2Monster" name="Golden Pig">
 		<!-- Confirmed CT2.5 -->
 		<race>ANIMAL</race>
 		<sex>MALE</sex>

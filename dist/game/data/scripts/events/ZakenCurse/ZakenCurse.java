@@ -130,6 +130,11 @@ public final class ZakenCurse extends LongTimeEvent
 		
 		switch (event)
 		{
+			case "continue":
+			{
+				htmltext = "32131-01.htm";
+				break;
+			}
 			case "accept":
 			{
 				final long bowReuseTime = player.getVariables().getLong("BOW_REUSE_TIME", 0);
