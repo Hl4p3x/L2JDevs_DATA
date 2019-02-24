@@ -913,7 +913,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		final PageResult result = HtmlUtil.createPage(players, page, 20, i ->
 		{
 			return "<td align=center><a action=\"bypass -h admin_show_characters " + i + "\">Page " + (i + 1) + "</a></td>";
-		} , player ->
+		}, player ->
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.append("<tr>");

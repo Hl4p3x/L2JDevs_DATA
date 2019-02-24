@@ -33,7 +33,8 @@ import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 /**
  * <B>Pledge Manipulation:</B><BR>
  * <LI>With target in a character without clan:<BR>
- * //pledge create clanname <LI>With target in a clan leader:<BR>
+ * //pledge create clanname
+ * <LI>With target in a clan leader:<BR>
  * //pledge info<BR>
  * //pledge dismiss<BR>
  * //pledge setlevel level<BR>

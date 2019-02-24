@@ -342,7 +342,7 @@ public final class Q00417_PathOfTheScavenger extends Quest
 		{
 			switch (npc.getId())
 			{
-			
+				
 				case HUNTER_BEAR:
 				{
 					switch (npc.getScriptValue())

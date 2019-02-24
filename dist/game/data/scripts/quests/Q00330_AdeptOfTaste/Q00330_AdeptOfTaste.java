@@ -191,7 +191,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 			{
 				case HOBGOBLIN:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, PANOS_CONTRACT) && (getQuestItemsCount(killer, HOBGOBLIN_AMULET) < 30))
 						{
@@ -211,7 +212,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				case MANDRAGORA_SPROUT1:
 				case MANDRAGORA_SPROUT2:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && !hasAtLeastOneQuestItem(killer, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 						{
@@ -252,7 +254,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case MANDRAGORA_SAPLING:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && !hasAtLeastOneQuestItem(killer, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 						{
@@ -293,7 +296,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case MANDRAGORA_BLOSSOM:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && !hasAtLeastOneQuestItem(killer, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 						{
@@ -334,7 +338,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case BLOODY_BEE:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, JACOBS_INSECT_BOOK))
 						{
@@ -375,7 +380,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case GRAY_ANT:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, GLYVKAS_BOTANY_BOOK))
 						{
@@ -416,7 +422,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case GIANT_CRIMSON_ANT:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, GLYVKAS_BOTANY_BOOK))
 						{
@@ -457,7 +464,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case STINGER_WASP:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, JACOBS_INSECT_BOOK))
 						{
@@ -498,7 +506,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case MONSTER_EYE_SEARCHER:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, ROLLANTS_CREATURE_BOOK) && (getQuestItemsCount(killer, BODY_OF_MONSTER_EYE) < 30))
 						{
@@ -541,7 +550,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case MONSTER_EYE_GAZER:
 				{
-					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE) + getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
+					if ((getQuestItemsCount(killer, RED_MANDRAGORA_SAP) + getQuestItemsCount(killer, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(killer, HONEY) + getQuestItemsCount(killer, GOLDEN_HONEY) + getQuestItemsCount(killer, DIONIAN_POTATO) + getQuestItemsCount(killer, GREEN_MOSS_BUNDLE)
+						+ getQuestItemsCount(killer, BROWN_MOSS_BUNDLE) + getQuestItemsCount(killer, MONSTER_EYE_MEAT)) < 5)
 					{
 						if (hasQuestItems(killer, INGREDIENT_LIST, ROLLANTS_CREATURE_BOOK) && (getQuestItemsCount(killer, BODY_OF_MONSTER_EYE) < 30))
 						{
@@ -608,7 +618,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 				{
 					if (hasQuestItems(player, INGREDIENT_LIST))
 					{
-						if ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5)
+						if ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE)
+							+ getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5)
 						{
 							htmltext = "30469-04.html";
 						}
@@ -746,7 +757,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 					}
 					else
 					{
-						if ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) == 0)
+						if ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE)
+							+ getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) == 0)
 						{
 							if ((getQuestItemsCount(player, JONASS_1ST_STEAK_DISH) + getQuestItemsCount(player, JONASS_2ND_STEAK_DISH) + getQuestItemsCount(player, JONASS_3RD_STEAK_DISH) + getQuestItemsCount(player, JONASS_4TH_STEAK_DISH) + getQuestItemsCount(player, JONASS_5TH_STEAK_DISH)) == 1)
 							{
@@ -806,12 +818,14 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case ACCESSORY_MERCHANT_SONIA:
 				{
-					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, SONIAS_BOTANY_BOOK, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
+					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO)
+						+ getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, SONIAS_BOTANY_BOOK, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 					{
 						giveItems(player, SONIAS_BOTANY_BOOK, 1);
 						htmltext = "30062-01.html";
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
+					else if (hasQuestItems(player, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 					{
 						if ((getQuestItemsCount(player, RED_MANDRAGORA_ROOT) + getQuestItemsCount(player, WHITE_MANDRAGORA_ROOT)) < 40)
 						{
@@ -833,7 +847,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 							}
 						}
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST) && !hasQuestItems(player, SONIAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && hasAtLeastOneQuestItem(player, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
+					else if (hasQuestItems(player, INGREDIENT_LIST) && !hasQuestItems(player, SONIAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && hasAtLeastOneQuestItem(player, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 					{
 						htmltext = "30062-07.html";
 					}
@@ -841,12 +856,14 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case PRIESTESS_GLYVKA:
 				{
-					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, GLYVKAS_BOTANY_BOOK, GREEN_MOSS_BUNDLE, BROWN_MOSS_BUNDLE))
+					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO)
+						+ getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, GLYVKAS_BOTANY_BOOK, GREEN_MOSS_BUNDLE, BROWN_MOSS_BUNDLE))
 					{
 						giveItems(player, GLYVKAS_BOTANY_BOOK, 1);
 						htmltext = "30067-01.html";
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST, GLYVKAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
+					else if (hasQuestItems(player, INGREDIENT_LIST, GLYVKAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
 					{
 						if ((getQuestItemsCount(player, GREEN_MARSH_MOSS) + getQuestItemsCount(player, BROWN_MARSH_MOSS)) < 20)
 						{
@@ -868,7 +885,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 							}
 						}
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST) && !hasQuestItems(player, GLYVKAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && hasAtLeastOneQuestItem(player, GREEN_MOSS_BUNDLE, BROWN_MOSS_BUNDLE))
+					else if (hasQuestItems(player, INGREDIENT_LIST) && !hasQuestItems(player, GLYVKAS_BOTANY_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && hasAtLeastOneQuestItem(player, GREEN_MOSS_BUNDLE, BROWN_MOSS_BUNDLE))
 					{
 						htmltext = "30067-07.html";
 					}
@@ -876,12 +894,14 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case MAGISTER_ROLLANT:
 				{
-					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, ROLLANTS_CREATURE_BOOK, MONSTER_EYE_MEAT))
+					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO)
+						+ getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, ROLLANTS_CREATURE_BOOK, MONSTER_EYE_MEAT))
 					{
 						giveItems(player, ROLLANTS_CREATURE_BOOK, 1);
 						htmltext = "30069-01.html";
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST, ROLLANTS_CREATURE_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
+					else if (hasQuestItems(player, INGREDIENT_LIST, ROLLANTS_CREATURE_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
 					{
 						if (getQuestItemsCount(player, BODY_OF_MONSTER_EYE) < 30)
 						{
@@ -895,7 +915,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 							htmltext = "30069-03.html";
 						}
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST, MONSTER_EYE_MEAT) && !hasQuestItems(player, ROLLANTS_CREATURE_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
+					else if (hasQuestItems(player, INGREDIENT_LIST, MONSTER_EYE_MEAT) && !hasQuestItems(player, ROLLANTS_CREATURE_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY)
+						+ getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
 					{
 						htmltext = "30069-04.html";
 					}
@@ -903,12 +924,14 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case GUARD_JACOB:
 				{
-					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, JACOBS_INSECT_BOOK, HONEY, GOLDEN_HONEY))
+					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO)
+						+ getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, JACOBS_INSECT_BOOK, HONEY, GOLDEN_HONEY))
 					{
 						giveItems(player, JACOBS_INSECT_BOOK, 1);
 						htmltext = "30073-01.html";
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST, JACOBS_INSECT_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
+					else if (hasQuestItems(player, INGREDIENT_LIST, JACOBS_INSECT_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
 					{
 						if (getQuestItemsCount(player, NECTAR) < 20)
 						{
@@ -930,7 +953,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 							}
 						}
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST) && !hasQuestItems(player, JACOBS_INSECT_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && hasAtLeastOneQuestItem(player, HONEY, GOLDEN_HONEY))
+					else if (hasQuestItems(player, INGREDIENT_LIST) && !hasQuestItems(player, JACOBS_INSECT_BOOK) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && hasAtLeastOneQuestItem(player, HONEY, GOLDEN_HONEY))
 					{
 						htmltext = "30073-07.html";
 					}
@@ -938,12 +962,14 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 				case GROCER_PANO:
 				{
-					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, PANOS_CONTRACT, DIONIAN_POTATO))
+					if (hasQuestItems(player, INGREDIENT_LIST) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO)
+						+ getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5) && !hasAtLeastOneQuestItem(player, PANOS_CONTRACT, DIONIAN_POTATO))
 					{
 						giveItems(player, PANOS_CONTRACT, 1);
 						htmltext = "30078-01.html";
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST, PANOS_CONTRACT) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
+					else if (hasQuestItems(player, INGREDIENT_LIST, PANOS_CONTRACT) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY)
+						+ getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
 					{
 						if (getQuestItemsCount(player, HOBGOBLIN_AMULET) < 30)
 						{
@@ -957,7 +983,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 							htmltext = "30078-03.html";
 						}
 					}
-					else if (hasQuestItems(player, INGREDIENT_LIST, DIONIAN_POTATO) && !hasQuestItems(player, PANOS_CONTRACT) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
+					else if (hasQuestItems(player, INGREDIENT_LIST, DIONIAN_POTATO) && !hasQuestItems(player, PANOS_CONTRACT) && ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY)
+						+ getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) < 5))
 					{
 						htmltext = "30078-04.html";
 					}
@@ -971,7 +998,8 @@ public final class Q00330_AdeptOfTaste extends Quest
 					}
 					else
 					{
-						if ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE) + getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) == 0)
+						if ((getQuestItemsCount(player, RED_MANDRAGORA_SAP) + getQuestItemsCount(player, WHITE_MANDRAGORA_SAP) + getQuestItemsCount(player, HONEY) + getQuestItemsCount(player, GOLDEN_HONEY) + getQuestItemsCount(player, DIONIAN_POTATO) + getQuestItemsCount(player, GREEN_MOSS_BUNDLE)
+							+ getQuestItemsCount(player, BROWN_MOSS_BUNDLE) + getQuestItemsCount(player, MONSTER_EYE_MEAT)) == 0)
 						{
 							if ((getQuestItemsCount(player, JONASS_1ST_STEAK_DISH) + getQuestItemsCount(player, JONASS_2ND_STEAK_DISH) + getQuestItemsCount(player, JONASS_3RD_STEAK_DISH) + getQuestItemsCount(player, JONASS_4TH_STEAK_DISH) + getQuestItemsCount(player, JONASS_5TH_STEAK_DISH)) == 1)
 							{
