@@ -143,20 +143,21 @@ public final class Q00384_WarehouseKeepersPastime extends Quest
 				return event;
 			}
 			
-			final int ask = Integer.parseInt(event);
+			if (event.equals("QUEST_ACCEPTED"))
+			{
+				qs.playSound(Sound.ITEMSOUND_QUEST_ACCEPT);
+				qs.setMemoState(384);
+				qs.startQuest();
+				qs.showQuestionMark(384);
+				qs.playSound(Sound.ITEMSOUND_QUEST_MIDDLE);
+				return "30182-05.htm";
+			}
+			
 			switch (npc.getId())
 			{
 				case CLIFF:
 				{
-					if (event.equals("QUEST_ACCEPTED"))
-					{
-						qs.playSound(Sound.ITEMSOUND_QUEST_ACCEPT);
-						qs.setMemoState(384);
-						qs.startQuest();
-						qs.showQuestionMark(384);
-						qs.playSound(Sound.ITEMSOUND_QUEST_MIDDLE);
-						return "30182-05.htm";
-					}
+					final int ask = Integer.parseInt(event);
 					switch (ask)
 					{
 						case 3:
@@ -239,6 +240,8 @@ public final class Q00384_WarehouseKeepersPastime extends Quest
 					break;
 				}
 				case WAREHOUSE_CHIEF_BAXT:
+				{
+					final int ask = Integer.parseInt(event);
 					switch (ask)
 					{
 						case 3:
@@ -304,6 +307,7 @@ public final class Q00384_WarehouseKeepersPastime extends Quest
 							return beforeReward(player, qs, (ask - 54), WAREHOUSE_CHIEF_BAXT);
 						}
 					}
+				}
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
