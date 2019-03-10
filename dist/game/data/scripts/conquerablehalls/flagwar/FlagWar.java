@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -416,7 +416,7 @@ public abstract class FlagWar extends ClanHallSiegeEngine
 							}
 							
 							_hall.getSiegeZone().setIsActive(true);
-						} , 300000);
+						}, 300000);
 					}
 				}
 				else
@@ -511,7 +511,7 @@ public abstract class FlagWar extends ClanHallSiegeEngine
 			_hall.getZone().banishNonSiegeParticipants();
 			
 			startSiege();
-		} , 300000);
+		}, 300000);
 	}
 	
 	@Override

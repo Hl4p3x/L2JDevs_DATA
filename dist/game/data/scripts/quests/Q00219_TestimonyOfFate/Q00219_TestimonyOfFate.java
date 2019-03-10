@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -532,7 +532,8 @@ public final class Q00219_TestimonyOfFate extends Quest
 					}
 					else if (hasQuestItems(player, IXIAS_LIST))
 					{
-						if ((getQuestItemsCount(player, MEDUSAS_ICHOR) >= 10) && (getQuestItemsCount(player, MARSH_SPIDER_FLUIDS) >= 10) && (getQuestItemsCount(player, DEAD_SEEKER_DUNG) >= 10) && (getQuestItemsCount(player, TYRANTS_BLOOD) >= 10) && (getQuestItemsCount(player, NIGHTSHADE_ROOT) >= 10))
+						if ((getQuestItemsCount(player, MEDUSAS_ICHOR) >= 10) && (getQuestItemsCount(player, MARSH_SPIDER_FLUIDS) >= 10) && (getQuestItemsCount(player, DEAD_SEEKER_DUNG) >= 10) && (getQuestItemsCount(player, TYRANTS_BLOOD) >= 10)
+							&& (getQuestItemsCount(player, NIGHTSHADE_ROOT) >= 10))
 						{
 							takeItems(player, IXIAS_LIST, 1);
 							takeItems(player, MEDUSAS_ICHOR, -1);

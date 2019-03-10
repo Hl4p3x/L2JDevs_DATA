@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -44,10 +44,9 @@ public final class Fear extends AbstractEffect
 	@Override
 	public boolean canStart(BuffInfo info)
 	{
-		return info.getEffected().isPlayer() || info.getEffected().isSummon()
-			|| (info.getEffected().isAttackable() && //
-				!((info.getEffected() instanceof L2DefenderInstance) || (info.getEffected() instanceof L2FortCommanderInstance) || //
-					(info.getEffected() instanceof L2SiegeFlagInstance) || (info.getEffected().getTemplate().getRace() == Race.SIEGE_WEAPON)));
+		return info.getEffected().isPlayer() || info.getEffected().isSummon() || (info.getEffected().isAttackable() && //
+			!((info.getEffected() instanceof L2DefenderInstance) || (info.getEffected() instanceof L2FortCommanderInstance) || //
+				(info.getEffected() instanceof L2SiegeFlagInstance) || (info.getEffected().getTemplate().getRace() == Race.SIEGE_WEAPON)));
 	}
 	
 	@Override

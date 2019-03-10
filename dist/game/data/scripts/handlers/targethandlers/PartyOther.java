@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -41,7 +41,7 @@ public class PartyOther implements ITargetTypeHandler
 				{
 					switch (skill.getId())
 					{
-					// FORCE BUFFS may cancel here but there should be a proper condition
+						// FORCE BUFFS may cancel here but there should be a proper condition
 						case 426:
 							if (!target.getActingPlayer().isMageClass())
 							{

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -342,7 +342,7 @@ public final class Q00417_PathOfTheScavenger extends Quest
 		{
 			switch (npc.getId())
 			{
-			
+				
 				case HUNTER_BEAR:
 				{
 					switch (npc.getScriptValue())

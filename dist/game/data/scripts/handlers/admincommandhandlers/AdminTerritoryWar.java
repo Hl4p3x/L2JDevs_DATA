@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -147,7 +147,8 @@ public class AdminTerritoryWar implements IAdminCommandHandler
 					{
 						sb.append("<table width=270><tr>");
 						sb.append("<td width=135 ALIGN=\"LEFT\">" + ward.getPlayer().getActiveWeaponInstance().getItemName() + " - " + ward.getPlayer().getName() + "</td>");
-						sb.append("<td width=135 ALIGN=\"RIGHT\"><button value=\"TeleTo\" action=\"bypass -h admin_move_to " + ward.getPlayer().getX() + " " + ward.getPlayer().getY() + " " + ward.getPlayer().getZ() + "\" width=50 height=20 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_ct1.button_df\"></td>");
+						sb.append("<td width=135 ALIGN=\"RIGHT\"><button value=\"TeleTo\" action=\"bypass -h admin_move_to " + ward.getPlayer().getX() + " " + ward.getPlayer().getY() + " " + ward.getPlayer().getZ()
+							+ "\" width=50 height=20 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_ct1.button_df\"></td>");
 						sb.append("</tr></table>");
 					}
 				}

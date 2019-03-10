@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -212,7 +212,7 @@ public final class Q00364_JovialAccordion extends Quest
 					{
 						if (st.hasQuestItems(STOLEN_EVENT_CLOTHES))
 						{
-							st.takeItems(STOLEN_EVENT_CLOTHES, -1);
+							st.takeItems(STOLEN_EVENT_CLOTHES, 1);
 							htmltext = "30075-01.html";
 							if (st.isMemoState(2))
 							{

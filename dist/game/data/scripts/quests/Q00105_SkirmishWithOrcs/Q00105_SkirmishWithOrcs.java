@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -74,6 +74,8 @@ public final class Q00105_SkirmishWithOrcs extends Quest
 		KENDELLS_7TH_ORDER,
 		KENDELLS_8TH_ORDER
 	};
+	private static final int RED_SUNSET_STAFF = 754;
+	private static final int RED_SUNSET_SWORD = 981;
 	// Misc
 	private static final int MIN_LVL = 10;
 	
@@ -199,6 +201,15 @@ public final class Q00105_SkirmishWithOrcs extends Quest
 					talker.sendPacket(new SocialAction(talker.getObjectId(), 3));
 					st.giveAdena(17599, true);
 					st.addExpAndSp(41478, 3555);
+					if (st.getPlayer().getClassId().isMage())
+					{
+						st.giveItems(RED_SUNSET_STAFF, 1);
+					}
+					else
+					{
+						st.giveItems(RED_SUNSET_SWORD, 1);
+					}
+					st.takeItems(KABOO_CHIEFS_2ST_TORQUE, 1);
 					st.exitQuest(false, true);
 					htmltext = "30218-09.html";
 				}

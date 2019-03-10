@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -33,7 +33,8 @@ import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 /**
  * <B>Pledge Manipulation:</B><BR>
  * <LI>With target in a character without clan:<BR>
- * //pledge create clanname <LI>With target in a clan leader:<BR>
+ * //pledge create clanname
+ * <LI>With target in a clan leader:<BR>
  * //pledge info<BR>
  * //pledge dismiss<BR>
  * //pledge setlevel level<BR>
