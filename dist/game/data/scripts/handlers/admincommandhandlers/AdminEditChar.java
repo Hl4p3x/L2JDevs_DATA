@@ -1362,7 +1362,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		final StringBuilder results = new StringBuilder();
 		for (IpPack dualboxIP : keys)
 		{
-			StringUtil.append(results, "<a action=\"bypass -h admin_find_ip " + dualboxIP.ip + "\">" + dualboxIP.ip + " (" + dualboxIPs.get(dualboxIP) + ")</a><br1>");
+			StringUtil.append(results, "<a action=\"bypass -h admin_find_ip " + dualboxIP._ip + "\">" + dualboxIP._ip + " (" + dualboxIPs.get(dualboxIP) + ")</a><br1>");
 		}
 		
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
@@ -1375,13 +1375,13 @@ public class AdminEditChar implements IAdminCommandHandler
 	
 	private final class IpPack
 	{
-		String ip;
-		int[][] tracert;
+		String _ip;
+		int[][] _tracert;
 		
 		public IpPack(String ip, int[][] tracert)
 		{
-			this.ip = ip;
-			this.tracert = tracert;
+			_ip = ip;
+			_tracert = tracert;
 		}
 		
 		@Override
@@ -1389,8 +1389,8 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			final int prime = 31;
 			int result = 1;
-			result = (prime * result) + ((ip == null) ? 0 : ip.hashCode());
-			for (int[] array : tracert)
+			result = (prime * result) + ((_ip == null) ? 0 : _ip.hashCode());
+			for (int[] array : _tracert)
 			{
 				result = (prime * result) + Arrays.hashCode(array);
 			}
@@ -1417,22 +1417,22 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				return false;
 			}
-			if (ip == null)
+			if (_ip == null)
 			{
-				if (other.ip != null)
+				if (other._ip != null)
 				{
 					return false;
 				}
 			}
-			else if (!ip.equals(other.ip))
+			else if (!_ip.equals(other._ip))
 			{
 				return false;
 			}
-			for (int i = 0; i < tracert.length; i++)
+			for (int i = 0; i < _tracert.length; i++)
 			{
-				for (int o = 0; o < tracert[0].length; o++)
+				for (int o = 0; o < _tracert[0].length; o++)
 				{
-					if (tracert[i][o] != other.tracert[i][o])
+					if (_tracert[i][o] != other._tracert[i][o])
 					{
 						return false;
 					}

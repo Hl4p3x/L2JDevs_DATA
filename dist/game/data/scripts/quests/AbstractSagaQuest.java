@@ -977,10 +977,10 @@ public abstract class AbstractSagaQuest extends Quest
 		addFirstTalkId(_npc[4]);
 		addTalkId(_npc);
 		addKillId(Mob);
-		final int[] questItemIds = Items.clone();
-		questItemIds[0] = 0;
-		questItemIds[2] = 0; // remove Ice Crystal and Divine Stone of Wisdom
-		registerQuestItems(questItemIds);
+		final int[] questItemIDs = Items.clone();
+		questItemIDs[0] = 0;
+		questItemIDs[2] = 0; // remove Ice Crystal and Divine Stone of Wisdom
+		registerQuestItems(questItemIDs);
 		for (int Archon_Minion = 21646; Archon_Minion < 21652; Archon_Minion++)
 		{
 			addKillId(Archon_Minion);
