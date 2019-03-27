@@ -18,13 +18,13 @@
  */
 package handlers.actionhandlers;
 
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.enums.InstanceType;
-import com.l2jserver.gameserver.handler.IActionHandler;
-import com.l2jserver.gameserver.instancemanager.MercTicketManager;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.enums.InstanceType;
+import org.l2jdevs.gameserver.handler.IActionHandler;
+import org.l2jdevs.gameserver.instancemanager.MercTicketManager;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 
 public class L2ItemInstanceAction implements IActionHandler
 {

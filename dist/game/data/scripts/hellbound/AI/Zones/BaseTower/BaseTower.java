@@ -21,11 +21,11 @@ package hellbound.AI.Zones.BaseTower;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.l2jserver.gameserver.data.xml.impl.DoorData;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.base.ClassId;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.data.xml.impl.DoorData;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.base.ClassId;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
 
 import ai.npc.AbstractNpcAI;
 

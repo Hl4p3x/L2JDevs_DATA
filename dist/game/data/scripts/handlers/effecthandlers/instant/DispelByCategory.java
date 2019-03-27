@@ -20,13 +20,13 @@ package handlers.effecthandlers.instant;
 
 import java.util.List;
 
-import com.l2jserver.gameserver.enums.DispelCategory;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.effects.L2EffectType;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.model.stats.Formulas;
+import org.l2jdevs.gameserver.enums.DispelCategory;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.effects.L2EffectType;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.model.stats.Formulas;
 
 /**
  * Dispel By Category effect implementation.

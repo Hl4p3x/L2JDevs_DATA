@@ -18,17 +18,17 @@
  */
 package ai.npc.Teleports.GrandBossTeleporters;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.data.xml.impl.DoorData;
-import com.l2jserver.gameserver.instancemanager.GrandBossManager;
-import com.l2jserver.gameserver.instancemanager.QuestManager;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2GrandBossInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.zone.type.L2BossZone;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.data.xml.impl.DoorData;
+import org.l2jdevs.gameserver.instancemanager.GrandBossManager;
+import org.l2jdevs.gameserver.instancemanager.QuestManager;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2GrandBossInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.zone.type.L2BossZone;
 
 import ai.individual.Valakas;
 import ai.npc.AbstractNpcAI;

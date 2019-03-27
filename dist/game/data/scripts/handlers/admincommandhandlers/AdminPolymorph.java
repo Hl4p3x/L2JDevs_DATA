@@ -18,15 +18,15 @@
  */
 package handlers.admincommandhandlers;
 
-import com.l2jserver.gameserver.data.xml.impl.TransformData;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jserver.gameserver.network.serverpackets.SetupGauge;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.data.xml.impl.TransformData;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.MagicSkillUse;
+import org.l2jdevs.gameserver.network.serverpackets.SetupGauge;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * Polymorph admin command implementation.

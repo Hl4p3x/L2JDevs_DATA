@@ -18,13 +18,13 @@
  */
 package handlers.admincommandhandlers;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.TvTEvent;
-import com.l2jserver.gameserver.model.entity.TvTEventTeleporter;
-import com.l2jserver.gameserver.model.entity.TvTManager;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.TvTEvent;
+import org.l2jdevs.gameserver.model.entity.TvTEventTeleporter;
+import org.l2jdevs.gameserver.model.entity.TvTManager;
 
 /**
  * @author HorridoJoho

@@ -18,16 +18,16 @@
  */
 package events.LoversJubilee;
 
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.event.LongTimeEvent;
-import com.l2jserver.gameserver.model.events.EventType;
-import com.l2jserver.gameserver.model.events.ListenerRegisterType;
-import com.l2jserver.gameserver.model.events.annotations.RegisterEvent;
-import com.l2jserver.gameserver.model.events.annotations.RegisterType;
-import com.l2jserver.gameserver.model.events.impl.character.player.OnPlayerLogin;
-import com.l2jserver.gameserver.model.itemcontainer.Inventory;
-import com.l2jserver.gameserver.network.serverpackets.ExBrBroadcastEventState;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.event.LongTimeEvent;
+import org.l2jdevs.gameserver.model.events.EventType;
+import org.l2jdevs.gameserver.model.events.ListenerRegisterType;
+import org.l2jdevs.gameserver.model.events.annotations.RegisterEvent;
+import org.l2jdevs.gameserver.model.events.annotations.RegisterType;
+import org.l2jdevs.gameserver.model.events.impl.character.player.OnPlayerLogin;
+import org.l2jdevs.gameserver.model.itemcontainer.Inventory;
+import org.l2jdevs.gameserver.network.serverpackets.ExBrBroadcastEventState;
 
 /**
  * Lovers' Jubilee event.

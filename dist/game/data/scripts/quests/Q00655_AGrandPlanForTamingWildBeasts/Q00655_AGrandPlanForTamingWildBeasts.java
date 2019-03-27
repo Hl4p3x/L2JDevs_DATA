@@ -21,17 +21,17 @@ package quests.Q00655_AGrandPlanForTamingWildBeasts;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import com.l2jserver.gameserver.cache.HtmCache;
-import com.l2jserver.gameserver.enums.audio.Sound;
-import com.l2jserver.gameserver.instancemanager.CHSiegeManager;
-import com.l2jserver.gameserver.model.L2Clan;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.clanhall.ClanHallSiegeEngine;
-import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.cache.HtmCache;
+import org.l2jdevs.gameserver.enums.audio.Sound;
+import org.l2jdevs.gameserver.instancemanager.CHSiegeManager;
+import org.l2jdevs.gameserver.model.L2Clan;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.clanhall.ClanHallSiegeEngine;
+import org.l2jdevs.gameserver.model.entity.clanhall.SiegableHall;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * A Grand Plan for Taming Wild Beasts (655)

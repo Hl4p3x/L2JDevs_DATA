@@ -18,11 +18,11 @@
  */
 package gracia.AI.NPC.Lekon;
 
-import com.l2jserver.gameserver.instancemanager.AirShipManager;
-import com.l2jserver.gameserver.model.L2Clan;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.instancemanager.AirShipManager;
+import org.l2jdevs.gameserver.model.L2Clan;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
 
 import ai.npc.AbstractNpcAI;
 

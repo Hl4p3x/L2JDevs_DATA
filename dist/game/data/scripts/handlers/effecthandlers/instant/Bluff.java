@@ -18,14 +18,14 @@
  */
 package handlers.effecthandlers.instant;
 
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.model.stats.Formulas;
-import com.l2jserver.gameserver.network.serverpackets.StartRotation;
-import com.l2jserver.gameserver.network.serverpackets.StopRotation;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.model.stats.Formulas;
+import org.l2jdevs.gameserver.network.serverpackets.StartRotation;
+import org.l2jdevs.gameserver.network.serverpackets.StopRotation;
 
 /**
  * Bluff effect implementation.

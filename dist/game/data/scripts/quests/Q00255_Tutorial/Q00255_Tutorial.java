@@ -18,23 +18,23 @@
  */
 package quests.Q00255_Tutorial;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.enums.Race;
-import com.l2jserver.gameserver.enums.audio.Sound;
-import com.l2jserver.gameserver.enums.audio.Voice;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.base.ClassId;
-import com.l2jserver.gameserver.model.events.EventType;
-import com.l2jserver.gameserver.model.events.impl.character.OnCreatureAttacked;
-import com.l2jserver.gameserver.model.events.impl.character.player.OnPlayerLevelChanged;
-import com.l2jserver.gameserver.model.events.impl.character.player.OnPlayerSit;
-import com.l2jserver.gameserver.model.events.impl.character.player.inventory.OnPlayerItemPickup;
-import com.l2jserver.gameserver.model.events.listeners.ConsumerEventListener;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.quest.State;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.enums.Race;
+import org.l2jdevs.gameserver.enums.audio.Sound;
+import org.l2jdevs.gameserver.enums.audio.Voice;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.base.ClassId;
+import org.l2jdevs.gameserver.model.events.EventType;
+import org.l2jdevs.gameserver.model.events.impl.character.OnCreatureAttacked;
+import org.l2jdevs.gameserver.model.events.impl.character.player.OnPlayerLevelChanged;
+import org.l2jdevs.gameserver.model.events.impl.character.player.OnPlayerSit;
+import org.l2jdevs.gameserver.model.events.impl.character.player.inventory.OnPlayerItemPickup;
+import org.l2jdevs.gameserver.model.events.listeners.ConsumerEventListener;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.quest.State;
 
 /**
  * Tutorial (255)

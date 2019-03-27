@@ -21,12 +21,12 @@ package gracia.AI.NPC.Nottingale;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.gameserver.instancemanager.AirShipManager;
-import com.l2jserver.gameserver.model.ClanPrivilege;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.network.serverpackets.RadarControl;
+import org.l2jdevs.gameserver.instancemanager.AirShipManager;
+import org.l2jdevs.gameserver.model.ClanPrivilege;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.network.serverpackets.RadarControl;
 
 import ai.npc.AbstractNpcAI;
 import quests.Q10273_GoodDayToFly.Q10273_GoodDayToFly;

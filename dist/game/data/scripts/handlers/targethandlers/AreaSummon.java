@@ -22,13 +22,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.l2jserver.gameserver.handler.ITargetTypeHandler;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.model.skills.targets.L2TargetType;
-import com.l2jserver.gameserver.model.zone.ZoneId;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.handler.ITargetTypeHandler;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.model.skills.targets.L2TargetType;
+import org.l2jdevs.gameserver.model.zone.ZoneId;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * @author UnAfraid

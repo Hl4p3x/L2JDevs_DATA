@@ -18,15 +18,15 @@
  */
 package handlers.itemhandlers;
 
-import com.l2jserver.gameserver.SevenSigns;
-import com.l2jserver.gameserver.handler.IItemHandler;
-import com.l2jserver.gameserver.instancemanager.CastleManager;
-import com.l2jserver.gameserver.instancemanager.MercTicketManager;
-import com.l2jserver.gameserver.model.actor.L2Playable;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.Castle;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.SevenSigns;
+import org.l2jdevs.gameserver.handler.IItemHandler;
+import org.l2jdevs.gameserver.instancemanager.CastleManager;
+import org.l2jdevs.gameserver.instancemanager.MercTicketManager;
+import org.l2jdevs.gameserver.model.actor.L2Playable;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.Castle;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
 
 public class MercTicket implements IItemHandler
 {

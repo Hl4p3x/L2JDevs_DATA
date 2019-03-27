@@ -20,14 +20,14 @@ package ai.npc.CastleMercenaryManager;
 
 import java.util.StringTokenizer;
 
-import com.l2jserver.gameserver.SevenSigns;
-import com.l2jserver.gameserver.model.ClanPrivilege;
-import com.l2jserver.gameserver.model.PcCondOverride;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.Castle;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.SevenSigns;
+import org.l2jdevs.gameserver.model.ClanPrivilege;
+import org.l2jdevs.gameserver.model.PcCondOverride;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2MerchantInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.Castle;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
 
 import ai.npc.AbstractNpcAI;
 

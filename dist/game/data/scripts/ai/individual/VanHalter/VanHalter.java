@@ -18,16 +18,16 @@
  */
 package ai.individual.VanHalter;
 
-import com.l2jserver.gameserver.instancemanager.GrandBossManager;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.TeleportWhereType;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.zone.type.L2BossZone;
-import com.l2jserver.gameserver.network.NpcStringId;
-import com.l2jserver.gameserver.network.serverpackets.CameraMode;
-import com.l2jserver.gameserver.network.serverpackets.SocialAction;
+import org.l2jdevs.gameserver.instancemanager.GrandBossManager;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.TeleportWhereType;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.model.zone.type.L2BossZone;
+import org.l2jdevs.gameserver.network.NpcStringId;
+import org.l2jdevs.gameserver.network.serverpackets.CameraMode;
+import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 
 import ai.npc.AbstractNpcAI;
 

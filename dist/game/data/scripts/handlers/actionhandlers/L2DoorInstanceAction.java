@@ -18,17 +18,17 @@
  */
 package handlers.actionhandlers;
 
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.enums.InstanceType;
-import com.l2jserver.gameserver.handler.IActionHandler;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
-import com.l2jserver.gameserver.model.holders.DoorRequestHolder;
-import com.l2jserver.gameserver.network.serverpackets.ConfirmDlg;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.enums.InstanceType;
+import org.l2jdevs.gameserver.handler.IActionHandler;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2DoorInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.clanhall.SiegableHall;
+import org.l2jdevs.gameserver.model.holders.DoorRequestHolder;
+import org.l2jdevs.gameserver.network.serverpackets.ConfirmDlg;
 
 public class L2DoorInstanceAction implements IActionHandler
 {

@@ -18,7 +18,7 @@
  */
 package quests.TerritoryWarScripts;
 
-import com.l2jserver.gameserver.network.NpcStringId;
+import org.l2jdevs.gameserver.network.NpcStringId;
 
 /**
  * Weaken the magic! (736)

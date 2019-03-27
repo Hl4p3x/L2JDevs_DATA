@@ -21,23 +21,23 @@ package handlers.admincommandhandlers;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
-import com.l2jserver.gameserver.SevenSigns;
-import com.l2jserver.gameserver.data.sql.impl.ClanTable;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.instancemanager.AuctionManager;
-import com.l2jserver.gameserver.instancemanager.CHSiegeManager;
-import com.l2jserver.gameserver.instancemanager.CastleManager;
-import com.l2jserver.gameserver.instancemanager.ClanHallManager;
-import com.l2jserver.gameserver.model.L2Clan;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.Castle;
-import com.l2jserver.gameserver.model.entity.ClanHall;
-import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
-import com.l2jserver.gameserver.model.zone.type.L2ClanHallZone;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.util.Util;
-import com.l2jserver.util.StringUtil;
+import org.l2jdevs.gameserver.SevenSigns;
+import org.l2jdevs.gameserver.data.sql.impl.ClanTable;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.instancemanager.AuctionManager;
+import org.l2jdevs.gameserver.instancemanager.CHSiegeManager;
+import org.l2jdevs.gameserver.instancemanager.CastleManager;
+import org.l2jdevs.gameserver.instancemanager.ClanHallManager;
+import org.l2jdevs.gameserver.model.L2Clan;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.Castle;
+import org.l2jdevs.gameserver.model.entity.ClanHall;
+import org.l2jdevs.gameserver.model.entity.clanhall.SiegableHall;
+import org.l2jdevs.gameserver.model.zone.type.L2ClanHallZone;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.util.StringUtil;
 
 /**
  * This class handles all siege commands.

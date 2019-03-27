@@ -18,32 +18,32 @@
  */
 package ai.npc.ClassMaster;
 
-import static com.l2jserver.Config.ALLOW_CLASS_MASTERS;
-import static com.l2jserver.Config.ALLOW_ENTIRE_TREE;
-import static com.l2jserver.Config.ALTERNATE_CLASS_MASTER;
-import static com.l2jserver.Config.AUTO_LEARN_FS_SKILLS;
-import static com.l2jserver.Config.CLASS_MASTER_SETTINGS;
-import static com.l2jserver.gameserver.model.events.EventType.ON_PLAYER_LEVEL_CHANGED;
-import static com.l2jserver.gameserver.network.SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT;
-import static com.l2jserver.gameserver.network.SystemMessageId.NOT_ENOUGH_ITEMS;
-import static com.l2jserver.gameserver.network.serverpackets.TutorialCloseHtml.STATIC_PACKET;
+import static org.l2jdevs.Config.ALLOW_CLASS_MASTERS;
+import static org.l2jdevs.Config.ALLOW_ENTIRE_TREE;
+import static org.l2jdevs.Config.ALTERNATE_CLASS_MASTER;
+import static org.l2jdevs.Config.AUTO_LEARN_FS_SKILLS;
+import static org.l2jdevs.Config.CLASS_MASTER_SETTINGS;
+import static org.l2jdevs.gameserver.model.events.EventType.ON_PLAYER_LEVEL_CHANGED;
+import static org.l2jdevs.gameserver.network.SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT;
+import static org.l2jdevs.gameserver.network.SystemMessageId.NOT_ENOUGH_ITEMS;
+import static org.l2jdevs.gameserver.network.serverpackets.TutorialCloseHtml.STATIC_PACKET;
 
-import com.l2jserver.gameserver.data.xml.impl.ClassListData;
-import com.l2jserver.gameserver.datatables.ItemTable;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.base.ClassId;
-import com.l2jserver.gameserver.model.events.Containers;
-import com.l2jserver.gameserver.model.events.impl.character.player.OnPlayerLevelChanged;
-import com.l2jserver.gameserver.model.events.listeners.ConsumerEventListener;
-import com.l2jserver.gameserver.model.holders.ItemHolder;
-import com.l2jserver.gameserver.network.serverpackets.ExBrExtraUserInfo;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.network.serverpackets.TutorialShowHtml;
-import com.l2jserver.gameserver.network.serverpackets.TutorialShowQuestionMark;
-import com.l2jserver.gameserver.network.serverpackets.UserInfo;
-import com.l2jserver.util.StringUtil;
+import org.l2jdevs.gameserver.data.xml.impl.ClassListData;
+import org.l2jdevs.gameserver.datatables.ItemTable;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.base.ClassId;
+import org.l2jdevs.gameserver.model.events.Containers;
+import org.l2jdevs.gameserver.model.events.impl.character.player.OnPlayerLevelChanged;
+import org.l2jdevs.gameserver.model.events.listeners.ConsumerEventListener;
+import org.l2jdevs.gameserver.model.holders.ItemHolder;
+import org.l2jdevs.gameserver.network.serverpackets.ExBrExtraUserInfo;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.network.serverpackets.TutorialShowHtml;
+import org.l2jdevs.gameserver.network.serverpackets.TutorialShowQuestionMark;
+import org.l2jdevs.gameserver.network.serverpackets.UserInfo;
+import org.l2jdevs.util.StringUtil;
 
 import ai.npc.AbstractNpcAI;
 

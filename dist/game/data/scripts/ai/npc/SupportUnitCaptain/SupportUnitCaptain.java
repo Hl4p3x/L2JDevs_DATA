@@ -18,10 +18,10 @@
  */
 package ai.npc.SupportUnitCaptain;
 
-import com.l2jserver.gameserver.model.ClanPrivilege;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.clientpackets.RequestAcquireSkill;
+import org.l2jdevs.gameserver.model.ClanPrivilege;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.clientpackets.RequestAcquireSkill;
 
 import ai.npc.AbstractNpcAI;
 

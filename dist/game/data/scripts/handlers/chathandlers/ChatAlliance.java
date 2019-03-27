@@ -18,12 +18,12 @@
  */
 package handlers.chathandlers;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.handler.IChatHandler;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.CreatureSay;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.handler.IChatHandler;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.CreatureSay;
+import org.l2jdevs.gameserver.util.Util;
 
 public class ChatAlliance implements IChatHandler
 {

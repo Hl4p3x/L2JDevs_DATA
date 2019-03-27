@@ -21,13 +21,13 @@ package quests.Q00691_MatrasSuspiciousRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.enums.audio.Sound;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.quest.State;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.enums.audio.Sound;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.quest.State;
 
 /**
  * Matras' Suspicious Request (691)
