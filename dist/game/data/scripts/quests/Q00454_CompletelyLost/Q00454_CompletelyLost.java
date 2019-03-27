@@ -18,28 +18,28 @@
  */
 package quests.Q00454_CompletelyLost;
 
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.enums.QuestType;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.events.EventType;
-import com.l2jserver.gameserver.model.events.ListenerRegisterType;
-import com.l2jserver.gameserver.model.events.annotations.Id;
-import com.l2jserver.gameserver.model.events.annotations.RegisterEvent;
-import com.l2jserver.gameserver.model.events.annotations.RegisterType;
-import com.l2jserver.gameserver.model.events.impl.character.OnCreatureAttacked;
-import com.l2jserver.gameserver.model.events.returns.TerminateReturn;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.quest.State;
-import com.l2jserver.gameserver.network.NpcStringId;
-import com.l2jserver.gameserver.network.clientpackets.Say2;
-import com.l2jserver.gameserver.network.serverpackets.NpcSay;
-import com.l2jserver.gameserver.util.Broadcast;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.enums.QuestType;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.events.EventType;
+import org.l2jdevs.gameserver.model.events.ListenerRegisterType;
+import org.l2jdevs.gameserver.model.events.annotations.Id;
+import org.l2jdevs.gameserver.model.events.annotations.RegisterEvent;
+import org.l2jdevs.gameserver.model.events.annotations.RegisterType;
+import org.l2jdevs.gameserver.model.events.impl.character.OnCreatureAttacked;
+import org.l2jdevs.gameserver.model.events.returns.TerminateReturn;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.quest.State;
+import org.l2jdevs.gameserver.network.NpcStringId;
+import org.l2jdevs.gameserver.network.clientpackets.Say2;
+import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
+import org.l2jdevs.gameserver.util.Broadcast;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * Completely Lost (454)

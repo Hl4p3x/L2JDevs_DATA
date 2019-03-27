@@ -24,22 +24,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
-import com.l2jserver.gameserver.data.xml.impl.NpcData;
-import com.l2jserver.gameserver.handler.IBypassHandler;
-import com.l2jserver.gameserver.instancemanager.QuestManager;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.actor.templates.L2NpcTemplate;
-import com.l2jserver.gameserver.model.events.EventType;
-import com.l2jserver.gameserver.model.events.listeners.AbstractEventListener;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.util.StringUtil;
+import org.l2jdevs.gameserver.data.xml.impl.NpcData;
+import org.l2jdevs.gameserver.handler.IBypassHandler;
+import org.l2jdevs.gameserver.instancemanager.QuestManager;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.actor.templates.L2NpcTemplate;
+import org.l2jdevs.gameserver.model.events.EventType;
+import org.l2jdevs.gameserver.model.events.listeners.AbstractEventListener;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.ActionFailed;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.util.StringUtil;
 
 public class QuestLink implements IBypassHandler
 {

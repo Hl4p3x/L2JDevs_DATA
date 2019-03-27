@@ -21,17 +21,17 @@ package instances.PailakaDevilsLegacy;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.instancemanager.InstanceManager;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Attackable;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.instancezone.InstanceWorld;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.zone.L2ZoneType;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.instancemanager.InstanceManager;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Attackable;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.model.instancezone.InstanceWorld;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.zone.L2ZoneType;
 
 import instances.AbstractInstance;
 import quests.Q00129_PailakaDevilsLegacy.Q00129_PailakaDevilsLegacy;

@@ -21,13 +21,13 @@ package handlers.usercommandhandlers;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.GameTimeController;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IUserCommandHandler;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.GameTimeController;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IUserCommandHandler;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Time user command.

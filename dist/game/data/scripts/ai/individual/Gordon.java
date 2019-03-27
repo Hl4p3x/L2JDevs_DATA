@@ -18,10 +18,10 @@
  */
 package ai.individual;
 
-import com.l2jserver.gameserver.model.actor.L2Attackable;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.actor.L2Attackable;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 
 import ai.npc.AbstractNpcAI;
 

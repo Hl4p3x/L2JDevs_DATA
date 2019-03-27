@@ -20,8 +20,8 @@ package handlers;
 
 import java.util.logging.Logger;
 
-import com.l2jserver.gameserver.handler.EffectHandler;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.handler.EffectHandler;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
 
 import handlers.effecthandlers.consume.ConsumeChameleonRest;
 import handlers.effecthandlers.consume.ConsumeFakeDeath;

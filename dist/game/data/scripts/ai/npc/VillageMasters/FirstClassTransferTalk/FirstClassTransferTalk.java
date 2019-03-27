@@ -21,11 +21,11 @@ package ai.npc.VillageMasters.FirstClassTransferTalk;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.gameserver.enums.Race;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterFighterInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2VillageMasterPriestInstance;
+import org.l2jdevs.gameserver.enums.Race;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2VillageMasterFighterInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2VillageMasterPriestInstance;
 
 import ai.npc.AbstractNpcAI;
 

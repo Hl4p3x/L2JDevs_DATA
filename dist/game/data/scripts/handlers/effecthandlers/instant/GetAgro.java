@@ -18,13 +18,13 @@
  */
 package handlers.effecthandlers.instant;
 
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Attackable;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.effects.L2EffectType;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Attackable;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.effects.L2EffectType;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
 
 /**
  * Get Agro effect implementation.

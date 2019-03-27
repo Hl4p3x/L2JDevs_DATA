@@ -18,7 +18,7 @@
  */
 package quests.Dummy;
 
-import com.l2jserver.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.Quest;
 
 /**
  * @author Zealar

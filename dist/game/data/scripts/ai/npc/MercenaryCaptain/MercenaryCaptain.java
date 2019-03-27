@@ -22,16 +22,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import com.l2jserver.gameserver.data.xml.impl.MultisellData;
-import com.l2jserver.gameserver.instancemanager.TerritoryWarManager;
-import com.l2jserver.gameserver.instancemanager.TerritoryWarManager.Territory;
-import com.l2jserver.gameserver.instancemanager.TerritoryWarManager.TerritoryNPCSpawn;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.NpcStringId;
-import com.l2jserver.gameserver.network.clientpackets.Say2;
-import com.l2jserver.gameserver.network.serverpackets.ExShowDominionRegistry;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.data.xml.impl.MultisellData;
+import org.l2jdevs.gameserver.instancemanager.TerritoryWarManager;
+import org.l2jdevs.gameserver.instancemanager.TerritoryWarManager.Territory;
+import org.l2jdevs.gameserver.instancemanager.TerritoryWarManager.TerritoryNPCSpawn;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.NpcStringId;
+import org.l2jdevs.gameserver.network.clientpackets.Say2;
+import org.l2jdevs.gameserver.network.serverpackets.ExShowDominionRegistry;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
 
 import ai.npc.AbstractNpcAI;
 

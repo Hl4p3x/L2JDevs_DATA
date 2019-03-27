@@ -22,16 +22,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.data.xml.impl.ClassListData;
-import com.l2jserver.gameserver.enums.IllegalActionPunishmentType;
-import com.l2jserver.gameserver.model.PcCondOverride;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.data.xml.impl.ClassListData;
+import org.l2jdevs.gameserver.enums.IllegalActionPunishmentType;
+import org.l2jdevs.gameserver.model.PcCondOverride;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * Sub-class skills validator.<br>

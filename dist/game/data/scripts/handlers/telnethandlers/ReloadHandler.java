@@ -23,20 +23,20 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
-import com.l2jserver.gameserver.cache.HtmCache;
-import com.l2jserver.gameserver.data.sql.impl.TeleportLocationTable;
-import com.l2jserver.gameserver.data.xml.impl.MultisellData;
-import com.l2jserver.gameserver.data.xml.impl.NpcData;
-import com.l2jserver.gameserver.datatables.ItemTable;
-import com.l2jserver.gameserver.datatables.SkillData;
-import com.l2jserver.gameserver.datatables.SpawnTable;
-import com.l2jserver.gameserver.handler.ITelnetHandler;
-import com.l2jserver.gameserver.instancemanager.DayNightSpawnManager;
-import com.l2jserver.gameserver.instancemanager.QuestManager;
-import com.l2jserver.gameserver.instancemanager.RaidBossSpawnManager;
-import com.l2jserver.gameserver.instancemanager.ZoneManager;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.scripting.ScriptEngineManager;
+import org.l2jdevs.gameserver.cache.HtmCache;
+import org.l2jdevs.gameserver.data.sql.impl.TeleportLocationTable;
+import org.l2jdevs.gameserver.data.xml.impl.MultisellData;
+import org.l2jdevs.gameserver.data.xml.impl.NpcData;
+import org.l2jdevs.gameserver.datatables.ItemTable;
+import org.l2jdevs.gameserver.datatables.SkillData;
+import org.l2jdevs.gameserver.datatables.SpawnTable;
+import org.l2jdevs.gameserver.handler.ITelnetHandler;
+import org.l2jdevs.gameserver.instancemanager.DayNightSpawnManager;
+import org.l2jdevs.gameserver.instancemanager.QuestManager;
+import org.l2jdevs.gameserver.instancemanager.RaidBossSpawnManager;
+import org.l2jdevs.gameserver.instancemanager.ZoneManager;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.scripting.ScriptEngineManager;
 
 /**
  * @author UnAfraid

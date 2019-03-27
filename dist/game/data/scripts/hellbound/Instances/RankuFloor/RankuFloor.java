@@ -18,17 +18,17 @@
  */
 package hellbound.Instances.RankuFloor;
 
-import com.l2jserver.gameserver.instancemanager.InstanceManager;
-import com.l2jserver.gameserver.model.L2Party;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.PcCondOverride;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.Instance;
-import com.l2jserver.gameserver.model.instancezone.InstanceWorld;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.instancemanager.InstanceManager;
+import org.l2jdevs.gameserver.model.L2Party;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.PcCondOverride;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.Instance;
+import org.l2jdevs.gameserver.model.instancezone.InstanceWorld;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.gameserver.util.Util;
 
 import instances.AbstractInstance;
 

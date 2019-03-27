@@ -21,9 +21,9 @@ package ai.npc.EchoCrystals;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.itemcontainer.Inventory;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.itemcontainer.Inventory;
 
 import ai.npc.AbstractNpcAI;
 

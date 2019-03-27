@@ -18,7 +18,7 @@
  */
 package ai.npc.Summons.MerchantGolem;
 
-import com.l2jserver.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
 
 import ai.npc.AbstractNpcAI;
 

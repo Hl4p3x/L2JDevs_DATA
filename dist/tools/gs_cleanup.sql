@@ -1,5 +1,5 @@
 -- These queries are meant to delete any gameserver table you may have from previous
--- L2J installations.
+-- L2 Java Server installations.
 --
 -- Queries that create these tables and/or populate them apropiately are available in
 -- the ../sql/ folder.

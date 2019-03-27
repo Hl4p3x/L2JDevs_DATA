@@ -18,15 +18,15 @@
  */
 package handlers.voicedcommandhandlers;
 
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.L2Event;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
-import com.l2jserver.util.StringUtil;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IVoicedCommandHandler;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.L2Event;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.util.StringUtil;
 
 /**
  * @author Zoey76.

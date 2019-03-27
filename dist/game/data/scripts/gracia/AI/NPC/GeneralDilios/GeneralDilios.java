@@ -22,12 +22,12 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.l2jserver.gameserver.model.L2Spawn;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.NpcStringId;
-import com.l2jserver.gameserver.network.clientpackets.Say2;
-import com.l2jserver.gameserver.network.serverpackets.NpcSay;
+import org.l2jdevs.gameserver.model.L2Spawn;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.NpcStringId;
+import org.l2jdevs.gameserver.network.clientpackets.Say2;
+import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 
 import ai.npc.AbstractNpcAI;
 

@@ -23,16 +23,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.l2jserver.gameserver.instancemanager.FortManager;
-import com.l2jserver.gameserver.instancemanager.InstanceManager;
-import com.l2jserver.gameserver.model.L2Party;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.Castle;
-import com.l2jserver.gameserver.model.entity.Fort;
-import com.l2jserver.gameserver.model.instancezone.InstanceWorld;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.instancemanager.FortManager;
+import org.l2jdevs.gameserver.instancemanager.InstanceManager;
+import org.l2jdevs.gameserver.model.L2Party;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.Castle;
+import org.l2jdevs.gameserver.model.entity.Fort;
+import org.l2jdevs.gameserver.model.instancezone.InstanceWorld;
+import org.l2jdevs.gameserver.util.Util;
 
 import instances.AbstractInstance;
 

@@ -18,12 +18,12 @@
  */
 package ai.group_template;
 
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.util.Util;
 
 import ai.npc.AbstractNpcAI;
 

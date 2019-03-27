@@ -21,14 +21,14 @@ package handlers.admincommandhandlers;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.instance.L2ControllableMobInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.instance.L2ControllableMobInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
 
 /**
  * This class handles following admin commands: - kill = kills target L2Character - kill_monster = kills target non-player - kill <radius> = If radius is specified, then ALL players only in that radius will be killed. - kill_monster <radius> = If radius is specified, then ALL non-players only in

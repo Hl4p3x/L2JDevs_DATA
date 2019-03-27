@@ -18,14 +18,14 @@
  */
 package handlers.effecthandlers.instant;
 
-import com.l2jserver.gameserver.RecipeController;
-import com.l2jserver.gameserver.enums.PrivateStoreType;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.RecipeController;
+import org.l2jdevs.gameserver.enums.PrivateStoreType;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.network.SystemMessageId;
 
 /**
  * Open Common Recipe Book effect implementation.

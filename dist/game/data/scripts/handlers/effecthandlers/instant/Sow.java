@@ -18,19 +18,19 @@
  */
 package handlers.effecthandlers.instant;
 
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.enums.audio.Sound;
-import com.l2jserver.gameserver.model.L2Seed;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.enums.audio.Sound;
+import org.l2jdevs.gameserver.model.L2Seed;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.instance.L2MonsterInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.util.Rnd;
 
 /**
  * Sow effect implementation.

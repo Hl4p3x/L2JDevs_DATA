@@ -18,21 +18,21 @@
  */
 package ai.npc.TerritoryManagers;
 
-import com.l2jserver.gameserver.data.xml.impl.MultisellData;
-import com.l2jserver.gameserver.enums.Race;
-import com.l2jserver.gameserver.instancemanager.CastleManager;
-import com.l2jserver.gameserver.instancemanager.QuestManager;
-import com.l2jserver.gameserver.instancemanager.TerritoryWarManager;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.quest.State;
-import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
-import com.l2jserver.gameserver.network.serverpackets.ExBrExtraUserInfo;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.network.serverpackets.UserInfo;
+import org.l2jdevs.gameserver.data.xml.impl.MultisellData;
+import org.l2jdevs.gameserver.enums.Race;
+import org.l2jdevs.gameserver.instancemanager.CastleManager;
+import org.l2jdevs.gameserver.instancemanager.QuestManager;
+import org.l2jdevs.gameserver.instancemanager.TerritoryWarManager;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.quest.State;
+import org.l2jdevs.gameserver.network.serverpackets.ActionFailed;
+import org.l2jdevs.gameserver.network.serverpackets.ExBrExtraUserInfo;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.network.serverpackets.UserInfo;
 
 import ai.npc.AbstractNpcAI;
 

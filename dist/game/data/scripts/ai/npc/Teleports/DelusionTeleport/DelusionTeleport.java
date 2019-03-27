@@ -21,11 +21,11 @@ package ai.npc.Teleports.DelusionTeleport;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.gameserver.instancemanager.TownManager;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.zone.type.L2TownZone;
+import org.l2jdevs.gameserver.instancemanager.TownManager;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.zone.type.L2TownZone;
 
 import ai.npc.AbstractNpcAI;
 

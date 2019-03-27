@@ -20,18 +20,18 @@ package handlers.bypasshandlers;
 
 import java.util.logging.Level;
 
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IBypassHandler;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2OlympiadManagerInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.olympiad.Olympiad;
-import com.l2jserver.gameserver.model.olympiad.OlympiadGameManager;
-import com.l2jserver.gameserver.model.olympiad.OlympiadGameTask;
-import com.l2jserver.gameserver.model.olympiad.OlympiadManager;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.ExOlympiadMatchList;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IBypassHandler;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2OlympiadManagerInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.olympiad.Olympiad;
+import org.l2jdevs.gameserver.model.olympiad.OlympiadGameManager;
+import org.l2jdevs.gameserver.model.olympiad.OlympiadGameTask;
+import org.l2jdevs.gameserver.model.olympiad.OlympiadManager;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.ExOlympiadMatchList;
 
 /**
  * @author DS

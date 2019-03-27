@@ -18,11 +18,11 @@
  */
 package ai.npc.TownPets;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 
 import ai.npc.AbstractNpcAI;
 

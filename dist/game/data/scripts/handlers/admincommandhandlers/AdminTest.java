@@ -21,15 +21,15 @@ package handlers.admincommandhandlers;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.ThreadPoolManager;
-import com.l2jserver.gameserver.datatables.SkillData;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.network.serverpackets.MagicSkillUse;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.ThreadPoolManager;
+import org.l2jdevs.gameserver.datatables.SkillData;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.network.serverpackets.MagicSkillUse;
 
 /**
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $

@@ -18,14 +18,14 @@
  */
 package handlers.usercommandhandlers;
 
-import com.l2jserver.gameserver.enums.Race;
-import com.l2jserver.gameserver.handler.IUserCommandHandler;
-import com.l2jserver.gameserver.instancemanager.MapRegionManager;
-import com.l2jserver.gameserver.instancemanager.ZoneManager;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.zone.type.L2RespawnZone;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.gameserver.enums.Race;
+import org.l2jdevs.gameserver.handler.IUserCommandHandler;
+import org.l2jdevs.gameserver.instancemanager.MapRegionManager;
+import org.l2jdevs.gameserver.instancemanager.ZoneManager;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.zone.type.L2RespawnZone;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Loc user command.

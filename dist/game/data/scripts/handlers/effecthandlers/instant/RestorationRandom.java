@@ -21,17 +21,17 @@ package handlers.effecthandlers.instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.model.L2ExtractableProductItem;
-import com.l2jserver.gameserver.model.L2ExtractableSkill;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.holders.ItemHolder;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.model.L2ExtractableProductItem;
+import org.l2jdevs.gameserver.model.L2ExtractableSkill;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.holders.ItemHolder;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.util.Rnd;
 
 /**
  * Restoration Random effect implementation.<br>

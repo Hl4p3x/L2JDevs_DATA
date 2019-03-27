@@ -18,9 +18,9 @@
  */
 package handlers.voicedcommandhandlers;
 
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IVoicedCommandHandler;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 
 import hellbound.HellboundEngine;
 

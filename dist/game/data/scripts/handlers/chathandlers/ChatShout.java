@@ -18,17 +18,17 @@
  */
 package handlers.chathandlers;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IChatHandler;
-import com.l2jserver.gameserver.instancemanager.MapRegionManager;
-import com.l2jserver.gameserver.model.BlockList;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.PcCondOverride;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.CreatureSay;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IChatHandler;
+import org.l2jdevs.gameserver.instancemanager.MapRegionManager;
+import org.l2jdevs.gameserver.model.BlockList;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.PcCondOverride;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.CreatureSay;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * Shout chat handler.

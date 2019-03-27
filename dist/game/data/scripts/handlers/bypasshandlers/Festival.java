@@ -22,22 +22,22 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.SevenSigns;
-import com.l2jserver.gameserver.SevenSignsFestival;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IBypassHandler;
-import com.l2jserver.gameserver.model.L2Party;
-import com.l2jserver.gameserver.model.L2Party.messageType;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.instance.L2FestivalGuideInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
-import com.l2jserver.util.StringUtil;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.SevenSigns;
+import org.l2jdevs.gameserver.SevenSignsFestival;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IBypassHandler;
+import org.l2jdevs.gameserver.model.L2Party;
+import org.l2jdevs.gameserver.model.L2Party.messageType;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.instance.L2FestivalGuideInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.util.StringUtil;
 
 public class Festival implements IBypassHandler
 {

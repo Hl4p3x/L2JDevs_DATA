@@ -18,13 +18,13 @@
  */
 package handlers.admincommandhandlers;
 
-import com.l2jserver.gameserver.SevenSigns;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.model.AutoSpawnHandler;
-import com.l2jserver.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.SevenSigns;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.model.AutoSpawnHandler;
+import org.l2jdevs.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
 
 /**
  * Admin Command Handler for Mammon NPCs

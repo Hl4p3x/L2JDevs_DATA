@@ -20,17 +20,17 @@ package ai.npc.Fisherman;
 
 import java.util.List;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.data.xml.impl.SkillTreesData;
-import com.l2jserver.gameserver.datatables.SkillData;
-import com.l2jserver.gameserver.model.L2SkillLearn;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.base.AcquireSkillType;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.AcquireSkillList;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.data.xml.impl.SkillTreesData;
+import org.l2jdevs.gameserver.datatables.SkillData;
+import org.l2jdevs.gameserver.model.L2SkillLearn;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2MerchantInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.base.AcquireSkillType;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.AcquireSkillList;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 import ai.npc.AbstractNpcAI;
 

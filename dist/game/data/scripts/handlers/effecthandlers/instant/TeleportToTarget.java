@@ -18,18 +18,18 @@
  */
 package handlers.effecthandlers.instant;
 
-import com.l2jserver.gameserver.GeoData;
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.network.serverpackets.FlyToLocation;
-import com.l2jserver.gameserver.network.serverpackets.FlyToLocation.FlyType;
-import com.l2jserver.gameserver.network.serverpackets.ValidateLocation;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.GeoData;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.network.serverpackets.FlyToLocation;
+import org.l2jdevs.gameserver.network.serverpackets.FlyToLocation.FlyType;
+import org.l2jdevs.gameserver.network.serverpackets.ValidateLocation;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * Teleport To Target effect implementation.

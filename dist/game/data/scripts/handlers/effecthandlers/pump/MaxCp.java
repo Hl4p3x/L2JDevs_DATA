@@ -18,18 +18,18 @@
  */
 package handlers.effecthandlers.pump;
 
-import com.l2jserver.gameserver.enums.EffectCalculationType;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.stat.CharStat;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.model.stats.Stats;
-import com.l2jserver.gameserver.model.stats.functions.FuncAdd;
-import com.l2jserver.gameserver.model.stats.functions.FuncMul;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.gameserver.enums.EffectCalculationType;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.stat.CharStat;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.model.stats.Stats;
+import org.l2jdevs.gameserver.model.stats.functions.FuncAdd;
+import org.l2jdevs.gameserver.model.stats.functions.FuncMul;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author Zealar

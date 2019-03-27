@@ -18,7 +18,7 @@
  */
 package quests.Q00635_IntoTheDimensionalRift;
 
-import com.l2jserver.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.Quest;
 
 /**
  * Into the Dimensional Rift (635)<br>

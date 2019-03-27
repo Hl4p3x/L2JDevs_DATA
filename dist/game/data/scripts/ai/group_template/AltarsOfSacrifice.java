@@ -20,13 +20,13 @@ package ai.group_template;
 
 import java.util.logging.Level;
 
-import com.l2jserver.gameserver.GeoData;
-import com.l2jserver.gameserver.model.L2Spawn;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.interfaces.ILocational;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.gameserver.GeoData;
+import org.l2jdevs.gameserver.model.L2Spawn;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.interfaces.ILocational;
+import org.l2jdevs.util.Rnd;
 
 import ai.npc.AbstractNpcAI;
 

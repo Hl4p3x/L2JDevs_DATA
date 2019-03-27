@@ -21,9 +21,9 @@ package ai.group_template;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.gameserver.ThreadPoolManager;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.ThreadPoolManager;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
 
 import ai.npc.AbstractNpcAI;
 

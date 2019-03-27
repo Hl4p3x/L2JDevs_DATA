@@ -18,11 +18,11 @@
  */
 package gracia.AI;
 
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.network.SystemMessageId;
 
 import ai.npc.AbstractNpcAI;
 

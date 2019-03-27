@@ -26,19 +26,19 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.cache.HtmCache;
-import com.l2jserver.gameserver.data.sql.impl.CharNameTable;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.instancemanager.PunishmentManager;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.punishment.PunishmentAffect;
-import com.l2jserver.gameserver.model.punishment.PunishmentTask;
-import com.l2jserver.gameserver.model.punishment.PunishmentType;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.util.GMAudit;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.cache.HtmCache;
+import org.l2jdevs.gameserver.data.sql.impl.CharNameTable;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.instancemanager.PunishmentManager;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.punishment.PunishmentAffect;
+import org.l2jdevs.gameserver.model.punishment.PunishmentTask;
+import org.l2jdevs.gameserver.model.punishment.PunishmentType;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.util.GMAudit;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * @author UnAfraid

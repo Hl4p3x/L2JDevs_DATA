@@ -20,19 +20,19 @@ package handlers.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.cache.HtmCache;
-import com.l2jserver.gameserver.data.sql.impl.AnnouncementsTable;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.model.PageResult;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.announce.Announcement;
-import com.l2jserver.gameserver.model.announce.AnnouncementType;
-import com.l2jserver.gameserver.model.announce.AutoAnnouncement;
-import com.l2jserver.gameserver.model.announce.IAnnouncement;
-import com.l2jserver.gameserver.util.Broadcast;
-import com.l2jserver.gameserver.util.HtmlUtil;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.cache.HtmCache;
+import org.l2jdevs.gameserver.data.sql.impl.AnnouncementsTable;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.model.PageResult;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.announce.Announcement;
+import org.l2jdevs.gameserver.model.announce.AnnouncementType;
+import org.l2jdevs.gameserver.model.announce.AutoAnnouncement;
+import org.l2jdevs.gameserver.model.announce.IAnnouncement;
+import org.l2jdevs.gameserver.util.Broadcast;
+import org.l2jdevs.gameserver.util.HtmlUtil;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * @author UnAfraid

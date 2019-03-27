@@ -18,25 +18,25 @@
  */
 package handlers.usercommandhandlers;
 
-import static com.l2jserver.gameserver.GameTimeController.MILLIS_IN_TICK;
-import static com.l2jserver.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
-import static com.l2jserver.gameserver.model.TeleportWhereType.TOWN;
-import static com.l2jserver.gameserver.network.SystemMessageId.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT;
-import static com.l2jserver.gameserver.network.serverpackets.ActionFailed.STATIC_PACKET;
+import static org.l2jdevs.gameserver.GameTimeController.MILLIS_IN_TICK;
+import static org.l2jdevs.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
+import static org.l2jdevs.gameserver.model.TeleportWhereType.TOWN;
+import static org.l2jdevs.gameserver.network.SystemMessageId.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT;
+import static org.l2jdevs.gameserver.network.serverpackets.ActionFailed.STATIC_PACKET;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.GameTimeController;
-import com.l2jserver.gameserver.ThreadPoolManager;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IUserCommandHandler;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.TvTEvent;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jserver.gameserver.network.serverpackets.SetupGauge;
-import com.l2jserver.gameserver.util.Broadcast;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.GameTimeController;
+import org.l2jdevs.gameserver.ThreadPoolManager;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IUserCommandHandler;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.TvTEvent;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.network.serverpackets.MagicSkillUse;
+import org.l2jdevs.gameserver.network.serverpackets.SetupGauge;
+import org.l2jdevs.gameserver.util.Broadcast;
 
 /**
  * Unstuck user command.

@@ -21,17 +21,17 @@ package ai.npc.NevitsHerald;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.effects.L2EffectType;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.network.NpcStringId;
-import com.l2jserver.gameserver.network.clientpackets.Say2;
-import com.l2jserver.gameserver.network.serverpackets.ExShowScreenMessage;
-import com.l2jserver.gameserver.network.serverpackets.NpcSay;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.effects.L2EffectType;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.network.NpcStringId;
+import org.l2jdevs.gameserver.network.clientpackets.Say2;
+import org.l2jdevs.gameserver.network.serverpackets.ExShowScreenMessage;
+import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
+import org.l2jdevs.util.Rnd;
 
 import ai.npc.AbstractNpcAI;
 

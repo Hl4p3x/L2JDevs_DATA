@@ -27,14 +27,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-import com.l2jserver.gameserver.GeoData;
-import com.l2jserver.gameserver.ThreadPoolManager;
-import com.l2jserver.gameserver.model.L2Spawn;
-import com.l2jserver.gameserver.model.L2Territory;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.util.Rnd;
-import com.l2jserver.util.data.xml.IXmlReader;
+import org.l2jdevs.gameserver.GeoData;
+import org.l2jdevs.gameserver.ThreadPoolManager;
+import org.l2jdevs.gameserver.model.L2Spawn;
+import org.l2jdevs.gameserver.model.L2Territory;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.util.Rnd;
+import org.l2jdevs.util.data.xml.IXmlReader;
 
 /**
  * Tar Beetle zone spawn

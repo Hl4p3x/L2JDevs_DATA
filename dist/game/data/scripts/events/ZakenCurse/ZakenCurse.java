@@ -18,19 +18,19 @@
  */
 package events.ZakenCurse;
 
-import com.l2jserver.gameserver.data.xml.impl.NpcData;
-import com.l2jserver.gameserver.datatables.SpawnTable;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.L2Spawn;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.actor.templates.L2NpcTemplate;
-import com.l2jserver.gameserver.model.event.LongTimeEvent;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.data.xml.impl.NpcData;
+import org.l2jdevs.gameserver.datatables.SpawnTable;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.L2Spawn;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.actor.templates.L2NpcTemplate;
+import org.l2jdevs.gameserver.model.event.LongTimeEvent;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * Zaken Curse Event.

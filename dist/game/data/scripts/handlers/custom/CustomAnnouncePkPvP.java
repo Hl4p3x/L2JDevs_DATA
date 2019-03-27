@@ -18,15 +18,15 @@
  */
 package handlers.custom;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.events.Containers;
-import com.l2jserver.gameserver.model.events.EventType;
-import com.l2jserver.gameserver.model.events.impl.character.player.OnPlayerPvPKill;
-import com.l2jserver.gameserver.model.events.listeners.ConsumerEventListener;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
-import com.l2jserver.gameserver.util.Broadcast;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.events.Containers;
+import org.l2jdevs.gameserver.model.events.EventType;
+import org.l2jdevs.gameserver.model.events.impl.character.player.OnPlayerPvPKill;
+import org.l2jdevs.gameserver.model.events.listeners.ConsumerEventListener;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.gameserver.util.Broadcast;
 
 /**
  * @author Zealar

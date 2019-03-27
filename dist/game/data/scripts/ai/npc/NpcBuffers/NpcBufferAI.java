@@ -18,14 +18,14 @@
  */
 package ai.npc.NpcBuffers;
 
-import com.l2jserver.gameserver.ThreadPoolManager;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2TamedBeastInstance;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.model.zone.ZoneId;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.ThreadPoolManager;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2TamedBeastInstance;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.model.zone.ZoneId;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * @author UnAfraid

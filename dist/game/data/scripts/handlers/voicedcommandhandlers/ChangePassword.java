@@ -21,12 +21,12 @@ package handlers.voicedcommandhandlers;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
-import com.l2jserver.gameserver.LoginServerThread;
-import com.l2jserver.gameserver.cache.HtmCache;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.LoginServerThread;
+import org.l2jdevs.gameserver.cache.HtmCache;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.handler.IVoicedCommandHandler;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * @author Nik

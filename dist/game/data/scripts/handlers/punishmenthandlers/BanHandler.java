@@ -18,13 +18,13 @@
  */
 package handlers.punishmenthandlers;
 
-import com.l2jserver.gameserver.LoginServerThread;
-import com.l2jserver.gameserver.handler.IPunishmentHandler;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.punishment.PunishmentTask;
-import com.l2jserver.gameserver.model.punishment.PunishmentType;
-import com.l2jserver.gameserver.network.L2GameClient;
+import org.l2jdevs.gameserver.LoginServerThread;
+import org.l2jdevs.gameserver.handler.IPunishmentHandler;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.punishment.PunishmentTask;
+import org.l2jdevs.gameserver.model.punishment.PunishmentType;
+import org.l2jdevs.gameserver.network.L2GameClient;
 
 /**
  * This class handles ban punishment.

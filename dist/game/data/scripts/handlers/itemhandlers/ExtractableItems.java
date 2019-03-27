@@ -20,15 +20,15 @@ package handlers.itemhandlers;
 
 import java.util.List;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.handler.IItemHandler;
-import com.l2jserver.gameserver.model.L2ExtractableProduct;
-import com.l2jserver.gameserver.model.actor.L2Playable;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.items.L2EtcItem;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.handler.IItemHandler;
+import org.l2jdevs.gameserver.model.L2ExtractableProduct;
+import org.l2jdevs.gameserver.model.actor.L2Playable;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.items.L2EtcItem;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.util.Rnd;
 
 /**
  * Extractable Items handler.

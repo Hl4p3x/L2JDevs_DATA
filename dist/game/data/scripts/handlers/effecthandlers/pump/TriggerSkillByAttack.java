@@ -18,24 +18,24 @@
  */
 package handlers.effecthandlers.pump;
 
-import com.l2jserver.gameserver.enums.InstanceType;
-import com.l2jserver.gameserver.handler.ITargetTypeHandler;
-import com.l2jserver.gameserver.handler.TargetHandler;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.events.EventType;
-import com.l2jserver.gameserver.model.events.impl.character.OnCreatureDamageDealt;
-import com.l2jserver.gameserver.model.events.listeners.ConsumerEventListener;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.items.type.WeaponType;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.model.skills.targets.L2TargetType;
-import com.l2jserver.gameserver.util.Util;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.gameserver.enums.InstanceType;
+import org.l2jdevs.gameserver.handler.ITargetTypeHandler;
+import org.l2jdevs.gameserver.handler.TargetHandler;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.events.EventType;
+import org.l2jdevs.gameserver.model.events.impl.character.OnCreatureDamageDealt;
+import org.l2jdevs.gameserver.model.events.listeners.ConsumerEventListener;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.model.items.type.WeaponType;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.model.skills.targets.L2TargetType;
+import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.util.Rnd;
 
 /**
  * Trigger Skill By Attack effect implementation.

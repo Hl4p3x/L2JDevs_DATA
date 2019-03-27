@@ -24,26 +24,26 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.gameserver.ai.CtrlEvent;
-import com.l2jserver.gameserver.ai.CtrlIntention;
-import com.l2jserver.gameserver.datatables.SkillData;
-import com.l2jserver.gameserver.enums.audio.Sound;
-import com.l2jserver.gameserver.instancemanager.InstanceManager;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.L2Summon;
-import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jserver.gameserver.model.entity.Instance;
-import com.l2jserver.gameserver.model.instancezone.InstanceWorld;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.quest.State;
-import com.l2jserver.gameserver.model.zone.L2ZoneType;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.util.Util;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.gameserver.ai.CtrlEvent;
+import org.l2jdevs.gameserver.ai.CtrlIntention;
+import org.l2jdevs.gameserver.datatables.SkillData;
+import org.l2jdevs.gameserver.enums.audio.Sound;
+import org.l2jdevs.gameserver.instancemanager.InstanceManager;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.L2Summon;
+import org.l2jdevs.gameserver.model.actor.instance.L2MonsterInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PetInstance;
+import org.l2jdevs.gameserver.model.entity.Instance;
+import org.l2jdevs.gameserver.model.instancezone.InstanceWorld;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.quest.State;
+import org.l2jdevs.gameserver.model.zone.L2ZoneType;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.util.Rnd;
 
 public class Q00144_PailakaInjuredDragon extends Quest
 {

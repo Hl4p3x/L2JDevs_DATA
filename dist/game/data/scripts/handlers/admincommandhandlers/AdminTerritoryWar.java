@@ -22,12 +22,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.instancemanager.GlobalVariablesManager;
-import com.l2jserver.gameserver.instancemanager.TerritoryWarManager;
-import com.l2jserver.gameserver.model.TerritoryWard;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.instancemanager.GlobalVariablesManager;
+import org.l2jdevs.gameserver.instancemanager.TerritoryWarManager;
+import org.l2jdevs.gameserver.model.TerritoryWard;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * Admin comand handler for Territory War System This class handles following admin commands:

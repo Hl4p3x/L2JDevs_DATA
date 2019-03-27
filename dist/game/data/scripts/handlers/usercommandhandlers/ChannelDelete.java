@@ -18,11 +18,11 @@
  */
 package handlers.usercommandhandlers;
 
-import static com.l2jserver.gameserver.network.SystemMessageId.COMMAND_CHANNEL_DISBANDED;
+import static org.l2jdevs.gameserver.network.SystemMessageId.COMMAND_CHANNEL_DISBANDED;
 
-import com.l2jserver.gameserver.handler.IUserCommandHandler;
-import com.l2jserver.gameserver.model.L2CommandChannel;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.handler.IUserCommandHandler;
+import org.l2jdevs.gameserver.model.L2CommandChannel;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Channel Delete user command.

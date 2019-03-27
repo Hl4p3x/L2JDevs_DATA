@@ -18,19 +18,19 @@
  */
 package custom.events.Wedding;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.instancemanager.CoupleManager;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.Couple;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.model.skills.CommonSkill;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.util.Broadcast;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.instancemanager.CoupleManager;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.Couple;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.model.skills.CommonSkill;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.network.serverpackets.MagicSkillUse;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.util.Broadcast;
 
 import ai.npc.AbstractNpcAI;
 

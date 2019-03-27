@@ -18,21 +18,21 @@
  */
 package handlers.effecthandlers.instant;
 
-import com.l2jserver.gameserver.data.xml.impl.NpcData;
-import com.l2jserver.gameserver.model.L2Spawn;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2DecoyInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2EffectPointInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.actor.templates.L2NpcTemplate;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.effects.L2EffectType;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
-import com.l2jserver.gameserver.model.skills.targets.L2TargetType;
-import com.l2jserver.util.Rnd;
+import org.l2jdevs.gameserver.data.xml.impl.NpcData;
+import org.l2jdevs.gameserver.model.L2Spawn;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2DecoyInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2EffectPointInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.actor.templates.L2NpcTemplate;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.effects.L2EffectType;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.model.skills.targets.L2TargetType;
+import org.l2jdevs.util.Rnd;
 
 /**
  * Summon Npc effect implementation.

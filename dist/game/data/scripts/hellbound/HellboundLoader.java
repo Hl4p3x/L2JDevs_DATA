@@ -20,11 +20,11 @@ package hellbound;
 
 import java.util.logging.Logger;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.handler.AdminCommandHandler;
-import com.l2jserver.gameserver.handler.IAdminCommandHandler;
-import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
-import com.l2jserver.gameserver.handler.VoicedCommandHandler;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.handler.AdminCommandHandler;
+import org.l2jdevs.gameserver.handler.IAdminCommandHandler;
+import org.l2jdevs.gameserver.handler.IVoicedCommandHandler;
+import org.l2jdevs.gameserver.handler.VoicedCommandHandler;
 
 import handlers.admincommandhandlers.AdminHellbound;
 import handlers.voicedcommandhandlers.Hellbound;

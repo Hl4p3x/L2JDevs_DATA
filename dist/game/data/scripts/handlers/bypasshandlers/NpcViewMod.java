@@ -24,24 +24,24 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
-import com.l2jserver.gameserver.cache.HtmCache;
-import com.l2jserver.gameserver.datatables.ItemTable;
-import com.l2jserver.gameserver.handler.IBypassHandler;
-import com.l2jserver.gameserver.model.Elementals;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.L2Spawn;
-import com.l2jserver.gameserver.model.L2World;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.drops.DropListScope;
-import com.l2jserver.gameserver.model.drops.GeneralDropItem;
-import com.l2jserver.gameserver.model.drops.GroupedGeneralDropItem;
-import com.l2jserver.gameserver.model.drops.IDropItem;
-import com.l2jserver.gameserver.model.items.L2Item;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.util.HtmlUtil;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.cache.HtmCache;
+import org.l2jdevs.gameserver.datatables.ItemTable;
+import org.l2jdevs.gameserver.handler.IBypassHandler;
+import org.l2jdevs.gameserver.model.Elementals;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.L2Spawn;
+import org.l2jdevs.gameserver.model.L2World;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.drops.DropListScope;
+import org.l2jdevs.gameserver.model.drops.GeneralDropItem;
+import org.l2jdevs.gameserver.model.drops.GroupedGeneralDropItem;
+import org.l2jdevs.gameserver.model.drops.IDropItem;
+import org.l2jdevs.gameserver.model.items.L2Item;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.util.HtmlUtil;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * @author NosBit

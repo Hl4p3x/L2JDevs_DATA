@@ -18,16 +18,16 @@
  */
 package handlers.itemhandlers;
 
-import com.l2jserver.gameserver.handler.IItemHandler;
-import com.l2jserver.gameserver.instancemanager.HandysBlockCheckerManager;
-import com.l2jserver.gameserver.model.ArenaParticipantsHolder;
-import com.l2jserver.gameserver.model.actor.L2Playable;
-import com.l2jserver.gameserver.model.actor.instance.L2BlockInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.gameserver.handler.IItemHandler;
+import org.l2jdevs.gameserver.instancemanager.HandysBlockCheckerManager;
+import org.l2jdevs.gameserver.model.ArenaParticipantsHolder;
+import org.l2jdevs.gameserver.model.actor.L2Playable;
+import org.l2jdevs.gameserver.model.actor.instance.L2BlockInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 public class EventItem implements IItemHandler
 {

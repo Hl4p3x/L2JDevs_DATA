@@ -18,8 +18,8 @@
  */
 package gracia.vehicles.SoDController;
 
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.VehiclePathPoint;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.VehiclePathPoint;
 
 import gracia.vehicles.AirShipController;
 

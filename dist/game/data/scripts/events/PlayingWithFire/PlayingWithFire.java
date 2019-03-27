@@ -18,10 +18,10 @@
  */
 package events.PlayingWithFire;
 
-import com.l2jserver.gameserver.data.xml.impl.MultisellData;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.event.LongTimeEvent;
+import org.l2jdevs.gameserver.data.xml.impl.MultisellData;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.event.LongTimeEvent;
 
 /**
  * Playing With Fire event.

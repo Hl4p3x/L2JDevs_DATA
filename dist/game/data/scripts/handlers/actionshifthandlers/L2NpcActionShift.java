@@ -20,19 +20,19 @@ package handlers.actionshifthandlers;
 
 import java.util.Set;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.enums.InstanceType;
-import com.l2jserver.gameserver.handler.IActionShiftHandler;
-import com.l2jserver.gameserver.instancemanager.WalkingManager;
-import com.l2jserver.gameserver.model.Elementals;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.Location;
-import com.l2jserver.gameserver.model.actor.L2Attackable;
-import com.l2jserver.gameserver.model.actor.L2Character;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.enums.InstanceType;
+import org.l2jdevs.gameserver.handler.IActionShiftHandler;
+import org.l2jdevs.gameserver.instancemanager.WalkingManager;
+import org.l2jdevs.gameserver.model.Elementals;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.Location;
+import org.l2jdevs.gameserver.model.actor.L2Attackable;
+import org.l2jdevs.gameserver.model.actor.L2Character;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.gameserver.util.Util;
 
 import handlers.bypasshandlers.NpcViewMod;
 

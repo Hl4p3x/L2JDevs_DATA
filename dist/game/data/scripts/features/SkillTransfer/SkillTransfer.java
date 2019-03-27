@@ -18,20 +18,20 @@
  */
 package features.SkillTransfer;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.data.xml.impl.ClassListData;
-import com.l2jserver.gameserver.data.xml.impl.SkillTreesData;
-import com.l2jserver.gameserver.enums.IllegalActionPunishmentType;
-import com.l2jserver.gameserver.model.L2SkillLearn;
-import com.l2jserver.gameserver.model.PcCondOverride;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.events.impl.character.player.OnPlayerProfessionCancel;
-import com.l2jserver.gameserver.model.events.impl.character.player.OnPlayerProfessionChange;
-import com.l2jserver.gameserver.model.holders.ItemHolder;
-import com.l2jserver.gameserver.model.itemcontainer.PcInventory;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.model.skills.Skill;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.data.xml.impl.ClassListData;
+import org.l2jdevs.gameserver.data.xml.impl.SkillTreesData;
+import org.l2jdevs.gameserver.enums.IllegalActionPunishmentType;
+import org.l2jdevs.gameserver.model.L2SkillLearn;
+import org.l2jdevs.gameserver.model.PcCondOverride;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.events.impl.character.player.OnPlayerProfessionCancel;
+import org.l2jdevs.gameserver.model.events.impl.character.player.OnPlayerProfessionChange;
+import org.l2jdevs.gameserver.model.holders.ItemHolder;
+import org.l2jdevs.gameserver.model.itemcontainer.PcInventory;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.model.skills.Skill;
+import org.l2jdevs.gameserver.util.Util;
 
 import ai.npc.AbstractNpcAI;
 

@@ -18,9 +18,9 @@
  */
 package ai.npc.Asamah;
 
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.quest.QuestState;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.quest.QuestState;
 
 import ai.npc.AbstractNpcAI;
 import quests.Q00111_ElrokianHuntersProof.Q00111_ElrokianHuntersProof;

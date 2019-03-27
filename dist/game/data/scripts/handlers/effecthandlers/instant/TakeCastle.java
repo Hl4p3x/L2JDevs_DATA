@@ -18,12 +18,12 @@
  */
 package handlers.effecthandlers.instant;
 
-import com.l2jserver.gameserver.instancemanager.CastleManager;
-import com.l2jserver.gameserver.model.StatsSet;
-import com.l2jserver.gameserver.model.conditions.Condition;
-import com.l2jserver.gameserver.model.effects.AbstractEffect;
-import com.l2jserver.gameserver.model.entity.Castle;
-import com.l2jserver.gameserver.model.skills.BuffInfo;
+import org.l2jdevs.gameserver.instancemanager.CastleManager;
+import org.l2jdevs.gameserver.model.StatsSet;
+import org.l2jdevs.gameserver.model.conditions.Condition;
+import org.l2jdevs.gameserver.model.effects.AbstractEffect;
+import org.l2jdevs.gameserver.model.entity.Castle;
+import org.l2jdevs.gameserver.model.skills.BuffInfo;
 
 /**
  * Take Castle effect implementation.

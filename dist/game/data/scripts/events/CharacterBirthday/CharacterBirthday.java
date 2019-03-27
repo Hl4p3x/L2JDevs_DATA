@@ -18,10 +18,10 @@
  */
 package events.CharacterBirthday;
 
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.quest.Quest;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.quest.Quest;
+import org.l2jdevs.gameserver.util.Util;
 
 /**
  * Character Birthday event AI.<br>

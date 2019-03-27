@@ -21,14 +21,14 @@ package ai.npc.WyvernManager;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.SevenSigns;
-import com.l2jserver.gameserver.datatables.LanguageData;
-import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.entity.Fort;
-import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
-import com.l2jserver.gameserver.util.Util;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.SevenSigns;
+import org.l2jdevs.gameserver.datatables.LanguageData;
+import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.entity.Fort;
+import org.l2jdevs.gameserver.model.entity.clanhall.SiegableHall;
+import org.l2jdevs.gameserver.util.Util;
 
 import ai.npc.AbstractNpcAI;
 

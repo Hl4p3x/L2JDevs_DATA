@@ -18,20 +18,20 @@
  */
 package handlers.itemhandlers;
 
-import com.l2jserver.Config;
-import com.l2jserver.gameserver.handler.IItemHandler;
-import com.l2jserver.gameserver.instancemanager.CastleManorManager;
-import com.l2jserver.gameserver.instancemanager.MapRegionManager;
-import com.l2jserver.gameserver.model.L2Object;
-import com.l2jserver.gameserver.model.L2Seed;
-import com.l2jserver.gameserver.model.actor.L2Playable;
-import com.l2jserver.gameserver.model.actor.instance.L2ChestInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.model.holders.SkillHolder;
-import com.l2jserver.gameserver.model.items.instance.L2ItemInstance;
-import com.l2jserver.gameserver.network.SystemMessageId;
-import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
+import org.l2jdevs.Config;
+import org.l2jdevs.gameserver.handler.IItemHandler;
+import org.l2jdevs.gameserver.instancemanager.CastleManorManager;
+import org.l2jdevs.gameserver.instancemanager.MapRegionManager;
+import org.l2jdevs.gameserver.model.L2Object;
+import org.l2jdevs.gameserver.model.L2Seed;
+import org.l2jdevs.gameserver.model.actor.L2Playable;
+import org.l2jdevs.gameserver.model.actor.instance.L2ChestInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2MonsterInstance;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.holders.SkillHolder;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
+import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * @author l3x
