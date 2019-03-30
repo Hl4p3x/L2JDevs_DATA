@@ -43,7 +43,10 @@ import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 import org.l2jdevs.gameserver.model.actor.templates.L2NpcTemplate;
 import org.l2jdevs.gameserver.model.entity.Instance;
 import org.l2jdevs.gameserver.model.instancezone.InstanceWorld;
+import org.l2jdevs.gameserver.network.NpcStringId;
 import org.l2jdevs.gameserver.network.SystemMessageId;
+import org.l2jdevs.gameserver.network.clientpackets.Say2;
+import org.l2jdevs.gameserver.network.serverpackets.CreatureSay;
 import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 import instances.AbstractInstance;
@@ -55,14 +58,7 @@ import instances.AbstractInstance;
 
 public final class RimKamaloka extends AbstractInstance
 {
-	/*
-	 * Reset time for all kamaloka Default: 6:30AM on server time
-	 */
-	private static final int RESET_HOUR = 6;
-	private static final int RESET_MIN = 30;
-	
-	private static final int LOCK_TIME = 10;
-	
+	private static final int DESPAWN_DELAY = 10000;
 	/*
 	 * Duration of the instance, minutes
 	 */
@@ -79,18 +75,55 @@ public final class RimKamaloka extends AbstractInstance
 	private static final int EXIT_TIME = 10;
 	
 	/*
+	 * Hardcoded instance ids for kamaloka
+	 */
+	//@formatter:off
+	private static final int[] INSTANCE_IDS = {46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56};
+	//@formatter:on
+	
+	/*
+	 * Kanabion String
+	 */
+	private static final NpcStringId[] KANABION_STRING =
+	{
+		NpcStringId.ALAS_SO_THIS_IS_HOW_IT_ALL_ENDS,
+		NpcStringId.UH_IM_NOT_DYING_IM_JUST_DISAPPEARING_FOR_A_MOMENT_ILL_RESURRECT_AGAIN,
+		NpcStringId.THIS_IS_UNBELIEVABLE_HOW_COULD_I_HAVE_LOST_TO_ONE_SO_INFERIOR_TO_MYSELF,
+		NpcStringId.I_CARRY_THE_POWER_OF_DARKNESS_AND_HAVE_RETURNED_FROM_THE_ABYSS,
+		NpcStringId.I_FINALLY_FIND_REST
+	};
+	
+	//@formatter:off
+	private static final int[][] KANABIONS =
+	{
+		{22452, 22453, 22454}, {22455, 22456, 22457}, {22458, 22459, 22460}, {22461, 22462, 22463},
+		{22464, 22465, 22466}, {22467, 22468, 22469}, {22470, 22471, 22472}, {22473, 22474, 22475},
+		{22476, 22477, 22478}, {22479, 22480, 22481}, {22482, 22483, 22484}
+	};
+	//@formatter:on
+	
+	/*
+	 * Level of the kamaloka
+	 */
+	//@formatter:off
+	private static final int[] LEVEL = {25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75};
+	//@formatter:on
+	
+	private static final int LOCK_TIME = 10;
+	
+	/*
 	 * Maximum level difference between players level and kamaloka level Default: 5
 	 */
 	private static final int MAX_LEVEL_DIFFERENCE = 5;
 	
-	private static final int RESPAWN_DELAY = 30;
-	
-	private static final int DESPAWN_DELAY = 10000;
-	
 	/*
-	 * Start NPC
+	 * Reset time for all kamaloka Default: 6:30AM on server time
 	 */
-	private static final int START_NPC = 32484;
+	private static final int RESET_HOUR = 6;
+	
+	private static final int RESET_MIN = 30;
+	
+	private static final int RESPAWN_DELAY = 30;
 	
 	/*
 	 * Reward NPC
@@ -98,79 +131,15 @@ public final class RimKamaloka extends AbstractInstance
 	private static final int REWARDER = 32485;
 	
 	//@formatter:off
-	/*
-	 * Hardcoded instance ids for kamaloka
-	 */
-	private static final int[] INSTANCE_IDS = {46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56};
-	
-	/*
-	 * Level of the kamaloka
-	 */
-	private static final int[] LEVEL = {25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75};
-	
-	/*
-	 * Teleport points into instances x, y, z
-	 */
-	private static final int[][] TELEPORTS =
-	{
-		{10025, -219868, -8021}, {15617, -219883, -8021}, {22742, -220079, -7802}, {8559, -212987, -7802},
-		{15867, -212994, -7802}, {23038, -213052, -8007}, {9139, -205132, -8007}, {15943, -205740, -8008},
-		{22343, -206237, -7991}, {41496, -219694, -8759}, {48137, -219716, -8759}
-	};
-	
-	private static final int[][] KANABIONS =
-	{
-		{22452, 22453, 22454}, {22455, 22456, 22457}, {22458, 22459, 22460}, {22461, 22462, 22463},
-		{22464, 22465, 22466}, {22467, 22468, 22469}, {22470, 22471, 22472}, {22473, 22474, 22475},
-		{22476, 22477, 22478}, {22479, 22480, 22481}, {22482, 22483, 22484}
-	};
-	
-	private static final int[][][] SPAWNLIST =
-	{
-		{
-			{8971, -219546, -8021}, {9318, -219644, -8021}, {9266, -220208, -8021}, {9497, -220054, -8024}
-		},
-		{
-			{16107, -219574, -8021}, {16769, -219885, -8021}, {16363, -220219, -8021}, {16610, -219523, -8021}
-		},
-		{
-			{23019, -219730, -7803}, {23351, -220455, -7803}, {23900, -219864, -7803}, {23851, -220294, -7803}
-		},
-		{
-			{9514, -212478, -7803}, {9236, -213348, -7803}, {8868, -212683, -7803}, {9719, -213042, -7803}
-		},
-		{
-			{16925, -212811, -7803}, {16885, -213199, -7802}, {16487, -213339, -7803}, {16337, -212529,-7803}
-		},
-		{
-			{23958, -213282, -8009}, {23292, -212782, -8012}, {23844, -212781, -8009}, {23533, -213301, -8009}
-		},
-		{
-			{8828, -205518, -8009}, {8895, -205989, -8009}, {9398, -205967, -8009}, {9393, -205409, -8009}
-		},
-		{
-			{16185, -205472, -8009}, {16808, -205929, -8009}, {16324, -206042, -8009}, {16782, -205454, -8009}
-		},
-		{
-			{23476, -206310, -7991}, {23230, -205861, -7991}, {22644, -205888, -7994}, {23078, -206714, -7991}
-		},
-		{
-			{42981, -219308, -8759}, {42320, -220160, -8759}, {42434, -219181, -8759}, {42101, -219550, -8759},
-			{41859, -220236, -8759}, {42881, -219942, -8759}
-		},
-		{
-			{48770, -219304, -8759}, {49036, -220190, -8759}, {49363, -219814, -8759}, {49393, -219102, -8759},
-			{49618, -220490, -8759}, {48526, -220493, -8759}
-		}
-	};
-	
 	private static final int[][] REWARDERS =
 	{
 		{9261, -219862, -8021}, {16301, -219806, -8021}, {23478, -220079, -7799}, {9290, -212993, -7799},
 		{16598, -212997, -7802}, {23650, -213051, -8007}, {9136, -205733, -8007}, {16508, -205737, -8007},
 		{23229, -206316, -7991}, {42638, -219781, -8759}, {49014, -219737, -8759}
 	};
+	//@formatter:on
 	
+	//@formatter:off
 	private static final int[][][] REWARDS =
 	{
 		{ // 20-30
@@ -264,6 +233,64 @@ public final class RimKamaloka extends AbstractInstance
 	};
 	//@formatter:on
 	
+	//@formatter:off
+	private static final int[][][] SPAWNLIST =
+	{
+		{
+			{8971, -219546, -8021}, {9318, -219644, -8021}, {9266, -220208, -8021}, {9497, -220054, -8024}
+		},
+		{
+			{16107, -219574, -8021}, {16769, -219885, -8021}, {16363, -220219, -8021}, {16610, -219523, -8021}
+		},
+		{
+			{23019, -219730, -7803}, {23351, -220455, -7803}, {23900, -219864, -7803}, {23851, -220294, -7803}
+		},
+		{
+			{9514, -212478, -7803}, {9236, -213348, -7803}, {8868, -212683, -7803}, {9719, -213042, -7803}
+		},
+		{
+			{16925, -212811, -7803}, {16885, -213199, -7802}, {16487, -213339, -7803}, {16337, -212529,-7803}
+		},
+		{
+			{23958, -213282, -8009}, {23292, -212782, -8012}, {23844, -212781, -8009}, {23533, -213301, -8009}
+		},
+		{
+			{8828, -205518, -8009}, {8895, -205989, -8009}, {9398, -205967, -8009}, {9393, -205409, -8009}
+		},
+		{
+			{16185, -205472, -8009}, {16808, -205929, -8009}, {16324, -206042, -8009}, {16782, -205454, -8009}
+		},
+		{
+			{23476, -206310, -7991}, {23230, -205861, -7991}, {22644, -205888, -7994}, {23078, -206714, -7991}
+		},
+		{
+			{42981, -219308, -8759}, {42320, -220160, -8759}, {42434, -219181, -8759}, {42101, -219550, -8759},
+			{41859, -220236, -8759}, {42881, -219942, -8759}
+		},
+		{
+			{48770, -219304, -8759}, {49036, -220190, -8759}, {49363, -219814, -8759}, {49393, -219102, -8759},
+			{49618, -220490, -8759}, {48526, -220493, -8759}
+		}
+	};
+	//@formatter:on
+	
+	/*
+	 * Start NPC
+	 */
+	private static final int START_NPC = 32484;
+	
+	/*
+	 * Teleport points into instances x, y, z
+	 */
+	//@formatter:off
+	private static final int[][] TELEPORTS =
+	{
+		{10025, -219868, -8021}, {15617, -219883, -8021}, {22742, -220079, -7802}, {8559, -212987, -7802},
+		{15867, -212994, -7802}, {23038, -213052, -8007}, {9139, -205132, -8007}, {15943, -205740, -8008},
+		{22343, -206237, -7991}, {41496, -219694, -8759}, {48137, -219716, -8759}
+	};
+	//@formatter:on
+	
 	public RimKamaloka()
 	{
 		super(RimKamaloka.class.getSimpleName());
@@ -285,7 +312,285 @@ public final class RimKamaloka extends AbstractInstance
 		}
 	}
 	
-	private void rewardPlayer(RimKamaWorld world, L2Npc npc)
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		switch (event)
+		{
+			case "Exit":
+			{
+				try
+				{
+					final InstanceWorld world = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+					if ((world instanceof RimKamalokaWorld) && world.getAllowed().contains(player.getObjectId()))
+					{
+						final Instance inst = InstanceManager.getInstance().getInstance(world.getInstanceId());
+						teleportPlayer(player, inst.getExitLoc(), 0);
+					}
+				}
+				catch (Exception e)
+				{
+					_log.log(Level.WARNING, getClass().getSimpleName() + ": problem with exit: ", e);
+				}
+				break;
+			}
+			case "Reward":
+			{
+				try
+				{
+					final InstanceWorld world = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+					if ((world instanceof RimKamalokaWorld) && world.getAllowed().contains(player.getObjectId()))
+					{
+						rewardPlayer((RimKamalokaWorld) world, npc);
+					}
+				}
+				catch (Exception e)
+				{
+					_log.log(Level.WARNING, getClass().getSimpleName() + ": problem with reward: ", e);
+				}
+				return "Rewarded.html";
+			}
+			default:
+			{
+				try
+				{
+					enterInstance(player, Integer.parseInt(event));
+				}
+				catch (Exception e)
+				{
+				}
+				break;
+			}
+		}
+		return super.onAdvEvent(event, npc, player);
+	}
+	
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
+	{
+		final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		if (tmpWorld instanceof RimKamalokaWorld)
+		{
+			final RimKamalokaWorld world = (RimKamalokaWorld) tmpWorld;
+			synchronized (world.lastAttack)
+			{
+				world.lastAttack.put(npc.getObjectId(), System.currentTimeMillis());
+			}
+			
+			final int maxHp = npc.getMaxHp();
+			if (npc.getCurrentHp() == maxHp)
+			{
+				if (((damage * 100) / maxHp) > 40)
+				{
+					final int chance = getRandom(0, 100);
+					int nextId = 0;
+					
+					if (npc.getId() == world.KANABION)
+					{
+						if (chance < 5)
+						{
+							nextId = world.DOPPLER;
+						}
+					}
+					else if (npc.getId() == world.DOPPLER)
+					{
+						if (chance < 5)
+						{
+							nextId = world.DOPPLER;
+						}
+						else if (chance < 10)
+						{
+							nextId = world.VOIDER;
+						}
+					}
+					else if (npc.getId() == world.VOIDER)
+					{
+						if (chance < 5)
+						{
+							nextId = world.VOIDER;
+						}
+					}
+					
+					if (nextId > 0)
+					{
+						spawnNextMob(world, npc, nextId, attacker);
+					}
+				}
+			}
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
+	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isSummon)
+	{
+		if (npc.getId() == caller.getId())
+		{
+			return null;
+		}
+		return super.onFactionCall(npc, caller, attacker, isSummon);
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		return String.valueOf(npc.getId()) + ".html";
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		if (tmpWorld instanceof RimKamalokaWorld)
+		{
+			final RimKamalokaWorld world = (RimKamalokaWorld) tmpWorld;
+			synchronized (world.lastAttack)
+			{
+				world.lastAttack.remove(npc.getObjectId());
+			}
+			
+			final int chance = getRandom(0, 100);
+			int nextId = 0;
+			
+			if (npc.getId() == world.KANABION)
+			{
+				final NpcStringId npcString = KANABION_STRING[getRandom(KANABION_STRING.length)];
+				npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), npcString));
+				world.kanabionsCount++;
+				if (((L2Attackable) npc).isOverhit())
+				{
+					if (chance < 30)
+					{
+						nextId = world.DOPPLER;
+					}
+					else if (chance < 40)
+					{
+						nextId = world.VOIDER;
+					}
+				}
+				else if (chance < 15)
+				{
+					nextId = world.DOPPLER;
+				}
+			}
+			else if (npc.getId() == world.DOPPLER)
+			{
+				final NpcStringId npcString = KANABION_STRING[getRandom(KANABION_STRING.length)];
+				npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), npcString));
+				world.dopplersCount++;
+				if (((L2Attackable) npc).isOverhit())
+				{
+					if (chance < 30)
+					{
+						nextId = world.DOPPLER;
+					}
+					else if (chance < 60)
+					{
+						nextId = world.VOIDER;
+					}
+				}
+				else
+				{
+					if (chance < 10)
+					{
+						nextId = world.DOPPLER;
+					}
+					else if (chance < 20)
+					{
+						nextId = world.VOIDER;
+					}
+				}
+			}
+			else if (npc.getId() == world.VOIDER)
+			{
+				final NpcStringId npcString = KANABION_STRING[getRandom(KANABION_STRING.length)];
+				npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), npcString));
+				world.voidersCount++;
+				if (((L2Attackable) npc).isOverhit())
+				{
+					if (chance < 50)
+					{
+						nextId = world.VOIDER;
+					}
+				}
+				else if (chance < 20)
+				{
+					nextId = world.VOIDER;
+				}
+			}
+			
+			if (nextId > 0)
+			{
+				spawnNextMob(world, npc, nextId, player);
+			}
+		}
+		return super.onKill(npc, player, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		if (npc.getId() == START_NPC)
+		{
+			broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.VERY_GOOD_YOUR_SKILL_MAKES_YOU_A_MODEL_FOR_OTHER_ADVENTURERS_TO_FOLLOW);
+			return npc.getCastle().getName() + ".html";
+		}
+		else if (npc.getId() == REWARDER)
+		{
+			final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpWorld instanceof RimKamalokaWorld)
+			{
+				final RimKamalokaWorld world = (RimKamalokaWorld) tmpWorld;
+				if (!world.isFinished)
+				{
+					return null;
+				}
+				
+				switch (world.grade)
+				{
+					case 0:
+					{
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.F_GRADE);
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.HOW_DISAPPOINTING_IT_LOOKS_LIKE_I_MADE_A_MISTAKE_IN_SENDING_YOU_INSIDE_RIM_KAMALOKA);
+						return "GradeF.html";
+					}
+					case 1:
+					{
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.D_GRADE);
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.GOOD_WORK_IF_ALL_ADVENTURERS_PRODUCE_RESULTS_LIKE_YOU_WE_WILL_SLOWLY_START_TO_SEE_THE_GLIMMER_OF_HOPE);
+						return "GradeD.html";
+					}
+					case 2:
+					{
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.C_GRADE);
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.GOOD_WORK_IF_ALL_ADVENTURERS_PRODUCE_RESULTS_LIKE_YOU_WE_WILL_SLOWLY_START_TO_SEE_THE_GLIMMER_OF_HOPE);
+						return "GradeC.html";
+					}
+					case 3:
+					{
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.B_GRADE);
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.GOOD_WORK_IF_ALL_ADVENTURERS_PRODUCE_RESULTS_LIKE_YOU_WE_WILL_SLOWLY_START_TO_SEE_THE_GLIMMER_OF_HOPE);
+						return "GradeB.html";
+					}
+					case 4:
+					{
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.A_GRADE);
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.ADMIRABLE_YOU_GREATLY_DECREASED_THE_SPEED_OF_INVASION_THROUGH_KAMALOKA);
+						return "GradeA.html";
+					}
+					case 5:
+					{
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.S_GRADE);
+						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.THIS_IS_THIS_IS_A_GREAT_ACHIEVEMENT_THAT_IS_WORTHY_OF_THE_TRUE_HEROES_OF_LEGEND);
+						return "GradeS.html";
+					}
+				}
+			}
+		}
+		return super.onTalk(npc, talker);
+	}
+	
+	private void rewardPlayer(RimKamalokaWorld world, L2Npc npc)
 	{
 		if (!world.isFinished || world.isRewarded)
 		{
@@ -320,7 +625,7 @@ public final class RimKamaloka extends AbstractInstance
 	 * Spawn all NPCs in kamaloka
 	 * @param world instanceWorld
 	 */
-	private void spawnKama(RimKamaWorld world)
+	private void spawnKamaloka(RimKamalokaWorld world)
 	{
 		final int[][] spawnlist;
 		final int index = world.index;
@@ -357,7 +662,7 @@ public final class RimKamaloka extends AbstractInstance
 		}
 	}
 	
-	private void spawnNextMob(RimKamaWorld world, L2Npc oldNpc, int npcId, L2PcInstance player)
+	private void spawnNextMob(RimKamalokaWorld world, L2Npc oldNpc, int npcId, L2PcInstance player)
 	{
 		if (world.isFinished)
 		{
@@ -500,12 +805,12 @@ public final class RimKamaloka extends AbstractInstance
 		if (tmpWorld != null)
 		{
 			// but not in kamaloka
-			if (!(tmpWorld instanceof RimKamaWorld) || (tmpWorld.getTemplateId() != templateId))
+			if (!(tmpWorld instanceof RimKamalokaWorld) || (tmpWorld.getTemplateId() != templateId))
 			{
 				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED));
 				return;
 			}
-			final RimKamaWorld world = (RimKamaWorld) tmpWorld;
+			final RimKamalokaWorld world = (RimKamalokaWorld) tmpWorld;
 			// check for level difference again on reenter
 			if (Math.abs(player.getLevel() - LEVEL[world.index]) > MAX_LEVEL_DIFFERENCE)
 			{
@@ -539,7 +844,7 @@ public final class RimKamaloka extends AbstractInstance
 			// disable summon friend into instance
 			inst.setAllowSummon(false);
 			// Creating new instanceWorld, using our instanceId and templateId
-			final RimKamaWorld world = new RimKamaWorld();
+			final RimKamalokaWorld world = new RimKamalokaWorld();
 			world.setInstanceId(instanceId);
 			world.setTemplateId(templateId);
 			// set index for easy access to the arrays
@@ -547,9 +852,9 @@ public final class RimKamaloka extends AbstractInstance
 			InstanceManager.getInstance().addWorld(world);
 			
 			// spawn npcs
-			spawnKama(world);
-			world.finishTask = ThreadPoolManager.getInstance().scheduleGeneral(new FinishTask(world), DURATION * 60000);
-			world.lockTask = ThreadPoolManager.getInstance().scheduleGeneral(new LockTask(world), LOCK_TIME * 60000);
+			spawnKamaloka(world);
+			world.finishTask = ThreadPoolManager.getInstance().scheduleAi(new FinishTask(world), DURATION * 60000);
+			world.lockTask = ThreadPoolManager.getInstance().scheduleAi(new LockTask(world), LOCK_TIME * 60000);
 			world.despawnTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new DespawnTask(world), 1000, 1000);
 			
 			world.getAllowed().add(player.getObjectId());
@@ -564,273 +869,11 @@ public final class RimKamaloka extends AbstractInstance
 		
 	}
 	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		switch (event)
-		{
-			case "Exit":
-			{
-				try
-				{
-					final InstanceWorld world = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-					if ((world instanceof RimKamaWorld) && world.getAllowed().contains(player.getObjectId()))
-					{
-						final Instance inst = InstanceManager.getInstance().getInstance(world.getInstanceId());
-						teleportPlayer(player, inst.getExitLoc(), 0);
-					}
-				}
-				catch (Exception e)
-				{
-					_log.log(Level.WARNING, getClass().getSimpleName() + ": problem with exit: ", e);
-				}
-				break;
-			}
-			case "Reward":
-			{
-				try
-				{
-					final InstanceWorld world = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-					if ((world instanceof RimKamaWorld) && world.getAllowed().contains(player.getObjectId()))
-					{
-						rewardPlayer((RimKamaWorld) world, npc);
-					}
-				}
-				catch (Exception e)
-				{
-					_log.log(Level.WARNING, getClass().getSimpleName() + ": problem with reward: ", e);
-				}
-				return "Rewarded.html";
-			}
-			default:
-			{
-				try
-				{
-					enterInstance(player, Integer.parseInt(event));
-				}
-				catch (Exception e)
-				{
-				}
-				break;
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
-	{
-		final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		if (tmpWorld instanceof RimKamaWorld)
-		{
-			final RimKamaWorld world = (RimKamaWorld) tmpWorld;
-			synchronized (world.lastAttack)
-			{
-				world.lastAttack.put(npc.getObjectId(), System.currentTimeMillis());
-			}
-			
-			final int maxHp = npc.getMaxHp();
-			if (npc.getCurrentHp() == maxHp)
-			{
-				if (((damage * 100) / maxHp) > 40)
-				{
-					final int npcId = npc.getId();
-					final int chance = getRandom(100);
-					int nextId = 0;
-					
-					if (npcId == world.KANABION)
-					{
-						if (chance < 100)
-						{
-							nextId = world.DOPPLER;
-						}
-					}
-					else if (npcId == world.DOPPLER)
-					{
-						if (chance < 100)
-						{
-							nextId = world.DOPPLER;
-						}
-						else if (chance < 100)
-						{
-							nextId = world.VOIDER;
-						}
-					}
-					else if (npcId == world.VOIDER)
-					{
-						if (chance < 100)
-						{
-							nextId = world.VOIDER;
-						}
-					}
-					
-					if (nextId > 0)
-					{
-						spawnNextMob(world, npc, nextId, attacker);
-					}
-				}
-			}
-		}
-		
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	@Override
-	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isSummon)
-	{
-		if (npc.getId() == caller.getId())
-		{
-			return null;
-		}
-		return super.onFactionCall(npc, caller, attacker, isSummon);
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		return String.valueOf(npc.getId()) + ".html";
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		if (tmpWorld instanceof RimKamaWorld)
-		{
-			final RimKamaWorld world = (RimKamaWorld) tmpWorld;
-			synchronized (world.lastAttack)
-			{
-				world.lastAttack.remove(npc.getObjectId());
-			}
-			
-			final int npcId = npc.getId();
-			final int chance = getRandom(100);
-			int nextId = 0;
-			
-			if (npcId == world.KANABION)
-			{
-				world.kanabionsCount++;
-				if (((L2Attackable) npc).isOverhit())
-				{
-					if (chance < 100)
-					{
-						nextId = world.DOPPLER;
-					}
-					else if (chance < 100)
-					{
-						nextId = world.VOIDER;
-					}
-				}
-				else if (chance < 100)
-				{
-					nextId = world.DOPPLER;
-				}
-			}
-			else if (npcId == world.DOPPLER)
-			{
-				world.dopplersCount++;
-				if (((L2Attackable) npc).isOverhit())
-				{
-					if (chance < 100)
-					{
-						nextId = world.DOPPLER;
-					}
-					else if (chance < 100)
-					{
-						nextId = world.VOIDER;
-					}
-				}
-				else
-				{
-					if (chance < 100)
-					{
-						nextId = world.DOPPLER;
-					}
-					else if (chance < 100)
-					{
-						nextId = world.VOIDER;
-					}
-				}
-			}
-			else if (npcId == world.VOIDER)
-			{
-				world.voidersCount++;
-				if (((L2Attackable) npc).isOverhit())
-				{
-					if (chance < 100)
-					{
-						nextId = world.VOIDER;
-					}
-				}
-				else if (chance < 100)
-				{
-					nextId = world.VOIDER;
-				}
-			}
-			
-			if (nextId > 0)
-			{
-				spawnNextMob(world, npc, nextId, player);
-			}
-		}
-		return super.onKill(npc, player, isSummon);
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		if (npc.getId() == START_NPC)
-		{
-			return npc.getCastle().getName() + ".html";
-		}
-		else if (npc.getId() == REWARDER)
-		{
-			final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpWorld instanceof RimKamaWorld)
-			{
-				final RimKamaWorld world = (RimKamaWorld) tmpWorld;
-				if (!world.isFinished)
-				{
-					return "";
-				}
-				
-				switch (world.grade)
-				{
-					case 0:
-					{
-						return "GradeF.htm";
-					}
-					case 1:
-					{
-						return "GradeD.htm";
-					}
-					case 2:
-					{
-						return "GradeC.htm";
-					}
-					case 3:
-					{
-						return "GradeB.htm";
-					}
-					case 4:
-					{
-						return "GradeA.htm";
-					}
-					case 5:
-					{
-						return "GradeS.htm";
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
 	private class DespawnTask implements Runnable
 	{
-		private final RimKamaWorld _world;
+		private final RimKamalokaWorld _world;
 		
-		DespawnTask(RimKamaWorld world)
+		DespawnTask(RimKamalokaWorld world)
 		{
 			_world = world;
 		}
@@ -862,9 +905,9 @@ public final class RimKamaloka extends AbstractInstance
 	
 	private class FinishTask implements Runnable
 	{
-		private final RimKamaWorld _world;
+		private final RimKamalokaWorld _world;
 		
-		FinishTask(RimKamaWorld world)
+		FinishTask(RimKamalokaWorld world)
 		{
 			_world = world;
 		}
@@ -883,19 +926,19 @@ public final class RimKamaloka extends AbstractInstance
 				_world.spawnedMobs.clear();
 				_world.lastAttack.clear();
 				// destroy instance after EXIT_TIME
-				final Instance inst = InstanceManager.getInstance().getInstance(_world.getInstanceId());
-				if (inst != null)
+				final Instance instance = InstanceManager.getInstance().getInstance(_world.getInstanceId());
+				if (instance != null)
 				{
-					inst.removeNpcs();
-					inst.setDuration(EXIT_TIME * 60000);
-					if (inst.getPlayers().isEmpty())
+					instance.removeNpcs();
+					instance.setDuration(EXIT_TIME * 60000);
+					if (instance.getPlayers().isEmpty())
 					{
-						inst.setDuration(EMPTY_DESTROY_TIME * 60000);
+						instance.setDuration(EMPTY_DESTROY_TIME * 60000);
 					}
 					else
 					{
-						inst.setDuration(EXIT_TIME * 60000);
-						inst.setEmptyDestroyTime(EMPTY_DESTROY_TIME * 60000);
+						instance.setDuration(EXIT_TIME * 60000);
+						instance.setEmptyDestroyTime(EMPTY_DESTROY_TIME * 60000);
 					}
 				}
 				
@@ -918,9 +961,9 @@ public final class RimKamaloka extends AbstractInstance
 	
 	private class LockTask implements Runnable
 	{
-		private final RimKamaWorld _world;
+		private final RimKamalokaWorld _world;
 		
-		LockTask(RimKamaWorld world)
+		LockTask(RimKamalokaWorld world)
 		{
 			_world = world;
 		}
@@ -930,14 +973,14 @@ public final class RimKamaloka extends AbstractInstance
 		{
 			if (_world != null)
 			{
-				final Calendar reenter = Calendar.getInstance();
-				reenter.set(Calendar.MINUTE, RESET_MIN);
+				final Calendar calendar = Calendar.getInstance();
+				calendar.set(Calendar.MINUTE, RESET_MIN);
 				// if time is >= RESET_HOUR - roll to the next day
-				if (reenter.get(Calendar.HOUR_OF_DAY) >= RESET_HOUR)
+				if (calendar.get(Calendar.HOUR_OF_DAY) >= RESET_HOUR)
 				{
-					reenter.roll(Calendar.DATE, true);
+					calendar.roll(Calendar.DATE, true);
 				}
-				reenter.set(Calendar.HOUR_OF_DAY, RESET_HOUR);
+				calendar.set(Calendar.HOUR_OF_DAY, RESET_HOUR);
 				
 				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.INSTANT_ZONE_FROM_HERE_S1_S_ENTRY_HAS_BEEN_RESTRICTED);
 				sm.addInstanceName(_world.getTemplateId());
@@ -950,7 +993,7 @@ public final class RimKamaloka extends AbstractInstance
 					if ((player != null) && player.isOnline())
 					{
 						found = true;
-						InstanceManager.getInstance().setInstanceTime(objectId, _world.getTemplateId(), reenter.getTimeInMillis());
+						InstanceManager.getInstance().setInstanceTime(objectId, _world.getTemplateId(), calendar.getTimeInMillis());
 						player.sendPacket(sm);
 					}
 				}
@@ -959,16 +1002,19 @@ public final class RimKamaloka extends AbstractInstance
 					_world.isFinished = true;
 					_world.spawnedMobs.clear();
 					_world.lastAttack.clear();
+					
 					if (_world.lockTask != null)
 					{
 						_world.lockTask.cancel(false);
 						_world.lockTask = null;
 					}
+					
 					if (_world.finishTask != null)
 					{
 						_world.finishTask.cancel(false);
 						_world.finishTask = null;
 					}
+					
 					if (_world.despawnTask != null)
 					{
 						_world.despawnTask.cancel(false);
@@ -980,25 +1026,25 @@ public final class RimKamaloka extends AbstractInstance
 		}
 	}
 	
-	private class RimKamaWorld extends InstanceWorld
+	private class RimKamalokaWorld extends InstanceWorld
 	{
-		private int index;
-		private int KANABION;
+		private ScheduledFuture<?> despawnTask = null;
 		private int DOPPLER;
-		private int VOIDER;
-		
-		private int kanabionsCount = 0;
 		private int dopplersCount = 0;
-		private int voidersCount = 0;
-		private int grade = 0;
-		private boolean isFinished = false;
-		private boolean isRewarded = false;
-		
-		private ScheduledFuture<?> lockTask = null;
 		private ScheduledFuture<?> finishTask = null;
 		
-		private final List<L2MonsterInstance> spawnedMobs = new ArrayList<>();
+		private int grade = 0;
+		private int index;
+		private boolean isFinished = false;
+		private boolean isRewarded = false;
+		private int KANABION;
+		private int kanabionsCount = 0;
+		
 		private final Map<Integer, Long> lastAttack = new HashMap<>();
-		private ScheduledFuture<?> despawnTask = null;
+		private ScheduledFuture<?> lockTask = null;
+		private final List<L2MonsterInstance> spawnedMobs = new ArrayList<>();
+		
+		private int VOIDER;
+		private int voidersCount = 0;
 	}
 }
