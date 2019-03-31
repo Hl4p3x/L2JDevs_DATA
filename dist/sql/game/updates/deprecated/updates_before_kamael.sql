@@ -69,7 +69,7 @@ ALTER TABLE `characters` ADD `base_class` int(2) NOT NULL DEFAULT '0';
 
 -- 051205-[1769].sql
 -- UPDATE `characters` set `base_class` = `classid`;
--- see http://forum.l2jserver.com/thread.php?threadid=21983 for reason why commented out-- 051208-[1876].sql
+-- see http://www.l2jdevs.org for reason why commented out-- 051208-[1876].sql
 
 -- 060215-[c4_1489].sql
 ALTER TABLE `clan_data` ADD `crest_large_id` INT( 11 ) AFTER `crest_id` ;

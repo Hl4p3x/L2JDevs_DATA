@@ -6,6 +6,6 @@
 # gameserver/data/pathnode/                         #
 #                                                   #
 # More Info at:                                     #
-# http://www.l2jserver.com/forum/viewforum.php?f=89 #
+# http://www.l2jdevs.org/forum/index.php?board=38.0 #
 #                                                   #
 #####################################################
