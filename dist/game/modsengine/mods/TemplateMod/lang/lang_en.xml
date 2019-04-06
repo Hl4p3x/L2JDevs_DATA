@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localization lang="en">
+	<message id="mod_command_msg_example" text="L2JMods is cool!"/>
+	<message id="mod_online_msg_player" text="Currently there are %s% people online!"/>
+	<message id="mod_announces_msg_admin" text="The staff %s% as logged in!"/>
+	<message id="mod_announces_msg_hero" text="The hero %s% as logged in!"/>
+	<message id="mod_announces_msg_lord" text="%s%, castle lord of %i% as logged in!"/>
+	<message id="mod_announces_msg_ware_add" text="%s% has added the item %i% in clan warehouse!"/>
+	<message id="mod_announces_msg_ware_delete" text="%s% has destroyed the item %i% of the clan warehouse!"/>
+	<message id="mod_announces_msg_ware_transfer" text="%s% has transferred the item %i% of the clan warehouse!"/>
+</localization>
