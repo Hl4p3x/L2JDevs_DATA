@@ -18,14 +18,20 @@
  */
 package instances.RimKamaloka;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import org.l2jdevs.commons.database.pool.impl.ConnectionFactory;
 import org.l2jdevs.gameserver.ThreadPoolManager;
 import org.l2jdevs.gameserver.ai.CtrlIntention;
 import org.l2jdevs.gameserver.data.xml.impl.NpcData;
@@ -46,7 +52,7 @@ import org.l2jdevs.gameserver.model.instancezone.InstanceWorld;
 import org.l2jdevs.gameserver.network.NpcStringId;
 import org.l2jdevs.gameserver.network.SystemMessageId;
 import org.l2jdevs.gameserver.network.clientpackets.Say2;
-import org.l2jdevs.gameserver.network.serverpackets.CreatureSay;
+import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 import instances.AbstractInstance;
@@ -58,7 +64,13 @@ import instances.AbstractInstance;
 
 public final class RimKamaloka extends AbstractInstance
 {
+	private static final String SELECT = "SELECT * FROM `rim_kamaloka` ORDER BY `score` DESC";
+	private static final String SELECT_SCORE = "SELECT `score` FROM `rim_kamaloka` WHERE `playerName` = ?";
+	private static final String REPLACE = "REPLACE INTO `rim_kamaloka` (`playerName`, `score`) VALUES (?, ?)";
+	private static final String DELETE = "DELETE * FROM `rim_kamaloka`";
+	
 	private static final int DESPAWN_DELAY = 10000;
+	
 	/*
 	 * Duration of the instance, minutes
 	 */
@@ -123,7 +135,9 @@ public final class RimKamaloka extends AbstractInstance
 	
 	private static final int RESET_MIN = 30;
 	
-	private static final int RESPAWN_DELAY = 30;
+	//@formatter:off
+	private static final int[] RESPAWN_DELAY = {5, 10, 15, 20, 25, 30};
+	//@formatter:on
 	
 	/*
 	 * Reward NPC
@@ -139,96 +153,138 @@ public final class RimKamaloka extends AbstractInstance
 	};
 	//@formatter:on
 	
+	private static final int ESSENCE_OF_KAMALOKA = 13002;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_40 = 10864;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_39 = 10863;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_38 = 10862;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_37 = 12834;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_36 = 10861;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_35 = 10860;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_34 = 10859;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_33 = 10858;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_32 = 10857;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_31 = 12833;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_30 = 12832;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_29 = 10856;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_28 = 10855;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_27 = 10854;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_26 = 10853;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_25 = 10852;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_24 = 12831;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_23 = 12830;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_22 = 10851;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_21 = 10850;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_20 = 10849;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_19 = 10848;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_18 = 10847;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_17 = 12829;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_16 = 12828;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_15 = 10846;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_14 = 10845;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_13 = 10844;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_12 = 10843;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_11 = 10842;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_10 = 12827;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_9 = 12826;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_8 = 10841;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_7 = 10840;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_6 = 10839;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_5 = 10838;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_4 = 10837;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_3 = 12825;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_2 = 10836;
+	private static final int PATHFINDER_SUPPLIES_LEVEL_1 = 12824;
+	
 	//@formatter:off
 	private static final int[][][] REWARDS =
 	{
 		{ // 20-30
 			null, // Grade F
-			{13002, 2, 10839, 1}, // Grade D
-			{13002, 2, 10838, 1}, // Grade C
-			{13002, 2, 10837, 1}, // Grade B
-			{13002, 2, 10836, 1}, // Grade A
-			{13002, 2, 12824, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 2, PATHFINDER_SUPPLIES_LEVEL_6, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 2, PATHFINDER_SUPPLIES_LEVEL_5, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 2, PATHFINDER_SUPPLIES_LEVEL_4, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 2, PATHFINDER_SUPPLIES_LEVEL_2, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 2, PATHFINDER_SUPPLIES_LEVEL_1, 1}  // Grade S
 		},
 		{ // 25-35
 			null, // Grade F
-			{13002, 3, 10838, 1}, // Grade D
-			{13002, 3, 10837, 1}, // Grade C
-			{13002, 3, 10836, 1}, // Grade B
-			{13002, 3, 10840, 1}, // Grade A
-			{13002, 3, 12825, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_5, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_4, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_2, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_7, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_3, 1}  // Grade S
 		},
 		{ // 30-40
 			null, // Grade F
-			{13002, 3, 10841, 1}, // Grade D
-			{13002, 3, 10842, 1}, // Grade C
-			{13002, 3, 10843, 1}, // Grade B
-			{13002, 3, 10844, 1}, // Grade A
-			{13002, 3, 12826, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_8, 1},  // Grade D
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_11, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_12, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_13, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 3, PATHFINDER_SUPPLIES_LEVEL_9, 1}   // Grade S
 		},
 		{ // 35-45
 			null, // Grade F
-			{13002, 5, 10842, 1}, // Grade D
-			{13002, 5, 10843, 1}, // Grade C
-			{13002, 5, 10844, 1}, // Grade B
-			{13002, 5, 10845, 1}, // Grade A
-			{13002, 5, 12827, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 5, PATHFINDER_SUPPLIES_LEVEL_11, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 5, PATHFINDER_SUPPLIES_LEVEL_12, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 5, PATHFINDER_SUPPLIES_LEVEL_13, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 5, PATHFINDER_SUPPLIES_LEVEL_14, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 5, PATHFINDER_SUPPLIES_LEVEL_10, 1}  // Grade S
 		},
 		{ // 40-50
 			null, // Grade F
-			{13002, 7, 10846, 1}, // Grade D
-			{13002, 7, 10847, 1}, // Grade C
-			{13002, 7, 10848, 1}, // Grade B
-			{13002, 7, 10849, 1}, // Grade A
-			{13002, 7, 12828, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 7, PATHFINDER_SUPPLIES_LEVEL_15, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 7, PATHFINDER_SUPPLIES_LEVEL_18, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 7, PATHFINDER_SUPPLIES_LEVEL_19, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 7, PATHFINDER_SUPPLIES_LEVEL_20, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 7, PATHFINDER_SUPPLIES_LEVEL_16, 1}  // Grade S
 		},
 		{ // 45-55
 			null, // Grade F
-			{13002, 8, 10847, 1}, // Grade D
-			{13002, 8, 10848, 1}, // Grade C
-			{13002, 8, 10849, 1}, // Grade B
-			{13002, 8, 10850, 1}, // Grade A
-			{13002, 8, 12829, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 8, PATHFINDER_SUPPLIES_LEVEL_18, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 8, PATHFINDER_SUPPLIES_LEVEL_19, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 8, PATHFINDER_SUPPLIES_LEVEL_20, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 8, PATHFINDER_SUPPLIES_LEVEL_21, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 8, PATHFINDER_SUPPLIES_LEVEL_17, 1}  // Grade S
 		},
 		{ // 50-60
 			null, // Grade F
-			{13002, 10, 10851, 1}, // Grade D
-			{13002, 10, 10852, 1}, // Grade C
-			{13002, 10, 10853, 1}, // Grade B
-			{13002, 10, 10854, 1}, // Grade A
-			{13002, 10, 12830, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 10, PATHFINDER_SUPPLIES_LEVEL_22, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 10, PATHFINDER_SUPPLIES_LEVEL_25, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 10, PATHFINDER_SUPPLIES_LEVEL_26, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 10, PATHFINDER_SUPPLIES_LEVEL_27, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 10, PATHFINDER_SUPPLIES_LEVEL_23, 1}  // Grade S
 		},
 		{ // 55-65
 			null, // Grade F
-			{13002, 12, 10852, 1}, // Grade D
-			{13002, 12, 10853, 1}, // Grade C
-			{13002, 12, 10854, 1}, // Grade B
-			{13002, 12, 10855, 1}, // Grade A
-			{13002, 12, 12831, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 12, PATHFINDER_SUPPLIES_LEVEL_25, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 12, PATHFINDER_SUPPLIES_LEVEL_26, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 12, PATHFINDER_SUPPLIES_LEVEL_27, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 12, PATHFINDER_SUPPLIES_LEVEL_28, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 12, PATHFINDER_SUPPLIES_LEVEL_24, 1}  // Grade S
 		},
 		{ // 60-70
 			null, // Grade F
-			{13002, 13, 10856, 1}, // Grade D
-			{13002, 13, 10857, 1}, // Grade C
-			{13002, 13, 10858, 1}, // Grade B
-			{13002, 13, 10859, 1}, // Grade A
-			{13002, 13, 12832, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 13, PATHFINDER_SUPPLIES_LEVEL_29, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 13, PATHFINDER_SUPPLIES_LEVEL_32, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 13, PATHFINDER_SUPPLIES_LEVEL_33, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 13, PATHFINDER_SUPPLIES_LEVEL_34, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 13, PATHFINDER_SUPPLIES_LEVEL_30, 1}  // Grade S
 		},
 		{ // 65-75
 			null, // Grade F
-			{13002, 15, 10857, 1}, // Grade D
-			{13002, 15, 10858, 1}, // Grade C
-			{13002, 15, 10859, 1}, // Grade B
-			{13002, 15, 10860, 1}, // Grade A
-			{13002, 15, 12833, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 15, PATHFINDER_SUPPLIES_LEVEL_32, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 15, PATHFINDER_SUPPLIES_LEVEL_33, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 15, PATHFINDER_SUPPLIES_LEVEL_34, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 15, PATHFINDER_SUPPLIES_LEVEL_35, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 15, PATHFINDER_SUPPLIES_LEVEL_31, 1}  // Grade S
 		},
 		{ // 70-80
 			null, // Grade F
-			{13002, 17, 10861, 1}, // Grade D
-			{13002, 17, 12834, 1}, // Grade C
-			{13002, 17, 10862, 1}, // Grade B
-			{13002, 17, 10863, 1}, // Grade A
-			{13002, 17, 10864, 1}  // Grade S
+			{ESSENCE_OF_KAMALOKA, 17, PATHFINDER_SUPPLIES_LEVEL_36, 1}, // Grade D
+			{ESSENCE_OF_KAMALOKA, 17, PATHFINDER_SUPPLIES_LEVEL_37, 1}, // Grade C
+			{ESSENCE_OF_KAMALOKA, 17, PATHFINDER_SUPPLIES_LEVEL_38, 1}, // Grade B
+			{ESSENCE_OF_KAMALOKA, 17, PATHFINDER_SUPPLIES_LEVEL_39, 1}, // Grade A
+			{ESSENCE_OF_KAMALOKA, 17, PATHFINDER_SUPPLIES_LEVEL_40, 1}  // Grade S
 		}
 	};
 	//@formatter:on
@@ -249,7 +305,7 @@ public final class RimKamaloka extends AbstractInstance
 			{9514, -212478, -7803}, {9236, -213348, -7803}, {8868, -212683, -7803}, {9719, -213042, -7803}
 		},
 		{
-			{16925, -212811, -7803}, {16885, -213199, -7802}, {16487, -213339, -7803}, {16337, -212529,-7803}
+			{16925, -212811, -7803}, {16885, -213199, -7802}, {16487, -213339, -7803}, {16337, -212529, -7803}
 		},
 		{
 			{23958, -213282, -8009}, {23292, -212782, -8012}, {23844, -212781, -8009}, {23533, -213301, -8009}
@@ -310,6 +366,19 @@ public final class RimKamaloka extends AbstractInstance
 				addKillId(mob);
 			}
 		}
+		
+		final Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.MINUTE, 0);
+		if (calendar.get(Calendar.HOUR_OF_DAY) >= 0)
+		{
+			calendar.roll(Calendar.DATE, true);
+		}
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		
+		ThreadPoolManager.getInstance().scheduleEventAtFixedRate(() ->
+		{
+			resetRating();
+		}, calendar.getTimeInMillis() - System.currentTimeMillis(), 86400000, TimeUnit.MILLISECONDS);
 	}
 	
 	@Override
@@ -350,6 +419,32 @@ public final class RimKamaloka extends AbstractInstance
 				}
 				return "Rewarded.html";
 			}
+			case "RatingList":
+			{
+				String rating = null;
+				var index = 1;
+				for (Entry<String, Integer> ratingList : getRatingList().entrySet())
+				{
+					rating += "<tr><td width=70 align=center>" + index + ".-</td>";
+					rating += "<td width=110 align=center> " + ratingList.getKey() + "</td>";
+					rating += "<td width=80 align=center> " + ratingList.getValue() + "</td></tr>";
+					index++;
+					if (index > 10)
+					{
+						break;
+					}
+				}
+				
+				final String string = "Pathfinder:<br>" + //
+					"<font color=\"LEVEL\">Rim Kamaloka Rating</font><br>" + //
+					"Your current contribution: <font color=\"LEVEL\">" + getScore(player) + "</font>.<br>" + //
+					"Would you like to know the names of the characters who contributed most <font color=\"LEVEL\">today</font> in opposition to the invasion of Kamaloka Neighborhoods? If their names are here, it's because they've received our special favors.<br>" + //
+					"<table>" + rating + "</table><br>" + //
+					"(This rating is restarted at midnight server time.)<br>" + //
+					"<a action=\"bypass -h npc_%objectId%_Chat 3\">Back</a>";
+				final String htmltext = showHtmlFile(player, "RatingList.html").replace("%content%", string);
+				return htmltext;
+			}
 			default:
 			{
 				try
@@ -358,6 +453,7 @@ public final class RimKamaloka extends AbstractInstance
 				}
 				catch (Exception e)
 				{
+					e.printStackTrace();
 				}
 				break;
 			}
@@ -382,7 +478,7 @@ public final class RimKamaloka extends AbstractInstance
 			{
 				if (((damage * 100) / maxHp) > 40)
 				{
-					final int chance = getRandom(0, 100);
+					final int chance = getRandom(100);
 					int nextId = 0;
 					
 					if (npc.getId() == world.KANABION)
@@ -449,13 +545,15 @@ public final class RimKamaloka extends AbstractInstance
 				world.lastAttack.remove(npc.getObjectId());
 			}
 			
-			final int chance = getRandom(0, 100);
+			final int chance = getRandom(100);
 			int nextId = 0;
 			
 			if (npc.getId() == world.KANABION)
 			{
-				final NpcStringId npcString = KANABION_STRING[getRandom(KANABION_STRING.length)];
-				npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), npcString));
+				if (getRandom(100) < 15)
+				{
+					npc.broadcastPacket(new NpcSay(npc, 0, KANABION_STRING[getRandom(KANABION_STRING.length)]));
+				}
 				world.kanabionsCount++;
 				if (((L2Attackable) npc).isOverhit())
 				{
@@ -475,8 +573,10 @@ public final class RimKamaloka extends AbstractInstance
 			}
 			else if (npc.getId() == world.DOPPLER)
 			{
-				final NpcStringId npcString = KANABION_STRING[getRandom(KANABION_STRING.length)];
-				npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), npcString));
+				if (getRandom(100) < 15)
+				{
+					npc.broadcastPacket(new NpcSay(npc, 0, KANABION_STRING[getRandom(KANABION_STRING.length)]));
+				}
 				world.dopplersCount++;
 				if (((L2Attackable) npc).isOverhit())
 				{
@@ -503,8 +603,10 @@ public final class RimKamaloka extends AbstractInstance
 			}
 			else if (npc.getId() == world.VOIDER)
 			{
-				final NpcStringId npcString = KANABION_STRING[getRandom(KANABION_STRING.length)];
-				npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.NPC_ALL, npc.getName(), npcString));
+				if (getRandom(100) < 15)
+				{
+					npc.broadcastPacket(new NpcSay(npc, 0, KANABION_STRING[getRandom(KANABION_STRING.length)]));
+				}
 				world.voidersCount++;
 				if (((L2Attackable) npc).isOverhit())
 				{
@@ -558,174 +660,108 @@ public final class RimKamaloka extends AbstractInstance
 					{
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.D_GRADE);
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.GOOD_WORK_IF_ALL_ADVENTURERS_PRODUCE_RESULTS_LIKE_YOU_WE_WILL_SLOWLY_START_TO_SEE_THE_GLIMMER_OF_HOPE);
-						return "GradeD.html";
+						String left;
+						if (world.grade != 1)
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade D)</font><br>" + "This is a bad result.<br>" + "I was hoping he would be better.<br>"
+								+ "Unfortunately, access to the Kamaloka Neighborhood is not given to everyone.<br>" + "Have you ever noticed that the Kanabions can grow bigger and more nutritious? This usually happens when you deal monsters a lot of damage at once.<br>"
+								+ "We, the Pathfinders, have prepared an award for those who have achieved impressive results so that the next time they can complete the task even better.<br>" + "Would you like to receive a reward appropriate to your level?<br>"
+								+ "<a action=\"bypass -h Quest RimKamaloka Reward\">Get an award.</a>";
+						}
+						else
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade D)</font><br>" + "This is a bad result.<br>" + "I was hoping he would be better.<br>"
+								+ "Unfortunately, access to the Kamaloka Neighborhood is not given to everyone.<br>" + "Have you ever noticed that the Kanabions can grow bigger and more nutritious? This usually happens when you deal monsters a lot of damage at once.<br>"
+								+ "We, the Pathfinders, have prepared an award for those who have achieved impressive results so that the next time they can complete the task even better.<br>" + "Would you like to receive a reward appropriate to your level?<br>"
+								+ "<a action=\"bypass -h Quest RimKamaloka Reward\">Get an award.</a>";
+						}
+						final String htmltext = showHtmlFile(talker, "Grade.html").replace("%count%", left);
+						return htmltext;
 					}
 					case 2:
 					{
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.C_GRADE);
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.GOOD_WORK_IF_ALL_ADVENTURERS_PRODUCE_RESULTS_LIKE_YOU_WE_WILL_SLOWLY_START_TO_SEE_THE_GLIMMER_OF_HOPE);
-						return "GradeC.html";
+						String left;
+						if (world.grade != 2)
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade C)</font><br>" + "Unfortunately, access to the Kamaloka Neighborhood is not given to everyone.<br>"
+								+ "Have you ever noticed that the Kanabions can grow bigger and more nutritious? This usually happens when you deal monsters a lot of damage at once.<br>"
+								+ "We, the Pathfinders, have prepared an award for those who have achieved impressive results so that the next time they can complete the task even better.<br>" + "Want to get a reward appropriate to your level?<br>"
+								+ "<a action=\"bypass -h Quest RimKamaloka Reward\">Get an award.</a>";
+						}
+						else
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade C)</font><br>" + "Unfortunately, access to the Kamaloka Neighborhood is not given to everyone.<br>"
+								+ "Have you ever noticed that the Kanabions can grow bigger and more nutritious? This usually happens when you deal monsters a lot of damage at once.<br>"
+								+ "We, the Pathfinders, have prepared an award for those who have achieved impressive results so that the next time they can complete the task even better.<br>" + "Want to get a reward appropriate to your level?<br>"
+								+ "<a action=\"bypass -h Quest RimKamaloka Reward\">Get an award.</a>";
+						}
+						final String htmltext = showHtmlFile(talker, "Grade.html").replace("%count%", left);
+						return htmltext;
 					}
 					case 3:
 					{
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.B_GRADE);
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.GOOD_WORK_IF_ALL_ADVENTURERS_PRODUCE_RESULTS_LIKE_YOU_WE_WILL_SLOWLY_START_TO_SEE_THE_GLIMMER_OF_HOPE);
-						return "GradeB.html";
+						String left;
+						if (world.grade != 3)
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade B)</font><br>" + "Unfortunately, access to the Kamaloka Neighborhood is not given to everyone.<br>"
+								+ "Have you ever noticed that the Kanabions can grow bigger and more nutritious? This usually happens when you deal monsters a lot of damage at once.<br>"
+								+ "We, the Pathfinders, have prepared an award for those who have achieved impressive results so that the next time they can complete the task even better.<br>" + "Want to get a reward appropriate to your level?<br>"
+								+ "<a action=\"bypass -h Quest RimKamaloka Reward\">Get an award.</a>";
+						}
+						else
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade B)</font><br>" + "Unfortunately, access to the Kamaloka Neighborhood is not given to everyone.<br>"
+								+ "Have you ever noticed that the Kanabions can grow bigger and more nutritious? This usually happens when you deal monsters a lot of damage at once.<br>"
+								+ "We, the Pathfinders, have prepared an award for those who have achieved impressive results so that the next time they can complete the task even better.<br>" + "Want to get a reward appropriate to your level?<br>"
+								+ "<a action=\"bypass -h Quest RimKamaloka Reward\">Get an award.</a>";
+						}
+						final String htmltext = showHtmlFile(talker, "Grade.html").replace("%count%", left);
+						return htmltext;
 					}
 					case 4:
 					{
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.A_GRADE);
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.ADMIRABLE_YOU_GREATLY_DECREASED_THE_SPEED_OF_INVASION_THROUGH_KAMALOKA);
-						return "GradeA.html";
+						String left;
+						if (world.grade != 4)
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade A)</font><br>" + "This... This is a great achievement worthy of the heroes of legends!<br>"
+								+ "I see that you understood the essence of our business and did an excellent job with the task assigned to you.<br>" + "<a action=\"bypass -h Quest RimKamaloka Reward\">Get reward</a>";
+						}
+						else
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade A)</font><br>" + "This... This is a great achievement worthy of the heroes of legends!<br>"
+								+ "I see that you understood the essence of our business and did an excellent job with the task assigned to you.<br>" + "<a action=\"bypass -h Quest RimKamaloka Reward\">Get reward</a>";
+						}
+						final String htmltext = showHtmlFile(talker, "Grade.html").replace("%count%", left);
+						return htmltext;
 					}
 					case 5:
 					{
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.S_GRADE);
 						broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.THIS_IS_THIS_IS_A_GREAT_ACHIEVEMENT_THAT_IS_WORTHY_OF_THE_TRUE_HEROES_OF_LEGEND);
-						return "GradeS.html";
+						String left;
+						if (world.grade != 5)
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade S)</font><br>" + "This... This is a great achievement worthy of the heroes of legends!<br>"
+								+ "I see that you understood the essence of our business and did an excellent job with the task assigned to you.<br>" + "<a action=\"bypass -h Quest RimKamaloka Reward\">Get reward</a>";
+						}
+						else
+						{
+							left = "Pathfinder:<br>" + "Your result: " + (world.dopplersCount + world.voidersCount + world.kanabionsCount) + "<font color=\"LEVEL\"> (Grade S)</font><br>" + "This... This is a great achievement worthy of the heroes of legends!<br>"
+								+ "I see that you understood the essence of our business and did an excellent job with the task assigned to you.<br>" + "<a action=\"bypass -h Quest RimKamaloka Reward\">Get reward</a>";
+						}
+						final String htmltext = showHtmlFile(talker, "Grade.html").replace("%count%", left);
+						return htmltext;
 					}
 				}
 			}
 		}
 		return super.onTalk(npc, talker);
-	}
-	
-	private void rewardPlayer(RimKamalokaWorld world, L2Npc npc)
-	{
-		if (!world.isFinished || world.isRewarded)
-		{
-			return;
-		}
-		
-		world.isRewarded = true;
-		
-		final int[][] allRewards = REWARDS[world.index];
-		world.grade = Math.min(world.grade, allRewards.length);
-		final int[] reward = allRewards[world.grade];
-		
-		if (reward == null)
-		{
-			return;
-		}
-		for (int objectId : world.getAllowed())
-		{
-			final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
-			if ((player != null) && player.isOnline())
-			{
-				player.sendMessage("Grade: " + world.grade);
-				for (int i = 0; i < reward.length; i += 2)
-				{
-					player.addItem("Reward", reward[i], reward[i + 1], npc, true);
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Spawn all NPCs in kamaloka
-	 * @param world instanceWorld
-	 */
-	private void spawnKamaloka(RimKamalokaWorld world)
-	{
-		final int[][] spawnlist;
-		final int index = world.index;
-		world.KANABION = KANABIONS[index][0];
-		world.DOPPLER = KANABIONS[index][1];
-		world.VOIDER = KANABIONS[index][2];
-		
-		try
-		{
-			final L2NpcTemplate mob1 = NpcData.getInstance().getTemplate(world.KANABION);
-			
-			spawnlist = SPAWNLIST[index];
-			final int length = spawnlist.length;
-			
-			L2Spawn spawn;
-			for (int i = 0; i < length; i++)
-			{
-				final int[] loc = spawnlist[i];
-				spawn = new L2Spawn(mob1);
-				spawn.setInstanceId(world.getInstanceId());
-				spawn.setX(loc[0]);
-				spawn.setY(loc[1]);
-				spawn.setZ(loc[2]);
-				spawn.setHeading(-1);
-				spawn.setRespawnDelay(RESPAWN_DELAY);
-				spawn.setAmount(1);
-				spawn.startRespawn();
-				spawn.doSpawn();
-			}
-		}
-		catch (Exception e)
-		{
-			_log.log(Level.WARNING, getClass().getSimpleName() + ": error during spawn: ", e);
-		}
-	}
-	
-	private void spawnNextMob(RimKamalokaWorld world, L2Npc oldNpc, int npcId, L2PcInstance player)
-	{
-		if (world.isFinished)
-		{
-			return;
-		}
-		
-		L2MonsterInstance monster = null;
-		
-		if (!world.spawnedMobs.isEmpty())
-		{
-			for (L2MonsterInstance mob : world.spawnedMobs)
-			{
-				if ((mob == null) || !mob.isDecayed() || (mob.getId() != npcId))
-				{
-					continue;
-				}
-				mob.setDecayed(false);
-				mob.setIsDead(false);
-				mob.overhitEnabled(false);
-				mob.refreshID();
-				monster = mob;
-				break;
-			}
-		}
-		
-		if (monster == null)
-		{
-			final L2NpcTemplate template = NpcData.getInstance().getTemplate(npcId);
-			monster = new L2MonsterInstance(template);
-			IdFactory.getInstance().getNextId();
-			world.spawnedMobs.add(monster);
-		}
-		
-		synchronized (world.lastAttack)
-		{
-			world.lastAttack.put(monster.getObjectId(), System.currentTimeMillis());
-		}
-		
-		monster.setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
-		monster.setHeading(oldNpc.getHeading());
-		monster.setInstanceId(oldNpc.getInstanceId());
-		monster.spawnMe(oldNpc.getX(), oldNpc.getY(), oldNpc.getZ() + 20);
-		monster.setRunning();
-		monster.addDamageHate(player, 0, 9999);
-		monster.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
-	}
-	
-	/**
-	 * Teleport player and pet to/from instance
-	 * @param player
-	 * @param coords x, y, z
-	 * @param instanceId
-	 */
-	private void teleportPlayer(L2PcInstance player, int[] coords, int instanceId)
-	{
-		player.setInstanceId(instanceId);
-		player.teleToLocation(coords[0], coords[1], coords[2], true);
-		final L2Summon pet = player.getSummon();
-		if (pet != null)
-		{
-			pet.setInstanceId(instanceId);
-			pet.teleToLocation(coords[0], coords[1], coords[2], true);
-		}
 	}
 	
 	/**
@@ -869,6 +905,248 @@ public final class RimKamaloka extends AbstractInstance
 		
 	}
 	
+	/**
+	 * Get's the database data stored
+	 * @return A Map containing player and scores obtained
+	 */
+	private Map<String, Integer> getRatingList()
+	{
+		final Map<String, Integer> map = new LinkedHashMap<>();
+		var playerName = "";
+		var score = 0;
+		try (var con = ConnectionFactory.getInstance().getConnection();
+			var ps = con.prepareStatement(SELECT))
+		{
+			try (ResultSet rset = ps.executeQuery())
+			{
+				while (rset.next())
+				{
+					playerName = rset.getString("playerName");
+					score = rset.getInt("score");
+					map.put(playerName, score);
+				}
+				rset.close();
+			}
+			ps.execute();
+			ps.close();
+		}
+		catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+		return map;
+	}
+	
+	/**
+	 * Get's the player score
+	 * @param player
+	 * @return score, 0 otherwise
+	 */
+	private int getScore(L2PcInstance player)
+	{
+		var score = 0;
+		try (var con = ConnectionFactory.getInstance().getConnection();
+			var ps = con.prepareStatement(SELECT_SCORE))
+		{
+			ps.setString(1, player.getName());
+			try (ResultSet rset = ps.executeQuery())
+			{
+				while (rset.next())
+				{
+					score = rset.getInt("score");
+				}
+				rset.close();
+			}
+			ps.execute();
+			ps.close();
+		}
+		catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+		return score;
+	}
+	
+	private void resetRating()
+	{
+		try (var con = ConnectionFactory.getInstance().getConnection();
+			var ps = con.prepareStatement(DELETE))
+		{
+			ps.execute();
+			ps.close();
+		}
+		catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+		_log.info("Rim Kamaloka rating was restarted");
+	}
+	
+	private void rewardPlayer(RimKamalokaWorld world, L2Npc npc)
+	{
+		if (!world.isFinished || world.isRewarded)
+		{
+			return;
+		}
+		
+		world.isRewarded = true;
+		
+		final int[] reward = REWARDS[world.index][world.grade];
+		
+		if (reward == null)
+		{
+			return;
+		}
+		
+		for (int objectId : world.getAllowed())
+		{
+			final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
+			if ((player != null) && player.isOnline())
+			{
+				player.sendMessage("Grade: " + world.grade);
+				for (int i = 0; i < reward.length; i += 2)
+				{
+					player.addItem("Reward", reward[i], reward[i + 1], npc, true);
+				}
+				
+				// Store data in database only if player was rewarded with S grade
+				if (world.grade == 5)
+				{
+					storeRating(player, world.kanabionsCount + world.dopplersCount + world.voidersCount);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Spawn all NPCs in kamaloka
+	 * @param world instanceWorld
+	 */
+	private void spawnKamaloka(RimKamalokaWorld world)
+	{
+		final int[][] spawnlist;
+		final int index = world.index;
+		world.KANABION = KANABIONS[index][0];
+		world.DOPPLER = KANABIONS[index][1];
+		world.VOIDER = KANABIONS[index][2];
+		
+		try
+		{
+			final L2NpcTemplate mob1 = NpcData.getInstance().getTemplate(world.KANABION);
+			
+			spawnlist = SPAWNLIST[index];
+			final int length = spawnlist.length;
+			
+			L2Spawn spawn;
+			for (int i = 0; i < length; i++)
+			{
+				final int[] loc = spawnlist[i];
+				spawn = new L2Spawn(mob1);
+				spawn.setInstanceId(world.getInstanceId());
+				spawn.setX(loc[0]);
+				spawn.setY(loc[1]);
+				spawn.setZ(loc[2]);
+				spawn.setHeading(-1);
+				spawn.setRespawnDelay(RESPAWN_DELAY[getRandom(RESPAWN_DELAY.length)]);
+				spawn.setAmount(1);
+				spawn.startRespawn();
+				spawn.doSpawn();
+			}
+		}
+		catch (Exception e)
+		{
+			_log.log(Level.WARNING, getClass().getSimpleName() + ": error during spawn: ", e);
+		}
+	}
+	
+	private void spawnNextMob(RimKamalokaWorld world, L2Npc oldNpc, int npcId, L2PcInstance player)
+	{
+		if (world.isFinished)
+		{
+			return;
+		}
+		
+		L2MonsterInstance monster = null;
+		
+		if (!world.spawnedMobs.isEmpty())
+		{
+			for (L2MonsterInstance mob : world.spawnedMobs)
+			{
+				if ((mob == null) || !mob.isDecayed() || (mob.getId() != npcId))
+				{
+					continue;
+				}
+				mob.setDecayed(false);
+				mob.setIsDead(false);
+				mob.overhitEnabled(false);
+				mob.refreshID();
+				monster = mob;
+				break;
+			}
+		}
+		
+		if (monster == null)
+		{
+			final L2NpcTemplate template = NpcData.getInstance().getTemplate(npcId);
+			monster = new L2MonsterInstance(template);
+			IdFactory.getInstance().getNextId();
+			world.spawnedMobs.add(monster);
+		}
+		
+		synchronized (world.lastAttack)
+		{
+			world.lastAttack.put(monster.getObjectId(), System.currentTimeMillis());
+		}
+		
+		monster.setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
+		monster.setHeading(oldNpc.getHeading());
+		monster.setInstanceId(oldNpc.getInstanceId());
+		monster.spawnMe(oldNpc.getX(), oldNpc.getY(), oldNpc.getZ() + 20);
+		monster.setRunning();
+		monster.addDamageHate(player, 0, 9999);
+		monster.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
+		world.spawnCount++;
+	}
+	
+	/**
+	 * Store the player score into database
+	 * @param player
+	 * @param score
+	 */
+	private void storeRating(L2PcInstance player, int score)
+	{
+		try (var con = ConnectionFactory.getInstance().getConnection();
+			var ps = con.prepareStatement(REPLACE))
+		{
+			ps.setString(1, player.getName());
+			ps.setInt(2, score);
+			ps.execute();
+			ps.close();
+		}
+		catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Teleport player and pet to/from instance
+	 * @param player
+	 * @param coords x, y, z
+	 * @param instanceId
+	 */
+	private void teleportPlayer(L2PcInstance player, int[] coords, int instanceId)
+	{
+		player.setInstanceId(instanceId);
+		player.teleToLocation(coords[0], coords[1], coords[2], true);
+		final L2Summon pet = player.getSummon();
+		if (pet != null)
+		{
+			pet.setInstanceId(instanceId);
+			pet.teleToLocation(coords[0], coords[1], coords[2], true);
+		}
+	}
+	
 	private class DespawnTask implements Runnable
 	{
 		private final RimKamalokaWorld _world;
@@ -949,10 +1227,31 @@ public final class RimKamaloka extends AbstractInstance
 				}
 				else
 				{
-					_world.grade = Math.min(((_world.dopplersCount + (2 * _world.voidersCount)) / _world.kanabionsCount) + 1, 5);
+					final int rewardFormula = ((_world.kanabionsCount + _world.dopplersCount + (2 * _world.voidersCount)) * 100) / _world.spawnCount;
+					if ((rewardFormula > 16) && (rewardFormula <= 33))
+					{
+						_world.grade = 1;
+					}
+					else if ((rewardFormula > 33) && (rewardFormula <= 50))
+					{
+						_world.grade = 2;
+					}
+					else if ((rewardFormula > 50) && (rewardFormula <= 66))
+					{
+						_world.grade = 3;
+					}
+					else if ((rewardFormula > 66) && (rewardFormula <= 83))
+					{
+						_world.grade = 4;
+					}
+					else if (rewardFormula > 83)
+					{
+						_world.grade = 5;
+					}
 				}
 				
 				final int index = _world.index;
+				
 				// spawn rewarder npc
 				addSpawn(REWARDER, REWARDERS[index][0], REWARDERS[index][1], REWARDERS[index][2], 0, false, 0, false, _world.getInstanceId());
 			}
@@ -1029,22 +1328,23 @@ public final class RimKamaloka extends AbstractInstance
 	private class RimKamalokaWorld extends InstanceWorld
 	{
 		private ScheduledFuture<?> despawnTask = null;
-		private int DOPPLER;
-		private int dopplersCount = 0;
 		private ScheduledFuture<?> finishTask = null;
-		
-		private int grade = 0;
-		private int index;
-		private boolean isFinished = false;
-		private boolean isRewarded = false;
-		private int KANABION;
-		private int kanabionsCount = 0;
+		private ScheduledFuture<?> lockTask = null;
 		
 		private final Map<Integer, Long> lastAttack = new HashMap<>();
-		private ScheduledFuture<?> lockTask = null;
 		private final List<L2MonsterInstance> spawnedMobs = new ArrayList<>();
 		
+		private int index;
+		private int grade = 0;
+		private int KANABION;
+		private int kanabionsCount = 0;
+		private int DOPPLER;
+		private int dopplersCount = 0;
 		private int VOIDER;
 		private int voidersCount = 0;
+		private int spawnCount = 0;
+		
+		private boolean isFinished = false;
+		private boolean isRewarded = false;
 	}
 }
