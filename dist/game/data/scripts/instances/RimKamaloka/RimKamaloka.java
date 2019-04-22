@@ -67,7 +67,7 @@ public final class RimKamaloka extends AbstractInstance
 	private static final String SELECT = "SELECT * FROM `rim_kamaloka` ORDER BY `score` DESC";
 	private static final String SELECT_SCORE = "SELECT `score` FROM `rim_kamaloka` WHERE `playerName` = ?";
 	private static final String REPLACE = "REPLACE INTO `rim_kamaloka` (`playerName`, `score`) VALUES (?, ?)";
-	private static final String DELETE = "DELETE * FROM `rim_kamaloka`";
+	private static final String DELETE = "DELETE FROM `rim_kamaloka`";
 	
 	private static final int DESPAWN_DELAY = 10000;
 	
@@ -377,7 +377,10 @@ public final class RimKamaloka extends AbstractInstance
 		
 		ThreadPoolManager.getInstance().scheduleEventAtFixedRate(() ->
 		{
-			resetRating();
+			if (getRatingList().size() > 0)
+			{
+				resetRating();
+			}
 		}, calendar.getTimeInMillis() - System.currentTimeMillis(), 86400000, TimeUnit.MILLISECONDS);
 	}
 	
@@ -969,6 +972,7 @@ public final class RimKamaloka extends AbstractInstance
 	
 	private void resetRating()
 	{
+		final var ratingListSize = getRatingList().size();
 		try (var con = ConnectionFactory.getInstance().getConnection();
 			var ps = con.prepareStatement(DELETE))
 		{
@@ -979,7 +983,7 @@ public final class RimKamaloka extends AbstractInstance
 		{
 			sqle.printStackTrace();
 		}
-		_log.info("Rim Kamaloka rating was restarted");
+		_log.info(getClass().getSimpleName() + ": Removed " + ratingListSize + " rating entries");
 	}
 	
 	private void rewardPlayer(RimKamalokaWorld world, L2Npc npc)
