@@ -24,6 +24,7 @@ import java.util.Map;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 import org.l2jdevs.gameserver.model.holders.ItemChanceHolder;
+import org.l2jdevs.gameserver.model.holders.ItemHolder;
 import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
@@ -112,7 +113,7 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 		{
 			case State.CREATED:
 			{
-				htmltext = (talker.getLevel() >= MIN_LVL) ? "30069-02.htm" : "30069-01.htm";
+				htmltext = talker.getLevel() >= MIN_LVL ? "30069-02.htm" : "30069-01.htm";
 				break;
 			}
 			case State.STARTED:
@@ -194,9 +195,13 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 		if ((qs != null) && (qs.getCond() < 4))
 		{
 			final ItemChanceHolder item = MONSTER_CHANCES.get(npc.getId());
-			if (giveItemRandomly(qs.getPlayer(), npc, item.getId(), 1, item.getCount(), item.getChance(), true))
+			if (hasItem(qs.getPlayer(), new ItemHolder(RITRON_FRUIT, 4)) && hasItem(qs.getPlayer(), new ItemHolder(MOON_FLOWER, 20)) && hasItem(qs.getPlayer(), new ItemHolder(LEECH_FLUIDS, 10)) && hasItem(qs.getPlayer(), new ItemHolder(ANTIDOTE, 2)))
 			{
 				qs.setCond(qs.getCond() + 1, true);
+			}
+			else
+			{
+				giveItemRandomly(qs.getPlayer(), npc, item.getId(), 1, item.getCount(), item.getChance(), true);
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
