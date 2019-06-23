@@ -139,27 +139,9 @@ public final class NewbieGuide extends AbstractNpcAI
 		addTalkId(newbieList);
 	}
 	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public static void main(String[] args)
 	{
-		QuestState qs = player.getQuestState(Q00255_Tutorial.class.getSimpleName());
-		if (qs != null)
-		{
-			if (npc.getId() == ADVENTURERS_GUIDE)
-			{
-				return "32327.htm";
-			}
-			if (npc.getId() == NEWBIE_GUIDE_GLUDIN)
-			{
-				return "newbie-guide-18.htm";
-			}
-			if (npc.getId() == NEWBIE_GUIDE_GLUDIO)
-			{
-				return "newbie-guide-19.htm";
-			}
-			return talkGuide(player, qs);
-		}
-		return super.onFirstTalk(npc, player);
+		new NewbieGuide();
 	}
 	
 	@Override
@@ -180,7 +162,7 @@ public final class NewbieGuide extends AbstractNpcAI
 			{
 				teleportRequest(talker, npc, Integer.parseInt(tel[1]));
 			}
-			return event;
+			return null;
 		}
 		final QuestState qs = getQuestState(talker, true);
 		int ask = Integer.parseInt(event.split(";")[0]);
@@ -196,9 +178,25 @@ public final class NewbieGuide extends AbstractNpcAI
 					{
 						if (talker.getRace() == Race.KAMAEL)
 						{
-							if (talker.getRace() != npc.getRace())
+							if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_HUMAN))
 							{
-								showPage(talker, "32135-003.htm");
+								showPage(talker, "30598-003.htm");
+							}
+							else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_ELF))
+							{
+								showPage(talker, "30599-003.htm");
+							}
+							else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_DARK_ELF))
+							{
+								showPage(talker, "30600-003.htm");
+							}
+							else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_DWARF))
+							{
+								showPage(talker, "30601-003.htm");
+							}
+							else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_ORC))
+							{
+								showPage(talker, "30602-003.htm");
 							}
 							else if ((talker.getLevel() > 20) || ((talker.getRace() != Race.KAMAEL) || (talker.getClassId().level() != 0)))
 							{
@@ -243,9 +241,29 @@ public final class NewbieGuide extends AbstractNpcAI
 								}
 							}
 						}
-						else if (talker.getRace() != npc.getRace())
+						else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_HUMAN))
 						{
-							showPage(talker, "");
+							showPage(talker, "30598-003.htm");
+						}
+						else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_ELF))
+						{
+							showPage(talker, "30599-003.htm");
+						}
+						else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_DARK_ELF))
+						{
+							showPage(talker, "30600-003.htm");
+						}
+						else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_DWARF))
+						{
+							showPage(talker, "30601-003.htm");
+						}
+						else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_ORC))
+						{
+							showPage(talker, "30602-003.htm");
+						}
+						else if ((talker.getRace() != npc.getRace()) && (npc.getId() == NEWBIE_GUIDE_KAMAEL))
+						{
+							showPage(talker, "32135-003.htm");
 						}
 						else if ((talker.getLevel() > 20) || (talker.getClassId().level() != 0))
 						{
@@ -559,33 +577,1091 @@ public final class NewbieGuide extends AbstractNpcAI
 		return "";
 	}
 	
-	private void teleportRequest(L2PcInstance talker, L2Npc npc, int teleportId)
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		if (talker.getLevel() >= 20)
+		QuestState qs = player.getQuestState(Q00255_Tutorial.class.getSimpleName());
+		if (qs != null)
 		{
-			showPage(talker, "teleport-big-level.htm");
-		}
-		else if ((talker.getTransformationId() == 111) || (talker.getTransformationId() == 112) || (talker.getTransformationId() == 124))
-		{
-			showPage(talker, "frog-teleport.htm");
-		}
-		else
-		{
-			if ((teleportId < 0) || (teleportId > 5))
+			if (npc.getId() == ADVENTURERS_GUIDE)
 			{
-				showPage(talker, npc.getId() + "-teleport.htm");
+				return "32327.htm";
 			}
-			else
+			if (npc.getId() == NEWBIE_GUIDE_HUMAN)
 			{
-				if (TELEPORT_MAP.containsKey(npc.getId()))
-				{
-					if (TELEPORT_MAP.get(npc.getId()).size() > teleportId)
-					{
-						talker.teleToLocation(TELEPORT_MAP.get(npc.getId()).get(teleportId), false);
-					}
-				}
+				return "newbie-guide-12.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_ELF)
+			{
+				return "newbie-guide-13.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_DARK_ELF)
+			{
+				return "newbie-guide-14.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_DWARF)
+			{
+				return "newbie-guide-15.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_ORC)
+			{
+				return "newbie-guide-16.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_KAMAEL)
+			{
+				return "newbie-guide-17.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_GLUDIN)
+			{
+				return "newbie-guide-18.htm";
+			}
+			if (npc.getId() == NEWBIE_GUIDE_GLUDIO)
+			{
+				return "newbie-guide-19.htm";
+			}
+			return talkGuide(player, qs);
+		}
+		return super.onFirstTalk(npc, player);
+	}
+	
+	private String eventGuideDelfFrankia(int event, QuestState qs)
+	{
+		switch (event)
+		{
+			case 10:
+				return "30600-04.htm";
+			case 11:
+				return "30600-04a.htm";
+			case 12:
+				return "30600-04b.htm";
+			case 13:
+				return "30600-04c.htm";
+			case 14:
+				return "30600-04d.htm";
+			case 15:
+				return "30600-04e.htm";
+			case 16:
+				return "30600-04f.htm";
+			case 17:
+				return "30600-04g.htm";
+			case 18:
+				return "30600-04h.htm";
+			case 31:
+				qs.clearRadar();
+				qs.addRadar(9670, 15537, -4574);
+				return "30600-05.htm";
+			case 32:
+				qs.clearRadar();
+				qs.addRadar(15120, 15656, -4376);
+				return "30600-05.htm";
+			case 33:
+				qs.clearRadar();
+				qs.addRadar(17306, 13592, -3724);
+				return "30600-05.htm";
+			case 34:
+				qs.clearRadar();
+				qs.addRadar(15272, 16310, -4377);
+				return "30600-05.htm";
+			case 35:
+				qs.clearRadar();
+				qs.addRadar(6449, 19619, -3694);
+				return "30600-05.htm";
+			case 36:
+				qs.clearRadar();
+				qs.addRadar(-15404, 71131, -3445);
+				return "30600-05.htm";
+			case 37:
+				qs.clearRadar();
+				qs.addRadar(7496, 17388, -4377);
+				return "30600-05.htm";
+			case 38:
+				qs.clearRadar();
+				qs.addRadar(17102, 13002, -3743);
+				return "30600-05.htm";
+			case 39:
+				qs.clearRadar();
+				qs.addRadar(6532, 19903, -3693);
+				return "30600-05.htm";
+			case 40:
+				qs.clearRadar();
+				qs.addRadar(-15648, 71405, -3451);
+				return "30600-05.htm";
+			case 41:
+				qs.clearRadar();
+				qs.addRadar(7644, 18048, -4377);
+				return "30600-05.htm";
+			case 42:
+				qs.clearRadar();
+				qs.addRadar(-1301, 75883, -3566);
+				return "30600-05.htm";
+			case 43:
+				qs.clearRadar();
+				qs.addRadar(-1152, 76125, -3566);
+				return "30600-05.htm";
+			case 44:
+				qs.clearRadar();
+				qs.addRadar(10580, 17574, -4554);
+				return "30600-05.htm";
+			case 45:
+				qs.clearRadar();
+				qs.addRadar(12009, 15704, -4554);
+				return "30600-05.htm";
+			case 46:
+				qs.clearRadar();
+				qs.addRadar(11951, 15661, -4554);
+				return "30600-05.htm";
+			case 47:
+				qs.clearRadar();
+				qs.addRadar(10761, 17970, -4554);
+				return "30600-05.htm";
+			case 48:
+				qs.clearRadar();
+				qs.addRadar(10823, 18013, -4554);
+				return "30600-05.htm";
+			case 49:
+				qs.clearRadar();
+				qs.addRadar(11283, 14226, -4242);
+				return "30600-05.htm";
+			case 50:
+				qs.clearRadar();
+				qs.addRadar(10447, 14620, -4242);
+				return "30600-05.htm";
+			case 51:
+				qs.clearRadar();
+				qs.addRadar(11258, 14431, -4242);
+				return "30600-05.htm";
+			case 52:
+				qs.clearRadar();
+				qs.addRadar(10344, 14445, -4242);
+				return "30600-05.htm";
+			case 53:
+				qs.clearRadar();
+				qs.addRadar(10315, 14293, -4242);
+				return "30600-05.htm";
+			case 54:
+				qs.clearRadar();
+				qs.addRadar(10775, 14190, -4242);
+				return "30600-05.htm";
+			case 55:
+				qs.clearRadar();
+				qs.addRadar(11235, 14078, -4242);
+				return "30600-05.htm";
+			case 56:
+				qs.clearRadar();
+				qs.addRadar(11012, 14128, -4242);
+				return "30600-05.htm";
+			case 57:
+				qs.clearRadar();
+				qs.addRadar(13380, 17430, -4542);
+				return "30600-05.htm";
+			case 58:
+				qs.clearRadar();
+				qs.addRadar(13464, 17751, -4541);
+				return "30600-05.htm";
+			case 59:
+				qs.clearRadar();
+				qs.addRadar(13763, 17501, -4542);
+				return "30600-05.htm";
+			case 60:
+				qs.clearRadar();
+				qs.addRadar(-44225, 79721, -3652);
+				return "30600-05.htm";
+			case 61:
+				qs.clearRadar();
+				qs.addRadar(-44015, 79683, -3652);
+				return "30600-05.htm";
+			case 62:
+				qs.clearRadar();
+				qs.addRadar(25856, 10832, -3724);
+				return "30600-05.htm";
+			case 63:
+				qs.clearRadar();
+				qs.addRadar(12328, 14947, -4574);
+				return "30600-05.htm";
+			case 64:
+				qs.clearRadar();
+				qs.addRadar(13081, 18444, -4573);
+				return "30600-05.htm";
+			case 65:
+				qs.clearRadar();
+				qs.addRadar(12311, 17470, -4574);
+				return "30600-05.htm";
+		}
+		return "";
+	}
+	
+	private String eventGuideDwarfGullin(int event, QuestState qs)
+	{
+		switch (event)
+		{
+			case 10:
+				return "30601-04.htm";
+			case 11:
+				return "30601-04a.htm";
+			case 12:
+				return "30601-04b.htm";
+			case 13:
+				return "30601-04c.htm";
+			case 14:
+				return "30601-04d.htm";
+			case 15:
+				return "30601-04e.htm";
+			case 16:
+				return "30601-04f.htm";
+			case 17:
+				return "30601-04g.htm";
+			case 18:
+				return "30601-04h.htm";
+			case 31:
+				qs.clearRadar();
+				qs.addRadar(115072, -178176, -906);
+				return "30601-05.htm";
+			case 32:
+				qs.clearRadar();
+				qs.addRadar(117847, -182339, -1537);
+				return "30601-05.htm";
+			case 33:
+				qs.clearRadar();
+				qs.addRadar(116617, -184308, -1569);
+				return "30601-05.htm";
+			case 34:
+				qs.clearRadar();
+				qs.addRadar(117826, -182576, -1537);
+				return "30601-05.htm";
+			case 35:
+				qs.clearRadar();
+				qs.addRadar(116378, -184308, -1571);
+				return "30601-05.htm";
+			case 36:
+				qs.clearRadar();
+				qs.addRadar(115183, -176728, -791);
+				return "30601-05.htm";
+			case 37:
+				qs.clearRadar();
+				qs.addRadar(114969, -176752, -790);
+				return "30601-05.htm";
+			case 38:
+				qs.clearRadar();
+				qs.addRadar(117366, -178725, -1118);
+				return "30601-05.htm";
+			case 39:
+				qs.clearRadar();
+				qs.addRadar(117378, -178914, -1120);
+				return "30601-05.htm";
+			case 40:
+				qs.clearRadar();
+				qs.addRadar(116226, -178529, -948);
+				return "30601-05.htm";
+			case 41:
+				qs.clearRadar();
+				qs.addRadar(116190, -178441, -948);
+				return "30601-05.htm";
+			case 42:
+				qs.clearRadar();
+				qs.addRadar(116016, -178615, -948);
+				return "30601-05.htm";
+			case 43:
+				qs.clearRadar();
+				qs.addRadar(116190, -178615, -948);
+				return "30601-05.htm";
+			case 44:
+				qs.clearRadar();
+				qs.addRadar(116103, -178407, -948);
+				return "30601-05.htm";
+			case 45:
+				qs.clearRadar();
+				qs.addRadar(116103, -178653, -948);
+				return "30601-05.htm";
+			case 46:
+				qs.clearRadar();
+				qs.addRadar(115468, -182446, -1434);
+				return "30601-05.htm";
+			case 47:
+				qs.clearRadar();
+				qs.addRadar(115315, -182155, -1444);
+				return "30601-05.htm";
+			case 48:
+				qs.clearRadar();
+				qs.addRadar(115271, -182692, -1445);
+				return "30601-05.htm";
+			case 49:
+				qs.clearRadar();
+				qs.addRadar(115900, -177316, -915);
+				return "30601-05.htm";
+			case 50:
+				qs.clearRadar();
+				qs.addRadar(116268, -177524, -914);
+				return "30601-05.htm";
+			case 51:
+				qs.clearRadar();
+				qs.addRadar(115741, -181645, -1344);
+				return "30601-05.htm";
+			case 52:
+				qs.clearRadar();
+				qs.addRadar(116192, -181072, -1344);
+				return "30601-05.htm";
+			case 53:
+				qs.clearRadar();
+				qs.addRadar(115205, -180024, -870);
+				return "30601-05.htm";
+			case 54:
+				qs.clearRadar();
+				qs.addRadar(114716, -180018, -871);
+				return "30601-05.htm";
+			case 55:
+				qs.clearRadar();
+				qs.addRadar(114832, -179520, -871);
+				return "30601-05.htm";
+			case 56:
+				qs.clearRadar();
+				qs.addRadar(115717, -183488, -1483);
+				return "30601-05.htm";
+			case 57:
+				qs.clearRadar();
+				qs.addRadar(115618, -183265, -1483);
+				return "30601-05.htm";
+			case 58:
+				qs.clearRadar();
+				qs.addRadar(114348, -178537, -813);
+				return "30601-05.htm";
+			case 59:
+				qs.clearRadar();
+				qs.addRadar(114990, -177294, -854);
+				return "30601-05.htm";
+			case 60:
+				qs.clearRadar();
+				qs.addRadar(114426, -178672, -812);
+				return "30601-05.htm";
+			case 61:
+				qs.clearRadar();
+				qs.addRadar(114409, -178415, -812);
+				return "30601-05.htm";
+			case 62:
+				qs.clearRadar();
+				qs.addRadar(117061, -181867, -1413);
+				return "30601-05.htm";
+			case 63:
+				qs.clearRadar();
+				qs.addRadar(116164, -184029, -1507);
+				return "30601-05.htm";
+			case 64:
+				qs.clearRadar();
+				qs.addRadar(115563, -182923, -1448);
+				return "30601-05.htm";
+			case 65:
+				qs.clearRadar();
+				qs.addRadar(112656, -174864, -611);
+				return "30601-05.htm";
+			case 66:
+				qs.clearRadar();
+				qs.addRadar(116852, -183595, -1566);
+				return "30601-05.htm";
+		}
+		return "";
+	}
+	
+	private String eventGuideElfRoios(int event, QuestState qs)
+	{
+		switch (event)
+		{
+			case 10:
+				return "30599-04.htm";
+			case 11:
+				return "30599-04a.htm";
+			case 12:
+				return "30599-04b.htm";
+			case 13:
+				return "30599-04c.htm";
+			case 14:
+				return "30599-04d.htm";
+			case 15:
+				return "30599-04e.htm";
+			case 16:
+				return "30599-04f.htm";
+			case 17:
+				return "30599-04g.htm";
+			case 18:
+				return "30599-04h.htm";
+			case 31:
+				qs.clearRadar();
+				qs.addRadar(46926, 51511, -2977);
+				return "30599-05.htm";
+			case 32:
+				qs.clearRadar();
+				qs.addRadar(44995, 51706, -2803);
+				return "30599-05.htm";
+			case 33:
+				qs.clearRadar();
+				qs.addRadar(45727, 51721, -2803);
+				return "30599-05.htm";
+			case 34:
+				qs.clearRadar();
+				qs.addRadar(42812, 51138, -2996);
+				return "30599-05.htm";
+			case 35:
+				qs.clearRadar();
+				qs.addRadar(45487, 46511, -2996);
+				return "30599-05.htm";
+			case 36:
+				qs.clearRadar();
+				qs.addRadar(47401, 51764, -2996);
+				return "30599-05.htm";
+			case 37:
+				qs.clearRadar();
+				qs.addRadar(42971, 51372, -2996);
+				return "30599-05.htm";
+			case 38:
+				qs.clearRadar();
+				qs.addRadar(47595, 51569, -2996);
+				return "30599-05.htm";
+			case 39:
+				qs.clearRadar();
+				qs.addRadar(45778, 46534, -2996);
+				return "30599-05.htm";
+			case 40:
+				qs.clearRadar();
+				qs.addRadar(44476, 47153, -2984);
+				return "30599-05.htm";
+			case 41:
+				qs.clearRadar();
+				qs.addRadar(42700, 50057, -2984);
+				return "30599-05.htm";
+			case 42:
+				qs.clearRadar();
+				qs.addRadar(42766, 50037, -2984);
+				return "30599-05.htm";
+			case 43:
+				qs.clearRadar();
+				qs.addRadar(44683, 46952, -2981);
+				return "30599-05.htm";
+			case 44:
+				qs.clearRadar();
+				qs.addRadar(44667, 46896, -2982);
+				return "30599-05.htm";
+			case 45:
+				qs.clearRadar();
+				qs.addRadar(45725, 52105, -2795);
+				return "30599-05.htm";
+			case 46:
+				qs.clearRadar();
+				qs.addRadar(44823, 52414, -2795);
+				return "30599-05.htm";
+			case 47:
+				qs.clearRadar();
+				qs.addRadar(45000, 52101, -2795);
+				return "30599-05.htm";
+			case 48:
+				qs.clearRadar();
+				qs.addRadar(45919, 52414, -2795);
+				return "30599-05.htm";
+			case 49:
+				qs.clearRadar();
+				qs.addRadar(44692, 52261, -2795);
+				return "30599-05.htm";
+			case 50:
+				qs.clearRadar();
+				qs.addRadar(47780, 49568, -2983);
+				return "30599-05.htm";
+			case 51:
+				qs.clearRadar();
+				qs.addRadar(47912, 50170, -2983);
+				return "30599-05.htm";
+			case 52:
+				qs.clearRadar();
+				qs.addRadar(47868, 50167, -2983);
+				return "30599-05.htm";
+			case 53:
+				qs.clearRadar();
+				qs.addRadar(28928, 74248, -3773);
+				return "30599-05.htm";
+			case 54:
+				qs.clearRadar();
+				qs.addRadar(43673, 49683, -3046);
+				return "30599-05.htm";
+			case 55:
+				qs.clearRadar();
+				qs.addRadar(45610, 49008, -3059);
+				return "30599-05.htm";
+			case 56:
+				qs.clearRadar();
+				qs.addRadar(50592, 54986, -3376);
+				return "30599-05.htm";
+			case 57:
+				qs.clearRadar();
+				qs.addRadar(42978, 49115, -2994);
+				return "30599-05.htm";
+			case 58:
+				qs.clearRadar();
+				qs.addRadar(46475, 50495, -3058);
+				return "30599-05.htm";
+			case 59:
+				qs.clearRadar();
+				qs.addRadar(45859, 50827, -3058);
+				return "30599-05.htm";
+			case 60:
+				qs.clearRadar();
+				qs.addRadar(51210, 82474, -3283);
+				return "30599-05.htm";
+			case 61:
+				qs.clearRadar();
+				qs.addRadar(49262, 53607, -3216);
+				return "30599-05.htm";
+		}
+		return "";
+	}
+	
+	private String eventGuideHumanCnacelot(int event, QuestState qs)
+	{
+		switch (event)
+		{
+			case 10:
+				return "30598-04.htm";
+			case 11:
+				return "30598-04a.htm";
+			case 12:
+				return "30598-04b.htm";
+			case 13:
+				return "30598-04c.htm";
+			case 14:
+				return "30598-04d.htm";
+			case 15:
+				return "30598-04e.htm";
+			case 16:
+				return "30598-04f.htm";
+			case 17:
+				return "30598-04g.htm";
+			case 18:
+				return "30598-04h.htm";
+			case 19:
+				return "30598-04i.htm";
+			case 31:
+				qs.clearRadar();
+				qs.addRadar(-84108, 244604, -3729);
+				return "30598-05.htm";
+			case 32:
+				qs.clearRadar();
+				qs.addRadar(-82236, 241573, -3728);
+				return "30598-05.htm";
+			case 33:
+				qs.clearRadar();
+				qs.addRadar(-82515, 241221, -3728);
+				return "30598-05.htm";
+			case 34:
+				qs.clearRadar();
+				qs.addRadar(-82319, 244709, -3727);
+				return "30598-05.htm";
+			case 35:
+				qs.clearRadar();
+				qs.addRadar(-82659, 244992, -3717);
+				return "30598-05.htm";
+			case 36:
+				qs.clearRadar();
+				qs.addRadar(-86114, 244682, -3727);
+				return "30598-05.htm";
+			case 37:
+				qs.clearRadar();
+				qs.addRadar(-86328, 244448, -3724);
+				return "30598-05.htm";
+			case 38:
+				qs.clearRadar();
+				qs.addRadar(-86322, 241215, -3727);
+				return "30598-05.htm";
+			case 39:
+				qs.clearRadar();
+				qs.addRadar(-85964, 240947, -3727);
+				return "30598-05.htm";
+			case 40:
+				qs.clearRadar();
+				qs.addRadar(-85026, 242689, -3729);
+				return "30598-05.htm";
+			case 41:
+				qs.clearRadar();
+				qs.addRadar(-83789, 240799, -3717);
+				return "30598-05.htm";
+			case 42:
+			{
+				qs.clearRadar();
+				qs.addRadar(-84204, 240403, -3717);
+				return "30598-05.htm";
+			}
+			case 43:
+			{
+				qs.clearRadar();
+				qs.addRadar(-86385, 243267, -3717);
+				return "30598-05.htm";
+			}
+			case 44:
+			{
+				qs.clearRadar();
+				qs.addRadar(-86733, 242918, -3717);
+				return "30598-05.htm";
+			}
+			case 45:
+			{
+				qs.clearRadar();
+				qs.addRadar(-84516, 245449, -3714);
+				return "30598-05.htm";
+			}
+			case 46:
+			{
+				qs.clearRadar();
+				qs.addRadar(-84729, 245001, -3726);
+				return "30598-05.htm";
+			}
+			case 47:
+			{
+				qs.clearRadar();
+				qs.addRadar(-84965, 245222, -3726);
+				return "30598-05.htm";
+			}
+			case 48:
+			{
+				qs.clearRadar();
+				qs.addRadar(-84981, 244764, -3726);
+				return "30598-05.htm";
+			}
+			case 49:
+			{
+				qs.clearRadar();
+				qs.addRadar(-85186, 245001, -3726);
+				return "30598-05.htm";
+			}
+			case 50:
+			{
+				qs.clearRadar();
+				qs.addRadar(-83326, 242964, -3718);
+				return "30598-05.htm";
+			}
+			case 51:
+			{
+				qs.clearRadar();
+				qs.addRadar(-83020, 242553, -3718);
+				return "30598-05.htm";
+			}
+			case 52:
+			{
+				qs.clearRadar();
+				qs.addRadar(-83175, 243065, -3718);
+				return "30598-05.htm";
+			}
+			case 53:
+			{
+				qs.clearRadar();
+				qs.addRadar(-82809, 242751, -3718);
+				return "30598-05.htm";
+			}
+			case 54:
+			{
+				qs.clearRadar();
+				qs.addRadar(-81895, 243917, -3721);
+				return "30598-05.htm";
+			}
+			case 55:
+			{
+				qs.clearRadar();
+				qs.addRadar(-81840, 243534, -3721);
+				return "30598-05.htm";
+			}
+			case 56:
+			{
+				qs.clearRadar();
+				qs.addRadar(-81512, 243424, -3720);
+				return "30598-05.htm";
+			}
+			case 57:
+			{
+				qs.clearRadar();
+				qs.addRadar(-84436, 242793, -3729);
+				return "30598-05.htm";
+			}
+			case 58:
+			{
+				qs.clearRadar();
+				qs.addRadar(-78939, 240305, -3443);
+				return "30598-05.htm";
+			}
+			case 59:
+			{
+				qs.clearRadar();
+				qs.addRadar(-85301, 244587, -3725);
+				return "30598-05.htm";
+			}
+			case 60:
+			{
+				qs.clearRadar();
+				qs.addRadar(-83163, 243560, -3728);
+				return "30598-05.htm";
+			}
+			case 61:
+			{
+				qs.clearRadar();
+				qs.addRadar(-97131, 258946, -3622);
+				return "30598-05.htm";
+			}
+			case 62:
+			{
+				qs.clearRadar();
+				qs.addRadar(-114685, 222291, -2925);
+				return "30598-05.htm";
+			}
+			case 63:
+			{
+				qs.clearRadar();
+				qs.addRadar(-84057, 242832, -3729);
+				return "30598-05.htm";
+			}
+			case 64:
+			{
+				qs.clearRadar();
+				qs.addRadar(-100332, 238019, -3573);
+				return "30598-05.htm";
+			}
+			case 65:
+			{
+				qs.clearRadar();
+				qs.addRadar(-82041, 242718, -3725);
+				return "30598-05.htm";
 			}
 		}
+		return "";
+	}
+	
+	private String eventGuideKrenisk(int event, QuestState qs)
+	{
+		switch (event)
+		{
+			case 10:
+				return "32135-04.htm";
+			case 11:
+				return "32135-04a.htm";
+			case 12:
+				return "32135-04b.htm";
+			case 13:
+				return "32135-04c.htm";
+			case 14:
+				return "32135-04d.htm";
+			case 15:
+				return "32135-04e.htm";
+			case 16:
+				return "32135-04f.htm";
+			case 17:
+				return "32135-04g.htm";
+			case 18:
+				return "32135-04h.htm";
+			case 19:
+				return "32135-04i.htm";
+			case 20:
+				return "32135-04j.htm";
+			case 21:
+				return "32135-04k.htm";
+			case 22:
+				return "32135-04l.htm";
+			case 31:
+				qs.clearRadar();
+				qs.addRadar(-116879, 46591, 380);
+				return "32135-05.htm";
+			case 32:
+				qs.clearRadar();
+				qs.addRadar(-119378, 49242, 22);
+				return "32135-05.htm";
+			case 33:
+				qs.clearRadar();
+				qs.addRadar(-119774, 49245, 22);
+				return "32135-05.htm";
+			case 34:
+				qs.clearRadar();
+				qs.addRadar(-119830, 51860, -787);
+				return "32135-05.htm";
+			case 35:
+				qs.clearRadar();
+				qs.addRadar(-119362, 51862, -780);
+				return "32135-05.htm";
+			case 36:
+				qs.clearRadar();
+				qs.addRadar(-112872, 46850, 68);
+				return "32135-05.htm";
+			case 37:
+				qs.clearRadar();
+				qs.addRadar(-112352, 47392, 68);
+				return "32135-05.htm";
+			case 38:
+				qs.clearRadar();
+				qs.addRadar(-110544, 49040, -1124);
+				return "32135-05.htm";
+			case 39:
+				qs.clearRadar();
+				qs.addRadar(-110536, 45162, -1132);
+				return "32135-05.htm";
+			case 40:
+				qs.clearRadar();
+				qs.addRadar(-115888, 43568, 524);
+				return "32135-05.htm";
+			case 41:
+				qs.clearRadar();
+				qs.addRadar(-115486, 43567, 525);
+				return "32135-05.htm";
+			case 42:
+				qs.clearRadar();
+				qs.addRadar(-116920, 47792, 464);
+				return "32135-05.htm";
+			case 43:
+				qs.clearRadar();
+				qs.addRadar(-116749, 48077, 462);
+				return "32135-05.htm";
+			case 44:
+				qs.clearRadar();
+				qs.addRadar(-117153, 48075, 463);
+				return "32135-05.htm";
+			case 45:
+				qs.clearRadar();
+				qs.addRadar(-119104, 43280, 559);
+				return "32135-05.htm";
+			case 46:
+				qs.clearRadar();
+				qs.addRadar(-119104, 43152, 559);
+				return "32135-05.htm";
+			case 47:
+				qs.clearRadar();
+				qs.addRadar(-117056, 43168, 559);
+				return "32135-05.htm";
+			case 48:
+				qs.clearRadar();
+				qs.addRadar(-117060, 43296, 559);
+				return "32135-05.htm";
+			case 49:
+				qs.clearRadar();
+				qs.addRadar(-118192, 42384, 838);
+				return "32135-05.htm";
+			case 50:
+				qs.clearRadar();
+				qs.addRadar(-117968, 42384, 838);
+				return "32135-05.htm";
+			case 51:
+				qs.clearRadar();
+				qs.addRadar(-118132, 42788, 723);
+				return "32135-05.htm";
+			case 52:
+				qs.clearRadar();
+				qs.addRadar(-118028, 42788, 720);
+				return "32135-05.htm";
+			case 53:
+				qs.clearRadar();
+				qs.addRadar(-114802, 44821, 524);
+				return "32135-05.htm";
+			case 54:
+				qs.clearRadar();
+				qs.addRadar(-114975, 44658, 524);
+				return "32135-05.htm";
+			case 55:
+				qs.clearRadar();
+				qs.addRadar(-114801, 45031, 525);
+				return "32135-05.htm";
+			case 56:
+				qs.clearRadar();
+				qs.addRadar(-120432, 45296, 416);
+				return "32135-05.htm";
+			case 57:
+				qs.clearRadar();
+				qs.addRadar(-120706, 45079, 419);
+				return "32135-05.htm";
+			case 58:
+				qs.clearRadar();
+				qs.addRadar(-120356, 45293, 416);
+				return "32135-05.htm";
+			case 59:
+				qs.clearRadar();
+				qs.addRadar(-120604, 44960, 423);
+				return "32135-05.htm";
+			case 60:
+				qs.clearRadar();
+				qs.addRadar(-120294, 46013, 384);
+				return "32135-05.htm";
+			case 61:
+				qs.clearRadar();
+				qs.addRadar(-120157, 45813, 355);
+				return "32135-05.htm";
+			case 62:
+				qs.clearRadar();
+				qs.addRadar(-120158, 46221, 354);
+				return "32135-05.htm";
+			case 63:
+				qs.clearRadar();
+				qs.addRadar(-120400, 46921, 415);
+				return "32135-05.htm";
+			case 64:
+				qs.clearRadar();
+				qs.addRadar(-120407, 46755, 423);
+				return "32135-05.htm";
+			case 65:
+				qs.clearRadar();
+				qs.addRadar(-120442, 47125, 422);
+				return "32135-05.htm";
+			case 66:
+				qs.clearRadar();
+				qs.addRadar(-118720, 48062, 473);
+				return "32135-05.htm";
+			case 67:
+				qs.clearRadar();
+				qs.addRadar(-118918, 47956, 474);
+				return "32135-05.htm";
+			case 68:
+				qs.clearRadar();
+				qs.addRadar(-118527, 47955, 473);
+				return "32135-05.htm";
+			case 69:
+				qs.clearRadar();
+				qs.addRadar(-117605, 48079, 472);
+				return "32135-05.htm";
+			case 70:
+				qs.clearRadar();
+				qs.addRadar(-117824, 48080, 476);
+				return "32135-05.htm";
+			case 71:
+				qs.clearRadar();
+				qs.addRadar(-118030, 47930, 465);
+				return "32135-05.htm";
+			case 72:
+				qs.clearRadar();
+				qs.addRadar(-119221, 46981, 380);
+				return "32135-05.htm";
+			case 73:
+				qs.clearRadar();
+				qs.addRadar(-118080, 42835, 720);
+				return "32135-05.htm";
+		}
+		return "";
+	}
+	
+	private String eventGuideOrcTanai(int event, QuestState qs)
+	{
+		switch (event)
+		{
+			case 10:
+				return "30602-04.htm";
+			case 11:
+				return "30602-04a.htm";
+			case 12:
+				return "30602-04b.htm";
+			case 13:
+				return "30602-04c.htm";
+			case 14:
+				return "30602-04d.htm";
+			case 15:
+				return "30602-04e.htm";
+			case 16:
+				return "30602-04f.htm";
+			case 17:
+				return "30602-04g.htm";
+			case 18:
+				return "30602-04h.htm";
+			case 19:
+				return "30602-04i.htm";
+			case 31:
+				qs.clearRadar();
+				qs.addRadar(-45264, -112512, -235);
+				return "30602-05.htm";
+			case 32:
+				qs.clearRadar();
+				qs.addRadar(-46576, -117311, -242);
+				return "30602-05.htm";
+			case 33:
+				qs.clearRadar();
+				qs.addRadar(-47360, -113791, -237);
+				return "30602-05.htm";
+			case 34:
+				qs.clearRadar();
+				qs.addRadar(-47360, -113424, -235);
+				return "30602-05.htm";
+			case 35:
+				qs.clearRadar();
+				qs.addRadar(-45744, -117165, -236);
+				return "30602-05.htm";
+			case 36:
+				qs.clearRadar();
+				qs.addRadar(-46528, -109968, -250);
+				return "30602-05.htm";
+			case 37:
+				qs.clearRadar();
+				qs.addRadar(-45808, -110055, -255);
+				return "30602-05.htm";
+			case 38:
+				qs.clearRadar();
+				qs.addRadar(-45731, -113844, -237);
+				return "30602-05.htm";
+			case 39:
+				qs.clearRadar();
+				qs.addRadar(-45728, -113360, -237);
+				return "30602-05.htm";
+			case 40:
+				qs.clearRadar();
+				qs.addRadar(-45952, -114784, -199);
+				return "30602-05.htm";
+			case 41:
+				qs.clearRadar();
+				qs.addRadar(-45952, -114496, -199);
+				return "30602-05.htm";
+			case 42:
+				qs.clearRadar();
+				qs.addRadar(-45863, -112621, -200);
+				return "30602-05.htm";
+			case 43:
+				qs.clearRadar();
+				qs.addRadar(-45864, -112540, -199);
+				return "30602-05.htm";
+			case 44:
+				qs.clearRadar();
+				qs.addRadar(-43264, -112532, -220);
+				return "30602-05.htm";
+			case 45:
+				qs.clearRadar();
+				qs.addRadar(-43910, -115518, -194);
+				return "30602-05.htm";
+			case 46:
+				qs.clearRadar();
+				qs.addRadar(-43950, -115457, -194);
+				return "30602-05.htm";
+			case 47:
+				qs.clearRadar();
+				qs.addRadar(-44416, -111486, -222);
+				return "30602-05.htm";
+			case 48:
+				qs.clearRadar();
+				qs.addRadar(-43926, -111794, -222);
+				return "30602-05.htm";
+			case 49:
+				qs.clearRadar();
+				qs.addRadar(-43109, -113770, -221);
+				return "30602-05.htm";
+			case 50:
+				qs.clearRadar();
+				qs.addRadar(-43114, -113404, -221);
+				return "30602-05.htm";
+			case 51:
+				qs.clearRadar();
+				qs.addRadar(-46768, -113610, -3);
+				return "30602-05.htm";
+			case 52:
+				qs.clearRadar();
+				qs.addRadar(-46802, -114011, -112);
+				return "30602-05.htm";
+			case 53:
+				qs.clearRadar();
+				qs.addRadar(-46247, -113866, -21);
+				return "30602-05.htm";
+			case 54:
+				qs.clearRadar();
+				qs.addRadar(-46808, -113184, -112);
+				return "30602-05.htm";
+			case 55:
+				qs.clearRadar();
+				qs.addRadar(-45328, -114736, -237);
+				return "30602-05.htm";
+			case 56:
+				qs.clearRadar();
+				qs.addRadar(-44624, -111873, -238);
+				return "30602-05.htm";
+		}
+		return "";
 	}
 	
 	private String talkGuide(L2PcInstance talker, QuestState tutorialQS)
@@ -1180,1048 +2256,32 @@ public final class NewbieGuide extends AbstractNpcAI
 		return "";
 	}
 	
-	private String eventGuideHumanCnacelot(int event, QuestState qs)
+	private void teleportRequest(L2PcInstance talker, L2Npc npc, int teleportId)
 	{
-		switch (event)
+		if (talker.getLevel() >= 20)
 		{
-			case 10:
-				return "30598-04.htm";
-			case 11:
-				return "30598-04a.htm";
-			case 12:
-				return "30598-04b.htm";
-			case 13:
-				return "30598-04c.htm";
-			case 14:
-				return "30598-04d.htm";
-			case 15:
-				return "30598-04e.htm";
-			case 16:
-				return "30598-04f.htm";
-			case 17:
-				return "30598-04g.htm";
-			case 18:
-				return "30598-04h.htm";
-			case 19:
-				return "30598-04i.htm";
-			case 31:
-				qs.clearRadar();
-				qs.addRadar(-84108, 244604, -3729);
-				return "30598-05.htm";
-			case 32:
-				qs.clearRadar();
-				qs.addRadar(-82236, 241573, -3728);
-				return "30598-05.htm";
-			case 33:
-				qs.clearRadar();
-				qs.addRadar(-82515, 241221, -3728);
-				return "30598-05.htm";
-			case 34:
-				qs.clearRadar();
-				qs.addRadar(-82319, 244709, -3727);
-				return "30598-05.htm";
-			case 35:
-				qs.clearRadar();
-				qs.addRadar(-82659, 244992, -3717);
-				return "30598-05.htm";
-			case 36:
-				qs.clearRadar();
-				qs.addRadar(-86114, 244682, -3727);
-				return "30598-05.htm";
-			case 37:
-				qs.clearRadar();
-				qs.addRadar(-86328, 244448, -3724);
-				return "30598-05.htm";
-			case 38:
-				qs.clearRadar();
-				qs.addRadar(-86322, 241215, -3727);
-				return "30598-05.htm";
-			case 39:
-				qs.clearRadar();
-				qs.addRadar(-85964, 240947, -3727);
-				return "30598-05.htm";
-			case 40:
-				qs.clearRadar();
-				qs.addRadar(-85026, 242689, -3729);
-				return "30598-05.htm";
-			case 41:
-				qs.clearRadar();
-				qs.addRadar(-83789, 240799, -3717);
-				return "30598-05.htm";
-			case 42:
+			showPage(talker, "teleport-big-level.htm");
+		}
+		else if ((talker.getTransformationId() == 111) || (talker.getTransformationId() == 112) || (talker.getTransformationId() == 124))
+		{
+			showPage(talker, "frog-teleport.htm");
+		}
+		else
+		{
+			if ((teleportId < 0) || (teleportId > 5))
 			{
-				qs.clearRadar();
-				qs.addRadar(-84204, 240403, -3717);
-				return "30598-05.htm";
+				showPage(talker, npc.getId() + "-teleport.htm");
 			}
-			case 43:
+			else
 			{
-				qs.clearRadar();
-				qs.addRadar(-86385, 243267, -3717);
-				return "30598-05.htm";
-			}
-			case 44:
-			{
-				qs.clearRadar();
-				qs.addRadar(-86733, 242918, -3717);
-				return "30598-05.htm";
-			}
-			case 45:
-			{
-				qs.clearRadar();
-				qs.addRadar(-84516, 245449, -3714);
-				return "30598-05.htm";
-			}
-			case 46:
-			{
-				qs.clearRadar();
-				qs.addRadar(-84729, 245001, -3726);
-				return "30598-05.htm";
-			}
-			case 47:
-			{
-				qs.clearRadar();
-				qs.addRadar(-84965, 245222, -3726);
-				return "30598-05.htm";
-			}
-			case 48:
-			{
-				qs.clearRadar();
-				qs.addRadar(-84981, 244764, -3726);
-				return "30598-05.htm";
-			}
-			case 49:
-			{
-				qs.clearRadar();
-				qs.addRadar(-85186, 245001, -3726);
-				return "30598-05.htm";
-			}
-			case 50:
-			{
-				qs.clearRadar();
-				qs.addRadar(-83326, 242964, -3718);
-				return "30598-05.htm";
-			}
-			case 51:
-			{
-				qs.clearRadar();
-				qs.addRadar(-83020, 242553, -3718);
-				return "30598-05.htm";
-			}
-			case 52:
-			{
-				qs.clearRadar();
-				qs.addRadar(-83175, 243065, -3718);
-				return "30598-05.htm";
-			}
-			case 53:
-			{
-				qs.clearRadar();
-				qs.addRadar(-82809, 242751, -3718);
-				return "30598-05.htm";
-			}
-			case 54:
-			{
-				qs.clearRadar();
-				qs.addRadar(-81895, 243917, -3721);
-				return "30598-05.htm";
-			}
-			case 55:
-			{
-				qs.clearRadar();
-				qs.addRadar(-81840, 243534, -3721);
-				return "30598-05.htm";
-			}
-			case 56:
-			{
-				qs.clearRadar();
-				qs.addRadar(-81512, 243424, -3720);
-				return "30598-05.htm";
-			}
-			case 57:
-			{
-				qs.clearRadar();
-				qs.addRadar(-84436, 242793, -3729);
-				return "30598-05.htm";
-			}
-			case 58:
-			{
-				qs.clearRadar();
-				qs.addRadar(-78939, 240305, -3443);
-				return "30598-05.htm";
-			}
-			case 59:
-			{
-				qs.clearRadar();
-				qs.addRadar(-85301, 244587, -3725);
-				return "30598-05.htm";
-			}
-			case 60:
-			{
-				qs.clearRadar();
-				qs.addRadar(-83163, 243560, -3728);
-				return "30598-05.htm";
-			}
-			case 61:
-			{
-				qs.clearRadar();
-				qs.addRadar(-97131, 258946, -3622);
-				return "30598-05.htm";
-			}
-			case 62:
-			{
-				qs.clearRadar();
-				qs.addRadar(-114685, 222291, -2925);
-				return "30598-05.htm";
-			}
-			case 63:
-			{
-				qs.clearRadar();
-				qs.addRadar(-84057, 242832, -3729);
-				return "30598-05.htm";
-			}
-			case 64:
-			{
-				qs.clearRadar();
-				qs.addRadar(-100332, 238019, -3573);
-				return "30598-05.htm";
-			}
-			case 65:
-			{
-				qs.clearRadar();
-				qs.addRadar(-82041, 242718, -3725);
-				return "30598-05.htm";
+				if (TELEPORT_MAP.containsKey(npc.getId()))
+				{
+					if (TELEPORT_MAP.get(npc.getId()).size() > teleportId)
+					{
+						talker.teleToLocation(TELEPORT_MAP.get(npc.getId()).get(teleportId), false);
+					}
+				}
 			}
 		}
-		return "";
-	}
-	
-	private String eventGuideElfRoios(int event, QuestState qs)
-	{
-		switch (event)
-		{
-			case 10:
-				return "30599-04.htm";
-			case 11:
-				return "30599-04a.htm";
-			case 12:
-				return "30599-04b.htm";
-			case 13:
-				return "30599-04c.htm";
-			case 14:
-				return "30599-04d.htm";
-			case 15:
-				return "30599-04e.htm";
-			case 16:
-				return "30599-04f.htm";
-			case 17:
-				return "30599-04g.htm";
-			case 18:
-				return "30599-04h.htm";
-			case 31:
-				qs.clearRadar();
-				qs.addRadar(46926, 51511, -2977);
-				return "30599-05.htm";
-			case 32:
-				qs.clearRadar();
-				qs.addRadar(44995, 51706, -2803);
-				return "30599-05.htm";
-			case 33:
-				qs.clearRadar();
-				qs.addRadar(45727, 51721, -2803);
-				return "30599-05.htm";
-			case 34:
-				qs.clearRadar();
-				qs.addRadar(42812, 51138, -2996);
-				return "30599-05.htm";
-			case 35:
-				qs.clearRadar();
-				qs.addRadar(45487, 46511, -2996);
-				return "30599-05.htm";
-			case 36:
-				qs.clearRadar();
-				qs.addRadar(47401, 51764, -2996);
-				return "30599-05.htm";
-			case 37:
-				qs.clearRadar();
-				qs.addRadar(42971, 51372, -2996);
-				return "30599-05.htm";
-			case 38:
-				qs.clearRadar();
-				qs.addRadar(47595, 51569, -2996);
-				return "30599-05.htm";
-			case 39:
-				qs.clearRadar();
-				qs.addRadar(45778, 46534, -2996);
-				return "30599-05.htm";
-			case 40:
-				qs.clearRadar();
-				qs.addRadar(44476, 47153, -2984);
-				return "30599-05.htm";
-			case 41:
-				qs.clearRadar();
-				qs.addRadar(42700, 50057, -2984);
-				return "30599-05.htm";
-			case 42:
-				qs.clearRadar();
-				qs.addRadar(42766, 50037, -2984);
-				return "30599-05.htm";
-			case 43:
-				qs.clearRadar();
-				qs.addRadar(44683, 46952, -2981);
-				return "30599-05.htm";
-			case 44:
-				qs.clearRadar();
-				qs.addRadar(44667, 46896, -2982);
-				return "30599-05.htm";
-			case 45:
-				qs.clearRadar();
-				qs.addRadar(45725, 52105, -2795);
-				return "30599-05.htm";
-			case 46:
-				qs.clearRadar();
-				qs.addRadar(44823, 52414, -2795);
-				return "30599-05.htm";
-			case 47:
-				qs.clearRadar();
-				qs.addRadar(45000, 52101, -2795);
-				return "30599-05.htm";
-			case 48:
-				qs.clearRadar();
-				qs.addRadar(45919, 52414, -2795);
-				return "30599-05.htm";
-			case 49:
-				qs.clearRadar();
-				qs.addRadar(44692, 52261, -2795);
-				return "30599-05.htm";
-			case 50:
-				qs.clearRadar();
-				qs.addRadar(47780, 49568, -2983);
-				return "30599-05.htm";
-			case 51:
-				qs.clearRadar();
-				qs.addRadar(47912, 50170, -2983);
-				return "30599-05.htm";
-			case 52:
-				qs.clearRadar();
-				qs.addRadar(47868, 50167, -2983);
-				return "30599-05.htm";
-			case 53:
-				qs.clearRadar();
-				qs.addRadar(28928, 74248, -3773);
-				return "30599-05.htm";
-			case 54:
-				qs.clearRadar();
-				qs.addRadar(43673, 49683, -3046);
-				return "30599-05.htm";
-			case 55:
-				qs.clearRadar();
-				qs.addRadar(45610, 49008, -3059);
-				return "30599-05.htm";
-			case 56:
-				qs.clearRadar();
-				qs.addRadar(50592, 54986, -3376);
-				return "30599-05.htm";
-			case 57:
-				qs.clearRadar();
-				qs.addRadar(42978, 49115, -2994);
-				return "30599-05.htm";
-			case 58:
-				qs.clearRadar();
-				qs.addRadar(46475, 50495, -3058);
-				return "30599-05.htm";
-			case 59:
-				qs.clearRadar();
-				qs.addRadar(45859, 50827, -3058);
-				return "30599-05.htm";
-			case 60:
-				qs.clearRadar();
-				qs.addRadar(51210, 82474, -3283);
-				return "30599-05.htm";
-			case 61:
-				qs.clearRadar();
-				qs.addRadar(49262, 53607, -3216);
-				return "30599-05.htm";
-		}
-		return "";
-	}
-	
-	private String eventGuideDelfFrankia(int event, QuestState qs)
-	{
-		switch (event)
-		{
-			case 10:
-				return "30600-04.htm";
-			case 11:
-				return "30600-04a.htm";
-			case 12:
-				return "30600-04b.htm";
-			case 13:
-				return "30600-04c.htm";
-			case 14:
-				return "30600-04d.htm";
-			case 15:
-				return "30600-04e.htm";
-			case 16:
-				return "30600-04f.htm";
-			case 17:
-				return "30600-04g.htm";
-			case 18:
-				return "30600-04h.htm";
-			case 31:
-				qs.clearRadar();
-				qs.addRadar(9670, 15537, -4574);
-				return "30600-05.htm";
-			case 32:
-				qs.clearRadar();
-				qs.addRadar(15120, 15656, -4376);
-				return "30600-05.htm";
-			case 33:
-				qs.clearRadar();
-				qs.addRadar(17306, 13592, -3724);
-				return "30600-05.htm";
-			case 34:
-				qs.clearRadar();
-				qs.addRadar(15272, 16310, -4377);
-				return "30600-05.htm";
-			case 35:
-				qs.clearRadar();
-				qs.addRadar(6449, 19619, -3694);
-				return "30600-05.htm";
-			case 36:
-				qs.clearRadar();
-				qs.addRadar(-15404, 71131, -3445);
-				return "30600-05.htm";
-			case 37:
-				qs.clearRadar();
-				qs.addRadar(7496, 17388, -4377);
-				return "30600-05.htm";
-			case 38:
-				qs.clearRadar();
-				qs.addRadar(17102, 13002, -3743);
-				return "30600-05.htm";
-			case 39:
-				qs.clearRadar();
-				qs.addRadar(6532, 19903, -3693);
-				return "30600-05.htm";
-			case 40:
-				qs.clearRadar();
-				qs.addRadar(-15648, 71405, -3451);
-				return "30600-05.htm";
-			case 41:
-				qs.clearRadar();
-				qs.addRadar(7644, 18048, -4377);
-				return "30600-05.htm";
-			case 42:
-				qs.clearRadar();
-				qs.addRadar(-1301, 75883, -3566);
-				return "30600-05.htm";
-			case 43:
-				qs.clearRadar();
-				qs.addRadar(-1152, 76125, -3566);
-				return "30600-05.htm";
-			case 44:
-				qs.clearRadar();
-				qs.addRadar(10580, 17574, -4554);
-				return "30600-05.htm";
-			case 45:
-				qs.clearRadar();
-				qs.addRadar(12009, 15704, -4554);
-				return "30600-05.htm";
-			case 46:
-				qs.clearRadar();
-				qs.addRadar(11951, 15661, -4554);
-				return "30600-05.htm";
-			case 47:
-				qs.clearRadar();
-				qs.addRadar(10761, 17970, -4554);
-				return "30600-05.htm";
-			case 48:
-				qs.clearRadar();
-				qs.addRadar(10823, 18013, -4554);
-				return "30600-05.htm";
-			case 49:
-				qs.clearRadar();
-				qs.addRadar(11283, 14226, -4242);
-				return "30600-05.htm";
-			case 50:
-				qs.clearRadar();
-				qs.addRadar(10447, 14620, -4242);
-				return "30600-05.htm";
-			case 51:
-				qs.clearRadar();
-				qs.addRadar(11258, 14431, -4242);
-				return "30600-05.htm";
-			case 52:
-				qs.clearRadar();
-				qs.addRadar(10344, 14445, -4242);
-				return "30600-05.htm";
-			case 53:
-				qs.clearRadar();
-				qs.addRadar(10315, 14293, -4242);
-				return "30600-05.htm";
-			case 54:
-				qs.clearRadar();
-				qs.addRadar(10775, 14190, -4242);
-				return "30600-05.htm";
-			case 55:
-				qs.clearRadar();
-				qs.addRadar(11235, 14078, -4242);
-				return "30600-05.htm";
-			case 56:
-				qs.clearRadar();
-				qs.addRadar(11012, 14128, -4242);
-				return "30600-05.htm";
-			case 57:
-				qs.clearRadar();
-				qs.addRadar(13380, 17430, -4542);
-				return "30600-05.htm";
-			case 58:
-				qs.clearRadar();
-				qs.addRadar(13464, 17751, -4541);
-				return "30600-05.htm";
-			case 59:
-				qs.clearRadar();
-				qs.addRadar(13763, 17501, -4542);
-				return "30600-05.htm";
-			case 60:
-				qs.clearRadar();
-				qs.addRadar(-44225, 79721, -3652);
-				return "30600-05.htm";
-			case 61:
-				qs.clearRadar();
-				qs.addRadar(-44015, 79683, -3652);
-				return "30600-05.htm";
-			case 62:
-				qs.clearRadar();
-				qs.addRadar(25856, 10832, -3724);
-				return "30600-05.htm";
-			case 63:
-				qs.clearRadar();
-				qs.addRadar(12328, 14947, -4574);
-				return "30600-05.htm";
-			case 64:
-				qs.clearRadar();
-				qs.addRadar(13081, 18444, -4573);
-				return "30600-05.htm";
-			case 65:
-				qs.clearRadar();
-				qs.addRadar(12311, 17470, -4574);
-				return "30600-05.htm";
-		}
-		return "";
-	}
-	
-	private String eventGuideDwarfGullin(int event, QuestState qs)
-	{
-		switch (event)
-		{
-			case 10:
-				return "30601-04.htm";
-			case 11:
-				return "30601-04a.htm";
-			case 12:
-				return "30601-04b.htm";
-			case 13:
-				return "30601-04c.htm";
-			case 14:
-				return "30601-04d.htm";
-			case 15:
-				return "30601-04e.htm";
-			case 16:
-				return "30601-04f.htm";
-			case 17:
-				return "30601-04g.htm";
-			case 18:
-				return "30601-04h.htm";
-			case 31:
-				qs.clearRadar();
-				qs.addRadar(115072, -178176, -906);
-				return "30601-05.htm";
-			case 32:
-				qs.clearRadar();
-				qs.addRadar(117847, -182339, -1537);
-				return "30601-05.htm";
-			case 33:
-				qs.clearRadar();
-				qs.addRadar(116617, -184308, -1569);
-				return "30601-05.htm";
-			case 34:
-				qs.clearRadar();
-				qs.addRadar(117826, -182576, -1537);
-				return "30601-05.htm";
-			case 35:
-				qs.clearRadar();
-				qs.addRadar(116378, -184308, -1571);
-				return "30601-05.htm";
-			case 36:
-				qs.clearRadar();
-				qs.addRadar(115183, -176728, -791);
-				return "30601-05.htm";
-			case 37:
-				qs.clearRadar();
-				qs.addRadar(114969, -176752, -790);
-				return "30601-05.htm";
-			case 38:
-				qs.clearRadar();
-				qs.addRadar(117366, -178725, -1118);
-				return "30601-05.htm";
-			case 39:
-				qs.clearRadar();
-				qs.addRadar(117378, -178914, -1120);
-				return "30601-05.htm";
-			case 40:
-				qs.clearRadar();
-				qs.addRadar(116226, -178529, -948);
-				return "30601-05.htm";
-			case 41:
-				qs.clearRadar();
-				qs.addRadar(116190, -178441, -948);
-				return "30601-05.htm";
-			case 42:
-				qs.clearRadar();
-				qs.addRadar(116016, -178615, -948);
-				return "30601-05.htm";
-			case 43:
-				qs.clearRadar();
-				qs.addRadar(116190, -178615, -948);
-				return "30601-05.htm";
-			case 44:
-				qs.clearRadar();
-				qs.addRadar(116103, -178407, -948);
-				return "30601-05.htm";
-			case 45:
-				qs.clearRadar();
-				qs.addRadar(116103, -178653, -948);
-				return "30601-05.htm";
-			case 46:
-				qs.clearRadar();
-				qs.addRadar(115468, -182446, -1434);
-				return "30601-05.htm";
-			case 47:
-				qs.clearRadar();
-				qs.addRadar(115315, -182155, -1444);
-				return "30601-05.htm";
-			case 48:
-				qs.clearRadar();
-				qs.addRadar(115271, -182692, -1445);
-				return "30601-05.htm";
-			case 49:
-				qs.clearRadar();
-				qs.addRadar(115900, -177316, -915);
-				return "30601-05.htm";
-			case 50:
-				qs.clearRadar();
-				qs.addRadar(116268, -177524, -914);
-				return "30601-05.htm";
-			case 51:
-				qs.clearRadar();
-				qs.addRadar(115741, -181645, -1344);
-				return "30601-05.htm";
-			case 52:
-				qs.clearRadar();
-				qs.addRadar(116192, -181072, -1344);
-				return "30601-05.htm";
-			case 53:
-				qs.clearRadar();
-				qs.addRadar(115205, -180024, -870);
-				return "30601-05.htm";
-			case 54:
-				qs.clearRadar();
-				qs.addRadar(114716, -180018, -871);
-				return "30601-05.htm";
-			case 55:
-				qs.clearRadar();
-				qs.addRadar(114832, -179520, -871);
-				return "30601-05.htm";
-			case 56:
-				qs.clearRadar();
-				qs.addRadar(115717, -183488, -1483);
-				return "30601-05.htm";
-			case 57:
-				qs.clearRadar();
-				qs.addRadar(115618, -183265, -1483);
-				return "30601-05.htm";
-			case 58:
-				qs.clearRadar();
-				qs.addRadar(114348, -178537, -813);
-				return "30601-05.htm";
-			case 59:
-				qs.clearRadar();
-				qs.addRadar(114990, -177294, -854);
-				return "30601-05.htm";
-			case 60:
-				qs.clearRadar();
-				qs.addRadar(114426, -178672, -812);
-				return "30601-05.htm";
-			case 61:
-				qs.clearRadar();
-				qs.addRadar(114409, -178415, -812);
-				return "30601-05.htm";
-			case 62:
-				qs.clearRadar();
-				qs.addRadar(117061, -181867, -1413);
-				return "30601-05.htm";
-			case 63:
-				qs.clearRadar();
-				qs.addRadar(116164, -184029, -1507);
-				return "30601-05.htm";
-			case 64:
-				qs.clearRadar();
-				qs.addRadar(115563, -182923, -1448);
-				return "30601-05.htm";
-			case 65:
-				qs.clearRadar();
-				qs.addRadar(112656, -174864, -611);
-				return "30601-05.htm";
-			case 66:
-				qs.clearRadar();
-				qs.addRadar(116852, -183595, -1566);
-				return "30601-05.htm";
-		}
-		return "";
-	}
-	
-	private String eventGuideOrcTanai(int event, QuestState qs)
-	{
-		switch (event)
-		{
-			case 10:
-				return "30602-04.htm";
-			case 11:
-				return "30602-04a.htm";
-			case 12:
-				return "30602-04b.htm";
-			case 13:
-				return "30602-04c.htm";
-			case 14:
-				return "30602-04d.htm";
-			case 15:
-				return "30602-04e.htm";
-			case 16:
-				return "30602-04f.htm";
-			case 17:
-				return "30602-04g.htm";
-			case 18:
-				return "30602-04h.htm";
-			case 19:
-				return "30602-04i.htm";
-			case 31:
-				qs.clearRadar();
-				qs.addRadar(-45264, -112512, -235);
-				return "30602-05.htm";
-			case 32:
-				qs.clearRadar();
-				qs.addRadar(-46576, -117311, -242);
-				return "30602-05.htm";
-			case 33:
-				qs.clearRadar();
-				qs.addRadar(-47360, -113791, -237);
-				return "30602-05.htm";
-			case 34:
-				qs.clearRadar();
-				qs.addRadar(-47360, -113424, -235);
-				return "30602-05.htm";
-			case 35:
-				qs.clearRadar();
-				qs.addRadar(-45744, -117165, -236);
-				return "30602-05.htm";
-			case 36:
-				qs.clearRadar();
-				qs.addRadar(-46528, -109968, -250);
-				return "30602-05.htm";
-			case 37:
-				qs.clearRadar();
-				qs.addRadar(-45808, -110055, -255);
-				return "30602-05.htm";
-			case 38:
-				qs.clearRadar();
-				qs.addRadar(-45731, -113844, -237);
-				return "30602-05.htm";
-			case 39:
-				qs.clearRadar();
-				qs.addRadar(-45728, -113360, -237);
-				return "30602-05.htm";
-			case 40:
-				qs.clearRadar();
-				qs.addRadar(-45952, -114784, -199);
-				return "30602-05.htm";
-			case 41:
-				qs.clearRadar();
-				qs.addRadar(-45952, -114496, -199);
-				return "30602-05.htm";
-			case 42:
-				qs.clearRadar();
-				qs.addRadar(-45863, -112621, -200);
-				return "30602-05.htm";
-			case 43:
-				qs.clearRadar();
-				qs.addRadar(-45864, -112540, -199);
-				return "30602-05.htm";
-			case 44:
-				qs.clearRadar();
-				qs.addRadar(-43264, -112532, -220);
-				return "30602-05.htm";
-			case 45:
-				qs.clearRadar();
-				qs.addRadar(-43910, -115518, -194);
-				return "30602-05.htm";
-			case 46:
-				qs.clearRadar();
-				qs.addRadar(-43950, -115457, -194);
-				return "30602-05.htm";
-			case 47:
-				qs.clearRadar();
-				qs.addRadar(-44416, -111486, -222);
-				return "30602-05.htm";
-			case 48:
-				qs.clearRadar();
-				qs.addRadar(-43926, -111794, -222);
-				return "30602-05.htm";
-			case 49:
-				qs.clearRadar();
-				qs.addRadar(-43109, -113770, -221);
-				return "30602-05.htm";
-			case 50:
-				qs.clearRadar();
-				qs.addRadar(-43114, -113404, -221);
-				return "30602-05.htm";
-			case 51:
-				qs.clearRadar();
-				qs.addRadar(-46768, -113610, -3);
-				return "30602-05.htm";
-			case 52:
-				qs.clearRadar();
-				qs.addRadar(-46802, -114011, -112);
-				return "30602-05.htm";
-			case 53:
-				qs.clearRadar();
-				qs.addRadar(-46247, -113866, -21);
-				return "30602-05.htm";
-			case 54:
-				qs.clearRadar();
-				qs.addRadar(-46808, -113184, -112);
-				return "30602-05.htm";
-			case 55:
-				qs.clearRadar();
-				qs.addRadar(-45328, -114736, -237);
-				return "30602-05.htm";
-			case 56:
-				qs.clearRadar();
-				qs.addRadar(-44624, -111873, -238);
-				return "30602-05.htm";
-		}
-		return "";
-	}
-	
-	private String eventGuideKrenisk(int event, QuestState qs)
-	{
-		switch (event)
-		{
-			case 10:
-				return "32135-04.htm";
-			case 11:
-				return "32135-04a.htm";
-			case 12:
-				return "32135-04b.htm";
-			case 13:
-				return "32135-04c.htm";
-			case 14:
-				return "32135-04d.htm";
-			case 15:
-				return "32135-04e.htm";
-			case 16:
-				return "32135-04f.htm";
-			case 17:
-				return "32135-04g.htm";
-			case 18:
-				return "32135-04h.htm";
-			case 19:
-				return "32135-04i.htm";
-			case 20:
-				return "32135-04j.htm";
-			case 21:
-				return "32135-04k.htm";
-			case 22:
-				return "32135-04l.htm";
-			case 31:
-				qs.clearRadar();
-				qs.addRadar(-116879, 46591, 380);
-				return "32135-05.htm";
-			case 32:
-				qs.clearRadar();
-				qs.addRadar(-119378, 49242, 22);
-				return "32135-05.htm";
-			case 33:
-				qs.clearRadar();
-				qs.addRadar(-119774, 49245, 22);
-				return "32135-05.htm";
-			case 34:
-				qs.clearRadar();
-				qs.addRadar(-119830, 51860, -787);
-				return "32135-05.htm";
-			case 35:
-				qs.clearRadar();
-				qs.addRadar(-119362, 51862, -780);
-				return "32135-05.htm";
-			case 36:
-				qs.clearRadar();
-				qs.addRadar(-112872, 46850, 68);
-				return "32135-05.htm";
-			case 37:
-				qs.clearRadar();
-				qs.addRadar(-112352, 47392, 68);
-				return "32135-05.htm";
-			case 38:
-				qs.clearRadar();
-				qs.addRadar(-110544, 49040, -1124);
-				return "32135-05.htm";
-			case 39:
-				qs.clearRadar();
-				qs.addRadar(-110536, 45162, -1132);
-				return "32135-05.htm";
-			case 40:
-				qs.clearRadar();
-				qs.addRadar(-115888, 43568, 524);
-				return "32135-05.htm";
-			case 41:
-				qs.clearRadar();
-				qs.addRadar(-115486, 43567, 525);
-				return "32135-05.htm";
-			case 42:
-				qs.clearRadar();
-				qs.addRadar(-116920, 47792, 464);
-				return "32135-05.htm";
-			case 43:
-				qs.clearRadar();
-				qs.addRadar(-116749, 48077, 462);
-				return "32135-05.htm";
-			case 44:
-				qs.clearRadar();
-				qs.addRadar(-117153, 48075, 463);
-				return "32135-05.htm";
-			case 45:
-				qs.clearRadar();
-				qs.addRadar(-119104, 43280, 559);
-				return "32135-05.htm";
-			case 46:
-				qs.clearRadar();
-				qs.addRadar(-119104, 43152, 559);
-				return "32135-05.htm";
-			case 47:
-				qs.clearRadar();
-				qs.addRadar(-117056, 43168, 559);
-				return "32135-05.htm";
-			case 48:
-				qs.clearRadar();
-				qs.addRadar(-117060, 43296, 559);
-				return "32135-05.htm";
-			case 49:
-				qs.clearRadar();
-				qs.addRadar(-118192, 42384, 838);
-				return "32135-05.htm";
-			case 50:
-				qs.clearRadar();
-				qs.addRadar(-117968, 42384, 838);
-				return "32135-05.htm";
-			case 51:
-				qs.clearRadar();
-				qs.addRadar(-118132, 42788, 723);
-				return "32135-05.htm";
-			case 52:
-				qs.clearRadar();
-				qs.addRadar(-118028, 42788, 720);
-				return "32135-05.htm";
-			case 53:
-				qs.clearRadar();
-				qs.addRadar(-114802, 44821, 524);
-				return "32135-05.htm";
-			case 54:
-				qs.clearRadar();
-				qs.addRadar(-114975, 44658, 524);
-				return "32135-05.htm";
-			case 55:
-				qs.clearRadar();
-				qs.addRadar(-114801, 45031, 525);
-				return "32135-05.htm";
-			case 56:
-				qs.clearRadar();
-				qs.addRadar(-120432, 45296, 416);
-				return "32135-05.htm";
-			case 57:
-				qs.clearRadar();
-				qs.addRadar(-120706, 45079, 419);
-				return "32135-05.htm";
-			case 58:
-				qs.clearRadar();
-				qs.addRadar(-120356, 45293, 416);
-				return "32135-05.htm";
-			case 59:
-				qs.clearRadar();
-				qs.addRadar(-120604, 44960, 423);
-				return "32135-05.htm";
-			case 60:
-				qs.clearRadar();
-				qs.addRadar(-120294, 46013, 384);
-				return "32135-05.htm";
-			case 61:
-				qs.clearRadar();
-				qs.addRadar(-120157, 45813, 355);
-				return "32135-05.htm";
-			case 62:
-				qs.clearRadar();
-				qs.addRadar(-120158, 46221, 354);
-				return "32135-05.htm";
-			case 63:
-				qs.clearRadar();
-				qs.addRadar(-120400, 46921, 415);
-				return "32135-05.htm";
-			case 64:
-				qs.clearRadar();
-				qs.addRadar(-120407, 46755, 423);
-				return "32135-05.htm";
-			case 65:
-				qs.clearRadar();
-				qs.addRadar(-120442, 47125, 422);
-				return "32135-05.htm";
-			case 66:
-				qs.clearRadar();
-				qs.addRadar(-118720, 48062, 473);
-				return "32135-05.htm";
-			case 67:
-				qs.clearRadar();
-				qs.addRadar(-118918, 47956, 474);
-				return "32135-05.htm";
-			case 68:
-				qs.clearRadar();
-				qs.addRadar(-118527, 47955, 473);
-				return "32135-05.htm";
-			case 69:
-				qs.clearRadar();
-				qs.addRadar(-117605, 48079, 472);
-				return "32135-05.htm";
-			case 70:
-				qs.clearRadar();
-				qs.addRadar(-117824, 48080, 476);
-				return "32135-05.htm";
-			case 71:
-				qs.clearRadar();
-				qs.addRadar(-118030, 47930, 465);
-				return "32135-05.htm";
-			case 72:
-				qs.clearRadar();
-				qs.addRadar(-119221, 46981, 380);
-				return "32135-05.htm";
-			case 73:
-				qs.clearRadar();
-				qs.addRadar(-118080, 42835, 720);
-				return "32135-05.htm";
-		}
-		return "";
-	}
-	
-	public static void main(String[] args)
-	{
-		new NewbieGuide();
 	}
 }
