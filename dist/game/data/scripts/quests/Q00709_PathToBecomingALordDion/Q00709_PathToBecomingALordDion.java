@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -36,46 +36,48 @@ import org.l2jdevs.util.Rnd;
 
 /**
  * Path to Becoming a Lord - Dion (709)
- * TODO: Support for TerritoryWars
+ * @author Sacrifice
  */
-public class Q00709_PathToBecomingALordDion extends Quest
+public final class Q00709_PathToBecomingALordDion extends Quest
 {
-	private static final int Crosby = 35142;
-	private static final int Rouke = 31418;
-	private static final int Sophya = 30735;
-	private static final int MandragoraRoot = 13849;
-	private static final int BloodyAxeAide = 27392;
-	private static final int Epaulette = 13850;
-	private static final int[] OlMahums =
+	private static final int CROSBY = 35142;
+	private static final int ROUKE = 31418;
+	private static final int SOPHYA = 30735;
+	private static final int BLOODY_AXE_AIDE = 27392;
+	
+	private static final int MANDRAGORA_ROOT = 13849;
+	private static final int BLOODY_AXE_BLACK_EPAULETTE = 13850;
+	
+	private static final int[] OL_MAHUMS =
 	{
-		20208,
-		20209,
-		20210,
-		20211,
-		BloodyAxeAide
+		20208, // Ol Mahum Raider
+		20209, // Ol Mahum Marksman
+		20210, // Ol Mahum Sergeant
+		20211, // Ol Mahum Captain
+		BLOODY_AXE_AIDE
 	};
-	private static final int[] Manragoras =
+	
+	private static final int[] MANDRAGORAS =
 	{
-		20154,
-		20155,
-		20156
+		20154, // Mandragora Sprout
+		20155, // Mandragora Sapling
+		20156 // Mandragora Blossom
 	};
-	private static final int DionCastle = 2;
+	
+	private static final int DION_CASTLE = 2;
 	
 	public Q00709_PathToBecomingALordDion()
 	{
 		super(709, Q00709_PathToBecomingALordDion.class.getSimpleName(), "Path to Becoming a Lord - Dion");
-		addStartNpc(Crosby);
-		addTalkId(Crosby);
-		addTalkId(Sophya);
-		addTalkId(Rouke);
+		addStartNpc(CROSBY);
+		addKillId(OL_MAHUMS);
+		addKillId(MANDRAGORAS);
+		addTalkId(CROSBY, SOPHYA, ROUKE);
 		questItemIds = new int[]
 		{
-			Epaulette,
-			MandragoraRoot
+			BLOODY_AXE_BLACK_EPAULETTE,
+			MANDRAGORA_ROOT
 		};
-		addKillId(OlMahums);
-		addKillId(Manragoras);
 	}
 	
 	@Override
@@ -83,18 +85,18 @@ public class Q00709_PathToBecomingALordDion extends Quest
 	{
 		String htmltext = event;
 		final QuestState qs = player.getQuestState(getName());
-		final Castle castle = CastleManager.getInstance().getCastleById(DionCastle);
+		final Castle castle = CastleManager.getInstance().getCastleById(DION_CASTLE);
 		if (castle.getOwner() == null)
 		{
 			return "Castle has no lord";
 		}
 		
 		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		if (event.equals("35142-03.htm"))
+		if (event.equals("35142-03.html"))
 		{
 			qs.startQuest();
 		}
-		else if (event.equals("35142-06.htm"))
+		else if (event.equals("35142-06.html"))
 		{
 			if (isLordAvailable(2, qs))
 			{
@@ -104,10 +106,10 @@ public class Q00709_PathToBecomingALordDion extends Quest
 			}
 			else
 			{
-				htmltext = "35142-05a.htm";
+				htmltext = "35142-05a.html";
 			}
 		}
-		else if (event.equals("31418-03.htm"))
+		else if (event.equals("31418-03.html"))
 		{
 			if (isLordAvailable(3, qs))
 			{
@@ -115,27 +117,27 @@ public class Q00709_PathToBecomingALordDion extends Quest
 			}
 			else
 			{
-				htmltext = "35142-05a.htm";
+				htmltext = "35142-05a.html";
 			}
 		}
-		else if (event.equals("30735-02.htm"))
+		else if (event.equals("30735-02.html"))
 		{
 			qs.set("cond", "6");
 		}
-		else if (event.equals("30735-05.htm"))
+		else if (event.equals("30735-05.html"))
 		{
-			takeItems(player, Epaulette, 1);
+			takeItems(player, BLOODY_AXE_BLACK_EPAULETTE, 1);
 			qs.set("cond", "8");
 		}
-		else if (event.equals("31418-05.htm"))
+		else if (event.equals("31418-05.html"))
 		{
 			if (isLordAvailable(8, qs))
 			{
-				takeItems(player, MandragoraRoot, -1);
+				takeItems(player, MANDRAGORA_ROOT, -1);
 				castleOwner.getQuestState(getName()).setCond(9);
 			}
 		}
-		else if (event.equals("35142-10.htm"))
+		else if (event.equals("35142-10.html"))
 		{
 			if (castleOwner != null)
 			{
@@ -149,20 +151,48 @@ public class Q00709_PathToBecomingALordDion extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		final Castle castle = CastleManager.getInstance().getCastleById(DionCastle);
+		final QuestState qs = killer.getQuestState(getName());
+		if ((qs != null) && qs.isCond(6) && Util.contains(OL_MAHUMS, npc.getId()))
+		{
+			if ((npc.getId() != BLOODY_AXE_AIDE) && (Rnd.get(9) == 0))
+			{
+				addSpawn(BLOODY_AXE_AIDE, npc, true, 300000);
+			}
+			else if (npc.getId() == BLOODY_AXE_AIDE)
+			{
+				giveItems(killer, BLOODY_AXE_BLACK_EPAULETTE, 1);
+				qs.setCond(7);
+			}
+		}
+		
+		if ((qs != null) && (qs.getState() == State.STARTED) && qs.isCond(0) && isLordAvailable(8, qs) && Util.contains(MANDRAGORAS, npc.getId()))
+		{
+			if (getQuestItemsCount(killer, MANDRAGORA_ROOT) < 100)
+			{
+				giveItems(killer, MANDRAGORA_ROOT, 1);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		final QuestState qs = getQuestState(talker, true);
+		String htmltext = getNoQuestMsg(talker);
+		final Castle castle = CastleManager.getInstance().getCastleById(DION_CASTLE);
 		if (castle.getOwner() == null)
 		{
 			return "Castle has no lord";
 		}
+		
 		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
 		
 		switch (npc.getId())
 		{
-			case Crosby:
+			case CROSBY:
 			{
 				if (qs.isCond(0))
 				{
@@ -170,11 +200,11 @@ public class Q00709_PathToBecomingALordDion extends Quest
 					{
 						if (!hasFort())
 						{
-							htmltext = "35142-01.htm";
+							htmltext = "35142-01.html";
 						}
 						else
 						{
-							htmltext = "35142-00.htm";
+							htmltext = "35142-00.html";
 							qs.exitQuest(true);
 						}
 					}
@@ -182,90 +212,90 @@ public class Q00709_PathToBecomingALordDion extends Quest
 					{
 						if (castleOwner.calculateDistance(npc, false, false) <= 200)
 						{
-							htmltext = "35142-05.htm";
+							htmltext = "35142-05.html";
 						}
 						else
 						{
-							htmltext = "35142-05a.htm";
+							htmltext = "35142-05a.html";
 						}
 					}
 					else
 					{
-						htmltext = "35142-00a.htm";
+						htmltext = "35142-00a.html";
 						qs.exitQuest(true);
 					}
 				}
 				else if (qs.isCond(1))
 				{
 					qs.set("cond", "2");
-					htmltext = "35142-04.htm";
+					htmltext = "35142-04.html";
 				}
 				else if (qs.isCond(2) || qs.isCond(3))
 				{
-					htmltext = "35142-04a.htm";
+					htmltext = "35142-04a.html";
 				}
 				else if (qs.isCond(4))
 				{
 					qs.set("cond", "5");
-					htmltext = "35142-07.htm";
+					htmltext = "35142-07.html";
 				}
 				else if (qs.isCond(5))
 				{
-					htmltext = "35142-07.htm";
+					htmltext = "35142-07.html";
 				}
 				else if ((qs.getCond() > 5) && (qs.getCond() < 9))
 				{
-					htmltext = "35142-08.htm";
+					htmltext = "35142-08.html";
 				}
 				else if (qs.isCond(9))
 				{
-					htmltext = "35142-09.htm";
+					htmltext = "35142-09.html";
 				}
 				break;
 			}
-			case Rouke:
+			case ROUKE:
 			{
 				if ((qs.getState() == State.STARTED) && qs.isCond(0) && isLordAvailable(3, qs))
 				{
 					if (castleOwner.getQuestState(getName()).getInt("confidant") == qs.getPlayer().getObjectId())
 					{
-						htmltext = "31418-01.htm";
+						htmltext = "31418-01.html";
 					}
 				}
 				else if ((qs.getState() == State.STARTED) && qs.isCond(0) && isLordAvailable(8, qs))
 				{
-					if (getQuestItemsCount(player, MandragoraRoot) >= 100)
+					if (getQuestItemsCount(talker, MANDRAGORA_ROOT) >= 100)
 					{
-						htmltext = "31418-04.htm";
+						htmltext = "31418-04.html";
 					}
 					else
 					{
-						htmltext = "31418-04a.htm";
+						htmltext = "31418-04a.html";
 					}
 				}
 				else if ((qs.getState() == State.STARTED) && qs.isCond(0) && isLordAvailable(9, qs))
 				{
-					htmltext = "31418-06.htm";
+					htmltext = "31418-06.html";
 				}
 				break;
 			}
-			case Sophya:
+			case SOPHYA:
 			{
 				if (qs.isCond(5))
 				{
-					htmltext = "30735-01.htm";
+					htmltext = "30735-01.html";
 				}
 				else if (qs.isCond(6))
 				{
-					htmltext = "30735-03.htm";
+					htmltext = "30735-03.html";
 				}
 				else if (qs.isCond(7))
 				{
-					htmltext = "30735-04.htm";
+					htmltext = "30735-04.html";
 				}
 				else if (qs.isCond(8))
 				{
-					htmltext = "30735-06.htm";
+					htmltext = "30735-06.html";
 				}
 				break;
 			}
@@ -273,41 +303,11 @@ public class Q00709_PathToBecomingALordDion extends Quest
 		return htmltext;
 	}
 	
-	@Override
-	public final String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
+	private boolean hasFort()
 	{
-		final QuestState qs = killer.getQuestState(getName());
-		
-		if ((qs != null) && qs.isCond(6) && Util.contains(OlMahums, npc.getId()))
+		for (Fort fortress : FortManager.getInstance().getForts())
 		{
-			if ((npc.getId() != BloodyAxeAide) && (Rnd.get(9) == 0))
-			{
-				addSpawn(BloodyAxeAide, npc, true, 300000);
-			}
-			else if (npc.getId() == BloodyAxeAide)
-			{
-				giveItems(killer, Epaulette, 1);
-				qs.setCond(7);
-			}
-		}
-		if ((qs != null) && (qs.getState() == State.STARTED) && qs.isCond(0) && isLordAvailable(8, qs) && Util.contains(Manragoras, npc.getId()))
-		{
-			if (getQuestItemsCount(killer, MandragoraRoot) < 100)
-			{
-				giveItems(killer, MandragoraRoot, 1);
-			}
-		}
-		return null;
-	}
-	
-	private boolean isLordAvailable(int cond, QuestState qs)
-	{
-		final Castle castle = CastleManager.getInstance().getCastleById(DionCastle);
-		final L2Clan owner = castle.getOwner();
-		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		if (owner != null)
-		{
-			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (owner == qs.getPlayer().getClan()) && (castleOwner.getQuestState(getName()) != null) && castleOwner.getQuestState(getName()).isCond(cond))
+			if (fortress.getContractedCastleId() == DION_CASTLE)
 			{
 				return true;
 			}
@@ -315,11 +315,14 @@ public class Q00709_PathToBecomingALordDion extends Quest
 		return false;
 	}
 	
-	private boolean hasFort()
+	private boolean isLordAvailable(int cond, QuestState qs)
 	{
-		for (Fort fortress : FortManager.getInstance().getForts())
+		final Castle castle = CastleManager.getInstance().getCastleById(DION_CASTLE);
+		final L2Clan owner = castle.getOwner();
+		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
+		if (owner != null)
 		{
-			if (fortress.getContractedCastleId() == DionCastle)
+			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (owner == qs.getPlayer().getClan()) && (castleOwner.getQuestState(getName()) != null) && castleOwner.getQuestState(getName()).isCond(cond))
 			{
 				return true;
 			}
