@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -32,73 +32,71 @@ import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 
 /**
  * Path to Becoming a Lord - Giran (710)
- * TODO: Support for TerritoryWars
+ * @author Sacrifice
  */
-public class Q00710_PathToBecomingALordGiran extends Quest
+public final class Q00710_PathToBecomingALordGiran extends Quest
 {
-	private static final int Saul = 35184;
-	private static final int Gesto = 30511;
-	private static final int Felton = 30879;
-	private static final int CargoBox = 32243;
+	private static final int SAUL = 35184;
+	private static final int GESTO = 30511;
+	private static final int FELTON = 30879;
+	private static final int CARGO_BOX = 32243;
 	
-	private static final int FreightChest = 13014;
-	private static final int GestoBox = 13013;
+	private static final int FREIGHT_CHESTS_SEAL = 13014;
+	private static final int GESTOS_BOX = 13013;
 	
-	private static final int[] Mobs =
+	private static final int[] MOBS =
 	{
-		20832,
-		20833,
-		20835,
-		21602,
-		21603,
-		21604,
-		21605,
-		21606,
-		21607,
-		21608,
-		21609
+		20832, // Zaken's Pikeman
+		20833, // Zaken's Archer
+		20835, // Zaken's Seer
+		21602, // Zaken's Pikeman
+		21603, // Zaken's Pikeman
+		21604, // Zaken's Elite Pikeman
+		21605, // Zaken's Archer
+		21606, // Zaken's Archer
+		21607, // Zaken's Elite Archer
+		21608, // Zaken's Watchman
+		21609 // Zaken's Watchman
 	};
 	
-	private static final int GiranCastle = 3;
+	private static final int GIRAN_CASTLE = 3;
 	
 	public Q00710_PathToBecomingALordGiran()
 	{
 		super(710, Q00710_PathToBecomingALordGiran.class.getSimpleName(), "Path to Becoming a Lord - Giran");
-		addStartNpc(Saul);
-		addTalkId(Saul);
-		addTalkId(Gesto);
-		addTalkId(Felton);
-		addTalkId(CargoBox);
+		addStartNpc(SAUL);
+		addKillId(MOBS);
+		addTalkId(SAUL, GESTO, FELTON, CARGO_BOX);
 		questItemIds = new int[]
 		{
-			FreightChest,
-			GestoBox
+			FREIGHT_CHESTS_SEAL,
+			GESTOS_BOX
 		};
-		addKillId(Mobs);
 	}
 	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = player.getQuestState(getName());
-		final Castle castle = CastleManager.getInstance().getCastleById(GiranCastle);
+		final Castle castle = CastleManager.getInstance().getCastleById(GIRAN_CASTLE);
 		if (castle.getOwner() == null)
 		{
 			return "Castle has no lord";
 		}
-		if (event.equals("35184-03.htm"))
+		
+		if (event.equals("35184-03.html"))
 		{
 			qs.startQuest();
 		}
-		else if (event.equals("30511-03.htm"))
+		else if (event.equals("30511-03.html"))
 		{
 			qs.setCond(3);
 		}
-		else if (event.equals("30879-02.htm"))
+		else if (event.equals("30879-02.html"))
 		{
 			qs.setCond(4);
 		}
-		else if (event.equals("35184-07.htm"))
+		else if (event.equals("35184-07.html"))
 		{
 			if (castle.getOwner().getLeader().getPlayerInstance() != null)
 			{
@@ -112,19 +110,40 @@ public class Q00710_PathToBecomingALordGiran extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		final Castle castle = CastleManager.getInstance().getCastleById(GiranCastle);
+		final QuestState qs = killer.getQuestState(getName());
+		if ((qs != null) && qs.isCond(7))
+		{
+			if (getQuestItemsCount(killer, GESTOS_BOX) < 300)
+			{
+				giveItems(killer, GESTOS_BOX, 1);
+			}
+			
+			if (getQuestItemsCount(killer, GESTOS_BOX) >= 300)
+			{
+				qs.setCond(8);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		final QuestState qs = getQuestState(talker, true);
+		String htmltext = getNoQuestMsg(talker);
+		final Castle castle = CastleManager.getInstance().getCastleById(GIRAN_CASTLE);
 		if (castle.getOwner() == null)
 		{
 			return "Castle has no lord";
 		}
+		
 		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
+		
 		switch (npc.getId())
 		{
-			case Saul:
+			case SAUL:
 			{
 				if (qs.isCond(0))
 				{
@@ -132,122 +151,102 @@ public class Q00710_PathToBecomingALordGiran extends Quest
 					{
 						if (!hasFort())
 						{
-							htmltext = "35184-01.htm";
+							htmltext = "35184-01.html";
 						}
 						else
 						{
-							htmltext = "35184-00.htm";
+							htmltext = "35184-00.html";
 							qs.exitQuest(true);
 						}
 					}
 					else
 					{
-						htmltext = "35184-00a.htm";
+						htmltext = "35184-00a.html";
 						qs.exitQuest(true);
 					}
 				}
 				else if (qs.isCond(1))
 				{
 					qs.setCond(2);
-					htmltext = "35184-04.htm";
+					htmltext = "35184-04.html";
 				}
 				else if (qs.isCond(2))
 				{
-					htmltext = "35184-05.htm";
+					htmltext = "35184-05.html";
 				}
 				else if (qs.isCond(9))
 				{
-					htmltext = "35184-06.htm";
+					htmltext = "35184-06.html";
 				}
 				break;
 			}
-			case Gesto:
+			case GESTO:
 			{
 				if (qs.isCond(2))
 				{
-					htmltext = "30511-01.htm";
+					htmltext = "30511-01.html";
 				}
 				else if (qs.isCond(3) || qs.isCond(4))
 				{
-					htmltext = "30511-04.htm";
+					htmltext = "30511-04.html";
 				}
 				else if (qs.isCond(5))
 				{
-					takeItems(player, FreightChest, -1);
+					takeItems(talker, FREIGHT_CHESTS_SEAL, -1);
 					qs.setCond(7);
-					htmltext = "30511-05.htm";
+					htmltext = "30511-05.html";
 				}
 				else if (qs.isCond(7))
 				{
-					htmltext = "30511-06.htm";
+					htmltext = "30511-06.html";
 				}
 				else if (qs.isCond(8))
 				{
-					takeItems(player, GestoBox, -1);
+					takeItems(talker, GESTOS_BOX, -1);
 					qs.setCond(9);
-					htmltext = "30511-07.htm";
+					htmltext = "30511-07.html";
 				}
 				else if (qs.isCond(9))
 				{
-					htmltext = "30511-07.htm";
+					htmltext = "30511-07.html";
 				}
 				break;
 			}
-			case Felton:
+			case FELTON:
 			{
 				if (qs.isCond(3))
 				{
-					htmltext = "30879-01.htm";
+					htmltext = "30879-01.html";
 				}
 				else if (qs.isCond(4))
 				{
-					htmltext = "30879-03.htm";
+					htmltext = "30879-03.html";
 				}
 				break;
 			}
-			case CargoBox:
+			case CARGO_BOX:
 			{
 				if (qs.isCond(4))
 				{
 					qs.setCond(5);
-					giveItems(player, FreightChest, 1);
-					htmltext = "32243-01.htm";
+					giveItems(talker, FREIGHT_CHESTS_SEAL, 1);
+					htmltext = "32243-01.html";
 				}
 				else if (qs.isCond(5))
 				{
-					htmltext = "32243-02.htm";
+					htmltext = "32243-02.html";
 				}
 				break;
 			}
 		}
-		
 		return htmltext;
-	}
-	
-	@Override
-	public final String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
-		final QuestState qs = killer.getQuestState(getName());
-		
-		if ((qs != null) && qs.isCond(7))
-		{
-			if (getQuestItemsCount(killer, GestoBox) < 300)
-			{
-				giveItems(killer, GestoBox, 1);
-			}
-			if (getQuestItemsCount(killer, GestoBox) >= 300)
-			{
-				qs.setCond(8);
-			}
-		}
-		return null;
 	}
 	
 	private boolean hasFort()
 	{
 		for (Fort fortress : FortManager.getInstance().getForts())
 		{
-			if (fortress.getContractedCastleId() == GiranCastle)
+			if (fortress.getContractedCastleId() == GIRAN_CASTLE)
 			{
 				return true;
 			}

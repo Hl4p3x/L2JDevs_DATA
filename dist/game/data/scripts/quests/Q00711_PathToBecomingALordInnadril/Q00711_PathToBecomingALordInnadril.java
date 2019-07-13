@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -34,35 +34,35 @@ import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 
 /**
  * Path to Becoming a Lord - Innadril (711)
- * TODO: Support for TerritoryWars
+ * @author Sacrifice
  */
-public class Q00711_PathToBecomingALordInnadril extends Quest
+public final class Q00711_PathToBecomingALordInnadril extends Quest
 {
-	private static final int Neurath = 35316;
-	private static final int IasonHeine = 30969;
+	private static final int NEURATH = 35316;
+	private static final int IASON_HEINE = 30969;
 	
-	private static final int InnadrilCastle = 6;
-	private static final int[] mobs =
+	private static final int[] MOBS =
 	{
-		20789,
-		20790,
-		20791,
-		20792,
-		20793,
-		20804,
-		20805,
-		20806,
-		20807,
-		20808
+		20789, // Crokian
+		20790, // Dailaon
+		20791, // Crokian Warrior
+		20792, // Farhite
+		20793, // Nos
+		20804, // Crokian Lad
+		20805, // Dailaon Lad
+		20806, // Crokian Lad Warrior
+		20807, // Farhite Lad
+		20808 // Nos Lad
 	};
+	
+	private static final int INNADRIL_CASTLE = 6;
 	
 	public Q00711_PathToBecomingALordInnadril()
 	{
 		super(711, Q00711_PathToBecomingALordInnadril.class.getSimpleName(), "Path to Becoming a Lord - Innadril");
-		addStartNpc(Neurath);
-		addTalkId(Neurath);
-		addTalkId(IasonHeine);
-		addKillId(mobs);
+		addStartNpc(NEURATH);
+		addKillId(MOBS);
+		addTalkId(NEURATH, IASON_HEINE);
 	}
 	
 	@Override
@@ -70,17 +70,17 @@ public class Q00711_PathToBecomingALordInnadril extends Quest
 	{
 		String htmltext = event;
 		final QuestState qs = player.getQuestState(getName());
-		final Castle castle = CastleManager.getInstance().getCastleById(InnadrilCastle);
+		final Castle castle = CastleManager.getInstance().getCastleById(INNADRIL_CASTLE);
 		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		if (event.equals("35316-03.htm"))
+		if (event.equals("35316-03.html"))
 		{
 			qs.startQuest();
 		}
-		else if (event.equals("35316-05.htm"))
+		else if (event.equals("35316-05.html"))
 		{
 			qs.setCond(2);
 		}
-		else if (event.equals("35316-08.htm"))
+		else if (event.equals("35316-08.html"))
 		{
 			if (isLordAvailable(2, qs))
 			{
@@ -90,11 +90,11 @@ public class Q00711_PathToBecomingALordInnadril extends Quest
 			}
 			else
 			{
-				htmltext = "35316-07a.htm";
+				htmltext = "35316-07a.html";
 			}
 			
 		}
-		else if (event.equals("30969-03.htm"))
+		else if (event.equals("30969-03.html"))
 		{
 			if (isLordAvailable(3, qs))
 			{
@@ -102,10 +102,10 @@ public class Q00711_PathToBecomingALordInnadril extends Quest
 			}
 			else
 			{
-				htmltext = "30969-00a.htm";
+				htmltext = "30969-00a.html";
 			}
 		}
-		else if (event.equals("35316-12.htm"))
+		else if (event.equals("35316-12.html"))
 		{
 			if (castleOwner != null)
 			{
@@ -119,126 +119,9 @@ public class Q00711_PathToBecomingALordInnadril extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		final Castle castle = CastleManager.getInstance().getCastleById(InnadrilCastle);
-		if (castle.getOwner() == null)
-		{
-			return "Castle has no lord";
-		}
-		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		
-		switch (npc.getId())
-		{
-			case Neurath:
-			{
-				if (qs.isCond(0))
-				{
-					if (castleOwner == qs.getPlayer())
-					{
-						if (!hasFort())
-						{
-							htmltext = "35316-01.htm";
-						}
-						else
-						{
-							htmltext = "35316-00.htm";
-							qs.exitQuest(true);
-						}
-					}
-					else if (isLordAvailable(2, qs))
-					{
-						if (castleOwner.calculateDistance(npc, false, false) <= 200)
-						{
-							htmltext = "35316-07.htm";
-						}
-						else
-						{
-							htmltext = "35316-07a.htm";
-						}
-					}
-					else if (qs.getState() == State.STARTED)
-					{
-						htmltext = "35316-00b.htm";
-					}
-					else
-					{
-						htmltext = "35316-00a.htm";
-						qs.exitQuest(true);
-					}
-				}
-				else if (qs.isCond(1))
-				{
-					htmltext = "35316-04.htm";
-				}
-				else if (qs.isCond(2))
-				{
-					htmltext = "35316-06.htm";
-				}
-				else if (qs.isCond(3))
-				{
-					htmltext = "35316-09.htm";
-				}
-				else if (qs.isCond(4))
-				{
-					qs.setCond(5);
-					htmltext = "35316-10.htm";
-				}
-				else if (qs.isCond(5))
-				{
-					htmltext = "35316-10.htm";
-				}
-				else if (qs.isCond(6))
-				{
-					htmltext = "35316-11.htm";
-				}
-				break;
-			}
-			case IasonHeine:
-			{
-				if ((qs.getState() == State.STARTED) && qs.isCond(0))
-				{
-					if (isLordAvailable(3, qs))
-					{
-						if (castleOwner.getQuestState(getName()).getInt("confidant") == qs.getPlayer().getObjectId())
-						{
-							htmltext = "30969-01.htm";
-						}
-						else
-						{
-							htmltext = "30969-00.htm";
-						}
-					}
-					else if (isLordAvailable(4, qs))
-					{
-						if (castleOwner.getQuestState(getName()).getInt("confidant") == qs.getPlayer().getObjectId())
-						{
-							htmltext = "30969-03.htm";
-						}
-						else
-						{
-							htmltext = "30969-00.htm";
-						}
-					}
-					else
-					{
-						htmltext = "30969-00a.htm";
-					}
-				}
-				break;
-			}
-		}
-		
-		return htmltext;
-	}
-	
-	@Override
-	public final String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		final QuestState qs = player.getQuestState(getName());
-		
+		final QuestState qs = killer.getQuestState(getName());
 		if ((qs != null) && qs.isCond(5))
 		{
 			if (qs.getInt("mobs") < 99)
@@ -250,17 +133,130 @@ public class Q00711_PathToBecomingALordInnadril extends Quest
 				qs.setCond(6);
 			}
 		}
-		return null;
+		return super.onKill(npc, killer, isSummon);
 	}
 	
-	private boolean isLordAvailable(int cond, QuestState qs)
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
-		final Castle castle = CastleManager.getInstance().getCastleById(InnadrilCastle);
-		final L2Clan owner = castle.getOwner();
-		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		if (owner != null)
+		final QuestState qs = getQuestState(talker, true);
+		String htmltext = getNoQuestMsg(talker);
+		final Castle castle = CastleManager.getInstance().getCastleById(INNADRIL_CASTLE);
+		if (castle.getOwner() == null)
 		{
-			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (owner == qs.getPlayer().getClan()) && (castleOwner.getQuestState(getName()) != null) && (castleOwner.getQuestState(getName()).isCond(cond)))
+			return "Castle has no lord";
+		}
+		
+		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
+		
+		switch (npc.getId())
+		{
+			case NEURATH:
+			{
+				if (qs.isCond(0))
+				{
+					if (castleOwner == qs.getPlayer())
+					{
+						if (!hasFort())
+						{
+							htmltext = "35316-01.html";
+						}
+						else
+						{
+							htmltext = "35316-00.html";
+							qs.exitQuest(true);
+						}
+					}
+					else if (isLordAvailable(2, qs))
+					{
+						if (castleOwner.calculateDistance(npc, false, false) <= 200)
+						{
+							htmltext = "35316-07.html";
+						}
+						else
+						{
+							htmltext = "35316-07a.html";
+						}
+					}
+					else if (qs.getState() == State.STARTED)
+					{
+						htmltext = "35316-00b.html";
+					}
+					else
+					{
+						htmltext = "35316-00a.html";
+						qs.exitQuest(true);
+					}
+				}
+				else if (qs.isCond(1))
+				{
+					htmltext = "35316-04.html";
+				}
+				else if (qs.isCond(2))
+				{
+					htmltext = "35316-06.html";
+				}
+				else if (qs.isCond(3))
+				{
+					htmltext = "35316-09.html";
+				}
+				else if (qs.isCond(4))
+				{
+					qs.setCond(5);
+					htmltext = "35316-10.html";
+				}
+				else if (qs.isCond(5))
+				{
+					htmltext = "35316-10.html";
+				}
+				else if (qs.isCond(6))
+				{
+					htmltext = "35316-11.html";
+				}
+				break;
+			}
+			case IASON_HEINE:
+			{
+				if ((qs.getState() == State.STARTED) && qs.isCond(0))
+				{
+					if (isLordAvailable(3, qs))
+					{
+						if (castleOwner.getQuestState(getName()).getInt("confidant") == qs.getPlayer().getObjectId())
+						{
+							htmltext = "30969-01.html";
+						}
+						else
+						{
+							htmltext = "30969-00.html";
+						}
+					}
+					else if (isLordAvailable(4, qs))
+					{
+						if (castleOwner.getQuestState(getName()).getInt("confidant") == qs.getPlayer().getObjectId())
+						{
+							htmltext = "30969-03.html";
+						}
+						else
+						{
+							htmltext = "30969-00.html";
+						}
+					}
+					else
+					{
+						htmltext = "30969-00a.html";
+					}
+				}
+				break;
+			}
+		}
+		return htmltext;
+	}
+	
+	private boolean hasFort()
+	{
+		for (Fort fortress : FortManager.getInstance().getForts())
+		{
+			if (fortress.getContractedCastleId() == INNADRIL_CASTLE)
 			{
 				return true;
 			}
@@ -268,11 +264,14 @@ public class Q00711_PathToBecomingALordInnadril extends Quest
 		return false;
 	}
 	
-	private boolean hasFort()
+	private boolean isLordAvailable(int cond, QuestState qs)
 	{
-		for (Fort fortress : FortManager.getInstance().getForts())
+		final Castle castle = CastleManager.getInstance().getCastleById(INNADRIL_CASTLE);
+		final L2Clan owner = castle.getOwner();
+		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
+		if (owner != null)
 		{
-			if (fortress.getContractedCastleId() == InnadrilCastle)
+			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (owner == qs.getPlayer().getClan()) && (castleOwner.getQuestState(getName()) != null) && (castleOwner.getQuestState(getName()).isCond(cond)))
 			{
 				return true;
 			}
