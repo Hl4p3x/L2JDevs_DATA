@@ -37,14 +37,34 @@
 	<item id="22204" type="EtcItem" name="Attribute Stone Box - Event">
 		<!-- Description: Box containing an Attribute Ore. Which one could it be? -->
 		<set name="icon" val="icon.etc_pi_gift_box_i04" />
+		<set name="default_action" val="SKILL_REDUCE" />
+		<set name="etcitem_type" val="ELIXIR" />
 		<set name="material" val="COTTON" />
+		<set name="immediate_effect" val="true" />
+		<set name="is_tradable" val="false" />
+		<set name="is_depositable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
+		<set name="reuse_delay" val="40" />
+		<set name="handler" val="ItemSkills" />
+		<set name="item_skill" val="22381-1" />
 	</item>
 	<item id="22205" type="EtcItem" name="Attribute Crystal Box - Event">
 		<!-- Description: Box containing an Attribute Crystal. Which one could it be? -->
 		<set name="icon" val="icon.etc_pi_gift_box_i04" />
+		<set name="default_action" val="SKILL_REDUCE" />
+		<set name="etcitem_type" val="ELIXIR" />
 		<set name="material" val="COTTON" />
+		<set name="immediate_effect" val="true" />
+		<set name="is_tradable" val="false" />
+		<set name="is_depositable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
+		<set name="reuse_delay" val="40" />
+		<set name="handler" val="ItemSkills" />
+		<set name="item_skill" val="22382-1" />
 	</item>
 	<item id="22206" type="EtcItem" name="Soul Crystal - Stage 17 Box - Event">
 		<!-- Description: Box containing a Soul Crystal - Step 17. Which one could it be? -->

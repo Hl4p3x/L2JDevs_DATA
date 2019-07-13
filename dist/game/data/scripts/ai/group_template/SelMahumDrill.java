@@ -24,7 +24,9 @@ import org.l2jdevs.gameserver.model.L2Object;
 import org.l2jdevs.gameserver.model.L2Spawn;
 import org.l2jdevs.gameserver.model.Location;
 import org.l2jdevs.gameserver.model.actor.L2Attackable;
+import org.l2jdevs.gameserver.model.actor.L2Character;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
+import org.l2jdevs.gameserver.model.actor.instance.L2MonsterInstance;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 import org.l2jdevs.gameserver.network.NpcStringId;
 import org.l2jdevs.gameserver.network.clientpackets.Say2;
@@ -42,7 +44,7 @@ public final class SelMahumDrill extends AbstractNpcAI
 	{
 		22775, // Sel Mahum Drill Sergeant
 		22776, // Sel Mahum Training Officer
-		22778, // Sel Mahum Drill Sergeant
+		22778 // Sel Mahum Drill Sergeant
 	};
 	
 	private static final int[] MAHUM_SOLDIERS =
@@ -51,7 +53,7 @@ public final class SelMahumDrill extends AbstractNpcAI
 		22782, // Sel Mahum Recruit
 		22783, // Sel Mahum Soldier
 		22784, // Sel Mahum Recruit
-		22785, // Sel Mahum Soldier
+		22785 // Sel Mahum Soldier
 	};
 	
 	private static final int[] CHIEF_SOCIAL_ACTIONS =
@@ -130,6 +132,7 @@ public final class SelMahumDrill extends AbstractNpcAI
 	{
 		super(SelMahumDrill.class.getSimpleName(), "ai/group_template");
 		
+		addAttackId(MAHUM_CHIEFS);
 		addAttackId(MAHUM_SOLDIERS);
 		addKillId(MAHUM_CHIEFS);
 		addEventReceivedId(MAHUM_CHIEFS);
@@ -205,6 +208,18 @@ public final class SelMahumDrill extends AbstractNpcAI
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
 		if (getRandom(10) < 1)
+		{
+			// group hate
+			for (L2Character knownCharacters : npc.getKnownList().getKnownCharacters())
+			{
+				if (!knownCharacters.isInCombat() && knownCharacters.isMonster() && (((L2Npc) knownCharacters).getSpawn().getName() == npc.getSpawn().getName()))
+				{
+					((L2MonsterInstance) knownCharacters).addDamageHate(attacker, 0, 1000);
+				}
+			}
+		}
+		
+		if ((getRandom(10) < 1) && (Util.contains(MAHUM_SOLDIERS, npc.getId())))
 		{
 			npc.broadcastEvent("ATTACKED", 1000, null);
 		}

@@ -451,14 +451,50 @@
 		<set name="targetType" val="NONE" />
 	</skill>
 	<skill id="22381" levels="1" name="Attribute Ore Box">
-		<!-- Description: There is no available description. -->
-		<set name="operateType" val="P" />
-		<set name="targetType" val="NONE" />
+ 		<!-- Description: There is no available description. -->
+		<table name="#extractableItems">
+			9546,1,17;9547,1,17;9548,1,17;9549,1,17;9550,1,16;9551,1,16
+		</table>
+		<set name="capsuled_items_skill" val="#extractableItems" />
+		<set name="isMagic" val="2" />
+		<set name="itemConsumeCount" val="1" />
+		<set name="itemConsumeId" val="22204" /> <!-- Attribute Stone Box - Event -->
+		<set name="magicLvl" val="1" />
+		<set name="operateType" val="A1" />
+		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
+		<set name="targetType" val="SELF" />
+		<cond msgId="129">
+			<and>
+				<player invSize="10" />
+				<player weight="80" />
+			</and>
+		</cond>
+		<effects>
+			<effect name="RestorationRandom" />
+		</effects>
 	</skill>
-	<skill id="22382" levels="1" name="Attribute Crystal Box">
-		<!-- Description: There is no available description. -->
-		<set name="operateType" val="P" />
-		<set name="targetType" val="NONE" />
+ 	<skill id="22382" levels="1" name="Attribute Crystal Box">
+ 		<!-- Description: There is no available description. -->
+		<table name="#extractableItems">
+			9552,1,17;9553,1,17;9554,1,17;9555,1,17;9556,1,16;9557,1,16
+		</table>
+		<set name="capsuled_items_skill" val="#extractableItems" />
+		<set name="isMagic" val="2" />
+		<set name="itemConsumeCount" val="1" />
+		<set name="itemConsumeId" val="22205" /> <!-- Attribute Crystal Box - Event -->
+		<set name="magicLvl" val="1" />
+		<set name="operateType" val="A1" />
+		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
+		<set name="targetType" val="SELF" />
+		<cond msgId="129">
+			<and>
+				<player invSize="10" />
+				<player weight="80" />
+			</and>
+		</cond>
+		<effects>
+			<effect name="RestorationRandom" />
+		</effects>
 	</skill>
 	<skill id="22383" levels="1" name="Pathfinder Supplies">
 		<!-- Description: There is no available description. -->

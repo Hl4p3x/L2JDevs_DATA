@@ -899,7 +899,7 @@
 		</effects>
 	</skill>
 	<skill id="1425" levels="1" name="Purification Field">
-		<set name="affectRange" val="180" />
+		<set name="affectRange" val="1000" />
 		<set name="blockedInOlympiad" val="true" />
 		<set name="castRange" val="900" />
 		<set name="hitTime" val="3000" />
@@ -908,8 +908,8 @@
 		<set name="itemConsumeCount" val="1" />
 		<set name="itemConsumeId" val="8876" /> <!-- Magic Symbol -->
 		<set name="magicLvl" val="80" />
-		<set name="mpConsume2" val="70" />
-		<set name="mpConsume1" val="70" />
+		<set name="mpConsume2" val="56" />
+		<set name="mpConsume1" val="14" />
 		<set name="operateType" val="A1" />
 		<set name="reuseDelay" val="1200000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
