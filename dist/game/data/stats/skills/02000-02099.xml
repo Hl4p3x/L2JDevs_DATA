@@ -75,7 +75,7 @@
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" /> <!-- FIXME: This should be OTHERS -->
 		<cond msgId="109">
-			<target npcId="12774,12775,12777,12778" />
+			<target npcId="12774,12775,12776,12777,12778,12779" />
 		</cond>
 	</skill>
 	<skill id="2006" levels="1" name="Scroll: Enchant Weapon (Grade A)">

@@ -341,22 +341,12 @@
 		<set name="weight" val="10" />
 		<set name="is_stackable" val="true" />
 	</item>
-	<item id="22336" type="EtcItem" name="Pathfinder's Reward - Relief">
+	<item id="22336" type="EtcItem" name="Pathfinder's Reward - Contributor">
 		<!-- Description: A gift for adventurers who have a high contributions level in discovering the cause of the plague. -->
 		<set name="icon" val="icon.etc_bead_silver_i00" />
-		<set name="default_action" val="SKILL_REDUCE" />
-		<set name="etcitem_type" val="ELIXIR" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="100" />
-		<set name="immediate_effect" val="true" />
-		<set name="is_tradable" val="false" />
-		<set name="is_depositable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
-		<set name="reuse_delay" val="40" />
-		<set name="handler" val="ItemSkills" />
-		<set name="item_skill" val="22404-1" />
 	</item>
 	<item id="22337" type="EtcItem" name="Extra Entrance Pass - Rim Kamaloka">
 		<!-- Description: Entrance pass that allows you five addtional admissions. Can cancel the limit on entry if used while a limit on entry to Rim Kamaloka exists. Can only be used once per day from outside the instant zone. After use, the effect disappears at the corresponding instant dungeon's reset time. Cannot be exchanged or dropped. -->
