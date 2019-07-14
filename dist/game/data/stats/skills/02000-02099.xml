@@ -71,9 +71,12 @@
 		<set name="itemConsumeId" val="6391" /> <!-- Nectar -->
 		<set name="magicLvl" val="1" />
 		<set name="operateType" val="A1" />
-		<set name="reuseDelay" val="1000" />
+		<set name="reuseDelay" val="2000" />
 		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
 		<set name="targetType" val="ONE" /> <!-- FIXME: This should be OTHERS -->
+		<cond msgId="109">
+			<target npcId="12774,12775,12776,12777,12778,12779" />
+		</cond>
 	</skill>
 	<skill id="2006" levels="1" name="Scroll: Enchant Weapon (Grade A)">
 		<set name="isMagic" val="2" /> <!-- Static Skill -->

@@ -1651,9 +1651,25 @@
 		</effects>
 	</skill>
 	<skill id="22181" levels="1" name="Refined Cubic - 1 time use">
-		<!-- none -->
-		<set name="operateType" val="P" />
-		<set name="targetType" val="NONE" />
+ 		<!-- Description: There is no available description. -->
+		<table name="#extractableItems">
+			8728,1,7;8729,1,7;8730,1,7;8731,1,7;8732,1,7;8732,1,7;9573,1,7;10483,1,7;14166,1,7;8738,1,4;8739,1,4;8740,1,4;8741,1,4;8742,1,4;9574,1,4;10484,1,4;14167,1,4;8748,1,1.4;8749,1,1.4;8750,1,1.4;8751,1,1.4;8752,1,1.4;9575,1,1.4;10485,1,1.4;14168,1,1.4;8758,1,0.1;8759,1,0.1;8760,1,0.1;8761,1,0.1;8762,1,0.1;9576,1,0.1;10486,1,0.1;14169,1,0.1
+		</table>
+		<set name="capsuled_items_skill" val="#extractableItems" />
+		<set name="isMagic" val="2" />
+		<set name="operateType" val="A1" />
+		<set name="rideState" val="NONE;STRIDER;WYVERN;WOLF" />
+		<set name="reuseDelayLock" val="true" />
+		<set name="targetType" val="SELF" />
+		<cond msgId="129">
+			<and>
+				<player invSize="10" />
+				<player weight="80" />
+			</and>
+		</cond>
+		<effects>
+			<effect name="RestorationRandom" />
+		</effects>
 	</skill>
 	<skill id="22182" levels="1" name="Joyous Vitality Potion">
 		<!-- High Five Confirmed -->

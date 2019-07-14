@@ -205,6 +205,7 @@
 		<item id="13191" /> <!-- Player Commendation - Ecliptic Sword (Player Commendation Weapon) -->
 		<item id="13192" /> <!-- Player Commendation - Ecliptic Axe (Player Commendation Weapon) -->
 		<item id="13193" /> <!-- Player Commendation - Dwarven Hammer (Player Commendation Weapon) -->
+		<item id="15403" /> <!-- Player Commendation - Berserker Blade - (Player Commendation Weapon) -->
 	</enchant>
 	<enchant id="15350" targetGrade="D">
 		<item id="13163" /> <!-- Player Commendation - Bastard*Crimson Sword (Player Commendation Weapon) -->

@@ -295,9 +295,10 @@
 	<!-- Mesmer Drake -->
 	<route name="mesmer_drake_01" repeat="true" repeatStyle="back">
 		<target id="22820" spawnX="85452" spawnY="108916" spawnZ="-3202" />
-		<point X="85005" Y="108734" Z="-3206" delay="0" run="true" />
-		<point X="80765" Y="109804" Z="-3062" delay="0" run="true" />
 		<point X="86712" Y="108242" Z="-3137" delay="0" run="true" />
+		<point X="85005" Y="108734" Z="-3206" delay="0" run="true" />
+		<point X="83324" Y="109120" Z="-3120" delay="0" run="true" />
+		<point X="80765" Y="109804" Z="-3062" delay="0" run="true" />
 	</route>
 	<route name="mesmer_drake_02" repeat="true" repeatStyle="back">
 		<target id="22820" spawnX="83429" spawnY="118625" spawnZ="-2996" />
@@ -1123,14 +1124,13 @@
 		<point X="73369" Y="-55636" Z="-3104" delay="0" run="false" />
 		<point X="74136" Y="-54646" Z="-3104" delay="0" run="false" />
 		<point X="73408" Y="-54422" Z="-3104" delay="0" run="false" />
-		<point X="72998" Y="-53404" Z="-3136" delay="0" run="false" />
+		<point X="72780" Y="-53574" Z="-3104" delay="0" run="false" />
 		<point X="71661" Y="-52937" Z="-3104" delay="0" run="false" />
 		<point X="71127" Y="-52304" Z="-3104" delay="0" run="false" />
-		<point X="70225" Y="-52304" Z="-3064" delay="0" run="false" />
+		<point X="70336" Y="-52608" Z="-3064" delay="0" run="false" />
 		<point X="69668" Y="-52780" Z="-3064" delay="0" run="false" />
 		<point X="68422" Y="-52407" Z="-3240" delay="0" run="false" />
-		<point X="67702" Y="-52940" Z="-3208" delay="0" run="false" />
-		<point X="67798" Y="-52940" Z="-3232" delay="0" run="false" />
+		<point X="67580" Y="-53481" Z="-3208" delay="0" run="false" />
 		<point X="66667" Y="-55841" Z="-2840" delay="60" run="false" />
 	</route>
 	<!-- Suspicious Merchant - Archaic Fortress -->

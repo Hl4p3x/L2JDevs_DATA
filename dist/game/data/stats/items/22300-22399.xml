@@ -367,8 +367,18 @@
 	<item id="22339" type="EtcItem" name="S84 Top-grade Weapon Chest - Event">
 		<!-- Description: The chest contains 1 S84 top-grade weapon. Which one could it be? -->
 		<set name="icon" val="icon.etc_pi_gift_box_i04" />
+		<set name="default_action" val="SKILL_REDUCE" />
+		<set name="etcitem_type" val="ELIXIR" />
 		<set name="material" val="COTTON" />
+		<set name="immediate_effect" val="true" />
+		<set name="is_tradable" val="false" />
+		<set name="is_depositable" val="false" />
+		<set name="is_dropable" val="false" />
+		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
+		<set name="reuse_delay" val="40" />
+		<set name="handler" val="ItemSkills" />
+		<set name="item_skill" val="22405-1" />
 	</item>
 	<item id="22340" type="EtcItem" name="Elegia Armor Chest - Event">
 		<!-- Description: The chest contains 1 Elegia armor. Which one could it be? -->
