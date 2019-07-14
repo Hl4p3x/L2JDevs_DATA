@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -34,63 +34,57 @@ import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 
 /**
  * Path to Becoming a Lord - Oren (712)
- * TODO: Support for TerritoryWars
+ * @author Sacrifice
  */
-public class Q00712_PathToBecomingALordOren extends Quest
+public final class Q00712_PathToBecomingALordOren extends Quest
 {
-	private static final int Brasseur = 35226;
-	private static final int Croop = 30676;
-	private static final int Marty = 30169;
-	private static final int Valleria = 30176;
+	private static final int BRASSEUR = 35226;
+	private static final int CROOP = 30676;
+	private static final int MARTY = 30169;
+	private static final int VALLERIA = 30176;
 	
-	private static final int NebuliteOrb = 13851;
+	private static final int NEBULITE_ORB = 13851;
 	
-	private static final int[] OelMahums =
+	private static final int[] OEL_MAHUMS =
 	{
-		20575,
-		20576
+		20575, // Oel Mahum Warrior
+		20576 // Oel Mahum Witch Doctor
 	};
 	
-	private static final int OrenCastle = 4;
+	private static final int OREN_CASTLE = 4;
 	
 	public Q00712_PathToBecomingALordOren()
 	{
 		super(712, Q00712_PathToBecomingALordOren.class.getSimpleName(), "Path to Becoming a Lord - Oren");
-		addStartNpc(new int[]
-		{
-			Brasseur,
-			Marty
-		});
-		addTalkId(Brasseur);
-		addTalkId(Croop);
-		addTalkId(Marty);
-		addTalkId(Valleria);
+		addStartNpc(BRASSEUR, MARTY);
+		addKillId(OEL_MAHUMS);
+		addTalkId(BRASSEUR, CROOP, MARTY, VALLERIA);
 		questItemIds = new int[]
 		{
-			NebuliteOrb
+			NEBULITE_ORB
 		};
-		addKillId(OelMahums);
 	}
 	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = player.getQuestState(getName());
-		final Castle castle = CastleManager.getInstance().getCastleById(OrenCastle);
+		final Castle castle = CastleManager.getInstance().getCastleById(OREN_CASTLE);
 		if (castle.getOwner() == null)
 		{
 			return "Castle has no lord";
 		}
+		
 		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		if (event.equals("35226-03.htm"))
+		if (event.equals("35226-03.html"))
 		{
 			qs.startQuest();
 		}
-		else if (event.equals("30676-03.htm"))
+		else if (event.equals("30676-03.html"))
 		{
 			qs.setCond(3);
 		}
-		else if (event.equals("30169-02.htm"))
+		else if (event.equals("30169-02.html"))
 		{
 			if (isLordAvailable(3, qs))
 			{
@@ -98,7 +92,7 @@ public class Q00712_PathToBecomingALordOren extends Quest
 				qs.setState(State.STARTED);
 			}
 		}
-		else if (event.equals("30176-02.htm"))
+		else if (event.equals("30176-02.html"))
 		{
 			if (isLordAvailable(4, qs))
 			{
@@ -106,16 +100,16 @@ public class Q00712_PathToBecomingALordOren extends Quest
 				qs.exitQuest(true);
 			}
 		}
-		else if (event.equals("30676-05.htm"))
+		else if (event.equals("30676-05.html"))
 		{
 			qs.setCond(6);
 		}
-		else if (event.equals("30676-07.htm"))
+		else if (event.equals("30676-07.html"))
 		{
-			takeItems(player, NebuliteOrb, -1);
+			takeItems(player, NEBULITE_ORB, -1);
 			qs.setCond(8);
 		}
-		else if (event.equals("35226-06.htm"))
+		else if (event.equals("35226-06.html"))
 		{
 			if (castleOwner != null)
 			{
@@ -129,20 +123,39 @@ public class Q00712_PathToBecomingALordOren extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		final Castle castle = CastleManager.getInstance().getCastleById(OrenCastle);
+		final QuestState qs = killer.getQuestState(getName());
+		if ((qs != null) && qs.isCond(6))
+		{
+			if (getQuestItemsCount(killer, NEBULITE_ORB) < 300)
+			{
+				giveItems(killer, NEBULITE_ORB, 1);
+			}
+			if (getQuestItemsCount(killer, NEBULITE_ORB) >= 300)
+			{
+				qs.setCond(7);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		final QuestState qs = getQuestState(talker, true);
+		String htmltext = getNoQuestMsg(talker);
+		final Castle castle = CastleManager.getInstance().getCastleById(OREN_CASTLE);
 		if (castle.getOwner() == null)
 		{
 			return "Castle has no lord";
 		}
+		
 		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
 		
 		switch (npc.getId())
 		{
-			case Brasseur:
+			case BRASSEUR:
 			{
 				if (qs.isCond(0))
 				{
@@ -150,117 +163,95 @@ public class Q00712_PathToBecomingALordOren extends Quest
 					{
 						if (!hasFort())
 						{
-							htmltext = "35226-01.htm";
+							htmltext = "35226-01.html";
 						}
 						else
 						{
-							htmltext = "35226-00.htm";
+							htmltext = "35226-00.html";
 							qs.exitQuest(true);
 						}
 					}
 					else
 					{
-						htmltext = "35226-00a.htm";
+						htmltext = "35226-00a.html";
 						qs.exitQuest(true);
 					}
 				}
 				else if (qs.isCond(1))
 				{
 					qs.setCond(2);
-					htmltext = "35226-04.htm";
+					htmltext = "35226-04.html";
 				}
 				else if (qs.isCond(2))
 				{
-					htmltext = "35226-04.htm";
+					htmltext = "35226-04.html";
 				}
 				else if (qs.isCond(8))
 				{
-					htmltext = "35226-05.htm";
+					htmltext = "35226-05.html";
 				}
 				break;
 			}
-			case Croop:
+			case CROOP:
 			{
 				if (qs.isCond(2))
 				{
-					htmltext = "30676-01.htm";
+					htmltext = "30676-01.html";
 				}
 				else if (qs.isCond(3) || qs.isCond(4))
 				{
-					htmltext = "30676-03.htm";
+					htmltext = "30676-03.html";
 				}
 				else if (qs.isCond(5))
 				{
-					htmltext = "30676-04.htm";
+					htmltext = "30676-04.html";
 				}
 				else if (qs.isCond(6))
 				{
-					htmltext = "30676-05.htm";
+					htmltext = "30676-05.html";
 				}
 				else if (qs.isCond(7))
 				{
-					htmltext = "30676-06.htm";
+					htmltext = "30676-06.html";
 				}
 				else if (qs.isCond(8))
 				{
-					htmltext = "30676-08.htm";
+					htmltext = "30676-08.html";
 				}
 				break;
 			}
-			case Marty:
+			case MARTY:
 			{
 				if (qs.isCond(0))
 				{
 					if (isLordAvailable(3, qs))
 					{
-						htmltext = "30169-01.htm";
+						htmltext = "30169-01.html";
 					}
 					else
 					{
-						htmltext = "30169-00.htm";
+						htmltext = "30169-00.html";
 					}
 				}
 				break;
 			}
-			case Valleria:
+			case VALLERIA:
 			{
 				if ((qs.getState() == State.STARTED) && isLordAvailable(4, qs))
 				{
-					htmltext = "30176-01.htm";
+					htmltext = "30176-01.html";
 				}
 				break;
 			}
 		}
-		
 		return htmltext;
 	}
 	
-	@Override
-	public final String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
+	private boolean hasFort()
 	{
-		final QuestState qs = killer.getQuestState(getName());
-		if ((qs != null) && qs.isCond(6))
+		for (Fort fortress : FortManager.getInstance().getForts())
 		{
-			if (getQuestItemsCount(killer, NebuliteOrb) < 300)
-			{
-				giveItems(killer, NebuliteOrb, 1);
-			}
-			if (getQuestItemsCount(killer, NebuliteOrb) >= 300)
-			{
-				qs.setCond(7);
-			}
-		}
-		return null;
-	}
-	
-	private boolean isLordAvailable(int cond, QuestState qs)
-	{
-		final Castle castle = CastleManager.getInstance().getCastleById(OrenCastle);
-		final L2Clan owner = castle.getOwner();
-		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		if (owner != null)
-		{
-			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (owner == qs.getPlayer().getClan()) && (castleOwner.getQuestState(getName()) != null) && (castleOwner.getQuestState(getName()).isCond(cond)))
+			if (fortress.getContractedCastleId() == OREN_CASTLE)
 			{
 				return true;
 			}
@@ -268,11 +259,14 @@ public class Q00712_PathToBecomingALordOren extends Quest
 		return false;
 	}
 	
-	private boolean hasFort()
+	private boolean isLordAvailable(int cond, QuestState qs)
 	{
-		for (Fort fortress : FortManager.getInstance().getForts())
+		final Castle castle = CastleManager.getInstance().getCastleById(OREN_CASTLE);
+		final L2Clan owner = castle.getOwner();
+		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
+		if (owner != null)
 		{
-			if (fortress.getContractedCastleId() == OrenCastle)
+			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (owner == qs.getPlayer().getClan()) && (castleOwner.getQuestState(getName()) != null) && (castleOwner.getQuestState(getName()).isCond(cond)))
 			{
 				return true;
 			}
