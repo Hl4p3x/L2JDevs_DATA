@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2004-2019 L2J DataPack
+ * Copyright © 2004-2019 L2J DataPack
  * 
  * This file is part of L2J DataPack.
  * 
@@ -32,48 +32,48 @@ import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 
 /**
  * Path to Becoming a Lord - Aden (713)
- * TODO: Support for TerritoryWars
+ * @author Sacrifice
  */
-public class Q00713_PathToBecomingALordAden extends Quest
+public final class Q00713_PathToBecomingALordAden extends Quest
 {
-	private static final int Logan = 35274;
-	private static final int Orven = 30857;
-	private static final int[] Orcs =
+	private static final int LOGAN = 35274;
+	private static final int ORVEN = 30857;
+	
+	private static final int[] MOBS =
 	{
-		20669,
-		20665
+		20669, // Taik Orc Supply Leader
+		20665 // Taik Orc Supply
 	};
 	
-	private static final int AdenCastle = 5;
+	private static final int ADEN_CASTLE = 5;
 	
 	public Q00713_PathToBecomingALordAden()
 	{
 		super(713, Q00713_PathToBecomingALordAden.class.getSimpleName(), "Path to Becoming a Lord - Aden");
-		addStartNpc(Logan);
-		addTalkId(Logan);
-		addTalkId(Orven);
-		addKillId(Orcs);
+		addStartNpc(LOGAN);
+		addKillId(MOBS);
+		addTalkId(LOGAN, ORVEN);
 	}
 	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = player.getQuestState(getName());
-		final Castle castle = CastleManager.getInstance().getCastleById(AdenCastle);
+		final Castle castle = CastleManager.getInstance().getCastleById(ADEN_CASTLE);
 		if (castle.getOwner() == null)
 		{
 			return "Castle has no lord";
 		}
 		
-		if (event.equals("35274-02.htm"))
+		if (event.equals("35274-02.html"))
 		{
 			qs.startQuest();
 		}
-		else if (event.equals("30857-03.htm"))
+		else if (event.equals("30857-03.html"))
 		{
 			qs.setCond(2);
 		}
-		else if (event.equals("35274-05.htm"))
+		else if (event.equals("35274-05.html"))
 		{
 			if (castle.getOwner().getLeader().getPlayerInstance() != null)
 			{
@@ -87,83 +87,7 @@ public class Q00713_PathToBecomingALordAden extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		final Castle castle = CastleManager.getInstance().getCastleById(AdenCastle);
-		if (castle.getOwner() == null)
-		{
-			return "Castle has no lord";
-		}
-		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		
-		switch (npc.getId())
-		{
-			case Logan:
-			{
-				if (qs.isCond(0))
-				{
-					if (castleOwner == qs.getPlayer())
-					{
-						if (!hasFort())
-						{
-							htmltext = "35274-01.htm";
-						}
-						else
-						{
-							htmltext = "35274-00.htm";
-							qs.exitQuest(true);
-						}
-					}
-					else
-					{
-						htmltext = "35274-00a.htm";
-						qs.exitQuest(true);
-					}
-				}
-				else if (qs.isCond(1))
-				{
-					htmltext = "35274-03.htm";
-				}
-				else if (qs.isCond(7))
-				{
-					htmltext = "35274-04.htm";
-				}
-				break;
-			}
-			case Orven:
-			{
-				if (qs.isCond(1))
-				{
-					htmltext = "30857-01.htm";
-				}
-				else if (qs.isCond(2))
-				{
-					htmltext = "30857-04.htm";
-				}
-				else if (qs.isCond(4))
-				{
-					htmltext = "30857-05.htm";
-				}
-				else if (qs.isCond(5))
-				{
-					qs.setCond(7);
-					htmltext = "30857-06.htm";
-				}
-				else if (qs.isCond(7))
-				{
-					htmltext = "30857-06.htm";
-				}
-				break;
-			}
-		}
-		
-		return htmltext;
-	}
-	
-	@Override
-	public final String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		final QuestState qs = killer.getQuestState(getName());
 		if ((qs != null) && qs.isCond(4))
@@ -177,14 +101,90 @@ public class Q00713_PathToBecomingALordAden extends Quest
 				qs.setCond(5);
 			}
 		}
-		return null;
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState qs = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		final Castle castle = CastleManager.getInstance().getCastleById(ADEN_CASTLE);
+		if (castle.getOwner() == null)
+		{
+			return "Castle has no lord";
+		}
+		
+		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
+		
+		switch (npc.getId())
+		{
+			case LOGAN:
+			{
+				if (qs.isCond(0))
+				{
+					if (castleOwner == qs.getPlayer())
+					{
+						if (!hasFort())
+						{
+							htmltext = "35274-01.html";
+						}
+						else
+						{
+							htmltext = "35274-00.html";
+							qs.exitQuest(true);
+						}
+					}
+					else
+					{
+						htmltext = "35274-00a.html";
+						qs.exitQuest(true);
+					}
+				}
+				else if (qs.isCond(1))
+				{
+					htmltext = "35274-03.html";
+				}
+				else if (qs.isCond(7))
+				{
+					htmltext = "35274-04.html";
+				}
+				break;
+			}
+			case ORVEN:
+			{
+				if (qs.isCond(1))
+				{
+					htmltext = "30857-01.html";
+				}
+				else if (qs.isCond(2))
+				{
+					htmltext = "30857-04.html";
+				}
+				else if (qs.isCond(4))
+				{
+					htmltext = "30857-05.html";
+				}
+				else if (qs.isCond(5))
+				{
+					qs.setCond(7);
+					htmltext = "30857-06.html";
+				}
+				else if (qs.isCond(7))
+				{
+					htmltext = "30857-06.html";
+				}
+				break;
+			}
+		}
+		return htmltext;
 	}
 	
 	private boolean hasFort()
 	{
 		for (Fort fortress : FortManager.getInstance().getForts())
 		{
-			if (fortress.getContractedCastleId() == AdenCastle)
+			if (fortress.getContractedCastleId() == ADEN_CASTLE)
 			{
 				return true;
 			}

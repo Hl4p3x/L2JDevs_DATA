@@ -484,6 +484,7 @@ import quests.Q00709_PathToBecomingALordDion.Q00709_PathToBecomingALordDion;
 import quests.Q00710_PathToBecomingALordGiran.Q00710_PathToBecomingALordGiran;
 import quests.Q00711_PathToBecomingALordInnadril.Q00711_PathToBecomingALordInnadril;
 import quests.Q00712_PathToBecomingALordOren.Q00712_PathToBecomingALordOren;
+import quests.Q00713_PathToBecomingALordAden.Q00713_PathToBecomingALordAden;
 import quests.Q00901_HowLavasaurusesAreMade.Q00901_HowLavasaurusesAreMade;
 import quests.Q00902_ReclaimOurEra.Q00902_ReclaimOurEra;
 import quests.Q00903_TheCallOfAntharas.Q00903_TheCallOfAntharas;
@@ -999,6 +1000,7 @@ public class QuestMasterHandler
 		Q00710_PathToBecomingALordGiran.class,
 		Q00711_PathToBecomingALordInnadril.class,
 		Q00712_PathToBecomingALordOren.class,
+		Q00713_PathToBecomingALordAden.class,
 		Q00728_TerritoryWar.class,
 		Q00901_HowLavasaurusesAreMade.class,
 		Q00902_ReclaimOurEra.class,
