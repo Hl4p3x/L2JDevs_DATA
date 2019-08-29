@@ -36,7 +36,7 @@
 
 	<!-- ADMIN BAN -->
 	<admin command="admin_punishment" accessLevel="7" />
-	<admin command="admin_punishment_add" accessLevel="7" confirmDlg="true"  />
+	<admin command="admin_punishment_add" accessLevel="7" confirmDlg="true" />
 	<admin command="admin_punishment_remove" accessLevel="7" confirmDlg="true" />
 
 	<!-- ADMIN BBS -->
