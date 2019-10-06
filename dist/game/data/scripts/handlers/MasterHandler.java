@@ -18,9 +18,6 @@
  */
 package handlers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.handler.ActionHandler;
 import org.l2jdevs.gameserver.handler.ActionShiftHandler;
@@ -35,6 +32,8 @@ import org.l2jdevs.gameserver.handler.TargetHandler;
 import org.l2jdevs.gameserver.handler.TelnetHandler;
 import org.l2jdevs.gameserver.handler.UserCommandHandler;
 import org.l2jdevs.gameserver.handler.VoicedCommandHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import handlers.actionhandlers.L2ArtefactInstanceAction;
 import handlers.actionhandlers.L2DecoyAction;
@@ -275,6 +274,7 @@ import handlers.voicedcommandhandlers.ChangePassword;
 import handlers.voicedcommandhandlers.ChatAdmin;
 import handlers.voicedcommandhandlers.Debug;
 import handlers.voicedcommandhandlers.Lang;
+import handlers.voicedcommandhandlers.Repair;
 import handlers.voicedcommandhandlers.StatsVCmd;
 import handlers.voicedcommandhandlers.Wedding;
 
@@ -575,6 +575,7 @@ public class MasterHandler
 		(Config.BANKING_SYSTEM_ENABLED ? Banking.class : null),
 		(Config.L2JMOD_CHAT_ADMIN ? ChatAdmin.class : null),
 		(Config.L2JMOD_MULTILANG_ENABLE && Config.L2JMOD_MULTILANG_VOICED_ALLOW ? Lang.class : null),
+		Repair.class,
 		(Config.L2JMOD_DEBUG_VOICE_COMMAND ? Debug.class : null),
 		(Config.L2JMOD_ALLOW_CHANGE_PASSWORD ? ChangePassword.class : null),
 	};

@@ -1,16 +1,20 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <http://www.gnu.org/licenses/>.
+ * Copyright © 2004-2019 L2J DataPack
+ * 
+ * This file is part of L2J DataPack.
+ * 
+ * L2J DataPack is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * L2J DataPack is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package handlers.voicedcommandhandlers;
 
@@ -18,304 +22,275 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
-import com.l2jserver.gameserver.cache.HtmCache;
-import com.l2jserver.L2DatabaseFactory;
-import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
+import org.l2jdevs.commons.database.pool.impl.ConnectionFactory;
+import org.l2jdevs.gameserver.cache.HtmCache;
+import org.l2jdevs.gameserver.handler.IVoicedCommandHandler;
+import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
- * <B><U>User Character .repair voicecommand - SL2 L2JEmu</U></B><BR><BR>
- *
- * 
- * <U>NOTICE:</U> Voice command .repair that when used, allows player to
- * try to repair any of characters on his account, by setting spawn
- * to Floran, removing all shortcuts and moving everything equipped to
- * that char warehouse.<BR><BR>
- *
- *
- * (solving client crashes on character entering world)<BR><BR>
- *
- *
- * @author szponiasty
- * @version $Revision: 0.17.2.95.2.9 $ $Date: 2010/03/03 9:07:11 $
+ * Repair Character Voiced Command
+ * @author Sacrifice
  */
-
-public class Repair implements IVoicedCommandHandler
+public final class Repair implements IVoicedCommandHandler
 {
-	static final Logger _log = Logger.getLogger(Repair.class.getName());
+	private static final String SELECT_1 = "SELECT `account_name` FROM `characters` WHERE `char_name` = ?";
+	private static final String SELECT_2 = "SELECT `key`, `expiration` FROM `punishments` WHERE `key` = ? AND `type` = 'JAIL'";
+	private static final String SELECT_3 = "SELECT `char_name` FROM `characters` WHERE `account_name` = ?";
+	private static final String SELECT_4 = "SELECT `charId` FROM `characters` WHERE `char_name` = ?";
 	
-	private static final String[]	 _voicedCommands	=
-		{ 
-		"repair", 
+	private static final String UPDATE_1 = "UPDATE `characters` SET `x` = 17867, `y` = 170259, `z` = -3503 WHERE `charId` = ?";
+	private static final String UPDATE_2 = "UPDATE `items` SET `loc`= 'WAREHOUSE' WHERE `owner_id` = ? AND `loc` = 'PAPERDOLL'";
+	
+	private static final String DELETE_1 = "DELETE FROM `character_shortcuts` WHERE `charId` = ?";
+	
+	private static final String[] _voicedCommands =
+	{
+		"repair",
 		"startrepair"
-		};
+	};
 	
+	@Override
+	public String[] getVoicedCommandList()
+	{
+		return _voicedCommands;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-	{		
-		if (activeChar==null)
-			return false;
-		
-		String repairChar=null;
-		
-		try		
+	{
+		if (activeChar == null)
 		{
-			if(target != null)
-				if(target.length() > 1)
-				  {
-				   String[] cmdParams = target.split(" ");
-				   repairChar=cmdParams[0];
-				  }
+			return false;
+		}
+		
+		String repairChar = null;
+		
+		try
+		{
+			if (target != null)
+			{
+				if (target.length() > 1)
+				{
+					String[] cmdParams = target.split(" ");
+					repairChar = cmdParams[0];
+				}
+			}
 		}
 		catch (Exception e)
 		{
 			repairChar = null;
-		}		
-				
+		}
+		
 		// Send activeChar HTML page
 		if (command.startsWith("repair"))
 		{
-			String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair.htm");
-			NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
-			npcHtmlMessage.setHtml(htmContent);		
+			final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair.html");
+			final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
+			npcHtmlMessage.setHtml(htmContent);
 			npcHtmlMessage.replace("%acc_chars%", getCharList(activeChar));
-			activeChar.sendPacket(npcHtmlMessage);	
+			activeChar.sendPacket(npcHtmlMessage);
 			return true;
 		}
+		
 		// Command for enter repairFunction from html
 		if (command.startsWith("startrepair") && (repairChar != null))
 		{
-			//_log.warning("Repair Attempt: Character " + repairChar);
-				if (checkAcc(activeChar,repairChar))
+			_log.warning("Repair Attempt: Character " + repairChar);
+			if (checkAccount(activeChar, repairChar))
+			{
+				if (checkChar(activeChar, repairChar))
 				{
-					if (checkChar(activeChar,repairChar))
-					{
-						String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-self.htm");
-						NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
-						npcHtmlMessage.setHtml(htmContent);
-						activeChar.sendPacket(npcHtmlMessage);
-						return false;
-					}
-					else if (checkJail(activeChar,repairChar))
-					{
-						String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-jail.htm");
-						NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
-						npcHtmlMessage.setHtml(htmContent);
-						activeChar.sendPacket(npcHtmlMessage);	
-						return false;
-					}
-					else
-					{
-						repairBadCharacter(repairChar);
-						String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-done.htm");
-						NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
-						npcHtmlMessage.setHtml(htmContent);
-						activeChar.sendPacket(npcHtmlMessage);
-						return true;
-					}
-				}
-				else
-				{
-					String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-error.htm");
-					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
+					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-self.html");
+					final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
 					npcHtmlMessage.setHtml(htmContent);
 					activeChar.sendPacket(npcHtmlMessage);
 					return false;
 				}
+				else if (checkJail(activeChar))
+				{
+					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-jail.html");
+					final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
+					npcHtmlMessage.setHtml(htmContent);
+					activeChar.sendPacket(npcHtmlMessage);
+					return false;
+				}
+				else
+				{
+					repairBadCharacter(repairChar);
+					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-done.html");
+					final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
+					npcHtmlMessage.setHtml(htmContent);
+					activeChar.sendPacket(npcHtmlMessage);
+					return true;
+				}
+			}
+			final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-error.html");
+			final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
+			npcHtmlMessage.setHtml(htmContent);
+			activeChar.sendPacket(npcHtmlMessage);
+			return false;
 		}
-		//_log.warning("Repair Attempt: Failed. ");
+		_log.warning("Repair Attempt: Failed!");
 		return false;
+	}
+	
+	private boolean checkAccount(L2PcInstance activeChar, String repairChar)
+	{
+		boolean result = false;
+		String repairCharAccount = "";
+		
+		try (Connection con = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(SELECT_1))
+		{
+			ps.setString(1, repairChar);
+			
+			try (ResultSet rs = ps.executeQuery())
+			{
+				if (rs.next())
+				{
+					repairCharAccount = rs.getString(1);
+				}
+				rs.close();
+			}
+			ps.close();
+		}
+		catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+			return result;
+		}
+		
+		if (activeChar.getAccountName().compareTo(repairCharAccount) == 0)
+		{
+			result = true;
+		}
+		return result;
+	}
+	
+	private boolean checkChar(L2PcInstance activeChar, String repairChar)
+	{
+		boolean result = false;
+		if (activeChar.getName().compareTo(repairChar) == 0)
+		{
+			result = true;
+		}
+		return result;
+	}
+	
+	private boolean checkJail(L2PcInstance activeChar)
+	{
+		boolean result = false;
+		int key = 0;
+		long expiration = 0;
+		
+		try (Connection con = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(SELECT_2))
+		{
+			ps.setInt(1, key);
+			
+			try (ResultSet rs = ps.executeQuery())
+			{
+				if (rs.next())
+				{
+					key = rs.getInt(1);
+					expiration = rs.getLong(2);
+				}
+				rs.close();
+			}
+			ps.close();
+		}
+		catch (SQLException sqle)
+		{
+			sqle.printStackTrace();
+			return result;
+		}
+		
+		if ((activeChar.getId() == key) && (expiration >= System.currentTimeMillis()))
+		{
+			result = true;
+		}
+		return result;
 	}
 	
 	private String getCharList(L2PcInstance activeChar)
 	{
-		String result="";
-		String repCharAcc=activeChar.getAccountName();
-		Connection con = null;
-		try
+		String result = "";
+		String repCharAcc = activeChar.getAccountName();
+		
+		try (Connection con = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(SELECT_3))
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT char_name FROM characters WHERE account_name=?");
-			statement.setString(1, repCharAcc);
-			ResultSet rset = statement.executeQuery();
-			while (rset.next())
+			ps.setString(1, repCharAcc);
+			
+			try (ResultSet rs = ps.executeQuery())
 			{
-				if (activeChar.getName().compareTo(rset.getString(1)) != 0)
-					result += rset.getString(1)+";";
+				while (rs.next())
+				{
+					if (activeChar.getName().compareTo(rs.getString(1)) != 0)
+					{
+						result += rs.getString(1) + ";";
+					}
+				}
+				_log.warning("Repair Attempt: Output Result for searching characters on account: " + result);
+				rs.close();
 			}
-			//_log.warning("Repair Attempt: Output Result for searching characters on account:"+result);
-			rset.close();
-			statement.close();
+			ps.close();
 		}
-		catch (SQLException e)
+		catch (SQLException sqle)
 		{
-			e.printStackTrace();
+			sqle.printStackTrace();
 			return result;
 		}
-		finally
-		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return result;	
+		return result;
 	}
 	
-	private boolean checkAcc(L2PcInstance activeChar,String repairChar)
-	{
-		boolean result=false;
-		String repCharAcc="";
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
-			statement.setString(1, repairChar);
-			ResultSet rset = statement.executeQuery();
-			if (rset.next())
-			{
-				repCharAcc = rset.getString(1);
-			}
-			rset.close();
-			statement.close();
-
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-			return result;
-		}
-		finally
-		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		if (activeChar.getAccountName().compareTo(repCharAcc)==0)
-			result=true;
-		return result;
-	}
-
-	private boolean checkJail(L2PcInstance activeChar,String repairChar)
-	{
-		boolean result=false;
-		int repCharJail = 0;
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement("SELECT punish_level FROM characters WHERE char_name=?");
-			statement.setString(1, repairChar);
-			ResultSet rset = statement.executeQuery();
-			if (rset.next())
-			{
-				repCharJail = rset.getInt(1);
-			}
-			rset.close();
-			statement.close();
-
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-			return result;
-		}
-		finally
-		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		if (repCharJail > 1) // 0 norm, 1 chat ban, 2 jail, 3....
-			result=true;
-		return result;
-	}
-
-	private boolean checkChar(L2PcInstance activeChar,String repairChar)
-	{
-		boolean result=false;
-		if (activeChar.getName().compareTo(repairChar)==0)
-			result=true;
-		return result;
-	}
-
 	private void repairBadCharacter(String charName)
 	{
-		Connection con = null;
-		try
+		try (Connection con = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(SELECT_4);
+			PreparedStatement ps2 = con.prepareStatement(UPDATE_1);
+			PreparedStatement ps3 = con.prepareStatement(DELETE_1);
+			PreparedStatement ps4 = con.prepareStatement(UPDATE_2))
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-
-			PreparedStatement statement;
-			statement = con.prepareStatement("SELECT charId FROM characters WHERE char_name=?");
-			statement.setString(1, charName);
-			ResultSet rset = statement.executeQuery();
-
-			int objId = 0;
-			if (rset.next())
+			ps.setString(1, charName);
+			
+			try (ResultSet rs = ps.executeQuery())
 			{
-				objId = rset.getInt(1);
-			}
-			rset.close();
-			statement.close();
-			if (objId == 0)
-			{
-				con.close();
-				return;
-			}
-			statement = con.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE charId=?");
-			statement.setInt(1, objId);
-			statement.execute();
-			statement.close();
-			statement = con.prepareStatement("DELETE FROM character_shortcuts WHERE charId=?");
-			statement.setInt(1, objId);
-			statement.execute();
-			statement.close();
-			statement = con.prepareStatement("UPDATE items SET loc=\"WAREHOUSE\" WHERE owner_id=? AND loc=\"PAPERDOLL\"");
-			statement.setInt(1, objId);
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.warning("GameServer: could not repair character:" + e);
-		}
-		finally
-		{
-			try
-			{
-				if (con != null)
+				int objId = 0;
+				if (rs.next())
+				{
+					objId = rs.getInt(1);
+				}
+				
+				if (objId == 0)
+				{
+					rs.close();
+					ps.close();
 					con.close();
+					return;
+				}
+				
+				ps2.setInt(1, objId);
+				ps2.execute();
+				
+				ps3.setInt(1, objId);
+				ps3.execute();
+				
+				ps4.setInt(1, objId);
+				ps4.execute();
+				
+				rs.close();
 			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			ps.close();
+			ps2.close();
+			ps3.close();
+			ps4.close();
 		}
-	}
-
-	public String[] getVoicedCommandList()
-	{
-		return _voicedCommands;
+		catch (SQLException sqle)
+		{
+			_log.warning("GameServer: could not repair character: " + sqle);
+		}
 	}
 }
