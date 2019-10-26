@@ -37,7 +37,6 @@ public final class Repair implements IVoicedCommandHandler
 {
 	private static final String SELECT_1 = "SELECT `account_name` FROM `characters` WHERE `char_name` = ?";
 	private static final String SELECT_2 = "SELECT `key`, `expiration` FROM `punishments` WHERE `key` = ? AND `type` = 'JAIL'";
-	private static final String SELECT_3 = "SELECT `char_name` FROM `characters` WHERE `account_name` = ?";
 	private static final String SELECT_4 = "SELECT `charId` FROM `characters` WHERE `char_name` = ?";
 	
 	private static final String UPDATE_1 = "UPDATE `characters` SET `x` = 17867, `y` = 170259, `z` = -3503 WHERE `charId` = ?";
@@ -45,20 +44,19 @@ public final class Repair implements IVoicedCommandHandler
 	
 	private static final String DELETE_1 = "DELETE FROM `character_shortcuts` WHERE `charId` = ?";
 	
-	private static final String[] _voicedCommands =
+	private static final String[] VOICED_COMMANDS =
 	{
 		"repair",
-		"startrepair"
 	};
 	
 	@Override
 	public String[] getVoicedCommandList()
 	{
-		return _voicedCommands;
+		return VOICED_COMMANDS;
 	}
 	
 	@Override
-	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		if (activeChar == null)
 		{
@@ -69,11 +67,11 @@ public final class Repair implements IVoicedCommandHandler
 		
 		try
 		{
-			if (target != null)
+			if (params != null)
 			{
-				if (target.length() > 1)
+				if (params.length() > 1)
 				{
-					String[] cmdParams = target.split(" ");
+					final String[] cmdParams = params.split(" ");
 					repairChar = cmdParams[0];
 				}
 			}
@@ -83,26 +81,14 @@ public final class Repair implements IVoicedCommandHandler
 			repairChar = null;
 		}
 		
-		// Send activeChar HTML page
-		if (command.startsWith("repair"))
+		if (command.startsWith("repair") && (repairChar != null))
 		{
-			final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair.html");
-			final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
-			npcHtmlMessage.setHtml(htmContent);
-			npcHtmlMessage.replace("%acc_chars%", getCharList(activeChar));
-			activeChar.sendPacket(npcHtmlMessage);
-			return true;
-		}
-		
-		// Command for enter repairFunction from html
-		if (command.startsWith("startrepair") && (repairChar != null))
-		{
-			_log.warning("Repair Attempt: Character " + repairChar);
+			_log.info("Repair Attempt for character: " + repairChar);
 			if (checkAccount(activeChar, repairChar))
 			{
 				if (checkChar(activeChar, repairChar))
 				{
-					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-self.html");
+					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/Repair/repair-self.html");
 					final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
 					npcHtmlMessage.setHtml(htmContent);
 					activeChar.sendPacket(npcHtmlMessage);
@@ -110,7 +96,7 @@ public final class Repair implements IVoicedCommandHandler
 				}
 				else if (checkJail(activeChar))
 				{
-					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-jail.html");
+					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/Repair/repair-jail.html");
 					final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
 					npcHtmlMessage.setHtml(htmContent);
 					activeChar.sendPacket(npcHtmlMessage);
@@ -119,21 +105,21 @@ public final class Repair implements IVoicedCommandHandler
 				else
 				{
 					repairBadCharacter(repairChar);
-					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-done.html");
+					final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/Repair/repair-done.html");
 					final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
 					npcHtmlMessage.setHtml(htmContent);
 					activeChar.sendPacket(npcHtmlMessage);
 					return true;
 				}
 			}
-			final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/repair/repair-error.html");
+			final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/mods/Repair/repair-error.html");
 			final NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(5);
 			npcHtmlMessage.setHtml(htmContent);
 			activeChar.sendPacket(npcHtmlMessage);
 			return false;
 		}
-		_log.warning("Repair Attempt: Failed!");
-		return false;
+		activeChar.sendMessage("The format is .repair <player name>");
+		return true;
 	}
 	
 	private boolean checkAccount(L2PcInstance activeChar, String repairChar)
@@ -214,38 +200,6 @@ public final class Repair implements IVoicedCommandHandler
 		return result;
 	}
 	
-	private String getCharList(L2PcInstance activeChar)
-	{
-		String result = "";
-		String repCharAcc = activeChar.getAccountName();
-		
-		try (Connection con = ConnectionFactory.getInstance().getConnection();
-			PreparedStatement ps = con.prepareStatement(SELECT_3))
-		{
-			ps.setString(1, repCharAcc);
-			
-			try (ResultSet rs = ps.executeQuery())
-			{
-				while (rs.next())
-				{
-					if (activeChar.getName().compareTo(rs.getString(1)) != 0)
-					{
-						result += rs.getString(1) + ";";
-					}
-				}
-				_log.warning("Repair Attempt: Output Result for searching characters on account: " + result);
-				rs.close();
-			}
-			ps.close();
-		}
-		catch (SQLException sqle)
-		{
-			sqle.printStackTrace();
-			return result;
-		}
-		return result;
-	}
-	
 	private void repairBadCharacter(String charName)
 	{
 		try (Connection con = ConnectionFactory.getInstance().getConnection();
@@ -290,7 +244,7 @@ public final class Repair implements IVoicedCommandHandler
 		}
 		catch (SQLException sqle)
 		{
-			_log.warning("GameServer: could not repair character: " + sqle);
+			_log.warning("Could not repair character: " + charName + " " + sqle);
 		}
 	}
 }
