@@ -1,4 +1,6 @@
 /*
+ * Copyright © 2004-2019 L2JDevs
+ * 
  * This file is part of L2JDevs Mods.
  * 
  * L2JDevs Mods is free software: you can redistribute it and/or modify
