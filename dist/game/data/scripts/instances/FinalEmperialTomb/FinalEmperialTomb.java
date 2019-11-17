@@ -191,6 +191,9 @@ public final class FinalEmperialTomb extends AbstractInstance
 	private final Map<Integer, L2Territory> _spawnZoneList = new HashMap<>();
 	private final Map<Integer, List<FETSpawn>> _spawnList = new HashMap<>();
 	private final List<Integer> _mustKillMobsId = new ArrayList<>();
+	
+	private int _spawnCount = 0;
+	
 	protected static final int[] FIRST_ROOM_DOORS =
 	{
 		17130051,
@@ -350,6 +353,7 @@ public final class FinalEmperialTomb extends AbstractInstance
 											_mustKillMobsId.add(npcId);
 										}
 										_spawnList.get(flag).add(spw);
+										_spawnCount++;
 									}
 									else if ("zone".equalsIgnoreCase(cd.getNodeName()))
 									{
@@ -386,6 +390,7 @@ public final class FinalEmperialTomb extends AbstractInstance
 											_mustKillMobsId.add(npcId);
 										}
 										_spawnList.get(flag).add(spw);
+										_spawnCount++;
 									}
 								}
 							}
@@ -464,7 +469,7 @@ public final class FinalEmperialTomb extends AbstractInstance
 		if (debug)
 		{
 			_log.info("[Final Emperial Tomb] Loaded " + _spawnZoneList.size() + " spawn zones data.");
-			_log.info("[Final Emperial Tomb] Loaded " + spawnCount + " spawns data.");
+			_log.info("[Final Emperial Tomb] Loaded " + _spawnCount + " spawns data.");
 		}
 	}
 	
