@@ -45,7 +45,7 @@ public final class Deltuva extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("teleport"))
 		{

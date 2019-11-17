@@ -126,7 +126,7 @@ public final class Q00691_MatrasSuspiciousRequest extends Quest
 	}
 	
 	@Override
-	public final String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
 		final L2PcInstance pl = getRandomPartyMember(player, 1);
 		if (pl == null)
@@ -147,7 +147,7 @@ public final class Q00691_MatrasSuspiciousRequest extends Quest
 	}
 	
 	@Override
-	public final String onTalk(L2Npc npc, L2PcInstance player)
+	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = getNoQuestMsg(player);
 		final QuestState st = getQuestState(player, true);

@@ -49,7 +49,7 @@ public final class Kief extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = null;
 		switch (event)
@@ -150,7 +150,7 @@ public final class Kief extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		switch (HellboundEngine.getInstance().getLevel())
 		{

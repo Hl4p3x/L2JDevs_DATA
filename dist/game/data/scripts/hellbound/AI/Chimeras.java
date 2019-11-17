@@ -67,7 +67,7 @@ public final class Chimeras extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		if (HellboundEngine.getInstance().getLevel() == 7) // Have random spawn points only in 7 lvl
 		{
@@ -82,7 +82,7 @@ public final class Chimeras extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
+	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
 		if ((skill.getId() == BOTTLE) && !npc.isDead())
 		{

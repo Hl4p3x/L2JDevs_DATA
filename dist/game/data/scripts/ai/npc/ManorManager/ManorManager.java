@@ -108,7 +108,7 @@ public final class ManorManager extends AbstractNpcAI
 	@RegisterType(ListenerRegisterType.NPC)
 	@Id({35644, 35645, 35319, 35366, 36456, 35512, 35558, 35229, 35230, 35231, 35277, 35103, 35145, 35187})
 	// @formatter:on
-	public final void onNpcManorBypass(OnNpcManorBypass evt)
+	public void onNpcManorBypass(OnNpcManorBypass evt)
 	{
 		final L2PcInstance player = evt.getActiveChar();
 		if (CastleManorManager.getInstance().isUnderMaintenance())

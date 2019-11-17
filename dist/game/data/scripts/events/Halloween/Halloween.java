@@ -131,7 +131,7 @@ public final class Halloween extends LongTimeEvent
 	}
 	
 	@Override
-	public final String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		QuestState st = player.getQuestState(getName());
 		

@@ -69,7 +69,7 @@ public final class Epidos extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("check_minions"))
 		{
@@ -129,7 +129,7 @@ public final class Epidos extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		startQuestTimer("check_minions", 10000, npc, null);
 		startQuestTimer("check_idle", 600000, npc, null);

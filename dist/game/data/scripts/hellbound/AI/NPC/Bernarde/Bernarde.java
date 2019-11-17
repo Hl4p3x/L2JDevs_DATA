@@ -48,7 +48,7 @@ public final class Bernarde extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		switch (event)
 		{
@@ -88,7 +88,7 @@ public final class Bernarde extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		switch (HellboundEngine.getInstance().getLevel())
 		{
@@ -106,7 +106,7 @@ public final class Bernarde extends AbstractNpcAI
 		}
 	}
 	
-	private static final boolean isTransformed(L2PcInstance player)
+	private static boolean isTransformed(L2PcInstance player)
 	{
 		return player.isTransformed() && (player.getTransformation().getId() == NATIVE_TRANSFORM);
 	}

@@ -102,7 +102,7 @@ public final class UrbanArea extends AbstractInstance
 	}
 	
 	@Override
-	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		if (!npc.isAffectedBySkill(STONE.getSkillId()))
 		{
@@ -183,7 +183,7 @@ public final class UrbanArea extends AbstractInstance
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
 		if ((tmpworld != null) && (tmpworld instanceof UrbanAreaWorld))
@@ -233,7 +233,7 @@ public final class UrbanArea extends AbstractInstance
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		if (npc.getId() == DOWNTOWN_NATIVE)
 		{

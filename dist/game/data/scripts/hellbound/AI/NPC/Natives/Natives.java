@@ -63,7 +63,7 @@ public final class Natives extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = null;
 		final int hellboundLevel = HellboundEngine.getInstance().getLevel();
@@ -100,7 +100,7 @@ public final class Natives extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = null;
 		if (npc.getId() == TRAITOR)
@@ -179,7 +179,7 @@ public final class Natives extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		if ((npc.getId() == NATIVE) && (HellboundEngine.getInstance().getLevel() < 6))
 		{

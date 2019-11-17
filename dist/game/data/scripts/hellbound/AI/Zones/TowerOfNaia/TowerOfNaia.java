@@ -386,7 +386,7 @@ public final class TowerOfNaia extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		final int npcId = npc.getId();
 		
@@ -416,7 +416,7 @@ public final class TowerOfNaia extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = event;
 		
@@ -736,7 +736,7 @@ public final class TowerOfNaia extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		final int npcId = npc.getId();
 		

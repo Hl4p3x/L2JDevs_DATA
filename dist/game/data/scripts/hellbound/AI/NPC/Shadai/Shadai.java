@@ -44,7 +44,7 @@ public final class Shadai extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equals("VALIDATE_POS") && (npc != null))
 		{
@@ -70,7 +70,7 @@ public final class Shadai extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		startQuestTimer("VALIDATE_POS", 60000, npc, null, true);
 		return super.onSpawn(npc);

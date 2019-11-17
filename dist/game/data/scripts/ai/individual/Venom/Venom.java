@@ -258,7 +258,7 @@ public final class Venom extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		switch (npc.getId())
 		{

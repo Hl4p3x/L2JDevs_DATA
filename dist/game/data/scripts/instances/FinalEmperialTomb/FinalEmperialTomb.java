@@ -252,8 +252,6 @@ public final class FinalEmperialTomb extends AbstractInstance
 	
 	private void load()
 	{
-		@SuppressWarnings("unused")
-		int spawnCount = 0;
 		try
 		{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -352,7 +350,6 @@ public final class FinalEmperialTomb extends AbstractInstance
 											_mustKillMobsId.add(npcId);
 										}
 										_spawnList.get(flag).add(spw);
-										spawnCount++;
 									}
 									else if ("zone".equalsIgnoreCase(cd.getNodeName()))
 									{
@@ -389,7 +386,6 @@ public final class FinalEmperialTomb extends AbstractInstance
 											_mustKillMobsId.add(npcId);
 										}
 										_spawnList.get(flag).add(spw);
-										spawnCount++;
 									}
 								}
 							}

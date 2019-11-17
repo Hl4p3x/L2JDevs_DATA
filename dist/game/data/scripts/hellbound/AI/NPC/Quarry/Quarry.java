@@ -69,7 +69,7 @@ public final class Quarry extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = null;
 		switch (event)
@@ -134,7 +134,7 @@ public final class Quarry extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		npc.setAutoAttackable(false);
 		if (npc instanceof L2QuestGuardInstance)
@@ -145,7 +145,7 @@ public final class Quarry extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		if (HellboundEngine.getInstance().getLevel() != 5)
 		{
@@ -155,14 +155,14 @@ public final class Quarry extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		npc.setAutoAttackable(false);
 		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
-	public final String onEnterZone(L2Character character, L2ZoneType zone)
+	public String onEnterZone(L2Character character, L2ZoneType zone)
 	{
 		if (character.isAttackable())
 		{

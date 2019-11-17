@@ -543,7 +543,7 @@ public final class TullyWorkshop extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		final ClassId classId = player.getClassId();
 		final int npcId = npc.getId();
@@ -701,7 +701,7 @@ public final class TullyWorkshop extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = event;
 		
@@ -1403,7 +1403,7 @@ public final class TullyWorkshop extends AbstractNpcAI
 	}
 	
 	@Override
-	public final String onSpawn(L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		if ((npc.getId() == TULLY) && npc.isInsideRadius(-12557, 273901, -9000, 1000, true, false))
 		{

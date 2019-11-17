@@ -169,7 +169,7 @@ public final class Q00370_AnElderSowsSeeds extends Quest
 		return htmltext;
 	}
 	
-	private final boolean exchangeChapters(L2PcInstance player, boolean takeAllItems)
+	private boolean exchangeChapters(L2PcInstance player, boolean takeAllItems)
 	{
 		final long waterChapters = getQuestItemsCount(player, CHAPTER_OF_WATER);
 		final long earthChapters = getQuestItemsCount(player, CHAPTER_OF_EARTH);
