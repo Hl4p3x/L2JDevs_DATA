@@ -18,13 +18,13 @@
  */
 package handlers.usercommandhandlers;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.l2jdevs.gameserver.GameTimeController.MILLIS_IN_TICK;
 import static org.l2jdevs.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import static org.l2jdevs.gameserver.model.TeleportWhereType.TOWN;
 import static org.l2jdevs.gameserver.network.SystemMessageId.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT;
 import static org.l2jdevs.gameserver.network.serverpackets.ActionFailed.STATIC_PACKET;
-import static java.util.concurrent.TimeUnit.MINUTES;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.GameTimeController;

@@ -18,6 +18,9 @@
  */
 package handlers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.handler.ActionHandler;
 import org.l2jdevs.gameserver.handler.ActionShiftHandler;
@@ -32,8 +35,6 @@ import org.l2jdevs.gameserver.handler.TargetHandler;
 import org.l2jdevs.gameserver.handler.TelnetHandler;
 import org.l2jdevs.gameserver.handler.UserCommandHandler;
 import org.l2jdevs.gameserver.handler.VoicedCommandHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import handlers.actionhandlers.L2ArtefactInstanceAction;
 import handlers.actionhandlers.L2DecoyAction;
