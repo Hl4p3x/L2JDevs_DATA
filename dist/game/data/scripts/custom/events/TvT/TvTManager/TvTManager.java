@@ -58,6 +58,17 @@ public final class TvTManager extends AbstractNpcAI implements IVoicedCommandHan
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new TvTManager();
+	}
+	
+	@Override
+	public String[] getVoicedCommandList()
+	{
+		return COMMANDS;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -210,16 +221,5 @@ public final class TvTManager extends AbstractNpcAI implements IVoicedCommandHan
 		htmltext = htmltext.replaceAll("%team2playercount%", String.valueOf(teamsPlayerCounts[1]));
 		htmltext = htmltext.replaceAll("%team2points%", String.valueOf(teamsPointsCounts[1]));
 		return htmltext;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return COMMANDS;
-	}
-	
-	public static void main(String[] args)
-	{
-		new TvTManager();
 	}
 }

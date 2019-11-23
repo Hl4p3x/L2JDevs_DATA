@@ -59,6 +59,24 @@ public class Q00901_HowLavasaurusesAreMade extends Quest
 		registerQuestItems(FRAGMENT_STONE, FRAGMENT_HORN, FRAGMENT_HEAD, FRAGMENT_BODY);
 	}
 	
+	public static void giveQuestItems(QuestState st, int itemId)
+	{
+		if (st.getQuestItemsCount(itemId) < 10)
+		{
+			st.giveItems(itemId, 1);
+			st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+		}
+		else if (gotAllQuestItems(st))
+		{
+			st.setCond(2, true);
+		}
+	}
+	
+	public static boolean gotAllQuestItems(QuestState st)
+	{
+		return (st.getQuestItemsCount(FRAGMENT_STONE) >= 10) && (st.getQuestItemsCount(FRAGMENT_HEAD) >= 10) && (st.getQuestItemsCount(FRAGMENT_BODY) >= 10) && (st.getQuestItemsCount(FRAGMENT_HORN) >= 10);
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -172,23 +190,5 @@ public class Q00901_HowLavasaurusesAreMade extends Quest
 				break;
 		}
 		return htmltext;
-	}
-	
-	public static void giveQuestItems(QuestState st, int itemId)
-	{
-		if (st.getQuestItemsCount(itemId) < 10)
-		{
-			st.giveItems(itemId, 1);
-			st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-		}
-		else if (gotAllQuestItems(st))
-		{
-			st.setCond(2, true);
-		}
-	}
-	
-	public static boolean gotAllQuestItems(QuestState st)
-	{
-		return (st.getQuestItemsCount(FRAGMENT_STONE) >= 10) && (st.getQuestItemsCount(FRAGMENT_HEAD) >= 10) && (st.getQuestItemsCount(FRAGMENT_BODY) >= 10) && (st.getQuestItemsCount(FRAGMENT_HORN) >= 10);
 	}
 }

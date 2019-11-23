@@ -67,21 +67,6 @@ public final class Chimeras extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		if (HellboundEngine.getInstance().getLevel() == 7) // Have random spawn points only in 7 lvl
-		{
-			final Location loc = LOCATIONS[getRandom(LOCATIONS.length)];
-			if (!npc.isInsideRadius(loc, 200, false, false))
-			{
-				npc.getSpawn().setLocation(loc);
-				ThreadPoolManager.getInstance().scheduleGeneral(new Teleport(npc, loc), 100);
-			}
-		}
-		return super.onSpawn(npc);
-	}
-	
-	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
 		if ((skill.getId() == BOTTLE) && !npc.isDead())
@@ -116,6 +101,21 @@ public final class Chimeras extends AbstractNpcAI
 			}
 		}
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		if (HellboundEngine.getInstance().getLevel() == 7) // Have random spawn points only in 7 lvl
+		{
+			final Location loc = LOCATIONS[getRandom(LOCATIONS.length)];
+			if (!npc.isInsideRadius(loc, 200, false, false))
+			{
+				npc.getSpawn().setLocation(loc);
+				ThreadPoolManager.getInstance().scheduleGeneral(new Teleport(npc, loc), 100);
+			}
+		}
+		return super.onSpawn(npc);
 	}
 	
 	private static class Teleport implements Runnable

@@ -148,85 +148,52 @@ public final class Q00456_DontKnowDontCare extends Quest
 		registerQuestItems(DRAKE_LORD_ESSENCE, BEHEMOTH_LEADER_ESSENCE, DRAGON_BEAST_ESSENCE);
 	}
 	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	private static void rewardPlayer(L2PcInstance player, L2Npc npc)
 	{
-		final QuestState qs = getQuestState(player, false);
-		final Set<Integer> allowedPlayers = allowedPlayerMap.get(npc.getObjectId());
+		int chance = getRandom(10000);
+		final int reward;
+		int count = 1;
 		
-		if ((qs == null) || !qs.isCond(1) || (allowedPlayers == null) || !allowedPlayers.contains(player.getObjectId()))
+		if (chance < 170)
 		{
-			return npc.getId() + "-02.html";
+			reward = ARMOR[getRandom(ARMOR.length)];
 		}
-		
-		final int essence = MONSTER_ESSENCES.get(npc.getId());
-		final String htmltext;
-		
-		if (hasQuestItems(player, essence))
+		else if (chance < 200)
 		{
-			htmltext = npc.getId() + "-03.html";
+			reward = ACCESSORIES[getRandom(ACCESSORIES.length)];
+		}
+		else if (chance < 270)
+		{
+			reward = WEAPONS[getRandom(WEAPONS.length)];
+		}
+		else if (chance < 325)
+		{
+			reward = BLESSED_SCROLL_ENCHANT_WEAPON_S;
+		}
+		else if (chance < 425)
+		{
+			reward = BLESSED_SCROLL_ENCHANT_ARMOR_S;
+		}
+		else if (chance < 925)
+		{
+			reward = ATTRIBUTE_CRYSTALS[getRandom(ATTRIBUTE_CRYSTALS.length)];
+		}
+		else if (chance < 1100)
+		{
+			reward = SCROLL_ENCHANT_WEAPON_S;
 		}
 		else
 		{
-			giveItems(player, essence, 1);
-			htmltext = npc.getId() + "-01.html";
-			
-			if (hasQuestItems(player, getRegisteredItemIds()))
-			{
-				qs.setCond(2, true);
-			}
-			else
-			{
-				playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-			}
+			reward = GEMSTONE_S;
+			count = 3;
 		}
 		
-		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		if (Util.contains(SEPARATED_SOUL, npc.getId()))
-		{
-			switch (qs.getState())
-			{
-				case State.COMPLETED:
-					if (!qs.isNowAvailable())
-					{
-						htmltext = "32864-02.html";
-						break;
-					}
-					qs.setState(State.CREATED);
-					// intentional fall-through
-				case State.CREATED:
-					htmltext = ((player.getLevel() >= MIN_LEVEL) ? "32864-01.htm" : "32864-03.html");
-					break;
-				case State.STARTED:
-					switch (qs.getCond())
-					{
-						case 1:
-						{
-							htmltext = (hasAtLeastOneQuestItem(player, getRegisteredItemIds()) ? "32864-09.html" : "32864-08.html");
-							break;
-						}
-						case 2:
-						{
-							if (hasQuestItems(player, getRegisteredItemIds()))
-							{
-								rewardPlayer(player, npc);
-								qs.exitQuest(QuestType.DAILY, true);
-								htmltext = "32864-10.html";
-							}
-							break;
-						}
-					}
-					break;
-			}
-		}
-		return htmltext;
+		giveItems(player, reward, count);
+		L2Item item = ItemTable.getInstance().getTemplate(reward);
+		NpcSay packet = new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npc.getId(), NpcStringId.S1_RECEIVED_A_S2_ITEM_AS_A_REWARD_FROM_THE_SEPARATED_SOUL);
+		packet.addStringParameter(player.getName());
+		packet.addStringParameter(item.getName());
+		npc.broadcastPacket(packet);
 	}
 	
 	@Override
@@ -260,6 +227,42 @@ public final class Q00456_DontKnowDontCare extends Quest
 				allowedPlayerMap.remove(npc.getObjectId());
 				npc.deleteMe();
 				break;
+			}
+		}
+		
+		return htmltext;
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState qs = getQuestState(player, false);
+		final Set<Integer> allowedPlayers = allowedPlayerMap.get(npc.getObjectId());
+		
+		if ((qs == null) || !qs.isCond(1) || (allowedPlayers == null) || !allowedPlayers.contains(player.getObjectId()))
+		{
+			return npc.getId() + "-02.html";
+		}
+		
+		final int essence = MONSTER_ESSENCES.get(npc.getId());
+		final String htmltext;
+		
+		if (hasQuestItems(player, essence))
+		{
+			htmltext = npc.getId() + "-03.html";
+		}
+		else
+		{
+			giveItems(player, essence, 1);
+			htmltext = npc.getId() + "-01.html";
+			
+			if (hasQuestItems(player, getRegisteredItemIds()))
+			{
+				qs.setCond(2, true);
+			}
+			else
+			{
+				playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
 			}
 		}
 		
@@ -313,51 +316,48 @@ public final class Q00456_DontKnowDontCare extends Quest
 		return super.onKill(npc, killer, isSummon);
 	}
 	
-	private static void rewardPlayer(L2PcInstance player, L2Npc npc)
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
-		int chance = getRandom(10000);
-		final int reward;
-		int count = 1;
-		
-		if (chance < 170)
+		final QuestState qs = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		if (Util.contains(SEPARATED_SOUL, npc.getId()))
 		{
-			reward = ARMOR[getRandom(ARMOR.length)];
+			switch (qs.getState())
+			{
+				case State.COMPLETED:
+					if (!qs.isNowAvailable())
+					{
+						htmltext = "32864-02.html";
+						break;
+					}
+					qs.setState(State.CREATED);
+					// intentional fall-through
+				case State.CREATED:
+					htmltext = ((player.getLevel() >= MIN_LEVEL) ? "32864-01.htm" : "32864-03.html");
+					break;
+				case State.STARTED:
+					switch (qs.getCond())
+					{
+						case 1:
+						{
+							htmltext = (hasAtLeastOneQuestItem(player, getRegisteredItemIds()) ? "32864-09.html" : "32864-08.html");
+							break;
+						}
+						case 2:
+						{
+							if (hasQuestItems(player, getRegisteredItemIds()))
+							{
+								rewardPlayer(player, npc);
+								qs.exitQuest(QuestType.DAILY, true);
+								htmltext = "32864-10.html";
+							}
+							break;
+						}
+					}
+					break;
+			}
 		}
-		else if (chance < 200)
-		{
-			reward = ACCESSORIES[getRandom(ACCESSORIES.length)];
-		}
-		else if (chance < 270)
-		{
-			reward = WEAPONS[getRandom(WEAPONS.length)];
-		}
-		else if (chance < 325)
-		{
-			reward = BLESSED_SCROLL_ENCHANT_WEAPON_S;
-		}
-		else if (chance < 425)
-		{
-			reward = BLESSED_SCROLL_ENCHANT_ARMOR_S;
-		}
-		else if (chance < 925)
-		{
-			reward = ATTRIBUTE_CRYSTALS[getRandom(ATTRIBUTE_CRYSTALS.length)];
-		}
-		else if (chance < 1100)
-		{
-			reward = SCROLL_ENCHANT_WEAPON_S;
-		}
-		else
-		{
-			reward = GEMSTONE_S;
-			count = 3;
-		}
-		
-		giveItems(player, reward, count);
-		L2Item item = ItemTable.getInstance().getTemplate(reward);
-		NpcSay packet = new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npc.getId(), NpcStringId.S1_RECEIVED_A_S2_ITEM_AS_A_REWARD_FROM_THE_SEPARATED_SOUL);
-		packet.addStringParameter(player.getName());
-		packet.addStringParameter(item.getName());
-		npc.broadcastPacket(packet);
+		return htmltext;
 	}
 }

@@ -57,6 +57,30 @@ public class Q00005_MinersFavor extends Quest
 		registerQuestItems(BOLTERS_LIST, MINING_BOOTS, MINERS_PICK, BOOMBOOM_POWDER, REDSTONE_BEER, BOLTERS_SMELLY_SOCKS);
 	}
 	
+	private static void checkProgress(L2PcInstance player, QuestState st)
+	{
+		if (hasQuestItems(player, BOLTERS_LIST, MINING_BOOTS, MINERS_PICK, BOOMBOOM_POWDER, REDSTONE_BEER))
+		{
+			st.setCond(2, true);
+		}
+	}
+	
+	private static String giveItem(L2PcInstance player, QuestState st, int npcId, int itemId)
+	{
+		if (!st.isStarted())
+		{
+			return getNoQuestMsg(st.getPlayer());
+		}
+		else if (hasQuestItems(player, itemId))
+		{
+			return npcId + "-02.html";
+		}
+		giveItems(player, itemId, 1);
+		playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+		checkProgress(player, st);
+		return npcId + "-01.html";
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -143,29 +167,5 @@ public class Q00005_MinersFavor extends Quest
 				break;
 		}
 		return htmltext;
-	}
-	
-	private static void checkProgress(L2PcInstance player, QuestState st)
-	{
-		if (hasQuestItems(player, BOLTERS_LIST, MINING_BOOTS, MINERS_PICK, BOOMBOOM_POWDER, REDSTONE_BEER))
-		{
-			st.setCond(2, true);
-		}
-	}
-	
-	private static String giveItem(L2PcInstance player, QuestState st, int npcId, int itemId)
-	{
-		if (!st.isStarted())
-		{
-			return getNoQuestMsg(st.getPlayer());
-		}
-		else if (hasQuestItems(player, itemId))
-		{
-			return npcId + "-02.html";
-		}
-		giveItems(player, itemId, 1);
-		playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-		checkProgress(player, st);
-		return npcId + "-01.html";
 	}
 }

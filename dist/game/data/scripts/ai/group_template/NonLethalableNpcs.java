@@ -38,15 +38,15 @@ public final class NonLethalableNpcs extends AbstractNpcAI
 		addSpawnId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new NonLethalableNpcs();
+	}
+	
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
 		npc.setLethalable(false);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new NonLethalableNpcs();
 	}
 }

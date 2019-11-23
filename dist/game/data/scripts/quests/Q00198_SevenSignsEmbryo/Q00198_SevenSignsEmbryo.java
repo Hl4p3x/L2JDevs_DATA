@@ -48,9 +48,9 @@ public final class Q00198_SevenSignsEmbryo extends Quest
 	private static final int DAWNS_BRACELET = 15312;
 	// Misc
 	private static final int MIN_LEVEL = 79;
-	private boolean isBusy = false;
 	// Skill
 	private static final SkillHolder NPC_HEAL = new SkillHolder(4065, 8);
+	private boolean isBusy = false;
 	
 	public Q00198_SevenSignsEmbryo()
 	{

@@ -77,6 +77,32 @@ public class Q00324_SweetestVenom extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
+		final QuestState st = getQuestState(player, false);
+		if ((st != null) && st.isCond(1))
+		{
+			long sacs = st.getQuestItemsCount(VENOM_SAC);
+			if (sacs < REQUIRED_COUNT)
+			{
+				if (getRandom(100) < MONSTERS.get(npc.getId()))
+				{
+					st.giveItems(VENOM_SAC, 1);
+					if ((++sacs) < REQUIRED_COUNT)
+					{
+						st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+					}
+					else
+					{
+						st.setCond(2, true);
+					}
+				}
+			}
+		}
+		return super.onKill(npc, player, isPet);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState st = getQuestState(player, true);
@@ -104,31 +130,5 @@ public class Q00324_SweetestVenom extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		final QuestState st = getQuestState(player, false);
-		if ((st != null) && st.isCond(1))
-		{
-			long sacs = st.getQuestItemsCount(VENOM_SAC);
-			if (sacs < REQUIRED_COUNT)
-			{
-				if (getRandom(100) < MONSTERS.get(npc.getId()))
-				{
-					st.giveItems(VENOM_SAC, 1);
-					if ((++sacs) < REQUIRED_COUNT)
-					{
-						st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-					}
-					else
-					{
-						st.setCond(2, true);
-					}
-				}
-			}
-		}
-		return super.onKill(npc, player, isPet);
 	}
 }

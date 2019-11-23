@@ -36,6 +36,8 @@ public final class Q00357_WarehouseKeepersAmbition extends Quest
 	private static final int SILVA = 30686;
 	// Item
 	private static final int JADE_CRYSTAL = 5867;
+	// Misc
+	private static final int MIN_LVL = 47;
 	// Monsters
 	private final Map<Integer, Double> DROP_DATA = new HashMap<>();
 	{
@@ -44,8 +46,6 @@ public final class Q00357_WarehouseKeepersAmbition extends Quest
 		DROP_DATA.put(20596, 0.638); // Liele Elder
 		DROP_DATA.put(20597, 0.062); // Valley Treant Elder
 	}
-	// Misc
-	private static final int MIN_LVL = 47;
 	
 	public Q00357_WarehouseKeepersAmbition()
 	{
@@ -121,6 +121,17 @@ public final class Q00357_WarehouseKeepersAmbition extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
+		if (qs != null)
+		{
+			giveItemRandomly(qs.getPlayer(), npc, JADE_CRYSTAL, 1, 0, DROP_DATA.get(npc.getId()), true);
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -134,16 +145,5 @@ public final class Q00357_WarehouseKeepersAmbition extends Quest
 			htmltext = (hasQuestItems(talker, JADE_CRYSTAL)) ? "30686-07.html" : "30686-06.html";
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
-		if (qs != null)
-		{
-			giveItemRandomly(qs.getPlayer(), npc, JADE_CRYSTAL, 1, 0, DROP_DATA.get(npc.getId()), true);
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

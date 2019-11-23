@@ -53,6 +53,11 @@ public final class GatekeeperSpirit extends AbstractNpcAI
 		addKillId(LILITH, ANAKIM);
 	}
 	
+	public static void main(String[] args)
+	{
+		new GatekeeperSpirit();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -118,10 +123,5 @@ public final class GatekeeperSpirit extends AbstractNpcAI
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new GatekeeperSpirit();
 	}
 }

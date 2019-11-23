@@ -77,39 +77,9 @@ public class Fisherman extends AbstractNpcAI
 		addFirstTalkId(FISHERMAN);
 	}
 	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public static void main(String[] args)
 	{
-		String htmltext = null;
-		switch (event)
-		{
-			case "LearnFishSkill":
-			{
-				showFishSkillList(player);
-				break;
-			}
-			case "fishing_championship.htm":
-			{
-				htmltext = event;
-				break;
-			}
-			case "BuySellRefund":
-			{
-				((L2MerchantInstance) npc).showBuyWindow(player, npc.getId() * 100, true);
-				break;
-			}
-		}
-		return htmltext;
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		if ((player.getKarma() > 0) && !Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP)
-		{
-			return npc.getId() + "-pk.htm";
-		}
-		return npc.getId() + ".htm";
+		new Fisherman();
 	}
 	
 	/**
@@ -151,8 +121,38 @@ public class Fisherman extends AbstractNpcAI
 		}
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		new Fisherman();
+		String htmltext = null;
+		switch (event)
+		{
+			case "LearnFishSkill":
+			{
+				showFishSkillList(player);
+				break;
+			}
+			case "fishing_championship.htm":
+			{
+				htmltext = event;
+				break;
+			}
+			case "BuySellRefund":
+			{
+				((L2MerchantInstance) npc).showBuyWindow(player, npc.getId() * 100, true);
+				break;
+			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		if ((player.getKarma() > 0) && !Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP)
+		{
+			return npc.getId() + "-pk.htm";
+		}
+		return npc.getId() + ".htm";
 	}
 }

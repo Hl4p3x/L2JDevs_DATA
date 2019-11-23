@@ -110,6 +110,20 @@ public final class Q00692_HowtoOpposeEvil extends Quest
 		addKillId(QUEST_MOBS.keySet());
 	}
 	
+	private static boolean giveReward(QuestState st, int itemId, int minCount, int rewardItemId, long rewardCount)
+	{
+		long count = st.getQuestItemsCount(itemId);
+		if (count < minCount)
+		{
+			return false;
+		}
+		
+		count = count / minCount;
+		st.takeItems(itemId, count * minCount);
+		st.rewardItems(rewardItemId, rewardCount * count);
+		return true;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -243,19 +257,5 @@ public final class Q00692_HowtoOpposeEvil extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	private static boolean giveReward(QuestState st, int itemId, int minCount, int rewardItemId, long rewardCount)
-	{
-		long count = st.getQuestItemsCount(itemId);
-		if (count < minCount)
-		{
-			return false;
-		}
-		
-		count = count / minCount;
-		st.takeItems(itemId, count * minCount);
-		st.rewardItems(rewardItemId, rewardCount * count);
-		return true;
 	}
 }

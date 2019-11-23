@@ -87,6 +87,32 @@ public class Q00341_HuntingForWildBeasts extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
+	{
+		final QuestState qs = getQuestState(killer, false);
+		if ((qs != null) && qs.isCond(1))
+		{
+			long skins = qs.getQuestItemsCount(BEAR_SKIN);
+			if (skins < REQUIRED_COUNT)
+			{
+				if (getRandom(100) < MONSTERS.get(npc.getId()))
+				{
+					qs.giveItems(BEAR_SKIN, 1);
+					if ((++skins) < REQUIRED_COUNT)
+					{
+						qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+					}
+					else
+					{
+						qs.setCond(2, true);
+					}
+				}
+			}
+		}
+		return super.onKill(npc, killer, isPet);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -114,31 +140,5 @@ public class Q00341_HuntingForWildBeasts extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs != null) && qs.isCond(1))
-		{
-			long skins = qs.getQuestItemsCount(BEAR_SKIN);
-			if (skins < REQUIRED_COUNT)
-			{
-				if (getRandom(100) < MONSTERS.get(npc.getId()))
-				{
-					qs.giveItems(BEAR_SKIN, 1);
-					if ((++skins) < REQUIRED_COUNT)
-					{
-						qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-					}
-					else
-					{
-						qs.setCond(2, true);
-					}
-				}
-			}
-		}
-		return super.onKill(npc, killer, isPet);
 	}
 }

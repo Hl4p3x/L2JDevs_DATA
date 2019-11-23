@@ -109,112 +109,16 @@ public class Q00453_NotStrongEnoughAlone extends Quest
 		addKillId(MONSTER3);
 	}
 	
-	private void increaseKill(L2PcInstance player, L2Npc npc)
+	private static void checkProgress(QuestState st, int count, int... mobs)
 	{
-		QuestState st = getQuestState(player, false);
-		
-		if (st == null)
+		for (int mob : mobs)
 		{
-			return;
+			if (st.getInt(String.valueOf(mob)) < count)
+			{
+				return;
+			}
 		}
-		
-		int npcId = npc.getId();
-		
-		if (Util.checkIfInRange(1500, npc, player, false))
-		{
-			final ExQuestNpcLogList log = new ExQuestNpcLogList(getId());
-			
-			if (Util.contains(MONSTER1, npcId) && st.isCond(2))
-			{
-				if (npcId == MONSTER1[4])
-				{
-					npcId = MONSTER1[0];
-				}
-				else if (npcId == MONSTER1[5])
-				{
-					npcId = MONSTER1[1];
-				}
-				else if (npcId == MONSTER1[6])
-				{
-					npcId = MONSTER1[2];
-				}
-				else if (npcId == MONSTER1[7])
-				{
-					npcId = MONSTER1[3];
-				}
-				
-				int i = st.getInt(String.valueOf(npcId));
-				if (i < 15)
-				{
-					st.set(Integer.toString(npcId), Integer.toString(i + 1));
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
-				
-				checkProgress(st, 15, MONSTER1[0], MONSTER1[1], MONSTER1[2], MONSTER1[3]);
-				
-				log.addNpc(MONSTER1[0], st.getInt(String.valueOf(MONSTER1[0])));
-				log.addNpc(MONSTER1[1], st.getInt(String.valueOf(MONSTER1[1])));
-				log.addNpc(MONSTER1[2], st.getInt(String.valueOf(MONSTER1[2])));
-				log.addNpc(MONSTER1[3], st.getInt(String.valueOf(MONSTER1[3])));
-			}
-			else if (Util.contains(MONSTER2, npcId) && st.isCond(3))
-			{
-				if (npcId == MONSTER2[3])
-				{
-					npcId = MONSTER2[0];
-				}
-				else if (npcId == MONSTER2[4])
-				{
-					npcId = MONSTER2[1];
-				}
-				else if (npcId == MONSTER2[5])
-				{
-					npcId = MONSTER2[2];
-				}
-				
-				int i = st.getInt(String.valueOf(npcId));
-				if (i < 20)
-				{
-					st.set(Integer.toString(npcId), Integer.toString(i + 1));
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
-				
-				checkProgress(st, 20, MONSTER2[0], MONSTER2[1], MONSTER2[2]);
-				
-				log.addNpc(MONSTER2[0], st.getInt(String.valueOf(MONSTER2[0])));
-				log.addNpc(MONSTER2[1], st.getInt(String.valueOf(MONSTER2[1])));
-				log.addNpc(MONSTER2[2], st.getInt(String.valueOf(MONSTER2[2])));
-			}
-			else if (Util.contains(MONSTER3, npcId) && st.isCond(4))
-			{
-				if (npcId == MONSTER3[3])
-				{
-					npcId = MONSTER3[0];
-				}
-				else if (npcId == MONSTER3[4])
-				{
-					npcId = MONSTER3[1];
-				}
-				else if (npcId == MONSTER3[5])
-				{
-					npcId = MONSTER3[2];
-				}
-				
-				int i = st.getInt(String.valueOf(npcId));
-				if (i < 20)
-				{
-					st.set(Integer.toString(npcId), Integer.toString(i + 1));
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
-				
-				checkProgress(st, 20, MONSTER3[0], MONSTER3[1], MONSTER3[2]);
-				
-				log.addNpc(MONSTER3[0], st.getInt(String.valueOf(MONSTER3[0])));
-				log.addNpc(MONSTER3[1], st.getInt(String.valueOf(MONSTER3[1])));
-				log.addNpc(MONSTER3[2], st.getInt(String.valueOf(MONSTER3[2])));
-			}
-			player.sendPacket(log);
-		}
+		st.setCond(5, true);
 	}
 	
 	@Override
@@ -335,15 +239,111 @@ public class Q00453_NotStrongEnoughAlone extends Quest
 		return htmltext;
 	}
 	
-	private static void checkProgress(QuestState st, int count, int... mobs)
+	private void increaseKill(L2PcInstance player, L2Npc npc)
 	{
-		for (int mob : mobs)
+		QuestState st = getQuestState(player, false);
+		
+		if (st == null)
 		{
-			if (st.getInt(String.valueOf(mob)) < count)
-			{
-				return;
-			}
+			return;
 		}
-		st.setCond(5, true);
+		
+		int npcId = npc.getId();
+		
+		if (Util.checkIfInRange(1500, npc, player, false))
+		{
+			final ExQuestNpcLogList log = new ExQuestNpcLogList(getId());
+			
+			if (Util.contains(MONSTER1, npcId) && st.isCond(2))
+			{
+				if (npcId == MONSTER1[4])
+				{
+					npcId = MONSTER1[0];
+				}
+				else if (npcId == MONSTER1[5])
+				{
+					npcId = MONSTER1[1];
+				}
+				else if (npcId == MONSTER1[6])
+				{
+					npcId = MONSTER1[2];
+				}
+				else if (npcId == MONSTER1[7])
+				{
+					npcId = MONSTER1[3];
+				}
+				
+				int i = st.getInt(String.valueOf(npcId));
+				if (i < 15)
+				{
+					st.set(Integer.toString(npcId), Integer.toString(i + 1));
+					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+				}
+				
+				checkProgress(st, 15, MONSTER1[0], MONSTER1[1], MONSTER1[2], MONSTER1[3]);
+				
+				log.addNpc(MONSTER1[0], st.getInt(String.valueOf(MONSTER1[0])));
+				log.addNpc(MONSTER1[1], st.getInt(String.valueOf(MONSTER1[1])));
+				log.addNpc(MONSTER1[2], st.getInt(String.valueOf(MONSTER1[2])));
+				log.addNpc(MONSTER1[3], st.getInt(String.valueOf(MONSTER1[3])));
+			}
+			else if (Util.contains(MONSTER2, npcId) && st.isCond(3))
+			{
+				if (npcId == MONSTER2[3])
+				{
+					npcId = MONSTER2[0];
+				}
+				else if (npcId == MONSTER2[4])
+				{
+					npcId = MONSTER2[1];
+				}
+				else if (npcId == MONSTER2[5])
+				{
+					npcId = MONSTER2[2];
+				}
+				
+				int i = st.getInt(String.valueOf(npcId));
+				if (i < 20)
+				{
+					st.set(Integer.toString(npcId), Integer.toString(i + 1));
+					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+				}
+				
+				checkProgress(st, 20, MONSTER2[0], MONSTER2[1], MONSTER2[2]);
+				
+				log.addNpc(MONSTER2[0], st.getInt(String.valueOf(MONSTER2[0])));
+				log.addNpc(MONSTER2[1], st.getInt(String.valueOf(MONSTER2[1])));
+				log.addNpc(MONSTER2[2], st.getInt(String.valueOf(MONSTER2[2])));
+			}
+			else if (Util.contains(MONSTER3, npcId) && st.isCond(4))
+			{
+				if (npcId == MONSTER3[3])
+				{
+					npcId = MONSTER3[0];
+				}
+				else if (npcId == MONSTER3[4])
+				{
+					npcId = MONSTER3[1];
+				}
+				else if (npcId == MONSTER3[5])
+				{
+					npcId = MONSTER3[2];
+				}
+				
+				int i = st.getInt(String.valueOf(npcId));
+				if (i < 20)
+				{
+					st.set(Integer.toString(npcId), Integer.toString(i + 1));
+					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+				}
+				
+				checkProgress(st, 20, MONSTER3[0], MONSTER3[1], MONSTER3[2]);
+				
+				log.addNpc(MONSTER3[0], st.getInt(String.valueOf(MONSTER3[0])));
+				log.addNpc(MONSTER3[1], st.getInt(String.valueOf(MONSTER3[1])));
+				log.addNpc(MONSTER3[2], st.getInt(String.valueOf(MONSTER3[2])));
+			}
+			player.sendPacket(log);
+		}
 	}
 }

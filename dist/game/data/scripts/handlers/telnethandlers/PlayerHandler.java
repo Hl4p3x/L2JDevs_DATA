@@ -63,6 +63,12 @@ public class PlayerHandler implements ITelnetHandler
 	};
 	
 	@Override
+	public String[] getCommandList()
+	{
+		return _commands;
+	}
+	
+	@Override
 	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int _uptime)
 	{
 		if (command.startsWith("kick"))
@@ -331,11 +337,5 @@ public class PlayerHandler implements ITelnetHandler
 			return true;
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getCommandList()
-	{
-		return _commands;
 	}
 }

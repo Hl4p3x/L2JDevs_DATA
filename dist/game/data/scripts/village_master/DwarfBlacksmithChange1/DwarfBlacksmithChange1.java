@@ -53,6 +53,11 @@ public final class DwarfBlacksmithChange1 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DwarfBlacksmithChange1();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -84,6 +89,21 @@ public final class DwarfBlacksmithChange1 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, npc, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.isInCategory(CategoryType.WARSMITH_GROUP))
+		{
+			htmltext = npc.getId() + "-01.htm"; // fnClassList1
+		}
+		else
+		{
+			htmltext = npc.getId() + "-05.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -132,25 +152,5 @@ public final class DwarfBlacksmithChange1 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.isInCategory(CategoryType.WARSMITH_GROUP))
-		{
-			htmltext = npc.getId() + "-01.htm"; // fnClassList1
-		}
-		else
-		{
-			htmltext = npc.getId() + "-05.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new DwarfBlacksmithChange1();
 	}
 }

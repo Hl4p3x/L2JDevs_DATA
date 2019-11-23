@@ -40,6 +40,11 @@ public final class Gordon extends AbstractNpcAI
 		addSeeCreatureId(GORDON);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Gordon();
+	}
+	
 	@Override
 	public String onSeeCreature(L2Npc npc, L2Character creature, boolean isSummon)
 	{
@@ -55,10 +60,5 @@ public final class Gordon extends AbstractNpcAI
 	{
 		((L2Attackable) npc).setCanReturnToSpawnPoint(false);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Gordon();
 	}
 }

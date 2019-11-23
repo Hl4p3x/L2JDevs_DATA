@@ -73,6 +73,11 @@ public final class ManorManager extends AbstractNpcAI
 		addTalkId(NPC);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ManorManager();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -153,10 +158,5 @@ public final class ManorManager extends AbstractNpcAI
 			default:
 				_log.warning(getClass().getSimpleName() + ": Player " + player.getName() + " (" + player.getObjectId() + ") send unknown request id " + evt.getRequest() + "!");
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new ManorManager();
 	}
 }

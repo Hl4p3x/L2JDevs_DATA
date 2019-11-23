@@ -39,6 +39,12 @@ public class ChangePassword implements IVoicedCommandHandler
 	};
 	
 	@Override
+	public String[] getVoicedCommandList()
+	{
+		return _voicedCommands;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (target != null)
@@ -104,11 +110,5 @@ public class ChangePassword implements IVoicedCommandHandler
 			return true;
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return _voicedCommands;
 	}
 }

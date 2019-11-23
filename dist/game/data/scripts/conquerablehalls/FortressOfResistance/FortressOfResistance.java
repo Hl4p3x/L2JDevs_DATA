@@ -90,23 +90,26 @@ public final class FortressOfResistance extends ClanHallSiegeEngine
 		}
 	}
 	
-	private void buildMessengerMessage()
+	public static void main(String[] args)
 	{
-		String html = HtmCache.getInstance().getHtm(null, "data/scripts/conquerablehalls/FortressOfResistance/partisan_ordery_brakel001.htm");
-		if (html != null)
-		{
-			// FIXME: We don't have an object id to put in here :(
-			_messengerMsg = new NpcHtmlMessage();
-			_messengerMsg.setHtml(html);
-			_messengerMsg.replace("%nextSiege%", Util.formatDate(_hall.getSiegeDate().getTime(), "yyyy-MM-dd HH:mm:ss"));
-		}
+		new FortressOfResistance();
 	}
 	
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public L2Clan getWinner()
 	{
-		player.sendPacket(_messengerMsg);
-		return null;
+		int winnerId = 0;
+		long counter = 0;
+		for (Entry<Integer, Long> e : _damageToNurka.entrySet())
+		{
+			long dam = e.getValue();
+			if (dam > counter)
+			{
+				winnerId = e.getKey();
+				counter = dam;
+			}
+		}
+		return ClanTable.getInstance().getClan(winnerId);
 	}
 	
 	@Override
@@ -124,6 +127,13 @@ public final class FortressOfResistance extends ClanHallSiegeEngine
 			_damageToNurka.put(clanId, clanDmg);
 			
 		}
+		return null;
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		player.sendPacket(_messengerMsg);
 		return null;
 	}
 	
@@ -148,20 +158,9 @@ public final class FortressOfResistance extends ClanHallSiegeEngine
 	}
 	
 	@Override
-	public L2Clan getWinner()
+	public void onSiegeEnds()
 	{
-		int winnerId = 0;
-		long counter = 0;
-		for (Entry<Integer, Long> e : _damageToNurka.entrySet())
-		{
-			long dam = e.getValue();
-			if (dam > counter)
-			{
-				winnerId = e.getKey();
-				counter = dam;
-			}
-		}
-		return ClanTable.getInstance().getClan(winnerId);
+		buildMessengerMessage();
 	}
 	
 	@Override
@@ -170,14 +169,15 @@ public final class FortressOfResistance extends ClanHallSiegeEngine
 		_nurka.init();
 	}
 	
-	@Override
-	public void onSiegeEnds()
+	private void buildMessengerMessage()
 	{
-		buildMessengerMessage();
-	}
-	
-	public static void main(String[] args)
-	{
-		new FortressOfResistance();
+		String html = HtmCache.getInstance().getHtm(null, "data/scripts/conquerablehalls/FortressOfResistance/partisan_ordery_brakel001.htm");
+		if (html != null)
+		{
+			// FIXME: We don't have an object id to put in here :(
+			_messengerMsg = new NpcHtmlMessage();
+			_messengerMsg.setHtml(html);
+			_messengerMsg.replace("%nextSiege%", Util.formatDate(_hall.getSiegeDate().getTime(), "yyyy-MM-dd HH:mm:ss"));
+		}
 	}
 }

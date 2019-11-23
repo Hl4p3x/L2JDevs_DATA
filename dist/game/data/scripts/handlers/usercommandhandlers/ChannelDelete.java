@@ -36,6 +36,12 @@ public class ChannelDelete implements IUserCommandHandler
 	};
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (id != COMMAND_IDS[0])
@@ -57,11 +63,5 @@ public class ChannelDelete implements IUserCommandHandler
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

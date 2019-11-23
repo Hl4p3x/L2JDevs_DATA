@@ -106,6 +106,89 @@ public final class Q00501_ProofOfClanAlliance extends Quest
 		registerQuestItems(ANTIDOTE_RECIPE_LIST, VOUCHER_OF_FAITH, HERB_OF_HARIT, HERB_OF_VANOR, HERB_OF_OEL_MAHUM, BLOOD_OF_EVA, ATHREAS_COIN, SYMBOL_OF_LOYALTY);
 	}
 	
+	/**
+	 * Gets the clan leader's quest state.
+	 * @param player the player
+	 * @param quest the quest name
+	 * @return the clan leader's quest state
+	 */
+	private static QuestState getLeaderQuestState(L2PcInstance player, String quest)
+	{
+		if (player.getClan() != null)
+		{
+			final L2PcInstance leader = player.getClan().getLeader().getPlayerInstance();
+			if (leader != null)
+			{
+				return leader.getQuestState(quest);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Verifies if the player has the poison.
+	 * @param player the player to check
+	 * @return {@code true} if the player has {@link AbnormalType#FATAL_POISON} abnormal
+	 */
+	private static boolean hasAbnormal(L2PcInstance player)
+	{
+		return player.getEffectList().getBuffInfoByAbnormalType(AbnormalType.FATAL_POISON) != null;
+	}
+	
+	@Override
+	public QuestState getRandomPartyMemberState(L2PcInstance player, int condition, int playerChance, L2Npc target)
+	{
+		if ((player == null) || (playerChance < 1))
+		{
+			return null;
+		}
+		
+		QuestState qs = getQuestState(player, false);
+		if (!player.isInParty())
+		{
+			if (!Util.checkIfInRange(1500, player, target, true))
+			{
+				return null;
+			}
+			return qs;
+		}
+		
+		final List<QuestState> candidates = new ArrayList<>();
+		if ((qs != null) && (playerChance > 0))
+		{
+			for (int i = 0; i < playerChance; i++)
+			{
+				candidates.add(qs);
+			}
+		}
+		
+		for (L2PcInstance member : player.getParty().getMembers())
+		{
+			if (member == player)
+			{
+				continue;
+			}
+			
+			qs = getQuestState(member, false);
+			if (qs != null)
+			{
+				candidates.add(qs);
+			}
+		}
+		
+		if (candidates.isEmpty())
+		{
+			return null;
+		}
+		
+		qs = candidates.get(getRandom(candidates.size()));
+		if (!Util.checkIfInRange(1500, qs.getPlayer(), target, true))
+		{
+			return null;
+		}
+		return qs;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -499,88 +582,5 @@ public final class Q00501_ProofOfClanAlliance extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	/**
-	 * Verifies if the player has the poison.
-	 * @param player the player to check
-	 * @return {@code true} if the player has {@link AbnormalType#FATAL_POISON} abnormal
-	 */
-	private static boolean hasAbnormal(L2PcInstance player)
-	{
-		return player.getEffectList().getBuffInfoByAbnormalType(AbnormalType.FATAL_POISON) != null;
-	}
-	
-	/**
-	 * Gets the clan leader's quest state.
-	 * @param player the player
-	 * @param quest the quest name
-	 * @return the clan leader's quest state
-	 */
-	private static QuestState getLeaderQuestState(L2PcInstance player, String quest)
-	{
-		if (player.getClan() != null)
-		{
-			final L2PcInstance leader = player.getClan().getLeader().getPlayerInstance();
-			if (leader != null)
-			{
-				return leader.getQuestState(quest);
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public QuestState getRandomPartyMemberState(L2PcInstance player, int condition, int playerChance, L2Npc target)
-	{
-		if ((player == null) || (playerChance < 1))
-		{
-			return null;
-		}
-		
-		QuestState qs = getQuestState(player, false);
-		if (!player.isInParty())
-		{
-			if (!Util.checkIfInRange(1500, player, target, true))
-			{
-				return null;
-			}
-			return qs;
-		}
-		
-		final List<QuestState> candidates = new ArrayList<>();
-		if ((qs != null) && (playerChance > 0))
-		{
-			for (int i = 0; i < playerChance; i++)
-			{
-				candidates.add(qs);
-			}
-		}
-		
-		for (L2PcInstance member : player.getParty().getMembers())
-		{
-			if (member == player)
-			{
-				continue;
-			}
-			
-			qs = getQuestState(member, false);
-			if (qs != null)
-			{
-				candidates.add(qs);
-			}
-		}
-		
-		if (candidates.isEmpty())
-		{
-			return null;
-		}
-		
-		qs = candidates.get(getRandom(candidates.size()));
-		if (!Util.checkIfInRange(1500, qs.getPlayer(), target, true))
-		{
-			return null;
-		}
-		return qs;
 	}
 }

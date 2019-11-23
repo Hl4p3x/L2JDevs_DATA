@@ -63,22 +63,9 @@ import quests.Q10286_ReunionWithSirra.Q10286_ReunionWithSirra;
  */
 public final class IceQueensCastleNormalBattle extends AbstractInstance
 {
-	protected class IQCNBWorld extends InstanceWorld
-	{
-		protected List<L2PcInstance> playersInside = new ArrayList<>();
-		protected List<L2Npc> knightStatues = new ArrayList<>();
-		protected List<L2Attackable> spawnedMobs = new CopyOnWriteArrayList<>();
-		protected L2NpcInstance controller = null;
-		protected L2GrandBossInstance freya = null;
-		protected L2QuestGuardInstance supp_Jinia = null;
-		protected L2QuestGuardInstance supp_Kegor = null;
-		protected boolean isSupportActive = false;
-		protected boolean canSpawnMobs = true;
-		protected boolean isHardMode = false;
-	}
-	
 	// Npcs
 	private static final int FREYA_THRONE = 29177;
+	
 	private static final int FREYA_SPELLING = 29178;
 	private static final int FREYA_STAND = 29179;
 	private static final int FREYA_STAND_ULTIMATE = 29180;
@@ -168,7 +155,6 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 	private static final int TEMPLATE_ID = 139; // Ice Queen's Castle
 	private static final int TEMPLATE_ID_ULTIMATE = 144; // Ice Queen's Castle (Ultimate Battle)
 	private static final int DOOR_ID = 23140101;
-	
 	public IceQueensCastleNormalBattle()
 	{
 		super(IceQueensCastleNormalBattle.class.getSimpleName());
@@ -742,41 +728,6 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 	}
 	
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		((L2Attackable) npc).setOnKillDelay(0);
-		return super.onSpawn(npc);
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		
-		if (tmpworld instanceof IQCNBWorld)
-		{
-			final IQCNBWorld world = (IQCNBWorld) tmpworld;
-			
-			if (npc.getId() == SUPP_JINIA)
-			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
-				return null;
-			}
-			else if (npc.getId() == SUPP_KEGOR)
-			{
-				if (world.isSupportActive)
-				{
-					player.sendPacket(ActionFailed.STATIC_PACKET);
-					return null;
-				}
-				return "18851.html";
-			}
-		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-		return null;
-	}
-	
-	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
 	{
 		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
@@ -1077,7 +1028,39 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 	}
 	
 	@Override
-	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			final IQCNBWorld curworld = (IQCNBWorld) world;
+			curworld.isHardMode = curworld.getTemplateId() == TEMPLATE_ID_ULTIMATE;
+			if (!player.isInParty())
+			{
+				managePlayerEnter(player, curworld);
+			}
+			else if (player.getParty().isInCommandChannel())
+			{
+				for (L2PcInstance players : player.getParty().getCommandChannel().getMembers())
+				{
+					managePlayerEnter(players, curworld);
+				}
+			}
+			else
+			{
+				for (L2PcInstance players : player.getParty().getMembers())
+				{
+					managePlayerEnter(players, curworld);
+				}
+			}
+		}
+		else
+		{
+			teleportPlayer(player, world.isStatus(4) ? BATTLE_PORT : ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId());
+		}
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
 		
@@ -1085,43 +1068,23 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 		{
 			final IQCNBWorld world = (IQCNBWorld) tmpworld;
 			
-			switch (npc.getId())
+			if (npc.getId() == SUPP_JINIA)
 			{
-				case GLACIER:
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+				return null;
+			}
+			else if (npc.getId() == SUPP_KEGOR)
+			{
+				if (world.isSupportActive)
 				{
-					if (skill == COLD_MANAS_FRAGMENT.getSkill())
-					{
-						if (getRandom(100) < 75)
-						{
-							final L2Attackable breath = (L2Attackable) addSpawn(BREATH, npc.getLocation(), false, 0, false, world.getInstanceId());
-							if (player != null)
-							{
-								breath.setIsRunning(true);
-								breath.addDamageHate(player, 0, 999);
-								breath.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
-							}
-							else
-							{
-								manageRandomAttack(world, breath);
-							}
-							world.spawnedMobs.add(breath);
-							startQuestTimer("BLIZZARD", 20000, breath, null);
-						}
-						notifyEvent("SUICIDE", npc, null);
-					}
-					break;
+					player.sendPacket(ActionFailed.STATIC_PACKET);
+					return null;
 				}
-				case BREATH:
-				{
-					if (skill == SELF_DESTRUCTION.getSkill())
-					{
-						npc.doDie(null);
-					}
-					break;
-				}
+				return "18851.html";
 			}
 		}
-		return super.onSpellFinished(npc, player, skill);
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		return null;
 	}
 	
 	@Override
@@ -1212,42 +1175,58 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 	}
 	
 	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	public String onSpawn(L2Npc npc)
 	{
-		if (firstEntrance)
-		{
-			final IQCNBWorld curworld = (IQCNBWorld) world;
-			curworld.isHardMode = curworld.getTemplateId() == TEMPLATE_ID_ULTIMATE;
-			if (!player.isInParty())
-			{
-				managePlayerEnter(player, curworld);
-			}
-			else if (player.getParty().isInCommandChannel())
-			{
-				for (L2PcInstance players : player.getParty().getCommandChannel().getMembers())
-				{
-					managePlayerEnter(players, curworld);
-				}
-			}
-			else
-			{
-				for (L2PcInstance players : player.getParty().getMembers())
-				{
-					managePlayerEnter(players, curworld);
-				}
-			}
-		}
-		else
-		{
-			teleportPlayer(player, world.isStatus(4) ? BATTLE_PORT : ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId());
-		}
+		((L2Attackable) npc).setOnKillDelay(0);
+		return super.onSpawn(npc);
 	}
 	
-	private void managePlayerEnter(L2PcInstance player, IQCNBWorld world)
+	@Override
+	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
 	{
-		world.playersInside.add(player);
-		world.addAllowed(player.getObjectId());
-		teleportPlayer(player, ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId(), false);
+		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		
+		if (tmpworld instanceof IQCNBWorld)
+		{
+			final IQCNBWorld world = (IQCNBWorld) tmpworld;
+			
+			switch (npc.getId())
+			{
+				case GLACIER:
+				{
+					if (skill == COLD_MANAS_FRAGMENT.getSkill())
+					{
+						if (getRandom(100) < 75)
+						{
+							final L2Attackable breath = (L2Attackable) addSpawn(BREATH, npc.getLocation(), false, 0, false, world.getInstanceId());
+							if (player != null)
+							{
+								breath.setIsRunning(true);
+								breath.addDamageHate(player, 0, 999);
+								breath.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
+							}
+							else
+							{
+								manageRandomAttack(world, breath);
+							}
+							world.spawnedMobs.add(breath);
+							startQuestTimer("BLIZZARD", 20000, breath, null);
+						}
+						notifyEvent("SUICIDE", npc, null);
+					}
+					break;
+				}
+				case BREATH:
+				{
+					if (skill == SELF_DESTRUCTION.getSkill())
+					{
+						npc.doDie(null);
+					}
+					break;
+				}
+			}
+		}
+		return super.onSpellFinished(npc, player, skill);
 	}
 	
 	@Override
@@ -1315,6 +1294,36 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 		return true;
 	}
 	
+	private void manageDespawnMinions(IQCNBWorld world)
+	{
+		world.canSpawnMobs = false;
+		for (L2Attackable mobs : world.spawnedMobs)
+		{
+			if ((mobs != null) && !mobs.isDead())
+			{
+				mobs.doDie(null);
+			}
+		}
+	}
+	
+	private void manageMovie(IQCNBWorld world, int movie)
+	{
+		for (L2PcInstance players : world.playersInside)
+		{
+			if ((players != null) && (players.getInstanceId() == world.getInstanceId()))
+			{
+				players.showQuestMovie(movie);
+			}
+		}
+	}
+	
+	private void managePlayerEnter(L2PcInstance player, IQCNBWorld world)
+	{
+		world.playersInside.add(player);
+		world.addAllowed(player.getObjectId());
+		teleportPlayer(player, ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId(), false);
+	}
+	
 	private void manageRandomAttack(IQCNBWorld world, L2Attackable mob)
 	{
 		final List<L2PcInstance> players = new ArrayList<>();
@@ -1340,14 +1349,13 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 		}
 	}
 	
-	private void manageDespawnMinions(IQCNBWorld world)
+	private void manageScreenMsg(IQCNBWorld world, NpcStringId stringId)
 	{
-		world.canSpawnMobs = false;
-		for (L2Attackable mobs : world.spawnedMobs)
+		for (L2PcInstance players : world.playersInside)
 		{
-			if ((mobs != null) && !mobs.isDead())
+			if ((players != null) && (players.getInstanceId() == world.getInstanceId()))
 			{
-				mobs.doDie(null);
+				showOnScreenMsg(players, stringId, 2, 6000);
 			}
 		}
 	}
@@ -1363,25 +1371,17 @@ public final class IceQueensCastleNormalBattle extends AbstractInstance
 		}
 	}
 	
-	private void manageScreenMsg(IQCNBWorld world, NpcStringId stringId)
+	protected class IQCNBWorld extends InstanceWorld
 	{
-		for (L2PcInstance players : world.playersInside)
-		{
-			if ((players != null) && (players.getInstanceId() == world.getInstanceId()))
-			{
-				showOnScreenMsg(players, stringId, 2, 6000);
-			}
-		}
-	}
-	
-	private void manageMovie(IQCNBWorld world, int movie)
-	{
-		for (L2PcInstance players : world.playersInside)
-		{
-			if ((players != null) && (players.getInstanceId() == world.getInstanceId()))
-			{
-				players.showQuestMovie(movie);
-			}
-		}
+		protected List<L2PcInstance> playersInside = new ArrayList<>();
+		protected List<L2Npc> knightStatues = new ArrayList<>();
+		protected List<L2Attackable> spawnedMobs = new CopyOnWriteArrayList<>();
+		protected L2NpcInstance controller = null;
+		protected L2GrandBossInstance freya = null;
+		protected L2QuestGuardInstance supp_Jinia = null;
+		protected L2QuestGuardInstance supp_Kegor = null;
+		protected boolean isSupportActive = false;
+		protected boolean canSpawnMobs = true;
+		protected boolean isHardMode = false;
 	}
 }

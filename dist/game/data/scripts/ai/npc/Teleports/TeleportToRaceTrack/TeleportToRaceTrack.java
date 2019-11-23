@@ -83,6 +83,11 @@ public final class TeleportToRaceTrack extends AbstractNpcAI
 		addTalkId(TELEPORTERS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new TeleportToRaceTrack();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -107,10 +112,5 @@ public final class TeleportToRaceTrack extends AbstractNpcAI
 			player.getVariables().set(MONSTER_RETURN, TELEPORTERS.get(npc.getId()));
 		}
 		return super.onTalk(npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new TeleportToRaceTrack();
 	}
 }

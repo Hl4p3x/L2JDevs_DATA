@@ -71,6 +71,11 @@ public final class Ballista extends AbstractNpcAI
 		addSpawnId(BALLISTA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Ballista();
+	}
+	
 	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
@@ -95,10 +100,5 @@ public final class Ballista extends AbstractNpcAI
 		npc.disableCoreAI(true);
 		npc.setIsMortal(false);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Ballista();
 	}
 }

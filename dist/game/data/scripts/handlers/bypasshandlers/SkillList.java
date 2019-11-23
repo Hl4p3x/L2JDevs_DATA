@@ -40,6 +40,12 @@ public class SkillList implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!(target instanceof L2NpcInstance))
@@ -129,11 +135,5 @@ public class SkillList implements IBypassHandler
 			L2NpcInstance.showSkillList(activeChar, (L2Npc) target, activeChar.getClassId());
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

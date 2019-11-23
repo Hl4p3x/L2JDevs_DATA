@@ -50,6 +50,120 @@ public final class Alarm extends AbstractNpcAI
 		addSpawnId(ALARM);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Alarm();
+	}
+	
+	/**
+	 * Gets the memo state ex for the given player, quest and slot.
+	 * @param player the player
+	 * @param questId the quest ID
+	 * @param slot the slot
+	 * @return the memo state ex
+	 */
+	private static int getMemoStateEx(L2PcInstance player, int questId, int slot)
+	{
+		QuestState qs = null;
+		switch (questId)
+		{
+			case ART_OF_PERSUASION_ID:
+			{
+				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
+				break;
+			}
+			case NIKOLAS_COOPERATION_ID:
+			{
+				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
+				break;
+			}
+		}
+		return (qs != null) ? qs.getMemoStateEx(slot) : -1;
+	}
+	
+	/**
+	 * Sets the memo state for the given player and quest.
+	 * @param player the player
+	 * @param questId the quest ID
+	 * @param memoState the memo state
+	 */
+	private static void setMemoState(L2PcInstance player, int questId, int memoState)
+	{
+		QuestState qs = null;
+		switch (questId)
+		{
+			case ART_OF_PERSUASION_ID:
+			{
+				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
+				break;
+			}
+			case NIKOLAS_COOPERATION_ID:
+			{
+				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
+				break;
+			}
+		}
+		if (qs != null)
+		{
+			qs.setMemoState(memoState);
+		}
+	}
+	
+	/**
+	 * Sets the memo state ex for the given player and quest.
+	 * @param player the player
+	 * @param questId the quest ID
+	 * @param slot the slot
+	 * @param memoStateEx the memo state ex
+	 */
+	private static void setMemoStateEx(L2PcInstance player, int questId, int slot, int memoStateEx)
+	{
+		QuestState qs = null;
+		switch (questId)
+		{
+			case ART_OF_PERSUASION_ID:
+			{
+				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
+				break;
+			}
+			case NIKOLAS_COOPERATION_ID:
+			{
+				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
+				break;
+			}
+		}
+		if (qs != null)
+		{
+			qs.setMemoStateEx(slot, memoStateEx);
+		}
+	}
+	
+	/**
+	 * Verifies if the given player has the require memo state.
+	 * @param player the player
+	 * @param questId the quest ID
+	 * @param memoState the memo state, if memo state is less than zero, only quest state is checked
+	 * @return {@code true} if the player has the memo state, {@code false} otherwise
+	 */
+	private static boolean verifyMemoState(L2PcInstance player, int questId, int memoState)
+	{
+		QuestState qs = null;
+		switch (questId)
+		{
+			case ART_OF_PERSUASION_ID:
+			{
+				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
+				break;
+			}
+			case NIKOLAS_COOPERATION_ID:
+			{
+				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
+				break;
+			}
+		}
+		return (qs != null) && ((memoState < 0) || qs.isMemoState(memoState));
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -241,119 +355,5 @@ public final class Alarm extends AbstractNpcAI
 			playSound(player, Sound.ITEMSOUND_SIREN);
 		}
 		return super.onSpawn(npc);
-	}
-	
-	/**
-	 * Verifies if the given player has the require memo state.
-	 * @param player the player
-	 * @param questId the quest ID
-	 * @param memoState the memo state, if memo state is less than zero, only quest state is checked
-	 * @return {@code true} if the player has the memo state, {@code false} otherwise
-	 */
-	private static boolean verifyMemoState(L2PcInstance player, int questId, int memoState)
-	{
-		QuestState qs = null;
-		switch (questId)
-		{
-			case ART_OF_PERSUASION_ID:
-			{
-				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
-				break;
-			}
-			case NIKOLAS_COOPERATION_ID:
-			{
-				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
-				break;
-			}
-		}
-		return (qs != null) && ((memoState < 0) || qs.isMemoState(memoState));
-	}
-	
-	/**
-	 * Sets the memo state for the given player and quest.
-	 * @param player the player
-	 * @param questId the quest ID
-	 * @param memoState the memo state
-	 */
-	private static void setMemoState(L2PcInstance player, int questId, int memoState)
-	{
-		QuestState qs = null;
-		switch (questId)
-		{
-			case ART_OF_PERSUASION_ID:
-			{
-				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
-				break;
-			}
-			case NIKOLAS_COOPERATION_ID:
-			{
-				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
-				break;
-			}
-		}
-		if (qs != null)
-		{
-			qs.setMemoState(memoState);
-		}
-	}
-	
-	/**
-	 * Gets the memo state ex for the given player, quest and slot.
-	 * @param player the player
-	 * @param questId the quest ID
-	 * @param slot the slot
-	 * @return the memo state ex
-	 */
-	private static int getMemoStateEx(L2PcInstance player, int questId, int slot)
-	{
-		QuestState qs = null;
-		switch (questId)
-		{
-			case ART_OF_PERSUASION_ID:
-			{
-				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
-				break;
-			}
-			case NIKOLAS_COOPERATION_ID:
-			{
-				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
-				break;
-			}
-		}
-		return (qs != null) ? qs.getMemoStateEx(slot) : -1;
-	}
-	
-	/**
-	 * Sets the memo state ex for the given player and quest.
-	 * @param player the player
-	 * @param questId the quest ID
-	 * @param slot the slot
-	 * @param memoStateEx the memo state ex
-	 */
-	private static void setMemoStateEx(L2PcInstance player, int questId, int slot, int memoStateEx)
-	{
-		QuestState qs = null;
-		switch (questId)
-		{
-			case ART_OF_PERSUASION_ID:
-			{
-				qs = player.getQuestState(Q00184_ArtOfPersuasion.class.getSimpleName());
-				break;
-			}
-			case NIKOLAS_COOPERATION_ID:
-			{
-				qs = player.getQuestState(Q00185_NikolasCooperation.class.getSimpleName());
-				break;
-			}
-		}
-		if (qs != null)
-		{
-			qs.setMemoStateEx(slot, memoStateEx);
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Alarm();
 	}
 }

@@ -36,6 +36,12 @@ public class Banking implements IVoicedCommandHandler
 	};
 	
 	@Override
+	public String[] getVoicedCommandList()
+	{
+		return _voicedCommands;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		if (command.equals("bank"))
@@ -77,11 +83,5 @@ public class Banking implements IVoicedCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return _voicedCommands;
 	}
 }

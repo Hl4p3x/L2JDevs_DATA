@@ -60,44 +60,32 @@ public final class SkillTransfer extends AbstractNpcAI
 		setOnEnterWorld(Config.SKILL_CHECK_ENABLE);
 	}
 	
-	public void onProfessionChange(OnPlayerProfessionChange event)
+	public static void main(String[] args)
 	{
-		final L2PcInstance player = event.getActiveChar();
-		final int index = getTransferClassIndex(player);
-		if (index < 0)
-		{
-			return;
-		}
-		
-		final String name = HOLY_POMANDER + player.getClassId().getId();
-		if (!player.getVariables().getBoolean(name, false))
-		{
-			player.getVariables().set(name, true);
-			giveItems(player, PORMANDERS[index]);
-		}
+		new SkillTransfer();
 	}
 	
-	public void onProfessionCancel(OnPlayerProfessionCancel event)
+	private static int getTransferClassIndex(L2PcInstance player)
 	{
-		final L2PcInstance player = event.getActiveChar();
-		final int index = getTransferClassIndex(player);
-		
-		// is a transfer class
-		if (index < 0)
+		switch (player.getClassId())
 		{
-			return;
+			case cardinal:
+			{
+				return 0;
+			}
+			case evaSaint:
+			{
+				return 1;
+			}
+			case shillienSaint:
+			{
+				return 2;
+			}
+			default:
+			{
+				return -1;
+			}
 		}
-		
-		int pomanderId = PORMANDERS[index].getId();
-		// remove unsused HolyPomander
-		PcInventory inv = player.getInventory();
-		for (L2ItemInstance itemI : inv.getAllItemsByItemId(pomanderId))
-		{
-			inv.destroyItem("[HolyPomander - remove]", itemI, player, null);
-		}
-		// remove holy pomander variable
-		final String name = HOLY_POMANDER + event.getClassId();
-		player.getVariables().remove(name);
 	}
 	
 	@Override
@@ -145,31 +133,43 @@ public final class SkillTransfer extends AbstractNpcAI
 		return super.onEnterWorld(player);
 	}
 	
-	private static int getTransferClassIndex(L2PcInstance player)
+	public void onProfessionCancel(OnPlayerProfessionCancel event)
 	{
-		switch (player.getClassId())
+		final L2PcInstance player = event.getActiveChar();
+		final int index = getTransferClassIndex(player);
+		
+		// is a transfer class
+		if (index < 0)
 		{
-			case cardinal:
-			{
-				return 0;
-			}
-			case evaSaint:
-			{
-				return 1;
-			}
-			case shillienSaint:
-			{
-				return 2;
-			}
-			default:
-			{
-				return -1;
-			}
+			return;
 		}
+		
+		int pomanderId = PORMANDERS[index].getId();
+		// remove unsused HolyPomander
+		PcInventory inv = player.getInventory();
+		for (L2ItemInstance itemI : inv.getAllItemsByItemId(pomanderId))
+		{
+			inv.destroyItem("[HolyPomander - remove]", itemI, player, null);
+		}
+		// remove holy pomander variable
+		final String name = HOLY_POMANDER + event.getClassId();
+		player.getVariables().remove(name);
 	}
 	
-	public static void main(String[] args)
+	public void onProfessionChange(OnPlayerProfessionChange event)
 	{
-		new SkillTransfer();
+		final L2PcInstance player = event.getActiveChar();
+		final int index = getTransferClassIndex(player);
+		if (index < 0)
+		{
+			return;
+		}
+		
+		final String name = HOLY_POMANDER + player.getClassId().getId();
+		if (!player.getVariables().getBoolean(name, false))
+		{
+			player.getVariables().set(name, true);
+			giveItems(player, PORMANDERS[index]);
+		}
 	}
 }

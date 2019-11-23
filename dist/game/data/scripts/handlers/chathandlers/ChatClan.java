@@ -37,6 +37,15 @@ public class ChatClan implements IChatHandler
 	};
 	
 	/**
+	 * Returns the chat types registered to this handler.
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	/**
 	 * Handle chat type 'clan'
 	 */
 	@Override
@@ -53,14 +62,5 @@ public class ChatClan implements IChatHandler
 			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 			activeChar.getClan().broadcastCSToOnlineMembers(cs, activeChar);
 		}
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler.
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
 	}
 }

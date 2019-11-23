@@ -36,15 +36,15 @@ public final class RagnaOrcSeer extends AbstractNpcAI
 		addSpawnId(RAGNA_ORC_SEER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new RagnaOrcSeer();
+	}
+	
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
 		spawnMinions(npc, "Privates" + getRandom(1, 2));
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new RagnaOrcSeer();
 	}
 }

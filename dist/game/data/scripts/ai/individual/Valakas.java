@@ -114,10 +114,10 @@ public final class Valakas extends AbstractNpcAI
 	private static final byte WAITING = 1; // Valakas is spawned and someone has entered, triggering a 30 minute window for additional people to enter. Entry is unlocked.
 	private static final byte FIGHTING = 2; // Valakas is engaged in battle, annihilating his foes. Entry is locked.
 	private static final byte DEAD = 3; // Valakas has been killed. Entry is locked.
+	private static L2BossZone ZONE;
 	// Misc
 	private long _timeTracker = 0; // Time tracker for last attack on Valakas.
 	private L2Playable _actualVictim; // Actual target of Valakas.
-	private static L2BossZone ZONE;
 	
 	private Valakas()
 	{
@@ -186,6 +186,11 @@ public final class Valakas extends AbstractNpcAI
 				}
 			}
 		}
+	}
+	
+	public static void main(String[] args)
+	{
+		new Valakas();
 	}
 	
 	@Override
@@ -380,10 +385,9 @@ public final class Valakas extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onSpawn(L2Npc npc)
+	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
-		npc.disableCoreAI(true);
-		return super.onSpawn(npc);
+		return null;
 	}
 	
 	@Override
@@ -455,9 +459,10 @@ public final class Valakas extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
+	public String onSpawn(L2Npc npc)
 	{
-		return null;
+		npc.disableCoreAI(true);
+		return super.onSpawn(npc);
 	}
 	
 	private void callSkillAI(L2Npc npc)
@@ -563,10 +568,5 @@ public final class Valakas extends AbstractNpcAI
 		}
 		
 		return (result.isEmpty()) ? null : result.get(getRandom(result.size()));
-	}
-	
-	public static void main(String[] args)
-	{
-		new Valakas();
 	}
 }

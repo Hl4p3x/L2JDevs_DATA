@@ -48,6 +48,19 @@ public class HandysBlockCheckerEvent extends Quest
 		HandysBlockCheckerManager.getInstance().startUpParticipantsQueue();
 	}
 	
+	public static void main(String[] args)
+	{
+		if (Config.ENABLE_BLOCK_CHECKER_EVENT)
+		{
+			new HandysBlockCheckerEvent();
+			_log.info("Handy's Block Checker Event is enabled");
+		}
+		else
+		{
+			_log.info("Handy's Block Checker Event is disabled");
+		}
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -94,18 +107,5 @@ public class HandysBlockCheckerEvent extends Quest
 	private boolean eventIsFull(int arena)
 	{
 		return HandysBlockCheckerManager.getInstance().getHolder(arena).getAllPlayers().size() == 12;
-	}
-	
-	public static void main(String[] args)
-	{
-		if (Config.ENABLE_BLOCK_CHECKER_EVENT)
-		{
-			new HandysBlockCheckerEvent();
-			_log.info("Handy's Block Checker Event is enabled");
-		}
-		else
-		{
-			_log.info("Handy's Block Checker Event is disabled");
-		}
 	}
 }

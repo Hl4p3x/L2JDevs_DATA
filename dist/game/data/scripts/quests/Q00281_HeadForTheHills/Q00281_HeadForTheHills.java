@@ -85,6 +85,39 @@ public final class Q00281_HeadForTheHills extends Quest
 		registerQuestItems(CLAWS);
 	}
 	
+	/**
+	 * Give basic newbie reward.
+	 * @param player the player to reward
+	 */
+	public static void giveNewbieReward(L2PcInstance player)
+	{
+		final PlayerVariables vars = player.getVariables();
+		if ((player.getLevel() < 25) && !vars.getBoolean("NEWBIE_SHOTS", false))
+		{
+			if (player.isMageClass())
+			{
+				giveItems(player, SPIRITSHOTS_NO_GRADE_FOR_ROOKIES);
+				playSound(player, Voice.TUTORIAL_VOICE_027_1000);
+			}
+			else
+			{
+				giveItems(player, SOULSHOTS_NO_GRADE_FOR_ROOKIES);
+				playSound(player, Voice.TUTORIAL_VOICE_026_1000);
+			}
+			vars.set("NEWBIE_SHOTS", true);
+		}
+		if (vars.getString("GUIDE_MISSION", null) == null)
+		{
+			vars.set("GUIDE_MISSION", 1000);
+			player.sendPacket(MESSAGE);
+		}
+		else if (((vars.getInt("GUIDE_MISSION") % 10000) / 1000) != 1)
+		{
+			vars.set("GUIDE_MISSION", vars.getInt("GUIDE_MISSION") + 1000);
+			player.sendPacket(MESSAGE);
+		}
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -187,38 +220,5 @@ public final class Q00281_HeadForTheHills extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	/**
-	 * Give basic newbie reward.
-	 * @param player the player to reward
-	 */
-	public static void giveNewbieReward(L2PcInstance player)
-	{
-		final PlayerVariables vars = player.getVariables();
-		if ((player.getLevel() < 25) && !vars.getBoolean("NEWBIE_SHOTS", false))
-		{
-			if (player.isMageClass())
-			{
-				giveItems(player, SPIRITSHOTS_NO_GRADE_FOR_ROOKIES);
-				playSound(player, Voice.TUTORIAL_VOICE_027_1000);
-			}
-			else
-			{
-				giveItems(player, SOULSHOTS_NO_GRADE_FOR_ROOKIES);
-				playSound(player, Voice.TUTORIAL_VOICE_026_1000);
-			}
-			vars.set("NEWBIE_SHOTS", true);
-		}
-		if (vars.getString("GUIDE_MISSION", null) == null)
-		{
-			vars.set("GUIDE_MISSION", 1000);
-			player.sendPacket(MESSAGE);
-		}
-		else if (((vars.getInt("GUIDE_MISSION") % 10000) / 1000) != 1)
-		{
-			vars.set("GUIDE_MISSION", vars.getInt("GUIDE_MISSION") + 1000);
-			player.sendPacket(MESSAGE);
-		}
 	}
 }

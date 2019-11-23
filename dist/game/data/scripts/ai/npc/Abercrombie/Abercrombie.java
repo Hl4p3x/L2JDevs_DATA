@@ -41,6 +41,11 @@ public final class Abercrombie extends AbstractNpcAI
 		addFirstTalkId(ABERCROMBIE);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Abercrombie();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -58,10 +63,5 @@ public final class Abercrombie extends AbstractNpcAI
 			htmltext = "31555-09.html";
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new Abercrombie();
 	}
 }

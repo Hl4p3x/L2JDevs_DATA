@@ -36,30 +36,9 @@ import ai.npc.AbstractNpcAI;
  */
 public final class KetraOrcSupport extends AbstractNpcAI
 {
-	private static class BuffsData
-	{
-		private final int _skill;
-		private final int _cost;
-		
-		public BuffsData(int skill, int cost)
-		{
-			_skill = skill;
-			_cost = cost;
-		}
-		
-		public Skill getSkill()
-		{
-			return SkillData.getInstance().getSkill(_skill, 1);
-		}
-		
-		public int getCost()
-		{
-			return _cost;
-		}
-	}
-	
 	// NPCs
 	private static final int KADUN = 31370; // Hierarch
+	
 	private static final int WAHKAN = 31371; // Messenger
 	private static final int ASEFA = 31372; // Soul Guide
 	private static final int ATAN = 31373; // Grocer
@@ -89,7 +68,6 @@ public final class KetraOrcSupport extends AbstractNpcAI
 		BUFF.put(7, new BuffsData(4356, 6)); // Empower: Requires 6 Buffalo Horns
 		BUFF.put(8, new BuffsData(4357, 6)); // Haste: Requires 6 Buffalo Horns
 	}
-	
 	private KetraOrcSupport()
 	{
 		super(KetraOrcSupport.class.getSimpleName(), "ai/npc");
@@ -98,16 +76,9 @@ public final class KetraOrcSupport extends AbstractNpcAI
 		addStartNpc(KURFA, JAFF);
 	}
 	
-	private int getAllianceLevel(L2PcInstance player)
+	public static void main(String args[])
 	{
-		for (int i = 0; i < KETRA_MARKS.length; i++)
-		{
-			if (hasQuestItems(player, KETRA_MARKS[i]))
-			{
-				return (i + 1);
-			}
-		}
-		return 0;
+		new KetraOrcSupport();
 	}
 	
 	@Override
@@ -208,8 +179,37 @@ public final class KetraOrcSupport extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	public static void main(String args[])
+	private int getAllianceLevel(L2PcInstance player)
 	{
-		new KetraOrcSupport();
+		for (int i = 0; i < KETRA_MARKS.length; i++)
+		{
+			if (hasQuestItems(player, KETRA_MARKS[i]))
+			{
+				return (i + 1);
+			}
+		}
+		return 0;
+	}
+	
+	private static class BuffsData
+	{
+		private final int _skill;
+		private final int _cost;
+		
+		public BuffsData(int skill, int cost)
+		{
+			_skill = skill;
+			_cost = cost;
+		}
+		
+		public int getCost()
+		{
+			return _cost;
+		}
+		
+		public Skill getSkill()
+		{
+			return SkillData.getInstance().getSkill(_skill, 1);
+		}
 	}
 }

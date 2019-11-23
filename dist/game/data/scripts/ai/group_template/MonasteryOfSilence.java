@@ -83,6 +83,11 @@ public final class MonasteryOfSilence extends AbstractNpcAI
 		addSpawnId(SCARECROW);
 	}
 	
+	public static void main(String[] args)
+	{
+		new MonasteryOfSilence();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -134,6 +139,64 @@ public final class MonasteryOfSilence extends AbstractNpcAI
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
+	}
+	
+	@Override
+	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		if (player.getActiveWeaponInstance() != null)
+		{
+			SkillHolder skill = null;
+			switch (npc.getId())
+			{
+				case GUIDE:
+				{
+					if (getRandom(100) < 3)
+					{
+						skill = LEADER_STRIKE;
+					}
+					break;
+				}
+				case SEEKER:
+				{
+					skill = SAVER_BLEED;
+					break;
+				}
+				case SAVIOR:
+				{
+					skill = LEARNING_MAGIC;
+					break;
+				}
+				case ASCETIC:
+				{
+					if (getRandom(100) < 3)
+					{
+						skill = STUDENT_CANCEL;
+					}
+					
+					if (npc.isScriptValue(0))
+					{
+						npc.setScriptValue(1);
+						startQuestTimer("DO_CAST", 20000, npc, player);
+					}
+					break;
+				}
+			}
+			
+			if ((skill != null) && npc.checkDoCastConditions(skill.getSkill()))
+			{
+				npc.setTarget(player);
+				npc.doCast(skill);
+			}
+			
+			if (!npc.isInCombat())
+			{
+				broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.YOU_CANNOT_CARRY_A_WEAPON_WITHOUT_AUTHORIZATION);
+			}
+			
+			addAttackDesire(npc, player);
+		}
+		return super.onAggroRangeEnter(npc, player, isSummon);
 	}
 	
 	@Override
@@ -205,64 +268,6 @@ public final class MonasteryOfSilence extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		if (player.getActiveWeaponInstance() != null)
-		{
-			SkillHolder skill = null;
-			switch (npc.getId())
-			{
-				case GUIDE:
-				{
-					if (getRandom(100) < 3)
-					{
-						skill = LEADER_STRIKE;
-					}
-					break;
-				}
-				case SEEKER:
-				{
-					skill = SAVER_BLEED;
-					break;
-				}
-				case SAVIOR:
-				{
-					skill = LEARNING_MAGIC;
-					break;
-				}
-				case ASCETIC:
-				{
-					if (getRandom(100) < 3)
-					{
-						skill = STUDENT_CANCEL;
-					}
-					
-					if (npc.isScriptValue(0))
-					{
-						npc.setScriptValue(1);
-						startQuestTimer("DO_CAST", 20000, npc, player);
-					}
-					break;
-				}
-			}
-			
-			if ((skill != null) && npc.checkDoCastConditions(skill.getSkill()))
-			{
-				npc.setTarget(player);
-				npc.doCast(skill);
-			}
-			
-			if (!npc.isInCombat())
-			{
-				broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.YOU_CANNOT_CARRY_A_WEAPON_WITHOUT_AUTHORIZATION);
-			}
-			
-			addAttackDesire(npc, player);
-		}
-		return super.onAggroRangeEnter(npc, player, isSummon);
-	}
-	
-	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
 		if (skill.hasEffectType(L2EffectType.AGGRESSION) && (targets.length != 0))
@@ -287,10 +292,5 @@ public final class MonasteryOfSilence extends AbstractNpcAI
 		npc.disableCoreAI(true);
 		startQuestTimer("TRAINING", 30000, npc, null, true);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new MonasteryOfSilence();
 	}
 }

@@ -59,14 +59,9 @@ public final class ResistSkill extends AbstractEffect
 	}
 	
 	@Override
-	public void onStart(BuffInfo info)
+	public L2EffectType getEffectType()
 	{
-		final L2Character effected = info.getEffected();
-		for (SkillHolder holder : _skills)
-		{
-			effected.addInvulAgainst(holder);
-			effected.sendDebugMessage("Applying invul against " + holder.getSkill());
-		}
+		return L2EffectType.BUFF;
 	}
 	
 	@Override
@@ -81,8 +76,13 @@ public final class ResistSkill extends AbstractEffect
 	}
 	
 	@Override
-	public L2EffectType getEffectType()
+	public void onStart(BuffInfo info)
 	{
-		return L2EffectType.BUFF;
+		final L2Character effected = info.getEffected();
+		for (SkillHolder holder : _skills)
+		{
+			effected.addInvulAgainst(holder);
+			effected.sendDebugMessage("Applying invul against " + holder.getSkill());
+		}
 	}
 }

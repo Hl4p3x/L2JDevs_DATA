@@ -63,6 +63,11 @@ public final class PaganTeleporters extends AbstractNpcAI
 		addFirstTalkId(TRIOLS_MIRROR_1, TRIOLS_MIRROR_2);
 	}
 	
+	public static void main(String[] args)
+	{
+		new PaganTeleporters();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -134,10 +139,5 @@ public final class PaganTeleporters extends AbstractNpcAI
 			}
 		}
 		return super.onTalk(npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new PaganTeleporters();
 	}
 }

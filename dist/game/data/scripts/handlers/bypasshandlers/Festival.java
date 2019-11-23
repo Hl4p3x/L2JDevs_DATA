@@ -48,6 +48,12 @@ public class Festival implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!(target instanceof L2FestivalGuideInstance))
@@ -356,11 +362,5 @@ public class Festival implements IBypassHandler
 		Calendar calCalc = Calendar.getInstance();
 		calCalc.setTimeInMillis(numMillis);
 		return calCalc.get(Calendar.YEAR) + "/" + calCalc.get(Calendar.MONTH) + "/" + calCalc.get(Calendar.DAY_OF_MONTH);
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

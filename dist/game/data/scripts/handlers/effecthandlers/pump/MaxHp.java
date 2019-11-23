@@ -66,6 +66,16 @@ public final class MaxHp extends AbstractEffect
 	}
 	
 	@Override
+	public void onExit(BuffInfo info)
+	{
+		final CharStat charStat = info.getEffected().getStat();
+		synchronized (charStat)
+		{
+			charStat.getActiveChar().removeStatsOwner(this);
+		}
+	}
+	
+	@Override
 	public void onStart(BuffInfo info)
 	{
 		final L2Character effected = info.getEffected();
@@ -103,16 +113,6 @@ public final class MaxHp extends AbstractEffect
 		if (_heal)
 		{
 			effected.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_HP_HAS_BEEN_RESTORED).addInt((int) amount));
-		}
-	}
-	
-	@Override
-	public void onExit(BuffInfo info)
-	{
-		final CharStat charStat = info.getEffected().getStat();
-		synchronized (charStat)
-		{
-			charStat.getActiveChar().removeStatsOwner(this);
 		}
 	}
 	

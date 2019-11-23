@@ -38,6 +38,15 @@ public class ChatPetition implements IChatHandler
 	};
 	
 	/**
+	 * Returns the chat types registered to this handler.
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	/**
 	 * Handle chat type 'petition player'
 	 */
 	@Override
@@ -56,14 +65,5 @@ public class ChatPetition implements IChatHandler
 		}
 		
 		PetitionManager.getInstance().sendActivePetitionMessage(activeChar, text);
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler.
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
 	}
 }

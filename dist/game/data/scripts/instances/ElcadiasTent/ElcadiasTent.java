@@ -37,26 +37,31 @@ import quests.Q10296_SevenSignsOneWhoSeeksThePowerOfTheSeal.Q10296_SevenSignsOne
  */
 public final class ElcadiasTent extends AbstractInstance
 {
-	protected class ETWorld extends InstanceWorld
-	{
-		
-	}
-	
 	// NPCs
 	private static final int ELCADIA = 32784;
+	
 	private static final int GRUFF_LOOKING_MAN = 32862;
 	// Locations
 	private static final Location START_LOC = new Location(89797, -238081, -9632);
 	private static final Location EXIT_LOC = new Location(43347, -87923, -2820);
 	// Misc
 	private static final int TEMPLATE_ID = 158;
-	
 	public ElcadiasTent()
 	{
 		super(ElcadiasTent.class.getSimpleName());
 		addFirstTalkId(GRUFF_LOOKING_MAN, ELCADIA);
 		addStartNpc(GRUFF_LOOKING_MAN, ELCADIA);
 		addTalkId(GRUFF_LOOKING_MAN, ELCADIA);
+	}
+	
+	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+		}
+		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
 	}
 	
 	@Override
@@ -91,13 +96,8 @@ public final class ElcadiasTent extends AbstractInstance
 		return super.onTalk(npc, talker);
 	}
 	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	protected class ETWorld extends InstanceWorld
 	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-		}
-		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
+		
 	}
 }

@@ -45,6 +45,12 @@ public class OlympiadObservation implements IBypassHandler
 	};
 	
 	@Override
+	public final String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public final boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		try
@@ -107,11 +113,5 @@ public class OlympiadObservation implements IBypassHandler
 			_log.log(Level.WARNING, "Exception in " + getClass().getSimpleName(), e);
 		}
 		return false;
-	}
-	
-	@Override
-	public final String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

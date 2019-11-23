@@ -97,6 +97,38 @@ public class Q00331_ArrowOfVengeance extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
+		final QuestState st = getQuestState(player, false);
+		if (st != null)
+		{
+			if (getRandom(100) < MONSTERS.get(npc.getId()))
+			{
+				switch (npc.getId())
+				{
+					case 20145:
+					{
+						st.giveItems(HARPY_FEATHER, 1);
+						break;
+					}
+					case 20158:
+					{
+						st.giveItems(MEDUSA_VENOM, 1);
+						break;
+					}
+					case 20176:
+					{
+						st.giveItems(WYRMS_TOOTH, 1);
+						break;
+					}
+				}
+				st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+			}
+		}
+		return super.onKill(npc, player, isPet);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState st = getQuestState(player, true);
@@ -127,37 +159,5 @@ public class Q00331_ArrowOfVengeance extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		final QuestState st = getQuestState(player, false);
-		if (st != null)
-		{
-			if (getRandom(100) < MONSTERS.get(npc.getId()))
-			{
-				switch (npc.getId())
-				{
-					case 20145:
-					{
-						st.giveItems(HARPY_FEATHER, 1);
-						break;
-					}
-					case 20158:
-					{
-						st.giveItems(MEDUSA_VENOM, 1);
-						break;
-					}
-					case 20176:
-					{
-						st.giveItems(WYRMS_TOOTH, 1);
-						break;
-					}
-				}
-				st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-			}
-		}
-		return super.onKill(npc, player, isPet);
 	}
 }

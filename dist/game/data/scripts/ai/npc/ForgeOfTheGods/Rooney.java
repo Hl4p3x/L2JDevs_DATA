@@ -54,6 +54,11 @@ public final class Rooney extends AbstractNpcAI
 		addSpawn(ROONEY, LOCATIONS[getRandom(LOCATIONS.length)], false, 0);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Rooney();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -117,10 +122,5 @@ public final class Rooney extends AbstractNpcAI
 			npc.setScriptValue(1);
 		}
 		return super.onSeeCreature(npc, creature, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Rooney();
 	}
 }

@@ -48,6 +48,11 @@ public class NecromancerOfTheValley extends AbstractNpcAI
 		addSpellFinishedId(EXPLODING_ORC_GHOST);
 	}
 	
+	public static void main(String[] args)
+	{
+		new NecromancerOfTheValley();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -79,10 +84,5 @@ public class NecromancerOfTheValley extends AbstractNpcAI
 			npc.doDie(player);
 		}
 		return super.onSpellFinished(npc, player, skill);
-	}
-	
-	public static void main(String[] args)
-	{
-		new NecromancerOfTheValley();
 	}
 }

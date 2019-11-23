@@ -46,6 +46,11 @@ public final class Survivor extends AbstractNpcAI
 		addTalkId(SURVIVOR);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Survivor();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -73,10 +78,5 @@ public final class Survivor extends AbstractNpcAI
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		return "32632-1.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new Survivor();
 	}
 }

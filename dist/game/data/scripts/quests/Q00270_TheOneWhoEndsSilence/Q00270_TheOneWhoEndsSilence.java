@@ -61,6 +61,27 @@ public class Q00270_TheOneWhoEndsSilence extends Quest
 		registerQuestItems(TATTERED_MONK_CLOTHES);
 	}
 	
+	/**
+	 * Gives an item to one random party member with the proper condition, for the given parameters.
+	 * @param player the random player to reward
+	 * @param npc the killed npc
+	 * @param chance the reward chance
+	 * @param atLeastOne if {@code true} it will reward two items if the chance is meet and one if the chance is not meet, if {@code false} if the chance is not meet doesn't reward, otherwise reward one item
+	 */
+	private static void giveItem(L2PcInstance player, L2Npc npc, int chance, boolean atLeastOne)
+	{
+		if ((player != null) && Util.checkIfInRange(1500, npc, player, false))
+		{
+			final int count = ((getRandom(1000) < chance) ? 1 : 0) + (atLeastOne ? 1 : 0);
+			if (count > 0)
+			{
+				final QuestState qs = player.getQuestState(Q00270_TheOneWhoEndsSilence.class.getSimpleName());
+				qs.giveItems(TATTERED_MONK_CLOTHES, count);
+				qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+			}
+		}
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -424,26 +445,5 @@ public class Q00270_TheOneWhoEndsSilence extends Quest
 				break;
 		}
 		qs.giveItems(scrollId, 1);
-	}
-	
-	/**
-	 * Gives an item to one random party member with the proper condition, for the given parameters.
-	 * @param player the random player to reward
-	 * @param npc the killed npc
-	 * @param chance the reward chance
-	 * @param atLeastOne if {@code true} it will reward two items if the chance is meet and one if the chance is not meet, if {@code false} if the chance is not meet doesn't reward, otherwise reward one item
-	 */
-	private static void giveItem(L2PcInstance player, L2Npc npc, int chance, boolean atLeastOne)
-	{
-		if ((player != null) && Util.checkIfInRange(1500, npc, player, false))
-		{
-			final int count = ((getRandom(1000) < chance) ? 1 : 0) + (atLeastOne ? 1 : 0);
-			if (count > 0)
-			{
-				final QuestState qs = player.getQuestState(Q00270_TheOneWhoEndsSilence.class.getSimpleName());
-				qs.giveItems(TATTERED_MONK_CLOTHES, count);
-				qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-			}
-		}
 	}
 }

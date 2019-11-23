@@ -40,13 +40,9 @@ import quests.Q10284_AcquisitionOfDivineSword.Q10284_AcquisitionOfDivineSword;
  */
 public final class MithrilMine extends AbstractInstance
 {
-	protected class MMWorld extends InstanceWorld
-	{
-		protected int _count = 0;
-	}
-	
 	// NPCs
 	private static final int KEGOR = 18846;
+	
 	private static final int MITHRIL_MILLIPEDE = 22766;
 	private static final int KRUN = 32653;
 	private static final int TARUN = 32654;
@@ -67,7 +63,6 @@ public final class MithrilMine extends AbstractInstance
 	};
 	// Misc
 	private static final int TEMPLATE_ID = 138;
-	
 	public MithrilMine()
 	{
 		super(MithrilMine.class.getSimpleName(), "instances");
@@ -128,6 +123,16 @@ public final class MithrilMine extends AbstractInstance
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
+	}
+	
+	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+		}
+		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
 	}
 	
 	@Override
@@ -226,13 +231,8 @@ public final class MithrilMine extends AbstractInstance
 		return super.onTalk(npc, talker);
 	}
 	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	protected class MMWorld extends InstanceWorld
 	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-		}
-		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
+		protected int _count = 0;
 	}
 }

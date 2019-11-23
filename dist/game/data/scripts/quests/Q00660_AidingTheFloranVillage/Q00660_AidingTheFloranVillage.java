@@ -77,6 +77,40 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 		registerQuestItems(WATCHING_EYES, ROUGHLY_HEWN_ROCK_GOLEM_SHARD, DELU_LIZARDMANS_SCALE);
 	}
 	
+	private static void tradeItems(L2PcInstance player, long required, long itemCount1, long itemCount2, long itemCount3)
+	{
+		if (itemCount1 < required)
+		{
+			takeItems(player, WATCHING_EYES, itemCount1);
+			required -= itemCount1;
+		}
+		else
+		{
+			takeItems(player, WATCHING_EYES, required);
+			required = 0;
+		}
+		
+		if (itemCount2 < required)
+		{
+			takeItems(player, ROUGHLY_HEWN_ROCK_GOLEM_SHARD, itemCount2);
+			required -= itemCount2;
+		}
+		else
+		{
+			takeItems(player, ROUGHLY_HEWN_ROCK_GOLEM_SHARD, required);
+			required = 0;
+		}
+		
+		if (itemCount3 < required)
+		{
+			takeItems(player, DELU_LIZARDMANS_SCALE, itemCount3);
+		}
+		else
+		{
+			takeItems(player, DELU_LIZARDMANS_SCALE, required);
+		}
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -344,39 +378,5 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	private static void tradeItems(L2PcInstance player, long required, long itemCount1, long itemCount2, long itemCount3)
-	{
-		if (itemCount1 < required)
-		{
-			takeItems(player, WATCHING_EYES, itemCount1);
-			required -= itemCount1;
-		}
-		else
-		{
-			takeItems(player, WATCHING_EYES, required);
-			required = 0;
-		}
-		
-		if (itemCount2 < required)
-		{
-			takeItems(player, ROUGHLY_HEWN_ROCK_GOLEM_SHARD, itemCount2);
-			required -= itemCount2;
-		}
-		else
-		{
-			takeItems(player, ROUGHLY_HEWN_ROCK_GOLEM_SHARD, required);
-			required = 0;
-		}
-		
-		if (itemCount3 < required)
-		{
-			takeItems(player, DELU_LIZARDMANS_SCALE, itemCount3);
-		}
-		else
-		{
-			takeItems(player, DELU_LIZARDMANS_SCALE, required);
-		}
 	}
 }

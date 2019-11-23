@@ -43,11 +43,6 @@ import instances.AbstractInstance;
  */
 public final class CastleDungeon extends AbstractInstance
 {
-	protected class CDWorld extends InstanceWorld
-	{
-		
-	}
-	
 	// Locations
 	private static final Location[] ENTER_LOC =
 	{
@@ -57,6 +52,7 @@ public final class CastleDungeon extends AbstractInstance
 	};
 	
 	private static final Location RAIDS_LOC = new Location(11793, -49190, -3008, 0);
+	
 	// Misc
 	private static final Map<Integer, Integer> CASTLE_DUNGEON = new HashMap<>();
 	private static final Map<Integer, List<Integer>> FORTRESS = new HashMap<>();
@@ -81,7 +77,6 @@ public final class CastleDungeon extends AbstractInstance
 		FORTRESS.put(8, Arrays.asList(110, 120, 121)); // Rune Castle
 		FORTRESS.put(9, Arrays.asList(111, 121)); // Schuttgart Castle
 	}
-	
 	// Raid Bosses
 	protected static final int[] RAIDS1 =
 	{
@@ -89,6 +84,7 @@ public final class CastleDungeon extends AbstractInstance
 		25549, // Tesla the Deceiver
 		25552, // Soul Hunter Chakundel
 	};
+	
 	protected static final int[] RAIDS2 =
 	{
 		25553, // Durango the Crusher
@@ -102,7 +98,6 @@ public final class CastleDungeon extends AbstractInstance
 		25566, // Nagen the Tomboy
 		25569, // Jax the Destroyer
 	};
-	
 	public CastleDungeon()
 	{
 		super(CastleDungeon.class.getSimpleName());
@@ -231,5 +226,10 @@ public final class CastleDungeon extends AbstractInstance
 		}
 		
 		addSpawn(spawnId, RAIDS_LOC, false, 0, false, world.getInstanceId());
+	}
+	
+	protected class CDWorld extends InstanceWorld
+	{
+		
 	}
 }

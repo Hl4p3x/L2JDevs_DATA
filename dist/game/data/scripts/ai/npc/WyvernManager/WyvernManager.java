@@ -38,15 +38,9 @@ import ai.npc.AbstractNpcAI;
  */
 public final class WyvernManager extends AbstractNpcAI
 {
-	private enum ManagerType
-	{
-		CASTLE,
-		CLAN_HALL,
-		FORT,
-	}
-	
 	// Misc
 	private static final int CRYSTAL_B_GRADE = 1460;
+	
 	private static final int WYVERN = 12621;
 	private static final int WYVERN_FEE = 25;
 	private static final int STRIDER_LVL = 55;
@@ -98,7 +92,6 @@ public final class WyvernManager extends AbstractNpcAI
 		MANAGERS.put(36476, ManagerType.FORT);
 		MANAGERS.put(36477, ManagerType.FORT);
 	}
-	
 	private WyvernManager()
 	{
 		super(WyvernManager.class.getSimpleName(), "ai/npc");
@@ -107,117 +100,9 @@ public final class WyvernManager extends AbstractNpcAI
 		addFirstTalkId(MANAGERS.keySet());
 	}
 	
-	private String mountWyvern(L2Npc npc, L2PcInstance player)
+	public static void main(String[] args)
 	{
-		if (player.isMounted() && (player.getMountLevel() >= STRIDER_LVL) && Util.contains(STRIDERS, player.getMountNpcId()))
-		{
-			if (isOwnerClan(npc, player) && (getQuestItemsCount(player, CRYSTAL_B_GRADE) >= WYVERN_FEE))
-			{
-				takeItems(player, CRYSTAL_B_GRADE, WYVERN_FEE);
-				player.dismount();
-				player.mount(WYVERN, 0, true);
-				return "wyvernmanager-04.html";
-			}
-			return replacePart(player.getHtmlPrefix(), "wyvernmanager-06.html");
-		}
-		return replacePart(player.getHtmlPrefix(), "wyvernmanager-05.html");
-	}
-	
-	private boolean isOwnerClan(L2Npc npc, L2PcInstance player)
-	{
-		if (!player.isClanLeader())
-		{
-			return false;
-		}
-		switch (MANAGERS.get(npc.getId()))
-		{
-			case CASTLE:
-			{
-				if (npc.getCastle() != null)
-				{
-					return player.getClanId() == npc.getCastle().getOwnerId();
-				}
-				return false;
-			}
-			case CLAN_HALL:
-			{
-				if (npc.getConquerableHall() != null)
-				{
-					return player.getClanId() == npc.getConquerableHall().getOwnerId();
-				}
-				return false;
-			}
-			case FORT:
-			{
-				final Fort fort = npc.getFort();
-				if ((fort != null) && (fort.getOwnerClan() != null))
-				{
-					return player.getClanId() == npc.getFort().getOwnerClan().getId();
-				}
-				return false;
-			}
-			default:
-			{
-				return false;
-			}
-		}
-	}
-	
-	private boolean isInSiege(L2Npc npc)
-	{
-		switch (MANAGERS.get(npc.getId()))
-		{
-			case CASTLE:
-			{
-				return npc.getCastle().getZone().isActive();
-			}
-			case CLAN_HALL:
-			{
-				SiegableHall hall = npc.getConquerableHall();
-				return (hall != null) ? hall.isInSiege() : npc.getCastle().getSiege().isInProgress();
-			}
-			case FORT:
-			{
-				return npc.getFort().getZone().isActive();
-			}
-			default:
-			{
-				return false;
-			}
-		}
-	}
-	
-	private String getResidenceName(L2Npc npc)
-	{
-		switch (MANAGERS.get(npc.getId()))
-		{
-			case CASTLE:
-			{
-				return npc.getCastle().getName();
-			}
-			case CLAN_HALL:
-			{
-				return npc.getConquerableHall().getName();
-			}
-			case FORT:
-			{
-				return npc.getFort().getName();
-			}
-			default:
-			{
-				return null;
-			}
-		}
-	}
-	
-	private String replaceAll(L2Npc npc, String htmlPrefix)
-	{
-		return replacePart(htmlPrefix, "wyvernmanager-01.html").replace("%residence_name%", getResidenceName(npc));
-	}
-	
-	private String replacePart(String htmlPrefix, String htmlFile)
-	{
-		return getHtm(htmlPrefix, htmlFile).replace("%wyvern_fee%", String.valueOf(WYVERN_FEE)).replace("%strider_level%", String.valueOf(STRIDER_LVL));
+		new WyvernManager();
 	}
 	
 	@Override
@@ -308,8 +193,123 @@ public final class WyvernManager extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	public static void main(String[] args)
+	private String getResidenceName(L2Npc npc)
 	{
-		new WyvernManager();
+		switch (MANAGERS.get(npc.getId()))
+		{
+			case CASTLE:
+			{
+				return npc.getCastle().getName();
+			}
+			case CLAN_HALL:
+			{
+				return npc.getConquerableHall().getName();
+			}
+			case FORT:
+			{
+				return npc.getFort().getName();
+			}
+			default:
+			{
+				return null;
+			}
+		}
+	}
+	
+	private boolean isInSiege(L2Npc npc)
+	{
+		switch (MANAGERS.get(npc.getId()))
+		{
+			case CASTLE:
+			{
+				return npc.getCastle().getZone().isActive();
+			}
+			case CLAN_HALL:
+			{
+				SiegableHall hall = npc.getConquerableHall();
+				return (hall != null) ? hall.isInSiege() : npc.getCastle().getSiege().isInProgress();
+			}
+			case FORT:
+			{
+				return npc.getFort().getZone().isActive();
+			}
+			default:
+			{
+				return false;
+			}
+		}
+	}
+	
+	private boolean isOwnerClan(L2Npc npc, L2PcInstance player)
+	{
+		if (!player.isClanLeader())
+		{
+			return false;
+		}
+		switch (MANAGERS.get(npc.getId()))
+		{
+			case CASTLE:
+			{
+				if (npc.getCastle() != null)
+				{
+					return player.getClanId() == npc.getCastle().getOwnerId();
+				}
+				return false;
+			}
+			case CLAN_HALL:
+			{
+				if (npc.getConquerableHall() != null)
+				{
+					return player.getClanId() == npc.getConquerableHall().getOwnerId();
+				}
+				return false;
+			}
+			case FORT:
+			{
+				final Fort fort = npc.getFort();
+				if ((fort != null) && (fort.getOwnerClan() != null))
+				{
+					return player.getClanId() == npc.getFort().getOwnerClan().getId();
+				}
+				return false;
+			}
+			default:
+			{
+				return false;
+			}
+		}
+	}
+	
+	private String mountWyvern(L2Npc npc, L2PcInstance player)
+	{
+		if (player.isMounted() && (player.getMountLevel() >= STRIDER_LVL) && Util.contains(STRIDERS, player.getMountNpcId()))
+		{
+			if (isOwnerClan(npc, player) && (getQuestItemsCount(player, CRYSTAL_B_GRADE) >= WYVERN_FEE))
+			{
+				takeItems(player, CRYSTAL_B_GRADE, WYVERN_FEE);
+				player.dismount();
+				player.mount(WYVERN, 0, true);
+				return "wyvernmanager-04.html";
+			}
+			return replacePart(player.getHtmlPrefix(), "wyvernmanager-06.html");
+		}
+		return replacePart(player.getHtmlPrefix(), "wyvernmanager-05.html");
+	}
+	
+	private String replaceAll(L2Npc npc, String htmlPrefix)
+	{
+		return replacePart(htmlPrefix, "wyvernmanager-01.html").replace("%residence_name%", getResidenceName(npc));
+	}
+	
+	private String replacePart(String htmlPrefix, String htmlFile)
+	{
+		return getHtm(htmlPrefix, htmlFile).replace("%wyvern_fee%", String.valueOf(WYVERN_FEE)).replace("%strider_level%", String.valueOf(STRIDER_LVL));
+	}
+	
+	private enum ManagerType
+	{
+		CASTLE,
+		CLAN_HALL,
+		FORT,
 	}
 }

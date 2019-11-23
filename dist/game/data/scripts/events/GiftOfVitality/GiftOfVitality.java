@@ -87,6 +87,11 @@ public final class GiftOfVitality extends LongTimeEvent
 		addTalkId(STEVE_SHYAGEL);
 	}
 	
+	public static void main(String[] args)
+	{
+		new GiftOfVitality();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -164,10 +169,5 @@ public final class GiftOfVitality extends LongTimeEvent
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return "4306.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new GiftOfVitality();
 	}
 }

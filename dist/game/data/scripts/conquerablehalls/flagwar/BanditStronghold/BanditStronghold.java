@@ -92,31 +92,9 @@ public final class BanditStronghold extends FlagWar
 		super(BanditStronghold.class.getSimpleName(), BANDIT_STRONGHOLD);
 	}
 	
-	@Override
-	public String getFlagHtml(int flag)
+	public static void main(String[] args)
 	{
-		String result = null;
-		
-		switch (flag)
-		{
-			case 35423:
-				result = "messenger_flag1.htm";
-				break;
-			case 35424:
-				result = "messenger_flag2.htm";
-				break;
-			case 35425:
-				result = "messenger_flag3.htm";
-				break;
-			case 35426:
-				result = "messenger_flag4.htm";
-				break;
-			case 35427:
-				result = "messenger_flag5.htm";
-				break;
-		}
-		
-		return result;
+		new BanditStronghold();
 	}
 	
 	@Override
@@ -146,8 +124,30 @@ public final class BanditStronghold extends FlagWar
 		return result;
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String getFlagHtml(int flag)
 	{
-		new BanditStronghold();
+		String result = null;
+		
+		switch (flag)
+		{
+			case 35423:
+				result = "messenger_flag1.htm";
+				break;
+			case 35424:
+				result = "messenger_flag2.htm";
+				break;
+			case 35425:
+				result = "messenger_flag3.htm";
+				break;
+			case 35426:
+				result = "messenger_flag4.htm";
+				break;
+			case 35427:
+				result = "messenger_flag5.htm";
+				break;
+		}
+		
+		return result;
 	}
 }

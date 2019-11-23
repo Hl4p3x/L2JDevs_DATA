@@ -79,6 +79,11 @@ public final class KamaelChange2 extends AbstractNpcAI
 		addTalkId(NPCS_FEMALE);
 	}
 	
+	public static void main(String[] args)
+	{
+		new KamaelChange2();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -106,6 +111,115 @@ public final class KamaelChange2 extends AbstractNpcAI
 			{
 				htmltext = ClassChangeRequested(player, npc, Integer.valueOf(event));
 				break;
+			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.getRace() != Race.KAMAEL)
+		{
+			htmltext = "32145-01.htm"; // master_all_kamael002a
+		}
+		else if (player.isInCategory(CategoryType.KAMAEL_FIRST_CLASS_GROUP))
+		{
+			if (player.getClassId() == ClassId.maleSoldier)
+			{
+				htmltext = "32145-02.htm"; // master_all_kamael012b
+			}
+			else if (player.getClassId() == ClassId.femaleSoldier)
+			{
+				htmltext = "32145-03.htm"; // master_all_kamael012c
+			}
+		}
+		else if (player.isInCategory(CategoryType.KAMAEL_SECOND_CLASS_GROUP))
+		{
+			if (Util.contains(NPCS_MALE, npc.getId()))
+			{
+				if (player.isInCategory(CategoryType.KAMAEL_FEMALE_MAIN_OCCUPATION))
+				{
+					htmltext = "32145-04.htm"; // master_all_kamael002b
+					return htmltext;
+				}
+				
+				if (player.getClassId() == ClassId.trooper)
+				{
+					htmltext = "32145-05.htm"; // master_all_kamael003t
+				}
+				else if (player.getClassId() == ClassId.warder)
+				{
+					htmltext = "32145-02.htm"; // master_all_kamael012b
+				}
+			}
+			else
+			{
+				if (player.isInCategory(CategoryType.KAMAEL_MALE_MAIN_OCCUPATION))
+				{
+					htmltext = "32145-10.htm"; // master_all_kamael002c
+					return htmltext;
+				}
+				
+				if (player.getClassId() == ClassId.trooper)
+				{
+					htmltext = "32145-03.htm"; // master_all_kamael012c
+				}
+				else if (player.getClassId() == ClassId.warder)
+				{
+					htmltext = "32145-11.htm"; // master_all_kamael003w
+				}
+			}
+		}
+		else if (player.isInCategory(CategoryType.KAMAEL_THIRD_CLASS_GROUP))
+		{
+			if (Util.contains(NPCS_MALE, npc.getId()))
+			{
+				if (player.isInCategory(CategoryType.KAMAEL_MALE_MAIN_OCCUPATION))
+				{
+					htmltext = "32145-16.htm"; // master_all_kamael005b
+				}
+				else
+				{
+					htmltext = "32145-04.htm"; // master_all_kamael002b
+				}
+			}
+			else
+			{
+				if (player.isInCategory(CategoryType.KAMAEL_FEMALE_MAIN_OCCUPATION))
+				{
+					htmltext = "32145-17.htm"; // master_all_kamael005c
+				}
+				else
+				{
+					htmltext = "32145-10.htm"; // master_all_kamael002c
+				}
+			}
+		}
+		else if (player.isInCategory(CategoryType.KAMAEL_FOURTH_CLASS_GROUP))
+		{
+			if (Util.contains(NPCS_MALE, npc.getId()))
+			{
+				if (player.isInCategory(CategoryType.KAMAEL_MALE_MAIN_OCCUPATION))
+				{
+					htmltext = "32145-18.htm"; // master_all_kamael100b
+				}
+				else
+				{
+					htmltext = "32145-04.htm"; // master_all_kamael002b
+				}
+			}
+			else
+			{
+				if (player.isInCategory(CategoryType.KAMAEL_FEMALE_MAIN_OCCUPATION))
+				{
+					htmltext = "32145-19.htm"; // master_all_kamael100c
+				}
+				else
+				{
+					htmltext = "32145-10.htm"; // master_all_kamael002c
+				}
 			}
 		}
 		return htmltext;
@@ -287,119 +401,5 @@ public final class KamaelChange2 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.getRace() != Race.KAMAEL)
-		{
-			htmltext = "32145-01.htm"; // master_all_kamael002a
-		}
-		else if (player.isInCategory(CategoryType.KAMAEL_FIRST_CLASS_GROUP))
-		{
-			if (player.getClassId() == ClassId.maleSoldier)
-			{
-				htmltext = "32145-02.htm"; // master_all_kamael012b
-			}
-			else if (player.getClassId() == ClassId.femaleSoldier)
-			{
-				htmltext = "32145-03.htm"; // master_all_kamael012c
-			}
-		}
-		else if (player.isInCategory(CategoryType.KAMAEL_SECOND_CLASS_GROUP))
-		{
-			if (Util.contains(NPCS_MALE, npc.getId()))
-			{
-				if (player.isInCategory(CategoryType.KAMAEL_FEMALE_MAIN_OCCUPATION))
-				{
-					htmltext = "32145-04.htm"; // master_all_kamael002b
-					return htmltext;
-				}
-				
-				if (player.getClassId() == ClassId.trooper)
-				{
-					htmltext = "32145-05.htm"; // master_all_kamael003t
-				}
-				else if (player.getClassId() == ClassId.warder)
-				{
-					htmltext = "32145-02.htm"; // master_all_kamael012b
-				}
-			}
-			else
-			{
-				if (player.isInCategory(CategoryType.KAMAEL_MALE_MAIN_OCCUPATION))
-				{
-					htmltext = "32145-10.htm"; // master_all_kamael002c
-					return htmltext;
-				}
-				
-				if (player.getClassId() == ClassId.trooper)
-				{
-					htmltext = "32145-03.htm"; // master_all_kamael012c
-				}
-				else if (player.getClassId() == ClassId.warder)
-				{
-					htmltext = "32145-11.htm"; // master_all_kamael003w
-				}
-			}
-		}
-		else if (player.isInCategory(CategoryType.KAMAEL_THIRD_CLASS_GROUP))
-		{
-			if (Util.contains(NPCS_MALE, npc.getId()))
-			{
-				if (player.isInCategory(CategoryType.KAMAEL_MALE_MAIN_OCCUPATION))
-				{
-					htmltext = "32145-16.htm"; // master_all_kamael005b
-				}
-				else
-				{
-					htmltext = "32145-04.htm"; // master_all_kamael002b
-				}
-			}
-			else
-			{
-				if (player.isInCategory(CategoryType.KAMAEL_FEMALE_MAIN_OCCUPATION))
-				{
-					htmltext = "32145-17.htm"; // master_all_kamael005c
-				}
-				else
-				{
-					htmltext = "32145-10.htm"; // master_all_kamael002c
-				}
-			}
-		}
-		else if (player.isInCategory(CategoryType.KAMAEL_FOURTH_CLASS_GROUP))
-		{
-			if (Util.contains(NPCS_MALE, npc.getId()))
-			{
-				if (player.isInCategory(CategoryType.KAMAEL_MALE_MAIN_OCCUPATION))
-				{
-					htmltext = "32145-18.htm"; // master_all_kamael100b
-				}
-				else
-				{
-					htmltext = "32145-04.htm"; // master_all_kamael002b
-				}
-			}
-			else
-			{
-				if (player.isInCategory(CategoryType.KAMAEL_FEMALE_MAIN_OCCUPATION))
-				{
-					htmltext = "32145-19.htm"; // master_all_kamael100c
-				}
-				else
-				{
-					htmltext = "32145-10.htm"; // master_all_kamael002c
-				}
-			}
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new KamaelChange2();
 	}
 }

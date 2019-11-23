@@ -35,6 +35,12 @@ public class AdminLevel implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		L2Object targetChar = activeChar.getTarget();
@@ -91,11 +97,5 @@ public class AdminLevel implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

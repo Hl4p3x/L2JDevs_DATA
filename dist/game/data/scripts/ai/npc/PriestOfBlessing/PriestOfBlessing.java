@@ -103,6 +103,11 @@ public final class PriestOfBlessing extends AbstractNpcAI
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new PriestOfBlessing();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -211,10 +216,5 @@ public final class PriestOfBlessing extends AbstractNpcAI
 			index = 6;
 		}
 		return index;
-	}
-	
-	public static void main(String[] args)
-	{
-		new PriestOfBlessing();
 	}
 }

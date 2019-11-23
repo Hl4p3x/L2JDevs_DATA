@@ -64,6 +64,11 @@ public final class Selina extends AbstractNpcAI
 		addSpellFinishedId(SELINA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Selina();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -111,11 +116,6 @@ public final class Selina extends AbstractNpcAI
 			takeItems(player, GOLDEN_RAM_COIN, buff.getCost());
 		}
 		return super.onSpellFinished(npc, player, skill);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Selina();
 	}
 	
 	private static class BuffHolder extends SkillHolder

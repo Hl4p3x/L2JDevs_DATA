@@ -33,44 +33,22 @@ import org.l2jdevs.gameserver.util.Util;
  */
 public final class Q00352_HelpRoodRaiseANewPet extends Quest
 {
-	private static final class DropInfo
-	{
-		public final int _firstChance;
-		public final int _secondChance;
-		
-		public DropInfo(int firstChance, int secondChance)
-		{
-			_firstChance = firstChance;
-			_secondChance = secondChance;
-		}
-		
-		public int getFirstChance()
-		{
-			return _firstChance;
-		}
-		
-		public int getSecondChance()
-		{
-			return _secondChance;
-		}
-	}
-	
 	// NPC
 	private static final int ROOD = 31067;
+	
 	// Items
 	private static final int LIENRIK_EGG1 = 5860;
 	private static final int LIENRIK_EGG2 = 5861;
 	// Misc
 	private static final int MIN_LEVEL = 39;
-	
 	private static final Map<Integer, DropInfo> MOBS = new HashMap<>();
+	
 	static
 	{
 		MOBS.put(20786, new DropInfo(46, 48)); // lienrik
 		MOBS.put(21644, new DropInfo(46, 48)); // lienrik_a
 		MOBS.put(21645, new DropInfo(69, 71)); // lienrik_lad_a
 	}
-	
 	public Q00352_HelpRoodRaiseANewPet()
 	{
 		super(352, Q00352_HelpRoodRaiseANewPet.class.getSimpleName(), "Help Rood Raise A New Pet!");
@@ -182,5 +160,27 @@ public final class Q00352_HelpRoodRaiseANewPet extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private static final class DropInfo
+	{
+		public final int _firstChance;
+		public final int _secondChance;
+		
+		public DropInfo(int firstChance, int secondChance)
+		{
+			_firstChance = firstChance;
+			_secondChance = secondChance;
+		}
+		
+		public int getFirstChance()
+		{
+			return _firstChance;
+		}
+		
+		public int getSecondChance()
+		{
+			return _secondChance;
+		}
 	}
 }

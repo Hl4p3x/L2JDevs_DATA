@@ -467,14 +467,14 @@ public final class Q00373_SupplierOfReagents extends Quest
 			_html = html;
 		}
 		
-		public int getItem()
-		{
-			return _item;
-		}
-		
 		public String getHtml()
 		{
 			return _html;
+		}
+		
+		public int getItem()
+		{
+			return _item;
 		}
 	}
 }

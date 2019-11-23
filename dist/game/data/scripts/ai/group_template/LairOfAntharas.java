@@ -55,6 +55,11 @@ public final class LairOfAntharas extends AbstractNpcAI
 		addAggroRangeEnterId(KNORIKS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new LairOfAntharas();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -135,10 +140,5 @@ public final class LairOfAntharas extends AbstractNpcAI
 			startQuestTimer("CHECK_HOME", 10000, npc, null, true);
 		}
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new LairOfAntharas();
 	}
 }

@@ -50,11 +50,9 @@ public final class Remnants extends AbstractNpcAI
 		// Do not override onKill for Derek here. Let's make global Hellbound manipulations in Engine where it is possible.
 	}
 	
-	@Override
-	public String onSpawn(L2Npc npc)
+	public static void main(String[] args)
 	{
-		npc.setIsMortal(false);
-		return super.onSpawn(npc);
+		new Remnants();
 	}
 	
 	@Override
@@ -86,8 +84,10 @@ public final class Remnants extends AbstractNpcAI
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onSpawn(L2Npc npc)
 	{
-		new Remnants();
+		npc.setIsMortal(false);
+		return super.onSpawn(npc);
 	}
 }

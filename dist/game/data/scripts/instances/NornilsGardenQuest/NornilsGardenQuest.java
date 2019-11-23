@@ -34,19 +34,14 @@ import quests.Q00236_SeedsOfChaos.Q00236_SeedsOfChaos;
  */
 public final class NornilsGardenQuest extends AbstractInstance
 {
-	protected static final class NornilsGardenQuestWorld extends InstanceWorld
-	{
-		protected Location ORIGIN_LOC;
-	}
-	
 	// NPCs
 	private static final int RODENPICULA = 32237;
+	
 	private static final int MOTHER_NORNIL = 32239;
 	// Location
 	private static final Location ENTER_LOC = new Location(-119538, 87177, -12592);
 	// Misc
 	private static final int TEMPLATE_ID = 12;
-	
 	public NornilsGardenQuest()
 	{
 		super(NornilsGardenQuest.class.getSimpleName());
@@ -54,13 +49,6 @@ public final class NornilsGardenQuest extends AbstractInstance
 		addStartNpc(RODENPICULA, MOTHER_NORNIL);
 		addTalkId(RODENPICULA, MOTHER_NORNIL);
 		addFirstTalkId(RODENPICULA, MOTHER_NORNIL);
-	}
-	
-	@Override
-	protected boolean checkConditions(L2PcInstance player)
-	{
-		final QuestState qs = player.getQuestState(Q00236_SeedsOfChaos.class.getSimpleName());
-		return (qs != null) && (qs.getMemoState() >= 40) && (qs.getMemoState() <= 45);
 	}
 	
 	@Override
@@ -105,16 +93,6 @@ public final class NornilsGardenQuest extends AbstractInstance
 	}
 	
 	@Override
-	protected void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-		}
-		teleportPlayer(player, ENTER_LOC, world.getInstanceId(), false);
-	}
-	
-	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = null;
@@ -133,5 +111,27 @@ public final class NornilsGardenQuest extends AbstractInstance
 			}
 		}
 		return htmltext;
+	}
+	
+	@Override
+	protected boolean checkConditions(L2PcInstance player)
+	{
+		final QuestState qs = player.getQuestState(Q00236_SeedsOfChaos.class.getSimpleName());
+		return (qs != null) && (qs.getMemoState() >= 40) && (qs.getMemoState() <= 45);
+	}
+	
+	@Override
+	protected void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+		}
+		teleportPlayer(player, ENTER_LOC, world.getInstanceId(), false);
+	}
+	
+	protected static final class NornilsGardenQuestWorld extends InstanceWorld
+	{
+		protected Location ORIGIN_LOC;
 	}
 }

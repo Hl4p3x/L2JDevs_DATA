@@ -33,23 +33,28 @@ import quests.Q10284_AcquisitionOfDivineSword.Q10284_AcquisitionOfDivineSword;
  */
 public final class JiniaGuildHideout1 extends AbstractInstance
 {
-	protected class JGH1World extends InstanceWorld
-	{
-		
-	}
-	
 	// NPC
 	private static final int RAFFORTY = 32020;
+	
 	// Location
 	private static final Location START_LOC = new Location(-23530, -8963, -5413);
 	// Misc
 	private static final int TEMPLATE_ID = 140;
-	
 	public JiniaGuildHideout1()
 	{
 		super(JiniaGuildHideout1.class.getSimpleName());
 		addStartNpc(RAFFORTY);
 		addTalkId(RAFFORTY);
+	}
+	
+	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+		}
+		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
 	}
 	
 	@Override
@@ -64,13 +69,8 @@ public final class JiniaGuildHideout1 extends AbstractInstance
 		return super.onTalk(npc, talker);
 	}
 	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	protected class JGH1World extends InstanceWorld
 	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-		}
-		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
+		
 	}
 }

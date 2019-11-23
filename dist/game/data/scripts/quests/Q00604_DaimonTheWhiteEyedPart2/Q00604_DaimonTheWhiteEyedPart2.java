@@ -67,6 +67,11 @@ public final class Q00604_DaimonTheWhiteEyedPart2 extends Quest
 		registerQuestItems(SUMMON_CRYSTAL, ESSENCE_OF_DAIMON);
 	}
 	
+	private static boolean isDaimonSpawned()
+	{
+		return SpawnTable.getInstance().findAny(DAIMON_THE_WHITE_EYED) != null;
+	}
+	
 	@Override
 	public void actionForEachPlayer(L2PcInstance player, L2Npc npc, boolean isSummon)
 	{
@@ -265,10 +270,5 @@ public final class Q00604_DaimonTheWhiteEyedPart2 extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	private static boolean isDaimonSpawned()
-	{
-		return SpawnTable.getInstance().findAny(DAIMON_THE_WHITE_EYED) != null;
 	}
 }

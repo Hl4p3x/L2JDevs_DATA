@@ -102,6 +102,12 @@ public class AreaFriendly implements ITargetTypeHandler
 		return targetList.toArray(new L2Character[targetList.size()]);
 	}
 	
+	@Override
+	public Enum<L2TargetType> getTargetType()
+	{
+		return L2TargetType.AREA_FRIENDLY;
+	}
+	
 	private boolean checkTarget(L2PcInstance activeChar, L2Character target)
 	{
 		if (!GeoData.getInstance().canSeeTarget(activeChar, target))
@@ -175,11 +181,5 @@ public class AreaFriendly implements ITargetTypeHandler
 		{
 			return Double.compare((char1.getCurrentHp() / char1.getMaxHp()), (char2.getCurrentHp() / char2.getMaxHp()));
 		}
-	}
-	
-	@Override
-	public Enum<L2TargetType> getTargetType()
-	{
-		return L2TargetType.AREA_FRIENDLY;
 	}
 }

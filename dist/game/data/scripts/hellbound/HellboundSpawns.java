@@ -46,6 +46,40 @@ public final class HellboundSpawns implements IXmlReader
 		load();
 	}
 	
+	public static HellboundSpawns getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	/**
+	 * Gets the spawn maximum level.
+	 * @param npcId the NPC ID
+	 * @return the spawn maximum level
+	 */
+	public int getSpawnMaxLevel(int npcId)
+	{
+		return _spawnLevels.containsKey(npcId) ? _spawnLevels.get(npcId)[1] : 1;
+	}
+	
+	/**
+	 * Gets the spawn minimum level.
+	 * @param npcId the NPC ID
+	 * @return the spawn minimum level
+	 */
+	public int getSpawnMinLevel(int npcId)
+	{
+		return _spawnLevels.containsKey(npcId) ? _spawnLevels.get(npcId)[0] : 1;
+	}
+	
+	/**
+	 * Gets all Hellbound spawns.
+	 * @return the list of Hellbound spawns.
+	 */
+	public List<L2Spawn> getSpawns()
+	{
+		return _spawns;
+	}
+	
 	@Override
 	public void load()
 	{
@@ -141,40 +175,6 @@ public final class HellboundSpawns implements IXmlReader
 				LOG.warn("{}: Couldn't load spawns!", getClass().getSimpleName(), e);
 			}
 		}
-	}
-	
-	/**
-	 * Gets all Hellbound spawns.
-	 * @return the list of Hellbound spawns.
-	 */
-	public List<L2Spawn> getSpawns()
-	{
-		return _spawns;
-	}
-	
-	/**
-	 * Gets the spawn minimum level.
-	 * @param npcId the NPC ID
-	 * @return the spawn minimum level
-	 */
-	public int getSpawnMinLevel(int npcId)
-	{
-		return _spawnLevels.containsKey(npcId) ? _spawnLevels.get(npcId)[0] : 1;
-	}
-	
-	/**
-	 * Gets the spawn maximum level.
-	 * @param npcId the NPC ID
-	 * @return the spawn maximum level
-	 */
-	public int getSpawnMaxLevel(int npcId)
-	{
-		return _spawnLevels.containsKey(npcId) ? _spawnLevels.get(npcId)[1] : 1;
-	}
-	
-	public static HellboundSpawns getInstance()
-	{
-		return SingletonHolder.INSTANCE;
 	}
 	
 	private static class SingletonHolder

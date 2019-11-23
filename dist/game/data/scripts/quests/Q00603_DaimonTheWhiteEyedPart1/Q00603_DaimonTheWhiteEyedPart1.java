@@ -43,6 +43,10 @@ public final class Q00603_DaimonTheWhiteEyedPart1 extends Quest
 	// Items
 	private static final int SPIRIT_OF_DARKNESS = 7190;
 	private static final int BROKEN_CRYSTAL = 7191;
+	// Reward
+	private static final int UNFINISHED_CRYSTAL = 7192;
+	// Misc
+	private static final int MIN_LVL = 73;
 	// Monsters
 	private final Map<Integer, Double> MONSTER_CHANCES = new HashMap<>();
 	{
@@ -50,10 +54,6 @@ public final class Q00603_DaimonTheWhiteEyedPart1 extends Quest
 		MONSTER_CHANCES.put(21299, 0.519); // Buffalo Slave
 		MONSTER_CHANCES.put(21304, 0.673); // Grendel Slave
 	}
-	// Reward
-	private static final int UNFINISHED_CRYSTAL = 7192;
-	// Misc
-	private static final int MIN_LVL = 73;
 	
 	public Q00603_DaimonTheWhiteEyedPart1()
 	{
@@ -138,6 +138,20 @@ public final class Q00603_DaimonTheWhiteEyedPart1 extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, 7, 3, npc);
+		if (qs != null)
+		{
+			if (giveItemRandomly(qs.getPlayer(), npc, SPIRIT_OF_DARKNESS, 1, 200, MONSTER_CHANCES.get(npc.getId()), true))
+			{
+				qs.setCond(8, true);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -201,19 +215,5 @@ public final class Q00603_DaimonTheWhiteEyedPart1 extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, 7, 3, npc);
-		if (qs != null)
-		{
-			if (giveItemRandomly(qs.getPlayer(), npc, SPIRIT_OF_DARKNESS, 1, 200, MONSTER_CHANCES.get(npc.getId()), true))
-			{
-				qs.setCond(8, true);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

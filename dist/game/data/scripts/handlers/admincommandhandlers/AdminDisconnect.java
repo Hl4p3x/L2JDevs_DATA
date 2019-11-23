@@ -34,6 +34,12 @@ public class AdminDisconnect implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_character_disconnect"))
@@ -41,12 +47,6 @@ public class AdminDisconnect implements IAdminCommandHandler
 			disconnectCharacter(activeChar);
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void disconnectCharacter(L2PcInstance activeChar)

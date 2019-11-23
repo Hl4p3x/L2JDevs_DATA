@@ -65,6 +65,11 @@ public final class IsleOfPrayer extends AbstractNpcAI
 		addKillId(MONSTERS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new IsleOfPrayer();
+	}
+	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -74,10 +79,5 @@ public final class IsleOfPrayer extends AbstractNpcAI
 			npc.dropItem(killer, holder);
 		}
 		return super.onKill(npc, killer, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new IsleOfPrayer();
 	}
 }

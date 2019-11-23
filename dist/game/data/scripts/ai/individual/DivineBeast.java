@@ -40,10 +40,9 @@ public final class DivineBeast extends AbstractNpcAI
 		addSummonSpawnId(DIVINE_BEAST);
 	}
 	
-	@Override
-	public void onSummonSpawn(L2Summon summon)
+	public static void main(String[] args)
 	{
-		startQuestTimer("VALIDATE_TRANSFORMATION", CHECK_TIME, null, summon.getActingPlayer(), true);
+		new DivineBeast();
 	}
 	
 	@Override
@@ -62,8 +61,9 @@ public final class DivineBeast extends AbstractNpcAI
 		return super.onAdvEvent(event, npc, player);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public void onSummonSpawn(L2Summon summon)
 	{
-		new DivineBeast();
+		startQuestTimer("VALIDATE_TRANSFORMATION", CHECK_TIME, null, summon.getActingPlayer(), true);
 	}
 }

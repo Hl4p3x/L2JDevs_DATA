@@ -60,6 +60,11 @@ public final class FleeMonsters extends AbstractNpcAI
 		addAttackId(MOBS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new FleeMonsters();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -76,10 +81,5 @@ public final class FleeMonsters extends AbstractNpcAI
 		final Location destination = GeoData.getInstance().moveCheck(npc.getX(), npc.getY(), npc.getZ(), posX, posY, posZ, attacker.getInstanceId());
 		npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, destination);
 		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new FleeMonsters();
 	}
 }

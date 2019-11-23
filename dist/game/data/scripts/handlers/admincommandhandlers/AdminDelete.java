@@ -38,6 +38,12 @@ public class AdminDelete implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_delete"))
@@ -45,12 +51,6 @@ public class AdminDelete implements IAdminCommandHandler
 			handleDelete(activeChar);
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	// TODO: add possibility to delete any L2Object (except L2PcInstance)

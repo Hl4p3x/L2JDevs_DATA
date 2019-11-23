@@ -77,6 +77,11 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ElfHumanFighterChange2();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -136,6 +141,49 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.isInCategory(CategoryType.FIGHTER_GROUP) && player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.HUMAN_FALL_CLASS) || player.isInCategory(CategoryType.ELF_FALL_CLASS)))
+		{
+			htmltext = "30109-01.htm"; // fnYouAreFourthClass
+		}
+		else if (player.isInCategory(CategoryType.FIGHTER_GROUP) && (player.isInCategory(CategoryType.HUMAN_FALL_CLASS) || player.isInCategory(CategoryType.ELF_FALL_CLASS)))
+		{
+			final ClassId classId = player.getClassId();
+			if ((classId == ClassId.warrior) || (classId == ClassId.gladiator) || (classId == ClassId.warlord))
+			{
+				htmltext = "30109-02.htm"; // fnClassList1
+			}
+			else if ((classId == ClassId.knight) || (classId == ClassId.paladin) || (classId == ClassId.darkAvenger))
+			{
+				htmltext = "30109-09.htm"; // fnClassList2
+			}
+			else if ((classId == ClassId.rogue) || (classId == ClassId.treasureHunter) || (classId == ClassId.hawkeye))
+			{
+				htmltext = "30109-16.htm"; // fnClassList3
+			}
+			else if ((classId == ClassId.elvenKnight) || (classId == ClassId.templeKnight) || (classId == ClassId.swordSinger))
+			{
+				htmltext = "30109-23.htm"; // fnClassList4
+			}
+			else if ((classId == ClassId.elvenScout) || (classId == ClassId.plainsWalker) || (classId == ClassId.silverRanger))
+			{
+				htmltext = "30109-30.htm"; // fnClassList5
+			}
+			else
+			{
+				htmltext = "30109-37.htm"; // fnYouAreFirstClass
+			}
+		}
+		else
+		{
+			htmltext = "30109-38.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -428,53 +476,5 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.isInCategory(CategoryType.FIGHTER_GROUP) && player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.HUMAN_FALL_CLASS) || player.isInCategory(CategoryType.ELF_FALL_CLASS)))
-		{
-			htmltext = "30109-01.htm"; // fnYouAreFourthClass
-		}
-		else if (player.isInCategory(CategoryType.FIGHTER_GROUP) && (player.isInCategory(CategoryType.HUMAN_FALL_CLASS) || player.isInCategory(CategoryType.ELF_FALL_CLASS)))
-		{
-			final ClassId classId = player.getClassId();
-			if ((classId == ClassId.warrior) || (classId == ClassId.gladiator) || (classId == ClassId.warlord))
-			{
-				htmltext = "30109-02.htm"; // fnClassList1
-			}
-			else if ((classId == ClassId.knight) || (classId == ClassId.paladin) || (classId == ClassId.darkAvenger))
-			{
-				htmltext = "30109-09.htm"; // fnClassList2
-			}
-			else if ((classId == ClassId.rogue) || (classId == ClassId.treasureHunter) || (classId == ClassId.hawkeye))
-			{
-				htmltext = "30109-16.htm"; // fnClassList3
-			}
-			else if ((classId == ClassId.elvenKnight) || (classId == ClassId.templeKnight) || (classId == ClassId.swordSinger))
-			{
-				htmltext = "30109-23.htm"; // fnClassList4
-			}
-			else if ((classId == ClassId.elvenScout) || (classId == ClassId.plainsWalker) || (classId == ClassId.silverRanger))
-			{
-				htmltext = "30109-30.htm"; // fnClassList5
-			}
-			else
-			{
-				htmltext = "30109-37.htm"; // fnYouAreFirstClass
-			}
-		}
-		else
-		{
-			htmltext = "30109-38.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new ElfHumanFighterChange2();
 	}
 }

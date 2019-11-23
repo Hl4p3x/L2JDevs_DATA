@@ -1111,6 +1111,21 @@ public final class Q00060_GoodWorksReward extends Quest
 	}
 	
 	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		startQuestTimer("DESPAWN", 60000, npc, null);
+		final L2PcInstance player = npc.getVariables().getObject("player0", L2PcInstance.class);
+		if (player != null)
+		{
+			if (player.isPlayer())
+			{
+				npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_I_MUST_KILL_YOU_BLAME_YOUR_OWN_CURIOSITY).addStringParameter(player.getAppearance().getVisibleName()));
+			}
+		}
+		return super.onSpawn(npc);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -1276,20 +1291,5 @@ public final class Q00060_GoodWorksReward extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		startQuestTimer("DESPAWN", 60000, npc, null);
-		final L2PcInstance player = npc.getVariables().getObject("player0", L2PcInstance.class);
-		if (player != null)
-		{
-			if (player.isPlayer())
-			{
-				npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_I_MUST_KILL_YOU_BLAME_YOUR_OWN_CURIOSITY).addStringParameter(player.getAppearance().getVisibleName()));
-			}
-		}
-		return super.onSpawn(npc);
 	}
 }

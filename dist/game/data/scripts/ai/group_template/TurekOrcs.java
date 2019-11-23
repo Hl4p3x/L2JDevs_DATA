@@ -55,6 +55,11 @@ public final class TurekOrcs extends AbstractNpcAI
 		addMoveFinishedId(MOBS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new TurekOrcs();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -130,10 +135,5 @@ public final class TurekOrcs extends AbstractNpcAI
 			npc.disableCoreAI(false);
 			npc.getVariables().remove("state");
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new TurekOrcs();
 	}
 }

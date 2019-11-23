@@ -39,6 +39,12 @@ public class CastleVCmd implements IVoicedCommandHandler
 	};
 	
 	@Override
+	public String[] getVoicedCommandList()
+	{
+		return VOICED_COMMANDS;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		switch (command)
@@ -126,11 +132,5 @@ public class CastleVCmd implements IVoicedCommandHandler
 				break;
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return VOICED_COMMANDS;
 	}
 }

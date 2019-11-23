@@ -130,26 +130,68 @@ public final class ClassMaster extends AbstractNpcAI
 		}
 	}
 	
-	@Override
-	public void onTutorialEvent(L2PcInstance player, String command)
+	public static void main(String[] args)
 	{
-		if (command.startsWith("CO"))
-		{
-			onTutorialLink(player, command);
-		}
-		super.onTutorialEvent(player, command);
+		new ClassMaster();
 	}
 	
-	@Override
-	public String onEnterWorld(L2PcInstance player)
+	/**
+	 * @param level - current skillId level (0 - start, 1 - first, etc)
+	 * @return minimum player level required for next class transfer
+	 */
+	private static int getMinLevel(int level)
 	{
-		showQuestionMark(player);
-		Containers.Players().addListener(new ConsumerEventListener(Containers.Players(), ON_PLAYER_LEVEL_CHANGED, (OnPlayerLevelChanged event) ->
+		switch (level)
 		{
-			showQuestionMark(event.getActiveChar());
-		}, this));
-		
-		return super.onEnterWorld(player);
+			case 0:
+				return 20;
+			case 1:
+				return 40;
+			case 2:
+				return 76;
+			default:
+				return Integer.MAX_VALUE;
+		}
+	}
+	
+	private static String getRequiredItems(int level)
+	{
+		if ((CLASS_MASTER_SETTINGS.getRequireItems(level) == null) || CLASS_MASTER_SETTINGS.getRequireItems(level).isEmpty())
+		{
+			return "<tr><td>none</td></tr>";
+		}
+		final StringBuilder sb = new StringBuilder();
+		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRequireItems(level))
+		{
+			sb.append("<tr><td><font color=\"LEVEL\">");
+			sb.append(holder.getCount());
+			sb.append("</font> - ");
+			sb.append(ItemTable.getInstance().getTemplate(holder.getId()).getName());
+			sb.append("</td></tr>");
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * Returns true if class change is possible
+	 * @param oldCID current player ClassId
+	 * @param newCID new ClassId
+	 * @return true if class change is possible
+	 */
+	private static boolean validateClassId(ClassId oldCID, ClassId newCID)
+	{
+		return (newCID != null) && (newCID.getRace() != null) && ((oldCID.equals(newCID.getParent()) || (ALLOW_ENTIRE_TREE && newCID.childOf(oldCID))));
+	}
+	
+	/**
+	 * Returns true if class change is possible
+	 * @param oldCID current player ClassId
+	 * @param val new class index
+	 * @return {@code true} if the class ID is valid
+	 */
+	private static boolean validateClassId(ClassId oldCID, int val)
+	{
+		return validateClassId(oldCID, ClassId.getClassId(val));
 	}
 	
 	@Override
@@ -215,9 +257,111 @@ public final class ClassMaster extends AbstractNpcAI
 	}
 	
 	@Override
+	public String onEnterWorld(L2PcInstance player)
+	{
+		showQuestionMark(player);
+		Containers.Players().addListener(new ConsumerEventListener(Containers.Players(), ON_PLAYER_LEVEL_CHANGED, (OnPlayerLevelChanged event) ->
+		{
+			showQuestionMark(event.getActiveChar());
+		}, this));
+		
+		return super.onEnterWorld(player);
+	}
+	
+	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return npc.getId() + ".htm";
+	}
+	
+	@Override
+	public void onTutorialEvent(L2PcInstance player, String command)
+	{
+		if (command.startsWith("CO"))
+		{
+			onTutorialLink(player, command);
+		}
+		super.onTutorialEvent(player, command);
+	}
+	
+	@Override
+	public String onTutorialQuestionMark(L2PcInstance player, int number)
+	{
+		if (!ALTERNATE_CLASS_MASTER || (number != CUSTOM_EVENT_ID))
+		{
+			return "";
+		}
+		
+		showTutorialHtml(player);
+		return "";
+	}
+	
+	private boolean checkAndChangeClass(L2PcInstance player, int val)
+	{
+		final ClassId currentClassId = player.getClassId();
+		if ((getMinLevel(currentClassId.level()) > player.getLevel()) && !ALLOW_ENTIRE_TREE)
+		{
+			return false;
+		}
+		
+		if (!validateClassId(currentClassId, val))
+		{
+			return false;
+		}
+		
+		final int newJobLevel = currentClassId.level() + 1;
+		
+		// Weight/Inventory check
+		if (!CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).isEmpty() && !player.isInventoryUnder90(false))
+		{
+			player.sendPacket(INVENTORY_LESS_THAN_80_PERCENT);
+			return false;
+		}
+		
+		// check if player have all required items for class transfer
+		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel))
+		{
+			if (player.getInventory().getInventoryItemCount(holder.getId(), -1) < holder.getCount())
+			{
+				player.sendPacket(NOT_ENOUGH_ITEMS);
+				return false;
+			}
+		}
+		
+		// get all required items for class transfer
+		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel))
+		{
+			if (!player.destroyItemByItemId("ClassMaster", holder.getId(), holder.getCount(), player, true))
+			{
+				return false;
+			}
+		}
+		
+		// reward player with items
+		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel))
+		{
+			player.addItem("ClassMaster", holder.getId(), holder.getCount(), player, true);
+		}
+		
+		player.setClassId(val);
+		
+		if (player.isSubClassActive())
+		{
+			player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
+		}
+		else
+		{
+			player.setBaseClass(player.getActiveClass());
+		}
+		
+		player.broadcastUserInfo();
+		
+		if (CLASS_MASTER_SETTINGS.isAllowed(player.getClassId().level() + 1) && ALTERNATE_CLASS_MASTER && (((player.getClassId().level() == 1) && (player.getLevel() >= 40)) || ((player.getClassId().level() == 2) && (player.getLevel() >= 76))))
+		{
+			showQuestionMark(player);
+		}
+		
+		return true;
 	}
 	
 	private void onTutorialLink(L2PcInstance player, String request)
@@ -246,39 +390,6 @@ public final class ClassMaster extends AbstractNpcAI
 		}
 		
 		player.sendPacket(STATIC_PACKET);
-	}
-	
-	@Override
-	public String onTutorialQuestionMark(L2PcInstance player, int number)
-	{
-		if (!ALTERNATE_CLASS_MASTER || (number != CUSTOM_EVENT_ID))
-		{
-			return "";
-		}
-		
-		showTutorialHtml(player);
-		return "";
-	}
-	
-	private void showQuestionMark(L2PcInstance player)
-	{
-		if (!ALTERNATE_CLASS_MASTER)
-		{
-			return;
-		}
-		
-		final ClassId classId = player.getClassId();
-		if (getMinLevel(classId.level()) > player.getLevel())
-		{
-			return;
-		}
-		
-		if (!CLASS_MASTER_SETTINGS.isAllowed(classId.level() + 1))
-		{
-			return;
-		}
-		
-		player.sendPacket(new TutorialShowQuestionMark(CUSTOM_EVENT_ID));
 	}
 	
 	private void showHtmlMenu(L2PcInstance player, int objectId, int level)
@@ -395,6 +506,27 @@ public final class ClassMaster extends AbstractNpcAI
 		showResult(player, getHtm(player.getHtmlPrefix(), "nomore.htm"));
 	}
 	
+	private void showQuestionMark(L2PcInstance player)
+	{
+		if (!ALTERNATE_CLASS_MASTER)
+		{
+			return;
+		}
+		
+		final ClassId classId = player.getClassId();
+		if (getMinLevel(classId.level()) > player.getLevel())
+		{
+			return;
+		}
+		
+		if (!CLASS_MASTER_SETTINGS.isAllowed(classId.level() + 1))
+		{
+			return;
+		}
+		
+		player.sendPacket(new TutorialShowQuestionMark(CUSTOM_EVENT_ID));
+	}
+	
 	private void showTutorialHtml(L2PcInstance player)
 	{
 		final ClassId currentClassId = player.getClassId();
@@ -422,137 +554,5 @@ public final class ClassMaster extends AbstractNpcAI
 		msg = msg.replaceAll("%menu%", menu.toString());
 		msg = msg.replace("%req_items%", getRequiredItems(currentClassId.level() + 1));
 		player.sendPacket(new TutorialShowHtml(msg));
-	}
-	
-	private boolean checkAndChangeClass(L2PcInstance player, int val)
-	{
-		final ClassId currentClassId = player.getClassId();
-		if ((getMinLevel(currentClassId.level()) > player.getLevel()) && !ALLOW_ENTIRE_TREE)
-		{
-			return false;
-		}
-		
-		if (!validateClassId(currentClassId, val))
-		{
-			return false;
-		}
-		
-		final int newJobLevel = currentClassId.level() + 1;
-		
-		// Weight/Inventory check
-		if (!CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).isEmpty() && !player.isInventoryUnder90(false))
-		{
-			player.sendPacket(INVENTORY_LESS_THAN_80_PERCENT);
-			return false;
-		}
-		
-		// check if player have all required items for class transfer
-		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel))
-		{
-			if (player.getInventory().getInventoryItemCount(holder.getId(), -1) < holder.getCount())
-			{
-				player.sendPacket(NOT_ENOUGH_ITEMS);
-				return false;
-			}
-		}
-		
-		// get all required items for class transfer
-		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel))
-		{
-			if (!player.destroyItemByItemId("ClassMaster", holder.getId(), holder.getCount(), player, true))
-			{
-				return false;
-			}
-		}
-		
-		// reward player with items
-		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel))
-		{
-			player.addItem("ClassMaster", holder.getId(), holder.getCount(), player, true);
-		}
-		
-		player.setClassId(val);
-		
-		if (player.isSubClassActive())
-		{
-			player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
-		}
-		else
-		{
-			player.setBaseClass(player.getActiveClass());
-		}
-		
-		player.broadcastUserInfo();
-		
-		if (CLASS_MASTER_SETTINGS.isAllowed(player.getClassId().level() + 1) && ALTERNATE_CLASS_MASTER && (((player.getClassId().level() == 1) && (player.getLevel() >= 40)) || ((player.getClassId().level() == 2) && (player.getLevel() >= 76))))
-		{
-			showQuestionMark(player);
-		}
-		
-		return true;
-	}
-	
-	/**
-	 * @param level - current skillId level (0 - start, 1 - first, etc)
-	 * @return minimum player level required for next class transfer
-	 */
-	private static int getMinLevel(int level)
-	{
-		switch (level)
-		{
-			case 0:
-				return 20;
-			case 1:
-				return 40;
-			case 2:
-				return 76;
-			default:
-				return Integer.MAX_VALUE;
-		}
-	}
-	
-	/**
-	 * Returns true if class change is possible
-	 * @param oldCID current player ClassId
-	 * @param val new class index
-	 * @return {@code true} if the class ID is valid
-	 */
-	private static boolean validateClassId(ClassId oldCID, int val)
-	{
-		return validateClassId(oldCID, ClassId.getClassId(val));
-	}
-	
-	/**
-	 * Returns true if class change is possible
-	 * @param oldCID current player ClassId
-	 * @param newCID new ClassId
-	 * @return true if class change is possible
-	 */
-	private static boolean validateClassId(ClassId oldCID, ClassId newCID)
-	{
-		return (newCID != null) && (newCID.getRace() != null) && ((oldCID.equals(newCID.getParent()) || (ALLOW_ENTIRE_TREE && newCID.childOf(oldCID))));
-	}
-	
-	private static String getRequiredItems(int level)
-	{
-		if ((CLASS_MASTER_SETTINGS.getRequireItems(level) == null) || CLASS_MASTER_SETTINGS.getRequireItems(level).isEmpty())
-		{
-			return "<tr><td>none</td></tr>";
-		}
-		final StringBuilder sb = new StringBuilder();
-		for (ItemHolder holder : CLASS_MASTER_SETTINGS.getRequireItems(level))
-		{
-			sb.append("<tr><td><font color=\"LEVEL\">");
-			sb.append(holder.getCount());
-			sb.append("</font> - ");
-			sb.append(ItemTable.getInstance().getTemplate(holder.getId()).getName());
-			sb.append("</td></tr>");
-		}
-		return sb.toString();
-	}
-	
-	public static void main(String[] args)
-	{
-		new ClassMaster();
 	}
 }

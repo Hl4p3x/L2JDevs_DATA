@@ -133,84 +133,6 @@ public class Q00663_SeductiveWhispers extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		switch (qs.getState())
-		{
-			case State.CREATED:
-			{
-				htmltext = player.getLevel() < MIN_LEVEL ? "30846-02.html" : "30846-01.htm";
-				break;
-			}
-			case State.STARTED:
-			{
-				if ((qs.getMemoState() < 4) && (qs.getMemoState() >= 1))
-				{
-					if (hasQuestItems(player, SPIRIT_BEAD))
-					{
-						htmltext = "30846-05.html";
-					}
-					else
-					{
-						htmltext = "30846-04.html";
-					}
-				}
-				
-				if ((qs.getMemoState() / 1000) == 0)
-				{
-					switch (qs.getMemoState() % 10)
-					{
-						case 4:
-						{
-							htmltext = "30846-05a.html";
-							break;
-						}
-						case 5:
-						{
-							htmltext = "30846-11.html";
-							break;
-						}
-						case 6:
-						{
-							htmltext = "30846-15.html";
-							break;
-						}
-						case 7:
-						{
-							if (((qs.getMemoState() % 100) / 10) >= 7)
-							{
-								qs.setMemoState(1);
-								giveAdena(player, 2384000, true);
-								giveItems(player, SCROLL_ENCHANT_WEAPON_A_GRADE);
-								giveItems(player, SCROLL_ENCHANT_ARMOR_A_GRADE);
-								htmltext = "30846-17.html";
-							}
-							else
-							{
-								final int winCount = (qs.getMemoState() / 10) + 1;
-								htmltext = getHtml(player, "30846-16.html", 0, 0, winCount, 0);
-							}
-							break;
-						}
-					}
-				}
-				else if (qs.isMemoState(1005))
-				{
-					htmltext = "30846-23.html";
-				}
-				else if (qs.isMemoState(1006))
-				{
-					htmltext = "30846-26.html";
-				}
-				break;
-			}
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, false);
@@ -772,6 +694,84 @@ public class Q00663_SeductiveWhispers extends Quest
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState qs = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		switch (qs.getState())
+		{
+			case State.CREATED:
+			{
+				htmltext = player.getLevel() < MIN_LEVEL ? "30846-02.html" : "30846-01.htm";
+				break;
+			}
+			case State.STARTED:
+			{
+				if ((qs.getMemoState() < 4) && (qs.getMemoState() >= 1))
+				{
+					if (hasQuestItems(player, SPIRIT_BEAD))
+					{
+						htmltext = "30846-05.html";
+					}
+					else
+					{
+						htmltext = "30846-04.html";
+					}
+				}
+				
+				if ((qs.getMemoState() / 1000) == 0)
+				{
+					switch (qs.getMemoState() % 10)
+					{
+						case 4:
+						{
+							htmltext = "30846-05a.html";
+							break;
+						}
+						case 5:
+						{
+							htmltext = "30846-11.html";
+							break;
+						}
+						case 6:
+						{
+							htmltext = "30846-15.html";
+							break;
+						}
+						case 7:
+						{
+							if (((qs.getMemoState() % 100) / 10) >= 7)
+							{
+								qs.setMemoState(1);
+								giveAdena(player, 2384000, true);
+								giveItems(player, SCROLL_ENCHANT_WEAPON_A_GRADE);
+								giveItems(player, SCROLL_ENCHANT_ARMOR_A_GRADE);
+								htmltext = "30846-17.html";
+							}
+							else
+							{
+								final int winCount = (qs.getMemoState() / 10) + 1;
+								htmltext = getHtml(player, "30846-16.html", 0, 0, winCount, 0);
+							}
+							break;
+						}
+					}
+				}
+				else if (qs.isMemoState(1005))
+				{
+					htmltext = "30846-23.html";
+				}
+				else if (qs.isMemoState(1006))
+				{
+					htmltext = "30846-26.html";
+				}
+				break;
+			}
+		}
+		return htmltext;
 	}
 	
 	private String getHtml(L2PcInstance player, String htmlName, int card1pic, int card2pic, int winCount, int card1)

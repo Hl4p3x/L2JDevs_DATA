@@ -43,6 +43,42 @@ public final class Sow extends AbstractEffect
 		super(attachCond, applyCond, set, params);
 	}
 	
+	private static boolean calcSuccess(L2Character activeChar, L2Character target, L2Seed seed)
+	{
+		// TODO: check all the chances
+		final int minlevelSeed = seed.getLevel() - 5;
+		final int maxlevelSeed = seed.getLevel() + 5;
+		final int levelPlayer = activeChar.getLevel(); // Attacker Level
+		final int levelTarget = target.getLevel(); // target Level
+		int basicSuccess = seed.isAlternative() ? 20 : 90;
+		
+		// seed level
+		if (levelTarget < minlevelSeed)
+		{
+			basicSuccess -= 5 * (minlevelSeed - levelTarget);
+		}
+		if (levelTarget > maxlevelSeed)
+		{
+			basicSuccess -= 5 * (levelTarget - maxlevelSeed);
+		}
+		
+		// 5% decrease in chance if player level
+		// is more than +/- 5 levels to _target's_ level
+		int diff = (levelPlayer - levelTarget);
+		if (diff < 0)
+		{
+			diff = -diff;
+		}
+		if (diff > 5)
+		{
+			basicSuccess -= 5 * (diff - 5);
+		}
+		
+		// chance can't be less than 1%
+		Math.max(basicSuccess, 1);
+		return Rnd.nextInt(99) < basicSuccess;
+	}
+	
 	@Override
 	public boolean isInstant()
 	{
@@ -95,41 +131,5 @@ public final class Sow extends AbstractEffect
 		
 		// TODO: Mob should not aggro on player, this way doesn't work really nice
 		target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-	}
-	
-	private static boolean calcSuccess(L2Character activeChar, L2Character target, L2Seed seed)
-	{
-		// TODO: check all the chances
-		final int minlevelSeed = seed.getLevel() - 5;
-		final int maxlevelSeed = seed.getLevel() + 5;
-		final int levelPlayer = activeChar.getLevel(); // Attacker Level
-		final int levelTarget = target.getLevel(); // target Level
-		int basicSuccess = seed.isAlternative() ? 20 : 90;
-		
-		// seed level
-		if (levelTarget < minlevelSeed)
-		{
-			basicSuccess -= 5 * (minlevelSeed - levelTarget);
-		}
-		if (levelTarget > maxlevelSeed)
-		{
-			basicSuccess -= 5 * (levelTarget - maxlevelSeed);
-		}
-		
-		// 5% decrease in chance if player level
-		// is more than +/- 5 levels to _target's_ level
-		int diff = (levelPlayer - levelTarget);
-		if (diff < 0)
-		{
-			diff = -diff;
-		}
-		if (diff > 5)
-		{
-			basicSuccess -= 5 * (diff - 5);
-		}
-		
-		// chance can't be less than 1%
-		Math.max(basicSuccess, 1);
-		return Rnd.nextInt(99) < basicSuccess;
 	}
 }

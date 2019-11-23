@@ -45,13 +45,9 @@ import instances.AbstractInstance;
  */
 public final class DarkCloudMansion extends AbstractInstance
 {
-	protected class DMCWorld extends InstanceWorld
-	{
-		protected Map<String, DMCRoom> rooms = new ConcurrentHashMap<>();
-	}
-	
 	// NPCs
 	private static int YIYEN = 32282;
+	
 	private static int SOFaith = 32288; // Symbol of Faith
 	private static int SOAdversity = 32289; // Symbol of Adversity
 	private static int SOAdventure = 32290; // Symbol of Adventure
@@ -104,9 +100,9 @@ public final class DarkCloudMansion extends AbstractInstance
 		22402,
 		22264
 	};
-	
 	// Items
 	private static int CC = 9690; // Contaminated Crystal
+	
 	// Misc
 	private static final int TEMPLATE_ID = 9;
 	private static int D1 = 24230001; // Starting Room
@@ -180,7 +176,6 @@ public final class DarkCloudMansion extends AbstractInstance
 		{CCG[1], 147810, 181517},
 		{CCG[0], 147805, 181281},
 	};
-	
 	// forth room - random shadow column
 	private static int[][] ColumnRows = new int[][]
 	{
@@ -218,23 +213,334 @@ public final class DarkCloudMansion extends AbstractInstance
 		addKillId(TOKILL);
 	}
 	
-	protected static class DMCNpc
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		public L2Npc npc;
-		public boolean isDead = false;
-		public L2Npc golem = null;
-		public int status = 0;
-		public int order = 0;
-		public int count = 0;
+		if (npc == null)
+		{
+			return "";
+		}
+		
+		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		final DMCWorld world;
+		if (tmpworld instanceof DMCWorld)
+		{
+			world = (DMCWorld) tmpworld;
+		}
+		else
+		{
+			return "";
+		}
+		
+		if (world.rooms.containsKey("FifthRoom"))
+		{
+			DMCRoom FifthRoom = world.rooms.get("FifthRoom");
+			if (event.equalsIgnoreCase("decayMe"))
+			{
+				for (DMCNpc mob : FifthRoom.npcList)
+				{
+					if ((mob.npc == npc) || ((FifthRoom.reset == 0) && (FifthRoom.founded == 3)))
+					{
+						mob.npc.decayMe();
+						mob.count = 2;
+					}
+				}
+				if ((FifthRoom.reset == 0) && (FifthRoom.founded == 3))
+				{
+					endInstance(world);
+				}
+			}
+			else if (event.equalsIgnoreCase("decayBelethSamples"))
+			{
+				for (DMCNpc mob : FifthRoom.npcList)
+				{
+					if (mob.count == 0)
+					{
+						mob.npc.decayMe();
+						mob.count = 2;
+					}
+				}
+			}
+			else if (event.equalsIgnoreCase("decayChatBelethSamples"))
+			{
+				for (DMCNpc mob : FifthRoom.npcList)
+				{
+					if (mob.status == 1)
+					{
+						mob.npc.broadcastPacket(new NpcSay(mob.npc.getObjectId(), Say2.NPC_ALL, mob.npc.getId(), _decayChat[getRandom(_decayChat.length)]));
+					}
+				}
+			}
+			else if (event.equalsIgnoreCase("respawnFifth"))
+			{
+				spawnFifthRoom(world);
+			}
+		}
+		
+		return "";
 	}
 	
-	protected static class DMCRoom
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
 	{
-		public List<DMCNpc> npcList = new ArrayList<>();
-		public int counter = 0;
-		public int reset = 0;
-		public int founded = 0;
-		public int[] Order;
+		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		final DMCWorld world;
+		if (tmpworld instanceof DMCWorld)
+		{
+			world = (DMCWorld) tmpworld;
+			if (world.getStatus() == 7)
+			{
+				DMCRoom ForthRoom = world.rooms.get("ForthRoom");
+				for (DMCNpc mob : ForthRoom.npcList)
+				{
+					if (mob.npc == npc)
+					{
+						if (mob.npc.isInvul() && (getRandom(100) < 12))
+						{
+							addSpawn(BM[getRandom(BM.length)], attacker.getX(), attacker.getY(), attacker.getZ(), 0, false, 0, false, world.getInstanceId());
+						}
+					}
+				}
+			}
+			if (world.getStatus() == 9)
+			{
+				checkBelethSample(world, npc, attacker);
+			}
+		}
+		
+		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			runStartRoom((DMCWorld) world);
+			final L2Party party = player.getParty();
+			if (party != null)
+			{
+				for (L2PcInstance partyMember : party.getMembers())
+				{
+					getQuestState(partyMember, true);
+					world.addAllowed(partyMember.getObjectId());
+					teleportPlayer(partyMember, new Location(146534, 180464, -6117), world.getInstanceId());
+				}
+			}
+		}
+		else
+		{
+			teleportPlayer(player, new Location(146534, 180464, -6117), world.getInstanceId());
+		}
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		DMCWorld world;
+		if (tmpworld instanceof DMCWorld)
+		{
+			world = (DMCWorld) tmpworld;
+			if (world.getStatus() == 4)
+			{
+				DMCRoom SecondRoom = world.rooms.get("SecondRoom");
+				for (DMCNpc mob : SecondRoom.npcList)
+				{
+					if (mob.npc == npc)
+					{
+						checkStone(npc, SecondRoom.Order, mob, world);
+					}
+				}
+				
+				if (allStonesDone(world))
+				{
+					removeMonoliths(world);
+					runHall3(world);
+				}
+			}
+			
+			if ((npc.getId() == SOTruth) && (world.getStatus() == 10))
+			{
+				npc.showChatWindow(player);
+				
+				if (!hasQuestItems(player, CC))
+				{
+					giveItems(player, CC, 1);
+				}
+			}
+		}
+		
+		return "";
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		final DMCWorld world;
+		if (tmpworld instanceof DMCWorld)
+		{
+			world = (DMCWorld) tmpworld;
+			if (world.getStatus() == 0)
+			{
+				if (checkKillProgress(npc, world.rooms.get("StartRoom")))
+				{
+					runHall(world);
+				}
+			}
+			if (world.getStatus() == 1)
+			{
+				if (checkKillProgress(npc, world.rooms.get("Hall")))
+				{
+					runFirstRoom(world);
+				}
+			}
+			if (world.getStatus() == 2)
+			{
+				if (checkKillProgress(npc, world.rooms.get("FirstRoom")))
+				{
+					runHall2(world);
+				}
+			}
+			if (world.getStatus() == 3)
+			{
+				if (checkKillProgress(npc, world.rooms.get("Hall")))
+				{
+					runSecondRoom(world);
+				}
+			}
+			if (world.getStatus() == 4)
+			{
+				DMCRoom SecondRoom = world.rooms.get("SecondRoom");
+				for (DMCNpc mob : SecondRoom.npcList)
+				{
+					if (mob.golem == npc)
+					{
+						mob.golem = null;
+					}
+				}
+			}
+			if (world.getStatus() == 5)
+			{
+				if (checkKillProgress(npc, world.rooms.get("Hall")))
+				{
+					runThirdRoom(world);
+				}
+			}
+			if (world.getStatus() == 6)
+			{
+				if (checkKillProgress(npc, world.rooms.get("ThirdRoom")))
+				{
+					runForthRoom(world);
+				}
+			}
+			if (world.getStatus() == 7)
+			{
+				chkShadowColumn(world, npc);
+			}
+			if (world.getStatus() == 8)
+			{
+				if (checkKillProgress(npc, world.rooms.get("ThirdRoom2")))
+				{
+					runFifthRoom(world);
+				}
+			}
+			if (world.getStatus() == 9)
+			{
+				killedBelethSample(world, npc);
+			}
+		}
+		return "";
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final int npcId = npc.getId();
+		if (npcId == YIYEN)
+		{
+			enterInstance(player, new DMCWorld(), "DarkCloudMansion.xml", TEMPLATE_ID);
+		}
+		else
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			DMCWorld world;
+			if (tmpworld instanceof DMCWorld)
+			{
+				world = (DMCWorld) tmpworld;
+			}
+			else
+			{
+				return "";
+			}
+			
+			if (npcId == SOTruth)
+			{
+				if (world.isAllowed(player.getObjectId()))
+				{
+					world.removeAllowed(player.getObjectId());
+				}
+				teleportPlayer(player, new Location(139968, 150367, -3111), 0);
+				int instanceId = npc.getInstanceId();
+				Instance instance = InstanceManager.getInstance().getInstance(instanceId);
+				if (instance.getPlayers().isEmpty())
+				{
+					InstanceManager.getInstance().destroyInstance(instanceId);
+				}
+				return "";
+			}
+		}
+		return "";
+	}
+	
+	protected boolean allStonesDone(DMCWorld world)
+	{
+		DMCRoom SecondRoom = world.rooms.get("SecondRoom");
+		
+		for (DMCNpc mob : SecondRoom.npcList)
+		{
+			if (mob.isDead)
+			{
+				continue;
+			}
+			return false;
+		}
+		
+		return true;
+	}
+	
+	protected void checkBelethSample(DMCWorld world, L2Npc npc, L2PcInstance player)
+	{
+		DMCRoom FifthRoom = world.rooms.get("FifthRoom");
+		
+		for (DMCNpc mob : FifthRoom.npcList)
+		{
+			if (mob.npc == npc)
+			{
+				if (mob.count == 0)
+				{
+					mob.count = 1;
+					if (mob.status == 1)
+					{
+						mob.npc.broadcastPacket(new NpcSay(mob.npc.getObjectId(), Say2.NPC_ALL, mob.npc.getId(), _successChat[getRandom(_successChat.length)]));
+						FifthRoom.founded += 1;
+						startQuestTimer("decayMe", 1500, npc, player);
+					}
+					else
+					{
+						FifthRoom.reset = 1;
+						mob.npc.broadcastPacket(new NpcSay(mob.npc.getObjectId(), Say2.NPC_ALL, mob.npc.getId(), _faildChat[getRandom(_faildChat.length)]));
+						startQuestTimer("decayChatBelethSamples", 4000, npc, player);
+						startQuestTimer("decayBelethSamples", 4500, npc, player);
+					}
+				}
+				else
+				{
+					return;
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -277,131 +583,141 @@ public final class DarkCloudMansion extends AbstractInstance
 		return true;
 	}
 	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	protected boolean checkKillProgress(L2Npc npc, DMCRoom room)
 	{
-		if (firstEntrance)
+		boolean cont = true;
+		for (DMCNpc npcobj : room.npcList)
 		{
-			runStartRoom((DMCWorld) world);
-			final L2Party party = player.getParty();
-			if (party != null)
+			if (npcobj.npc == npc)
 			{
-				for (L2PcInstance partyMember : party.getMembers())
+				npcobj.isDead = true;
+			}
+			if (npcobj.isDead == false)
+			{
+				cont = false;
+			}
+		}
+		
+		return cont;
+	}
+	
+	protected void checkStone(L2Npc npc, int order[], DMCNpc npcObj, DMCWorld world)
+	{
+		for (int i = 1; i < 7; i++)
+		{
+			// if there is a non zero value in the precedent step, the sequence is ok
+			if ((order[i] == 0) && (order[i - 1] != 0))
+			{
+				if ((npcObj.order == i) && (npcObj.status == 0))
 				{
-					getQuestState(partyMember, true);
-					world.addAllowed(partyMember.getObjectId());
-					teleportPlayer(partyMember, new Location(146534, 180464, -6117), world.getInstanceId());
+					order[i] = 1;
+					npcObj.status = 1;
+					npcObj.isDead = true;
+					npc.broadcastPacket(new MagicSkillUse(npc, npc, 5441, 1, 1, 0));
+					return;
 				}
+			}
+		}
+		
+		spawnRndGolem(world, npcObj);
+	}
+	
+	protected void chkShadowColumn(DMCWorld world, L2Npc npc)
+	{
+		DMCRoom ForthRoom = world.rooms.get("ForthRoom");
+		
+		for (DMCNpc mob : ForthRoom.npcList)
+		{
+			if (mob.npc == npc)
+			{
+				for (int i = 0; i < 7; i++)
+				{
+					if ((mob.order == i) && (ForthRoom.counter == i))
+					{
+						openDoor(W1 + i, world.getInstanceId());
+						ForthRoom.counter += 1;
+						if (ForthRoom.counter == 7)
+						{
+							runThirdRoom2(world);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	protected void endInstance(DMCWorld world)
+	{
+		world.setStatus(10);
+		addSpawn(SOTruth, 148911, 181940, -6117, 16383, false, 0, false, world.getInstanceId());
+		world.rooms.clear();
+	}
+	
+	protected void killedBelethSample(DMCWorld world, L2Npc npc)
+	{
+		int decayedSamples = 0;
+		DMCRoom FifthRoom = world.rooms.get("FifthRoom");
+		
+		for (DMCNpc mob : FifthRoom.npcList)
+		{
+			if (mob.npc == npc)
+			{
+				decayedSamples += 1;
+				mob.count = 2;
+			}
+			else
+			{
+				if (mob.count == 2)
+				{
+					decayedSamples += 1;
+				}
+			}
+		}
+		
+		if (FifthRoom.reset == 1)
+		{
+			for (DMCNpc mob : FifthRoom.npcList)
+			{
+				if ((mob.count == 0) || ((mob.status == 1) && (mob.count != 2)))
+				{
+					decayedSamples += 1;
+					mob.npc.decayMe();
+					mob.count = 2;
+				}
+			}
+			if (decayedSamples == 7)
+			{
+				startQuestTimer("respawnFifth", 6000, npc, null);
 			}
 		}
 		else
 		{
-			teleportPlayer(player, new Location(146534, 180464, -6117), world.getInstanceId());
+			if ((FifthRoom.reset == 0) && (FifthRoom.founded == 3))
+			{
+				for (DMCNpc mob : FifthRoom.npcList)
+				{
+					mob.npc.decayMe();
+				}
+				endInstance(world);
+			}
 		}
 	}
 	
-	protected void runStartRoom(DMCWorld world)
+	protected void removeMonoliths(DMCWorld world)
 	{
-		world.setStatus(0);
-		DMCRoom StartRoom = new DMCRoom();
-		DMCNpc thisnpc;
+		DMCRoom SecondRoom = world.rooms.get("SecondRoom");
 		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[0], 146817, 180335, -6117, 0, false, 0, false, world.getInstanceId());
-		StartRoom.npcList.add(thisnpc);
-		if (noRndWalk)
+		for (DMCNpc mob : SecondRoom.npcList)
 		{
-			thisnpc.npc.setIsNoRndWalk(true);
+			mob.npc.decayMe();
 		}
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[0], 146741, 180589, -6117, 0, false, 0, false, world.getInstanceId());
-		StartRoom.npcList.add(thisnpc);
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		world.rooms.put("StartRoom", StartRoom);
 	}
 	
-	protected void spawnHall(DMCWorld world)
+	protected void runFifthRoom(DMCWorld world)
 	{
-		DMCRoom Hall = new DMCRoom();
-		DMCNpc thisnpc;
-		world.rooms.remove("Hall"); // remove room instance to avoid adding mob every time
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[1], 147217, 180112, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[2], 147217, 180209, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[1], 148521, 180112, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[0], 148521, 180209, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[1], 148525, 180910, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[2], 148435, 180910, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[1], 147242, 180910, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		thisnpc = new DMCNpc();
-		thisnpc.npc = addSpawn(BM[2], 147242, 180819, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			thisnpc.npc.setIsNoRndWalk(true);
-		}
-		Hall.npcList.add(thisnpc);
-		
-		world.rooms.put("Hall", Hall);
-	}
-	
-	protected void runHall(DMCWorld world)
-	{
-		spawnHall(world);
-		world.setStatus(1);
-		openDoor(D1, world.getInstanceId());
+		spawnFifthRoom(world);
+		world.setStatus(9);
+		openDoor(D6, world.getInstanceId());
 	}
 	
 	protected void runFirstRoom(DMCWorld world)
@@ -446,11 +762,72 @@ public final class DarkCloudMansion extends AbstractInstance
 		openDoor(D2, world.getInstanceId());
 	}
 	
+	protected void runForthRoom(DMCWorld world)
+	{
+		DMCRoom ForthRoom = new DMCRoom();
+		ForthRoom.counter = 0;
+		DMCNpc thisnpc;
+		int temp[] = new int[7];
+		int templist[][] = new int[7][5];
+		int xx = 0;
+		
+		for (int i = 0; i < 7; i++)
+		{
+			temp[i] = getRandom(ColumnRows.length);
+		}
+		
+		for (int i = 0; i < 7; i++)
+		{
+			templist[i] = ColumnRows[temp[i]];
+		}
+		
+		for (int x = 148660; x < 149285; x += 125)
+		{
+			int yy = 0;
+			for (int y = 179280; y > 178405; y -= 125)
+			{
+				thisnpc = new DMCNpc();
+				thisnpc.npc = addSpawn(SC, x, y, -6115, 16215, false, 0, false, world.getInstanceId());
+				thisnpc.status = templist[yy][xx];
+				thisnpc.order = yy;
+				ForthRoom.npcList.add(thisnpc);
+				yy++;
+			}
+			xx++;
+		}
+		// TODO: unify this into previous loop
+		for (DMCNpc npc : ForthRoom.npcList)
+		{
+			if (npc.status == 0)
+			{
+				npc.npc.setIsInvul(true);
+			}
+		}
+		
+		world.rooms.put("ForthRoom", ForthRoom);
+		world.setStatus(7);
+		openDoor(D5, world.getInstanceId());
+	}
+	
+	protected void runHall(DMCWorld world)
+	{
+		spawnHall(world);
+		world.setStatus(1);
+		openDoor(D1, world.getInstanceId());
+	}
+	
 	protected void runHall2(DMCWorld world)
 	{
 		addSpawn(SOFaith, 147818, 179643, -6117, 0, false, 0, false, world.getInstanceId());
 		spawnHall(world);
 		world.setStatus(3);
+	}
+	
+	protected void runHall3(DMCWorld world)
+	{
+		addSpawn(SOAdversity, 147808, 181281, -6117, 16383, false, 0, false, world.getInstanceId());
+		spawnHall(world);
+		world.setStatus(5);
 	}
 	
 	protected void runSecondRoom(DMCWorld world)
@@ -503,11 +880,28 @@ public final class DarkCloudMansion extends AbstractInstance
 		openDoor(D3, world.getInstanceId());
 	}
 	
-	protected void runHall3(DMCWorld world)
+	protected void runStartRoom(DMCWorld world)
 	{
-		addSpawn(SOAdversity, 147808, 181281, -6117, 16383, false, 0, false, world.getInstanceId());
-		spawnHall(world);
-		world.setStatus(5);
+		world.setStatus(0);
+		DMCRoom StartRoom = new DMCRoom();
+		DMCNpc thisnpc;
+		
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[0], 146817, 180335, -6117, 0, false, 0, false, world.getInstanceId());
+		StartRoom.npcList.add(thisnpc);
+		if (noRndWalk)
+		{
+			thisnpc.npc.setIsNoRndWalk(true);
+		}
+		
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[0], 146741, 180589, -6117, 0, false, 0, false, world.getInstanceId());
+		StartRoom.npcList.add(thisnpc);
+		if (noRndWalk)
+		{
+			thisnpc.npc.setIsNoRndWalk(true);
+		}
+		world.rooms.put("StartRoom", StartRoom);
 	}
 	
 	protected void runThirdRoom(DMCWorld world)
@@ -602,58 +996,96 @@ public final class DarkCloudMansion extends AbstractInstance
 		world.setStatus(8);
 	}
 	
-	protected void runForthRoom(DMCWorld world)
+	protected void spawnHall(DMCWorld world)
 	{
-		DMCRoom ForthRoom = new DMCRoom();
-		ForthRoom.counter = 0;
+		DMCRoom Hall = new DMCRoom();
 		DMCNpc thisnpc;
-		int temp[] = new int[7];
-		int templist[][] = new int[7][5];
-		int xx = 0;
+		world.rooms.remove("Hall"); // remove room instance to avoid adding mob every time
 		
-		for (int i = 0; i < 7; i++)
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[1], 147217, 180112, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
 		{
-			temp[i] = getRandom(ColumnRows.length);
+			thisnpc.npc.setIsNoRndWalk(true);
 		}
+		Hall.npcList.add(thisnpc);
 		
-		for (int i = 0; i < 7; i++)
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[2], 147217, 180209, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
 		{
-			templist[i] = ColumnRows[temp[i]];
+			thisnpc.npc.setIsNoRndWalk(true);
 		}
+		Hall.npcList.add(thisnpc);
 		
-		for (int x = 148660; x < 149285; x += 125)
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[1], 148521, 180112, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
 		{
-			int yy = 0;
-			for (int y = 179280; y > 178405; y -= 125)
-			{
-				thisnpc = new DMCNpc();
-				thisnpc.npc = addSpawn(SC, x, y, -6115, 16215, false, 0, false, world.getInstanceId());
-				thisnpc.status = templist[yy][xx];
-				thisnpc.order = yy;
-				ForthRoom.npcList.add(thisnpc);
-				yy++;
-			}
-			xx++;
+			thisnpc.npc.setIsNoRndWalk(true);
 		}
-		// TODO: unify this into previous loop
-		for (DMCNpc npc : ForthRoom.npcList)
-		{
-			if (npc.status == 0)
-			{
-				npc.npc.setIsInvul(true);
-			}
-		}
+		Hall.npcList.add(thisnpc);
 		
-		world.rooms.put("ForthRoom", ForthRoom);
-		world.setStatus(7);
-		openDoor(D5, world.getInstanceId());
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[0], 148521, 180209, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
+		{
+			thisnpc.npc.setIsNoRndWalk(true);
+		}
+		Hall.npcList.add(thisnpc);
+		
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[1], 148525, 180910, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
+		{
+			thisnpc.npc.setIsNoRndWalk(true);
+		}
+		Hall.npcList.add(thisnpc);
+		
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[2], 148435, 180910, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
+		{
+			thisnpc.npc.setIsNoRndWalk(true);
+		}
+		Hall.npcList.add(thisnpc);
+		
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[1], 147242, 180910, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
+		{
+			thisnpc.npc.setIsNoRndWalk(true);
+		}
+		Hall.npcList.add(thisnpc);
+		
+		thisnpc = new DMCNpc();
+		thisnpc.npc = addSpawn(BM[2], 147242, 180819, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
+		{
+			thisnpc.npc.setIsNoRndWalk(true);
+		}
+		Hall.npcList.add(thisnpc);
+		
+		world.rooms.put("Hall", Hall);
 	}
 	
-	protected void runFifthRoom(DMCWorld world)
+	protected void spawnRndGolem(DMCWorld world, DMCNpc npc)
 	{
-		spawnFifthRoom(world);
-		world.setStatus(9);
-		openDoor(D6, world.getInstanceId());
+		if (npc.golem != null)
+		{
+			return;
+		}
+		
+		int i = getRandom(GolemSpawn.length);
+		int mobId = GolemSpawn[i][0];
+		int x = GolemSpawn[i][1];
+		int y = GolemSpawn[i][2];
+		
+		npc.golem = addSpawn(mobId, x, y, -6117, 0, false, 0, false, world.getInstanceId());
+		if (noRndWalk)
+		{
+			npc.golem.setIsNoRndWalk(true);
+		}
 	}
 	
 	private void spawnFifthRoom(DMCWorld world)
@@ -691,459 +1123,27 @@ public final class DarkCloudMansion extends AbstractInstance
 		world.rooms.put("FifthRoom", FifthRoom);
 	}
 	
-	protected boolean checkKillProgress(L2Npc npc, DMCRoom room)
+	protected static class DMCNpc
 	{
-		boolean cont = true;
-		for (DMCNpc npcobj : room.npcList)
-		{
-			if (npcobj.npc == npc)
-			{
-				npcobj.isDead = true;
-			}
-			if (npcobj.isDead == false)
-			{
-				cont = false;
-			}
-		}
-		
-		return cont;
+		public L2Npc npc;
+		public boolean isDead = false;
+		public L2Npc golem = null;
+		public int status = 0;
+		public int order = 0;
+		public int count = 0;
 	}
 	
-	protected void spawnRndGolem(DMCWorld world, DMCNpc npc)
+	protected static class DMCRoom
 	{
-		if (npc.golem != null)
-		{
-			return;
-		}
-		
-		int i = getRandom(GolemSpawn.length);
-		int mobId = GolemSpawn[i][0];
-		int x = GolemSpawn[i][1];
-		int y = GolemSpawn[i][2];
-		
-		npc.golem = addSpawn(mobId, x, y, -6117, 0, false, 0, false, world.getInstanceId());
-		if (noRndWalk)
-		{
-			npc.golem.setIsNoRndWalk(true);
-		}
+		public List<DMCNpc> npcList = new ArrayList<>();
+		public int counter = 0;
+		public int reset = 0;
+		public int founded = 0;
+		public int[] Order;
 	}
 	
-	protected void checkStone(L2Npc npc, int order[], DMCNpc npcObj, DMCWorld world)
+	protected class DMCWorld extends InstanceWorld
 	{
-		for (int i = 1; i < 7; i++)
-		{
-			// if there is a non zero value in the precedent step, the sequence is ok
-			if ((order[i] == 0) && (order[i - 1] != 0))
-			{
-				if ((npcObj.order == i) && (npcObj.status == 0))
-				{
-					order[i] = 1;
-					npcObj.status = 1;
-					npcObj.isDead = true;
-					npc.broadcastPacket(new MagicSkillUse(npc, npc, 5441, 1, 1, 0));
-					return;
-				}
-			}
-		}
-		
-		spawnRndGolem(world, npcObj);
-	}
-	
-	protected void endInstance(DMCWorld world)
-	{
-		world.setStatus(10);
-		addSpawn(SOTruth, 148911, 181940, -6117, 16383, false, 0, false, world.getInstanceId());
-		world.rooms.clear();
-	}
-	
-	protected void checkBelethSample(DMCWorld world, L2Npc npc, L2PcInstance player)
-	{
-		DMCRoom FifthRoom = world.rooms.get("FifthRoom");
-		
-		for (DMCNpc mob : FifthRoom.npcList)
-		{
-			if (mob.npc == npc)
-			{
-				if (mob.count == 0)
-				{
-					mob.count = 1;
-					if (mob.status == 1)
-					{
-						mob.npc.broadcastPacket(new NpcSay(mob.npc.getObjectId(), Say2.NPC_ALL, mob.npc.getId(), _successChat[getRandom(_successChat.length)]));
-						FifthRoom.founded += 1;
-						startQuestTimer("decayMe", 1500, npc, player);
-					}
-					else
-					{
-						FifthRoom.reset = 1;
-						mob.npc.broadcastPacket(new NpcSay(mob.npc.getObjectId(), Say2.NPC_ALL, mob.npc.getId(), _faildChat[getRandom(_faildChat.length)]));
-						startQuestTimer("decayChatBelethSamples", 4000, npc, player);
-						startQuestTimer("decayBelethSamples", 4500, npc, player);
-					}
-				}
-				else
-				{
-					return;
-				}
-			}
-		}
-	}
-	
-	protected void killedBelethSample(DMCWorld world, L2Npc npc)
-	{
-		int decayedSamples = 0;
-		DMCRoom FifthRoom = world.rooms.get("FifthRoom");
-		
-		for (DMCNpc mob : FifthRoom.npcList)
-		{
-			if (mob.npc == npc)
-			{
-				decayedSamples += 1;
-				mob.count = 2;
-			}
-			else
-			{
-				if (mob.count == 2)
-				{
-					decayedSamples += 1;
-				}
-			}
-		}
-		
-		if (FifthRoom.reset == 1)
-		{
-			for (DMCNpc mob : FifthRoom.npcList)
-			{
-				if ((mob.count == 0) || ((mob.status == 1) && (mob.count != 2)))
-				{
-					decayedSamples += 1;
-					mob.npc.decayMe();
-					mob.count = 2;
-				}
-			}
-			if (decayedSamples == 7)
-			{
-				startQuestTimer("respawnFifth", 6000, npc, null);
-			}
-		}
-		else
-		{
-			if ((FifthRoom.reset == 0) && (FifthRoom.founded == 3))
-			{
-				for (DMCNpc mob : FifthRoom.npcList)
-				{
-					mob.npc.decayMe();
-				}
-				endInstance(world);
-			}
-		}
-	}
-	
-	protected boolean allStonesDone(DMCWorld world)
-	{
-		DMCRoom SecondRoom = world.rooms.get("SecondRoom");
-		
-		for (DMCNpc mob : SecondRoom.npcList)
-		{
-			if (mob.isDead)
-			{
-				continue;
-			}
-			return false;
-		}
-		
-		return true;
-	}
-	
-	protected void removeMonoliths(DMCWorld world)
-	{
-		DMCRoom SecondRoom = world.rooms.get("SecondRoom");
-		
-		for (DMCNpc mob : SecondRoom.npcList)
-		{
-			mob.npc.decayMe();
-		}
-	}
-	
-	protected void chkShadowColumn(DMCWorld world, L2Npc npc)
-	{
-		DMCRoom ForthRoom = world.rooms.get("ForthRoom");
-		
-		for (DMCNpc mob : ForthRoom.npcList)
-		{
-			if (mob.npc == npc)
-			{
-				for (int i = 0; i < 7; i++)
-				{
-					if ((mob.order == i) && (ForthRoom.counter == i))
-					{
-						openDoor(W1 + i, world.getInstanceId());
-						ForthRoom.counter += 1;
-						if (ForthRoom.counter == 7)
-						{
-							runThirdRoom2(world);
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (npc == null)
-		{
-			return "";
-		}
-		
-		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		final DMCWorld world;
-		if (tmpworld instanceof DMCWorld)
-		{
-			world = (DMCWorld) tmpworld;
-		}
-		else
-		{
-			return "";
-		}
-		
-		if (world.rooms.containsKey("FifthRoom"))
-		{
-			DMCRoom FifthRoom = world.rooms.get("FifthRoom");
-			if (event.equalsIgnoreCase("decayMe"))
-			{
-				for (DMCNpc mob : FifthRoom.npcList)
-				{
-					if ((mob.npc == npc) || ((FifthRoom.reset == 0) && (FifthRoom.founded == 3)))
-					{
-						mob.npc.decayMe();
-						mob.count = 2;
-					}
-				}
-				if ((FifthRoom.reset == 0) && (FifthRoom.founded == 3))
-				{
-					endInstance(world);
-				}
-			}
-			else if (event.equalsIgnoreCase("decayBelethSamples"))
-			{
-				for (DMCNpc mob : FifthRoom.npcList)
-				{
-					if (mob.count == 0)
-					{
-						mob.npc.decayMe();
-						mob.count = 2;
-					}
-				}
-			}
-			else if (event.equalsIgnoreCase("decayChatBelethSamples"))
-			{
-				for (DMCNpc mob : FifthRoom.npcList)
-				{
-					if (mob.status == 1)
-					{
-						mob.npc.broadcastPacket(new NpcSay(mob.npc.getObjectId(), Say2.NPC_ALL, mob.npc.getId(), _decayChat[getRandom(_decayChat.length)]));
-					}
-				}
-			}
-			else if (event.equalsIgnoreCase("respawnFifth"))
-			{
-				spawnFifthRoom(world);
-			}
-		}
-		
-		return "";
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		final DMCWorld world;
-		if (tmpworld instanceof DMCWorld)
-		{
-			world = (DMCWorld) tmpworld;
-			if (world.getStatus() == 0)
-			{
-				if (checkKillProgress(npc, world.rooms.get("StartRoom")))
-				{
-					runHall(world);
-				}
-			}
-			if (world.getStatus() == 1)
-			{
-				if (checkKillProgress(npc, world.rooms.get("Hall")))
-				{
-					runFirstRoom(world);
-				}
-			}
-			if (world.getStatus() == 2)
-			{
-				if (checkKillProgress(npc, world.rooms.get("FirstRoom")))
-				{
-					runHall2(world);
-				}
-			}
-			if (world.getStatus() == 3)
-			{
-				if (checkKillProgress(npc, world.rooms.get("Hall")))
-				{
-					runSecondRoom(world);
-				}
-			}
-			if (world.getStatus() == 4)
-			{
-				DMCRoom SecondRoom = world.rooms.get("SecondRoom");
-				for (DMCNpc mob : SecondRoom.npcList)
-				{
-					if (mob.golem == npc)
-					{
-						mob.golem = null;
-					}
-				}
-			}
-			if (world.getStatus() == 5)
-			{
-				if (checkKillProgress(npc, world.rooms.get("Hall")))
-				{
-					runThirdRoom(world);
-				}
-			}
-			if (world.getStatus() == 6)
-			{
-				if (checkKillProgress(npc, world.rooms.get("ThirdRoom")))
-				{
-					runForthRoom(world);
-				}
-			}
-			if (world.getStatus() == 7)
-			{
-				chkShadowColumn(world, npc);
-			}
-			if (world.getStatus() == 8)
-			{
-				if (checkKillProgress(npc, world.rooms.get("ThirdRoom2")))
-				{
-					runFifthRoom(world);
-				}
-			}
-			if (world.getStatus() == 9)
-			{
-				killedBelethSample(world, npc);
-			}
-		}
-		return "";
-	}
-	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
-	{
-		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		final DMCWorld world;
-		if (tmpworld instanceof DMCWorld)
-		{
-			world = (DMCWorld) tmpworld;
-			if (world.getStatus() == 7)
-			{
-				DMCRoom ForthRoom = world.rooms.get("ForthRoom");
-				for (DMCNpc mob : ForthRoom.npcList)
-				{
-					if (mob.npc == npc)
-					{
-						if (mob.npc.isInvul() && (getRandom(100) < 12))
-						{
-							addSpawn(BM[getRandom(BM.length)], attacker.getX(), attacker.getY(), attacker.getZ(), 0, false, 0, false, world.getInstanceId());
-						}
-					}
-				}
-			}
-			if (world.getStatus() == 9)
-			{
-				checkBelethSample(world, npc, attacker);
-			}
-		}
-		
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		DMCWorld world;
-		if (tmpworld instanceof DMCWorld)
-		{
-			world = (DMCWorld) tmpworld;
-			if (world.getStatus() == 4)
-			{
-				DMCRoom SecondRoom = world.rooms.get("SecondRoom");
-				for (DMCNpc mob : SecondRoom.npcList)
-				{
-					if (mob.npc == npc)
-					{
-						checkStone(npc, SecondRoom.Order, mob, world);
-					}
-				}
-				
-				if (allStonesDone(world))
-				{
-					removeMonoliths(world);
-					runHall3(world);
-				}
-			}
-			
-			if ((npc.getId() == SOTruth) && (world.getStatus() == 10))
-			{
-				npc.showChatWindow(player);
-				
-				if (!hasQuestItems(player, CC))
-				{
-					giveItems(player, CC, 1);
-				}
-			}
-		}
-		
-		return "";
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final int npcId = npc.getId();
-		if (npcId == YIYEN)
-		{
-			enterInstance(player, new DMCWorld(), "DarkCloudMansion.xml", TEMPLATE_ID);
-		}
-		else
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			DMCWorld world;
-			if (tmpworld instanceof DMCWorld)
-			{
-				world = (DMCWorld) tmpworld;
-			}
-			else
-			{
-				return "";
-			}
-			
-			if (npcId == SOTruth)
-			{
-				if (world.isAllowed(player.getObjectId()))
-				{
-					world.removeAllowed(player.getObjectId());
-				}
-				teleportPlayer(player, new Location(139968, 150367, -3111), 0);
-				int instanceId = npc.getInstanceId();
-				Instance instance = InstanceManager.getInstance().getInstance(instanceId);
-				if (instance.getPlayers().isEmpty())
-				{
-					InstanceManager.getInstance().destroyInstance(instanceId);
-				}
-				return "";
-			}
-		}
-		return "";
+		protected Map<String, DMCRoom> rooms = new ConcurrentHashMap<>();
 	}
 }

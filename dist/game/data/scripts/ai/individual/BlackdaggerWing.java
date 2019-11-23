@@ -59,6 +59,22 @@ public class BlackdaggerWing extends AbstractNpcAI
 		addSpellFinishedId(BLACKDAGGER_WING);
 	}
 	
+	public static void main(String[] args)
+	{
+		new BlackdaggerWing();
+	}
+	
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		if (DAMAGE_TIMER.equals(event))
+		{
+			npc.getAI().setIntention(AI_INTENTION_ATTACK);
+			startQuestTimer(DAMAGE_TIMER, 30000, npc, player);
+		}
+		return super.onAdvEvent(event, npc, player);
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -105,21 +121,5 @@ public class BlackdaggerWing extends AbstractNpcAI
 			}
 		}
 		return super.onSpellFinished(npc, player, skill);
-	}
-	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (DAMAGE_TIMER.equals(event))
-		{
-			npc.getAI().setIntention(AI_INTENTION_ATTACK);
-			startQuestTimer(DAMAGE_TIMER, 30000, npc, player);
-		}
-		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new BlackdaggerWing();
 	}
 }

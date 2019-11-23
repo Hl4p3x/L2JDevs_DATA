@@ -55,6 +55,11 @@ public final class SymbolMaker extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SymbolMaker();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -87,10 +92,5 @@ public final class SymbolMaker extends AbstractNpcAI
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return "symbol_maker.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new SymbolMaker();
 	}
 }

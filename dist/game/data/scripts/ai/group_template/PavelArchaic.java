@@ -41,6 +41,11 @@ public final class PavelArchaic extends AbstractNpcAI
 		addKillId(SAFETY_DEVICE, PINCER_GOLEM, JACKHAMMER_GOLEM);
 	}
 	
+	public static void main(String[] args)
+	{
+		new PavelArchaic();
+	}
+	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -53,10 +58,5 @@ public final class PavelArchaic extends AbstractNpcAI
 			addAttackDesire(golem2, killer);
 		}
 		return super.onKill(npc, killer, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new PavelArchaic();
 	}
 }

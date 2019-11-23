@@ -60,6 +60,21 @@ public final class Q00261_CollectorsDream extends Quest
 		registerQuestItems(SPIDER_LEG);
 	}
 	
+	public static void giveNewbieReward(L2PcInstance player)
+	{
+		final PlayerVariables vars = player.getVariables();
+		if (vars.getString("GUIDE_MISSION", null) == null)
+		{
+			vars.set("GUIDE_MISSION", 100000);
+			player.sendPacket(MESSAGE);
+		}
+		else if (((vars.getInt("GUIDE_MISSION") % 100000000) / 10000000) != 1)
+		{
+			vars.set("GUIDE_MISSION", vars.getInt("GUIDE_MISSION") + 10000000);
+			player.sendPacket(MESSAGE);
+		}
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -124,20 +139,5 @@ public final class Q00261_CollectorsDream extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	public static void giveNewbieReward(L2PcInstance player)
-	{
-		final PlayerVariables vars = player.getVariables();
-		if (vars.getString("GUIDE_MISSION", null) == null)
-		{
-			vars.set("GUIDE_MISSION", 100000);
-			player.sendPacket(MESSAGE);
-		}
-		else if (((vars.getInt("GUIDE_MISSION") % 100000000) / 10000000) != 1)
-		{
-			vars.set("GUIDE_MISSION", vars.getInt("GUIDE_MISSION") + 10000000);
-			player.sendPacket(MESSAGE);
-		}
 	}
 }

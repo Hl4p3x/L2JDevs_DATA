@@ -68,6 +68,11 @@ public final class Epidos extends AbstractNpcAI
 		addSpawnId(EPIDOSES);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Epidos();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -136,10 +141,5 @@ public final class Epidos extends AbstractNpcAI
 		_lastHp.put(npc.getObjectId(), (double) npc.getMaxHp());
 		
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Epidos();
 	}
 }

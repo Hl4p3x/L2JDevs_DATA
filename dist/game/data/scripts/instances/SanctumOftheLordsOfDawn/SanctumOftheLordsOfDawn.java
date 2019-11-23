@@ -45,19 +45,9 @@ import quests.Q00195_SevenSignsSecretRitualOfThePriests.Q00195_SevenSignsSecretR
  */
 public final class SanctumOftheLordsOfDawn extends AbstractInstance
 {
-	protected static final class SotLoDWorld extends InstanceWorld
-	{
-		protected int doorst = 0;
-		protected final static Map<Integer, List<L2Npc>> _save_point = new HashMap<>();
-		
-		public static Map<Integer, List<L2Npc>> getMonsters()
-		{
-			return _save_point;
-		}
-	}
-	
 	// NPCs
 	private static final int GUARDS_OF_THE_DAWN = 18834;
+	
 	private static final int GUARDS_OF_THE_DAWN_2 = 18835;
 	private static final int GUARDS_OF_THE_DAWN_3 = 27351;
 	private static final int LIGHT_OF_DAWN = 32575;
@@ -84,7 +74,6 @@ public final class SanctumOftheLordsOfDawn extends AbstractInstance
 		new Location(-77699, 208905, -7640),
 		new Location(-79939, 205857, -7888),
 	};
-	
 	public SanctumOftheLordsOfDawn()
 	{
 		super(SanctumOftheLordsOfDawn.class.getSimpleName());
@@ -145,6 +134,14 @@ public final class SanctumOftheLordsOfDawn extends AbstractInstance
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
+	}
+	
+	@Override
+	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		npc.broadcastPacket(new MagicSkillUse(npc, player, GUARD_SKILL.getSkillId(), 1, 2000, 1));
+		startQuestTimer("teleportPlayer", 2000, npc, player);
+		return super.onAggroRangeEnter(npc, player, isSummon);
 	}
 	
 	@Override
@@ -244,11 +241,14 @@ public final class SanctumOftheLordsOfDawn extends AbstractInstance
 		return "";
 	}
 	
-	@Override
-	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
+	protected static final class SotLoDWorld extends InstanceWorld
 	{
-		npc.broadcastPacket(new MagicSkillUse(npc, player, GUARD_SKILL.getSkillId(), 1, 2000, 1));
-		startQuestTimer("teleportPlayer", 2000, npc, player);
-		return super.onAggroRangeEnter(npc, player, isSummon);
+		protected final static Map<Integer, List<L2Npc>> _save_point = new HashMap<>();
+		protected int doorst = 0;
+		
+		public static Map<Integer, List<L2Npc>> getMonsters()
+		{
+			return _save_point;
+		}
 	}
 }

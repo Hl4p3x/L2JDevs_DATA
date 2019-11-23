@@ -65,6 +65,11 @@ public final class DarkWaterDragon extends AbstractNpcAI
 		SECOND_SPAWN.clear();
 	}
 	
+	public static void main(String[] args)
+	{
+		new DarkWaterDragon();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -238,10 +243,5 @@ public final class DarkWaterDragon extends AbstractNpcAI
 		shade.setRunning();
 		((L2Attackable) shade).addDamageHate(attacker, 0, 999);
 		shade.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
-	}
-	
-	public static void main(String[] args)
-	{
-		new DarkWaterDragon();
 	}
 }

@@ -48,6 +48,12 @@ public class AdminPledge implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		L2Object target = activeChar.getTarget();
@@ -159,12 +165,6 @@ public class AdminPledge implements IAdminCommandHandler
 		}
 		showMainPage(activeChar);
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void showMainPage(L2PcInstance activeChar)

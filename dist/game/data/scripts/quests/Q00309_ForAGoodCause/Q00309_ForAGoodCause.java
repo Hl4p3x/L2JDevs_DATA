@@ -101,32 +101,6 @@ public class Q00309_ForAGoodCause extends Quest
 		addKillId(MUCROKIANS.keySet());
 	}
 	
-	private boolean canGiveItem(QuestState st, int quanty)
-	{
-		long mucrokian = st.getQuestItemsCount(MUCROKIAN_HIDE);
-		long fallen = st.getQuestItemsCount(FALLEN_MUCROKIAN_HIDE);
-		if (fallen > 0)
-		{
-			if (fallen >= (quanty / 2))
-			{
-				st.takeItems(FALLEN_MUCROKIAN_HIDE, (quanty / 2));
-				return true;
-			}
-			else if (mucrokian >= (quanty - (fallen * 2)))
-			{
-				st.takeItems(FALLEN_MUCROKIAN_HIDE, fallen);
-				st.takeItems(MUCROKIAN_HIDE, (quanty - (fallen * 2)));
-				return true;
-			}
-		}
-		else if (mucrokian >= quanty)
-		{
-			st.takeItems(MUCROKIAN_HIDE, quanty);
-			return true;
-		}
-		return false;
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -189,29 +163,6 @@ public class Q00309_ForAGoodCause extends Quest
 		return htmltext;
 	}
 	
-	private String onItemExchangeRequest(QuestState st, int item, int quanty)
-	{
-		String htmltext;
-		if (canGiveItem(st, quanty))
-		{
-			if (Util.contains(MOIRAI_PIECES, item))
-			{
-				st.giveItems(item, getRandom(1, 4));
-			}
-			else
-			{
-				st.giveItems(item, 1);
-			}
-			st.playSound(Sound.ITEMSOUND_QUEST_FINISH);
-			htmltext = "32646-16.htm";
-		}
-		else
-		{
-			htmltext = "32646-15.htm";
-		}
-		return htmltext;
-	}
-	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -254,6 +205,55 @@ public class Q00309_ForAGoodCause extends Quest
 		else
 		{
 			htmltext = (talker.getLevel() >= MIN_LEVEL) ? "32647-01.htm" : "32647-00.html";
+		}
+		return htmltext;
+	}
+	
+	private boolean canGiveItem(QuestState st, int quanty)
+	{
+		long mucrokian = st.getQuestItemsCount(MUCROKIAN_HIDE);
+		long fallen = st.getQuestItemsCount(FALLEN_MUCROKIAN_HIDE);
+		if (fallen > 0)
+		{
+			if (fallen >= (quanty / 2))
+			{
+				st.takeItems(FALLEN_MUCROKIAN_HIDE, (quanty / 2));
+				return true;
+			}
+			else if (mucrokian >= (quanty - (fallen * 2)))
+			{
+				st.takeItems(FALLEN_MUCROKIAN_HIDE, fallen);
+				st.takeItems(MUCROKIAN_HIDE, (quanty - (fallen * 2)));
+				return true;
+			}
+		}
+		else if (mucrokian >= quanty)
+		{
+			st.takeItems(MUCROKIAN_HIDE, quanty);
+			return true;
+		}
+		return false;
+	}
+	
+	private String onItemExchangeRequest(QuestState st, int item, int quanty)
+	{
+		String htmltext;
+		if (canGiveItem(st, quanty))
+		{
+			if (Util.contains(MOIRAI_PIECES, item))
+			{
+				st.giveItems(item, getRandom(1, 4));
+			}
+			else
+			{
+				st.giveItems(item, 1);
+			}
+			st.playSound(Sound.ITEMSOUND_QUEST_FINISH);
+			htmltext = "32646-16.htm";
+		}
+		else
+		{
+			htmltext = "32646-15.htm";
 		}
 		return htmltext;
 	}

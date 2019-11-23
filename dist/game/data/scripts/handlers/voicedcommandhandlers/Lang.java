@@ -35,6 +35,12 @@ public class Lang implements IVoicedCommandHandler
 	};
 	
 	@Override
+	public String[] getVoicedCommandList()
+	{
+		return VOICED_COMMANDS;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		if (!Config.L2JMOD_MULTILANG_ENABLE || !Config.L2JMOD_MULTILANG_VOICED_ALLOW)
@@ -76,11 +82,5 @@ public class Lang implements IVoicedCommandHandler
 			return true;
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return VOICED_COMMANDS;
 	}
 }

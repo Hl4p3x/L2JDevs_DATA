@@ -59,6 +59,11 @@ public final class DwarfBlacksmithChange2 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DwarfBlacksmithChange2();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -77,6 +82,33 @@ public final class DwarfBlacksmithChange2 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP))
+		{
+			htmltext = "30512-01.htm"; // fnYouAreFourthClass
+		}
+		else if (player.isInCategory(CategoryType.WARSMITH_GROUP))
+		{
+			final ClassId classId = player.getClassId();
+			if ((classId == ClassId.artisan) || (classId == ClassId.warsmith))
+			{
+				htmltext = "30512-02.htm"; // fnClassList1
+			}
+			else
+			{
+				htmltext = "30512-06.htm"; // fnYouAreFirstClass
+			}
+		}
+		else
+		{
+			htmltext = "30512-07.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -117,37 +149,5 @@ public final class DwarfBlacksmithChange2 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP))
-		{
-			htmltext = "30512-01.htm"; // fnYouAreFourthClass
-		}
-		else if (player.isInCategory(CategoryType.WARSMITH_GROUP))
-		{
-			final ClassId classId = player.getClassId();
-			if ((classId == ClassId.artisan) || (classId == ClassId.warsmith))
-			{
-				htmltext = "30512-02.htm"; // fnClassList1
-			}
-			else
-			{
-				htmltext = "30512-06.htm"; // fnYouAreFirstClass
-			}
-		}
-		else
-		{
-			htmltext = "30512-07.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new DwarfBlacksmithChange2();
 	}
 }

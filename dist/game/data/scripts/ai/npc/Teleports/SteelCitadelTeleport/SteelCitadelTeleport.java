@@ -49,6 +49,11 @@ public final class SteelCitadelTeleport extends AbstractNpcAI
 		addTalkId(NAIA_CUBE);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SteelCitadelTeleport();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -92,10 +97,5 @@ public final class SteelCitadelTeleport extends AbstractNpcAI
 			}
 		}
 		return null;
-	}
-	
-	public static void main(String[] args)
-	{
-		new SteelCitadelTeleport();
 	}
 }

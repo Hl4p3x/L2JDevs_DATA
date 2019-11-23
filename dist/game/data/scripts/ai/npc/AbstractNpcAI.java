@@ -73,15 +73,12 @@ public abstract class AbstractNpcAI extends Quest
 		addFactionCallId(mobs);
 	}
 	
-	/**
-	 * Broadcasts NpcSay packet to all known players with custom string.
-	 * @param npc
-	 * @param type
-	 * @param text
-	 */
-	protected void broadcastNpcSay(L2Npc npc, int type, String text)
+	public void spawnMinions(final L2Npc npc, final String spawnName)
 	{
-		Broadcast.toKnownPlayers(npc, new NpcSay(npc.getObjectId(), type, npc.getTemplate().getDisplayId(), text));
+		for (MinionHolder is : npc.getTemplate().getParameters().getMinionList(spawnName))
+		{
+			addMinion((L2MonsterInstance) npc, is.getId());
+		}
 	}
 	
 	/**
@@ -93,6 +90,18 @@ public abstract class AbstractNpcAI extends Quest
 	protected void broadcastNpcSay(L2Npc npc, int type, NpcStringId stringId)
 	{
 		Broadcast.toKnownPlayers(npc, new NpcSay(npc.getObjectId(), type, npc.getTemplate().getDisplayId(), stringId));
+	}
+	
+	/**
+	 * Broadcasts NpcSay packet to all known players with npc string id in specific radius.
+	 * @param npc
+	 * @param type
+	 * @param stringId
+	 * @param radius
+	 */
+	protected void broadcastNpcSay(L2Npc npc, int type, NpcStringId stringId, int radius)
+	{
+		Broadcast.toKnownPlayersInRadius(npc, new NpcSay(npc.getObjectId(), type, npc.getTemplate().getDisplayId(), stringId), radius);
 	}
 	
 	/**
@@ -116,6 +125,17 @@ public abstract class AbstractNpcAI extends Quest
 	}
 	
 	/**
+	 * Broadcasts NpcSay packet to all known players with custom string.
+	 * @param npc
+	 * @param type
+	 * @param text
+	 */
+	protected void broadcastNpcSay(L2Npc npc, int type, String text)
+	{
+		Broadcast.toKnownPlayers(npc, new NpcSay(npc.getObjectId(), type, npc.getTemplate().getDisplayId(), text));
+	}
+	
+	/**
 	 * Broadcasts NpcSay packet to all known players with custom string in specific radius.
 	 * @param npc
 	 * @param type
@@ -125,18 +145,6 @@ public abstract class AbstractNpcAI extends Quest
 	protected void broadcastNpcSay(L2Npc npc, int type, String text, int radius)
 	{
 		Broadcast.toKnownPlayersInRadius(npc, new NpcSay(npc.getObjectId(), type, npc.getTemplate().getDisplayId(), text), radius);
-	}
-	
-	/**
-	 * Broadcasts NpcSay packet to all known players with npc string id in specific radius.
-	 * @param npc
-	 * @param type
-	 * @param stringId
-	 * @param radius
-	 */
-	protected void broadcastNpcSay(L2Npc npc, int type, NpcStringId stringId, int radius)
-	{
-		Broadcast.toKnownPlayersInRadius(npc, new NpcSay(npc.getObjectId(), type, npc.getTemplate().getDisplayId(), stringId), radius);
 	}
 	
 	/**
@@ -158,13 +166,5 @@ public abstract class AbstractNpcAI extends Quest
 	protected void broadcastSocialAction(L2Character character, int actionId, int radius)
 	{
 		Broadcast.toSelfAndKnownPlayersInRadius(character, new SocialAction(character.getObjectId(), actionId), radius);
-	}
-	
-	public void spawnMinions(final L2Npc npc, final String spawnName)
-	{
-		for (MinionHolder is : npc.getTemplate().getParameters().getMinionList(spawnName))
-		{
-			addMinion((L2MonsterInstance) npc, is.getId());
-		}
 	}
 }

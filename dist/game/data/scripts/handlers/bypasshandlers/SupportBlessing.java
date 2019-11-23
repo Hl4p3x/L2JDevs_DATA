@@ -32,6 +32,12 @@ public class SupportBlessing implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!target.isNpc())
@@ -50,11 +56,5 @@ public class SupportBlessing implements IBypassHandler
 		npc.setTarget(activeChar);
 		npc.doCast(CommonSkill.BLESSING_OF_PROTECTION.getSkill());
 		return false;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

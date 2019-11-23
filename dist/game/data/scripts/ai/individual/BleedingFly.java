@@ -58,35 +58,9 @@ public class BleedingFly extends AbstractNpcAI
 		addSpawnId(BLEEDING_FLY);
 	}
 	
-	@Override
-	public String onSpawn(L2Npc npc)
+	public static void main(String[] args)
 	{
-		npc.getVariables().set(MID_HP_MINION_COUNT, 5);
-		npc.getVariables().set(LOW_HP_MINION_COUNT, 10);
-		return super.onSpawn(npc);
-	}
-	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
-	{
-		if (Util.calculateDistance(npc, npc.getSpawn(), false, false) > MAX_CHASE_DIST)
-		{
-			npc.teleToLocation(npc.getSpawn().getX(), npc.getSpawn().getY(), npc.getSpawn().getZ());
-		}
-		
-		if ((npc.getCurrentHp() < (npc.getMaxHp() * MID_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(MID_HP_FLAG, false))
-		{
-			npc.getVariables().set(MID_HP_FLAG, true);
-			startQuestTimer(TIMER_MID_HP, 1000, npc, null);
-		}
-		
-		if ((npc.getCurrentHp() < (npc.getMaxHp() * MIN_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(LOW_HP_FLAG, false))
-		{
-			npc.getVariables().set(MID_HP_FLAG, false);
-			npc.getVariables().set(LOW_HP_FLAG, true);
-			startQuestTimer(TIMER_LOW_HP, 1000, npc, null);
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
+		new BleedingFly();
 	}
 	
 	@Override
@@ -131,8 +105,34 @@ public class BleedingFly extends AbstractNpcAI
 		return super.onAdvEvent(event, npc, player);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		new BleedingFly();
+		if (Util.calculateDistance(npc, npc.getSpawn(), false, false) > MAX_CHASE_DIST)
+		{
+			npc.teleToLocation(npc.getSpawn().getX(), npc.getSpawn().getY(), npc.getSpawn().getZ());
+		}
+		
+		if ((npc.getCurrentHp() < (npc.getMaxHp() * MID_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(MID_HP_FLAG, false))
+		{
+			npc.getVariables().set(MID_HP_FLAG, true);
+			startQuestTimer(TIMER_MID_HP, 1000, npc, null);
+		}
+		
+		if ((npc.getCurrentHp() < (npc.getMaxHp() * MIN_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(LOW_HP_FLAG, false))
+		{
+			npc.getVariables().set(MID_HP_FLAG, false);
+			npc.getVariables().set(LOW_HP_FLAG, true);
+			startQuestTimer(TIMER_LOW_HP, 1000, npc, null);
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		npc.getVariables().set(MID_HP_MINION_COUNT, 5);
+		npc.getVariables().set(LOW_HP_MINION_COUNT, 10);
+		return super.onSpawn(npc);
 	}
 }

@@ -45,6 +45,11 @@ public final class FreyasSteward extends AbstractNpcAI
 		addTalkId(FREYAS_STEWARD);
 	}
 	
+	public static void main(String[] args)
+	{
+		new FreyasSteward();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -60,10 +65,5 @@ public final class FreyasSteward extends AbstractNpcAI
 			return null;
 		}
 		return "32029-1.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new FreyasSteward();
 	}
 }

@@ -47,6 +47,11 @@ public final class Bernarde extends AbstractNpcAI
 		addTalkId(BERNARDE);
 	}
 	
+	private static boolean isTransformed(L2PcInstance player)
+	{
+		return player.isTransformed() && (player.getTransformation().getId() == NATIVE_TRANSFORM);
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -104,10 +109,5 @@ public final class Bernarde extends AbstractNpcAI
 			default:
 				return isTransformed(player) ? "32300-01f.htm" : "32300-03.htm";
 		}
-	}
-	
-	private static boolean isTransformed(L2PcInstance player)
-	{
-		return player.isTransformed() && (player.getTransformation().getId() == NATIVE_TRANSFORM);
 	}
 }

@@ -112,40 +112,6 @@ public class Q00700_CursedLife extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState st = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		switch (st.getState())
-		{
-			case State.CREATED:
-			{
-				htmltext = "32560-01.htm";
-				break;
-			}
-			case State.STARTED:
-			{
-				long bones = st.getQuestItemsCount(SWALLOWED_BONES);
-				long ribs = st.getQuestItemsCount(SWALLOWED_STERNUM);
-				long skulls = st.getQuestItemsCount(SWALLOWED_SKULL);
-				long sum = bones + ribs + skulls;
-				if (sum > 0)
-				{
-					st.giveAdena(((bones * SWALLOWED_BONES_ADENA) + (ribs * SWALLOWED_STERNUM_ADENA) + (skulls * SWALLOWED_SKULL_ADENA) + (sum >= 10 ? BONUS : 0)), true);
-					takeItems(player, -1, SWALLOWED_BONES, SWALLOWED_STERNUM, SWALLOWED_SKULL);
-					htmltext = sum < 10 ? "32560-07.html" : "32560-08.html";
-				}
-				else
-				{
-					htmltext = "32560-06.html";
-				}
-				break;
-			}
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
 		final QuestState st = getQuestState(player, false);
@@ -263,5 +229,39 @@ public class Q00700_CursedLife extends Quest
 			}
 		}
 		return super.onKill(npc, player, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState st = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		switch (st.getState())
+		{
+			case State.CREATED:
+			{
+				htmltext = "32560-01.htm";
+				break;
+			}
+			case State.STARTED:
+			{
+				long bones = st.getQuestItemsCount(SWALLOWED_BONES);
+				long ribs = st.getQuestItemsCount(SWALLOWED_STERNUM);
+				long skulls = st.getQuestItemsCount(SWALLOWED_SKULL);
+				long sum = bones + ribs + skulls;
+				if (sum > 0)
+				{
+					st.giveAdena(((bones * SWALLOWED_BONES_ADENA) + (ribs * SWALLOWED_STERNUM_ADENA) + (skulls * SWALLOWED_SKULL_ADENA) + (sum >= 10 ? BONUS : 0)), true);
+					takeItems(player, -1, SWALLOWED_BONES, SWALLOWED_STERNUM, SWALLOWED_SKULL);
+					htmltext = sum < 10 ? "32560-07.html" : "32560-08.html";
+				}
+				else
+				{
+					htmltext = "32560-06.html";
+				}
+				break;
+			}
+		}
+		return htmltext;
 	}
 }

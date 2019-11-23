@@ -53,6 +53,21 @@ public final class Wedding extends AbstractNpcAI
 		addStartNpc(MANAGER_ID);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Wedding();
+	}
+	
+	private static boolean isWearingFormalWear(L2PcInstance player)
+	{
+		if (Config.L2JMOD_WEDDING_FORMALWEAR)
+		{
+			final L2ItemInstance formalWear = player.getChestArmorInstance();
+			return (formalWear != null) && (formalWear.getId() == FORMAL_WEAR);
+		}
+		return true;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -192,20 +207,5 @@ public final class Wedding extends AbstractNpcAI
 		}
 		player.sendPacket(new NpcHtmlMessage(html));
 		return html;
-	}
-	
-	private static boolean isWearingFormalWear(L2PcInstance player)
-	{
-		if (Config.L2JMOD_WEDDING_FORMALWEAR)
-		{
-			final L2ItemInstance formalWear = player.getChestArmorInstance();
-			return (formalWear != null) && (formalWear.getId() == FORMAL_WEAR);
-		}
-		return true;
-	}
-	
-	public static void main(String[] args)
-	{
-		new Wedding();
 	}
 }

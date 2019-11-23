@@ -45,6 +45,11 @@ public final class ElrokiTeleporters extends AbstractNpcAI
 		addTalkId(ORAHOCHIN, GARIACHIN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ElrokiTeleporters();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
@@ -57,10 +62,5 @@ public final class ElrokiTeleporters extends AbstractNpcAI
 			return npc.getId() + "-no.html";
 		}
 		return super.onTalk(npc, talker);
-	}
-	
-	public static void main(String[] args)
-	{
-		new ElrokiTeleporters();
 	}
 }

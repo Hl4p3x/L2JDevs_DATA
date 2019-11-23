@@ -59,6 +59,11 @@ public final class DwarfWarehouseChange2 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DwarfWarehouseChange2();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -77,6 +82,33 @@ public final class DwarfWarehouseChange2 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && player.isInCategory(CategoryType.BOUNTY_HUNTER_GROUP))
+		{
+			htmltext = "30511-01.htm"; // fnYouAreFourthClass
+		}
+		else if (player.isInCategory(CategoryType.BOUNTY_HUNTER_GROUP))
+		{
+			final ClassId classId = player.getClassId();
+			if ((classId == ClassId.scavenger) || (classId == ClassId.bountyHunter))
+			{
+				htmltext = "30511-02.htm"; // fnClassList1
+			}
+			else
+			{
+				htmltext = "30511-06.htm"; // fnYouAreFirstClass
+			}
+		}
+		else
+		{
+			htmltext = "30511-07.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -117,37 +149,5 @@ public final class DwarfWarehouseChange2 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && player.isInCategory(CategoryType.BOUNTY_HUNTER_GROUP))
-		{
-			htmltext = "30511-01.htm"; // fnYouAreFourthClass
-		}
-		else if (player.isInCategory(CategoryType.BOUNTY_HUNTER_GROUP))
-		{
-			final ClassId classId = player.getClassId();
-			if ((classId == ClassId.scavenger) || (classId == ClassId.bountyHunter))
-			{
-				htmltext = "30511-02.htm"; // fnClassList1
-			}
-			else
-			{
-				htmltext = "30511-06.htm"; // fnYouAreFirstClass
-			}
-		}
-		else
-		{
-			htmltext = "30511-07.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new DwarfWarehouseChange2();
 	}
 }

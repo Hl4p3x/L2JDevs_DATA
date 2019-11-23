@@ -55,6 +55,11 @@ public class FairyTrees extends AbstractNpcAI
 		addSpawnId(MOBS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new FairyTrees();
+	}
+	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -81,10 +86,5 @@ public class FairyTrees extends AbstractNpcAI
 		npc.setIsNoRndWalk(true);
 		npc.setIsImmobilized(true);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new FairyTrees();
 	}
 }

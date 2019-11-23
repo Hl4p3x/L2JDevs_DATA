@@ -45,12 +45,6 @@ public final class CubicMastery extends AbstractEffect
 	}
 	
 	@Override
-	public void onStart(BuffInfo info)
-	{
-		info.getEffected().getActingPlayer().getStat().setMaxCubicCount(_cubicCount);
-	}
-	
-	@Override
 	public boolean onActionTime(BuffInfo info)
 	{
 		return info.getSkill().isPassive();
@@ -60,5 +54,11 @@ public final class CubicMastery extends AbstractEffect
 	public void onExit(BuffInfo info)
 	{
 		info.getEffected().getActingPlayer().getStat().setMaxCubicCount(1);
+	}
+	
+	@Override
+	public void onStart(BuffInfo info)
+	{
+		info.getEffected().getActingPlayer().getStat().setMaxCubicCount(_cubicCount);
 	}
 }

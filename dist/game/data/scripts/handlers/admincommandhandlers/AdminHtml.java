@@ -38,41 +38,6 @@ public class AdminHtml implements IAdminCommandHandler
 		"admin_loadhtml"
 	};
 	
-	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
-		final StringTokenizer st = new StringTokenizer(command, " ");
-		final String actualCommand = st.nextToken();
-		switch (actualCommand.toLowerCase())
-		{
-			case "admin_html":
-			{
-				if (!st.hasMoreTokens())
-				{
-					activeChar.sendMessage("Usage: //html path");
-					return false;
-				}
-				
-				final String path = st.nextToken();
-				showAdminHtml(activeChar, path);
-				break;
-			}
-			case "admin_loadhtml":
-			{
-				if (!st.hasMoreTokens())
-				{
-					activeChar.sendMessage("Usage: //loadhtml path");
-					return false;
-				}
-				
-				final String path = st.nextToken();
-				showHtml(activeChar, path, true);
-				break;
-			}
-		}
-		return true;
-	}
-	
 	/**
 	 * Shows a html message to activeChar
 	 * @param activeChar activeChar where html is shown
@@ -118,6 +83,41 @@ public class AdminHtml implements IAdminCommandHandler
 	{
 		
 		return ADMIN_COMMANDS;
+	}
+	
+	@Override
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		final StringTokenizer st = new StringTokenizer(command, " ");
+		final String actualCommand = st.nextToken();
+		switch (actualCommand.toLowerCase())
+		{
+			case "admin_html":
+			{
+				if (!st.hasMoreTokens())
+				{
+					activeChar.sendMessage("Usage: //html path");
+					return false;
+				}
+				
+				final String path = st.nextToken();
+				showAdminHtml(activeChar, path);
+				break;
+			}
+			case "admin_loadhtml":
+			{
+				if (!st.hasMoreTokens())
+				{
+					activeChar.sendMessage("Usage: //loadhtml path");
+					return false;
+				}
+				
+				final String path = st.nextToken();
+				showHtml(activeChar, path, true);
+				break;
+			}
+		}
+		return true;
 	}
 	
 }

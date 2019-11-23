@@ -58,6 +58,19 @@ public class Q00003_WillTheSealBeBroken extends Quest
 		registerQuestItems(OMEN_BEAST_EYE, TAINT_STONE, SUCCUBUS_BLOOD);
 	}
 	
+	private static void giveItem(L2PcInstance player, QuestState st, int item, int... items)
+	{
+		if (!hasQuestItems(player, item))
+		{
+			giveItems(player, item, 1);
+			playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+			if (hasQuestItems(player, items))
+			{
+				st.setCond(2, true);
+			}
+		}
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -136,18 +149,5 @@ public class Q00003_WillTheSealBeBroken extends Quest
 				break;
 		}
 		return htmltext;
-	}
-	
-	private static void giveItem(L2PcInstance player, QuestState st, int item, int... items)
-	{
-		if (!hasQuestItems(player, item))
-		{
-			giveItems(player, item, 1);
-			playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-			if (hasQuestItems(player, items))
-			{
-				st.setCond(2, true);
-			}
-		}
 	}
 }

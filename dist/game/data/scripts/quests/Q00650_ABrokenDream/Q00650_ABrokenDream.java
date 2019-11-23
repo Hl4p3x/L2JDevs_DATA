@@ -107,34 +107,6 @@ public final class Q00650_ABrokenDream extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState st = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		switch (st.getState())
-		{
-			case State.CREATED:
-			{
-				if (player.getLevel() < MIN_LVL)
-				{
-					htmltext = "32054-02.htm";
-				}
-				else
-				{
-					htmltext = player.hasQuestCompleted(Q00117_TheOceanOfDistantStars.class.getSimpleName()) ? "32054-01.htm" : "32054-04.htm";
-				}
-				break;
-			}
-			case State.STARTED:
-			{
-				htmltext = st.hasQuestItems(REMNANTS_OF_OLD_DWARVES_DREAMS) ? "32054-05.html" : "32054-06.html";
-				break;
-			}
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		final List<L2PcInstance> randomList = new ArrayList<>();
@@ -168,5 +140,33 @@ public final class Q00650_ABrokenDream extends Quest
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState st = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		switch (st.getState())
+		{
+			case State.CREATED:
+			{
+				if (player.getLevel() < MIN_LVL)
+				{
+					htmltext = "32054-02.htm";
+				}
+				else
+				{
+					htmltext = player.hasQuestCompleted(Q00117_TheOceanOfDistantStars.class.getSimpleName()) ? "32054-01.htm" : "32054-04.htm";
+				}
+				break;
+			}
+			case State.STARTED:
+			{
+				htmltext = st.hasQuestItems(REMNANTS_OF_OLD_DWARVES_DREAMS) ? "32054-05.html" : "32054-06.html";
+				break;
+			}
+		}
+		return htmltext;
 	}
 }

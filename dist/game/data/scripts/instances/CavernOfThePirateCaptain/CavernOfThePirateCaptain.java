@@ -41,18 +41,9 @@ import instances.AbstractInstance;
  */
 public final class CavernOfThePirateCaptain extends AbstractInstance
 {
-	protected class CavernOfThePirateCaptainWorld extends InstanceWorld
-	{
-		protected List<L2PcInstance> playersInside = new ArrayList<>();
-		protected L2Attackable _zaken;
-		protected long storeTime = 0;
-		protected boolean _is83;
-		protected int _zakenRoom;
-		protected int _blueFounded;
-	}
-	
 	// NPCs
 	private static final int PATHFINDER = 32713; // Pathfinder Worker
+	
 	private static final int ZAKEN_60 = 29176; // Zaken
 	private static final int ZAKEN_83 = 29181; // Zaken
 	private static final int CANDLE = 32705; // Zaken's Candle
@@ -151,7 +142,6 @@ public final class CavernOfThePirateCaptain extends AbstractInstance
 		{56289, 218073, -2954, 34, 36, 31, 33}
 	};
 	//@formatter:on
-	
 	public CavernOfThePirateCaptain()
 	{
 		super(CavernOfThePirateCaptain.class.getSimpleName());
@@ -159,127 +149,6 @@ public final class CavernOfThePirateCaptain extends AbstractInstance
 		addTalkId(PATHFINDER);
 		addKillId(ZAKEN_60, ZAKEN_83);
 		addFirstTalkId(CANDLE);
-	}
-	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			final CavernOfThePirateCaptainWorld curworld = (CavernOfThePirateCaptainWorld) world;
-			curworld._is83 = curworld.getTemplateId() == TEMPLATE_ID_83;
-			curworld.storeTime = System.currentTimeMillis();
-			
-			if (!player.isInParty())
-			{
-				managePlayerEnter(player, curworld);
-			}
-			else if (player.getParty().isInCommandChannel())
-			{
-				for (L2PcInstance players : player.getParty().getCommandChannel().getMembers())
-				{
-					managePlayerEnter(players, curworld);
-				}
-			}
-			else
-			{
-				for (L2PcInstance players : player.getParty().getMembers())
-				{
-					managePlayerEnter(players, curworld);
-				}
-			}
-			manageNpcSpawn(curworld);
-		}
-		else
-		{
-			teleportPlayer(player, ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId(), false);
-		}
-	}
-	
-	private void managePlayerEnter(L2PcInstance player, CavernOfThePirateCaptainWorld world)
-	{
-		world.playersInside.add(player);
-		world.addAllowed(player.getObjectId());
-		teleportPlayer(player, ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId(), false);
-	}
-	
-	@Override
-	protected boolean checkConditions(L2PcInstance player, int templateId)
-	{
-		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
-		{
-			return true;
-		}
-		
-		if (!player.isInParty())
-		{
-			broadcastSystemMessage(player, null, SystemMessageId.NOT_IN_PARTY_CANT_ENTER, false);
-			return false;
-		}
-		
-		final boolean is83 = templateId == TEMPLATE_ID_83;
-		final L2Party party = player.getParty();
-		final boolean isInCC = party.isInCommandChannel();
-		final List<L2PcInstance> members = (isInCC) ? party.getCommandChannel().getMembers() : party.getMembers();
-		final boolean isPartyLeader = (isInCC) ? party.getCommandChannel().isLeader(player) : party.isLeader(player);
-		
-		if (!isPartyLeader)
-		{
-			broadcastSystemMessage(player, null, SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER, false);
-			return false;
-		}
-		
-		if ((members.size() < (is83 ? PLAYERS_83_MIN : PLAYERS_60_MIN)) || (members.size() > (is83 ? PLAYERS_83_MAX : PLAYERS_60_MAX)))
-		{
-			broadcastSystemMessage(player, null, SystemMessageId.PARTY_EXCEEDED_THE_LIMIT_CANT_ENTER, false);
-			return false;
-		}
-		
-		for (L2PcInstance groupMembers : members)
-		{
-			if (groupMembers.getLevel() < (is83 ? MIN_LV_83 : MIN_LV_60))
-			{
-				broadcastSystemMessage(player, groupMembers, SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED, true);
-				return false;
-			}
-			
-			if (!player.isInsideRadius(groupMembers, 1000, true, true))
-			{
-				broadcastSystemMessage(player, groupMembers, SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED, true);
-				return false;
-			}
-			
-			final Long reentertime = InstanceManager.getInstance().getInstanceTime(groupMembers.getObjectId(), (is83 ? TEMPLATE_ID_83 : TEMPLATE_ID_60));
-			if (System.currentTimeMillis() < reentertime)
-			{
-				broadcastSystemMessage(player, groupMembers, SystemMessageId.C1_MAY_NOT_RE_ENTER_YET, true);
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	private void broadcastSystemMessage(L2PcInstance player, L2PcInstance member, SystemMessageId msgId, boolean toGroup)
-	{
-		final SystemMessage sm = SystemMessage.getSystemMessage(msgId);
-		
-		if (toGroup)
-		{
-			sm.addPcName(member);
-			
-			if (player.getParty().isInCommandChannel())
-			{
-				player.getParty().getCommandChannel().broadcastPacket(sm);
-			}
-			else
-			{
-				player.getParty().broadcastPacket(sm);
-			}
-		}
-		else
-		{
-			player.broadcastPacket(sm);
-		}
 	}
 	
 	@Override
@@ -367,6 +236,68 @@ public final class CavernOfThePirateCaptain extends AbstractInstance
 	}
 	
 	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			final CavernOfThePirateCaptainWorld curworld = (CavernOfThePirateCaptainWorld) world;
+			curworld._is83 = curworld.getTemplateId() == TEMPLATE_ID_83;
+			curworld.storeTime = System.currentTimeMillis();
+			
+			if (!player.isInParty())
+			{
+				managePlayerEnter(player, curworld);
+			}
+			else if (player.getParty().isInCommandChannel())
+			{
+				for (L2PcInstance players : player.getParty().getCommandChannel().getMembers())
+				{
+					managePlayerEnter(players, curworld);
+				}
+			}
+			else
+			{
+				for (L2PcInstance players : player.getParty().getMembers())
+				{
+					managePlayerEnter(players, curworld);
+				}
+			}
+			manageNpcSpawn(curworld);
+		}
+		else
+		{
+			teleportPlayer(player, ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId(), false);
+		}
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		
+		if ((tmpworld != null) && (tmpworld instanceof CavernOfThePirateCaptainWorld))
+		{
+			final CavernOfThePirateCaptainWorld world = (CavernOfThePirateCaptainWorld) tmpworld;
+			final boolean isBlue = npc.getVariables().getInt("isBlue", 0) == 1;
+			
+			if (npc.isScriptValue(0))
+			{
+				if (isBlue)
+				{
+					world._blueFounded++;
+					startQuestTimer("BURN_BLUE", 500, npc, player);
+				}
+				else
+				{
+					startQuestTimer("BURN_RED", 500, npc, player);
+				}
+				npc.setScriptValue(1);
+			}
+		}
+		return null;
+	}
+	
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
@@ -412,30 +343,82 @@ public final class CavernOfThePirateCaptain extends AbstractInstance
 	}
 	
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	protected boolean checkConditions(L2PcInstance player, int templateId)
 	{
-		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		
-		if ((tmpworld != null) && (tmpworld instanceof CavernOfThePirateCaptainWorld))
+		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
 		{
-			final CavernOfThePirateCaptainWorld world = (CavernOfThePirateCaptainWorld) tmpworld;
-			final boolean isBlue = npc.getVariables().getInt("isBlue", 0) == 1;
-			
-			if (npc.isScriptValue(0))
+			return true;
+		}
+		
+		if (!player.isInParty())
+		{
+			broadcastSystemMessage(player, null, SystemMessageId.NOT_IN_PARTY_CANT_ENTER, false);
+			return false;
+		}
+		
+		final boolean is83 = templateId == TEMPLATE_ID_83;
+		final L2Party party = player.getParty();
+		final boolean isInCC = party.isInCommandChannel();
+		final List<L2PcInstance> members = (isInCC) ? party.getCommandChannel().getMembers() : party.getMembers();
+		final boolean isPartyLeader = (isInCC) ? party.getCommandChannel().isLeader(player) : party.isLeader(player);
+		
+		if (!isPartyLeader)
+		{
+			broadcastSystemMessage(player, null, SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER, false);
+			return false;
+		}
+		
+		if ((members.size() < (is83 ? PLAYERS_83_MIN : PLAYERS_60_MIN)) || (members.size() > (is83 ? PLAYERS_83_MAX : PLAYERS_60_MAX)))
+		{
+			broadcastSystemMessage(player, null, SystemMessageId.PARTY_EXCEEDED_THE_LIMIT_CANT_ENTER, false);
+			return false;
+		}
+		
+		for (L2PcInstance groupMembers : members)
+		{
+			if (groupMembers.getLevel() < (is83 ? MIN_LV_83 : MIN_LV_60))
 			{
-				if (isBlue)
-				{
-					world._blueFounded++;
-					startQuestTimer("BURN_BLUE", 500, npc, player);
-				}
-				else
-				{
-					startQuestTimer("BURN_RED", 500, npc, player);
-				}
-				npc.setScriptValue(1);
+				broadcastSystemMessage(player, groupMembers, SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED, true);
+				return false;
+			}
+			
+			if (!player.isInsideRadius(groupMembers, 1000, true, true))
+			{
+				broadcastSystemMessage(player, groupMembers, SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED, true);
+				return false;
+			}
+			
+			final Long reentertime = InstanceManager.getInstance().getInstanceTime(groupMembers.getObjectId(), (is83 ? TEMPLATE_ID_83 : TEMPLATE_ID_60));
+			if (System.currentTimeMillis() < reentertime)
+			{
+				broadcastSystemMessage(player, groupMembers, SystemMessageId.C1_MAY_NOT_RE_ENTER_YET, true);
+				return false;
 			}
 		}
-		return null;
+		return true;
+	}
+	
+	private void broadcastSystemMessage(L2PcInstance player, L2PcInstance member, SystemMessageId msgId, boolean toGroup)
+	{
+		final SystemMessage sm = SystemMessage.getSystemMessage(msgId);
+		
+		if (toGroup)
+		{
+			sm.addPcName(member);
+			
+			if (player.getParty().isInCommandChannel())
+			{
+				player.getParty().getCommandChannel().broadcastPacket(sm);
+			}
+			else
+			{
+				player.getParty().broadcastPacket(sm);
+			}
+		}
+		else
+		{
+			player.broadcastPacket(sm);
+		}
 	}
 	
 	private int getRoomByCandle(L2Npc npc)
@@ -465,6 +448,34 @@ public final class CavernOfThePirateCaptain extends AbstractInstance
 		return 0;
 	}
 	
+	private void manageNpcSpawn(CavernOfThePirateCaptainWorld world)
+	{
+		final List<L2Npc> candles = new ArrayList<>();
+		world._zakenRoom = getRandom(1, 15);
+		
+		for (int i = 0; i < 36; i++)
+		{
+			final L2Npc candle = addSpawn(CANDLE, CANDLE_LOC[i], false, 0, false, world.getInstanceId());
+			candle.getVariables().set("candleId", i + 1);
+			candles.add(candle);
+		}
+		
+		for (int i = 3; i < 7; i++)
+		{
+			candles.get(ROOM_DATA[world._zakenRoom - 1][i] - 1).getVariables().set("isBlue", 1);
+		}
+		world._zaken = spawnNpc(world._is83 ? ZAKEN_83 : ZAKEN_60, world._zakenRoom, null, world);
+		world._zaken.setInvisible(true);
+		world._zaken.setIsParalyzed(true);
+	}
+	
+	private void managePlayerEnter(L2PcInstance player, CavernOfThePirateCaptainWorld world)
+	{
+		world.playersInside.add(player);
+		world.addAllowed(player.getObjectId());
+		teleportPlayer(player, ENTER_LOC[getRandom(ENTER_LOC.length)], world.getInstanceId(), false);
+	}
+	
 	private void manageScreenMsg(CavernOfThePirateCaptainWorld world, NpcStringId stringId)
 	{
 		for (L2PcInstance players : world.playersInside)
@@ -487,24 +498,13 @@ public final class CavernOfThePirateCaptain extends AbstractInstance
 		return (L2Attackable) addSpawn(npcId, ROOM_DATA[roomId - 1][0], ROOM_DATA[roomId - 1][1], ROOM_DATA[roomId - 1][2], 0, false, 0, false, world.getInstanceId());
 	}
 	
-	private void manageNpcSpawn(CavernOfThePirateCaptainWorld world)
+	protected class CavernOfThePirateCaptainWorld extends InstanceWorld
 	{
-		final List<L2Npc> candles = new ArrayList<>();
-		world._zakenRoom = getRandom(1, 15);
-		
-		for (int i = 0; i < 36; i++)
-		{
-			final L2Npc candle = addSpawn(CANDLE, CANDLE_LOC[i], false, 0, false, world.getInstanceId());
-			candle.getVariables().set("candleId", i + 1);
-			candles.add(candle);
-		}
-		
-		for (int i = 3; i < 7; i++)
-		{
-			candles.get(ROOM_DATA[world._zakenRoom - 1][i] - 1).getVariables().set("isBlue", 1);
-		}
-		world._zaken = spawnNpc(world._is83 ? ZAKEN_83 : ZAKEN_60, world._zakenRoom, null, world);
-		world._zaken.setInvisible(true);
-		world._zaken.setIsParalyzed(true);
+		protected List<L2PcInstance> playersInside = new ArrayList<>();
+		protected L2Attackable _zaken;
+		protected long storeTime = 0;
+		protected boolean _is83;
+		protected int _zakenRoom;
+		protected int _blueFounded;
 	}
 }

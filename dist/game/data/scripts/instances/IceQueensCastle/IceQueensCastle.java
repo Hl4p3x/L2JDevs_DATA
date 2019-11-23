@@ -42,13 +42,9 @@ import quests.Q10285_MeetingSirra.Q10285_MeetingSirra;
  */
 public final class IceQueensCastle extends AbstractInstance
 {
-	protected class IQCWorld extends InstanceWorld
-	{
-		L2PcInstance player = null;
-	}
-	
 	// NPCs
 	private static final int FREYA = 18847;
+	
 	private static final int BATTALION_LEADER = 18848;
 	private static final int LEGIONNAIRE = 18849;
 	private static final int MERCENARY_ARCHER = 18926;
@@ -64,7 +60,6 @@ public final class IceQueensCastle extends AbstractInstance
 	private static final int TEMPLATE_ID = 137;
 	private static final int ICE_QUEEN_DOOR = 23140101;
 	private static final int MIN_LV = 82;
-	
 	public IceQueensCastle()
 	{
 		super(IceQueensCastle.class.getSimpleName());
@@ -139,6 +134,18 @@ public final class IceQueensCastle extends AbstractInstance
 	}
 	
 	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+			((IQCWorld) world).player = player;
+			openDoor(ICE_QUEEN_DOOR, world.getInstanceId());
+		}
+		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
+	}
+	
+	@Override
 	public String onSeeCreature(L2Npc npc, L2Character creature, boolean isSummon)
 	{
 		if (creature.isPlayer() && npc.isScriptValue(0))
@@ -192,18 +199,6 @@ public final class IceQueensCastle extends AbstractInstance
 	}
 	
 	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-			((IQCWorld) world).player = player;
-			openDoor(ICE_QUEEN_DOOR, world.getInstanceId());
-		}
-		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
-	}
-	
-	@Override
 	protected boolean checkConditions(L2PcInstance player)
 	{
 		if (player.getLevel() < MIN_LV)
@@ -212,5 +207,10 @@ public final class IceQueensCastle extends AbstractInstance
 			return false;
 		}
 		return true;
+	}
+	
+	protected class IQCWorld extends InstanceWorld
+	{
+		L2PcInstance player = null;
 	}
 }

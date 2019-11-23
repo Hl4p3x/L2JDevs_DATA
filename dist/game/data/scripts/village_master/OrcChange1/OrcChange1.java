@@ -54,6 +54,11 @@ public final class OrcChange1 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new OrcChange1();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -103,6 +108,28 @@ public final class OrcChange1 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, npc, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.getRace() == Race.ORC)
+		{
+			if (player.isInCategory(CategoryType.FIGHTER_GROUP))
+			{
+				htmltext = npc.getId() + "-01.htm"; // fnClassList1
+			}
+			else if (player.isInCategory(CategoryType.MAGE_GROUP))
+			{
+				htmltext = npc.getId() + "-06.htm"; // fnClassList2
+			}
+		}
+		else
+		{
+			htmltext = npc.getId() + "-23.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -207,32 +234,5 @@ public final class OrcChange1 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.getRace() == Race.ORC)
-		{
-			if (player.isInCategory(CategoryType.FIGHTER_GROUP))
-			{
-				htmltext = npc.getId() + "-01.htm"; // fnClassList1
-			}
-			else if (player.isInCategory(CategoryType.MAGE_GROUP))
-			{
-				htmltext = npc.getId() + "-06.htm"; // fnClassList2
-			}
-		}
-		else
-		{
-			htmltext = npc.getId() + "-23.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new OrcChange1();
 	}
 }

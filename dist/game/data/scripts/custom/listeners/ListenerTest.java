@@ -70,6 +70,11 @@ public class ListenerTest extends AbstractNpcAI
 		}, this));
 	}
 	
+	public static void main(String[] args)
+	{
+		new ListenerTest();
+	}
+	
 	/**
 	 * This method will be invoked as soon as an L2Attackable (Rabbits 20432 and 22228) is being attacked from L2PcInstance (a player)
 	 * @param event
@@ -92,32 +97,6 @@ public class ListenerTest extends AbstractNpcAI
 	public void onCreatureKill(OnCreatureKill event)
 	{
 		_log.log(Level.INFO, getClass().getSimpleName() + ": " + event.getClass().getSimpleName() + " invoked attacker: " + event.getAttacker() + " target: " + event.getTarget());
-	}
-	
-	/**
-	 * This method will be invoked as soon as Siege of castle ids 1-9 starts<br>
-	 * This listener is registered into individual castle container.
-	 * @param event
-	 */
-	@RegisterEvent(EventType.ON_CASTLE_SIEGE_START)
-	@RegisterType(ListenerRegisterType.CASTLE)
-	@Range(from = 1, to = 9)
-	public void onSiegeStart(OnCastleSiegeStart event)
-	{
-		_log.log(Level.INFO, getClass().getSimpleName() + ": The siege of " + event.getSiege().getCastle().getName() + " (" + event.getSiege().getCastle().getResidenceId() + ") has started!");
-	}
-	
-	/**
-	 * This method will be invoked as soon as Ancient Adena (5575) item is created on player's inventory (As new item!).<br>
-	 * This listener is registered into individual items container.
-	 * @param event
-	 */
-	@RegisterEvent(EventType.ON_ITEM_CREATE)
-	@RegisterType(ListenerRegisterType.ITEM)
-	@Id(5575)
-	public void onItemCreate(OnItemCreate event)
-	{
-		_log.log(Level.INFO, getClass().getSimpleName() + ": Item [" + event.getItem() + "] has been created actor: " + event.getActiveChar() + " process: " + event.getProcess() + " reference: " + event.getReference());
 	}
 	
 	/**
@@ -147,15 +126,16 @@ public class ListenerTest extends AbstractNpcAI
 	}
 	
 	/**
-	 * This method will be invoked as soon a a player logs into the game.<br>
-	 * This listener is registered into global players container.
+	 * This method will be invoked as soon as Ancient Adena (5575) item is created on player's inventory (As new item!).<br>
+	 * This listener is registered into individual items container.
 	 * @param event
 	 */
-	@RegisterEvent(EventType.ON_PLAYER_LOGIN)
-	@RegisterType(ListenerRegisterType.GLOBAL_PLAYERS)
-	public void onPlayerLogin(OnPlayerLogin event)
+	@RegisterEvent(EventType.ON_ITEM_CREATE)
+	@RegisterType(ListenerRegisterType.ITEM)
+	@Id(5575)
+	public void onItemCreate(OnItemCreate event)
 	{
-		_log.log(Level.INFO, getClass().getSimpleName() + ": Player: " + event.getActiveChar() + " has logged in!");
+		_log.log(Level.INFO, getClass().getSimpleName() + ": Item [" + event.getItem() + "] has been created actor: " + event.getActiveChar() + " process: " + event.getProcess() + " reference: " + event.getReference());
 	}
 	
 	/**
@@ -179,8 +159,28 @@ public class ListenerTest extends AbstractNpcAI
 		return null;
 	}
 	
-	public static void main(String[] args)
+	/**
+	 * This method will be invoked as soon a a player logs into the game.<br>
+	 * This listener is registered into global players container.
+	 * @param event
+	 */
+	@RegisterEvent(EventType.ON_PLAYER_LOGIN)
+	@RegisterType(ListenerRegisterType.GLOBAL_PLAYERS)
+	public void onPlayerLogin(OnPlayerLogin event)
 	{
-		new ListenerTest();
+		_log.log(Level.INFO, getClass().getSimpleName() + ": Player: " + event.getActiveChar() + " has logged in!");
+	}
+	
+	/**
+	 * This method will be invoked as soon as Siege of castle ids 1-9 starts<br>
+	 * This listener is registered into individual castle container.
+	 * @param event
+	 */
+	@RegisterEvent(EventType.ON_CASTLE_SIEGE_START)
+	@RegisterType(ListenerRegisterType.CASTLE)
+	@Range(from = 1, to = 9)
+	public void onSiegeStart(OnCastleSiegeStart event)
+	{
+		_log.log(Level.INFO, getClass().getSimpleName() + ": The siege of " + event.getSiege().getCastle().getName() + " (" + event.getSiege().getCastle().getResidenceId() + ") has started!");
 	}
 }

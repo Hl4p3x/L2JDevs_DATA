@@ -103,39 +103,9 @@ public final class Core extends AbstractNpcAI
 		}
 	}
 	
-	@Override
-	public void saveGlobalData()
+	public static void main(String[] args)
 	{
-		saveGlobalQuestVar("Core_Attacked", Boolean.toString(_firstAttacked));
-	}
-	
-	public void spawnBoss(L2GrandBossInstance npc)
-	{
-		GrandBossManager.getInstance().addBoss(npc);
-		npc.broadcastPacket(Music.BS01_A_10000.getPacket());
-		// Spawn minions
-		L2Attackable mob;
-		for (int i = 0; i < 5; i++)
-		{
-			final int x = 16800 + (i * 360);
-			mob = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 110000, npc.getZ(), 280 + getRandom(40), false, 0);
-			mob.setIsRaidMinion(true);
-			_minions.add(mob);
-			mob = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 109000, npc.getZ(), 280 + getRandom(40), false, 0);
-			mob.setIsRaidMinion(true);
-			_minions.add(mob);
-			final int x2 = 16800 + (i * 600);
-			mob = (L2Attackable) addSpawn(DOOM_WRAITH, x2, 109300, npc.getZ(), 280 + getRandom(40), false, 0);
-			mob.setIsRaidMinion(true);
-			_minions.add(mob);
-		}
-		for (int i = 0; i < 4; i++)
-		{
-			int x = 16800 + (i * 450);
-			mob = (L2Attackable) addSpawn(SUSCEPTOR, x, 110300, npc.getZ(), 280 + getRandom(40), false, 0);
-			mob.setIsRaidMinion(true);
-			_minions.add(mob);
-		}
+		new Core();
 	}
 	
 	@Override
@@ -223,8 +193,38 @@ public final class Core extends AbstractNpcAI
 		return super.onSpawn(npc);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public void saveGlobalData()
 	{
-		new Core();
+		saveGlobalQuestVar("Core_Attacked", Boolean.toString(_firstAttacked));
+	}
+	
+	public void spawnBoss(L2GrandBossInstance npc)
+	{
+		GrandBossManager.getInstance().addBoss(npc);
+		npc.broadcastPacket(Music.BS01_A_10000.getPacket());
+		// Spawn minions
+		L2Attackable mob;
+		for (int i = 0; i < 5; i++)
+		{
+			final int x = 16800 + (i * 360);
+			mob = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 110000, npc.getZ(), 280 + getRandom(40), false, 0);
+			mob.setIsRaidMinion(true);
+			_minions.add(mob);
+			mob = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 109000, npc.getZ(), 280 + getRandom(40), false, 0);
+			mob.setIsRaidMinion(true);
+			_minions.add(mob);
+			final int x2 = 16800 + (i * 600);
+			mob = (L2Attackable) addSpawn(DOOM_WRAITH, x2, 109300, npc.getZ(), 280 + getRandom(40), false, 0);
+			mob.setIsRaidMinion(true);
+			_minions.add(mob);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			int x = 16800 + (i * 450);
+			mob = (L2Attackable) addSpawn(SUSCEPTOR, x, 110300, npc.getZ(), 280 + getRandom(40), false, 0);
+			mob.setIsRaidMinion(true);
+			_minions.add(mob);
+		}
 	}
 }

@@ -89,6 +89,11 @@ public final class MercenaryCaptain extends AbstractNpcAI
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new MercenaryCaptain();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -224,10 +229,5 @@ public final class MercenaryCaptain extends AbstractNpcAI
 			htmltext = (npc.getCastle().getSiege().isInProgress() || TerritoryWarManager.getInstance().isTWInProgress()) ? "36481-06.html" : npc.getId() + "-01.html";
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new MercenaryCaptain();
 	}
 }

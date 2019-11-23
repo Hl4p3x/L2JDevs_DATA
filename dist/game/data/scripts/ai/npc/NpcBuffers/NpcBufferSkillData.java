@@ -44,19 +44,9 @@ public class NpcBufferSkillData
 		_affectObject = set.getEnum("affectObject", AffectObject.class);
 	}
 	
-	public Skill getSkill()
+	public AffectObject getAffectObject()
 	{
-		return _skill.getSkill();
-	}
-	
-	public int getInitialDelay()
-	{
-		return _initialDelay;
-	}
-	
-	public int getDelay()
-	{
-		return _delay;
+		return _affectObject;
 	}
 	
 	public AffectScope getAffectScope()
@@ -64,8 +54,18 @@ public class NpcBufferSkillData
 		return _affectScope;
 	}
 	
-	public AffectObject getAffectObject()
+	public int getDelay()
 	{
-		return _affectObject;
+		return _delay;
+	}
+	
+	public int getInitialDelay()
+	{
+		return _initialDelay;
+	}
+	
+	public Skill getSkill()
+	{
+		return _skill.getSkill();
 	}
 }

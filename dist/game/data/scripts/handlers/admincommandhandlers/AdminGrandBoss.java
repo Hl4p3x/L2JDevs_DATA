@@ -60,6 +60,12 @@ public class AdminGrandBoss implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		final StringTokenizer st = new StringTokenizer(command, " ");
@@ -202,6 +208,16 @@ public class AdminGrandBoss implements IAdminCommandHandler
 		return true;
 	}
 	
+	private Quest antharasAi()
+	{
+		return QuestManager.getInstance().getQuest(Antharas.class.getSimpleName());
+	}
+	
+	private Quest baiumAi()
+	{
+		return QuestManager.getInstance().getQuest(Baium.class.getSimpleName());
+	}
+	
 	private void manageHtml(L2PcInstance activeChar, int grandBossId)
 	{
 		if (Arrays.asList(ANTHARAS, VALAKAS, BAIUM, QUEENANT, ORFEN, CORE).contains(grandBossId))
@@ -315,21 +331,5 @@ public class AdminGrandBoss implements IAdminCommandHandler
 		{
 			activeChar.sendMessage("Wrong ID!");
 		}
-	}
-	
-	private Quest antharasAi()
-	{
-		return QuestManager.getInstance().getQuest(Antharas.class.getSimpleName());
-	}
-	
-	private Quest baiumAi()
-	{
-		return QuestManager.getInstance().getQuest(Baium.class.getSimpleName());
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

@@ -172,87 +172,19 @@ public final class Maguen extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final BuffInfo b_info = player.getEffectList().getBuffInfoByAbnormalType(B_PLASMA1.getSkill().getAbnormalType());
-		final BuffInfo c_info = player.getEffectList().getBuffInfoByAbnormalType(C_PLASMA1.getSkill().getAbnormalType());
-		final BuffInfo r_info = player.getEffectList().getBuffInfoByAbnormalType(R_PLASMA1.getSkill().getAbnormalType());
-		
-		final int b = b_info == null ? 0 : b_info.getSkill().getAbnormalLvl();
-		final int c = c_info == null ? 0 : c_info.getSkill().getAbnormalLvl();
-		final int r = r_info == null ? 0 : r_info.getSkill().getAbnormalLvl();
-		
-		if ((b == 3) && (c == 0) && (r == 0))
+		if (killer.isInParty())
 		{
-			showOnScreenMsg(player, NpcStringId.ENOUGH_MAGUEN_PLASMA_BISTAKON_HAVE_GATHERED, 2, 4000);
-			player.getEffectList().stopSkillEffects(true, B_PLASMA1.getSkill().getAbnormalType());
-			npc.setTarget(player);
-			npc.doCast((getRandom(100) < 70) ? B_BUFF_1 : B_BUFF_2);
-			maguenPetChance(player);
-			startQuestTimer("END_TIMER", 3000, npc, player);
-		}
-		else if ((b == 0) && (c == 3) && (r == 0))
-		{
-			showOnScreenMsg(player, NpcStringId.ENOUGH_MAGUEN_PLASMA_COKRAKON_HAVE_GATHERED, 2, 4000);
-			player.getEffectList().stopSkillEffects(true, C_PLASMA1.getSkill().getAbnormalType());
-			npc.setTarget(player);
-			npc.doCast((getRandom(100) < 70) ? C_BUFF_1 : C_BUFF_2);
-			maguenPetChance(player);
-			startQuestTimer("END_TIMER", 3000, npc, player);
-		}
-		else if ((b == 0) && (c == 0) && (r == 3))
-		{
-			showOnScreenMsg(player, NpcStringId.ENOUGH_MAGUEN_PLASMA_LEPTILIKON_HAVE_GATHERED, 2, 4000);
-			player.getEffectList().stopSkillEffects(true, R_PLASMA1.getSkill().getAbnormalType());
-			npc.setTarget(player);
-			npc.doCast((getRandom(100) < 70) ? R_BUFF_1 : R_BUFF_2);
-			maguenPetChance(player);
-			startQuestTimer("END_TIMER", 3000, npc, player);
-		}
-		else if ((b + c + r) == 3)
-		{
-			if ((b == 1) && (c == 1) && (r == 1))
+			final L2PcInstance partyMember = getRandomPartyMember(killer);
+			final int i0 = 10 + (10 * killer.getParty().getMemberCount());
+			
+			if ((getRandom(1000) < i0) && (npc.calculateDistance(killer, true, false) < 2000) && (npc.calculateDistance(partyMember, true, false) < 2000))
 			{
-				player.getEffectList().stopSkillEffects(true, B_PLASMA1.getSkill().getAbnormalType());
-				player.getEffectList().stopSkillEffects(true, C_PLASMA1.getSkill().getAbnormalType());
-				player.getEffectList().stopSkillEffects(true, R_PLASMA1.getSkill().getAbnormalType());
-				showOnScreenMsg(player, NpcStringId.THE_PLASMAS_HAVE_FILLED_THE_AEROSCOPE_AND_ARE_HARMONIZED, 2, 4000);
-				SkillHolder skillToCast = null;
-				switch (getRandom(3))
-				{
-					case 0:
-						skillToCast = (getRandom(100) < 70) ? B_BUFF_1 : B_BUFF_2;
-						break;
-					case 1:
-						skillToCast = (getRandom(100) < 70) ? C_BUFF_1 : C_BUFF_2;
-						break;
-					case 2:
-						skillToCast = (getRandom(100) < 70) ? R_BUFF_1 : R_BUFF_2;
-						break;
-				}
-				
-				if (skillToCast != null)
-				{
-					npc.setTarget(player);
-					npc.doCast(skillToCast);
-				}
-				maguenPetChance(player);
-				startQuestTimer("END_TIMER", 3000, npc, player);
-			}
-			else
-			{
-				showOnScreenMsg(player, NpcStringId.THE_PLASMAS_HAVE_FILLED_THE_AEROSCOPE_BUT_THEY_ARE_RAMMING_INTO_EACH_OTHER_EXPLODING_AND_DYING, 2, 4000);
-				player.getEffectList().stopSkillEffects(true, B_PLASMA1.getSkill().getAbnormalType());
-				player.getEffectList().stopSkillEffects(true, C_PLASMA1.getSkill().getAbnormalType());
-				player.getEffectList().stopSkillEffects(true, R_PLASMA1.getSkill().getAbnormalType());
+				notifyEvent("SPAWN_MAGUEN", npc, partyMember);
 			}
 		}
-		else
-		{
-			startQuestTimer("END_TIMER", 1000, npc, player);
-		}
-		npc.setDisplayEffect(4);
-		return super.onSpellFinished(npc, player, skill);
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -343,19 +275,87 @@ public final class Maguen extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
 	{
-		if (killer.isInParty())
+		final BuffInfo b_info = player.getEffectList().getBuffInfoByAbnormalType(B_PLASMA1.getSkill().getAbnormalType());
+		final BuffInfo c_info = player.getEffectList().getBuffInfoByAbnormalType(C_PLASMA1.getSkill().getAbnormalType());
+		final BuffInfo r_info = player.getEffectList().getBuffInfoByAbnormalType(R_PLASMA1.getSkill().getAbnormalType());
+		
+		final int b = b_info == null ? 0 : b_info.getSkill().getAbnormalLvl();
+		final int c = c_info == null ? 0 : c_info.getSkill().getAbnormalLvl();
+		final int r = r_info == null ? 0 : r_info.getSkill().getAbnormalLvl();
+		
+		if ((b == 3) && (c == 0) && (r == 0))
 		{
-			final L2PcInstance partyMember = getRandomPartyMember(killer);
-			final int i0 = 10 + (10 * killer.getParty().getMemberCount());
-			
-			if ((getRandom(1000) < i0) && (npc.calculateDistance(killer, true, false) < 2000) && (npc.calculateDistance(partyMember, true, false) < 2000))
+			showOnScreenMsg(player, NpcStringId.ENOUGH_MAGUEN_PLASMA_BISTAKON_HAVE_GATHERED, 2, 4000);
+			player.getEffectList().stopSkillEffects(true, B_PLASMA1.getSkill().getAbnormalType());
+			npc.setTarget(player);
+			npc.doCast((getRandom(100) < 70) ? B_BUFF_1 : B_BUFF_2);
+			maguenPetChance(player);
+			startQuestTimer("END_TIMER", 3000, npc, player);
+		}
+		else if ((b == 0) && (c == 3) && (r == 0))
+		{
+			showOnScreenMsg(player, NpcStringId.ENOUGH_MAGUEN_PLASMA_COKRAKON_HAVE_GATHERED, 2, 4000);
+			player.getEffectList().stopSkillEffects(true, C_PLASMA1.getSkill().getAbnormalType());
+			npc.setTarget(player);
+			npc.doCast((getRandom(100) < 70) ? C_BUFF_1 : C_BUFF_2);
+			maguenPetChance(player);
+			startQuestTimer("END_TIMER", 3000, npc, player);
+		}
+		else if ((b == 0) && (c == 0) && (r == 3))
+		{
+			showOnScreenMsg(player, NpcStringId.ENOUGH_MAGUEN_PLASMA_LEPTILIKON_HAVE_GATHERED, 2, 4000);
+			player.getEffectList().stopSkillEffects(true, R_PLASMA1.getSkill().getAbnormalType());
+			npc.setTarget(player);
+			npc.doCast((getRandom(100) < 70) ? R_BUFF_1 : R_BUFF_2);
+			maguenPetChance(player);
+			startQuestTimer("END_TIMER", 3000, npc, player);
+		}
+		else if ((b + c + r) == 3)
+		{
+			if ((b == 1) && (c == 1) && (r == 1))
 			{
-				notifyEvent("SPAWN_MAGUEN", npc, partyMember);
+				player.getEffectList().stopSkillEffects(true, B_PLASMA1.getSkill().getAbnormalType());
+				player.getEffectList().stopSkillEffects(true, C_PLASMA1.getSkill().getAbnormalType());
+				player.getEffectList().stopSkillEffects(true, R_PLASMA1.getSkill().getAbnormalType());
+				showOnScreenMsg(player, NpcStringId.THE_PLASMAS_HAVE_FILLED_THE_AEROSCOPE_AND_ARE_HARMONIZED, 2, 4000);
+				SkillHolder skillToCast = null;
+				switch (getRandom(3))
+				{
+					case 0:
+						skillToCast = (getRandom(100) < 70) ? B_BUFF_1 : B_BUFF_2;
+						break;
+					case 1:
+						skillToCast = (getRandom(100) < 70) ? C_BUFF_1 : C_BUFF_2;
+						break;
+					case 2:
+						skillToCast = (getRandom(100) < 70) ? R_BUFF_1 : R_BUFF_2;
+						break;
+				}
+				
+				if (skillToCast != null)
+				{
+					npc.setTarget(player);
+					npc.doCast(skillToCast);
+				}
+				maguenPetChance(player);
+				startQuestTimer("END_TIMER", 3000, npc, player);
+			}
+			else
+			{
+				showOnScreenMsg(player, NpcStringId.THE_PLASMAS_HAVE_FILLED_THE_AEROSCOPE_BUT_THEY_ARE_RAMMING_INTO_EACH_OTHER_EXPLODING_AND_DYING, 2, 4000);
+				player.getEffectList().stopSkillEffects(true, B_PLASMA1.getSkill().getAbnormalType());
+				player.getEffectList().stopSkillEffects(true, C_PLASMA1.getSkill().getAbnormalType());
+				player.getEffectList().stopSkillEffects(true, R_PLASMA1.getSkill().getAbnormalType());
 			}
 		}
-		return super.onKill(npc, killer, isSummon);
+		else
+		{
+			startQuestTimer("END_TIMER", 1000, npc, player);
+		}
+		npc.setDisplayEffect(4);
+		return super.onSpellFinished(npc, player, skill);
 	}
 	
 	private void maguenPetChance(L2PcInstance player)

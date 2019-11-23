@@ -43,7 +43,6 @@ public class Q00643_RiseAndFallOfTheElrokiTribe extends Quest
 	private static final int CHANCE_MOBS1 = 116;
 	private static final int CHANCE_MOBS2 = 360;
 	private static final int CHANCE_DEINO = 558;
-	private boolean isFirstTalk = true;
 	// Rewards
 	private static final int[] PIECE =
 	{
@@ -82,7 +81,6 @@ public class Q00643_RiseAndFallOfTheElrokiTribe extends Quest
 		22226, // Pachycephalosaurus
 		22227, // Wild Strider
 	};
-	
 	private static final int[] MOBS2 =
 	{
 		22742, // Ornithomimus
@@ -92,6 +90,8 @@ public class Q00643_RiseAndFallOfTheElrokiTribe extends Quest
 	};
 	
 	private static final int DEINONYCHUS = 22203;
+	
+	private boolean isFirstTalk = true;
 	
 	public Q00643_RiseAndFallOfTheElrokiTribe()
 	{

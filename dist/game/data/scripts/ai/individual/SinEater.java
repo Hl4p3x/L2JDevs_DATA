@@ -50,6 +50,11 @@ public final class SinEater extends AbstractNpcAI
 		addSummonTalkId(SIN_EATER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SinEater();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -86,28 +91,6 @@ public final class SinEater extends AbstractNpcAI
 		return super.onAdvEvent(event, npc, player);
 	}
 	
-	@RegisterEvent(EventType.ON_CREATURE_KILL)
-	@RegisterType(ListenerRegisterType.NPC)
-	@Id(SIN_EATER)
-	public void onCreatureKill(OnCreatureKill event)
-	{
-		final int random = getRandom(100);
-		final L2Summon summon = (L2Summon) event.getTarget();
-		
-		if (random < 30)
-		{
-			broadcastSummonSay(summon, NpcStringId.OH_THIS_IS_JUST_GREAT_WHAT_ARE_YOU_GOING_TO_DO_NOW);
-		}
-		else if (random < 70)
-		{
-			broadcastSummonSay(summon, NpcStringId.YOU_INCONSIDERATE_MORON_CANT_YOU_EVEN_TAKE_CARE_OF_LITTLE_OLD_ME);
-		}
-		else
-		{
-			broadcastSummonSay(summon, NpcStringId.OH_NO_THE_MAN_WHO_EATS_ONES_SINS_HAS_DIED_PENITENCE_IS_FURTHER_AWAY);
-		}
-	}
-	
 	@RegisterEvent(EventType.ON_CREATURE_ATTACKED)
 	@RegisterType(ListenerRegisterType.NPC)
 	@Id(SIN_EATER)
@@ -130,6 +113,28 @@ public final class SinEater extends AbstractNpcAI
 			{
 				broadcastSummonSay(summon, NpcStringId.WHAT_HAVE_I_DONE_TO_DESERVE_THIS);
 			}
+		}
+	}
+	
+	@RegisterEvent(EventType.ON_CREATURE_KILL)
+	@RegisterType(ListenerRegisterType.NPC)
+	@Id(SIN_EATER)
+	public void onCreatureKill(OnCreatureKill event)
+	{
+		final int random = getRandom(100);
+		final L2Summon summon = (L2Summon) event.getTarget();
+		
+		if (random < 30)
+		{
+			broadcastSummonSay(summon, NpcStringId.OH_THIS_IS_JUST_GREAT_WHAT_ARE_YOU_GOING_TO_DO_NOW);
+		}
+		else if (random < 70)
+		{
+			broadcastSummonSay(summon, NpcStringId.YOU_INCONSIDERATE_MORON_CANT_YOU_EVEN_TAKE_CARE_OF_LITTLE_OLD_ME);
+		}
+		else
+		{
+			broadcastSummonSay(summon, NpcStringId.OH_NO_THE_MAN_WHO_EATS_ONES_SINS_HAS_DIED_PENITENCE_IS_FURTHER_AWAY);
 		}
 	}
 	
@@ -169,10 +174,5 @@ public final class SinEater extends AbstractNpcAI
 	private void broadcastSummonSay(L2Summon summon, NpcStringId npcstringId)
 	{
 		summon.broadcastPacket(new NpcSay(summon.getObjectId(), Say2.NPC_ALL, summon.getId(), npcstringId));
-	}
-	
-	public static void main(String[] args)
-	{
-		new SinEater();
 	}
 }

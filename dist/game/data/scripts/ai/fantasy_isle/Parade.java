@@ -143,10 +143,9 @@ public final class Parade extends AbstractNpcAI
 		_log.info("Fantasy Isle: Parade starting at " + format.format(System.currentTimeMillis() + diff) + " and is scheduled each next " + (cycle / 3600000) + " hours.");
 	}
 	
-	protected void load()
+	public static void main(String[] args)
 	{
-		npcIndex = 0;
-		spawns = new CopyOnWriteArrayList<>();
+		new Parade();
 	}
 	
 	protected void clean()
@@ -156,6 +155,12 @@ public final class Parade extends AbstractNpcAI
 			spawns.forEach(L2Npc::deleteMe);
 		}
 		spawns = null;
+	}
+	
+	protected void load()
+	{
+		npcIndex = 0;
+		spawns = new CopyOnWriteArrayList<>();
 	}
 	
 	private long timeLeftMillis(int hours, int minutes, int seconds)
@@ -169,44 +174,18 @@ public final class Parade extends AbstractNpcAI
 		return (days * 1000L) / 6L;
 	}
 	
-	protected class Start implements Runnable
+	protected class Clean implements Runnable
 	{
 		@Override
 		public void run()
 		{
-			load();
-			spawnTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new Spawn(), 0, 5000);
-			deleteTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new Delete(), 10000, 1000);
-			cleanTask = ThreadPoolManager.getInstance().scheduleAi(new Clean(), 420000);
-		}
-	}
-	
-	protected class Spawn implements Runnable
-	{
-		@Override
-		public void run()
-		{
-			for (int i = 0; i < 3; ++i)
-			{
-				if (npcIndex >= ACTORS.length)
-				{
-					spawnTask.cancel(false);
-					break;
-				}
-				int npcId = ACTORS[npcIndex++];
-				if (npcId == 0)
-				{
-					continue;
-				}
-				for (int route = 0; route < 5; ++route)
-				{
-					int[] start = START[route][i];
-					int[] goal = GOAL[route][i];
-					L2Npc actor = addSpawn(npcId, start[0], start[1], start[2], start[3], false, 0);
-					actor.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(goal[0], goal[1], goal[2], goal[3]));
-					spawns.add(actor);
-				}
-			}
+			spawnTask.cancel(false);
+			spawnTask = null;
+			deleteTask.cancel(false);
+			deleteTask = null;
+			cleanTask.cancel(false);
+			cleanTask = null;
+			clean();
 		}
 	}
 	
@@ -240,23 +219,44 @@ public final class Parade extends AbstractNpcAI
 		}
 	}
 	
-	protected class Clean implements Runnable
+	protected class Spawn implements Runnable
 	{
 		@Override
 		public void run()
 		{
-			spawnTask.cancel(false);
-			spawnTask = null;
-			deleteTask.cancel(false);
-			deleteTask = null;
-			cleanTask.cancel(false);
-			cleanTask = null;
-			clean();
+			for (int i = 0; i < 3; ++i)
+			{
+				if (npcIndex >= ACTORS.length)
+				{
+					spawnTask.cancel(false);
+					break;
+				}
+				int npcId = ACTORS[npcIndex++];
+				if (npcId == 0)
+				{
+					continue;
+				}
+				for (int route = 0; route < 5; ++route)
+				{
+					int[] start = START[route][i];
+					int[] goal = GOAL[route][i];
+					L2Npc actor = addSpawn(npcId, start[0], start[1], start[2], start[3], false, 0);
+					actor.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(goal[0], goal[1], goal[2], goal[3]));
+					spawns.add(actor);
+				}
+			}
 		}
 	}
 	
-	public static void main(String[] args)
+	protected class Start implements Runnable
 	{
-		new Parade();
+		@Override
+		public void run()
+		{
+			load();
+			spawnTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new Spawn(), 0, 5000);
+			deleteTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new Delete(), 10000, 1000);
+			cleanTask = ThreadPoolManager.getInstance().scheduleAi(new Clean(), 420000);
+		}
 	}
 }

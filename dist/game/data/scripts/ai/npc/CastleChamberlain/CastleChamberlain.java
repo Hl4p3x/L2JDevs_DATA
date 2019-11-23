@@ -143,263 +143,9 @@ public final class CastleChamberlain extends AbstractNpcAI
 		addFirstTalkId(NPC);
 	}
 	
-	private NpcHtmlMessage getHtmlPacket(L2PcInstance player, L2Npc npc, String htmlFile)
+	public static void main(String[] args)
 	{
-		final NpcHtmlMessage packet = new NpcHtmlMessage(npc.getObjectId());
-		packet.setHtml(getHtm(player.getHtmlPrefix(), htmlFile));
-		return packet;
-	}
-	
-	private String funcConfirmHtml(final L2PcInstance player, final L2Npc npc, final Castle castle, final int func, final int level)
-	{
-		if (isOwner(player, npc) && player.hasClanPrivilege(ClanPrivilege.CS_SET_FUNCTIONS))
-		{
-			final NpcHtmlMessage html;
-			final String fstring = (func == Castle.FUNC_TELEPORT) ? "9" : "10";
-			if (level == 0)
-			{
-				html = getHtmlPacket(player, npc, "castleresetdeco.html");
-				html.replace("%AgitDecoSubmit%", Integer.toString(func));
-			}
-			else if ((castle.getFunction(func) != null) && (castle.getFunction(func).getLvl() == level))
-			{
-				html = getHtmlPacket(player, npc, "castledecoalreadyset.html");
-				html.replace("%AgitDecoEffect%", "<fstring p1=\"" + level + "\">" + fstring + "</fstring>");
-			}
-			else
-			{
-				html = getHtmlPacket(player, npc, "castledeco-0" + func + ".html");
-				html.replace("%AgitDecoCost%", "<fstring p1=\"" + getFunctionFee(func, level) + "\" p2=\"" + (getFunctionRatio(func) / 86400000) + "\">6</fstring>");
-				html.replace("%AgitDecoEffect%", "<fstring p1=\"" + level + "\">" + fstring + "</fstring>");
-				html.replace("%AgitDecoSubmit%", func + " " + level);
-			}
-			player.sendPacket(html);
-			return null;
-		}
-		return "chamberlain-21.html";
-	}
-	
-	private void funcReplace(final Castle castle, final NpcHtmlMessage html, final int func, final String str)
-	{
-		final CastleFunction function = castle.getFunction(func);
-		if (function == null)
-		{
-			html.replace("%" + str + "Depth%", "<fstring>4</fstring>");
-			html.replace("%" + str + "Cost%", "");
-			html.replace("%" + str + "Expire%", "<fstring>4</fstring>");
-			html.replace("%" + str + "Reset%", "");
-		}
-		else
-		{
-			final String fstring = ((func == Castle.FUNC_SUPPORT) || (func == Castle.FUNC_TELEPORT)) ? "9" : "10";
-			final Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(function.getEndTime());
-			html.replace("%" + str + "Depth%", "<fstring p1=\"" + function.getLvl() + "\">" + fstring + "</fstring>");
-			html.replace("%" + str + "Cost%", "<fstring p1=\"" + function.getLease() + "\" p2=\"" + (function.getRate() / 86400000) + "\">6</fstring>");
-			html.replace("%" + str + "Expire%", "<fstring p1=\"" + calendar.get(Calendar.DATE) + "\" p2=\"" + (calendar.get(Calendar.MONTH) + 1) + "\" p3=\"" + calendar.get(Calendar.YEAR) + "\">5</fstring>");
-			html.replace("%" + str + "Reset%", "[<a action=\"bypass -h Quest CastleChamberlain " + str + " 0\">Deactivate</a>]");
-		}
-	}
-	
-	private int getFunctionFee(final int func, final int level)
-	{
-		int fee = 0;
-		switch (func)
-		{
-			case Castle.FUNC_RESTORE_EXP:
-				fee = (level == 45) ? Config.CS_EXPREG1_FEE : Config.CS_EXPREG2_FEE;
-				break;
-			case Castle.FUNC_RESTORE_HP:
-				fee = (level == 300) ? Config.CS_HPREG1_FEE : Config.CS_HPREG2_FEE;
-				break;
-			case Castle.FUNC_RESTORE_MP:
-				fee = (level == 40) ? Config.CS_MPREG1_FEE : Config.CS_MPREG2_FEE;
-				break;
-			case Castle.FUNC_SUPPORT:
-				fee = (level == 5) ? Config.CS_SUPPORT1_FEE : Config.CS_SUPPORT2_FEE;
-				break;
-			case Castle.FUNC_TELEPORT:
-				fee = (level == 1) ? Config.CS_TELE1_FEE : Config.CS_TELE2_FEE;
-				break;
-		}
-		return fee;
-	}
-	
-	private long getFunctionRatio(final int func)
-	{
-		long ratio = 0;
-		switch (func)
-		{
-			case Castle.FUNC_RESTORE_EXP:
-				ratio = Config.CS_EXPREG_FEE_RATIO;
-				break;
-			case Castle.FUNC_RESTORE_HP:
-				ratio = Config.CS_HPREG_FEE_RATIO;
-				break;
-			case Castle.FUNC_RESTORE_MP:
-				ratio = Config.CS_MPREG_FEE_RATIO;
-				break;
-			case Castle.FUNC_SUPPORT:
-				ratio = Config.CS_SUPPORT_FEE_RATIO;
-				break;
-			case Castle.FUNC_TELEPORT:
-				ratio = Config.CS_TELE_FEE_RATIO;
-				break;
-		}
-		return ratio;
-	}
-	
-	private int getDoorUpgradePrice(final int type, final int level)
-	{
-		int price = 0;
-		switch (type)
-		{
-			case 1: // Outer Door
-			{
-				switch (level)
-				{
-					case 2:
-						price = Config.OUTER_DOOR_UPGRADE_PRICE2;
-						break;
-					case 3:
-						price = Config.OUTER_DOOR_UPGRADE_PRICE3;
-						break;
-					case 5:
-						price = Config.OUTER_DOOR_UPGRADE_PRICE5;
-						break;
-				}
-				break;
-			}
-			case 2: // Inner Door
-			{
-				switch (level)
-				{
-					case 2:
-						price = Config.INNER_DOOR_UPGRADE_PRICE2;
-						break;
-					case 3:
-						price = Config.INNER_DOOR_UPGRADE_PRICE3;
-						break;
-					case 5:
-						price = Config.INNER_DOOR_UPGRADE_PRICE5;
-						break;
-				}
-				break;
-			}
-			case 3: // Wall
-			{
-				switch (level)
-				{
-					case 2:
-						price = Config.WALL_UPGRADE_PRICE2;
-						break;
-					case 3:
-						price = Config.WALL_UPGRADE_PRICE3;
-						break;
-					case 5:
-						price = Config.WALL_UPGRADE_PRICE5;
-						break;
-				}
-				break;
-			}
-		}
-		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
-		{
-			case SevenSigns.CABAL_DUSK:
-				price *= 3;
-				break;
-			case SevenSigns.CABAL_DAWN:
-				price *= 0.8;
-				break;
-		}
-		return price;
-	}
-	
-	private String getSealOwner(final int seal)
-	{
-		String npcString;
-		switch (SevenSigns.getInstance().getSealOwner(seal))
-		{
-			case SevenSigns.CABAL_DAWN:
-				npcString = "1000511";
-				break;
-			case SevenSigns.CABAL_DUSK:
-				npcString = "1000510";
-				break;
-			default:
-				npcString = "1000512";
-				break;
-		}
-		return npcString;
-	}
-	
-	private int getTaxLimit()
-	{
-		final int taxLimit;
-		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
-		{
-			case SevenSigns.CABAL_DAWN:
-				taxLimit = 25;
-				break;
-			case SevenSigns.CABAL_DUSK:
-				taxLimit = 5;
-				break;
-			default:
-				taxLimit = 15;
-				break;
-		}
-		return taxLimit;
-	}
-	
-	private int getTrapUpgradePrice(final int level)
-	{
-		int price = 0;
-		switch (level)
-		{
-			case 1:
-				price = Config.TRAP_UPGRADE_PRICE1;
-				break;
-			case 2:
-				price = Config.TRAP_UPGRADE_PRICE2;
-				break;
-			case 3:
-				price = Config.TRAP_UPGRADE_PRICE3;
-				break;
-			case 4:
-				price = Config.TRAP_UPGRADE_PRICE4;
-				break;
-		}
-		
-		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
-		{
-			case SevenSigns.CABAL_DUSK:
-				price *= 3;
-				break;
-			case SevenSigns.CABAL_DAWN:
-				price *= 0.8;
-				break;
-		}
-		return price;
-	}
-	
-	private boolean isDomainFortressInContractStatus(final int castleId)
-	{
-		final int numFort = ((castleId == 1) || (castleId == 5)) ? 2 : 1;
-		final List<Integer> fortList = FORTRESS.get(castleId);
-		for (int i = 0; i < numFort; i++)
-		{
-			final Fort fortress = FortManager.getInstance().getFortById(fortList.get(i));
-			if (fortress.getFortState() == 2)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private boolean isOwner(final L2PcInstance player, final L2Npc npc)
-	{
-		return player.canOverrideCond(PcCondOverride.CASTLE_CONDITIONS) || ((player.getClan() != null) && (player.getClanId() == npc.getCastle().getOwnerId()));
+		new CastleChamberlain();
 	}
 	
 	@Override
@@ -1370,8 +1116,262 @@ public final class CastleChamberlain extends AbstractNpcAI
 		}
 	}
 	
-	public static void main(String[] args)
+	private String funcConfirmHtml(final L2PcInstance player, final L2Npc npc, final Castle castle, final int func, final int level)
 	{
-		new CastleChamberlain();
+		if (isOwner(player, npc) && player.hasClanPrivilege(ClanPrivilege.CS_SET_FUNCTIONS))
+		{
+			final NpcHtmlMessage html;
+			final String fstring = (func == Castle.FUNC_TELEPORT) ? "9" : "10";
+			if (level == 0)
+			{
+				html = getHtmlPacket(player, npc, "castleresetdeco.html");
+				html.replace("%AgitDecoSubmit%", Integer.toString(func));
+			}
+			else if ((castle.getFunction(func) != null) && (castle.getFunction(func).getLvl() == level))
+			{
+				html = getHtmlPacket(player, npc, "castledecoalreadyset.html");
+				html.replace("%AgitDecoEffect%", "<fstring p1=\"" + level + "\">" + fstring + "</fstring>");
+			}
+			else
+			{
+				html = getHtmlPacket(player, npc, "castledeco-0" + func + ".html");
+				html.replace("%AgitDecoCost%", "<fstring p1=\"" + getFunctionFee(func, level) + "\" p2=\"" + (getFunctionRatio(func) / 86400000) + "\">6</fstring>");
+				html.replace("%AgitDecoEffect%", "<fstring p1=\"" + level + "\">" + fstring + "</fstring>");
+				html.replace("%AgitDecoSubmit%", func + " " + level);
+			}
+			player.sendPacket(html);
+			return null;
+		}
+		return "chamberlain-21.html";
+	}
+	
+	private void funcReplace(final Castle castle, final NpcHtmlMessage html, final int func, final String str)
+	{
+		final CastleFunction function = castle.getFunction(func);
+		if (function == null)
+		{
+			html.replace("%" + str + "Depth%", "<fstring>4</fstring>");
+			html.replace("%" + str + "Cost%", "");
+			html.replace("%" + str + "Expire%", "<fstring>4</fstring>");
+			html.replace("%" + str + "Reset%", "");
+		}
+		else
+		{
+			final String fstring = ((func == Castle.FUNC_SUPPORT) || (func == Castle.FUNC_TELEPORT)) ? "9" : "10";
+			final Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(function.getEndTime());
+			html.replace("%" + str + "Depth%", "<fstring p1=\"" + function.getLvl() + "\">" + fstring + "</fstring>");
+			html.replace("%" + str + "Cost%", "<fstring p1=\"" + function.getLease() + "\" p2=\"" + (function.getRate() / 86400000) + "\">6</fstring>");
+			html.replace("%" + str + "Expire%", "<fstring p1=\"" + calendar.get(Calendar.DATE) + "\" p2=\"" + (calendar.get(Calendar.MONTH) + 1) + "\" p3=\"" + calendar.get(Calendar.YEAR) + "\">5</fstring>");
+			html.replace("%" + str + "Reset%", "[<a action=\"bypass -h Quest CastleChamberlain " + str + " 0\">Deactivate</a>]");
+		}
+	}
+	
+	private int getDoorUpgradePrice(final int type, final int level)
+	{
+		int price = 0;
+		switch (type)
+		{
+			case 1: // Outer Door
+			{
+				switch (level)
+				{
+					case 2:
+						price = Config.OUTER_DOOR_UPGRADE_PRICE2;
+						break;
+					case 3:
+						price = Config.OUTER_DOOR_UPGRADE_PRICE3;
+						break;
+					case 5:
+						price = Config.OUTER_DOOR_UPGRADE_PRICE5;
+						break;
+				}
+				break;
+			}
+			case 2: // Inner Door
+			{
+				switch (level)
+				{
+					case 2:
+						price = Config.INNER_DOOR_UPGRADE_PRICE2;
+						break;
+					case 3:
+						price = Config.INNER_DOOR_UPGRADE_PRICE3;
+						break;
+					case 5:
+						price = Config.INNER_DOOR_UPGRADE_PRICE5;
+						break;
+				}
+				break;
+			}
+			case 3: // Wall
+			{
+				switch (level)
+				{
+					case 2:
+						price = Config.WALL_UPGRADE_PRICE2;
+						break;
+					case 3:
+						price = Config.WALL_UPGRADE_PRICE3;
+						break;
+					case 5:
+						price = Config.WALL_UPGRADE_PRICE5;
+						break;
+				}
+				break;
+			}
+		}
+		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
+		{
+			case SevenSigns.CABAL_DUSK:
+				price *= 3;
+				break;
+			case SevenSigns.CABAL_DAWN:
+				price *= 0.8;
+				break;
+		}
+		return price;
+	}
+	
+	private int getFunctionFee(final int func, final int level)
+	{
+		int fee = 0;
+		switch (func)
+		{
+			case Castle.FUNC_RESTORE_EXP:
+				fee = (level == 45) ? Config.CS_EXPREG1_FEE : Config.CS_EXPREG2_FEE;
+				break;
+			case Castle.FUNC_RESTORE_HP:
+				fee = (level == 300) ? Config.CS_HPREG1_FEE : Config.CS_HPREG2_FEE;
+				break;
+			case Castle.FUNC_RESTORE_MP:
+				fee = (level == 40) ? Config.CS_MPREG1_FEE : Config.CS_MPREG2_FEE;
+				break;
+			case Castle.FUNC_SUPPORT:
+				fee = (level == 5) ? Config.CS_SUPPORT1_FEE : Config.CS_SUPPORT2_FEE;
+				break;
+			case Castle.FUNC_TELEPORT:
+				fee = (level == 1) ? Config.CS_TELE1_FEE : Config.CS_TELE2_FEE;
+				break;
+		}
+		return fee;
+	}
+	
+	private long getFunctionRatio(final int func)
+	{
+		long ratio = 0;
+		switch (func)
+		{
+			case Castle.FUNC_RESTORE_EXP:
+				ratio = Config.CS_EXPREG_FEE_RATIO;
+				break;
+			case Castle.FUNC_RESTORE_HP:
+				ratio = Config.CS_HPREG_FEE_RATIO;
+				break;
+			case Castle.FUNC_RESTORE_MP:
+				ratio = Config.CS_MPREG_FEE_RATIO;
+				break;
+			case Castle.FUNC_SUPPORT:
+				ratio = Config.CS_SUPPORT_FEE_RATIO;
+				break;
+			case Castle.FUNC_TELEPORT:
+				ratio = Config.CS_TELE_FEE_RATIO;
+				break;
+		}
+		return ratio;
+	}
+	
+	private NpcHtmlMessage getHtmlPacket(L2PcInstance player, L2Npc npc, String htmlFile)
+	{
+		final NpcHtmlMessage packet = new NpcHtmlMessage(npc.getObjectId());
+		packet.setHtml(getHtm(player.getHtmlPrefix(), htmlFile));
+		return packet;
+	}
+	
+	private String getSealOwner(final int seal)
+	{
+		String npcString;
+		switch (SevenSigns.getInstance().getSealOwner(seal))
+		{
+			case SevenSigns.CABAL_DAWN:
+				npcString = "1000511";
+				break;
+			case SevenSigns.CABAL_DUSK:
+				npcString = "1000510";
+				break;
+			default:
+				npcString = "1000512";
+				break;
+		}
+		return npcString;
+	}
+	
+	private int getTaxLimit()
+	{
+		final int taxLimit;
+		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
+		{
+			case SevenSigns.CABAL_DAWN:
+				taxLimit = 25;
+				break;
+			case SevenSigns.CABAL_DUSK:
+				taxLimit = 5;
+				break;
+			default:
+				taxLimit = 15;
+				break;
+		}
+		return taxLimit;
+	}
+	
+	private int getTrapUpgradePrice(final int level)
+	{
+		int price = 0;
+		switch (level)
+		{
+			case 1:
+				price = Config.TRAP_UPGRADE_PRICE1;
+				break;
+			case 2:
+				price = Config.TRAP_UPGRADE_PRICE2;
+				break;
+			case 3:
+				price = Config.TRAP_UPGRADE_PRICE3;
+				break;
+			case 4:
+				price = Config.TRAP_UPGRADE_PRICE4;
+				break;
+		}
+		
+		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
+		{
+			case SevenSigns.CABAL_DUSK:
+				price *= 3;
+				break;
+			case SevenSigns.CABAL_DAWN:
+				price *= 0.8;
+				break;
+		}
+		return price;
+	}
+	
+	private boolean isDomainFortressInContractStatus(final int castleId)
+	{
+		final int numFort = ((castleId == 1) || (castleId == 5)) ? 2 : 1;
+		final List<Integer> fortList = FORTRESS.get(castleId);
+		for (int i = 0; i < numFort; i++)
+		{
+			final Fort fortress = FortManager.getInstance().getFortById(fortList.get(i));
+			if (fortress.getFortState() == 2)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isOwner(final L2PcInstance player, final L2Npc npc)
+	{
+		return player.canOverrideCond(PcCondOverride.CASTLE_CONDITIONS) || ((player.getClan() != null) && (player.getClanId() == npc.getCastle().getOwnerId()));
 	}
 }

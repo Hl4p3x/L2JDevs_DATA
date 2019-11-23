@@ -132,6 +132,17 @@ public class BoatTalkingGludin implements Runnable
 		ARRIVAL_TALKING1 = new CreatureSay(0, Say2.BOAT, 801, SystemMessageId.FERRY_FROM_GLUDIN_ARRIVE_AT_TALKING_1_MINUTE);
 	}
 	
+	public static void main(String[] args)
+	{
+		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(1, -96622, 261660, -3610, 32768);
+		if (boat != null)
+		{
+			boat.registerEngine(new BoatTalkingGludin(boat));
+			boat.runEngine(180000);
+			BoatManager.getInstance().dockShip(BoatManager.TALKING_ISLAND, true);
+		}
+	}
+	
 	@Override
 	public void run()
 	{
@@ -262,17 +273,6 @@ public class BoatTalkingGludin implements Runnable
 		catch (Exception e)
 		{
 			_log.log(Level.WARNING, e.getMessage());
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(1, -96622, 261660, -3610, 32768);
-		if (boat != null)
-		{
-			boat.registerEngine(new BoatTalkingGludin(boat));
-			boat.runEngine(180000);
-			BoatManager.getInstance().dockShip(BoatManager.TALKING_ISLAND, true);
 		}
 	}
 }

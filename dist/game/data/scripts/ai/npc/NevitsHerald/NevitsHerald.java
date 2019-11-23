@@ -78,10 +78,9 @@ public final class NevitsHerald extends AbstractNpcAI
 		addKillId(ANTHARAS, VALAKAS);
 	}
 	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public static void main(String[] args)
 	{
-		return "4326.html";
+		new NevitsHerald();
 	}
 	
 	@Override
@@ -114,6 +113,12 @@ public final class NevitsHerald extends AbstractNpcAI
 			despawnHeralds();
 		}
 		return htmltext;
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		return "4326.html";
 	}
 	
 	@Override
@@ -169,10 +174,5 @@ public final class NevitsHerald extends AbstractNpcAI
 			}
 		}
 		SPAWNS.clear();
-	}
-	
-	public static void main(String[] args)
-	{
-		new NevitsHerald();
 	}
 }

@@ -96,6 +96,53 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 	}
 	
 	@Override
+	public boolean checkPartyMember(L2PcInstance player, L2Npc npc)
+	{
+		boolean check = false;
+		switch (npc.getId())
+		{
+			case ANT:
+			case ANT_CAPTAIN:
+			case ANT_OVERSEER:
+			{
+				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, PINTERS_INSTRUCTIONS) && (getQuestItemsCount(player, AMBER_BEAD) < 70);
+				break;
+			}
+			case GRANITE_GOLEM:
+			{
+				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, GRANITE_WHETSTONE) < 70);
+				break;
+			}
+			case SILENOS:
+			{
+				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, BRAIDED_YARN) < 70);
+				break;
+			}
+			case STRAIN:
+			case GHOUL:
+			{
+				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, GRAY_BONE_POWDER) < 70);
+				break;
+			}
+			case DEAD_SEEKER:
+			{
+				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, RED_PIGMENT) < 70);
+				break;
+			}
+			case BREKA_ORC:
+			case BREKA_ORC_ARCHER:
+			case BREKA_ORC_SHAMAN:
+			case BREKA_ORC_OVERLORD:
+			case BREKA_ORC_WARRIOR:
+			{
+				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_INSTRUCTIONS, DUNINGS_INSTRUCTIONS) && (getQuestItemsCount(player, DUNINGS_KEY) < 30);
+				break;
+			}
+		}
+		return check;
+	}
+	
+	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, false);
@@ -596,52 +643,5 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public boolean checkPartyMember(L2PcInstance player, L2Npc npc)
-	{
-		boolean check = false;
-		switch (npc.getId())
-		{
-			case ANT:
-			case ANT_CAPTAIN:
-			case ANT_OVERSEER:
-			{
-				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, PINTERS_INSTRUCTIONS) && (getQuestItemsCount(player, AMBER_BEAD) < 70);
-				break;
-			}
-			case GRANITE_GOLEM:
-			{
-				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, GRANITE_WHETSTONE) < 70);
-				break;
-			}
-			case SILENOS:
-			{
-				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, BRAIDED_YARN) < 70);
-				break;
-			}
-			case STRAIN:
-			case GHOUL:
-			{
-				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, GRAY_BONE_POWDER) < 70);
-				break;
-			}
-			case DEAD_SEEKER:
-			{
-				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_LIST) && (getQuestItemsCount(player, RED_PIGMENT) < 70);
-				break;
-			}
-			case BREKA_ORC:
-			case BREKA_ORC_ARCHER:
-			case BREKA_ORC_SHAMAN:
-			case BREKA_ORC_OVERLORD:
-			case BREKA_ORC_WARRIOR:
-			{
-				check = hasQuestItems(player, ALLTRANS_INSTRUCTIONS, NORMANS_INSTRUCTIONS, DUNINGS_INSTRUCTIONS) && (getQuestItemsCount(player, DUNINGS_KEY) < 30);
-				break;
-			}
-		}
-		return check;
 	}
 }

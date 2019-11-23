@@ -63,6 +63,11 @@ public final class NoblesseTeleport extends AbstractNpcAI
 		addTalkId(NPCs);
 	}
 	
+	public static void main(String[] args)
+	{
+		new NoblesseTeleport();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -84,10 +89,5 @@ public final class NoblesseTeleport extends AbstractNpcAI
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		return player.isNoble() ? "nobleteleporter.htm" : "nobleteleporter-no.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new NoblesseTeleport();
 	}
 }

@@ -36,6 +36,12 @@ public class PartyInfo implements IUserCommandHandler
 	};
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (id != COMMAND_IDS[0])
@@ -76,11 +82,5 @@ public class PartyInfo implements IUserCommandHandler
 		}
 		activeChar.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 		return true;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

@@ -36,6 +36,12 @@ public class Hellbound implements IVoicedCommandHandler
 	};
 	
 	@Override
+	public String[] getVoicedCommandList()
+	{
+		return VOICED_COMMANDS;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		if (HellboundEngine.getInstance().isLocked())
@@ -47,11 +53,5 @@ public class Hellbound implements IVoicedCommandHandler
 		final int maxTrust = HellboundEngine.getInstance().getMaxTrust();
 		activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "dp_handler_hellbound_level").replace("%s%", HellboundEngine.getInstance().getLevel() + "") + " | Trust: " + HellboundEngine.getInstance().getTrust() + (maxTrust > 0 ? "/" + maxTrust : ""));
 		return true;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return VOICED_COMMANDS;
 	}
 }

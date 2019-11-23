@@ -33,43 +33,9 @@ import org.l2jdevs.gameserver.model.quest.QuestState;
  */
 public final class Q00638_SeekersOfTheHolyGrail extends Quest
 {
-	private static class DropInfo extends ItemChanceHolder
-	{
-		private final int _keyId;
-		private final int _keyChance;
-		private final int _keyCount;
-		
-		public DropInfo(int itemId, double chance)
-		{
-			this(itemId, chance, 0, 0, 0);
-		}
-		
-		public DropInfo(int itemId, double chance, int keyId, int keyChance, int count)
-		{
-			super(itemId, chance);
-			_keyId = keyId;
-			_keyChance = keyChance;
-			_keyCount = count;
-		}
-		
-		public int getKeyId()
-		{
-			return _keyId;
-		}
-		
-		public int getKeyChance()
-		{
-			return _keyChance;
-		}
-		
-		public int getKeyCount()
-		{
-			return _keyCount;
-		}
-	}
-	
 	// NPC
 	private static final int INNOCENTIN = 31328;
+	
 	// Items
 	private static final int TOTEM = 8068;
 	private static final int ANTEROOM_KEY = 8273;
@@ -135,7 +101,6 @@ public final class Q00638_SeekersOfTheHolyGrail extends Quest
 		MOBS_DROP_CHANCES.put(22194, new DropInfo(TOTEM, 0.03)); // Penance Guard
 		MOBS_DROP_CHANCES.put(22194, new DropInfo(TOTEM, 0.03)); // Ritual Sacrifice
 	}
-	
 	public Q00638_SeekersOfTheHolyGrail()
 	{
 		super(638, Q00638_SeekersOfTheHolyGrail.class.getSimpleName(), "Seekers Of The Holy Grail");
@@ -244,5 +209,40 @@ public final class Q00638_SeekersOfTheHolyGrail extends Quest
 			htmltext = ((getQuestItemsCount(player, TOTEM) >= TOTEMS_REQUIRED_COUNT) ? "31328-04.html" : "31328-05.html");
 		}
 		return htmltext;
+	}
+	
+	private static class DropInfo extends ItemChanceHolder
+	{
+		private final int _keyId;
+		private final int _keyChance;
+		private final int _keyCount;
+		
+		public DropInfo(int itemId, double chance)
+		{
+			this(itemId, chance, 0, 0, 0);
+		}
+		
+		public DropInfo(int itemId, double chance, int keyId, int keyChance, int count)
+		{
+			super(itemId, chance);
+			_keyId = keyId;
+			_keyChance = keyChance;
+			_keyCount = count;
+		}
+		
+		public int getKeyChance()
+		{
+			return _keyChance;
+		}
+		
+		public int getKeyCount()
+		{
+			return _keyCount;
+		}
+		
+		public int getKeyId()
+		{
+			return _keyId;
+		}
 	}
 }

@@ -123,6 +123,11 @@ public final class CastleCourtMagician extends AbstractNpcAI
 		addFirstTalkId(COURT_MAGICIAN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CastleCourtMagician();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -289,10 +294,5 @@ public final class CastleCourtMagician extends AbstractNpcAI
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return ((player.getClan() != null) && (player.getClanId() == npc.getCastle().getOwnerId())) ? "courtmagician.html" : "courtmagician-01.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new CastleCourtMagician();
 	}
 }

@@ -97,9 +97,9 @@ public final class Baium extends AbstractNpcAI
 		new Location(114880, 16236, 10136, 5400),
 		new Location(114239, 17168, 10136, -1992)
 	};
+	private static long _lastAttack = 0;
 	// Misc
 	private L2GrandBossInstance _baium = null;
-	private static long _lastAttack = 0;
 	
 	private Baium()
 	{
@@ -161,6 +161,11 @@ public final class Baium extends AbstractNpcAI
 				break;
 			}
 		}
+	}
+	
+	public static void main(String[] args)
+	{
+		new Baium();
 	}
 	
 	@Override
@@ -623,50 +628,26 @@ public final class Baium extends AbstractNpcAI
 		return super.unload(removeFromList);
 	}
 	
-	private void refreshAiParams(L2Character attacker, L2Npc npc, int damage)
-	{
-		refreshAiParams(attacker, npc, damage, damage);
-	}
-	
-	private void refreshAiParams(L2Character attacker, L2Npc npc, int damage, int aggro)
-	{
-		final int newAggroVal = damage + getRandom(3000);
-		final int aggroVal = aggro + 1000;
-		final NpcVariables vars = npc.getVariables();
-		for (int i = 0; i < 3; i++)
-		{
-			if (attacker == vars.getObject("c_quest" + i, L2Character.class))
-			{
-				if (vars.getInt("i_quest" + i) < aggroVal)
-				{
-					vars.set("i_quest" + i, newAggroVal);
-				}
-				return;
-			}
-		}
-		final int index = Util.getIndexOfMinValue(vars.getInt("i_quest0"), vars.getInt("i_quest1"), vars.getInt("i_quest2"));
-		vars.set("i_quest" + index, newAggroVal);
-		vars.set("c_quest" + index, attacker);
-	}
-	
-	private int getStatus()
-	{
-		return GrandBossManager.getInstance().getBossStatus(BAIUM);
-	}
-	
 	private void addBoss(L2GrandBossInstance grandboss)
 	{
 		GrandBossManager.getInstance().addBoss(grandboss);
 	}
 	
-	private void setStatus(int status)
+	private L2PcInstance getRandomPlayer(L2Npc npc)
 	{
-		GrandBossManager.getInstance().setBossStatus(BAIUM, status);
+		for (L2Character creature : npc.getKnownList().getKnownCharactersInRadius(2000))
+		{
+			if ((creature != null) && creature.isPlayer() && zone.isInsideZone(creature) && !creature.isDead())
+			{
+				return (L2PcInstance) creature;
+			}
+		}
+		return null;
 	}
 	
-	private void setRespawn(long respawnTime)
+	private int getStatus()
 	{
-		GrandBossManager.getInstance().getStatsSet(BAIUM).set("respawn_time", (System.currentTimeMillis() + respawnTime));
+		return GrandBossManager.getInstance().getBossStatus(BAIUM);
 	}
 	
 	private void manageSkills(L2Npc npc)
@@ -782,20 +763,39 @@ public final class Baium extends AbstractNpcAI
 		}
 	}
 	
-	private L2PcInstance getRandomPlayer(L2Npc npc)
+	private void refreshAiParams(L2Character attacker, L2Npc npc, int damage)
 	{
-		for (L2Character creature : npc.getKnownList().getKnownCharactersInRadius(2000))
-		{
-			if ((creature != null) && creature.isPlayer() && zone.isInsideZone(creature) && !creature.isDead())
-			{
-				return (L2PcInstance) creature;
-			}
-		}
-		return null;
+		refreshAiParams(attacker, npc, damage, damage);
 	}
 	
-	public static void main(String[] args)
+	private void refreshAiParams(L2Character attacker, L2Npc npc, int damage, int aggro)
 	{
-		new Baium();
+		final int newAggroVal = damage + getRandom(3000);
+		final int aggroVal = aggro + 1000;
+		final NpcVariables vars = npc.getVariables();
+		for (int i = 0; i < 3; i++)
+		{
+			if (attacker == vars.getObject("c_quest" + i, L2Character.class))
+			{
+				if (vars.getInt("i_quest" + i) < aggroVal)
+				{
+					vars.set("i_quest" + i, newAggroVal);
+				}
+				return;
+			}
+		}
+		final int index = Util.getIndexOfMinValue(vars.getInt("i_quest0"), vars.getInt("i_quest1"), vars.getInt("i_quest2"));
+		vars.set("i_quest" + index, newAggroVal);
+		vars.set("c_quest" + index, attacker);
+	}
+	
+	private void setRespawn(long respawnTime)
+	{
+		GrandBossManager.getInstance().getStatsSet(BAIUM).set("respawn_time", (System.currentTimeMillis() + respawnTime));
+	}
+	
+	private void setStatus(int status)
+	{
+		GrandBossManager.getInstance().setBossStatus(BAIUM, status);
 	}
 }

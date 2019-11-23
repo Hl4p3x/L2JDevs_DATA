@@ -42,6 +42,15 @@ public class ChatShout implements IChatHandler
 	};
 	
 	/**
+	 * Returns the chat types registered to this handler.
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	/**
 	 * Handle chat type 'shout'
 	 */
 	@Override
@@ -81,14 +90,5 @@ public class ChatShout implements IChatHandler
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler.
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
 	}
 }

@@ -180,6 +180,80 @@ public final class Q00128_PailakaSongOfIceAndFire extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		final QuestState st = getQuestState(player, false);
+		if ((st != null) && st.isStarted())
+		{
+			switch (npc.getId())
+			{
+				case HILLAS:
+				{
+					if (st.isCond(2))
+					{
+						st.setCond(3);
+						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+						takeItems(player, BOOK1, -1);
+						giveItems(player, BOOK2, 1);
+						giveItems(player, WATER_ESSENCE, 1);
+					}
+					addSpawn(PAPION, -53903, 181484, -4555, 30456, false, 0, false, npc.getInstanceId());
+					break;
+				}
+				case PAPION:
+				{
+					if (st.isCond(4))
+					{
+						st.setCond(5);
+						takeItems(player, BOOK3, -1);
+						giveItems(player, BOOK4, 1);
+						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+					}
+					addSpawn(KINSUS, -61415, 181418, -4818, 63852, false, 0, false, npc.getInstanceId());
+					break;
+				}
+				case KINSUS:
+				{
+					if (st.isCond(5))
+					{
+						st.setCond(6);
+						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+						takeItems(player, BOOK4, -1);
+						giveItems(player, BOOK5, 1);
+						giveItems(player, FIRE_ESSENCE, 1);
+					}
+					addSpawn(GARGOS, -61354, 183624, -4821, 63613, false, 0, false, npc.getInstanceId());
+					break;
+				}
+				case GARGOS:
+				{
+					if (st.isCond(7))
+					{
+						st.setCond(8);
+						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+						takeItems(player, BOOK6, -1);
+						giveItems(player, BOOK7, 1);
+					}
+					addSpawn(ADIANTUM, -53297, 185027, -4617, 1512, false, 0, false, npc.getInstanceId());
+					break;
+				}
+				case ADIANTUM:
+				{
+					if (st.isCond(8))
+					{
+						st.setCond(9);
+						playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+						takeItems(player, BOOK7, -1);
+						addSpawn(ADLER2, -53297, 185027, -4617, 33486, false, 0, false, npc.getInstanceId());
+					}
+					break;
+				}
+			}
+		}
+		return super.onKill(npc, player, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = getNoQuestMsg(player);
@@ -295,79 +369,5 @@ public final class Q00128_PailakaSongOfIceAndFire extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		final QuestState st = getQuestState(player, false);
-		if ((st != null) && st.isStarted())
-		{
-			switch (npc.getId())
-			{
-				case HILLAS:
-				{
-					if (st.isCond(2))
-					{
-						st.setCond(3);
-						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-						takeItems(player, BOOK1, -1);
-						giveItems(player, BOOK2, 1);
-						giveItems(player, WATER_ESSENCE, 1);
-					}
-					addSpawn(PAPION, -53903, 181484, -4555, 30456, false, 0, false, npc.getInstanceId());
-					break;
-				}
-				case PAPION:
-				{
-					if (st.isCond(4))
-					{
-						st.setCond(5);
-						takeItems(player, BOOK3, -1);
-						giveItems(player, BOOK4, 1);
-						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-					}
-					addSpawn(KINSUS, -61415, 181418, -4818, 63852, false, 0, false, npc.getInstanceId());
-					break;
-				}
-				case KINSUS:
-				{
-					if (st.isCond(5))
-					{
-						st.setCond(6);
-						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-						takeItems(player, BOOK4, -1);
-						giveItems(player, BOOK5, 1);
-						giveItems(player, FIRE_ESSENCE, 1);
-					}
-					addSpawn(GARGOS, -61354, 183624, -4821, 63613, false, 0, false, npc.getInstanceId());
-					break;
-				}
-				case GARGOS:
-				{
-					if (st.isCond(7))
-					{
-						st.setCond(8);
-						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-						takeItems(player, BOOK6, -1);
-						giveItems(player, BOOK7, 1);
-					}
-					addSpawn(ADIANTUM, -53297, 185027, -4617, 1512, false, 0, false, npc.getInstanceId());
-					break;
-				}
-				case ADIANTUM:
-				{
-					if (st.isCond(8))
-					{
-						st.setCond(9);
-						playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
-						takeItems(player, BOOK7, -1);
-						addSpawn(ADLER2, -53297, 185027, -4617, 33486, false, 0, false, npc.getInstanceId());
-					}
-					break;
-				}
-			}
-		}
-		return super.onKill(npc, player, isSummon);
 	}
 }

@@ -75,10 +75,9 @@ public final class SeparatedSoul extends AbstractNpcAI
 		addFirstTalkId(SEPARATED_SOULS);
 	}
 	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public static void main(String[] args)
 	{
-		return npc.getId() + ".htm";
+		new SeparatedSoul();
 	}
 	
 	@Override
@@ -127,8 +126,9 @@ public final class SeparatedSoul extends AbstractNpcAI
 		return super.onAdvEvent(event, npc, player);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		new SeparatedSoul();
+		return npc.getId() + ".htm";
 	}
 }

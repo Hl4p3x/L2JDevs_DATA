@@ -47,6 +47,71 @@ public class AdminZone implements IAdminCommandHandler
 		"admin_zone_visual_clear"
 	};
 	
+	private static void getGeoRegionXY(L2PcInstance activeChar)
+	{
+		int worldX = activeChar.getX();
+		int worldY = activeChar.getY();
+		int geoX = ((((worldX - (-327680)) >> 4) >> 11) + 10);
+		int geoY = ((((worldY - (-262144)) >> 4) >> 11) + 10);
+		activeChar.sendMessage("GeoRegion: " + geoX + "_" + geoY + "");
+	}
+	
+	private static void showHtml(L2PcInstance activeChar)
+	{
+		final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/admin/zone.htm");
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
+		adminReply.setHtml(htmContent);
+		adminReply.replace("%PEACE%", (activeChar.isInsideZone(ZoneId.PEACE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%PVP%", (activeChar.isInsideZone(ZoneId.PVP) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%SIEGE%", (activeChar.isInsideZone(ZoneId.SIEGE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%TOWN%", (activeChar.isInsideZone(ZoneId.TOWN) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%CASTLE%", (activeChar.isInsideZone(ZoneId.CASTLE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%FORT%", (activeChar.isInsideZone(ZoneId.FORT) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%HQ%", (activeChar.isInsideZone(ZoneId.HQ) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%CLANHALL%", (activeChar.isInsideZone(ZoneId.CLAN_HALL) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%LAND%", (activeChar.isInsideZone(ZoneId.LANDING) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%NOLAND%", (activeChar.isInsideZone(ZoneId.NO_LANDING) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%NOSUMMON%", (activeChar.isInsideZone(ZoneId.NO_SUMMON_FRIEND) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%WATER%", (activeChar.isInsideZone(ZoneId.WATER) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%SWAMP%", (activeChar.isInsideZone(ZoneId.SWAMP) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%DANGER%", (activeChar.isInsideZone(ZoneId.DANGER_AREA) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%NOSTORE%", (activeChar.isInsideZone(ZoneId.NO_STORE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		adminReply.replace("%SCRIPT%", (activeChar.isInsideZone(ZoneId.SCRIPT) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
+		StringBuilder zones = new StringBuilder(100);
+		L2WorldRegion region = L2World.getInstance().getRegion(activeChar.getX(), activeChar.getY());
+		for (L2ZoneType zone : region.getZones())
+		{
+			if (zone.isCharacterInZone(activeChar))
+			{
+				if (zone.getName() != null)
+				{
+					StringUtil.append(zones, zone.getName() + "<br1>");
+					if (zone.getId() < 300000)
+					{
+						StringUtil.append(zones, "(", String.valueOf(zone.getId()), ")");
+					}
+				}
+				else
+				{
+					StringUtil.append(zones, String.valueOf(zone.getId()));
+				}
+				StringUtil.append(zones, " ");
+			}
+		}
+		for (NpcSpawnTerritory territory : ZoneManager.getInstance().getSpawnTerritories(activeChar))
+		{
+			StringUtil.append(zones, territory.getName() + "<br1>");
+		}
+		adminReply.replace("%ZLIST%", zones.toString());
+		activeChar.sendPacket(adminReply);
+	}
+	
+	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
 	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -109,70 +174,5 @@ public class AdminZone implements IAdminCommandHandler
 			showHtml(activeChar);
 		}
 		return true;
-	}
-	
-	private static void showHtml(L2PcInstance activeChar)
-	{
-		final String htmContent = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/admin/zone.htm");
-		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
-		adminReply.setHtml(htmContent);
-		adminReply.replace("%PEACE%", (activeChar.isInsideZone(ZoneId.PEACE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%PVP%", (activeChar.isInsideZone(ZoneId.PVP) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%SIEGE%", (activeChar.isInsideZone(ZoneId.SIEGE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%TOWN%", (activeChar.isInsideZone(ZoneId.TOWN) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%CASTLE%", (activeChar.isInsideZone(ZoneId.CASTLE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%FORT%", (activeChar.isInsideZone(ZoneId.FORT) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%HQ%", (activeChar.isInsideZone(ZoneId.HQ) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%CLANHALL%", (activeChar.isInsideZone(ZoneId.CLAN_HALL) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%LAND%", (activeChar.isInsideZone(ZoneId.LANDING) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%NOLAND%", (activeChar.isInsideZone(ZoneId.NO_LANDING) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%NOSUMMON%", (activeChar.isInsideZone(ZoneId.NO_SUMMON_FRIEND) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%WATER%", (activeChar.isInsideZone(ZoneId.WATER) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%SWAMP%", (activeChar.isInsideZone(ZoneId.SWAMP) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%DANGER%", (activeChar.isInsideZone(ZoneId.DANGER_AREA) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%NOSTORE%", (activeChar.isInsideZone(ZoneId.NO_STORE) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		adminReply.replace("%SCRIPT%", (activeChar.isInsideZone(ZoneId.SCRIPT) ? "<font color=\"LEVEL\">YES</font>" : "NO"));
-		StringBuilder zones = new StringBuilder(100);
-		L2WorldRegion region = L2World.getInstance().getRegion(activeChar.getX(), activeChar.getY());
-		for (L2ZoneType zone : region.getZones())
-		{
-			if (zone.isCharacterInZone(activeChar))
-			{
-				if (zone.getName() != null)
-				{
-					StringUtil.append(zones, zone.getName() + "<br1>");
-					if (zone.getId() < 300000)
-					{
-						StringUtil.append(zones, "(", String.valueOf(zone.getId()), ")");
-					}
-				}
-				else
-				{
-					StringUtil.append(zones, String.valueOf(zone.getId()));
-				}
-				StringUtil.append(zones, " ");
-			}
-		}
-		for (NpcSpawnTerritory territory : ZoneManager.getInstance().getSpawnTerritories(activeChar))
-		{
-			StringUtil.append(zones, territory.getName() + "<br1>");
-		}
-		adminReply.replace("%ZLIST%", zones.toString());
-		activeChar.sendPacket(adminReply);
-	}
-	
-	private static void getGeoRegionXY(L2PcInstance activeChar)
-	{
-		int worldX = activeChar.getX();
-		int worldY = activeChar.getY();
-		int geoX = ((((worldX - (-327680)) >> 4) >> 11) + 10);
-		int geoY = ((((worldY - (-262144)) >> 4) >> 11) + 10);
-		activeChar.sendMessage("GeoRegion: " + geoX + "_" + geoY + "");
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

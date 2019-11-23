@@ -65,6 +65,27 @@ public final class Q00454_CompletelyLost extends Quest
 		addEventReceivedId(INJURED_SOLDIER);
 	}
 	
+	/**
+	 * Broadcast NPC string to all known players.
+	 * @param npc the NPC
+	 * @param stringId the NPC String
+	 */
+	private static void broadcastNpcSay(L2Npc npc, NpcStringId stringId)
+	{
+		Broadcast.toKnownPlayers(npc, new NpcSay(npc, Say2.NPC_ALL, stringId));
+	}
+	
+	/**
+	 * Send a whisper to the given player.
+	 * @param npc the NPC
+	 * @param player the player
+	 * @param stringId the NPC String
+	 */
+	private static void whisper(L2Npc npc, L2PcInstance player, NpcStringId stringId)
+	{
+		player.sendPacket(new NpcSay(npc.getObjectId(), Say2.TELL, npc.getId(), stringId));
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -775,26 +796,5 @@ public final class Q00454_CompletelyLost extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	/**
-	 * Broadcast NPC string to all known players.
-	 * @param npc the NPC
-	 * @param stringId the NPC String
-	 */
-	private static void broadcastNpcSay(L2Npc npc, NpcStringId stringId)
-	{
-		Broadcast.toKnownPlayers(npc, new NpcSay(npc, Say2.NPC_ALL, stringId));
-	}
-	
-	/**
-	 * Send a whisper to the given player.
-	 * @param npc the NPC
-	 * @param player the player
-	 * @param stringId the NPC String
-	 */
-	private static void whisper(L2Npc npc, L2PcInstance player, NpcStringId stringId)
-	{
-		player.sendPacket(new NpcSay(npc.getObjectId(), Say2.TELL, npc.getId(), stringId));
 	}
 }

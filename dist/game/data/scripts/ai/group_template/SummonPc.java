@@ -49,6 +49,21 @@ public final class SummonPc extends AbstractNpcAI
 		addSpellFinishedId(PORTA, PERUM);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SummonPc();
+	}
+	
+	private static void doSummonPc(L2Npc npc, L2PcInstance attacker)
+	{
+		if ((SUMMON_PC.getSkill().getMpConsume2() < npc.getCurrentMp()) && (SUMMON_PC.getSkill().getHpConsume() < npc.getCurrentHp()) && !npc.isSkillDisabled(SUMMON_PC.getSkill()))
+		{
+			npc.setTarget(attacker);
+			npc.doCast(SUMMON_PC);
+			npc.getVariables().set("attacked", true);
+		}
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -93,20 +108,5 @@ public final class SummonPc extends AbstractNpcAI
 			addAttackDesire(npc, player);
 		}
 		return super.onSpellFinished(npc, player, skill);
-	}
-	
-	private static void doSummonPc(L2Npc npc, L2PcInstance attacker)
-	{
-		if ((SUMMON_PC.getSkill().getMpConsume2() < npc.getCurrentMp()) && (SUMMON_PC.getSkill().getHpConsume() < npc.getCurrentHp()) && !npc.isSkillDisabled(SUMMON_PC.getSkill()))
-		{
-			npc.setTarget(attacker);
-			npc.doCast(SUMMON_PC);
-			npc.getVariables().set("attacked", true);
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new SummonPc();
 	}
 }

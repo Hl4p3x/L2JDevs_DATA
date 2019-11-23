@@ -55,15 +55,15 @@ public final class Reeling extends AbstractEffect
 	}
 	
 	@Override
-	public boolean isInstant()
-	{
-		return true;
-	}
-	
-	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.FISHING;
+	}
+	
+	@Override
+	public boolean isInstant()
+	{
+		return true;
 	}
 	
 	@Override

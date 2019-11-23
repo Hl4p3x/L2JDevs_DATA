@@ -86,6 +86,100 @@ public class AdminEventEngine implements IAdminCommandHandler
 	private static boolean npcsDeleted = false;
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	public void showEventParameters(L2PcInstance activeChar, int teamnumbers)
+	{
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<html><body><title>[ L2J EVENT ENGINE ]</title><br><center> Current event: <font color=\"LEVEL\">");
+		sb.append(L2Event._eventName);
+		sb.append("</font></center><br>INFO: To start an event, you must first set the number of teams, then type their names in the boxes and finally type the NPC ID that will be the event manager (can be any existing npc) next to the \"Announce Event!\" button.<br><table width=100%>");
+		sb.append("<tr><td><button value=\"Announce Event!\" action=\"bypass -h admin_event_announce $event_npcid ");
+		sb.append(teamnumbers);
+		sb.append(" ");
+		for (int i = 1; (i - 1) < teamnumbers; i++) // Event announce params
+		{
+			sb.append("$event_teams_name");
+			sb.append(i);
+			sb.append(" - ");
+		}
+		sb.append("\" width=140 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		sb.append("<td><edit var=\"event_npcid\" width=100 height=20></td></tr>");
+		sb.append("<tr><td><button value=\"Set number of teams\" action=\"bypass -h admin_event_change_teams_number $event_teams_number\" width=140 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		sb.append("<td><edit var=\"event_teams_number\" width=100 height=20></td></tr>");
+		sb.append("</table><br><center> <br><br>");
+		sb.append("<font color=\"LEVEL\">Teams' names:</font><br><table width=100% cellspacing=8>");
+		for (int i = 1; (i - 1) < teamnumbers; i++) // Team names params
+		{
+			sb.append("<tr><td align=center>Team #");
+			sb.append(i);
+			sb.append(" name:</td><td><edit var=\"event_teams_name");
+			sb.append(i);
+			sb.append("\" width=150 height=15></td></tr>");
+		}
+		sb.append("</table></body></html>");
+		
+		adminReply.setHtml(sb.toString());
+		activeChar.sendPacket(adminReply);
+	}
+	
+	public void showMainPage(L2PcInstance activeChar)
+	{
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
+		
+		final String replyMSG = StringUtil.concat("<html><title>[ L2J EVENT ENGINE ]</title><body>" + "<br><center><button value=\"Create NEW event \" action=\"bypass -h admin_event_new\" width=150 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">"
+			+ "<center><br><font color=LEVEL>Stored Events:</font><br></center>", showStoredEvents(), "</body></html>");
+		adminReply.setHtml(replyMSG);
+		activeChar.sendPacket(adminReply);
+	}
+	
+	public void showNewEventPage(L2PcInstance activeChar)
+	{
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
+		
+		final StringBuilder replyMSG = StringUtil.startAppend(500, "<html><title>[ L2J EVENT ENGINE ]</title><body><br><br><center><font color=LEVEL>Event name:</font><br>");
+		
+		if (tempName.isEmpty())
+		{
+			replyMSG.append("You can also use //event_name text to insert a new title");
+			replyMSG.append("<center><multiedit var=\"name\" width=260 height=24> <button value=\"Set Event Name\" action=\"bypass -h admin_event_name $name\" width=120 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		}
+		else
+		{
+			replyMSG.append(tempName);
+		}
+		
+		replyMSG.append("<br><br><font color=LEVEL>Event description:</font><br></center>");
+		
+		if (tempBuffer.isEmpty())
+		{
+			replyMSG.append("You can also use //add text to add text or //delete_buffer to remove the text.");
+		}
+		else
+		{
+			replyMSG.append(tempBuffer);
+		}
+		
+		replyMSG.append("<center><multiedit var=\"txt\" width=270 height=100> <button value=\"Add text\" action=\"bypass -h admin_add $txt\" width=120 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<button value=\"Remove text\" action=\"bypass -h admin_delete_buffer\" width=120 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		
+		if (!(tempName.isEmpty() && tempBuffer.isEmpty()))
+		{
+			replyMSG.append("<br><button value=\"Store Event Data\" action=\"bypass -h admin_event_store\" width=160 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		}
+		
+		replyMSG.append("</center></body></html>");
+		
+		adminReply.setHtml(replyMSG.toString());
+		activeChar.sendPacket(adminReply);
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -434,134 +528,30 @@ public class AdminEventEngine implements IAdminCommandHandler
 		return true;
 	}
 	
-	@Override
-	public String[] getAdminCommandList()
+	private void rewardTeam(L2PcInstance activeChar, int team, int n, int id, String type)
 	{
-		return ADMIN_COMMANDS;
-	}
-	
-	private String showStoredEvents()
-	{
-		final File dir = new File(Config.DATAPACK_ROOT, "/data/events");
-		if (dir.isFile())
+		int num = n;
+		for (L2PcInstance player : L2Event._teams.get(team))
 		{
-			return "<font color=\"FF0000\">The directory '" + dir.getAbsolutePath() + "' is a file or is corrupted!</font><br>";
-		}
-		
-		String note = "";
-		if (!dir.exists())
-		{
-			note = "<font color=\"FF0000\">The directory '" + dir.getAbsolutePath() + "' does not exist!</font><br><font color=\"0099FF\">Trying to create it now...<br></font><br>";
-			if (dir.mkdirs())
+			if (type.equalsIgnoreCase("level"))
 			{
-				note += "<font color=\"006600\">The directory '" + dir.getAbsolutePath() + "' has been created!</font><br>";
+				num = n * player.getLevel();
+			}
+			else if (type.equalsIgnoreCase("kills") && (player.getEventStatus() != null))
+			{
+				num = n * player.getEventStatus().getKills().size();
 			}
 			else
 			{
-				note += "<font color=\"FF0000\">The directory '" + dir.getAbsolutePath() + "' hasn't been created!</font><br>";
-				return note;
+				num = n;
 			}
+			
+			player.addItem("Event", id, num, activeChar, true);
+			
+			final NpcHtmlMessage adminReply = new NpcHtmlMessage();
+			adminReply.setHtml("<html><body> CONGRATULATIONS! You should have been rewarded. </body></html>");
+			player.sendPacket(adminReply);
 		}
-		
-		final String[] files = dir.list();
-		final StringBuilder result = new StringBuilder(files.length * 500);
-		result.append("<table>");
-		for (String fileName : files)
-		{
-			StringUtil.append(result, "<tr><td align=center>", fileName, " </td></tr><tr><td><table cellspacing=0><tr><td><button value=\"Select Event\" action=\"bypass -h admin_event_set ", fileName, "\" width=90 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td><button value=\"View Event\" action=\"bypass -h admin_event_see ", fileName, "\" width=90 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td><button value=\"Delete Event\" action=\"bypass -h admin_event_del ", fileName, "\" width=90 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table></td></tr>", "<tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr>");
-		}
-		
-		result.append("</table>");
-		
-		return note + result.toString();
-	}
-	
-	public void showMainPage(L2PcInstance activeChar)
-	{
-		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
-		
-		final String replyMSG = StringUtil.concat("<html><title>[ L2J EVENT ENGINE ]</title><body>" + "<br><center><button value=\"Create NEW event \" action=\"bypass -h admin_event_new\" width=150 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">"
-			+ "<center><br><font color=LEVEL>Stored Events:</font><br></center>", showStoredEvents(), "</body></html>");
-		adminReply.setHtml(replyMSG);
-		activeChar.sendPacket(adminReply);
-	}
-	
-	public void showNewEventPage(L2PcInstance activeChar)
-	{
-		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
-		
-		final StringBuilder replyMSG = StringUtil.startAppend(500, "<html><title>[ L2J EVENT ENGINE ]</title><body><br><br><center><font color=LEVEL>Event name:</font><br>");
-		
-		if (tempName.isEmpty())
-		{
-			replyMSG.append("You can also use //event_name text to insert a new title");
-			replyMSG.append("<center><multiedit var=\"name\" width=260 height=24> <button value=\"Set Event Name\" action=\"bypass -h admin_event_name $name\" width=120 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		}
-		else
-		{
-			replyMSG.append(tempName);
-		}
-		
-		replyMSG.append("<br><br><font color=LEVEL>Event description:</font><br></center>");
-		
-		if (tempBuffer.isEmpty())
-		{
-			replyMSG.append("You can also use //add text to add text or //delete_buffer to remove the text.");
-		}
-		else
-		{
-			replyMSG.append(tempBuffer);
-		}
-		
-		replyMSG.append("<center><multiedit var=\"txt\" width=270 height=100> <button value=\"Add text\" action=\"bypass -h admin_add $txt\" width=120 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		replyMSG.append("<button value=\"Remove text\" action=\"bypass -h admin_delete_buffer\" width=120 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		
-		if (!(tempName.isEmpty() && tempBuffer.isEmpty()))
-		{
-			replyMSG.append("<br><button value=\"Store Event Data\" action=\"bypass -h admin_event_store\" width=160 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		}
-		
-		replyMSG.append("</center></body></html>");
-		
-		adminReply.setHtml(replyMSG.toString());
-		activeChar.sendPacket(adminReply);
-	}
-	
-	public void showEventParameters(L2PcInstance activeChar, int teamnumbers)
-	{
-		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<html><body><title>[ L2J EVENT ENGINE ]</title><br><center> Current event: <font color=\"LEVEL\">");
-		sb.append(L2Event._eventName);
-		sb.append("</font></center><br>INFO: To start an event, you must first set the number of teams, then type their names in the boxes and finally type the NPC ID that will be the event manager (can be any existing npc) next to the \"Announce Event!\" button.<br><table width=100%>");
-		sb.append("<tr><td><button value=\"Announce Event!\" action=\"bypass -h admin_event_announce $event_npcid ");
-		sb.append(teamnumbers);
-		sb.append(" ");
-		for (int i = 1; (i - 1) < teamnumbers; i++) // Event announce params
-		{
-			sb.append("$event_teams_name");
-			sb.append(i);
-			sb.append(" - ");
-		}
-		sb.append("\" width=140 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		sb.append("<td><edit var=\"event_npcid\" width=100 height=20></td></tr>");
-		sb.append("<tr><td><button value=\"Set number of teams\" action=\"bypass -h admin_event_change_teams_number $event_teams_number\" width=140 height=32 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-		sb.append("<td><edit var=\"event_teams_number\" width=100 height=20></td></tr>");
-		sb.append("</table><br><center> <br><br>");
-		sb.append("<font color=\"LEVEL\">Teams' names:</font><br><table width=100% cellspacing=8>");
-		for (int i = 1; (i - 1) < teamnumbers; i++) // Team names params
-		{
-			sb.append("<tr><td align=center>Team #");
-			sb.append(i);
-			sb.append(" name:</td><td><edit var=\"event_teams_name");
-			sb.append(i);
-			sb.append("\" width=150 height=15></td></tr>");
-		}
-		sb.append("</table></body></html>");
-		
-		adminReply.setHtml(sb.toString());
-		activeChar.sendPacket(adminReply);
 	}
 	
 	private void showEventControl(L2PcInstance activeChar)
@@ -604,29 +594,39 @@ public class AdminEventEngine implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 	
-	private void rewardTeam(L2PcInstance activeChar, int team, int n, int id, String type)
+	private String showStoredEvents()
 	{
-		int num = n;
-		for (L2PcInstance player : L2Event._teams.get(team))
+		final File dir = new File(Config.DATAPACK_ROOT, "/data/events");
+		if (dir.isFile())
 		{
-			if (type.equalsIgnoreCase("level"))
+			return "<font color=\"FF0000\">The directory '" + dir.getAbsolutePath() + "' is a file or is corrupted!</font><br>";
+		}
+		
+		String note = "";
+		if (!dir.exists())
+		{
+			note = "<font color=\"FF0000\">The directory '" + dir.getAbsolutePath() + "' does not exist!</font><br><font color=\"0099FF\">Trying to create it now...<br></font><br>";
+			if (dir.mkdirs())
 			{
-				num = n * player.getLevel();
-			}
-			else if (type.equalsIgnoreCase("kills") && (player.getEventStatus() != null))
-			{
-				num = n * player.getEventStatus().getKills().size();
+				note += "<font color=\"006600\">The directory '" + dir.getAbsolutePath() + "' has been created!</font><br>";
 			}
 			else
 			{
-				num = n;
+				note += "<font color=\"FF0000\">The directory '" + dir.getAbsolutePath() + "' hasn't been created!</font><br>";
+				return note;
 			}
-			
-			player.addItem("Event", id, num, activeChar, true);
-			
-			final NpcHtmlMessage adminReply = new NpcHtmlMessage();
-			adminReply.setHtml("<html><body> CONGRATULATIONS! You should have been rewarded. </body></html>");
-			player.sendPacket(adminReply);
 		}
+		
+		final String[] files = dir.list();
+		final StringBuilder result = new StringBuilder(files.length * 500);
+		result.append("<table>");
+		for (String fileName : files)
+		{
+			StringUtil.append(result, "<tr><td align=center>", fileName, " </td></tr><tr><td><table cellspacing=0><tr><td><button value=\"Select Event\" action=\"bypass -h admin_event_set ", fileName, "\" width=90 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td><button value=\"View Event\" action=\"bypass -h admin_event_see ", fileName, "\" width=90 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td><button value=\"Delete Event\" action=\"bypass -h admin_event_del ", fileName, "\" width=90 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table></td></tr>", "<tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr>");
+		}
+		
+		result.append("</table>");
+		
+		return note + result.toString();
 	}
 }

@@ -64,6 +64,11 @@ public class ArenaManager extends AbstractNpcAI
 		addFirstTalkId(ARENA_MANAGER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ArenaManager();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -132,10 +137,5 @@ public class ArenaManager extends AbstractNpcAI
 			}
 		}
 		return null;
-	}
-	
-	public static void main(String[] args)
-	{
-		new ArenaManager();
 	}
 }

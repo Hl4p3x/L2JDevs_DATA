@@ -204,6 +204,28 @@ public class Q00640_TheZeroHour extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState questState = getQuestState(killer, false);
+		final L2PcInstance partyMember = getRandomPartyMemberState(killer, State.STARTED);
+		
+		if (partyMember == null)
+		{
+			return super.onKill(npc, killer, isSummon);
+		}
+		else if (partyMember.getQuestState(Q00640_TheZeroHour.class.getSimpleName()) == null)
+		{
+			return super.onKill(npc, killer, isSummon);
+		}
+		else
+		{
+			questState.giveItems(FANG_OF_STAKATO, (long) Config.RATE_QUEST_DROP);
+			questState.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState questState = getQuestState(talker, true);
@@ -244,27 +266,5 @@ public class Q00640_TheZeroHour extends Quest
 				break;
 		}
 		return htmlText;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState questState = getQuestState(killer, false);
-		final L2PcInstance partyMember = getRandomPartyMemberState(killer, State.STARTED);
-		
-		if (partyMember == null)
-		{
-			return super.onKill(npc, killer, isSummon);
-		}
-		else if (partyMember.getQuestState(Q00640_TheZeroHour.class.getSimpleName()) == null)
-		{
-			return super.onKill(npc, killer, isSummon);
-		}
-		else
-		{
-			questState.giveItems(FANG_OF_STAKATO, (long) Config.RATE_QUEST_DROP);
-			questState.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

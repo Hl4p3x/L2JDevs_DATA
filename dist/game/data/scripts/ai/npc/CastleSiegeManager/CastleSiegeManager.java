@@ -51,6 +51,11 @@ public final class CastleSiegeManager extends AbstractNpcAI
 		addFirstTalkId(SIEGE_MANAGER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CastleSiegeManager();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -95,10 +100,5 @@ public final class CastleSiegeManager extends AbstractNpcAI
 			return true;
 		}
 		return false;
-	}
-	
-	public static void main(String[] args)
-	{
-		new CastleSiegeManager();
 	}
 }

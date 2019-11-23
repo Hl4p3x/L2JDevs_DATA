@@ -39,6 +39,15 @@ public class ChatBattlefield implements IChatHandler
 	};
 	
 	/**
+	 * Returns the chat types registered to this handler.
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	/**
 	 * Handle chat type 'battlefield'
 	 */
 	@Override
@@ -61,14 +70,5 @@ public class ChatBattlefield implements IChatHandler
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler.
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
 	}
 }

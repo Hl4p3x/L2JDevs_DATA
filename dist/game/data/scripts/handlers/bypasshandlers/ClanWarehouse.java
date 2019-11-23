@@ -46,6 +46,52 @@ public class ClanWarehouse implements IBypassHandler
 		"depositc"
 	};
 	
+	private static final void showWithdrawWindow(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		
+		if (!player.hasClanPrivilege(ClanPrivilege.CL_VIEW_WAREHOUSE))
+		{
+			player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
+			return;
+		}
+		
+		player.setActiveWarehouse(player.getClan().getWarehouse());
+		
+		if (player.getActiveWarehouse().getSize() == 0)
+		{
+			player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
+			return;
+		}
+		
+		for (L2ItemInstance i : player.getActiveWarehouse().getItems())
+		{
+			if (i.isTimeLimitedItem() && (i.getRemainingTime() <= 0))
+			{
+				player.getActiveWarehouse().destroyItem("L2ItemInstance", i, player, null);
+			}
+		}
+		if (itemtype != null)
+		{
+			player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
+		}
+		else
+		{
+			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
+		}
+		
+		if (Config.DEBUG)
+		{
+			_log.fine("Source: L2WarehouseInstance.java; Player: " + player.getName() + "; Command: showRetrieveWindowClan; Message: Showing stored items.");
+		}
+	}
+	
+	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
 	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
@@ -128,51 +174,5 @@ public class ClanWarehouse implements IBypassHandler
 			_log.log(Level.WARNING, "Exception in " + getClass().getSimpleName(), e);
 		}
 		return false;
-	}
-	
-	private static final void showWithdrawWindow(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
-	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-		
-		if (!player.hasClanPrivilege(ClanPrivilege.CL_VIEW_WAREHOUSE))
-		{
-			player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
-			return;
-		}
-		
-		player.setActiveWarehouse(player.getClan().getWarehouse());
-		
-		if (player.getActiveWarehouse().getSize() == 0)
-		{
-			player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
-			return;
-		}
-		
-		for (L2ItemInstance i : player.getActiveWarehouse().getItems())
-		{
-			if (i.isTimeLimitedItem() && (i.getRemainingTime() <= 0))
-			{
-				player.getActiveWarehouse().destroyItem("L2ItemInstance", i, player, null);
-			}
-		}
-		if (itemtype != null)
-		{
-			player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
-		}
-		else
-		{
-			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
-		}
-		
-		if (Config.DEBUG)
-		{
-			_log.fine("Source: L2WarehouseInstance.java; Player: " + player.getName() + "; Command: showRetrieveWindowClan; Message: Showing stored items.");
-		}
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

@@ -42,39 +42,6 @@ public class Loto implements IBypassHandler
 		"Loto"
 	};
 	
-	@Override
-	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
-	{
-		if (!target.isNpc())
-		{
-			return false;
-		}
-		
-		int val = 0;
-		try
-		{
-			val = Integer.parseInt(command.substring(5));
-		}
-		catch (IndexOutOfBoundsException ioobe)
-		{
-		}
-		catch (NumberFormatException nfe)
-		{
-		}
-		
-		if (val == 0)
-		{
-			// new loto ticket
-			for (int i = 0; i < 5; i++)
-			{
-				activeChar.setLoto(i, 0);
-			}
-		}
-		
-		showLotoWindow(activeChar, (L2Npc) target, val);
-		return false;
-	}
-	
 	/**
 	 * Open a Loto window on client with the text of the L2NpcInstance.<BR>
 	 * <BR>
@@ -359,5 +326,38 @@ public class Loto implements IBypassHandler
 	public String[] getBypassList()
 	{
 		return COMMANDS;
+	}
+	
+	@Override
+	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
+	{
+		if (!target.isNpc())
+		{
+			return false;
+		}
+		
+		int val = 0;
+		try
+		{
+			val = Integer.parseInt(command.substring(5));
+		}
+		catch (IndexOutOfBoundsException ioobe)
+		{
+		}
+		catch (NumberFormatException nfe)
+		{
+		}
+		
+		if (val == 0)
+		{
+			// new loto ticket
+			for (int i = 0; i < 5; i++)
+			{
+				activeChar.setLoto(i, 0);
+			}
+		}
+		
+		showLotoWindow(activeChar, (L2Npc) target, val);
+		return false;
 	}
 }

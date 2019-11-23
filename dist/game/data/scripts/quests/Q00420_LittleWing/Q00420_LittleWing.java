@@ -109,6 +109,8 @@ public final class Q00420_LittleWing extends Quest
 	private static final List<Integer> EGGS = Arrays.asList(EXARION_EGG, SUZET_EGG, KALIBRAN_EGG, SHAMHAI_EGG, ZWOV_EGG);
 	// Drake Drops
 	private static final Map<Integer, Integer> EGG_DROPS = new HashMap<>();
+	// Misc
+	private static final int MIN_LVL = 35;
 	{
 		EGG_DROPS.put(DEAD_SEEKER, SHAMHAI_EGG);
 		EGG_DROPS.put(MARSH_SPIDER, ZWOV_EGG);
@@ -116,8 +118,6 @@ public final class Q00420_LittleWing extends Quest
 		EGG_DROPS.put(ROAD_SCAVENGER, KALIBRAN_EGG);
 		EGG_DROPS.put(LETO_WARRIOR, EXARION_EGG);
 	}
-	// Misc
-	private static final int MIN_LVL = 35;
 	
 	public Q00420_LittleWing()
 	{
@@ -127,6 +127,51 @@ public final class Q00420_LittleWing extends Quest
 		addAttackId(DELUXE_STONE_BREAKERS);
 		addKillId(TOAD_LORD, DEAD_SEEKER, MARSH_SPIDER, BREKA_OVERLORD, ROAD_SCAVENGER, LETO_WARRIOR);
 		registerQuestItems(FAIRY_DUST, FAIRY_STONE, DELUXE_FAIRY_STONE, FAIRY_STONE_LIST, DELUXE_STONE_LIST, TOAD_SKIN, MONKSHOOD_JUICE, EXARION_SCALE, EXARION_EGG, ZWOV_SCALE, ZWOV_EGG, KALIBRAN_SCALE, KALIBRAN_EGG, SUZET_SCALE, SUZET_EGG, SHAMHAI_SCALE, SHAMHAI_EGG);
+	}
+	
+	/**
+	 * Gives the reward to the player.
+	 * @param player the player
+	 */
+	private static void giveReward(L2PcInstance player)
+	{
+		final int random = getRandom(100);
+		for (int i : EGGS)
+		{
+			if (hasQuestItems(player, i))
+			{
+				final int mul = EGGS.indexOf(i) * 5;
+				if (hasQuestItems(player, FAIRY_DUST))
+				{
+					if (random < (45 + mul))
+					{
+						giveItems(player, DRAGONFLUTE_OF_WIND, 1);
+					}
+					else if (random < (75 + mul))
+					{
+						giveItems(player, DRAGONFLUTE_OF_STAR, 1);
+					}
+					else
+					{
+						giveItems(player, DRAGONFLUTE_OF_TWILIGHT, 1);
+					}
+				}
+				if (random < (50 + mul))
+				{
+					giveItems(player, DRAGONFLUTE_OF_WIND, 1);
+				}
+				else if (random < (85 + mul))
+				{
+					giveItems(player, DRAGONFLUTE_OF_STAR, 1);
+				}
+				else
+				{
+					giveItems(player, DRAGONFLUTE_OF_TWILIGHT, 1);
+				}
+				takeItems(player, i, -1);
+				break;
+			}
+		}
 	}
 	
 	@Override
@@ -428,6 +473,31 @@ public final class Q00420_LittleWing extends Quest
 			npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.THE_STONE_THE_ELVEN_STONE_BROKE));
 		}
 		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
+		if (qs != null)
+		{
+			if (qs.isCond(2) && (npc.getId() == TOAD_LORD))
+			{
+				if (qs.getInt("fairy_stone") == 1)
+				{
+					giveItemRandomly(qs.getPlayer(), npc, TOAD_SKIN, 1, 10, 0.3, true);
+				}
+				else
+				{
+					giveItemRandomly(qs.getPlayer(), npc, TOAD_SKIN, 1, 20, 0.3, true);
+				}
+			}
+			else if (qs.isCond(6) && (npc.getId() == qs.getInt("drake_hunt")))
+			{
+				giveItemRandomly(qs.getPlayer(), npc, EGG_DROPS.get(npc.getId()), 1, 20, 0.5, true);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -815,75 +885,5 @@ public final class Q00420_LittleWing extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
-		if (qs != null)
-		{
-			if (qs.isCond(2) && (npc.getId() == TOAD_LORD))
-			{
-				if (qs.getInt("fairy_stone") == 1)
-				{
-					giveItemRandomly(qs.getPlayer(), npc, TOAD_SKIN, 1, 10, 0.3, true);
-				}
-				else
-				{
-					giveItemRandomly(qs.getPlayer(), npc, TOAD_SKIN, 1, 20, 0.3, true);
-				}
-			}
-			else if (qs.isCond(6) && (npc.getId() == qs.getInt("drake_hunt")))
-			{
-				giveItemRandomly(qs.getPlayer(), npc, EGG_DROPS.get(npc.getId()), 1, 20, 0.5, true);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
-	}
-	
-	/**
-	 * Gives the reward to the player.
-	 * @param player the player
-	 */
-	private static void giveReward(L2PcInstance player)
-	{
-		final int random = getRandom(100);
-		for (int i : EGGS)
-		{
-			if (hasQuestItems(player, i))
-			{
-				final int mul = EGGS.indexOf(i) * 5;
-				if (hasQuestItems(player, FAIRY_DUST))
-				{
-					if (random < (45 + mul))
-					{
-						giveItems(player, DRAGONFLUTE_OF_WIND, 1);
-					}
-					else if (random < (75 + mul))
-					{
-						giveItems(player, DRAGONFLUTE_OF_STAR, 1);
-					}
-					else
-					{
-						giveItems(player, DRAGONFLUTE_OF_TWILIGHT, 1);
-					}
-				}
-				if (random < (50 + mul))
-				{
-					giveItems(player, DRAGONFLUTE_OF_WIND, 1);
-				}
-				else if (random < (85 + mul))
-				{
-					giveItems(player, DRAGONFLUTE_OF_STAR, 1);
-				}
-				else
-				{
-					giveItems(player, DRAGONFLUTE_OF_TWILIGHT, 1);
-				}
-				takeItems(player, i, -1);
-				break;
-			}
-		}
 	}
 }

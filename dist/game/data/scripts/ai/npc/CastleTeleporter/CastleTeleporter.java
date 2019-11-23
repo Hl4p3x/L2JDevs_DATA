@@ -57,6 +57,11 @@ public final class CastleTeleporter extends AbstractNpcAI
 		addFirstTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CastleTeleporter();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -95,10 +100,5 @@ public final class CastleTeleporter extends AbstractNpcAI
 	{
 		final Siege siege = npc.getCastle().getSiege();
 		return (npc.isScriptValue(0)) ? (siege.isInProgress() && (siege.getControlTowerCount() == 0)) ? "teleporter-02.html" : "teleporter-01.html" : "teleporter-03.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new CastleTeleporter();
 	}
 }

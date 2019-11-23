@@ -230,73 +230,20 @@ public final class BeastFarm extends AbstractNpcAI
 		TAMED_BEAST_DATA.add(new TamedBeast("%name% of Vigor", new SkillHolder(6431, 1), new SkillHolder(6666, 1)));
 	}
 	
-	public void spawnNext(L2Npc npc, L2PcInstance player, int nextNpcId, int food)
+	public static void main(String[] args)
 	{
-		// remove the feedinfo of the mob that got despawned, if any
+		new BeastFarm();
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		// remove the feedinfo of the mob that got killed, if any
 		if (FEED_INFO.containsKey(npc.getObjectId()))
 		{
-			if (FEED_INFO.get(npc.getObjectId()) == player.getObjectId())
-			{
-				FEED_INFO.remove(npc.getObjectId());
-			}
+			FEED_INFO.remove(npc.getObjectId());
 		}
-		// despawn the old mob
-		// TODO: same code? FIXED?
-		/*
-		 * if (_GrowthCapableMobs.get(npc.getNpcId()).getGrowthLevel() == 0) { npc.deleteMe(); } else {
-		 */
-		npc.deleteMe();
-		// }
-		
-		// if this is finally a trained mob, then despawn any other trained mobs that the
-		// player might have and initialize the Tamed Beast.
-		if (Util.contains(TAMED_BEASTS, nextNpcId))
-		{
-			final L2TamedBeastInstance nextNpc = new L2TamedBeastInstance(nextNpcId, player, food, npc.getX(), npc.getY(), npc.getZ(), true);
-			
-			TamedBeast beast = TAMED_BEAST_DATA.get(getRandom(TAMED_BEAST_DATA.size()));
-			String name = beast.getName();
-			switch (nextNpcId)
-			{
-				case 18869:
-					name = name.replace("%name%", "Alpine Kookaburra");
-					break;
-				case 18870:
-					name = name.replace("%name%", "Alpine Cougar");
-					break;
-				case 18871:
-					name = name.replace("%name%", "Alpine Buffalo");
-					break;
-				case 18872:
-					name = name.replace("%name%", "Alpine Grendel");
-					break;
-			}
-			nextNpc.setName(name);
-			nextNpc.broadcastPacket(new AbstractNpcInfo.NpcInfo(nextNpc, player));
-			nextNpc.setRunning();
-			
-			SkillData st = SkillData.getInstance();
-			for (SkillHolder sh : beast.getSkills())
-			{
-				nextNpc.addBeastSkill(st.getSkill(sh.getSkillId(), sh.getSkillLvl()));
-			}
-			
-			Q00020_BringUpWithLove.checkJewelOfInnocence(player);
-		}
-		else
-		{
-			// if not trained, the newly spawned mob will automatically be agro against its feeder
-			// (what happened to "never bite the hand that feeds you" anyway?!)
-			L2Attackable nextNpc = (L2Attackable) addSpawn(nextNpcId, npc);
-			
-			// register the player in the feedinfo for the mob that just spawned
-			FEED_INFO.put(nextNpc.getObjectId(), player.getObjectId());
-			nextNpc.setRunning();
-			nextNpc.addDamageHate(player, 0, 99999);
-			nextNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
-			
-			player.setTarget(nextNpc);
-		}
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -379,15 +326,73 @@ public final class BeastFarm extends AbstractNpcAI
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
 	}
 	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	public void spawnNext(L2Npc npc, L2PcInstance player, int nextNpcId, int food)
 	{
-		// remove the feedinfo of the mob that got killed, if any
+		// remove the feedinfo of the mob that got despawned, if any
 		if (FEED_INFO.containsKey(npc.getObjectId()))
 		{
-			FEED_INFO.remove(npc.getObjectId());
+			if (FEED_INFO.get(npc.getObjectId()) == player.getObjectId())
+			{
+				FEED_INFO.remove(npc.getObjectId());
+			}
 		}
-		return super.onKill(npc, killer, isSummon);
+		// despawn the old mob
+		// TODO: same code? FIXED?
+		/*
+		 * if (_GrowthCapableMobs.get(npc.getNpcId()).getGrowthLevel() == 0) { npc.deleteMe(); } else {
+		 */
+		npc.deleteMe();
+		// }
+		
+		// if this is finally a trained mob, then despawn any other trained mobs that the
+		// player might have and initialize the Tamed Beast.
+		if (Util.contains(TAMED_BEASTS, nextNpcId))
+		{
+			final L2TamedBeastInstance nextNpc = new L2TamedBeastInstance(nextNpcId, player, food, npc.getX(), npc.getY(), npc.getZ(), true);
+			
+			TamedBeast beast = TAMED_BEAST_DATA.get(getRandom(TAMED_BEAST_DATA.size()));
+			String name = beast.getName();
+			switch (nextNpcId)
+			{
+				case 18869:
+					name = name.replace("%name%", "Alpine Kookaburra");
+					break;
+				case 18870:
+					name = name.replace("%name%", "Alpine Cougar");
+					break;
+				case 18871:
+					name = name.replace("%name%", "Alpine Buffalo");
+					break;
+				case 18872:
+					name = name.replace("%name%", "Alpine Grendel");
+					break;
+			}
+			nextNpc.setName(name);
+			nextNpc.broadcastPacket(new AbstractNpcInfo.NpcInfo(nextNpc, player));
+			nextNpc.setRunning();
+			
+			SkillData st = SkillData.getInstance();
+			for (SkillHolder sh : beast.getSkills())
+			{
+				nextNpc.addBeastSkill(st.getSkill(sh.getSkillId(), sh.getSkillLvl()));
+			}
+			
+			Q00020_BringUpWithLove.checkJewelOfInnocence(player);
+		}
+		else
+		{
+			// if not trained, the newly spawned mob will automatically be agro against its feeder
+			// (what happened to "never bite the hand that feeds you" anyway?!)
+			L2Attackable nextNpc = (L2Attackable) addSpawn(nextNpcId, npc);
+			
+			// register the player in the feedinfo for the mob that just spawned
+			FEED_INFO.put(nextNpc.getObjectId(), player.getObjectId());
+			nextNpc.setRunning();
+			nextNpc.addDamageHate(player, 0, 99999);
+			nextNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
+			
+			player.setTarget(nextNpc);
+		}
 	}
 	
 	// all mobs that grow by eating
@@ -475,10 +480,5 @@ public final class BeastFarm extends AbstractNpcAI
 		{
 			return sh;
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new BeastFarm();
 	}
 }

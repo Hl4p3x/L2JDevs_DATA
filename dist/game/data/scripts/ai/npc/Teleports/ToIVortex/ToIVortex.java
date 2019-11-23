@@ -88,6 +88,11 @@ public final class ToIVortex extends AbstractNpcAI
 		addTalkId(KEPLON, EUCLIE, PITHGON, DIMENSION_VORTEX_1, DIMENSION_VORTEX_2, DIMENSION_VORTEX_3);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ToIVortex();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -136,10 +141,5 @@ public final class ToIVortex extends AbstractNpcAI
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new ToIVortex();
 	}
 }

@@ -47,6 +47,11 @@ public final class Jinia extends AbstractNpcAI
 		addTalkId(JINIA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Jinia();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -100,10 +105,5 @@ public final class Jinia extends AbstractNpcAI
 			}
 		}
 		return "32781-01.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new Jinia();
 	}
 }

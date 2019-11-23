@@ -71,6 +71,12 @@ public class AdminSiege implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
@@ -414,6 +420,45 @@ public class AdminSiege implements IAdminCommandHandler
 	}
 	
 	/**
+	 * Show the clan hall page.
+	 * @param activeChar the active char
+	 * @param clanhall the clan hall
+	 */
+	private void showClanHallPage(L2PcInstance activeChar, ClanHall clanhall)
+	{
+		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
+		adminReply.setFile(activeChar.getHtmlPrefix(), "data/html/admin/clanhall.htm");
+		adminReply.replace("%clanhallName%", clanhall.getName());
+		adminReply.replace("%clanhallId%", String.valueOf(clanhall.getId()));
+		final L2Clan owner = ClanTable.getInstance().getClan(clanhall.getOwnerId());
+		adminReply.replace("%clanhallOwner%", (owner == null) ? "None" : owner.getName());
+		activeChar.sendPacket(adminReply);
+	}
+	
+	/**
+	 * Show the siegable hall page.
+	 * @param activeChar the active char
+	 * @param hall the siegable hall
+	 */
+	private void showSiegableHallPage(L2PcInstance activeChar, SiegableHall hall)
+	{
+		final NpcHtmlMessage msg = new NpcHtmlMessage();
+		msg.setFile(null, "data/html/admin/siegablehall.htm");
+		msg.replace("%clanhallId%", String.valueOf(hall.getId()));
+		msg.replace("%clanhallName%", hall.getName());
+		if (hall.getOwnerId() > 0)
+		{
+			final L2Clan owner = ClanTable.getInstance().getClan(hall.getOwnerId());
+			msg.replace("%clanhallOwner%", (owner != null) ? owner.getName() : "No Owner");
+		}
+		else
+		{
+			msg.replace("%clanhallOwner%", "No Owner");
+		}
+		activeChar.sendPacket(msg);
+	}
+	
+	/**
 	 * Show the siege page.
 	 * @param activeChar the active char
 	 * @param castleName the castle name
@@ -470,50 +515,5 @@ public class AdminSiege implements IAdminCommandHandler
 			adminReply.replace("%sunday%", String.valueOf(newDay.get(Calendar.MONTH) + "/" + String.valueOf(newDay.get(Calendar.DAY_OF_MONTH))));
 		}
 		activeChar.sendPacket(adminReply);
-	}
-	
-	/**
-	 * Show the clan hall page.
-	 * @param activeChar the active char
-	 * @param clanhall the clan hall
-	 */
-	private void showClanHallPage(L2PcInstance activeChar, ClanHall clanhall)
-	{
-		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
-		adminReply.setFile(activeChar.getHtmlPrefix(), "data/html/admin/clanhall.htm");
-		adminReply.replace("%clanhallName%", clanhall.getName());
-		adminReply.replace("%clanhallId%", String.valueOf(clanhall.getId()));
-		final L2Clan owner = ClanTable.getInstance().getClan(clanhall.getOwnerId());
-		adminReply.replace("%clanhallOwner%", (owner == null) ? "None" : owner.getName());
-		activeChar.sendPacket(adminReply);
-	}
-	
-	/**
-	 * Show the siegable hall page.
-	 * @param activeChar the active char
-	 * @param hall the siegable hall
-	 */
-	private void showSiegableHallPage(L2PcInstance activeChar, SiegableHall hall)
-	{
-		final NpcHtmlMessage msg = new NpcHtmlMessage();
-		msg.setFile(null, "data/html/admin/siegablehall.htm");
-		msg.replace("%clanhallId%", String.valueOf(hall.getId()));
-		msg.replace("%clanhallName%", hall.getName());
-		if (hall.getOwnerId() > 0)
-		{
-			final L2Clan owner = ClanTable.getInstance().getClan(hall.getOwnerId());
-			msg.replace("%clanhallOwner%", (owner != null) ? owner.getName() : "No Owner");
-		}
-		else
-		{
-			msg.replace("%clanhallOwner%", "No Owner");
-		}
-		activeChar.sendPacket(msg);
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

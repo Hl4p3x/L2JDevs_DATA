@@ -416,6 +416,32 @@ public final class Q00227_TestOfTheReformer extends Quest
 	}
 	
 	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		switch (npc.getId())
+		{
+			case OL_MAHUM_INSPECTOR:
+			case CRIMSON_WEREWOLF:
+			case KRUDEL_LIZARDMAN:
+			case OL_MAHUM_PILGRIM:
+			{
+				startQuestTimer("DESPAWN", 5000, npc, null, true);
+				npc.getVariables().set("SPAWNED", 0);
+				break;
+			}
+			case OL_MAHUM_BETRAYER:
+			{
+				startQuestTimer("DESPAWN", 5000, npc, null, true);
+				npc.setIsRunning(true);
+				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, MOVE_TO);
+				npc.getVariables().set("SPAWNED", 0);
+				break;
+			}
+		}
+		return super.onSpawn(npc);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -666,31 +692,5 @@ public final class Q00227_TestOfTheReformer extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		switch (npc.getId())
-		{
-			case OL_MAHUM_INSPECTOR:
-			case CRIMSON_WEREWOLF:
-			case KRUDEL_LIZARDMAN:
-			case OL_MAHUM_PILGRIM:
-			{
-				startQuestTimer("DESPAWN", 5000, npc, null, true);
-				npc.getVariables().set("SPAWNED", 0);
-				break;
-			}
-			case OL_MAHUM_BETRAYER:
-			{
-				startQuestTimer("DESPAWN", 5000, npc, null, true);
-				npc.setIsRunning(true);
-				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, MOVE_TO);
-				npc.getVariables().set("SPAWNED", 0);
-				break;
-			}
-		}
-		return super.onSpawn(npc);
 	}
 }

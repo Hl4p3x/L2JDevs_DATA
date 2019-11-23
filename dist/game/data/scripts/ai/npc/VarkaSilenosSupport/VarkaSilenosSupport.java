@@ -36,30 +36,9 @@ import ai.npc.AbstractNpcAI;
  */
 public final class VarkaSilenosSupport extends AbstractNpcAI
 {
-	private static class BuffsData
-	{
-		private final int _skill;
-		private final int _cost;
-		
-		public BuffsData(int skill, int cost)
-		{
-			_skill = skill;
-			_cost = cost;
-		}
-		
-		public Skill getSkill()
-		{
-			return SkillData.getInstance().getSkill(_skill, 1);
-		}
-		
-		public int getCost()
-		{
-			return _cost;
-		}
-	}
-	
 	// NPCs
 	private static final int ASHAS = 31377; // Hierarch
+	
 	private static final int NARAN = 31378; // Messenger
 	private static final int UDAN = 31379; // Buffer
 	private static final int DIYABU = 31380; // Grocer
@@ -89,7 +68,6 @@ public final class VarkaSilenosSupport extends AbstractNpcAI
 		BUFF.put(7, new BuffsData(4356, 6)); // Empower: Requires 6 Nepenthese Seeds
 		BUFF.put(8, new BuffsData(4357, 6)); // Haste: Requires 6 Nepenthese Seeds
 	}
-	
 	private VarkaSilenosSupport()
 	{
 		super(VarkaSilenosSupport.class.getSimpleName(), "ai/npc");
@@ -98,16 +76,9 @@ public final class VarkaSilenosSupport extends AbstractNpcAI
 		addStartNpc(HAGOS, TERANU);
 	}
 	
-	private int getAllianceLevel(L2PcInstance player)
+	public static void main(String args[])
 	{
-		for (int i = 0; i < VARKA_MARKS.length; i++)
-		{
-			if (hasQuestItems(player, VARKA_MARKS[i]))
-			{
-				return -(i + 1);
-			}
-		}
-		return 0;
+		new VarkaSilenosSupport();
 	}
 	
 	@Override
@@ -208,8 +179,37 @@ public final class VarkaSilenosSupport extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	public static void main(String args[])
+	private int getAllianceLevel(L2PcInstance player)
 	{
-		new VarkaSilenosSupport();
+		for (int i = 0; i < VARKA_MARKS.length; i++)
+		{
+			if (hasQuestItems(player, VARKA_MARKS[i]))
+			{
+				return -(i + 1);
+			}
+		}
+		return 0;
+	}
+	
+	private static class BuffsData
+	{
+		private final int _skill;
+		private final int _cost;
+		
+		public BuffsData(int skill, int cost)
+		{
+			_skill = skill;
+			_cost = cost;
+		}
+		
+		public int getCost()
+		{
+			return _cost;
+		}
+		
+		public Skill getSkill()
+		{
+			return SkillData.getInstance().getSkill(_skill, 1);
+		}
 	}
 }

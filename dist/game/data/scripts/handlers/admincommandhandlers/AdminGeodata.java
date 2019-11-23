@@ -43,6 +43,12 @@ public class AdminGeodata implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		final StringTokenizer st = new StringTokenizer(command, " ");
@@ -132,11 +138,5 @@ public class AdminGeodata implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

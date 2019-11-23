@@ -83,6 +83,11 @@ public final class Alexandria extends AbstractNpcAI
 		addFirstTalkId(ALEXANDRIA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Alexandria();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -138,10 +143,5 @@ public final class Alexandria extends AbstractNpcAI
 		{
 			return _additionalId;
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Alexandria();
 	}
 }

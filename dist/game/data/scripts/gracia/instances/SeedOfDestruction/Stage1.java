@@ -76,46 +76,22 @@ import instances.AbstractInstance;
  */
 public final class Stage1 extends AbstractInstance
 {
-	protected class SOD1World extends InstanceWorld
-	{
-		protected List<L2PcInstance> playersInside = new ArrayList<>();
-		protected Map<L2Npc, Boolean> npcList = new HashMap<>();
-		protected int deviceSpawnedMobCount = 0;
-		protected Lock lock = new ReentrantLock();
-		protected L2MonsterInstance tiat;
-	}
-	
-	protected static class SODSpawn
-	{
-		public boolean isZone = false;
-		public boolean isNeededNextFlag = false;
-		public int npcId;
-		public int x = 0;
-		public int y = 0;
-		public int z = 0;
-		public int h = 0;
-		public int zone = 0;
-		public int count = 0;
-	}
-	
 	private static final int TEMPLATE_ID = 110;
+	
 	private static final int MIN_PLAYERS = 27;
+	
 	private static final int MAX_PLAYERS = 45;
 	private static final int MIN_LEVEL = 75;
 	private static final int MAX_DEVICESPAWNEDMOBCOUNT = 100; // prevent too much mob spawn
-	
-	private final Map<Integer, L2Territory> _spawnZoneList = new HashMap<>();
-	private final Map<Integer, List<SODSpawn>> _spawnList = new HashMap<>();
-	private final List<Integer> _mustKillMobsId = new ArrayList<>();
-	
 	// teleports
 	private static final Location ENTER_TELEPORT_1 = new Location(-242759, 219981, -9986);
 	private static final Location ENTER_TELEPORT_2 = new Location(-245800, 220488, -12112);
-	private static final Location CENTER_TELEPORT = new Location(-245802, 220528, -12104);
 	
+	private static final Location CENTER_TELEPORT = new Location(-245802, 220528, -12104);
 	// Traps/Skills
 	private static final SkillHolder TRAP_HOLD = new SkillHolder(4186, 9); // 18720-18728
 	private static final SkillHolder TRAP_STUN = new SkillHolder(4072, 10); // 18729-18736
+	
 	private static final SkillHolder TRAP_DAMAGE = new SkillHolder(5340, 4); // 18737-18770
 	private static final int[] TRAP_18771_NPCS =
 	{
@@ -135,19 +111,19 @@ public final class Stage1 extends AbstractInstance
 	// NPCs
 	private static final int ALENOS = 32526;
 	private static final int TELEPORT = 32601;
-	
 	// mobs
 	private static final int OBELISK = 18776;
 	private static final int POWERFUL_DEVICE = 18777;
 	private static final int THRONE_POWERFUL_DEVICE = 18778;
+	
 	private static final int SPAWN_DEVICE = 18696;
 	private static final int TIAT = 29163;
+	
 	private static final int TIAT_GUARD = 29162;
 	private static final int TIAT_GUARD_NUMBER = 5;
 	private static final int TIAT_VIDEO_NPC = 29169;
 	private static final Location MOVE_TO_TIAT = new Location(-250403, 207273, -11952, 16384);
 	private static final Location MOVE_TO_DOOR = new Location(-251432, 214905, -12088, 16384);
-	
 	// TODO: handle this better
 	private static final int[] SPAWN_MOB_IDS =
 	{
@@ -166,7 +142,6 @@ public final class Stage1 extends AbstractInstance
 		22552,
 		22596
 	};
-	
 	// Doors/Walls/Zones
 	private static final int[] ATTACKABLE_DOORS =
 	{
@@ -192,7 +167,6 @@ public final class Stage1 extends AbstractInstance
 		12240029,
 		12240030
 	};
-	
 	private static final int[] ENTRANCE_ROOM_DOORS =
 	{
 		12240001,
@@ -208,9 +182,14 @@ public final class Stage1 extends AbstractInstance
 		12240020
 	};
 	private static final int SCOUTPASS_DOOR = 12240027;
+	
 	private static final int FORTRESS_DOOR = 12240030;
+	
 	private static final int THRONE_DOOR = 12240031;
 	
+	private final Map<Integer, L2Territory> _spawnZoneList = new HashMap<>();
+	private final Map<Integer, List<SODSpawn>> _spawnList = new HashMap<>();
+	private final List<Integer> _mustKillMobsId = new ArrayList<>();
 	public Stage1()
 	{
 		super(Stage1.class.getSimpleName(), "gracia/instances");
@@ -227,6 +206,503 @@ public final class Stage1 extends AbstractInstance
 		{
 			addTrapActionId(i);
 		}
+	}
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		if (tmpworld instanceof SOD1World)
+		{
+			SOD1World world = (SOD1World) tmpworld;
+			if (event.equalsIgnoreCase("Spawn"))
+			{
+				L2PcInstance target = L2World.getInstance().getPlayer(world.getAllowed().get(getRandom(world.getAllowed().size())));
+				if ((world.deviceSpawnedMobCount < MAX_DEVICESPAWNEDMOBCOUNT) && (target != null) && (target.getInstanceId() == npc.getInstanceId()) && !target.isDead())
+				{
+					L2Attackable mob = (L2Attackable) addSpawn(SPAWN_MOB_IDS[getRandom(SPAWN_MOB_IDS.length)], npc.getSpawn().getLocation(), false, 0, false, world.getInstanceId());
+					world.deviceSpawnedMobCount++;
+					mob.setSeeThroughSilentMove(true);
+					mob.setRunning();
+					if (world.getStatus() >= 7)
+					{
+						mob.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, MOVE_TO_TIAT);
+					}
+					else
+					{
+						mob.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, MOVE_TO_DOOR);
+					}
+				}
+			}
+			else if (event.equalsIgnoreCase("DoorCheck"))
+			{
+				L2DoorInstance tmp = getDoor(FORTRESS_DOOR, npc.getInstanceId());
+				if (tmp.getCurrentHp() < tmp.getMaxHp())
+				{
+					world.deviceSpawnedMobCount = 0;
+					spawnFlaggedNPCs(world, 6);
+					manageScreenMsg(world, NpcStringId.ENEMIES_ARE_TRYING_TO_DESTROY_THE_FORTRESS_EVERYONE_DEFEND_THE_FORTRESS);
+				}
+				else
+				{
+					startQuestTimer("DoorCheck", 10000, npc, null);
+				}
+			}
+			else if (event.equalsIgnoreCase("TiatFullHp"))
+			{
+				if (!npc.isStunned() && !npc.isInvul())
+				{
+					npc.setCurrentHp(npc.getMaxHp());
+				}
+			}
+			else if (event.equalsIgnoreCase("BodyGuardThink"))
+			{
+				L2Character mostHate = ((L2Attackable) npc).getMostHated();
+				if (mostHate != null)
+				{
+					double dist = Util.calculateDistance(mostHate.getXdestination(), mostHate.getYdestination(), 0, npc.getSpawn().getX(), npc.getSpawn().getY(), 0, false, false);
+					if (dist > 900)
+					{
+						((L2Attackable) npc).reduceHate(mostHate, ((L2Attackable) npc).getHating(mostHate));
+					}
+					mostHate = ((L2Attackable) npc).getMostHated();
+					if ((mostHate != null) || (((L2Attackable) npc).getHating(mostHate) < 5))
+					{
+						((L2Attackable) npc).returnHome();
+					}
+				}
+			}
+		}
+		return "";
+	}
+	
+	@Override
+	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		if ((isSummon == false) && (player != null))
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(player.getInstanceId());
+			if (tmpworld instanceof SOD1World)
+			{
+				SOD1World world = (SOD1World) tmpworld;
+				if (world.getStatus() == 7)
+				{
+					if (spawnState(world))
+					{
+						for (int objId : world.getAllowed())
+						{
+							L2PcInstance pl = L2World.getInstance().getPlayer(objId);
+							if (pl != null)
+							{
+								pl.showQuestMovie(5);
+							}
+						}
+						npc.deleteMe();
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
+	{
+		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		if (tmpworld instanceof SOD1World)
+		{
+			SOD1World world = (SOD1World) tmpworld;
+			if ((world.getStatus() == 2) && (npc.getId() == OBELISK))
+			{
+				world.setStatus(4);
+				spawnFlaggedNPCs(world, 3);
+			}
+			else if ((world.getStatus() == 3) && (npc.getId() == OBELISK))
+			{
+				world.setStatus(4);
+				spawnFlaggedNPCs(world, 2);
+			}
+			else if ((world.getStatus() <= 8) && (npc.getId() == TIAT))
+			{
+				if (npc.getCurrentHp() < (npc.getMaxHp() / 2))
+				{
+					if (spawnState(world))
+					{
+						startQuestTimer("TiatFullHp", 3000, npc, null);
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			if (!player.isInParty())
+			{
+				managePlayerEnter(player, (SOD1World) world);
+			}
+			else if (player.getParty().isInCommandChannel())
+			{
+				for (L2PcInstance players : player.getParty().getCommandChannel().getMembers())
+				{
+					managePlayerEnter(players, (SOD1World) world);
+				}
+			}
+			else
+			{
+				for (L2PcInstance players : player.getParty().getMembers())
+				{
+					managePlayerEnter(players, (SOD1World) world);
+				}
+			}
+			
+			spawnState((SOD1World) world);
+			
+			for (L2DoorInstance door : InstanceManager.getInstance().getInstance(world.getInstanceId()).getDoors())
+			{
+				if (Util.contains(ATTACKABLE_DOORS, door.getId()))
+				{
+					door.setIsAttackableDoor(true);
+				}
+			}
+		}
+		else
+		{
+			teleportPlayer(player, ENTER_TELEPORT_1, world.getInstanceId());
+		}
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		if (npc.getId() == SPAWN_DEVICE)
+		{
+			cancelQuestTimer("Spawn", npc, null);
+			return "";
+		}
+		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+		if (tmpworld instanceof SOD1World)
+		{
+			SOD1World world = (SOD1World) tmpworld;
+			if (world.getStatus() == 1)
+			{
+				if (checkKillProgress(npc, world))
+				{
+					spawnState(world);
+				}
+			}
+			else if (world.getStatus() == 2)
+			{
+				if (checkKillProgress(npc, world))
+				{
+					world.incStatus();
+				}
+			}
+			else if ((world.getStatus() == 4) && (npc.getId() == OBELISK))
+			{
+				spawnState(world);
+			}
+			else if ((world.getStatus() == 5) && (npc.getId() == POWERFUL_DEVICE))
+			{
+				if (checkKillProgress(npc, world))
+				{
+					spawnState(world);
+				}
+			}
+			else if ((world.getStatus() == 6) && (npc.getId() == THRONE_POWERFUL_DEVICE))
+			{
+				if (checkKillProgress(npc, world))
+				{
+					spawnState(world);
+				}
+			}
+			else if (world.getStatus() >= 7)
+			{
+				if (npc.getId() == TIAT)
+				{
+					world.incStatus();
+					for (int objId : world.getAllowed())
+					{
+						L2PcInstance pl = L2World.getInstance().getPlayer(objId);
+						if (pl != null)
+						{
+							pl.showQuestMovie(6);
+						}
+					}
+					for (L2Npc mob : InstanceManager.getInstance().getInstance(world.getInstanceId()).getNpcs())
+					{
+						mob.deleteMe();
+					}
+					
+					GraciaSeedsManager.getInstance().increaseSoDTiatKilled();
+					finishInstance(world);
+				}
+				else if (npc.getId() == TIAT_GUARD)
+				{
+					addMinion(world.tiat, TIAT_GUARD);
+				}
+			}
+		}
+		return "";
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		if (npc.getId() == TIAT_GUARD)
+		{
+			startQuestTimer("GuardThink", 2500 + getRandom(-200, 200), npc, null, true);
+		}
+		else
+		{
+			npc.disableCoreAI(true);
+		}
+		return super.onSpawn(npc);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		int npcId = npc.getId();
+		getQuestState(player, true);
+		if (npcId == ALENOS)
+		{
+			InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
+			if ((GraciaSeedsManager.getInstance().getSoDState() == 1) || ((world != null) && (world instanceof SOD1World)))
+			{
+				enterInstance(player, new SOD1World(), "SeedOfDestructionStage1.xml", TEMPLATE_ID);
+			}
+			else if (GraciaSeedsManager.getInstance().getSoDState() == 2)
+			{
+				teleportPlayer(player, ENTER_TELEPORT_2, 0, false);
+			}
+		}
+		else if (npcId == TELEPORT)
+		{
+			teleportPlayer(player, CENTER_TELEPORT, player.getInstanceId(), false);
+		}
+		return "";
+	}
+	
+	@Override
+	public String onTrapAction(L2TrapInstance trap, L2Character trigger, TrapAction action)
+	{
+		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(trap.getInstanceId());
+		if (tmpworld instanceof SOD1World)
+		{
+			SOD1World world = (SOD1World) tmpworld;
+			switch (action)
+			{
+				case TRAP_TRIGGERED:
+					if (trap.getId() == 18771)
+					{
+						for (int npcId : TRAP_18771_NPCS)
+						{
+							addSpawn(npcId, trap.getX(), trap.getY(), trap.getZ(), trap.getHeading(), true, 0, true, world.getInstanceId());
+						}
+					}
+					else
+					{
+						for (int npcId : TRAP_OTHER_NPCS)
+						{
+							addSpawn(npcId, trap.getX(), trap.getY(), trap.getZ(), trap.getHeading(), true, 0, true, world.getInstanceId());
+						}
+					}
+					break;
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	protected boolean checkConditions(L2PcInstance player)
+	{
+		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
+		{
+			return true;
+		}
+		
+		final L2Party party = player.getParty();
+		if (party == null)
+		{
+			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
+			return false;
+		}
+		final L2CommandChannel channel = party.getCommandChannel();
+		if (channel == null)
+		{
+			player.sendPacket(SystemMessageId.NOT_IN_COMMAND_CHANNEL_CANT_ENTER);
+			return false;
+		}
+		else if (channel.getLeader() != player)
+		{
+			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
+			return false;
+		}
+		else if ((channel.getMemberCount() < MIN_PLAYERS) || (channel.getMemberCount() > MAX_PLAYERS))
+		{
+			player.sendPacket(SystemMessageId.PARTY_EXCEEDED_THE_LIMIT_CANT_ENTER);
+			return false;
+		}
+		for (L2PcInstance partyMember : channel.getMembers())
+		{
+			if (partyMember.getLevel() < MIN_LEVEL)
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (!Util.checkIfInRange(1000, player, partyMember, true))
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (System.currentTimeMillis() < InstanceManager.getInstance().getInstanceTime(partyMember.getObjectId(), TEMPLATE_ID))
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_MAY_NOT_RE_ENTER_YET);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	protected boolean checkKillProgress(L2Npc mob, SOD1World world)
+	{
+		if (world.npcList.containsKey(mob))
+		{
+			world.npcList.put(mob, true);
+		}
+		for (boolean isDead : world.npcList.values())
+		{
+			if (!isDead)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	protected void spawn(SOD1World world, int npcId, int x, int y, int z, int h, boolean addToKillTable)
+	{
+		// traps
+		if ((npcId >= 18720) && (npcId <= 18774))
+		{
+			Skill skill = null;
+			if (npcId <= 18728)
+			{
+				skill = TRAP_HOLD.getSkill();
+			}
+			else if (npcId <= 18736)
+			{
+				skill = TRAP_STUN.getSkill();
+			}
+			else if (npcId <= 18770)
+			{
+				skill = TRAP_DAMAGE.getSkill();
+			}
+			
+			addTrap(npcId, x, y, z, h, skill, world.getInstanceId());
+			return;
+		}
+		L2Npc npc = addSpawn(npcId, x, y, z, h, false, 0, false, world.getInstanceId());
+		if (addToKillTable)
+		{
+			world.npcList.put(npc, false);
+		}
+		npc.setIsNoRndWalk(true);
+		if (npc.isInstanceTypes(InstanceType.L2Attackable))
+		{
+			((L2Attackable) npc).setSeeThroughSilentMove(true);
+		}
+		if (npcId == TIAT_VIDEO_NPC)
+		{
+			startQuestTimer("DoorCheck", 10000, npc, null);
+		}
+		else if (npcId == SPAWN_DEVICE)
+		{
+			npc.disableCoreAI(true);
+			startQuestTimer("Spawn", 10000, npc, null, true);
+		}
+		else if (npcId == TIAT)
+		{
+			npc.setIsImmobilized(true);
+			world.tiat = (L2MonsterInstance) npc;
+			for (int i = 0; i < TIAT_GUARD_NUMBER; i++)
+			{
+				addMinion(world.tiat, TIAT_GUARD);
+			}
+		}
+	}
+	
+	protected boolean spawnState(SOD1World world)
+	{
+		if (world.lock.tryLock())
+		{
+			try
+			{
+				world.npcList.clear();
+				switch (world.getStatus())
+				{
+					case 0:
+						spawnFlaggedNPCs(world, 0);
+						break;
+					case 1:
+						manageScreenMsg(world, NpcStringId.THE_ENEMIES_HAVE_ATTACKED_EVERYONE_COME_OUT_AND_FIGHT_URGH);
+						for (int i : ENTRANCE_ROOM_DOORS)
+						{
+							openDoor(i, world.getInstanceId());
+						}
+						spawnFlaggedNPCs(world, 1);
+						break;
+					case 2:
+					case 3:
+						// handled elsewhere
+						return true;
+					case 4:
+						manageScreenMsg(world, NpcStringId.OBELISK_HAS_COLLAPSED_DONT_LET_THE_ENEMIES_JUMP_AROUND_WILDLY_ANYMORE);
+						for (int i : SQUARE_DOORS)
+						{
+							openDoor(i, world.getInstanceId());
+						}
+						spawnFlaggedNPCs(world, 4);
+						break;
+					case 5:
+						openDoor(SCOUTPASS_DOOR, world.getInstanceId());
+						spawnFlaggedNPCs(world, 3);
+						spawnFlaggedNPCs(world, 5);
+						break;
+					case 6:
+						openDoor(THRONE_DOOR, world.getInstanceId());
+						break;
+					case 7:
+						spawnFlaggedNPCs(world, 7);
+						break;
+					case 8:
+						manageScreenMsg(world, NpcStringId.COME_OUT_WARRIORS_PROTECT_SEED_OF_DESTRUCTION);
+						world.deviceSpawnedMobCount = 0;
+						spawnFlaggedNPCs(world, 8);
+						break;
+					case 9:
+						// instance end
+						break;
+				}
+				world.incStatus();
+				return true;
+			}
+			finally
+			{
+				world.lock.unlock();
+			}
+		}
+		return false;
 	}
 	
 	private void load()
@@ -452,103 +928,6 @@ public final class Stage1 extends AbstractInstance
 		}
 	}
 	
-	@Override
-	protected boolean checkConditions(L2PcInstance player)
-	{
-		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
-		{
-			return true;
-		}
-		
-		final L2Party party = player.getParty();
-		if (party == null)
-		{
-			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
-			return false;
-		}
-		final L2CommandChannel channel = party.getCommandChannel();
-		if (channel == null)
-		{
-			player.sendPacket(SystemMessageId.NOT_IN_COMMAND_CHANNEL_CANT_ENTER);
-			return false;
-		}
-		else if (channel.getLeader() != player)
-		{
-			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
-			return false;
-		}
-		else if ((channel.getMemberCount() < MIN_PLAYERS) || (channel.getMemberCount() > MAX_PLAYERS))
-		{
-			player.sendPacket(SystemMessageId.PARTY_EXCEEDED_THE_LIMIT_CANT_ENTER);
-			return false;
-		}
-		for (L2PcInstance partyMember : channel.getMembers())
-		{
-			if (partyMember.getLevel() < MIN_LEVEL)
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (!Util.checkIfInRange(1000, player, partyMember, true))
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (System.currentTimeMillis() < InstanceManager.getInstance().getInstanceTime(partyMember.getObjectId(), TEMPLATE_ID))
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_MAY_NOT_RE_ENTER_YET);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			if (!player.isInParty())
-			{
-				managePlayerEnter(player, (SOD1World) world);
-			}
-			else if (player.getParty().isInCommandChannel())
-			{
-				for (L2PcInstance players : player.getParty().getCommandChannel().getMembers())
-				{
-					managePlayerEnter(players, (SOD1World) world);
-				}
-			}
-			else
-			{
-				for (L2PcInstance players : player.getParty().getMembers())
-				{
-					managePlayerEnter(players, (SOD1World) world);
-				}
-			}
-			
-			spawnState((SOD1World) world);
-			
-			for (L2DoorInstance door : InstanceManager.getInstance().getInstance(world.getInstanceId()).getDoors())
-			{
-				if (Util.contains(ATTACKABLE_DOORS, door.getId()))
-				{
-					door.setIsAttackableDoor(true);
-				}
-			}
-		}
-		else
-		{
-			teleportPlayer(player, ENTER_TELEPORT_1, world.getInstanceId());
-		}
-	}
-	
 	private void managePlayerEnter(L2PcInstance player, SOD1World world)
 	{
 		world.playersInside.add(player);
@@ -556,20 +935,15 @@ public final class Stage1 extends AbstractInstance
 		teleportPlayer(player, ENTER_TELEPORT_1, world.getInstanceId(), false);
 	}
 	
-	protected boolean checkKillProgress(L2Npc mob, SOD1World world)
+	private void manageScreenMsg(SOD1World world, NpcStringId stringId)
 	{
-		if (world.npcList.containsKey(mob))
+		for (L2PcInstance players : world.playersInside)
 		{
-			world.npcList.put(mob, true);
-		}
-		for (boolean isDead : world.npcList.values())
-		{
-			if (!isDead)
+			if ((players != null) && (players.getInstanceId() == world.getInstanceId()))
 			{
-				return false;
+				showOnScreenMsg(players, stringId, 2, 5000);
 			}
 		}
-		return true;
 	}
 	
 	private void spawnFlaggedNPCs(SOD1World world, int flag)
@@ -611,399 +985,25 @@ public final class Stage1 extends AbstractInstance
 		}
 	}
 	
-	protected boolean spawnState(SOD1World world)
+	protected class SOD1World extends InstanceWorld
 	{
-		if (world.lock.tryLock())
-		{
-			try
-			{
-				world.npcList.clear();
-				switch (world.getStatus())
-				{
-					case 0:
-						spawnFlaggedNPCs(world, 0);
-						break;
-					case 1:
-						manageScreenMsg(world, NpcStringId.THE_ENEMIES_HAVE_ATTACKED_EVERYONE_COME_OUT_AND_FIGHT_URGH);
-						for (int i : ENTRANCE_ROOM_DOORS)
-						{
-							openDoor(i, world.getInstanceId());
-						}
-						spawnFlaggedNPCs(world, 1);
-						break;
-					case 2:
-					case 3:
-						// handled elsewhere
-						return true;
-					case 4:
-						manageScreenMsg(world, NpcStringId.OBELISK_HAS_COLLAPSED_DONT_LET_THE_ENEMIES_JUMP_AROUND_WILDLY_ANYMORE);
-						for (int i : SQUARE_DOORS)
-						{
-							openDoor(i, world.getInstanceId());
-						}
-						spawnFlaggedNPCs(world, 4);
-						break;
-					case 5:
-						openDoor(SCOUTPASS_DOOR, world.getInstanceId());
-						spawnFlaggedNPCs(world, 3);
-						spawnFlaggedNPCs(world, 5);
-						break;
-					case 6:
-						openDoor(THRONE_DOOR, world.getInstanceId());
-						break;
-					case 7:
-						spawnFlaggedNPCs(world, 7);
-						break;
-					case 8:
-						manageScreenMsg(world, NpcStringId.COME_OUT_WARRIORS_PROTECT_SEED_OF_DESTRUCTION);
-						world.deviceSpawnedMobCount = 0;
-						spawnFlaggedNPCs(world, 8);
-						break;
-					case 9:
-						// instance end
-						break;
-				}
-				world.incStatus();
-				return true;
-			}
-			finally
-			{
-				world.lock.unlock();
-			}
-		}
-		return false;
+		protected List<L2PcInstance> playersInside = new ArrayList<>();
+		protected Map<L2Npc, Boolean> npcList = new HashMap<>();
+		protected int deviceSpawnedMobCount = 0;
+		protected Lock lock = new ReentrantLock();
+		protected L2MonsterInstance tiat;
 	}
 	
-	protected void spawn(SOD1World world, int npcId, int x, int y, int z, int h, boolean addToKillTable)
+	protected static class SODSpawn
 	{
-		// traps
-		if ((npcId >= 18720) && (npcId <= 18774))
-		{
-			Skill skill = null;
-			if (npcId <= 18728)
-			{
-				skill = TRAP_HOLD.getSkill();
-			}
-			else if (npcId <= 18736)
-			{
-				skill = TRAP_STUN.getSkill();
-			}
-			else if (npcId <= 18770)
-			{
-				skill = TRAP_DAMAGE.getSkill();
-			}
-			
-			addTrap(npcId, x, y, z, h, skill, world.getInstanceId());
-			return;
-		}
-		L2Npc npc = addSpawn(npcId, x, y, z, h, false, 0, false, world.getInstanceId());
-		if (addToKillTable)
-		{
-			world.npcList.put(npc, false);
-		}
-		npc.setIsNoRndWalk(true);
-		if (npc.isInstanceTypes(InstanceType.L2Attackable))
-		{
-			((L2Attackable) npc).setSeeThroughSilentMove(true);
-		}
-		if (npcId == TIAT_VIDEO_NPC)
-		{
-			startQuestTimer("DoorCheck", 10000, npc, null);
-		}
-		else if (npcId == SPAWN_DEVICE)
-		{
-			npc.disableCoreAI(true);
-			startQuestTimer("Spawn", 10000, npc, null, true);
-		}
-		else if (npcId == TIAT)
-		{
-			npc.setIsImmobilized(true);
-			world.tiat = (L2MonsterInstance) npc;
-			for (int i = 0; i < TIAT_GUARD_NUMBER; i++)
-			{
-				addMinion(world.tiat, TIAT_GUARD);
-			}
-		}
-	}
-	
-	private void manageScreenMsg(SOD1World world, NpcStringId stringId)
-	{
-		for (L2PcInstance players : world.playersInside)
-		{
-			if ((players != null) && (players.getInstanceId() == world.getInstanceId()))
-			{
-				showOnScreenMsg(players, stringId, 2, 5000);
-			}
-		}
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		if (npc.getId() == TIAT_GUARD)
-		{
-			startQuestTimer("GuardThink", 2500 + getRandom(-200, 200), npc, null, true);
-		}
-		else
-		{
-			npc.disableCoreAI(true);
-		}
-		return super.onSpawn(npc);
-	}
-	
-	@Override
-	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		if ((isSummon == false) && (player != null))
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(player.getInstanceId());
-			if (tmpworld instanceof SOD1World)
-			{
-				SOD1World world = (SOD1World) tmpworld;
-				if (world.getStatus() == 7)
-				{
-					if (spawnState(world))
-					{
-						for (int objId : world.getAllowed())
-						{
-							L2PcInstance pl = L2World.getInstance().getPlayer(objId);
-							if (pl != null)
-							{
-								pl.showQuestMovie(5);
-							}
-						}
-						npc.deleteMe();
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
-	{
-		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		if (tmpworld instanceof SOD1World)
-		{
-			SOD1World world = (SOD1World) tmpworld;
-			if ((world.getStatus() == 2) && (npc.getId() == OBELISK))
-			{
-				world.setStatus(4);
-				spawnFlaggedNPCs(world, 3);
-			}
-			else if ((world.getStatus() == 3) && (npc.getId() == OBELISK))
-			{
-				world.setStatus(4);
-				spawnFlaggedNPCs(world, 2);
-			}
-			else if ((world.getStatus() <= 8) && (npc.getId() == TIAT))
-			{
-				if (npc.getCurrentHp() < (npc.getMaxHp() / 2))
-				{
-					if (spawnState(world))
-					{
-						startQuestTimer("TiatFullHp", 3000, npc, null);
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		if (tmpworld instanceof SOD1World)
-		{
-			SOD1World world = (SOD1World) tmpworld;
-			if (event.equalsIgnoreCase("Spawn"))
-			{
-				L2PcInstance target = L2World.getInstance().getPlayer(world.getAllowed().get(getRandom(world.getAllowed().size())));
-				if ((world.deviceSpawnedMobCount < MAX_DEVICESPAWNEDMOBCOUNT) && (target != null) && (target.getInstanceId() == npc.getInstanceId()) && !target.isDead())
-				{
-					L2Attackable mob = (L2Attackable) addSpawn(SPAWN_MOB_IDS[getRandom(SPAWN_MOB_IDS.length)], npc.getSpawn().getLocation(), false, 0, false, world.getInstanceId());
-					world.deviceSpawnedMobCount++;
-					mob.setSeeThroughSilentMove(true);
-					mob.setRunning();
-					if (world.getStatus() >= 7)
-					{
-						mob.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, MOVE_TO_TIAT);
-					}
-					else
-					{
-						mob.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, MOVE_TO_DOOR);
-					}
-				}
-			}
-			else if (event.equalsIgnoreCase("DoorCheck"))
-			{
-				L2DoorInstance tmp = getDoor(FORTRESS_DOOR, npc.getInstanceId());
-				if (tmp.getCurrentHp() < tmp.getMaxHp())
-				{
-					world.deviceSpawnedMobCount = 0;
-					spawnFlaggedNPCs(world, 6);
-					manageScreenMsg(world, NpcStringId.ENEMIES_ARE_TRYING_TO_DESTROY_THE_FORTRESS_EVERYONE_DEFEND_THE_FORTRESS);
-				}
-				else
-				{
-					startQuestTimer("DoorCheck", 10000, npc, null);
-				}
-			}
-			else if (event.equalsIgnoreCase("TiatFullHp"))
-			{
-				if (!npc.isStunned() && !npc.isInvul())
-				{
-					npc.setCurrentHp(npc.getMaxHp());
-				}
-			}
-			else if (event.equalsIgnoreCase("BodyGuardThink"))
-			{
-				L2Character mostHate = ((L2Attackable) npc).getMostHated();
-				if (mostHate != null)
-				{
-					double dist = Util.calculateDistance(mostHate.getXdestination(), mostHate.getYdestination(), 0, npc.getSpawn().getX(), npc.getSpawn().getY(), 0, false, false);
-					if (dist > 900)
-					{
-						((L2Attackable) npc).reduceHate(mostHate, ((L2Attackable) npc).getHating(mostHate));
-					}
-					mostHate = ((L2Attackable) npc).getMostHated();
-					if ((mostHate != null) || (((L2Attackable) npc).getHating(mostHate) < 5))
-					{
-						((L2Attackable) npc).returnHome();
-					}
-				}
-			}
-		}
-		return "";
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		if (npc.getId() == SPAWN_DEVICE)
-		{
-			cancelQuestTimer("Spawn", npc, null);
-			return "";
-		}
-		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-		if (tmpworld instanceof SOD1World)
-		{
-			SOD1World world = (SOD1World) tmpworld;
-			if (world.getStatus() == 1)
-			{
-				if (checkKillProgress(npc, world))
-				{
-					spawnState(world);
-				}
-			}
-			else if (world.getStatus() == 2)
-			{
-				if (checkKillProgress(npc, world))
-				{
-					world.incStatus();
-				}
-			}
-			else if ((world.getStatus() == 4) && (npc.getId() == OBELISK))
-			{
-				spawnState(world);
-			}
-			else if ((world.getStatus() == 5) && (npc.getId() == POWERFUL_DEVICE))
-			{
-				if (checkKillProgress(npc, world))
-				{
-					spawnState(world);
-				}
-			}
-			else if ((world.getStatus() == 6) && (npc.getId() == THRONE_POWERFUL_DEVICE))
-			{
-				if (checkKillProgress(npc, world))
-				{
-					spawnState(world);
-				}
-			}
-			else if (world.getStatus() >= 7)
-			{
-				if (npc.getId() == TIAT)
-				{
-					world.incStatus();
-					for (int objId : world.getAllowed())
-					{
-						L2PcInstance pl = L2World.getInstance().getPlayer(objId);
-						if (pl != null)
-						{
-							pl.showQuestMovie(6);
-						}
-					}
-					for (L2Npc mob : InstanceManager.getInstance().getInstance(world.getInstanceId()).getNpcs())
-					{
-						mob.deleteMe();
-					}
-					
-					GraciaSeedsManager.getInstance().increaseSoDTiatKilled();
-					finishInstance(world);
-				}
-				else if (npc.getId() == TIAT_GUARD)
-				{
-					addMinion(world.tiat, TIAT_GUARD);
-				}
-			}
-		}
-		return "";
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		int npcId = npc.getId();
-		getQuestState(player, true);
-		if (npcId == ALENOS)
-		{
-			InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
-			if ((GraciaSeedsManager.getInstance().getSoDState() == 1) || ((world != null) && (world instanceof SOD1World)))
-			{
-				enterInstance(player, new SOD1World(), "SeedOfDestructionStage1.xml", TEMPLATE_ID);
-			}
-			else if (GraciaSeedsManager.getInstance().getSoDState() == 2)
-			{
-				teleportPlayer(player, ENTER_TELEPORT_2, 0, false);
-			}
-		}
-		else if (npcId == TELEPORT)
-		{
-			teleportPlayer(player, CENTER_TELEPORT, player.getInstanceId(), false);
-		}
-		return "";
-	}
-	
-	@Override
-	public String onTrapAction(L2TrapInstance trap, L2Character trigger, TrapAction action)
-	{
-		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(trap.getInstanceId());
-		if (tmpworld instanceof SOD1World)
-		{
-			SOD1World world = (SOD1World) tmpworld;
-			switch (action)
-			{
-				case TRAP_TRIGGERED:
-					if (trap.getId() == 18771)
-					{
-						for (int npcId : TRAP_18771_NPCS)
-						{
-							addSpawn(npcId, trap.getX(), trap.getY(), trap.getZ(), trap.getHeading(), true, 0, true, world.getInstanceId());
-						}
-					}
-					else
-					{
-						for (int npcId : TRAP_OTHER_NPCS)
-						{
-							addSpawn(npcId, trap.getX(), trap.getY(), trap.getZ(), trap.getHeading(), true, 0, true, world.getInstanceId());
-						}
-					}
-					break;
-			}
-		}
-		return null;
+		public boolean isZone = false;
+		public boolean isNeededNextFlag = false;
+		public int npcId;
+		public int x = 0;
+		public int y = 0;
+		public int z = 0;
+		public int h = 0;
+		public int zone = 0;
+		public int count = 0;
 	}
 }

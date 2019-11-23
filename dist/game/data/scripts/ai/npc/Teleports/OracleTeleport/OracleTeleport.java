@@ -154,6 +154,11 @@ public final class OracleTeleport extends AbstractNpcAI
 		addTalkId(TOWN_DUSK);
 	}
 	
+	public static void main(String[] args)
+	{
+		new OracleTeleport();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -391,10 +396,5 @@ public final class OracleTeleport extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new OracleTeleport();
 	}
 }

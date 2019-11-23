@@ -366,6 +366,13 @@ public final class Q00171_ActsOfEvil extends Quest
 	}
 	
 	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		startQuestTimer("DESPAWN", 200000, npc, null);
+		return super.onSpawn(npc);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -604,12 +611,5 @@ public final class Q00171_ActsOfEvil extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		startQuestTimer("DESPAWN", 200000, npc, null);
-		return super.onSpawn(npc);
 	}
 }

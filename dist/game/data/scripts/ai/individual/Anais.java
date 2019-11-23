@@ -57,24 +57,9 @@ public final class Anais extends AbstractNpcAI
 		addKillId(GRAIL_WARD);
 	}
 	
-	private void burnerOnAttack(int pot, L2Npc anais)
+	public static void main(String[] args)
 	{
-		L2Npc npc = _divineBurners.get(pot);
-		npc.setDisplayEffect(1);
-		npc.setIsRunning(false);
-		if (pot < 4)
-		{
-			_current = npc;
-			QuestTimer checkAround = getQuestTimer("CHECK", anais, null);
-			if (checkAround == null) // || !checkAround.getIsActive()
-			{
-				startQuestTimer("CHECK", 3000, anais, null);
-			}
-		}
-		else
-		{
-			cancelQuestTimer("CHECK", anais, null);
-		}
+		new Anais();
 	}
 	
 	@Override
@@ -167,17 +152,6 @@ public final class Anais extends AbstractNpcAI
 		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see org.l2jdevs.gameserver.model.quest.Quest#onSpawn(org.l2jdevs.gameserver.model.actor.L2Npc)
-	 */
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		_divineBurners.add(npc);
-		return super.onSpawn(npc);
-	}
-	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -193,8 +167,34 @@ public final class Anais extends AbstractNpcAI
 		return super.onKill(npc, killer, isSummon);
 	}
 	
-	public static void main(String[] args)
+	/*
+	 * (non-Javadoc)
+	 * @see org.l2jdevs.gameserver.model.quest.Quest#onSpawn(org.l2jdevs.gameserver.model.actor.L2Npc)
+	 */
+	@Override
+	public String onSpawn(L2Npc npc)
 	{
-		new Anais();
+		_divineBurners.add(npc);
+		return super.onSpawn(npc);
+	}
+	
+	private void burnerOnAttack(int pot, L2Npc anais)
+	{
+		L2Npc npc = _divineBurners.get(pot);
+		npc.setDisplayEffect(1);
+		npc.setIsRunning(false);
+		if (pot < 4)
+		{
+			_current = npc;
+			QuestTimer checkAround = getQuestTimer("CHECK", anais, null);
+			if (checkAround == null) // || !checkAround.getIsActive()
+			{
+				startQuestTimer("CHECK", 3000, anais, null);
+			}
+		}
+		else
+		{
+			cancelQuestTimer("CHECK", anais, null);
+		}
 	}
 }

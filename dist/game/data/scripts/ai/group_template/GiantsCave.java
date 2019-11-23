@@ -46,6 +46,11 @@ public final class GiantsCave extends AbstractNpcAI
 		addAggroRangeEnterId(SCOUTS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new GiantsCave();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -76,18 +81,6 @@ public final class GiantsCave extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
-	{
-		if (npc.isScriptValue(0))
-		{
-			npc.setScriptValue(1);
-			startQuestTimer("ATTACK", 6000, npc, attacker);
-			startQuestTimer("CLEAR", 120000, npc, null);
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	@Override
 	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
 		if (npc.isScriptValue(0))
@@ -107,8 +100,15 @@ public final class GiantsCave extends AbstractNpcAI
 		return super.onAggroRangeEnter(npc, player, isSummon);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		new GiantsCave();
+		if (npc.isScriptValue(0))
+		{
+			npc.setScriptValue(1);
+			startQuestTimer("ATTACK", 6000, npc, attacker);
+			startQuestTimer("CLEAR", 120000, npc, null);
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 }

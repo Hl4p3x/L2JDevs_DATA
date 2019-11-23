@@ -72,6 +72,11 @@ public final class SilentValley extends AbstractNpcAI
 		addSpawnId(CHEST, GUARD2);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SilentValley();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -137,6 +142,24 @@ public final class SilentValley extends AbstractNpcAI
 	}
 	
 	@Override
+	public String onEventReceived(String eventName, L2Npc sender, L2Npc receiver, L2Object reference)
+	{
+		if ((receiver != null) && !receiver.isDead())
+		{
+			switch (eventName)
+			{
+				case "CLEAR_ALL":
+					startQuestTimer("CLEAR", 60000, receiver, null);
+					break;
+				case "CLEAR_ALL_INSTANT":
+					receiver.doDie(null);
+					break;
+			}
+		}
+		return super.onEventReceived(eventName, sender, receiver, reference);
+	}
+	
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		if (getRandom(1000) < SPAWN_CHANCE)
@@ -183,28 +206,5 @@ public final class SilentValley extends AbstractNpcAI
 			startQuestTimer("SPAWN_CHEST", 10000, npc, null);
 		}
 		return super.onSpawn(npc);
-	}
-	
-	@Override
-	public String onEventReceived(String eventName, L2Npc sender, L2Npc receiver, L2Object reference)
-	{
-		if ((receiver != null) && !receiver.isDead())
-		{
-			switch (eventName)
-			{
-				case "CLEAR_ALL":
-					startQuestTimer("CLEAR", 60000, receiver, null);
-					break;
-				case "CLEAR_ALL_INSTANT":
-					receiver.doDie(null);
-					break;
-			}
-		}
-		return super.onEventReceived(eventName, sender, receiver, reference);
-	}
-	
-	public static void main(String[] args)
-	{
-		new SilentValley();
 	}
 }

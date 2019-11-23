@@ -66,6 +66,23 @@ public final class Q00279_TargetOfOpportunity extends Quest
 		registerQuestItems(SEAL_COMPONENTS);
 	}
 	
+	private static boolean haveAllExceptThis(QuestState st, int idx)
+	{
+		for (int i = 0; i < SEAL_COMPONENTS.length; i++)
+		{
+			if (i == idx)
+			{
+				continue;
+			}
+			
+			if (!st.hasQuestItems(SEAL_COMPONENTS[i]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -133,22 +150,5 @@ public final class Q00279_TargetOfOpportunity extends Quest
 			htmltext = (st.hasQuestItems(SEAL_COMPONENTS[0]) && st.hasQuestItems(SEAL_COMPONENTS[1]) && st.hasQuestItems(SEAL_COMPONENTS[2]) && st.hasQuestItems(SEAL_COMPONENTS[3])) ? "32302-07.html" : "32302-06.html";
 		}
 		return htmltext;
-	}
-	
-	private static boolean haveAllExceptThis(QuestState st, int idx)
-	{
-		for (int i = 0; i < SEAL_COMPONENTS.length; i++)
-		{
-			if (i == idx)
-			{
-				continue;
-			}
-			
-			if (!st.hasQuestItems(SEAL_COMPONENTS[i]))
-			{
-				return false;
-			}
-		}
-		return true;
 	}
 }

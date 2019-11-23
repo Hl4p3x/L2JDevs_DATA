@@ -45,6 +45,11 @@ public final class CrimsonHatuOtis extends AbstractNpcAI
 		addKillId(CRIMSON_HATU_OTIS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CrimsonHatuOtis();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -98,10 +103,5 @@ public final class CrimsonHatuOtis extends AbstractNpcAI
 		cancelQuestTimer("SKILL", npc, null);
 		cancelQuestTimer("BUFF", npc, null);
 		return super.onKill(npc, player, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new CrimsonHatuOtis();
 	}
 }

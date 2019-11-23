@@ -133,6 +133,11 @@ public final class QueenAnt extends AbstractNpcAI
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new QueenAnt();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -381,10 +386,5 @@ public final class QueenAnt extends AbstractNpcAI
 		npc.broadcastPacket(Music.BS01_A_10000.getPacket());
 		_queen = npc;
 		_larva = (L2MonsterInstance) addSpawn(LARVA, -21600, 179482, -5846, getRandom(360), false, 0);
-	}
-	
-	public static void main(String[] args)
-	{
-		new QueenAnt();
 	}
 }

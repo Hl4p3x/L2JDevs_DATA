@@ -66,6 +66,11 @@ public final class MonumentOfHeroes extends AbstractNpcAI
 		addTalkId(MONUMENTS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new MonumentOfHeroes();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -109,10 +114,5 @@ public final class MonumentOfHeroes extends AbstractNpcAI
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new MonumentOfHeroes();
 	}
 }

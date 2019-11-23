@@ -68,6 +68,11 @@ public final class Q00625_TheFinestIngredientsPart2 extends Quest
 		registerQuestItems(FOOD_FOR_BUMBALUMP.getId(), SPECIAL_YETI_MEAT.getId());
 	}
 	
+	private static boolean isBumbalumpSpawned()
+	{
+		return SpawnTable.getInstance().findAny(ICICLE_EMPEROR_BUMBALUMP) != null;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -171,6 +176,29 @@ public final class Q00625_TheFinestIngredientsPart2 extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, 1, 2, npc);
+		if ((qs != null) && Util.checkIfInRange(1500, npc, killer, true))
+		{
+			if (npc.getSummoner() == killer)
+			{
+				qs.setCond(3, true);
+				giveItems(qs.getPlayer(), SPECIAL_YETI_MEAT);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		startQuestTimer("NPC_TALK", 1000 * 1200, npc, null);
+		npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npc.getTemplate().getDisplayId(), NpcStringId.I_SMELL_SOMETHING_DELICIOUS));
+		return super.onSpawn(npc);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -254,33 +282,5 @@ public final class Q00625_TheFinestIngredientsPart2 extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		startQuestTimer("NPC_TALK", 1000 * 1200, npc, null);
-		npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npc.getTemplate().getDisplayId(), NpcStringId.I_SMELL_SOMETHING_DELICIOUS));
-		return super.onSpawn(npc);
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, 1, 2, npc);
-		if ((qs != null) && Util.checkIfInRange(1500, npc, killer, true))
-		{
-			if (npc.getSummoner() == killer)
-			{
-				qs.setCond(3, true);
-				giveItems(qs.getPlayer(), SPECIAL_YETI_MEAT);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
-	}
-	
-	private static boolean isBumbalumpSpawned()
-	{
-		return SpawnTable.getInstance().findAny(ICICLE_EMPEROR_BUMBALUMP) != null;
 	}
 }

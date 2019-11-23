@@ -60,6 +60,25 @@ public class Q00004_LongLiveThePaagrioLord extends Quest
 		registerQuestItems(HONEY_KHANDAR, BEAR_FUR_CLOAK, BLOODY_AXE, ANCESTOR_SKULL, SPIDER_DUST, DEEP_SEA_ORB);
 	}
 	
+	private static String giveItem(L2PcInstance player, QuestState st, int npcId, int itemId, int... items)
+	{
+		if (!st.isStarted())
+		{
+			return getNoQuestMsg(player);
+		}
+		else if (hasQuestItems(player, itemId))
+		{
+			return npcId + "-02.html";
+		}
+		giveItems(player, itemId, 1);
+		playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+		if (hasQuestItems(player, items))
+		{
+			st.setCond(2, true);
+		}
+		return npcId + "-01.html";
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -138,24 +157,5 @@ public class Q00004_LongLiveThePaagrioLord extends Quest
 				break;
 		}
 		return htmltext;
-	}
-	
-	private static String giveItem(L2PcInstance player, QuestState st, int npcId, int itemId, int... items)
-	{
-		if (!st.isStarted())
-		{
-			return getNoQuestMsg(player);
-		}
-		else if (hasQuestItems(player, itemId))
-		{
-			return npcId + "-02.html";
-		}
-		giveItems(player, itemId, 1);
-		playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-		if (hasQuestItems(player, items))
-		{
-			st.setCond(2, true);
-		}
-		return npcId + "-01.html";
 	}
 }

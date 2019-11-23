@@ -285,6 +285,14 @@ public final class Q00023_LidiasHeart extends Quest
 	}
 	
 	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		startQuestTimer("DESPAWN", 300000, npc, null);
+		npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.WHO_AWOKE_ME));
+		return super.onSpawn(npc);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -490,13 +498,5 @@ public final class Q00023_LidiasHeart extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		startQuestTimer("DESPAWN", 300000, npc, null);
-		npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.WHO_AWOKE_ME));
-		return super.onSpawn(npc);
 	}
 }

@@ -41,6 +41,11 @@ public final class Asamah extends AbstractNpcAI
 		addFirstTalkId(ASAMAH);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Asamah();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -58,10 +63,5 @@ public final class Asamah extends AbstractNpcAI
 	{
 		final QuestState st = player.getQuestState(Q00111_ElrokianHuntersProof.class.getSimpleName());
 		return ((st != null) && (st.isCompleted())) ? "32115-01.htm" : "32115-02.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new Asamah();
 	}
 }

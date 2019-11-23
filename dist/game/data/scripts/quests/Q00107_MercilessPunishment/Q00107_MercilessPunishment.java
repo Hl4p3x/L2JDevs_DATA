@@ -128,6 +128,46 @@ public final class Q00107_MercilessPunishment extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getQuestState(killer, false);
+		if ((qs != null) && Util.checkIfInRange(1500, npc, killer, true))
+		{
+			switch (qs.getCond())
+			{
+				case 2:
+				{
+					if (hasQuestItems(killer, HATOSS_ORDER_1))
+					{
+						giveItems(killer, LETTER_TO_HUMAN, 1);
+						qs.setCond(3, true);
+					}
+					break;
+				}
+				case 4:
+				{
+					if (hasQuestItems(killer, HATOSS_ORDER_2))
+					{
+						giveItems(killer, LETTER_TO_DARK_ELF, 1);
+						qs.setCond(5, true);
+					}
+					break;
+				}
+				case 6:
+				{
+					if (hasQuestItems(killer, HATOSS_ORDER_3))
+					{
+						giveItems(killer, LETTER_TO_ELF, 1);
+						qs.setCond(7, true);
+					}
+					break;
+				}
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -242,45 +282,5 @@ public final class Q00107_MercilessPunishment extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs != null) && Util.checkIfInRange(1500, npc, killer, true))
-		{
-			switch (qs.getCond())
-			{
-				case 2:
-				{
-					if (hasQuestItems(killer, HATOSS_ORDER_1))
-					{
-						giveItems(killer, LETTER_TO_HUMAN, 1);
-						qs.setCond(3, true);
-					}
-					break;
-				}
-				case 4:
-				{
-					if (hasQuestItems(killer, HATOSS_ORDER_2))
-					{
-						giveItems(killer, LETTER_TO_DARK_ELF, 1);
-						qs.setCond(5, true);
-					}
-					break;
-				}
-				case 6:
-				{
-					if (hasQuestItems(killer, HATOSS_ORDER_3))
-					{
-						giveItems(killer, LETTER_TO_ELF, 1);
-						qs.setCond(7, true);
-					}
-					break;
-				}
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

@@ -32,6 +32,12 @@ public class QuestList implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!(target instanceof L2AdventurerInstance))
@@ -41,11 +47,5 @@ public class QuestList implements IBypassHandler
 		
 		activeChar.sendPacket(ExShowQuestInfo.STATIC_PACKET);
 		return true;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

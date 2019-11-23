@@ -89,17 +89,43 @@ public final class SubclassCertification extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
+	public static void main(String[] args)
 	{
-		final QuestState st = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		if (st != null)
+		new SubclassCertification();
+	}
+	
+	private static int getClassIndex(L2PcInstance player)
+	{
+		if (player.isInCategory(CategoryType.SUB_GROUP_WARRIOR))
 		{
-			st.setState(State.STARTED);
-			htmltext = "Main.html";
+			return 0;
 		}
-		return htmltext;
+		else if (player.isInCategory(CategoryType.SUB_GROUP_ROGUE))
+		{
+			return 1;
+		}
+		else if (player.isInCategory(CategoryType.SUB_GROUP_KNIGHT))
+		{
+			return 2;
+		}
+		else if (player.isInCategory(CategoryType.SUB_GROUP_SUMMONER))
+		{
+			return 3;
+		}
+		else if (player.isInCategory(CategoryType.SUB_GROUP_WIZARD))
+		{
+			return 4;
+		}
+		else if (player.isInCategory(CategoryType.SUB_GROUP_HEALER))
+		{
+			return 5;
+		}
+		else if (player.isInCategory(CategoryType.SUB_GROUP_ENCHANTER))
+		{
+			return 6;
+		}
+		
+		return -1;
 	}
 	
 	@Override
@@ -190,52 +216,17 @@ public final class SubclassCertification extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	private String replaceHtml(L2PcInstance player, String htmlFile, boolean replaceClass, String levelToReplace)
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
-		String htmltext = getHtm(player.getHtmlPrefix(), htmlFile);
-		if (replaceClass)
+		final QuestState st = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		if (st != null)
 		{
-			htmltext = htmltext.replace("%class%", String.valueOf(ClassListData.getInstance().getClass(player.getActiveClass()).getClientCode()));
-		}
-		if (levelToReplace != null)
-		{
-			htmltext = htmltext.replace("%level%", levelToReplace);
+			st.setState(State.STARTED);
+			htmltext = "Main.html";
 		}
 		return htmltext;
-	}
-	
-	private static int getClassIndex(L2PcInstance player)
-	{
-		if (player.isInCategory(CategoryType.SUB_GROUP_WARRIOR))
-		{
-			return 0;
-		}
-		else if (player.isInCategory(CategoryType.SUB_GROUP_ROGUE))
-		{
-			return 1;
-		}
-		else if (player.isInCategory(CategoryType.SUB_GROUP_KNIGHT))
-		{
-			return 2;
-		}
-		else if (player.isInCategory(CategoryType.SUB_GROUP_SUMMONER))
-		{
-			return 3;
-		}
-		else if (player.isInCategory(CategoryType.SUB_GROUP_WIZARD))
-		{
-			return 4;
-		}
-		else if (player.isInCategory(CategoryType.SUB_GROUP_HEALER))
-		{
-			return 5;
-		}
-		else if (player.isInCategory(CategoryType.SUB_GROUP_ENCHANTER))
-		{
-			return 6;
-		}
-		
-		return -1;
 	}
 	
 	private String doCertification(L2PcInstance player, QuestState qs, String variable, Integer itemId, int level)
@@ -276,8 +267,17 @@ public final class SubclassCertification extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	public static void main(String[] args)
+	private String replaceHtml(L2PcInstance player, String htmlFile, boolean replaceClass, String levelToReplace)
 	{
-		new SubclassCertification();
+		String htmltext = getHtm(player.getHtmlPrefix(), htmlFile);
+		if (replaceClass)
+		{
+			htmltext = htmltext.replace("%class%", String.valueOf(ClassListData.getInstance().getClass(player.getActiveClass()).getClientCode()));
+		}
+		if (levelToReplace != null)
+		{
+			htmltext = htmltext.replace("%level%", levelToReplace);
+		}
+		return htmltext;
 	}
 }

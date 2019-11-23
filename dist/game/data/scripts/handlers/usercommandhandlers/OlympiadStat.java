@@ -37,6 +37,12 @@ public class OlympiadStat implements IUserCommandHandler
 	};
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (id != COMMAND_IDS[0])
@@ -78,11 +84,5 @@ public class OlympiadStat implements IUserCommandHandler
 		sm2.addInt(Olympiad.getInstance().getRemainingWeeklyMatchesTeam(nobleObjId));
 		activeChar.sendPacket(sm2);
 		return true;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

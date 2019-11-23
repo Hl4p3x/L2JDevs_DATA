@@ -38,6 +38,20 @@ public class ChatPartyMatchRoom implements IChatHandler
 		14
 	};
 	
+	public static void main(String[] args)
+	{
+		new ChatPartyMatchRoom();
+	}
+	
+	/**
+	 * Returns the chat types registered to this handler
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
 	/**
 	 * Handle chat type 'partymatchroom'
 	 */
@@ -62,19 +76,5 @@ public class ChatPartyMatchRoom implements IChatHandler
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
-	}
-	
-	public static void main(String[] args)
-	{
-		new ChatPartyMatchRoom();
 	}
 }

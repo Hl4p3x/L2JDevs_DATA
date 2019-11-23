@@ -41,6 +41,41 @@ public final class AdminChangeAccessLevel implements IAdminCommandHandler
 		"admin_changelvl"
 	};
 	
+	/**
+	 * @param activeChar the active GM
+	 * @param player the online target
+	 * @param lvl the access level
+	 */
+	private static void onlineChange(L2PcInstance activeChar, L2PcInstance player, int lvl)
+	{
+		if (lvl >= 0)
+		{
+			if (AdminData.getInstance().hasAccessLevel(lvl))
+			{
+				final L2AccessLevel acccessLevel = AdminData.getInstance().getAccessLevel(lvl);
+				player.setAccessLevel(lvl);
+				player.sendMessage("Your access level has been changed to " + acccessLevel.getName() + " (" + acccessLevel.getLevel() + ").");
+				activeChar.sendMessage(player.getName() + "'s access level has been changed to " + acccessLevel.getName() + " (" + acccessLevel.getLevel() + ").");
+			}
+			else
+			{
+				activeChar.sendMessage("You are trying to set unexisting access level: " + lvl + " please try again with a valid one!");
+			}
+		}
+		else
+		{
+			player.setAccessLevel(lvl);
+			player.sendMessage("Your character has been banned. Bye.");
+			player.logout();
+		}
+	}
+	
+	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
 	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -102,40 +137,5 @@ public final class AdminChangeAccessLevel implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
-	}
-	
-	/**
-	 * @param activeChar the active GM
-	 * @param player the online target
-	 * @param lvl the access level
-	 */
-	private static void onlineChange(L2PcInstance activeChar, L2PcInstance player, int lvl)
-	{
-		if (lvl >= 0)
-		{
-			if (AdminData.getInstance().hasAccessLevel(lvl))
-			{
-				final L2AccessLevel acccessLevel = AdminData.getInstance().getAccessLevel(lvl);
-				player.setAccessLevel(lvl);
-				player.sendMessage("Your access level has been changed to " + acccessLevel.getName() + " (" + acccessLevel.getLevel() + ").");
-				activeChar.sendMessage(player.getName() + "'s access level has been changed to " + acccessLevel.getName() + " (" + acccessLevel.getLevel() + ").");
-			}
-			else
-			{
-				activeChar.sendMessage("You are trying to set unexisting access level: " + lvl + " please try again with a valid one!");
-			}
-		}
-		else
-		{
-			player.setAccessLevel(lvl);
-			player.sendMessage("Your character has been banned. Bye.");
-			player.logout();
-		}
 	}
 }

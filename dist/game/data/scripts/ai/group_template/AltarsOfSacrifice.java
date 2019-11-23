@@ -35,72 +35,13 @@ import ai.npc.AbstractNpcAI;
  */
 public final class AltarsOfSacrifice extends AbstractNpcAI
 {
-	private final class Altar
-	{
-		private final ILocational _middlePoint;
-		private final int[] _bossNpcIds;
-		private L2Npc _spawnedBoss;
-		
-		protected Altar(final ILocational middlePoint, final int... bossNpcIds)
-		{
-			_middlePoint = middlePoint;
-			_bossNpcIds = bossNpcIds;
-			_spawnedBoss = null;
-		}
-		
-		protected void spawnBoss() throws Exception
-		{
-			if (!hasBosses() || (_spawnedBoss != null))
-			{
-				throw new IllegalStateException();
-			}
-			
-			final L2Spawn spawn = new L2Spawn(_bossNpcIds[Rnd.get(_bossNpcIds.length)]);
-			spawn.setAmount(1);
-			spawn.setHeading(Rnd.get(65536));
-			
-			int radius = Rnd.get(BOSS_MIN_SPAWN_RADIUS, BOSS_MAX_SPAWN_RADIUS);
-			double angleRadians = Rnd.get() * 2 * Math.PI;
-			int spawnX = (int) (radius * Math.cos(angleRadians)) + _middlePoint.getX();
-			int spawnY = (int) (radius * Math.sin(angleRadians)) + _middlePoint.getY();
-			
-			spawn.setXYZ(spawnX, spawnY, GeoData.getInstance().getHeight(spawnX, spawnY, _middlePoint.getZ()));
-			spawn.stopRespawn();
-			_spawnedBoss = spawn.spawnOne(false);
-		}
-		
-		protected void despawnBoss()
-		{
-			if (_spawnedBoss != null)
-			{
-				_spawnedBoss.deleteMe();
-				_spawnedBoss = null;
-			}
-		}
-		
-		protected void unload()
-		{
-			despawnBoss();
-		}
-		
-		protected boolean hasBosses()
-		{
-			return _bossNpcIds.length > 0;
-		}
-		
-		protected boolean isBossFighting()
-		{
-			return (_spawnedBoss != null) && _spawnedBoss.isInCombat();
-		}
-	}
-	
 	private static final String EVT_SPAWN_BOSS_PRE = "spawnboss";
+	
 	private static final String EVT_DESPAWN_BOSS_PRE = "despawnboss";
 	private static final int BOSS_MIN_SPAWN_RADIUS = 250;
 	private static final int BOSS_MAX_SPAWN_RADIUS = 500;
 	// every 240 minutes/4 hours, altars change
 	private static final long ALTAR_STATE_CHANGE_DELAY = 240 * 60 * 1000;
-	
 	// disabling formatter here to make this easily readable
 	// @formatter:off
 	private final Altar[] _altars = new Altar[]
@@ -210,11 +151,6 @@ public final class AltarsOfSacrifice extends AbstractNpcAI
 	};
 	// @formatter:on
 	
-	public static void main(String[] args)
-	{
-		new AltarsOfSacrifice();
-	}
-	
 	private AltarsOfSacrifice()
 	{
 		super("AltarsOfSacrifice", "ai/group_template");
@@ -228,47 +164,9 @@ public final class AltarsOfSacrifice extends AbstractNpcAI
 		}
 	}
 	
-	private String makeSpawnBossEvt(int altarIndex)
+	public static void main(String[] args)
 	{
-		return EVT_SPAWN_BOSS_PRE + altarIndex;
-	}
-	
-	private String makeDespawnBossEvt(int altarIndex)
-	{
-		return EVT_DESPAWN_BOSS_PRE + altarIndex;
-	}
-	
-	private boolean isSpawnBossEvt(String event)
-	{
-		return event.startsWith(EVT_SPAWN_BOSS_PRE);
-	}
-	
-	private boolean isDespawnBossEvt(String event)
-	{
-		return event.startsWith(EVT_DESPAWN_BOSS_PRE);
-	}
-	
-	private int getSpawnBossIndex(String event)
-	{
-		return Integer.parseInt(event.substring(EVT_SPAWN_BOSS_PRE.length()));
-	}
-	
-	private int getDespawnBossIndex(String event)
-	{
-		return Integer.parseInt(event.substring(EVT_DESPAWN_BOSS_PRE.length()));
-	}
-	
-	@Override
-	public boolean unload(boolean removeFromList)
-	{
-		_log.info(getClass().getSimpleName() + ": Unloading altars due to script unloading.");
-		
-		for (final Altar altar : _altars)
-		{
-			altar.unload();
-		}
-		
-		return super.unload(removeFromList);
+		new AltarsOfSacrifice();
 	}
 	
 	@Override
@@ -307,5 +205,107 @@ public final class AltarsOfSacrifice extends AbstractNpcAI
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public boolean unload(boolean removeFromList)
+	{
+		_log.info(getClass().getSimpleName() + ": Unloading altars due to script unloading.");
+		
+		for (final Altar altar : _altars)
+		{
+			altar.unload();
+		}
+		
+		return super.unload(removeFromList);
+	}
+	
+	private int getDespawnBossIndex(String event)
+	{
+		return Integer.parseInt(event.substring(EVT_DESPAWN_BOSS_PRE.length()));
+	}
+	
+	private int getSpawnBossIndex(String event)
+	{
+		return Integer.parseInt(event.substring(EVT_SPAWN_BOSS_PRE.length()));
+	}
+	
+	private boolean isDespawnBossEvt(String event)
+	{
+		return event.startsWith(EVT_DESPAWN_BOSS_PRE);
+	}
+	
+	private boolean isSpawnBossEvt(String event)
+	{
+		return event.startsWith(EVT_SPAWN_BOSS_PRE);
+	}
+	
+	private String makeDespawnBossEvt(int altarIndex)
+	{
+		return EVT_DESPAWN_BOSS_PRE + altarIndex;
+	}
+	
+	private String makeSpawnBossEvt(int altarIndex)
+	{
+		return EVT_SPAWN_BOSS_PRE + altarIndex;
+	}
+	
+	private final class Altar
+	{
+		private final ILocational _middlePoint;
+		private final int[] _bossNpcIds;
+		private L2Npc _spawnedBoss;
+		
+		protected Altar(final ILocational middlePoint, final int... bossNpcIds)
+		{
+			_middlePoint = middlePoint;
+			_bossNpcIds = bossNpcIds;
+			_spawnedBoss = null;
+		}
+		
+		protected void despawnBoss()
+		{
+			if (_spawnedBoss != null)
+			{
+				_spawnedBoss.deleteMe();
+				_spawnedBoss = null;
+			}
+		}
+		
+		protected boolean hasBosses()
+		{
+			return _bossNpcIds.length > 0;
+		}
+		
+		protected boolean isBossFighting()
+		{
+			return (_spawnedBoss != null) && _spawnedBoss.isInCombat();
+		}
+		
+		protected void spawnBoss() throws Exception
+		{
+			if (!hasBosses() || (_spawnedBoss != null))
+			{
+				throw new IllegalStateException();
+			}
+			
+			final L2Spawn spawn = new L2Spawn(_bossNpcIds[Rnd.get(_bossNpcIds.length)]);
+			spawn.setAmount(1);
+			spawn.setHeading(Rnd.get(65536));
+			
+			int radius = Rnd.get(BOSS_MIN_SPAWN_RADIUS, BOSS_MAX_SPAWN_RADIUS);
+			double angleRadians = Rnd.get() * 2 * Math.PI;
+			int spawnX = (int) (radius * Math.cos(angleRadians)) + _middlePoint.getX();
+			int spawnY = (int) (radius * Math.sin(angleRadians)) + _middlePoint.getY();
+			
+			spawn.setXYZ(spawnX, spawnY, GeoData.getInstance().getHeight(spawnX, spawnY, _middlePoint.getZ()));
+			spawn.stopRespawn();
+			_spawnedBoss = spawn.spawnOne(false);
+		}
+		
+		protected void unload()
+		{
+			despawnBoss();
+		}
 	}
 }

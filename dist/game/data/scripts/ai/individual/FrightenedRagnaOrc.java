@@ -53,31 +53,9 @@ public final class FrightenedRagnaOrc extends AbstractNpcAI
 		addKillId(MOB_ID);
 	}
 	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
+	public static void main(String[] args)
 	{
-		if (npc.isScriptValue(0))
-		{
-			npc.setScriptValue(1);
-			startQuestTimer("say", (getRandom(5) + 3) * 1000, npc, null, true);
-		}
-		else if ((npc.getCurrentHp() < (npc.getMaxHp() * 0.2)) && npc.isScriptValue(1))
-		{
-			startQuestTimer("reward", 10000, npc, attacker);
-			broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.WAIT_WAIT_STOP_SAVE_ME_AND_ILL_GIVE_YOU_10000000_ADENA);
-			npc.setScriptValue(2);
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		final NpcStringId msg = getRandomBoolean() ? NpcStringId.UGH_A_CURSE_UPON_YOU : NpcStringId.I_REALLY_DIDNT_WANT_TO_FIGHT;
-		broadcastNpcSay(npc, Say2.NPC_ALL, msg);
-		cancelQuestTimer("say", npc, null);
-		cancelQuestTimer("reward", npc, player);
-		return super.onKill(npc, player, isSummon);
+		new FrightenedRagnaOrc();
 	}
 	
 	@Override
@@ -142,8 +120,30 @@ public final class FrightenedRagnaOrc extends AbstractNpcAI
 		return null;
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		new FrightenedRagnaOrc();
+		if (npc.isScriptValue(0))
+		{
+			npc.setScriptValue(1);
+			startQuestTimer("say", (getRandom(5) + 3) * 1000, npc, null, true);
+		}
+		else if ((npc.getCurrentHp() < (npc.getMaxHp() * 0.2)) && npc.isScriptValue(1))
+		{
+			startQuestTimer("reward", 10000, npc, attacker);
+			broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.WAIT_WAIT_STOP_SAVE_ME_AND_ILL_GIVE_YOU_10000000_ADENA);
+			npc.setScriptValue(2);
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		final NpcStringId msg = getRandomBoolean() ? NpcStringId.UGH_A_CURSE_UPON_YOU : NpcStringId.I_REALLY_DIDNT_WANT_TO_FIGHT;
+		broadcastNpcSay(npc, Say2.NPC_ALL, msg);
+		cancelQuestTimer("say", npc, null);
+		cancelQuestTimer("reward", npc, player);
+		return super.onKill(npc, player, isSummon);
 	}
 }

@@ -38,26 +38,6 @@ import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
  */
 public class PetFood implements IItemHandler
 {
-	@Override
-	public boolean useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
-	{
-		if (playable.isPet() && !((L2PetInstance) playable).canEatFoodId(item.getId()))
-		{
-			playable.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
-			return false;
-		}
-		
-		final SkillHolder[] skills = item.getItem().getSkills();
-		if (skills != null)
-		{
-			for (SkillHolder sk : skills)
-			{
-				useFood(playable, sk.getSkillId(), sk.getSkillLvl(), item);
-			}
-		}
-		return true;
-	}
-	
 	public boolean useFood(L2Playable activeChar, int skillId, int skillLevel, L2ItemInstance item)
 	{
 		final Skill skill = SkillData.getInstance().getSkill(skillId, skillLevel);
@@ -99,5 +79,25 @@ public class PetFood implements IItemHandler
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean useItem(L2Playable playable, L2ItemInstance item, boolean forceUse)
+	{
+		if (playable.isPet() && !((L2PetInstance) playable).canEatFoodId(item.getId()))
+		{
+			playable.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
+			return false;
+		}
+		
+		final SkillHolder[] skills = item.getItem().getSkills();
+		if (skills != null)
+		{
+			for (SkillHolder sk : skills)
+			{
+				useFood(playable, sk.getSkillId(), sk.getSkillLvl(), item);
+			}
+		}
+		return true;
 	}
 }

@@ -42,14 +42,9 @@ import quests.Q00129_PailakaDevilsLegacy.Q00129_PailakaDevilsLegacy;
  */
 public final class PailakaDevilsLegacy extends AbstractInstance
 {
-	protected class DIWorld extends InstanceWorld
-	{
-		protected L2Attackable _lematanNpc = null;
-		protected List<L2Attackable> _followerslist = new CopyOnWriteArrayList<>();
-	}
-	
 	// NPCs
 	private static final int LEMATAN = 18633; // Lematan
+	
 	private static final int SURVIVOR = 32498; // Devil's Isle Survivor
 	private static final int FOLLOWERS = 18634; // Lematan's Follower
 	private static final int POWDER_KEG = 18622; // Powder Keg
@@ -86,7 +81,6 @@ public final class PailakaDevilsLegacy extends AbstractInstance
 	// Misc
 	private static final int TEMPLATE_ID = 44;
 	private static final int ZONE = 20109;
-	
 	public PailakaDevilsLegacy()
 	{
 		super(PailakaDevilsLegacy.class.getSimpleName());
@@ -96,6 +90,11 @@ public final class PailakaDevilsLegacy extends AbstractInstance
 		addSpawnId(FOLLOWERS);
 		addEnterZoneId(ZONE);
 		addMoveFinishedId(LEMATAN);
+	}
+	
+	public static void main(String[] args)
+	{
+		new PailakaDevilsLegacy();
 	}
 	
 	@Override
@@ -258,6 +257,31 @@ public final class PailakaDevilsLegacy extends AbstractInstance
 	}
 	
 	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+			((DIWorld) world)._lematanNpc = (L2Attackable) addSpawn(LEMATAN, LEMATAN_SPAWN, false, 0, false, world.getInstanceId());
+		}
+		teleportPlayer(player, TELEPORT, world.getInstanceId());
+	}
+	
+	@Override
+	public String onEnterZone(L2Character character, L2ZoneType zone)
+	{
+		if ((character.isPlayer()) && !character.isDead() && !character.isTeleporting() && ((L2PcInstance) character).isOnline())
+		{
+			final InstanceWorld world = InstanceManager.getInstance().getWorld(character.getInstanceId());
+			if ((world != null) && (world.getTemplateId() == TEMPLATE_ID))
+			{
+				startQuestTimer("TELEPORT", 1000, ((DIWorld) world)._lematanNpc, (L2PcInstance) character);
+			}
+		}
+		return super.onEnterZone(character, zone);
+	}
+	
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
 		final InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
@@ -280,20 +304,6 @@ public final class PailakaDevilsLegacy extends AbstractInstance
 	}
 	
 	@Override
-	public String onEnterZone(L2Character character, L2ZoneType zone)
-	{
-		if ((character.isPlayer()) && !character.isDead() && !character.isTeleporting() && ((L2PcInstance) character).isOnline())
-		{
-			final InstanceWorld world = InstanceManager.getInstance().getWorld(character.getInstanceId());
-			if ((world != null) && (world.getTemplateId() == TEMPLATE_ID))
-			{
-				startQuestTimer("TELEPORT", 1000, ((DIWorld) world)._lematanNpc, (L2PcInstance) character);
-			}
-		}
-		return super.onEnterZone(character, zone);
-	}
-	
-	@Override
 	public void onMoveFinished(L2Npc npc)
 	{
 		if (npc.getLocation() == LEMATAN_PORT_POINT)
@@ -303,19 +313,9 @@ public final class PailakaDevilsLegacy extends AbstractInstance
 		}
 	}
 	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	protected class DIWorld extends InstanceWorld
 	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-			((DIWorld) world)._lematanNpc = (L2Attackable) addSpawn(LEMATAN, LEMATAN_SPAWN, false, 0, false, world.getInstanceId());
-		}
-		teleportPlayer(player, TELEPORT, world.getInstanceId());
-	}
-	
-	public static void main(String[] args)
-	{
-		new PailakaDevilsLegacy();
+		protected L2Attackable _lematanNpc = null;
+		protected List<L2Attackable> _followerslist = new CopyOnWriteArrayList<>();
 	}
 }

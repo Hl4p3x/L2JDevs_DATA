@@ -37,6 +37,27 @@ public class Wear implements IBypassHandler
 		"Wear"
 	};
 	
+	private static final void showWearWindow(L2PcInstance player, int val)
+	{
+		final L2BuyList buyList = BuyListData.getInstance().getBuyList(val);
+		if (buyList == null)
+		{
+			_log.warning("BuyList not found! BuyListId:" + val);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		player.setInventoryBlockingStatus(true);
+		
+		player.sendPacket(new ShopPreviewList(buyList, player.getAdena(), player.getExpertiseLevel()));
+	}
+	
+	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
 	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
@@ -68,26 +89,5 @@ public class Wear implements IBypassHandler
 			_log.log(Level.WARNING, "Exception in " + getClass().getSimpleName(), e);
 		}
 		return false;
-	}
-	
-	private static final void showWearWindow(L2PcInstance player, int val)
-	{
-		final L2BuyList buyList = BuyListData.getInstance().getBuyList(val);
-		if (buyList == null)
-		{
-			_log.warning("BuyList not found! BuyListId:" + val);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		
-		player.setInventoryBlockingStatus(true);
-		
-		player.sendPacket(new ShopPreviewList(buyList, player.getAdena(), player.getExpertiseLevel()));
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

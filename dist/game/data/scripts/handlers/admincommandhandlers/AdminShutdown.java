@@ -45,6 +45,12 @@ public class AdminShutdown implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_server_shutdown"))
@@ -95,12 +101,6 @@ public class AdminShutdown implements IAdminCommandHandler
 		return true;
 	}
 	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
-	}
-	
 	private void sendHtmlForm(L2PcInstance activeChar)
 	{
 		final NpcHtmlMessage adminReply = new NpcHtmlMessage();
@@ -118,14 +118,14 @@ public class AdminShutdown implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 	
-	private void serverShutdown(L2PcInstance activeChar, int seconds, boolean restart)
-	{
-		Shutdown.getInstance().startShutdown(activeChar, seconds, restart);
-	}
-	
 	private void serverAbort(L2PcInstance activeChar)
 	{
 		Shutdown.getInstance().abort(activeChar);
+	}
+	
+	private void serverShutdown(L2PcInstance activeChar, int seconds, boolean restart)
+	{
+		Shutdown.getInstance().startShutdown(activeChar, seconds, restart);
 	}
 	
 }

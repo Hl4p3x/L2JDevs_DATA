@@ -61,6 +61,11 @@ public final class ElfHumanWizardChange1 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ElfHumanWizardChange1();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -149,6 +154,29 @@ public final class ElfHumanWizardChange1 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, npc, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		final Race playerRace = player.getRace();
+		if (player.isInCategory(CategoryType.MAGE_GROUP) && ((playerRace == Race.HUMAN) || (playerRace == Race.ELF)))
+		{
+			if (playerRace == Race.HUMAN)
+			{
+				htmltext = npc.getId() + "-01.htm"; // fnClassList1
+			}
+			else
+			{
+				htmltext = npc.getId() + "-08.htm"; // fnClassList2
+			}
+		}
+		else
+		{
+			htmltext = npc.getId() + "-15.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -281,33 +309,5 @@ public final class ElfHumanWizardChange1 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		final Race playerRace = player.getRace();
-		if (player.isInCategory(CategoryType.MAGE_GROUP) && ((playerRace == Race.HUMAN) || (playerRace == Race.ELF)))
-		{
-			if (playerRace == Race.HUMAN)
-			{
-				htmltext = npc.getId() + "-01.htm"; // fnClassList1
-			}
-			else
-			{
-				htmltext = npc.getId() + "-08.htm"; // fnClassList2
-			}
-		}
-		else
-		{
-			htmltext = npc.getId() + "-15.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new ElfHumanWizardChange1();
 	}
 }

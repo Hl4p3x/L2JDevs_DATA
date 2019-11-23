@@ -41,12 +41,6 @@ public final class EnableCloak extends AbstractEffect
 	}
 	
 	@Override
-	public void onStart(BuffInfo info)
-	{
-		info.getEffected().getActingPlayer().getStat().setCloakSlotStatus(true);
-	}
-	
-	@Override
 	public boolean onActionTime(BuffInfo info)
 	{
 		return info.getSkill().isPassive();
@@ -56,5 +50,11 @@ public final class EnableCloak extends AbstractEffect
 	public void onExit(BuffInfo info)
 	{
 		info.getEffected().getActingPlayer().getStat().setCloakSlotStatus(false);
+	}
+	
+	@Override
+	public void onStart(BuffInfo info)
+	{
+		info.getEffected().getActingPlayer().getStat().setCloakSlotStatus(true);
 	}
 }

@@ -45,6 +45,12 @@ public class AdminScan implements IAdminCommandHandler
 	private static final int DEFAULT_RADIUS = 500;
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		final StringTokenizer st = new StringTokenizer(command, " ");
@@ -142,11 +148,5 @@ public class AdminScan implements IAdminCommandHandler
 		}
 		html.replace("%data%", sb.toString());
 		activeChar.sendPacket(html);
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

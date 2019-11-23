@@ -70,6 +70,11 @@ public final class Minigame extends AbstractNpcAI
 		addSpawnId(SUMIEL, TREASURE_BOX);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Minigame();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -236,26 +241,6 @@ public final class Minigame extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		switch (npc.getId())
-		{
-			case SUMIEL:
-			{
-				_rooms.add(initRoom(npc));
-				break;
-			}
-			case TREASURE_BOX:
-			{
-				npc.disableCoreAI(true);
-				startQuestTimer("afterthat", 180000, npc, null);
-				break;
-			}
-		}
-		return super.onSpawn(npc);
-	}
-	
 	public void onSkillUse(OnCreatureSkillUse event)
 	{
 		final MinigameRoom room = getRoomByParticipant((L2PcInstance) event.getCaster());
@@ -315,29 +300,24 @@ public final class Minigame extends AbstractNpcAI
 		}
 	}
 	
-	/**
-	 * Create and initialize a MinigameRoom<br>
-	 * It's loading the nearby pots around the game instructor NPC.<br>
-	 * TODO: Load the pot_number value from npc ai_params.
-	 * @param manager the NPC instructor
-	 * @return MinigameRoom
-	 */
-	private MinigameRoom initRoom(L2Npc manager)
+	@Override
+	public String onSpawn(L2Npc npc)
 	{
-		final L2Npc[] burners = new L2Npc[9];
-		L2Npc lastSpawn;
-		int potNumber = 0;
-		
-		for (L2Spawn spawn : SpawnTable.getInstance().getSpawns(BURNER))
+		switch (npc.getId())
 		{
-			lastSpawn = spawn.getLastSpawn();
-			if ((potNumber <= 8) && Util.checkIfInRange(1000, manager, lastSpawn, false))
+			case SUMIEL:
 			{
-				lastSpawn.setAutoAttackable(true);
-				burners[potNumber++] = lastSpawn;
+				_rooms.add(initRoom(npc));
+				break;
+			}
+			case TREASURE_BOX:
+			{
+				npc.disableCoreAI(true);
+				startQuestTimer("afterthat", 180000, npc, null);
+				break;
 			}
 		}
-		return new MinigameRoom(burners, manager);
+		return super.onSpawn(npc);
 	}
 	
 	/**
@@ -375,6 +355,31 @@ public final class Minigame extends AbstractNpcAI
 	}
 	
 	/**
+	 * Create and initialize a MinigameRoom<br>
+	 * It's loading the nearby pots around the game instructor NPC.<br>
+	 * TODO: Load the pot_number value from npc ai_params.
+	 * @param manager the NPC instructor
+	 * @return MinigameRoom
+	 */
+	private MinigameRoom initRoom(L2Npc manager)
+	{
+		final L2Npc[] burners = new L2Npc[9];
+		L2Npc lastSpawn;
+		int potNumber = 0;
+		
+		for (L2Spawn spawn : SpawnTable.getInstance().getSpawns(BURNER))
+		{
+			lastSpawn = spawn.getLastSpawn();
+			if ((potNumber <= 8) && Util.checkIfInRange(1000, manager, lastSpawn, false))
+			{
+				lastSpawn.setAutoAttackable(true);
+				burners[potNumber++] = lastSpawn;
+			}
+		}
+		return new MinigameRoom(burners, manager);
+	}
+	
+	/**
 	 * An object that holds the participant, manager, burning order<br>
 	 * and game status for each secret room into Monastery of Silence.
 	 */
@@ -401,23 +406,6 @@ public final class Minigame extends AbstractNpcAI
 		}
 		
 		/**
-		 * Retrieve the burner position into the array
-		 * @param npc the L2Npc burner
-		 * @return the array index
-		 */
-		public int getBurnerPos(L2Npc npc)
-		{
-			for (int i = 0; i < 9; i++)
-			{
-				if (npc.equals(_burners[i]))
-				{
-					return i;
-				}
-			}
-			return 0;
-		}
-		
-		/**
 		 * Burn all the pots into the room
 		 */
 		public void burnThemAll()
@@ -427,115 +415,6 @@ public final class Minigame extends AbstractNpcAI
 				burner.setDisplayEffect(1);
 				burner.setIsRunning(false);
 			}
-		}
-		
-		/**
-		 * Retrieve a list of burners
-		 * @return An array of L2Npcs
-		 */
-		public L2Npc[] getBurners()
-		{
-			return _burners;
-		}
-		
-		/**
-		 * Retrieve the current game manager
-		 * @return The L2Npc game instructor
-		 */
-		public L2Npc getManager()
-		{
-			return _manager;
-		}
-		
-		/**
-		 * Retrieve the current game participant
-		 * @return The L2PcInstance who is participating
-		 */
-		public L2PcInstance getParticipant()
-		{
-			return _participant;
-		}
-		
-		/**
-		 * Set the current participant
-		 * @param participant The L2PcInstance participating
-		 */
-		public void setParticipant(L2PcInstance participant)
-		{
-			_participant = participant;
-		}
-		
-		/**
-		 * Retrieves the MinigameRoom status
-		 * @return {@code true} if the game is started, {@code false} otherwise
-		 */
-		public boolean getStarted()
-		{
-			return _started;
-		}
-		
-		/**
-		 * Set the MinigameRoom status
-		 * @param started The game status {@code true} if the game is started, {@code false} otherwise
-		 */
-		public void setStarted(boolean started)
-		{
-			_started = started;
-		}
-		
-		/**
-		 * Retrieve the current burner position
-		 * @return The array index
-		 */
-		public int getCurrentPot()
-		{
-			return _currentPot;
-		}
-		
-		/**
-		 * Set the current burner position
-		 * @param pot The position
-		 */
-		public void setCurrentPot(int pot)
-		{
-			_currentPot = pot;
-		}
-		
-		/**
-		 * Retrieve the current attempt Number
-		 * @return The attempt number
-		 */
-		public int getAttemptNumber()
-		{
-			return _attemptNumber;
-		}
-		
-		/**
-		 * Set the attempt number
-		 * @param attempt attempt number
-		 */
-		public void setAttemptNumber(int attempt)
-		{
-			_attemptNumber = attempt;
-		}
-		
-		/**
-		 * Retrieve the burning order
-		 * @return an array of Ids
-		 */
-		public int[] getOrder()
-		{
-			return _order;
-		}
-		
-		/**
-		 * Set a listener for player inside room
-		 * @param listener
-		 */
-		public void setListener(ConsumerEventListener listener)
-		{
-			_listener = listener;
-			_participant.addListener(listener);
 		}
 		
 		/**
@@ -555,10 +434,131 @@ public final class Minigame extends AbstractNpcAI
 			setAttemptNumber(1);
 			setCurrentPot(0);
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Minigame();
+		
+		/**
+		 * Retrieve the current attempt Number
+		 * @return The attempt number
+		 */
+		public int getAttemptNumber()
+		{
+			return _attemptNumber;
+		}
+		
+		/**
+		 * Retrieve the burner position into the array
+		 * @param npc the L2Npc burner
+		 * @return the array index
+		 */
+		public int getBurnerPos(L2Npc npc)
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				if (npc.equals(_burners[i]))
+				{
+					return i;
+				}
+			}
+			return 0;
+		}
+		
+		/**
+		 * Retrieve a list of burners
+		 * @return An array of L2Npcs
+		 */
+		public L2Npc[] getBurners()
+		{
+			return _burners;
+		}
+		
+		/**
+		 * Retrieve the current burner position
+		 * @return The array index
+		 */
+		public int getCurrentPot()
+		{
+			return _currentPot;
+		}
+		
+		/**
+		 * Retrieve the current game manager
+		 * @return The L2Npc game instructor
+		 */
+		public L2Npc getManager()
+		{
+			return _manager;
+		}
+		
+		/**
+		 * Retrieve the burning order
+		 * @return an array of Ids
+		 */
+		public int[] getOrder()
+		{
+			return _order;
+		}
+		
+		/**
+		 * Retrieve the current game participant
+		 * @return The L2PcInstance who is participating
+		 */
+		public L2PcInstance getParticipant()
+		{
+			return _participant;
+		}
+		
+		/**
+		 * Retrieves the MinigameRoom status
+		 * @return {@code true} if the game is started, {@code false} otherwise
+		 */
+		public boolean getStarted()
+		{
+			return _started;
+		}
+		
+		/**
+		 * Set the attempt number
+		 * @param attempt attempt number
+		 */
+		public void setAttemptNumber(int attempt)
+		{
+			_attemptNumber = attempt;
+		}
+		
+		/**
+		 * Set the current burner position
+		 * @param pot The position
+		 */
+		public void setCurrentPot(int pot)
+		{
+			_currentPot = pot;
+		}
+		
+		/**
+		 * Set a listener for player inside room
+		 * @param listener
+		 */
+		public void setListener(ConsumerEventListener listener)
+		{
+			_listener = listener;
+			_participant.addListener(listener);
+		}
+		
+		/**
+		 * Set the current participant
+		 * @param participant The L2PcInstance participating
+		 */
+		public void setParticipant(L2PcInstance participant)
+		{
+			_participant = participant;
+		}
+		
+		/**
+		 * Set the MinigameRoom status
+		 * @param started The game status {@code true} if the game is started, {@code false} otherwise
+		 */
+		public void setStarted(boolean started)
+		{
+			_started = started;
+		}
 	}
 }

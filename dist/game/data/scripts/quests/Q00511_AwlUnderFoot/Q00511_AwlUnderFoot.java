@@ -46,87 +46,17 @@ import org.l2jdevs.gameserver.util.Util;
  */
 public final class Q00511_AwlUnderFoot extends Quest
 {
-	protected class FAUWorld extends InstanceWorld
-	{
-		
-	}
-	
-	public static class FortDungeon
-	{
-		private final int INSTANCEID;
-		private long _reEnterTime = 0;
-		
-		public FortDungeon(int iId)
-		{
-			INSTANCEID = iId;
-		}
-		
-		public int getInstanceId()
-		{
-			return INSTANCEID;
-		}
-		
-		public long getReEnterTime()
-		{
-			return _reEnterTime;
-		}
-		
-		public void setReEnterTime(long time)
-		{
-			_reEnterTime = time;
-		}
-	}
-	
-	private class spawnRaid implements Runnable
-	{
-		private final FAUWorld _world;
-		
-		public spawnRaid(FAUWorld world)
-		{
-			_world = world;
-		}
-		
-		@Override
-		public void run()
-		{
-			try
-			{
-				int spawnId;
-				if (_world.getStatus() == 0)
-				{
-					spawnId = RAIDS1[getRandom(RAIDS1.length)];
-				}
-				else if (_world.getStatus() == 1)
-				{
-					spawnId = RAIDS2[getRandom(RAIDS2.length)];
-				}
-				else
-				{
-					spawnId = RAIDS3[getRandom(RAIDS3.length)];
-				}
-				L2Npc raid = addSpawn(spawnId, 53319, 245814, -6576, 0, false, 0, false, _world.getInstanceId());
-				if (raid instanceof L2RaidBossInstance)
-				{
-					((L2RaidBossInstance) raid).setUseRaidCurse(false);
-				}
-			}
-			catch (Exception e)
-			{
-				_log.warning("Fortress AwlUnderFoot Raid Spawn error: " + e);
-			}
-		}
-	}
-	
 	private static final boolean debug = false;
+	
 	private static final long REENTERTIME = 14400000;
 	
 	private static final long RAID_SPAWN_DELAY = 120000;
 	
-	private final Map<Integer, FortDungeon> _fortDungeons = new HashMap<>(21);
 	// QUEST ITEMS
 	private static final int DL_MARK = 9797;
 	// REWARDS
 	private static final int KNIGHT_EPALUETTE = 9912;
+	
 	// MONSTER TO KILL -- Only last 3 Raids (lvl ordered) give DL_MARK
 	protected static final int[] RAIDS1 =
 	{
@@ -134,6 +64,7 @@ public final class Q00511_AwlUnderFoot extends Quest
 		25575,
 		25578
 	};
+	
 	protected static final int[] RAIDS2 =
 	{
 		25579,
@@ -147,10 +78,9 @@ public final class Q00511_AwlUnderFoot extends Quest
 		25592,
 		25593
 	};
-	
 	// Skill
 	private static final SkillHolder RAID_CURSE = new SkillHolder(5456);
-	
+	private final Map<Integer, FortDungeon> _fortDungeons = new HashMap<>(21);
 	public Q00511_AwlUnderFoot()
 	{
 		super(511, Q00511_AwlUnderFoot.class.getSimpleName(), "instances");
@@ -191,133 +121,6 @@ public final class Q00511_AwlUnderFoot extends Quest
 			addAttackId(i);
 		}
 	}
-	
-	private String checkConditions(L2PcInstance player)
-	{
-		if (debug)
-		{
-			return null;
-		}
-		L2Party party = player.getParty();
-		if (party == null)
-		{
-			return "FortressWarden-03.htm";
-		}
-		if (party.getLeader() != player)
-		{
-			return getHtm(player.getHtmlPrefix(), "FortressWarden-04.htm").replace("%leader%", party.getLeader().getName());
-		}
-		for (L2PcInstance partyMember : party.getMembers())
-		{
-			final QuestState st = getQuestState(partyMember, false);
-			if ((st == null) || (st.getInt("cond") < 1))
-			{
-				return getHtm(player.getHtmlPrefix(), "FortressWarden-05.htm").replace("%player%", partyMember.getName());
-			}
-			if (!Util.checkIfInRange(1000, player, partyMember, true))
-			{
-				return getHtm(player.getHtmlPrefix(), "FortressWarden-06.htm").replace("%player%", partyMember.getName());
-			}
-		}
-		return null;
-	}
-	
-	private String checkFortCondition(L2PcInstance player, L2Npc npc, boolean isEnter)
-	{
-		Fort fortress = npc.getFort();
-		FortDungeon dungeon = _fortDungeons.get(npc.getId());
-		if ((player == null) || (fortress == null) || (dungeon == null))
-		{
-			return "FortressWarden-01.htm";
-		}
-		if ((player.getClan() == null) || (player.getClan().getFortId() != fortress.getResidenceId()))
-		{
-			return "FortressWarden-01.htm";
-		}
-		else if (fortress.getFortState() == 0)
-		{
-			return "FortressWarden-02a.htm";
-		}
-		else if (fortress.getFortState() == 2)
-		{
-			return "FortressWarden-02b.htm";
-		}
-		else if (isEnter && (dungeon.getReEnterTime() > System.currentTimeMillis()))
-		{
-			return "FortressWarden-07.htm";
-		}
-		
-		L2Party party = player.getParty();
-		if (party == null)
-		{
-			return "FortressWarden-03.htm";
-		}
-		for (L2PcInstance partyMember : party.getMembers())
-		{
-			if ((partyMember.getClan() == null) || (partyMember.getClan().getFortId() == 0) || (partyMember.getClan().getFortId() != fortress.getResidenceId()))
-			{
-				return getHtm(player.getHtmlPrefix(), "FortressWarden-05.htm").replace("%player%", partyMember.getName());
-			}
-		}
-		return null;
-	}
-	
-	protected String enterInstance(L2PcInstance player, String template, int[] coords, FortDungeon dungeon, String ret)
-	{
-		// check for existing instances for this player
-		InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
-		// existing instance
-		if (world != null)
-		{
-			if (!(world instanceof FAUWorld))
-			{
-				player.sendPacket(SystemMessageId.YOU_HAVE_ENTERED_ANOTHER_INSTANT_ZONE_THEREFORE_YOU_CANNOT_ENTER_CORRESPONDING_DUNGEON);
-				return "";
-			}
-			teleportPlayer(player, coords, world.getInstanceId());
-			return "";
-		}
-		// New instance
-		if (ret != null)
-		{
-			return ret;
-		}
-		ret = checkConditions(player);
-		if (ret != null)
-		{
-			return ret;
-		}
-		L2Party party = player.getParty();
-		int instanceId = InstanceManager.getInstance().createDynamicInstance(template);
-		Instance ins = InstanceManager.getInstance().getInstance(instanceId);
-		ins.setExitLoc(new Location(player));
-		world = new FAUWorld();
-		world.setInstanceId(instanceId);
-		world.setTemplateId(dungeon.getInstanceId());
-		world.setStatus(0);
-		dungeon.setReEnterTime(System.currentTimeMillis() + REENTERTIME);
-		InstanceManager.getInstance().addWorld(world);
-		_log.info("Fortress AwlUnderFoot started " + template + " Instance: " + instanceId + " created by player: " + player.getName());
-		ThreadPoolManager.getInstance().scheduleGeneral(new spawnRaid((FAUWorld) world), RAID_SPAWN_DELAY);
-		
-		// teleport players
-		if (player.getParty() == null)
-		{
-			teleportPlayer(player, coords, instanceId);
-			world.addAllowed(player.getObjectId());
-		}
-		else
-		{
-			for (L2PcInstance partyMember : party.getMembers())
-			{
-				teleportPlayer(partyMember, coords, instanceId);
-				world.addAllowed(partyMember.getObjectId());
-				getQuestState(partyMember, true);
-			}
-		}
-		return getHtm(player.getHtmlPrefix(), "FortressWarden-08.htm").replace("%clan%", player.getClan().getName());
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -456,6 +259,132 @@ public final class Q00511_AwlUnderFoot extends Quest
 		return htmltext;
 	}
 	
+	protected String enterInstance(L2PcInstance player, String template, int[] coords, FortDungeon dungeon, String ret)
+	{
+		// check for existing instances for this player
+		InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
+		// existing instance
+		if (world != null)
+		{
+			if (!(world instanceof FAUWorld))
+			{
+				player.sendPacket(SystemMessageId.YOU_HAVE_ENTERED_ANOTHER_INSTANT_ZONE_THEREFORE_YOU_CANNOT_ENTER_CORRESPONDING_DUNGEON);
+				return "";
+			}
+			teleportPlayer(player, coords, world.getInstanceId());
+			return "";
+		}
+		// New instance
+		if (ret != null)
+		{
+			return ret;
+		}
+		ret = checkConditions(player);
+		if (ret != null)
+		{
+			return ret;
+		}
+		L2Party party = player.getParty();
+		int instanceId = InstanceManager.getInstance().createDynamicInstance(template);
+		Instance ins = InstanceManager.getInstance().getInstance(instanceId);
+		ins.setExitLoc(new Location(player));
+		world = new FAUWorld();
+		world.setInstanceId(instanceId);
+		world.setTemplateId(dungeon.getInstanceId());
+		world.setStatus(0);
+		dungeon.setReEnterTime(System.currentTimeMillis() + REENTERTIME);
+		InstanceManager.getInstance().addWorld(world);
+		_log.info("Fortress AwlUnderFoot started " + template + " Instance: " + instanceId + " created by player: " + player.getName());
+		ThreadPoolManager.getInstance().scheduleGeneral(new spawnRaid((FAUWorld) world), RAID_SPAWN_DELAY);
+		
+		// teleport players
+		if (player.getParty() == null)
+		{
+			teleportPlayer(player, coords, instanceId);
+			world.addAllowed(player.getObjectId());
+		}
+		else
+		{
+			for (L2PcInstance partyMember : party.getMembers())
+			{
+				teleportPlayer(partyMember, coords, instanceId);
+				world.addAllowed(partyMember.getObjectId());
+				getQuestState(partyMember, true);
+			}
+		}
+		return getHtm(player.getHtmlPrefix(), "FortressWarden-08.htm").replace("%clan%", player.getClan().getName());
+	}
+	
+	private String checkConditions(L2PcInstance player)
+	{
+		if (debug)
+		{
+			return null;
+		}
+		L2Party party = player.getParty();
+		if (party == null)
+		{
+			return "FortressWarden-03.htm";
+		}
+		if (party.getLeader() != player)
+		{
+			return getHtm(player.getHtmlPrefix(), "FortressWarden-04.htm").replace("%leader%", party.getLeader().getName());
+		}
+		for (L2PcInstance partyMember : party.getMembers())
+		{
+			final QuestState st = getQuestState(partyMember, false);
+			if ((st == null) || (st.getInt("cond") < 1))
+			{
+				return getHtm(player.getHtmlPrefix(), "FortressWarden-05.htm").replace("%player%", partyMember.getName());
+			}
+			if (!Util.checkIfInRange(1000, player, partyMember, true))
+			{
+				return getHtm(player.getHtmlPrefix(), "FortressWarden-06.htm").replace("%player%", partyMember.getName());
+			}
+		}
+		return null;
+	}
+	
+	private String checkFortCondition(L2PcInstance player, L2Npc npc, boolean isEnter)
+	{
+		Fort fortress = npc.getFort();
+		FortDungeon dungeon = _fortDungeons.get(npc.getId());
+		if ((player == null) || (fortress == null) || (dungeon == null))
+		{
+			return "FortressWarden-01.htm";
+		}
+		if ((player.getClan() == null) || (player.getClan().getFortId() != fortress.getResidenceId()))
+		{
+			return "FortressWarden-01.htm";
+		}
+		else if (fortress.getFortState() == 0)
+		{
+			return "FortressWarden-02a.htm";
+		}
+		else if (fortress.getFortState() == 2)
+		{
+			return "FortressWarden-02b.htm";
+		}
+		else if (isEnter && (dungeon.getReEnterTime() > System.currentTimeMillis()))
+		{
+			return "FortressWarden-07.htm";
+		}
+		
+		L2Party party = player.getParty();
+		if (party == null)
+		{
+			return "FortressWarden-03.htm";
+		}
+		for (L2PcInstance partyMember : party.getMembers())
+		{
+			if ((partyMember.getClan() == null) || (partyMember.getClan().getFortId() == 0) || (partyMember.getClan().getFortId() != fortress.getResidenceId()))
+			{
+				return getHtm(player.getHtmlPrefix(), "FortressWarden-05.htm").replace("%player%", partyMember.getName());
+			}
+		}
+		return null;
+	}
+	
 	private void rewardPlayer(L2PcInstance player)
 	{
 		QuestState st = getQuestState(player, false);
@@ -470,5 +399,76 @@ public final class Q00511_AwlUnderFoot extends Quest
 	{
 		player.setInstanceId(instanceId);
 		player.teleToLocation(coords[0], coords[1], coords[2]);
+	}
+	
+	public static class FortDungeon
+	{
+		private final int INSTANCEID;
+		private long _reEnterTime = 0;
+		
+		public FortDungeon(int iId)
+		{
+			INSTANCEID = iId;
+		}
+		
+		public int getInstanceId()
+		{
+			return INSTANCEID;
+		}
+		
+		public long getReEnterTime()
+		{
+			return _reEnterTime;
+		}
+		
+		public void setReEnterTime(long time)
+		{
+			_reEnterTime = time;
+		}
+	}
+	
+	protected class FAUWorld extends InstanceWorld
+	{
+		
+	}
+	
+	private class spawnRaid implements Runnable
+	{
+		private final FAUWorld _world;
+		
+		public spawnRaid(FAUWorld world)
+		{
+			_world = world;
+		}
+		
+		@Override
+		public void run()
+		{
+			try
+			{
+				int spawnId;
+				if (_world.getStatus() == 0)
+				{
+					spawnId = RAIDS1[getRandom(RAIDS1.length)];
+				}
+				else if (_world.getStatus() == 1)
+				{
+					spawnId = RAIDS2[getRandom(RAIDS2.length)];
+				}
+				else
+				{
+					spawnId = RAIDS3[getRandom(RAIDS3.length)];
+				}
+				L2Npc raid = addSpawn(spawnId, 53319, 245814, -6576, 0, false, 0, false, _world.getInstanceId());
+				if (raid instanceof L2RaidBossInstance)
+				{
+					((L2RaidBossInstance) raid).setUseRaidCurse(false);
+				}
+			}
+			catch (Exception e)
+			{
+				_log.warning("Fortress AwlUnderFoot Raid Spawn error: " + e);
+			}
+		}
 	}
 }

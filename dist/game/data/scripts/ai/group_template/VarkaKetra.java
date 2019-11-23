@@ -147,6 +147,11 @@ public class VarkaKetra extends AbstractNpcAI
 		addNpcHateId(VARKA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new VarkaKetra();
+	}
+	
 	@Override
 	public void actionForEachPlayer(L2PcInstance player, L2Npc npc, boolean isSummon)
 	{
@@ -163,6 +168,23 @@ public class VarkaKetra extends AbstractNpcAI
 				exitQuests(player, VARKA_QUESTS);
 			}
 		}
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		executeForEachPlayer(killer, npc, isSummon, true, false);
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public boolean onNpcHate(L2Attackable mob, L2PcInstance player, boolean isSummon)
+	{
+		if (Util.contains(KETRA, mob.getId()))
+		{
+			return !hasAtLeastOneQuestItem(player, KETRA_MARKS);
+		}
+		return !hasAtLeastOneQuestItem(player, VARKA_MARKS);
 	}
 	
 	private final void decreaseAlliance(L2PcInstance player, int[] marks)
@@ -191,27 +213,5 @@ public class VarkaKetra extends AbstractNpcAI
 				qs.exitQuest(true);
 			}
 		}
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		executeForEachPlayer(killer, npc, isSummon, true, false);
-		return super.onKill(npc, killer, isSummon);
-	}
-	
-	@Override
-	public boolean onNpcHate(L2Attackable mob, L2PcInstance player, boolean isSummon)
-	{
-		if (Util.contains(KETRA, mob.getId()))
-		{
-			return !hasAtLeastOneQuestItem(player, KETRA_MARKS);
-		}
-		return !hasAtLeastOneQuestItem(player, VARKA_MARKS);
-	}
-	
-	public static void main(String[] args)
-	{
-		new VarkaKetra();
 	}
 }

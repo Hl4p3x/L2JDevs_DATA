@@ -59,6 +59,11 @@ public final class TownPets extends AbstractNpcAI
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new TownPets();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -78,10 +83,5 @@ public final class TownPets extends AbstractNpcAI
 	{
 		startQuestTimer("move", 3000, npc, null);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new TownPets();
 	}
 }

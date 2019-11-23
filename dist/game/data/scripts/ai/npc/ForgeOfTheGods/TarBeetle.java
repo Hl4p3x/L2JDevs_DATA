@@ -52,6 +52,11 @@ public final class TarBeetle extends AbstractNpcAI
 		addSpellFinishedId(TAR_BEETLE);
 	}
 	
+	public static void main(String[] args)
+	{
+		new TarBeetle();
+	}
+	
 	@Override
 	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
@@ -95,10 +100,5 @@ public final class TarBeetle extends AbstractNpcAI
 	{
 		spawn.unload();
 		return super.unload();
-	}
-	
-	public static void main(String[] args)
-	{
-		new TarBeetle();
 	}
 }

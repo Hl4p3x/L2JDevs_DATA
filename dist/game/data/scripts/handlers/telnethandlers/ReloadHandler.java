@@ -49,6 +49,12 @@ public class ReloadHandler implements ITelnetHandler
 	};
 	
 	@Override
+	public String[] getCommandList()
+	{
+		return _commands;
+	}
+	
+	@Override
 	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int _uptime)
 	{
 		if (command.startsWith("reload"))
@@ -147,11 +153,5 @@ public class ReloadHandler implements ITelnetHandler
 			}
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getCommandList()
-	{
-		return _commands;
 	}
 }

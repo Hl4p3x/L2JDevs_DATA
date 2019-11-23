@@ -98,6 +98,38 @@ public class Q00328_SenseForBusiness extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
+	{
+		final QuestState st = getQuestState(player, false);
+		if ((st != null) && st.isStarted())
+		{
+			final int chance = getRandom(100);
+			if (MONSTER_EYES.containsKey(npc.getId()))
+			{
+				if (chance < MONSTER_EYES.get(npc.getId())[0])
+				{
+					st.giveItems(MONSTER_EYE_CARCASS, 1);
+					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+				}
+				else if (chance < MONSTER_EYES.get(npc.getId())[1])
+				{
+					st.giveItems(MONSTER_EYE_LENS, 1);
+					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+				}
+			}
+			else if (MONSTER_BASILISKS.containsKey(npc.getId()))
+			{
+				if (chance < MONSTER_BASILISKS.get(npc.getId()))
+				{
+					st.giveItems(BASILISK_GIZZARD, 1);
+					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+				}
+			}
+		}
+		return super.onKill(npc, player, isPet);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState st = getQuestState(player, true);
@@ -128,37 +160,5 @@ public class Q00328_SenseForBusiness extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
-	{
-		final QuestState st = getQuestState(player, false);
-		if ((st != null) && st.isStarted())
-		{
-			final int chance = getRandom(100);
-			if (MONSTER_EYES.containsKey(npc.getId()))
-			{
-				if (chance < MONSTER_EYES.get(npc.getId())[0])
-				{
-					st.giveItems(MONSTER_EYE_CARCASS, 1);
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
-				else if (chance < MONSTER_EYES.get(npc.getId())[1])
-				{
-					st.giveItems(MONSTER_EYE_LENS, 1);
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
-			}
-			else if (MONSTER_BASILISKS.containsKey(npc.getId()))
-			{
-				if (chance < MONSTER_BASILISKS.get(npc.getId()))
-				{
-					st.giveItems(BASILISK_GIZZARD, 1);
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
-			}
-		}
-		return super.onKill(npc, player, isPet);
 	}
 }

@@ -47,18 +47,6 @@ public final class Q00344_1000YearsTheEndOfLamentation extends Quest
 	private static final ItemHolder CRUCIFIX = new ItemHolder(4273, 1);
 	// Monsters
 	private static final Map<Integer, Double> MONSTER_CHANCES = new HashMap<>();
-	{
-		MONSTER_CHANCES.put(20236, 0.58); // Cave Servant
-		MONSTER_CHANCES.put(20238, 0.75); // Cave Servant Warrior
-		MONSTER_CHANCES.put(20237, 0.78); // Cave Servant Archer
-		MONSTER_CHANCES.put(20239, 0.79); // Cave Servant Captain
-		MONSTER_CHANCES.put(20240, 0.85); // Royal Cave Servant
-		MONSTER_CHANCES.put(20272, 0.58); // Cave Servant
-		MONSTER_CHANCES.put(20273, 0.78); // Cave Servant Archer
-		MONSTER_CHANCES.put(20274, 0.75); // Cave Servant Warrior
-		MONSTER_CHANCES.put(20275, 0.79); // Cave Servant Captain
-		MONSTER_CHANCES.put(20276, 0.85); // Royal Cave Servant
-	}
 	// Rewards
 	private static final ItemHolder ORIHARUKON_ORE = new ItemHolder(1874, 25);
 	private static final ItemHolder VARNISH_OF_PURITY = new ItemHolder(1887, 10);
@@ -74,6 +62,18 @@ public final class Q00344_1000YearsTheEndOfLamentation extends Quest
 	private static final ItemHolder DRAKE_LEATHER_BOOTS = new ItemHolder(2437, 1);
 	// Misc
 	private static final int MIN_LVL = 48;
+	{
+		MONSTER_CHANCES.put(20236, 0.58); // Cave Servant
+		MONSTER_CHANCES.put(20238, 0.75); // Cave Servant Warrior
+		MONSTER_CHANCES.put(20237, 0.78); // Cave Servant Archer
+		MONSTER_CHANCES.put(20239, 0.79); // Cave Servant Captain
+		MONSTER_CHANCES.put(20240, 0.85); // Royal Cave Servant
+		MONSTER_CHANCES.put(20272, 0.58); // Cave Servant
+		MONSTER_CHANCES.put(20273, 0.78); // Cave Servant Archer
+		MONSTER_CHANCES.put(20274, 0.75); // Cave Servant Warrior
+		MONSTER_CHANCES.put(20275, 0.79); // Cave Servant Captain
+		MONSTER_CHANCES.put(20276, 0.85); // Royal Cave Servant
+	}
 	
 	public Q00344_1000YearsTheEndOfLamentation()
 	{
@@ -202,6 +202,17 @@ public final class Q00344_1000YearsTheEndOfLamentation extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
+		if (qs != null)
+		{
+			giveItemRandomly(qs.getPlayer(), npc, ARTICLES, 1, 0, MONSTER_CHANCES.get(npc.getId()), true);
+		}
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -365,16 +376,5 @@ public final class Q00344_1000YearsTheEndOfLamentation extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
-		if (qs != null)
-		{
-			giveItemRandomly(qs.getPlayer(), npc, ARTICLES, 1, 0, MONSTER_CHANCES.get(npc.getId()), true);
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

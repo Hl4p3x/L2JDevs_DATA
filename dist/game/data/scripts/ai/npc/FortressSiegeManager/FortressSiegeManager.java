@@ -71,6 +71,11 @@ public final class FortressSiegeManager extends AbstractNpcAI
 		addFirstTalkId(MANAGERS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new FortressSiegeManager();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -212,10 +217,5 @@ public final class FortressSiegeManager extends AbstractNpcAI
 		html.replace("%clanName%", fortress.getOwnerClan().getName());
 		html.replace("%objectId%", npc.getObjectId());
 		return html.getHtml();
-	}
-	
-	public static void main(String[] args)
-	{
-		new FortressSiegeManager();
 	}
 }

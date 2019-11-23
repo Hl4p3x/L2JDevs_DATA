@@ -67,6 +67,11 @@ public final class OrcChange2 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new OrcChange2();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -98,6 +103,41 @@ public final class OrcChange2 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.ORC_MALL_CLASS) || player.isInCategory(CategoryType.ORC_FALL_CLASS)))
+		{
+			htmltext = "30513-01.htm"; // fnYouAreFourthClass
+		}
+		else if (player.isInCategory(CategoryType.ORC_MALL_CLASS) || player.isInCategory(CategoryType.ORC_FALL_CLASS))
+		{
+			final ClassId classId = player.getClassId();
+			if ((classId == ClassId.orcRaider) || (classId == ClassId.destroyer))
+			{
+				htmltext = "30513-02.htm"; // fnClassList1
+			}
+			else if ((classId == ClassId.orcMonk) || (classId == ClassId.tyrant))
+			{
+				htmltext = "30513-06.htm"; // fnClassList2
+			}
+			else if ((classId == ClassId.orcShaman) || (classId == ClassId.overlord) || (classId == ClassId.warcryer))
+			{
+				htmltext = "30513-10.htm"; // fnClassList3
+			}
+			else
+			{
+				htmltext = "30513-17.htm"; // fnYouAreFirstClass
+			}
+		}
+		else
+		{
+			htmltext = "30513-18.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -222,45 +262,5 @@ public final class OrcChange2 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.ORC_MALL_CLASS) || player.isInCategory(CategoryType.ORC_FALL_CLASS)))
-		{
-			htmltext = "30513-01.htm"; // fnYouAreFourthClass
-		}
-		else if (player.isInCategory(CategoryType.ORC_MALL_CLASS) || player.isInCategory(CategoryType.ORC_FALL_CLASS))
-		{
-			final ClassId classId = player.getClassId();
-			if ((classId == ClassId.orcRaider) || (classId == ClassId.destroyer))
-			{
-				htmltext = "30513-02.htm"; // fnClassList1
-			}
-			else if ((classId == ClassId.orcMonk) || (classId == ClassId.tyrant))
-			{
-				htmltext = "30513-06.htm"; // fnClassList2
-			}
-			else if ((classId == ClassId.orcShaman) || (classId == ClassId.overlord) || (classId == ClassId.warcryer))
-			{
-				htmltext = "30513-10.htm"; // fnClassList3
-			}
-			else
-			{
-				htmltext = "30513-17.htm"; // fnYouAreFirstClass
-			}
-		}
-		else
-		{
-			htmltext = "30513-18.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new OrcChange2();
 	}
 }

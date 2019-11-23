@@ -47,18 +47,6 @@ public final class ServitorShare extends AbstractEffect
 	}
 	
 	@Override
-	public void onStart(BuffInfo info)
-	{
-		super.onStart(info);
-		info.getEffected().getActingPlayer().setServitorShare(stats);
-		if (info.getEffected().getActingPlayer().getSummon() != null)
-		{
-			info.getEffected().getActingPlayer().getSummon().broadcastInfo();
-			info.getEffected().getActingPlayer().getSummon().getStatus().startHpMpRegeneration();
-		}
-	}
-	
-	@Override
 	public int getEffectFlags()
 	{
 		return EffectFlag.SERVITOR_SHARE.getMask();
@@ -85,6 +73,18 @@ public final class ServitorShare extends AbstractEffect
 				info.getEffected().getSummon().setCurrentMp(info.getEffected().getSummon().getMaxMp());
 			}
 			info.getEffected().getSummon().broadcastInfo();
+		}
+	}
+	
+	@Override
+	public void onStart(BuffInfo info)
+	{
+		super.onStart(info);
+		info.getEffected().getActingPlayer().setServitorShare(stats);
+		if (info.getEffected().getActingPlayer().getSummon() != null)
+		{
+			info.getEffected().getActingPlayer().getSummon().broadcastInfo();
+			info.getEffected().getActingPlayer().getSummon().getStatus().startHpMpRegeneration();
 		}
 	}
 }

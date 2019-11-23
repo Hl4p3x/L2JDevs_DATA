@@ -49,6 +49,11 @@ public class GhostChamberlainOfElmoreden extends AbstractNpcAI
 		addFirstTalkId(GHOST_CHAMBERLAIN_OF_ELMOREDEN_1, GHOST_CHAMBERLAIN_OF_ELMOREDEN_2);
 	}
 	
+	public static void main(String[] args)
+	{
+		new GhostChamberlainOfElmoreden();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -85,10 +90,5 @@ public class GhostChamberlainOfElmoreden extends AbstractNpcAI
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new GhostChamberlainOfElmoreden();
 	}
 }

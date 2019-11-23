@@ -260,12 +260,6 @@ public final class Q00403_PathOfTheRogue extends Quest
 		return super.onKill(npc, killer, isSummon);
 	}
 	
-	private boolean checkWeapon(L2PcInstance player)
-	{
-		L2ItemInstance weapon = player.getActiveWeaponInstance();
-		return ((weapon != null) && ((weapon.getId() == NETIS_BOW) || (weapon.getId() == NETIS_DAGGER)));
-	}
-	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -367,5 +361,11 @@ public final class Q00403_PathOfTheRogue extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private boolean checkWeapon(L2PcInstance player)
+	{
+		L2ItemInstance weapon = player.getActiveWeaponInstance();
+		return ((weapon != null) && ((weapon.getId() == NETIS_BOW) || (weapon.getId() == NETIS_DAGGER)));
 	}
 }

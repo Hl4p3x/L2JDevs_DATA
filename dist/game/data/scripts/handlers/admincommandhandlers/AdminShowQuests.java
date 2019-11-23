@@ -57,100 +57,66 @@ public class AdminShowQuests implements IAdminCommandHandler
 		"COMPLETED"
 	};
 	
-	@Override
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	private static void setQuestVar(L2PcInstance target, L2PcInstance actor, String[] val)
 	{
-		String[] cmdParams = command.split(" ");
-		L2PcInstance target = null;
-		L2Object targetObject = null;
-		String[] val = new String[4];
-		val[0] = null;
+		QuestState qs = target.getQuestState(val[0]);
+		String[] outval = new String[3];
 		
-		if (cmdParams.length > 1)
+		if ("state".equals(val[1]))
 		{
-			target = L2World.getInstance().getPlayer(cmdParams[1]);
-			if (cmdParams.length > 2)
+			switch (val[2])
 			{
-				if (cmdParams[2].equals("0"))
+				case "COMPLETED":
 				{
-					val[0] = "var";
-					val[1] = "Start";
+					qs.exitQuest("1".equals(val[3]));
+					break;
 				}
-				if (cmdParams[2].equals("1"))
+				case "DELETE":
 				{
-					val[0] = "var";
-					val[1] = "Started";
+					Quest.deleteQuestInDb(qs, true);
+					qs.exitQuest(true);
+					target.sendPacket(new QuestList());
+					target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
+					target.delQuestState(qs.getQuestName());
+					actor.sendMessage("Removed quest " + qs.getQuest().getDescr() + " from " + target.getName() + ".");
+					break;
 				}
-				if (cmdParams[2].equals("2"))
+				case "CREATE":
 				{
-					val[0] = "var";
-					val[1] = "Completed";
+					qs = QuestManager.getInstance().getQuest(Integer.parseInt(val[0])).newQuestState(target);
+					qs.startQuest();
+					target.sendPacket(new QuestList());
+					target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
+					val[0] = qs.getQuest().getName();
+					break;
 				}
-				if (cmdParams[2].equals("3"))
+				case "CC":
 				{
-					val[0] = "full";
-				}
-				if (cmdParams[2].indexOf("_") != -1)
-				{
-					val[0] = "name";
-					val[1] = cmdParams[2];
-				}
-				if (cmdParams.length > 3)
-				{
-					if (cmdParams[3].equals("custom"))
-					{
-						val[0] = "custom";
-						val[1] = cmdParams[2];
-					}
+					qs = QuestManager.getInstance().getQuest(Integer.parseInt(val[0])).newQuestState(target);
+					qs.exitQuest(false);
+					target.sendPacket(new QuestList());
+					target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
+					val[0] = qs.getQuest().getName();
+					break;
 				}
 			}
 		}
 		else
 		{
-			targetObject = activeChar.getTarget();
-			
-			if ((targetObject != null) && targetObject.isPlayer())
+			if (val[2].equals("delete"))
 			{
-				target = targetObject.getActingPlayer();
-			}
-		}
-		
-		if (target == null)
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			return false;
-		}
-		
-		if (command.startsWith("admin_charquestmenu"))
-		{
-			if (val[0] != null)
-			{
-				showQuestMenu(target, activeChar, val);
+				qs.unset(val[1]);
 			}
 			else
 			{
-				showFirstQuestMenu(target, activeChar);
+				qs.set(val[1], val[2]);
 			}
+			target.sendPacket(new QuestList());
+			target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
 		}
-		else if (command.startsWith("admin_setcharquest"))
-		{
-			if (cmdParams.length >= 5)
-			{
-				val[0] = cmdParams[2];
-				val[1] = cmdParams[3];
-				val[2] = cmdParams[4];
-				if (cmdParams.length == 6)
-				{
-					val[3] = cmdParams[5];
-				}
-				setQuestVar(target, activeChar, val);
-			}
-			else
-			{
-				return false;
-			}
-		}
-		return true;
+		outval[0] = "name";
+		outval[1] = val[0];
+		showQuestMenu(target, actor, outval);
 	}
 	
 	private static void showFirstQuestMenu(L2PcInstance target, L2PcInstance actor)
@@ -325,71 +291,105 @@ public class AdminShowQuests implements IAdminCommandHandler
 		}
 	}
 	
-	private static void setQuestVar(L2PcInstance target, L2PcInstance actor, String[] val)
+	@Override
+	public String[] getAdminCommandList()
 	{
-		QuestState qs = target.getQuestState(val[0]);
-		String[] outval = new String[3];
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		String[] cmdParams = command.split(" ");
+		L2PcInstance target = null;
+		L2Object targetObject = null;
+		String[] val = new String[4];
+		val[0] = null;
 		
-		if ("state".equals(val[1]))
+		if (cmdParams.length > 1)
 		{
-			switch (val[2])
+			target = L2World.getInstance().getPlayer(cmdParams[1]);
+			if (cmdParams.length > 2)
 			{
-				case "COMPLETED":
+				if (cmdParams[2].equals("0"))
 				{
-					qs.exitQuest("1".equals(val[3]));
-					break;
+					val[0] = "var";
+					val[1] = "Start";
 				}
-				case "DELETE":
+				if (cmdParams[2].equals("1"))
 				{
-					Quest.deleteQuestInDb(qs, true);
-					qs.exitQuest(true);
-					target.sendPacket(new QuestList());
-					target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
-					target.delQuestState(qs.getQuestName());
-					actor.sendMessage("Removed quest " + qs.getQuest().getDescr() + " from " + target.getName() + ".");
-					break;
+					val[0] = "var";
+					val[1] = "Started";
 				}
-				case "CREATE":
+				if (cmdParams[2].equals("2"))
 				{
-					qs = QuestManager.getInstance().getQuest(Integer.parseInt(val[0])).newQuestState(target);
-					qs.startQuest();
-					target.sendPacket(new QuestList());
-					target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
-					val[0] = qs.getQuest().getName();
-					break;
+					val[0] = "var";
+					val[1] = "Completed";
 				}
-				case "CC":
+				if (cmdParams[2].equals("3"))
 				{
-					qs = QuestManager.getInstance().getQuest(Integer.parseInt(val[0])).newQuestState(target);
-					qs.exitQuest(false);
-					target.sendPacket(new QuestList());
-					target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
-					val[0] = qs.getQuest().getName();
-					break;
+					val[0] = "full";
+				}
+				if (cmdParams[2].indexOf("_") != -1)
+				{
+					val[0] = "name";
+					val[1] = cmdParams[2];
+				}
+				if (cmdParams.length > 3)
+				{
+					if (cmdParams[3].equals("custom"))
+					{
+						val[0] = "custom";
+						val[1] = cmdParams[2];
+					}
 				}
 			}
 		}
 		else
 		{
-			if (val[2].equals("delete"))
+			targetObject = activeChar.getTarget();
+			
+			if ((targetObject != null) && targetObject.isPlayer())
 			{
-				qs.unset(val[1]);
+				target = targetObject.getActingPlayer();
+			}
+		}
+		
+		if (target == null)
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+			return false;
+		}
+		
+		if (command.startsWith("admin_charquestmenu"))
+		{
+			if (val[0] != null)
+			{
+				showQuestMenu(target, activeChar, val);
 			}
 			else
 			{
-				qs.set(val[1], val[2]);
+				showFirstQuestMenu(target, activeChar);
 			}
-			target.sendPacket(new QuestList());
-			target.sendPacket(new ExShowQuestMark(qs.getQuest().getId()));
 		}
-		outval[0] = "name";
-		outval[1] = val[0];
-		showQuestMenu(target, actor, outval);
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
+		else if (command.startsWith("admin_setcharquest"))
+		{
+			if (cmdParams.length >= 5)
+			{
+				val[0] = cmdParams[2];
+				val[1] = cmdParams[3];
+				val[2] = cmdParams[4];
+				if (cmdParams.length == 6)
+				{
+					val[3] = cmdParams[5];
+				}
+				setQuestVar(target, activeChar, val);
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }

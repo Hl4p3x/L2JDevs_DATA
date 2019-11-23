@@ -228,6 +228,11 @@ public final class SavingSanta extends LongTimeEvent
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new SavingSanta();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -930,10 +935,5 @@ public final class SavingSanta extends LongTimeEvent
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new SavingSanta();
 	}
 }

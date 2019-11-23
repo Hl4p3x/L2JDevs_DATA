@@ -59,6 +59,12 @@ public class Unstuck implements IUserCommandHandler
 	};
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (!TvTEvent.onEscapeUse(activeChar.getObjectId()))
@@ -130,11 +136,5 @@ public class Unstuck implements IUserCommandHandler
 			}
 		}, unstuckTimer));
 		return true;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

@@ -88,6 +88,11 @@ public final class Halloween extends LongTimeEvent
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new Halloween();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -194,10 +199,5 @@ public final class Halloween extends LongTimeEvent
 			pumpkinGhost.addDamageHate(originalAttacker, 0, 500);
 			pumpkinGhost.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalAttacker);
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Halloween();
 	}
 }

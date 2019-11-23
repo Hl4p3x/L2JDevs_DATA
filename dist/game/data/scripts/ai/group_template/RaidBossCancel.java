@@ -111,6 +111,11 @@ public final class RaidBossCancel extends AbstractNpcAI
 		addSkillSeeId(RAID_BOSSES);
 	}
 	
+	public static void main(String[] args)
+	{
+		new RaidBossCancel();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -131,10 +136,5 @@ public final class RaidBossCancel extends AbstractNpcAI
 			addSkillCastDesire(npc, player, selfRangeCancel, 1000000L);
 		}
 		return super.onSkillSee(npc, player, skill, targets, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new RaidBossCancel();
 	}
 }

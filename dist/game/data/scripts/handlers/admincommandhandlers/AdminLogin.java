@@ -44,6 +44,12 @@ public class AdminLogin implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_server_gm_only"))
@@ -163,18 +169,12 @@ public class AdminLogin implements IAdminCommandHandler
 	}
 	
 	/**
-	 * @param activeChar
+	 *
 	 */
-	private void showMainPage(L2PcInstance activeChar)
+	private void allowToAll()
 	{
-		final NpcHtmlMessage html = new NpcHtmlMessage();
-		html.setFile(activeChar.getHtmlPrefix(), "data/html/admin/login.htm");
-		html.replace("%server_name%", LoginServerThread.getInstance().getServerName());
-		html.replace("%status%", LoginServerThread.getInstance().getStatusString());
-		html.replace("%clock%", getServerTypeName(Config.SERVER_LIST_TYPE));
-		html.replace("%brackets%", String.valueOf(Config.SERVER_LIST_BRACKET));
-		html.replace("%max_players%", String.valueOf(LoginServerThread.getInstance().getMaxPlayer()));
-		activeChar.sendPacket(html);
+		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_AUTO);
+		Config.SERVER_GMONLY = false;
 	}
 	
 	private String getServerTypeName(int serverType)
@@ -223,24 +223,24 @@ public class AdminLogin implements IAdminCommandHandler
 	/**
 	 *
 	 */
-	private void allowToAll()
-	{
-		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_AUTO);
-		Config.SERVER_GMONLY = false;
-	}
-	
-	/**
-	 *
-	 */
 	private void gmOnly()
 	{
 		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_GM_ONLY);
 		Config.SERVER_GMONLY = true;
 	}
 	
-	@Override
-	public String[] getAdminCommandList()
+	/**
+	 * @param activeChar
+	 */
+	private void showMainPage(L2PcInstance activeChar)
 	{
-		return ADMIN_COMMANDS;
+		final NpcHtmlMessage html = new NpcHtmlMessage();
+		html.setFile(activeChar.getHtmlPrefix(), "data/html/admin/login.htm");
+		html.replace("%server_name%", LoginServerThread.getInstance().getServerName());
+		html.replace("%status%", LoginServerThread.getInstance().getStatusString());
+		html.replace("%clock%", getServerTypeName(Config.SERVER_LIST_TYPE));
+		html.replace("%brackets%", String.valueOf(Config.SERVER_LIST_BRACKET));
+		html.replace("%max_players%", String.valueOf(LoginServerThread.getInstance().getMaxPlayer()));
+		activeChar.sendPacket(html);
 	}
 }

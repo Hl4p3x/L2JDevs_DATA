@@ -59,6 +59,11 @@ public final class BabyPets extends AbstractNpcAI
 		addSummonSpawnId(BABY_PETS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new BabyPets();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -126,10 +131,5 @@ public final class BabyPets extends AbstractNpcAI
 	{
 		final int summonLevel = summon.getLevel();
 		return Util.constrain(summonLevel < 70 ? (summonLevel / 10) : (7 + ((summonLevel - 70) / 5)), 1, 12);
-	}
-	
-	public static void main(String[] args)
-	{
-		new BabyPets();
 	}
 }

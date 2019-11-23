@@ -37,6 +37,12 @@ public class ServerHandler implements ITelnetHandler
 	};
 	
 	@Override
+	public String[] getCommandList()
+	{
+		return _commands;
+	}
+	
+	@Override
 	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int _uptime)
 	{
 		if (command.startsWith("shutdown"))
@@ -81,11 +87,5 @@ public class ServerHandler implements ITelnetHandler
 			_print.println("OK! - Shutdown/Restart Aborted.");
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getCommandList()
-	{
-		return _commands;
 	}
 }

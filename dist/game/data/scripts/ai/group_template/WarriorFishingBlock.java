@@ -77,6 +77,11 @@ public final class WarriorFishingBlock extends AbstractNpcAI
 		addSpawnId(MONSTERS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new WarriorFishingBlock();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -133,10 +138,5 @@ public final class WarriorFishingBlock extends AbstractNpcAI
 	{
 		startQuestTimer("SPAWN", 2000, npc, null);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new WarriorFishingBlock();
 	}
 }

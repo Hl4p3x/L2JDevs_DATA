@@ -37,6 +37,15 @@ public class ChatParty implements IChatHandler
 	};
 	
 	/**
+	 * Returns the chat types registered to this handler.
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	/**
 	 * Handle chat type 'party'
 	 */
 	@Override
@@ -53,14 +62,5 @@ public class ChatParty implements IChatHandler
 			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 			activeChar.getParty().broadcastCreatureSay(cs, activeChar);
 		}
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler.
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
 	}
 }

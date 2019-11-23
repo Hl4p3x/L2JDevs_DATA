@@ -92,6 +92,11 @@ public final class SelMahumSquad extends AbstractNpcAI
 		addSpellFinishedId(CHEF);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SelMahumSquad();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -217,13 +222,6 @@ public final class SelMahumSquad extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isSummon)
-	{
-		handlePreAttackMotion(npc);
-		return super.onFactionCall(npc, caller, attacker, isSummon);
-	}
-	
-	@Override
 	public String onEventReceived(String eventName, L2Npc sender, L2Npc receiver, L2Object reference)
 	{
 		switch (eventName)
@@ -305,6 +303,13 @@ public final class SelMahumSquad extends AbstractNpcAI
 	}
 	
 	@Override
+	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isSummon)
+	{
+		handlePreAttackMotion(npc);
+		return super.onFactionCall(npc, caller, attacker, isSummon);
+	}
+	
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		if (npc.isMonster() && (npc.getVariables().getInt("REWARD_TIME_GONE") == 0))
@@ -375,6 +380,19 @@ public final class SelMahumSquad extends AbstractNpcAI
 		return super.onSpellFinished(npc, player, skill);
 	}
 	
+	private void handlePreAttackMotion(L2Npc attacked)
+	{
+		cancelQuestTimer("remove_effects", attacked, null);
+		attacked.getVariables().remove("BUSY_STATE");
+		attacked.setIsNoRndWalk(false);
+		attacked.setDisplayEffect(MAHUM_EFFECT_NONE);
+		if (attacked.getRightHandItem() == OHS_Weapon)
+		{
+			attacked.setRHandId(THS_Weapon);
+		}
+		// TODO: Check about i_quest0
+	}
+	
 	private void healPlayer(L2Npc npc, L2PcInstance player)
 	{
 		if ((player != null) && !player.isDead() && (npc.getVariables().getInt("INVUL_REMOVE_TIMER_STARTED") != 1) && ((npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_ATTACK) || (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST)))
@@ -389,23 +407,5 @@ public final class SelMahumSquad extends AbstractNpcAI
 			npc.getVariables().remove("INVUL_REMOVE_TIMER_STARTED");
 			npc.setIsRunning(false);
 		}
-	}
-	
-	private void handlePreAttackMotion(L2Npc attacked)
-	{
-		cancelQuestTimer("remove_effects", attacked, null);
-		attacked.getVariables().remove("BUSY_STATE");
-		attacked.setIsNoRndWalk(false);
-		attacked.setDisplayEffect(MAHUM_EFFECT_NONE);
-		if (attacked.getRightHandItem() == OHS_Weapon)
-		{
-			attacked.setRHandId(THS_Weapon);
-		}
-		// TODO: Check about i_quest0
-	}
-	
-	public static void main(String[] args)
-	{
-		new SelMahumSquad();
 	}
 }

@@ -89,6 +89,11 @@ public final class VanHalter extends AbstractNpcAI
 		spawnVanHalter();
 	}
 	
+	public static void main(String[] args)
+	{
+		new VanHalter();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -336,53 +341,6 @@ public final class VanHalter extends AbstractNpcAI
 		return super.onKill(npc, killer, isSummon);
 	}
 	
-	private void spawnVanHalter()
-	{
-		final String respawn = loadGlobalQuestVar("Respawn");
-		final long remain = (!respawn.isEmpty()) ? Long.parseLong(respawn) - System.currentTimeMillis() : 0;
-		if (remain > 0)
-		{
-			startQuestTimer("respawn", remain, null, null);
-			return;
-		}
-		_VanHalter = addSpawn(VAN_HALTER, VAN_HALTER_LOC, false, 0);
-		setDoors(0);
-		IS_SPAWNED = true;
-		startQuestTimer("despawn", 10800000, _VanHalter, null);
-	}
-	
-	private void startRespawn()
-	{
-		IS_SPAWNED = false;
-		setDoors(0);
-		final int respawnTime = RESPAWN - getRandom(RANDOM_RESPAWN);
-		saveGlobalQuestVar("Respawn", Long.toString(System.currentTimeMillis() + respawnTime));
-		startQuestTimer("respawn", respawnTime, null, null);
-	}
-	
-	private void stopPc(L2PcInstance player)
-	{
-		if (player != null)
-		{
-			player.setTarget(null);
-			player.stopMove(null);
-			player.setIsInvul(true);
-			player.setIsImmobilized(true);
-			player.teleToLocation(player);
-			player.sendPacket(new CameraMode(1));
-		}
-	}
-	
-	private void startPc(L2PcInstance player)
-	{
-		if (player != null)
-		{
-			player.setIsInvul(false);
-			player.setIsImmobilized(false);
-			player.sendPacket(new CameraMode(0));
-		}
-	}
-	
 	private void setDoors(int val)
 	{
 		switch (val)
@@ -423,8 +381,50 @@ public final class VanHalter extends AbstractNpcAI
 		}
 	}
 	
-	public static void main(String[] args)
+	private void spawnVanHalter()
 	{
-		new VanHalter();
+		final String respawn = loadGlobalQuestVar("Respawn");
+		final long remain = (!respawn.isEmpty()) ? Long.parseLong(respawn) - System.currentTimeMillis() : 0;
+		if (remain > 0)
+		{
+			startQuestTimer("respawn", remain, null, null);
+			return;
+		}
+		_VanHalter = addSpawn(VAN_HALTER, VAN_HALTER_LOC, false, 0);
+		setDoors(0);
+		IS_SPAWNED = true;
+		startQuestTimer("despawn", 10800000, _VanHalter, null);
+	}
+	
+	private void startPc(L2PcInstance player)
+	{
+		if (player != null)
+		{
+			player.setIsInvul(false);
+			player.setIsImmobilized(false);
+			player.sendPacket(new CameraMode(0));
+		}
+	}
+	
+	private void startRespawn()
+	{
+		IS_SPAWNED = false;
+		setDoors(0);
+		final int respawnTime = RESPAWN - getRandom(RANDOM_RESPAWN);
+		saveGlobalQuestVar("Respawn", Long.toString(System.currentTimeMillis() + respawnTime));
+		startQuestTimer("respawn", respawnTime, null, null);
+	}
+	
+	private void stopPc(L2PcInstance player)
+	{
+		if (player != null)
+		{
+			player.setTarget(null);
+			player.stopMove(null);
+			player.setIsInvul(true);
+			player.setIsImmobilized(true);
+			player.teleToLocation(player);
+			player.sendPacket(new CameraMode(1));
+		}
 	}
 }

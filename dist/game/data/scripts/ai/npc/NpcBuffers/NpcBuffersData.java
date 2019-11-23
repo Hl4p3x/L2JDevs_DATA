@@ -43,6 +43,21 @@ public class NpcBuffersData implements IXmlReader
 		load();
 	}
 	
+	public NpcBufferData getNpcBuffer(int npcId)
+	{
+		return _npcBuffers.get(npcId);
+	}
+	
+	public Set<Integer> getNpcBufferIds()
+	{
+		return _npcBuffers.keySet();
+	}
+	
+	public Collection<NpcBufferData> getNpcBuffers()
+	{
+		return _npcBuffers.values();
+	}
+	
 	@Override
 	public void load()
 	{
@@ -90,20 +105,5 @@ public class NpcBuffersData implements IXmlReader
 				}
 			}
 		}
-	}
-	
-	public NpcBufferData getNpcBuffer(int npcId)
-	{
-		return _npcBuffers.get(npcId);
-	}
-	
-	public Collection<NpcBufferData> getNpcBuffers()
-	{
-		return _npcBuffers.values();
-	}
-	
-	public Set<Integer> getNpcBufferIds()
-	{
-		return _npcBuffers.keySet();
 	}
 }

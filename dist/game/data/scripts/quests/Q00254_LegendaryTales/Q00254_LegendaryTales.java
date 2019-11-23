@@ -34,49 +34,6 @@ public class Q00254_LegendaryTales extends Quest
 	// NPC
 	private static final int GILMORE = 30754;
 	
-	// Monsters
-	public enum Bosses
-	{
-		EMERALD_HORN(25718),
-		DUST_RIDER(25719),
-		BLEEDING_FLY(25720),
-		BLACK_DAGGER(25721),
-		SHADOW_SUMMONER(25722),
-		SPIKE_SLASHER(25723),
-		MUSCLE_BOMBER(25724);
-		
-		private final int _bossId;
-		private final int _mask;
-		
-		private Bosses(int bossId)
-		{
-			_bossId = bossId;
-			_mask = 1 << ordinal();
-		}
-		
-		public int getId()
-		{
-			return _bossId;
-		}
-		
-		public int getMask()
-		{
-			return _mask;
-		}
-		
-		public static Bosses valueOf(int npcId)
-		{
-			for (Bosses val : values())
-			{
-				if (val.getId() == npcId)
-				{
-					return val;
-				}
-			}
-			return null;
-		}
-	}
-	
 	// @formatter:off
 	private static final int[] MONSTERS =
 	{
@@ -101,32 +58,37 @@ public class Q00254_LegendaryTales extends Quest
 		registerQuestItems(LARGE_DRAGON_SKULL);
 	}
 	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
+	private static boolean checkMask(QuestState qs, Bosses boss)
 	{
-		String htmltext = getNoQuestMsg(player);
-		final QuestState st = getQuestState(player, true);
-		switch (st.getState())
+		int pos = boss.getMask();
+		return ((qs.getInt("raids") & pos) == pos);
+	}
+	
+	@Override
+	public void actionForEachPlayer(L2PcInstance player, L2Npc npc, boolean isSummon)
+	{
+		final QuestState st = player.getQuestState(Q00254_LegendaryTales.class.getSimpleName());
+		
+		if ((st != null) && st.isCond(1))
 		{
-			case State.CREATED:
-				htmltext = (player.getLevel() < MIN_LEVEL) ? "30754-00.htm" : "30754-01.htm";
-				break;
-			case State.STARTED:
-				long count = getQuestItemsCount(player, LARGE_DRAGON_SKULL);
-				if (st.isCond(1))
+			int raids = st.getInt("raids");
+			Bosses boss = Bosses.valueOf(npc.getId());
+			
+			if (!checkMask(st, boss))
+			{
+				st.set("raids", raids | boss.getMask());
+				st.giveItems(LARGE_DRAGON_SKULL, 1);
+				
+				if (st.getQuestItemsCount(LARGE_DRAGON_SKULL) < 7)
 				{
-					htmltext = ((count > 0) ? "30754-14.htm" : "30754-06.html");
+					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
 				}
-				else if (st.isCond(2))
+				else
 				{
-					htmltext = ((count < 7) ? "30754-12.htm" : "30754-07.html");
+					st.setCond(2, true);
 				}
-				break;
-			case State.COMPLETED:
-				htmltext = "30754-29.html";
-				break;
+			}
 		}
-		return htmltext;
 	}
 	
 	@Override
@@ -215,35 +177,73 @@ public class Q00254_LegendaryTales extends Quest
 	}
 	
 	@Override
-	public void actionForEachPlayer(L2PcInstance player, L2Npc npc, boolean isSummon)
+	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
-		final QuestState st = player.getQuestState(Q00254_LegendaryTales.class.getSimpleName());
-		
-		if ((st != null) && st.isCond(1))
+		String htmltext = getNoQuestMsg(player);
+		final QuestState st = getQuestState(player, true);
+		switch (st.getState())
 		{
-			int raids = st.getInt("raids");
-			Bosses boss = Bosses.valueOf(npc.getId());
-			
-			if (!checkMask(st, boss))
-			{
-				st.set("raids", raids | boss.getMask());
-				st.giveItems(LARGE_DRAGON_SKULL, 1);
-				
-				if (st.getQuestItemsCount(LARGE_DRAGON_SKULL) < 7)
+			case State.CREATED:
+				htmltext = (player.getLevel() < MIN_LEVEL) ? "30754-00.htm" : "30754-01.htm";
+				break;
+			case State.STARTED:
+				long count = getQuestItemsCount(player, LARGE_DRAGON_SKULL);
+				if (st.isCond(1))
 				{
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+					htmltext = ((count > 0) ? "30754-14.htm" : "30754-06.html");
 				}
-				else
+				else if (st.isCond(2))
 				{
-					st.setCond(2, true);
+					htmltext = ((count < 7) ? "30754-12.htm" : "30754-07.html");
 				}
-			}
+				break;
+			case State.COMPLETED:
+				htmltext = "30754-29.html";
+				break;
 		}
+		return htmltext;
 	}
 	
-	private static boolean checkMask(QuestState qs, Bosses boss)
+	// Monsters
+	public enum Bosses
 	{
-		int pos = boss.getMask();
-		return ((qs.getInt("raids") & pos) == pos);
+		EMERALD_HORN(25718),
+		DUST_RIDER(25719),
+		BLEEDING_FLY(25720),
+		BLACK_DAGGER(25721),
+		SHADOW_SUMMONER(25722),
+		SPIKE_SLASHER(25723),
+		MUSCLE_BOMBER(25724);
+		
+		private final int _bossId;
+		private final int _mask;
+		
+		private Bosses(int bossId)
+		{
+			_bossId = bossId;
+			_mask = 1 << ordinal();
+		}
+		
+		public static Bosses valueOf(int npcId)
+		{
+			for (Bosses val : values())
+			{
+				if (val.getId() == npcId)
+				{
+					return val;
+				}
+			}
+			return null;
+		}
+		
+		public int getId()
+		{
+			return _bossId;
+		}
+		
+		public int getMask()
+		{
+			return _mask;
+		}
 	}
 }

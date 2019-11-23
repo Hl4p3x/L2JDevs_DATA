@@ -144,6 +144,66 @@ public final class Q00108_JumbleTumbleDiamondFuss extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState st = getQuestState(killer, false);
+		if ((st != null) && Util.checkIfInRange(1500, npc, killer, true))
+		{
+			switch (npc.getId())
+			{
+				case GOBLIN_BRIGAND_LEADER:
+				case GOBLIN_BRIGAND_LIEUTENANT:
+				{
+					if (st.isCond(5) && st.hasQuestItems(BRUNONS_CONTRACT))
+					{
+						final double dropChance = GOBLIN_DROP_CHANCES.get(npc.getId());
+						boolean playSound = false;
+						if (st.giveItemRandomly(npc, AQUAMARINE, 1, MAX_GEM_COUNT, dropChance, false))
+						{
+							if (st.getQuestItemsCount(CHRYSOBERYL) >= MAX_GEM_COUNT)
+							{
+								st.setCond(6, true);
+								break;
+							}
+							
+							playSound = true;
+						}
+						if (st.giveItemRandomly(npc, CHRYSOBERYL, 1, MAX_GEM_COUNT, dropChance, false))
+						{
+							if (st.getQuestItemsCount(AQUAMARINE) >= MAX_GEM_COUNT)
+							{
+								st.setCond(6, true);
+								break;
+							}
+							
+							playSound = true;
+						}
+						
+						if (playSound)
+						{
+							st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+						}
+					}
+					break;
+				}
+				case BLADE_BAT:
+				{
+					if (st.isCond(11) && st.hasQuestItems(BAT_DIAGRAM))
+					{
+						if (st.giveItemRandomly(npc, STAR_DIAMOND, 1, 1, 0.2, true))
+						{
+							st.takeItems(BAT_DIAGRAM, -1);
+							st.setCond(12);
+						}
+					}
+					break;
+				}
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState st = getQuestState(talker, true);
@@ -500,65 +560,5 @@ public final class Q00108_JumbleTumbleDiamondFuss extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && Util.checkIfInRange(1500, npc, killer, true))
-		{
-			switch (npc.getId())
-			{
-				case GOBLIN_BRIGAND_LEADER:
-				case GOBLIN_BRIGAND_LIEUTENANT:
-				{
-					if (st.isCond(5) && st.hasQuestItems(BRUNONS_CONTRACT))
-					{
-						final double dropChance = GOBLIN_DROP_CHANCES.get(npc.getId());
-						boolean playSound = false;
-						if (st.giveItemRandomly(npc, AQUAMARINE, 1, MAX_GEM_COUNT, dropChance, false))
-						{
-							if (st.getQuestItemsCount(CHRYSOBERYL) >= MAX_GEM_COUNT)
-							{
-								st.setCond(6, true);
-								break;
-							}
-							
-							playSound = true;
-						}
-						if (st.giveItemRandomly(npc, CHRYSOBERYL, 1, MAX_GEM_COUNT, dropChance, false))
-						{
-							if (st.getQuestItemsCount(AQUAMARINE) >= MAX_GEM_COUNT)
-							{
-								st.setCond(6, true);
-								break;
-							}
-							
-							playSound = true;
-						}
-						
-						if (playSound)
-						{
-							st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-						}
-					}
-					break;
-				}
-				case BLADE_BAT:
-				{
-					if (st.isCond(11) && st.hasQuestItems(BAT_DIAGRAM))
-					{
-						if (st.giveItemRandomly(npc, STAR_DIAMOND, 1, 1, 0.2, true))
-						{
-							st.takeItems(BAT_DIAGRAM, -1);
-							st.setCond(12);
-						}
-					}
-					break;
-				}
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

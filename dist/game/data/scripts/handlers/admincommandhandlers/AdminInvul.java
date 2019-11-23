@@ -39,6 +39,12 @@ public class AdminInvul implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		
@@ -56,12 +62,6 @@ public class AdminInvul implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void handleInvul(L2PcInstance activeChar)

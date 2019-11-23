@@ -45,15 +45,9 @@ import quests.Q00196_SevenSignsSealOfTheEmperor.Q00196_SevenSignsSealOfTheEmpero
  */
 public final class DisciplesNecropolisPast extends AbstractInstance
 {
-	protected class DNPWorld extends InstanceWorld
-	{
-		protected final List<L2Npc> anakimGroup = new ArrayList<>();
-		protected final List<L2Npc> lilithGroup = new ArrayList<>();
-		protected int countKill = 0;
-	}
-	
 	// NPCs
 	private static final int SEAL_DEVICE = 27384;
+	
 	private static final int PROMISE_OF_MAMMON = 32585;
 	private static final int SHUNAIMAN = 32586;
 	private static final int LEON = 32587;
@@ -120,7 +114,6 @@ public final class DisciplesNecropolisPast extends AbstractInstance
 		ANAKIM_SPAWN.put(ANAKIMS_GUARD, new Location(-83086, 216519, -7495, 15910));
 		ANAKIM_SPAWN.put(ANAKIMS_EXECUTOR, new Location(-83031, 216604, -7492, 17071));
 	}
-	
 	public DisciplesNecropolisPast()
 	{
 		super(DisciplesNecropolisPast.class.getSimpleName());
@@ -131,63 +124,6 @@ public final class DisciplesNecropolisPast extends AbstractInstance
 		addSpawnId(SEAL_DEVICE);
 		addStartNpc(PROMISE_OF_MAMMON);
 		addTalkId(PROMISE_OF_MAMMON, SHUNAIMAN, LEON, DISCIPLES_GATEKEEPER);
-	}
-	
-	protected void spawnNPC(DNPWorld world)
-	{
-		for (Map.Entry<Integer, Location> entry : LILITH_SPAWN.entrySet())
-		{
-			final L2Npc npc = addSpawn(entry.getKey(), entry.getValue(), false, 0, false, world.getInstanceId());
-			world.lilithGroup.add(npc);
-		}
-		for (Map.Entry<Integer, Location> entry : ANAKIM_SPAWN.entrySet())
-		{
-			final L2Npc enpc = addSpawn(entry.getKey(), entry.getValue(), false, 0, false, world.getInstanceId());
-			world.anakimGroup.add(enpc);
-		}
-	}
-	
-	private synchronized void checkDoors(L2Npc npc, DNPWorld world)
-	{
-		world.countKill++;
-		switch (world.countKill)
-		{
-			case 4:
-				openDoor(DOOR_1, world.getInstanceId());
-				break;
-			case 10:
-				openDoor(DOOR_2, world.getInstanceId());
-				break;
-			case 18:
-				openDoor(DOOR_3, world.getInstanceId());
-				break;
-			case 28:
-				openDoor(DOOR_4, world.getInstanceId());
-				break;
-			case 40:
-				openDoor(DOOR_5, world.getInstanceId());
-				break;
-		}
-	}
-	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			spawnNPC((DNPWorld) world);
-			world.addAllowed(player.getObjectId());
-		}
-		teleportPlayer(player, ENTER, world.getInstanceId());
-	}
-	
-	private void makeCast(L2Npc npc, List<L2Npc> targets)
-	{
-		npc.setTarget(targets.get(getRandom(targets.size())));
-		if (SKILLS.containsKey(npc.getId()))
-		{
-			npc.doCast(SKILLS.get(npc.getId()));
-		}
 	}
 	
 	@Override
@@ -368,6 +304,17 @@ public final class DisciplesNecropolisPast extends AbstractInstance
 	}
 	
 	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			spawnNPC((DNPWorld) world);
+			world.addAllowed(player.getObjectId());
+		}
+		teleportPlayer(player, ENTER, world.getInstanceId());
+	}
+	
+	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return npc.getId() + ".htm";
@@ -464,5 +411,58 @@ public final class DisciplesNecropolisPast extends AbstractInstance
 			}
 		}
 		return htmltext;
+	}
+	
+	protected void spawnNPC(DNPWorld world)
+	{
+		for (Map.Entry<Integer, Location> entry : LILITH_SPAWN.entrySet())
+		{
+			final L2Npc npc = addSpawn(entry.getKey(), entry.getValue(), false, 0, false, world.getInstanceId());
+			world.lilithGroup.add(npc);
+		}
+		for (Map.Entry<Integer, Location> entry : ANAKIM_SPAWN.entrySet())
+		{
+			final L2Npc enpc = addSpawn(entry.getKey(), entry.getValue(), false, 0, false, world.getInstanceId());
+			world.anakimGroup.add(enpc);
+		}
+	}
+	
+	private synchronized void checkDoors(L2Npc npc, DNPWorld world)
+	{
+		world.countKill++;
+		switch (world.countKill)
+		{
+			case 4:
+				openDoor(DOOR_1, world.getInstanceId());
+				break;
+			case 10:
+				openDoor(DOOR_2, world.getInstanceId());
+				break;
+			case 18:
+				openDoor(DOOR_3, world.getInstanceId());
+				break;
+			case 28:
+				openDoor(DOOR_4, world.getInstanceId());
+				break;
+			case 40:
+				openDoor(DOOR_5, world.getInstanceId());
+				break;
+		}
+	}
+	
+	private void makeCast(L2Npc npc, List<L2Npc> targets)
+	{
+		npc.setTarget(targets.get(getRandom(targets.size())));
+		if (SKILLS.containsKey(npc.getId()))
+		{
+			npc.doCast(SKILLS.get(npc.getId()));
+		}
+	}
+	
+	protected class DNPWorld extends InstanceWorld
+	{
+		protected final List<L2Npc> anakimGroup = new ArrayList<>();
+		protected final List<L2Npc> lilithGroup = new ArrayList<>();
+		protected int countKill = 0;
 	}
 }

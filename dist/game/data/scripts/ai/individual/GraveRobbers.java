@@ -41,15 +41,15 @@ public final class GraveRobbers extends AbstractNpcAI
 		addSpawnId(GRAVE_ROBBER_SUMMONER, GRAVE_ROBBER_MEGICIAN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new GraveRobbers();
+	}
+	
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
 		spawnMinions(npc, "Privates" + getRandom(1, 2));
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new GraveRobbers();
 	}
 }

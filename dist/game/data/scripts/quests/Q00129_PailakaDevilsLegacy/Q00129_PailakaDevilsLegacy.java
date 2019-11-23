@@ -134,6 +134,46 @@ public final class Q00129_PailakaDevilsLegacy extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		final QuestState qs = getQuestState(player, false);
+		
+		if ((qs != null) && qs.isStarted())
+		{
+			switch (npc.getId())
+			{
+				case KAMS:
+				{
+					if (hasQuestItems(player, SWORD))
+					{
+						giveItems(player, SCROLL_1, 1);
+						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+					}
+					break;
+				}
+				case ALKASO:
+				{
+					if (hasQuestItems(player, ENH_SWORD1))
+					{
+						giveItems(player, SCROLL_2, 1);
+						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+					}
+					break;
+				}
+				case LEMATAN:
+				{
+					if (qs.isCond(3))
+					{
+						qs.setCond(4, true);
+					}
+					break;
+				}
+			}
+		}
+		return super.onKill(npc, player, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = getNoQuestMsg(player);
@@ -268,45 +308,5 @@ public final class Q00129_PailakaDevilsLegacy extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		final QuestState qs = getQuestState(player, false);
-		
-		if ((qs != null) && qs.isStarted())
-		{
-			switch (npc.getId())
-			{
-				case KAMS:
-				{
-					if (hasQuestItems(player, SWORD))
-					{
-						giveItems(player, SCROLL_1, 1);
-						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-					}
-					break;
-				}
-				case ALKASO:
-				{
-					if (hasQuestItems(player, ENH_SWORD1))
-					{
-						giveItems(player, SCROLL_2, 1);
-						playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
-					}
-					break;
-				}
-				case LEMATAN:
-				{
-					if (qs.isCond(3))
-					{
-						qs.setCond(4, true);
-					}
-					break;
-				}
-			}
-		}
-		return super.onKill(npc, player, isSummon);
 	}
 }

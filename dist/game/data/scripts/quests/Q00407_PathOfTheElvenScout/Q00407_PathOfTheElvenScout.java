@@ -197,20 +197,6 @@ public final class Q00407_PathOfTheElvenScout extends Quest
 		return super.onKill(npc, killer, isSummon);
 	}
 	
-	private void giveLetterAndCheckState(int letterId, QuestState qs)
-	{
-		giveItems(qs.getPlayer(), letterId, 1);
-		
-		if (getQuestItemsCount(qs.getPlayer(), PRIASS_1ND_TORN_LETTER, PRIASS_2ND_TORN_LETTER, PRIASS_3ND_TORN_LETTER, PRIASS_4ND_TORN_LETTER) >= 4)
-		{
-			qs.setCond(3, true);
-		}
-		else
-		{
-			playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_ITEMGET);
-		}
-	}
-	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -339,5 +325,19 @@ public final class Q00407_PathOfTheElvenScout extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private void giveLetterAndCheckState(int letterId, QuestState qs)
+	{
+		giveItems(qs.getPlayer(), letterId, 1);
+		
+		if (getQuestItemsCount(qs.getPlayer(), PRIASS_1ND_TORN_LETTER, PRIASS_2ND_TORN_LETTER, PRIASS_3ND_TORN_LETTER, PRIASS_4ND_TORN_LETTER) >= 4)
+		{
+			qs.setCond(3, true);
+		}
+		else
+		{
+			playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_ITEMGET);
+		}
 	}
 }

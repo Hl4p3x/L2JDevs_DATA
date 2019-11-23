@@ -60,6 +60,16 @@ public final class ImprovedBabyPets extends AbstractNpcAI
 		addSummonSpawnId(IMPROVED_BABY_PETS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ImprovedBabyPets();
+	}
+	
+	private static boolean hasAbnormal(L2PcInstance player, AbnormalType type)
+	{
+		return player.getEffectList().getBuffInfoByAbnormalType(type) != null;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -210,15 +220,5 @@ public final class ImprovedBabyPets extends AbstractNpcAI
 				}
 			}
 		}
-	}
-	
-	private static boolean hasAbnormal(L2PcInstance player, AbnormalType type)
-	{
-		return player.getEffectList().getBuffInfoByAbnormalType(type) != null;
-	}
-	
-	public static void main(String[] args)
-	{
-		new ImprovedBabyPets();
 	}
 }

@@ -50,6 +50,11 @@ public class BlackJudge extends AbstractNpcAI
 		addFirstTalkId(BLACK_JUDGE);
 	}
 	
+	public static void main(String[] args)
+	{
+		new BlackJudge();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -88,10 +93,5 @@ public class BlackJudge extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new BlackJudge();
 	}
 }

@@ -44,74 +44,43 @@ import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
 
 public abstract class AirShipController extends Quest
 {
-	protected final class DecayTask implements Runnable
-	{
-		@Override
-		public void run()
-		{
-			if (_dockedShip != null)
-			{
-				_dockedShip.deleteMe();
-			}
-		}
-	}
-	
-	protected final class DepartTask implements Runnable
-	{
-		@Override
-		public void run()
-		{
-			if ((_dockedShip != null) && _dockedShip.isInDock() && !_dockedShip.isMoving())
-			{
-				if (_departPath != null)
-				{
-					_dockedShip.executePath(_departPath);
-				}
-				else
-				{
-					_dockedShip.deleteMe();
-				}
-			}
-		}
-	}
-	
 	public static final Logger _log = Logger.getLogger(AirShipController.class.getName());
+	
+	private static final int DEPART_INTERVAL = 300000; // 5 min
+	
+	private static final int LICENSE = 13559;
+	private static final int STARSTONE = 13277;
+	private static final int SUMMON_COST = 5;
+	private static final SystemMessage SM_NEED_MORE = SystemMessage.getSystemMessage(SystemMessageId.THE_AIRSHIP_NEED_MORE_S1).addItemName(STARSTONE);
+	
 	protected int _dockZone = 0;
+	
 	protected int _shipSpawnX = 0;
 	protected int _shipSpawnY = 0;
-	
 	protected int _shipSpawnZ = 0;
 	
 	protected int _shipHeading = 0;
 	protected Location _oustLoc = null;
+	
 	protected int _locationId = 0;
 	
 	protected VehiclePathPoint[] _arrivalPath = null;
+	
 	protected VehiclePathPoint[] _departPath = null;
 	
 	protected VehiclePathPoint[][] _teleportsTable = null;
-	
 	protected int[] _fuelTable = null;
-	
 	protected int _movieId = 0;
 	
 	protected boolean _isBusy = false;
+	
 	protected L2ControllableAirShipInstance _dockedShip = null;
+	
 	private final Runnable _decayTask = new DecayTask();
-	
 	private final Runnable _departTask = new DepartTask();
-	
 	private Future<?> _departSchedule = null;
 	
 	private NpcSay _arrivalMessage = null;
-	private static final int DEPART_INTERVAL = 300000; // 5 min
-	private static final int LICENSE = 13559;
-	
-	private static final int STARSTONE = 13277;
-	private static final int SUMMON_COST = 5;
-	
-	private static final SystemMessage SM_NEED_MORE = SystemMessage.getSystemMessage(SystemMessageId.THE_AIRSHIP_NEED_MORE_S1).addItemName(STARSTONE);
-	
 	public AirShipController(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -418,6 +387,37 @@ public abstract class AirShipController extends Quest
 				else
 				{
 					AirShipManager.getInstance().registerAirShipTeleportList(_dockZone, _locationId, _teleportsTable, _fuelTable);
+				}
+			}
+		}
+	}
+	
+	protected final class DecayTask implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			if (_dockedShip != null)
+			{
+				_dockedShip.deleteMe();
+			}
+		}
+	}
+	
+	protected final class DepartTask implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			if ((_dockedShip != null) && _dockedShip.isInDock() && !_dockedShip.isMoving())
+			{
+				if (_departPath != null)
+				{
+					_dockedShip.executePath(_departPath);
+				}
+				else
+				{
+					_dockedShip.deleteMe();
 				}
 			}
 		}

@@ -41,15 +41,9 @@ import quests.Q10296_SevenSignsOneWhoSeeksThePowerOfTheSeal.Q10296_SevenSignsOne
  */
 public final class MonasteryOfSilence1 extends AbstractInstance
 {
-	protected static final class MoSWorld extends InstanceWorld
-	{
-		protected L2Npc elcadia = null;
-		protected int deadTombGuardianCount = 0;
-		protected int deadSolinaGuardianCount = 0;
-	}
-	
 	// NPCs
 	private static final int ELCADIA_INSTANCE = 32787;
+	
 	private static final int ERIS_EVIL_THOUGHTS = 32792;
 	private static final int RELIC_GUARDIAN = 32803;
 	private static final int RELIC_WATCHER1 = 32804;
@@ -145,13 +139,13 @@ public final class MonasteryOfSilence1 extends AbstractInstance
 		NpcStringId.REMEMBER_THE_CONTENT_OF_THE_BOOKS_THAT_YOU_FOUND_YOU_CANT_TAKE_THEM_OUT_WITH_YOU,
 		NpcStringId.IT_SEEMS_THAT_YOU_CANNOT_REMEMBER_TO_THE_ROOM_OF_THE_WATCHER_WHO_FOUND_THE_BOOK
 	};
-	
 	private static final NpcStringId[] ELCADIA_DIALOGS_Q010295 =
 	{
 		NpcStringId.THE_GUARDIAN_OF_THE_SEAL_DOESNT_SEEM_TO_GET_INJURED_AT_ALL_UNTIL_THE_BARRIER_IS_DESTROYED,
 		NpcStringId.THE_DEVICE_LOCATED_IN_THE_ROOM_IN_FRONT_OF_THE_GUARDIAN_OF_THE_SEAL_IS_DEFINITELY_THE_BARRIER_THAT_CONTROLS_THE_GUARDIANS_POWER,
 		NpcStringId.TO_REMOVE_THE_BARRIER_YOU_MUST_FIND_THE_RELICS_THAT_FIT_THE_BARRIER_AND_ACTIVATE_THE_DEVICE
 	};
+	
 	// Misc
 	private static final int TEMPLATE_ID = 151;
 	// Doors
@@ -175,7 +169,6 @@ public final class MonasteryOfSilence1 extends AbstractInstance
 		21100013,
 		21100011
 	};
-	
 	private static final int[] FAKE_TOMB_DOORS =
 	{
 		21100101,
@@ -192,17 +185,6 @@ public final class MonasteryOfSilence1 extends AbstractInstance
 		addSpawnId(ERIS_EVIL_THOUGHTS, TOMB_OF_THE_SAINTESS);
 		addStartNpc(ODD_GLOBE, TELEPORT_CONTROL_DEVICE1, TELEPORT_CONTROL_DEVICE2, TELEPORT_CONTROL_DEVICE3, TELEPORT_CONTROL_DEVICE4, ERIS_EVIL_THOUGHTS);
 		addTalkId(ODD_GLOBE, ERIS_EVIL_THOUGHTS, RELIC_GUARDIAN, RELIC_WATCHER1, RELIC_WATCHER2, RELIC_WATCHER3, RELIC_WATCHER4, TELEPORT_CONTROL_DEVICE1, TELEPORT_CONTROL_DEVICE2, TELEPORT_CONTROL_DEVICE3, TELEPORT_CONTROL_DEVICE4, ERIS_EVIL_THOUGHTS);
-	}
-	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-		}
-		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
-		spawnElcadia(player, (MoSWorld) world);
 	}
 	
 	@Override
@@ -462,6 +444,17 @@ public final class MonasteryOfSilence1 extends AbstractInstance
 	}
 	
 	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+		}
+		teleportPlayer(player, START_LOC, world.getInstanceId(), false);
+		spawnElcadia(player, (MoSWorld) world);
+	}
+	
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
 		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
@@ -560,5 +553,12 @@ public final class MonasteryOfSilence1 extends AbstractInstance
 		world.elcadia = addSpawn(ELCADIA_INSTANCE, player.getX(), player.getY(), player.getZ(), 0, false, 0, false, world.getInstanceId());
 		startQuestTimer("FOLLOW", 5000, world.elcadia, player);
 		startQuestTimer("DIALOG", 10000, world.elcadia, player);
+	}
+	
+	protected static final class MoSWorld extends InstanceWorld
+	{
+		protected L2Npc elcadia = null;
+		protected int deadTombGuardianCount = 0;
+		protected int deadSolinaGuardianCount = 0;
 	}
 }

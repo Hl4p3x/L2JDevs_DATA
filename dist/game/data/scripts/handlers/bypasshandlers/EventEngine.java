@@ -34,6 +34,12 @@ public class EventEngine implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!target.isNpc())
@@ -59,11 +65,5 @@ public class EventEngine implements IBypassHandler
 			_log.log(Level.WARNING, "Exception in " + getClass().getSimpleName(), e);
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

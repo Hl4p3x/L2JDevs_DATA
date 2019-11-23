@@ -43,6 +43,12 @@ public class ChatsHandler implements ITelnetHandler
 	};
 	
 	@Override
+	public String[] getCommandList()
+	{
+		return _commands;
+	}
+	
+	@Override
 	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int _uptime)
 	{
 		if (command.startsWith("announce"))
@@ -104,11 +110,5 @@ public class ChatsHandler implements ITelnetHandler
 	private int getOnlineGMS()
 	{
 		return AdminData.getInstance().getAllGms(true).size();
-	}
-	
-	@Override
-	public String[] getCommandList()
-	{
-		return _commands;
 	}
 }

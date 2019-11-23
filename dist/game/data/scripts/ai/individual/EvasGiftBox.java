@@ -46,6 +46,11 @@ public final class EvasGiftBox extends AbstractNpcAI
 		addSpawnId(BOX);
 	}
 	
+	public static void main(String[] args)
+	{
+		new EvasGiftBox();
+	}
+	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -70,10 +75,5 @@ public final class EvasGiftBox extends AbstractNpcAI
 		npc.setIsNoRndWalk(true);
 		((L2Attackable) npc).setOnKillDelay(0);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new EvasGiftBox();
 	}
 }

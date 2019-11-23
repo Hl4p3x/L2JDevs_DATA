@@ -148,6 +148,16 @@ public class BoatGiranTalking implements Runnable
 		ARRIVAL_GIRAN1 = new CreatureSay(0, Say2.BOAT, 801, SystemMessageId.FERRY_FROM_TALKING_ARRIVE_AT_GIRAN_1_MINUTE);
 	}
 	
+	public static void main(String[] args)
+	{
+		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(2, 48950, 190613, -3610, 60800);
+		if (boat != null)
+		{
+			boat.registerEngine(new BoatGiranTalking(boat));
+			boat.runEngine(180000);
+		}
+	}
+	
 	@Override
 	public void run()
 	{
@@ -265,16 +275,6 @@ public class BoatGiranTalking implements Runnable
 		catch (Exception e)
 		{
 			_log.log(Level.WARNING, e.getMessage());
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(2, 48950, 190613, -3610, 60800);
-		if (boat != null)
-		{
-			boat.registerEngine(new BoatGiranTalking(boat));
-			boat.runEngine(180000);
 		}
 	}
 }

@@ -59,6 +59,11 @@ public final class DragonVortex extends AbstractNpcAI
 		addTalkId(DRAGON_VORTEX);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DragonVortex();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -149,10 +154,5 @@ public final class DragonVortex extends AbstractNpcAI
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new DragonVortex();
 	}
 }

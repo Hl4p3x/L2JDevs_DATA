@@ -41,6 +41,12 @@ public class SiegeStatus implements IUserCommandHandler
 	private static final String OUTSIDE_SIEGE_ZONE = "No Castle Siege Area";
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (id != COMMAND_IDS[0])
@@ -91,12 +97,6 @@ public class SiegeStatus implements IUserCommandHandler
 		activeChar.sendPacket(SystemMessageId.ONLY_NOBLESSE_LEADER_CAN_VIEW_SIEGE_STATUS_WINDOW);
 		
 		return false;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 	
 }

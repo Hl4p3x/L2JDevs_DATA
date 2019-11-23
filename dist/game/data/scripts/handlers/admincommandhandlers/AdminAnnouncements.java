@@ -48,6 +48,12 @@ public class AdminAnnouncements implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		final StringTokenizer st = new StringTokenizer(command);
@@ -503,11 +509,5 @@ public class AdminAnnouncements implements IAdminCommandHandler
 			}
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

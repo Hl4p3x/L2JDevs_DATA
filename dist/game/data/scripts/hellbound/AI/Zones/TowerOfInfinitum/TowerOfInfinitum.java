@@ -88,6 +88,8 @@ public final class TowerOfInfinitum extends AbstractNpcAI
 		});
 	}
 	
+	private static final Location ENTER_LOCATION = new Location(-22204, 277056, -15023);
+	
 	public TowerOfInfinitum()
 	{
 		super(TowerOfInfinitum.class.getSimpleName(), "hellbound/AI/Zones");
@@ -100,8 +102,6 @@ public final class TowerOfInfinitum extends AbstractNpcAI
 			addTalkId(i);
 		}
 	}
-	
-	private static final Location ENTER_LOCATION = new Location(-22204, 277056, -15023);
 	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)

@@ -69,10 +69,6 @@ public class SeedOfAnnihilation extends AbstractNpcAI
 	};
 	//@formatter:on
 	
-	// 0: Bistakon, 1: Reptilikon, 2: Cokrakon
-	private final SeedRegion[] _regionsData = new SeedRegion[3];
-	private Long _seedsNextStatusChange;
-	
 	static
 	{
 		TELEPORT_ZONES.put(60002, new Location(-213175, 182648, -10992));
@@ -80,6 +76,10 @@ public class SeedOfAnnihilation extends AbstractNpcAI
 		TELEPORT_ZONES.put(60004, new Location(-180211, 182984, -15152));
 		TELEPORT_ZONES.put(60005, new Location(-179275, 186802, -10720));
 	}
+	// 0: Bistakon, 1: Reptilikon, 2: Cokrakon
+	private final SeedRegion[] _regionsData = new SeedRegion[3];
+	
+	private Long _seedsNextStatusChange;
 	
 	public SeedOfAnnihilation()
 	{
@@ -251,55 +251,6 @@ public class SeedOfAnnihilation extends AbstractNpcAI
 		}
 	}
 	
-	private Long getNextSeedsStatusChangeTime()
-	{
-		Calendar reenter = Calendar.getInstance();
-		reenter.set(Calendar.SECOND, 0);
-		reenter.set(Calendar.MINUTE, 0);
-		reenter.set(Calendar.HOUR_OF_DAY, 13);
-		reenter.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		if (reenter.getTimeInMillis() <= System.currentTimeMillis())
-		{
-			reenter.add(Calendar.DAY_OF_MONTH, 7);
-		}
-		return reenter.getTimeInMillis();
-	}
-	
-	private void startEffectZonesControl()
-	{
-		for (int i = 0; i < _regionsData.length; i++)
-		{
-			for (int j = 0; j < _regionsData[i].af_spawns.length; j++)
-			{
-				_regionsData[i].af_npcs[j] = addSpawn(ANNIHILATION_FURNACE, _regionsData[i].af_spawns[j][0], _regionsData[i].af_spawns[j][1], _regionsData[i].af_spawns[j][2], _regionsData[i].af_spawns[j][3], false, 0);
-				_regionsData[i].af_npcs[j].setDisplayEffect(_regionsData[i].activeBuff);
-			}
-			ZoneManager.getInstance().getZoneById(_regionsData[i].buff_zone, L2EffectZone.class).addSkill(ZONE_BUFFS[_regionsData[i].activeBuff], 1);
-		}
-		startQuestTimer("ChangeSeedsStatus", _seedsNextStatusChange - System.currentTimeMillis(), null, null);
-	}
-	
-	private void spawnGroupOfMinion(L2MonsterInstance npc, int[] mobIds)
-	{
-		for (int mobId : mobIds)
-		{
-			addMinion(npc, mobId);
-		}
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		for (SeedRegion element : _regionsData)
-		{
-			if (Util.contains(element.elite_mob_ids, npc.getId()))
-			{
-				spawnGroupOfMinion((L2MonsterInstance) npc, element.minion_lists[getRandom(element.minion_lists.length)]);
-			}
-		}
-		return super.onSpawn(npc);
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -350,6 +301,55 @@ public class SeedOfAnnihilation extends AbstractNpcAI
 			character.teleToLocation(teleLoc, false);
 		}
 		return super.onEnterZone(character, zone);
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		for (SeedRegion element : _regionsData)
+		{
+			if (Util.contains(element.elite_mob_ids, npc.getId()))
+			{
+				spawnGroupOfMinion((L2MonsterInstance) npc, element.minion_lists[getRandom(element.minion_lists.length)]);
+			}
+		}
+		return super.onSpawn(npc);
+	}
+	
+	private Long getNextSeedsStatusChangeTime()
+	{
+		Calendar reenter = Calendar.getInstance();
+		reenter.set(Calendar.SECOND, 0);
+		reenter.set(Calendar.MINUTE, 0);
+		reenter.set(Calendar.HOUR_OF_DAY, 13);
+		reenter.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		if (reenter.getTimeInMillis() <= System.currentTimeMillis())
+		{
+			reenter.add(Calendar.DAY_OF_MONTH, 7);
+		}
+		return reenter.getTimeInMillis();
+	}
+	
+	private void spawnGroupOfMinion(L2MonsterInstance npc, int[] mobIds)
+	{
+		for (int mobId : mobIds)
+		{
+			addMinion(npc, mobId);
+		}
+	}
+	
+	private void startEffectZonesControl()
+	{
+		for (int i = 0; i < _regionsData.length; i++)
+		{
+			for (int j = 0; j < _regionsData[i].af_spawns.length; j++)
+			{
+				_regionsData[i].af_npcs[j] = addSpawn(ANNIHILATION_FURNACE, _regionsData[i].af_spawns[j][0], _regionsData[i].af_spawns[j][1], _regionsData[i].af_spawns[j][2], _regionsData[i].af_spawns[j][3], false, 0);
+				_regionsData[i].af_npcs[j].setDisplayEffect(_regionsData[i].activeBuff);
+			}
+			ZoneManager.getInstance().getZoneById(_regionsData[i].buff_zone, L2EffectZone.class).addSkill(ZONE_BUFFS[_regionsData[i].activeBuff], 1);
+		}
+		startQuestTimer("ChangeSeedsStatus", _seedsNextStatusChange - System.currentTimeMillis(), null, null);
 	}
 	
 	private static class SeedRegion

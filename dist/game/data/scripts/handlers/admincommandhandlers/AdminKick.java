@@ -33,6 +33,12 @@ public class AdminKick implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_kick"))
@@ -64,11 +70,5 @@ public class AdminKick implements IAdminCommandHandler
 			activeChar.sendMessage("Kicked " + counter + " players");
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

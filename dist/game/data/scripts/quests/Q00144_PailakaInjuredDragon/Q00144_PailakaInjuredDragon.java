@@ -315,6 +315,47 @@ public class Q00144_PailakaInjuredDragon extends Quest
 		}
 	}
 	
+	protected static final void teleportPlayer(L2PcInstance player, int[] coords, int instanceId)
+	{
+		player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		player.setInstanceId(instanceId);
+		player.teleToLocation(coords[0], coords[1], coords[2], true);
+	}
+	
+	private static final void dropHerb(L2Npc mob, L2PcInstance player, int[][] drop)
+	{
+		final int chance = Rnd.get(100);
+		for (int[] element : drop)
+		{
+			if (chance < element[2])
+			{
+				((L2MonsterInstance) mob).dropItem(player, element[0], element[1]);
+				return;
+			}
+		}
+	}
+	
+	private static final void dropItem(L2Npc mob, L2PcInstance player)
+	{
+		Collections.shuffle(DROPLIST);
+		for (PailakaDrop pd : DROPLIST)
+		{
+			if (Rnd.get(100) < pd.getChance())
+			{
+				((L2MonsterInstance) mob).dropItem(player, pd.getItemID(), Rnd.get(1, 6));
+				return;
+			}
+		}
+	}
+	
+	private static void giveBuff(L2Npc npc, L2PcInstance player, int skillId, int level)
+	{
+		npc.setTarget(player);
+		npc.doCast(SkillData.getInstance().getSkill(skillId, level));
+		buff_counter--;
+		return;
+	}
+	
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -474,73 +515,36 @@ public class Q00144_PailakaInjuredDragon extends Quest
 	}
 	
 	@Override
-	public final String onTalk(L2Npc npc, L2PcInstance player)
+	public String onEnterZone(L2Character character, L2ZoneType zone)
 	{
-		String htmltext = getNoQuestMsg(player);
-		final QuestState qs = getQuestState(player, true);
-		if (qs == null)
+		if ((character instanceof L2PcInstance) && !character.isDead() && !character.isTeleporting() && ((L2PcInstance) character).isOnline())
 		{
-			return htmltext;
+			InstanceWorld world = InstanceManager.getInstance().getWorld(character.getInstanceId());
+			if ((world != null) && (world.getTemplateId() == INSTANCE_ID))
+			{
+				final int[] zoneTeleport = NOEXIT_ZONES.get(zone.getId());
+				if (zoneTeleport != null)
+				{
+					final Collection<L2Character> knowns = character.getKnownList().getKnownCharactersInRadius(700);
+					for (L2Character npcs : knowns)
+					{
+						if (!(npcs instanceof L2Npc))
+						{
+							continue;
+						}
+						
+						if (npcs.isDead())
+						{
+							continue;
+						}
+						
+						teleportPlayer(character.getActingPlayer(), zoneTeleport, world.getInstanceId());
+						break;
+					}
+				}
+			}
 		}
-		
-		final int cond = qs.getCond();
-		switch (npc.getId())
-		{
-			case KETRA_ORC_SHAMAN:
-				switch (qs.getState())
-				{
-					case State.CREATED:
-						if (player.getLevel() < MIN_LEVEL)
-						{
-							return "32499-no.html";
-						}
-						if (player.getLevel() > MAX_LEVEL)
-						{
-							return "32499-over.html";
-						}
-						return "32499-00.htm";
-					case State.STARTED:
-						if (player.getLevel() < MIN_LEVEL)
-						{
-							return "32499-no.html";
-						}
-						if (player.getLevel() > MAX_LEVEL)
-						{
-							return "32499-over.html";
-						}
-						if (cond == 1)
-						{
-							return "32499-06.html";
-						}
-						else if (cond >= 2)
-						{
-							return "32499-09.html";
-						}
-					case State.COMPLETED:
-						return "32499-completed.html";
-					default:
-						return "32499-no.html";
-				}
-			case KETRA_ORC_SUPPORTER:
-				if (cond > 2)
-				{
-					return "32502-04.html";
-				}
-				return "32502-00.html";
-			case KETRA_ORC_INTELIGENCE_OFFICER:
-				return "32509-00.html";
-			case KETRA_ORC_SUPPORTER2:
-				if (qs.getState() == State.COMPLETED)
-				{
-					return "32512-03.html";
-				}
-				else if (cond == 4)
-				{
-					return "32512-01.html";
-				}
-		}
-		
-		return getNoQuestMsg(player);
+		return super.onEnterZone(character, zone);
 	}
 	
 	@Override
@@ -676,45 +680,73 @@ public class Q00144_PailakaInjuredDragon extends Quest
 	}
 	
 	@Override
-	public String onEnterZone(L2Character character, L2ZoneType zone)
+	public final String onTalk(L2Npc npc, L2PcInstance player)
 	{
-		if ((character instanceof L2PcInstance) && !character.isDead() && !character.isTeleporting() && ((L2PcInstance) character).isOnline())
+		String htmltext = getNoQuestMsg(player);
+		final QuestState qs = getQuestState(player, true);
+		if (qs == null)
 		{
-			InstanceWorld world = InstanceManager.getInstance().getWorld(character.getInstanceId());
-			if ((world != null) && (world.getTemplateId() == INSTANCE_ID))
-			{
-				final int[] zoneTeleport = NOEXIT_ZONES.get(zone.getId());
-				if (zoneTeleport != null)
-				{
-					final Collection<L2Character> knowns = character.getKnownList().getKnownCharactersInRadius(700);
-					for (L2Character npcs : knowns)
-					{
-						if (!(npcs instanceof L2Npc))
-						{
-							continue;
-						}
-						
-						if (npcs.isDead())
-						{
-							continue;
-						}
-						
-						teleportPlayer(character.getActingPlayer(), zoneTeleport, world.getInstanceId());
-						break;
-					}
-				}
-			}
+			return htmltext;
 		}
-		return super.onEnterZone(character, zone);
-	}
-	
-	private final void spawnMageBehind(L2Npc npc, L2PcInstance player, int mageId)
-	{
-		final double rads = Math.toRadians(Util.convertHeadingToDegree(npc.getSpawn().getHeading()) + 180);
-		final int mageX = (int) (npc.getX() + (150 * Math.cos(rads)));
-		final int mageY = (int) (npc.getY() + (150 * Math.sin(rads)));
-		final L2Npc mageBack = addSpawn(mageId, mageX, mageY, npc.getZ(), npc.getSpawn().getHeading(), false, 0, true, npc.getInstanceId());
-		mageBack.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, player, 1000);
+		
+		final int cond = qs.getCond();
+		switch (npc.getId())
+		{
+			case KETRA_ORC_SHAMAN:
+				switch (qs.getState())
+				{
+					case State.CREATED:
+						if (player.getLevel() < MIN_LEVEL)
+						{
+							return "32499-no.html";
+						}
+						if (player.getLevel() > MAX_LEVEL)
+						{
+							return "32499-over.html";
+						}
+						return "32499-00.htm";
+					case State.STARTED:
+						if (player.getLevel() < MIN_LEVEL)
+						{
+							return "32499-no.html";
+						}
+						if (player.getLevel() > MAX_LEVEL)
+						{
+							return "32499-over.html";
+						}
+						if (cond == 1)
+						{
+							return "32499-06.html";
+						}
+						else if (cond >= 2)
+						{
+							return "32499-09.html";
+						}
+					case State.COMPLETED:
+						return "32499-completed.html";
+					default:
+						return "32499-no.html";
+				}
+			case KETRA_ORC_SUPPORTER:
+				if (cond > 2)
+				{
+					return "32502-04.html";
+				}
+				return "32502-00.html";
+			case KETRA_ORC_INTELIGENCE_OFFICER:
+				return "32509-00.html";
+			case KETRA_ORC_SUPPORTER2:
+				if (qs.getState() == State.COMPLETED)
+				{
+					return "32512-03.html";
+				}
+				else if (cond == 4)
+				{
+					return "32512-01.html";
+				}
+		}
+		
+		return getNoQuestMsg(player);
 	}
 	
 	private final void checkIfLastInWall(L2Npc npc)
@@ -848,6 +880,59 @@ public class Q00144_PailakaInjuredDragon extends Quest
 		}
 	}
 	
+	private final void checkMaxSummonLevel(L2PcInstance player)
+	{
+		final L2Summon pet = player.getSummon();
+		if (pet instanceof L2PetInstance)
+		{
+			if (pet.getLevel() > MAX_SUMMON_LEVEL)
+			{
+				pet.unSummon(player);
+			}
+		}
+	}
+	
+	private final synchronized void enterInstance(L2PcInstance player)
+	{
+		InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
+		if (world != null)
+		{
+			if (world.getTemplateId() != INSTANCE_ID)
+			{
+				player.sendPacket(SystemMessageId.YOU_HAVE_ENTERED_ANOTHER_INSTANT_ZONE_THEREFORE_YOU_CANNOT_ENTER_CORRESPONDING_DUNGEON);
+				return;
+			}
+			Instance inst = InstanceManager.getInstance().getInstance(world.getInstanceId());
+			if (inst != null)
+			{
+				checkMaxSummonLevel(player);
+				
+				teleportPlayer(player, TELEPORT, world.getInstanceId());
+			}
+		}
+		else
+		{
+			final int instanceId = InstanceManager.getInstance().createDynamicInstance("PailakaInjuredDragon.xml");
+			
+			world = new InstanceWorld();
+			world.setInstanceId(instanceId);
+			world.setTemplateId(INSTANCE_ID);
+			InstanceManager.getInstance().addWorld(world);
+			checkMaxSummonLevel(player);
+			world.addAllowed(player.getObjectId());
+			teleportPlayer(player, TELEPORT, instanceId);
+		}
+	}
+	
+	private final void spawnMageBehind(L2Npc npc, L2PcInstance player, int mageId)
+	{
+		final double rads = Math.toRadians(Util.convertHeadingToDegree(npc.getSpawn().getHeading()) + 180);
+		final int mageX = (int) (npc.getX() + (150 * Math.cos(rads)));
+		final int mageY = (int) (npc.getY() + (150 * Math.sin(rads)));
+		final L2Npc mageBack = addSpawn(mageId, mageX, mageY, npc.getZ(), npc.getSpawn().getHeading(), false, 0, true, npc.getInstanceId());
+		mageBack.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, player, 1000);
+	}
+	
 	static final class Teleport implements Runnable
 	{
 		private final L2Character _char;
@@ -884,99 +969,14 @@ public class Q00144_PailakaInjuredDragon extends Quest
 			_chance = chance;
 		}
 		
-		public int getItemID()
-		{
-			return _itemId;
-		}
-		
 		public int getChance()
 		{
 			return _chance;
 		}
-	}
-	
-	private static final void dropHerb(L2Npc mob, L2PcInstance player, int[][] drop)
-	{
-		final int chance = Rnd.get(100);
-		for (int[] element : drop)
+		
+		public int getItemID()
 		{
-			if (chance < element[2])
-			{
-				((L2MonsterInstance) mob).dropItem(player, element[0], element[1]);
-				return;
-			}
-		}
-	}
-	
-	private static final void dropItem(L2Npc mob, L2PcInstance player)
-	{
-		Collections.shuffle(DROPLIST);
-		for (PailakaDrop pd : DROPLIST)
-		{
-			if (Rnd.get(100) < pd.getChance())
-			{
-				((L2MonsterInstance) mob).dropItem(player, pd.getItemID(), Rnd.get(1, 6));
-				return;
-			}
-		}
-	}
-	
-	private static void giveBuff(L2Npc npc, L2PcInstance player, int skillId, int level)
-	{
-		npc.setTarget(player);
-		npc.doCast(SkillData.getInstance().getSkill(skillId, level));
-		buff_counter--;
-		return;
-	}
-	
-	protected static final void teleportPlayer(L2PcInstance player, int[] coords, int instanceId)
-	{
-		player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		player.setInstanceId(instanceId);
-		player.teleToLocation(coords[0], coords[1], coords[2], true);
-	}
-	
-	private final synchronized void enterInstance(L2PcInstance player)
-	{
-		InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
-		if (world != null)
-		{
-			if (world.getTemplateId() != INSTANCE_ID)
-			{
-				player.sendPacket(SystemMessageId.YOU_HAVE_ENTERED_ANOTHER_INSTANT_ZONE_THEREFORE_YOU_CANNOT_ENTER_CORRESPONDING_DUNGEON);
-				return;
-			}
-			Instance inst = InstanceManager.getInstance().getInstance(world.getInstanceId());
-			if (inst != null)
-			{
-				checkMaxSummonLevel(player);
-				
-				teleportPlayer(player, TELEPORT, world.getInstanceId());
-			}
-		}
-		else
-		{
-			final int instanceId = InstanceManager.getInstance().createDynamicInstance("PailakaInjuredDragon.xml");
-			
-			world = new InstanceWorld();
-			world.setInstanceId(instanceId);
-			world.setTemplateId(INSTANCE_ID);
-			InstanceManager.getInstance().addWorld(world);
-			checkMaxSummonLevel(player);
-			world.addAllowed(player.getObjectId());
-			teleportPlayer(player, TELEPORT, instanceId);
-		}
-	}
-	
-	private final void checkMaxSummonLevel(L2PcInstance player)
-	{
-		final L2Summon pet = player.getSummon();
-		if (pet instanceof L2PetInstance)
-		{
-			if (pet.getLevel() > MAX_SUMMON_LEVEL)
-			{
-				pet.unSummon(player);
-			}
+			return _itemId;
 		}
 	}
 }

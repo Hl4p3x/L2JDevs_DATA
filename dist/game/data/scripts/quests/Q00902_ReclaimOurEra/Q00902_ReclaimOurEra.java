@@ -71,16 +71,6 @@ public final class Q00902_ReclaimOurEra extends Quest
 		registerQuestItems(SHATTERED_BONES, CANNIBALISTIC_STAKATO_LDR_CLAW, ANAIS_SCROLL);
 	}
 	
-	private void giveItem(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState st = getQuestState(player, false);
-		if ((st != null) && (st.isStarted()) && (!st.isCond(5)) && Util.checkIfInRange(1500, npc, player, false))
-		{
-			st.giveItems(MONSTER_DROPS.get(npc.getId()), 1);
-			st.setCond(5, true);
-		}
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -237,5 +227,15 @@ public final class Q00902_ReclaimOurEra extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private void giveItem(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState st = getQuestState(player, false);
+		if ((st != null) && (st.isStarted()) && (!st.isCond(5)) && Util.checkIfInRange(1500, npc, player, false))
+		{
+			st.giveItems(MONSTER_DROPS.get(npc.getId()), 1);
+			st.setCond(5, true);
+		}
 	}
 }

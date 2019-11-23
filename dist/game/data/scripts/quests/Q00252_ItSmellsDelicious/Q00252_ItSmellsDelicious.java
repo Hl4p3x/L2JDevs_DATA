@@ -59,6 +59,22 @@ public class Q00252_ItSmellsDelicious extends Quest
 		registerQuestItems(DIARY, COOKBOOK_PAGE);
 	}
 	
+	private static boolean hasMaxCookbookPages(QuestState qs)
+	{
+		return (getQuestItemsCount(qs.getPlayer(), COOKBOOK_PAGE) >= COOKBOOK_PAGE_MAX_COUNT);
+	}
+	
+	private static boolean hasMaxDiaries(QuestState qs)
+	{
+		return (getQuestItemsCount(qs.getPlayer(), DIARY) >= DIARY_MAX_COUNT);
+	}
+	
+	@Override
+	public boolean checkPartyMember(QuestState qs, L2Npc npc)
+	{
+		return !hasMaxDiaries(qs);
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -130,12 +146,6 @@ public class Q00252_ItSmellsDelicious extends Quest
 	}
 	
 	@Override
-	public boolean checkPartyMember(QuestState qs, L2Npc npc)
-	{
-		return !hasMaxDiaries(qs);
-	}
-	
-	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -165,15 +175,5 @@ public class Q00252_ItSmellsDelicious extends Quest
 			htmltext = "30200-03.html";
 		}
 		return htmltext;
-	}
-	
-	private static boolean hasMaxDiaries(QuestState qs)
-	{
-		return (getQuestItemsCount(qs.getPlayer(), DIARY) >= DIARY_MAX_COUNT);
-	}
-	
-	private static boolean hasMaxCookbookPages(QuestState qs)
-	{
-		return (getQuestItemsCount(qs.getPlayer(), COOKBOOK_PAGE) >= COOKBOOK_PAGE_MAX_COUNT);
 	}
 }

@@ -95,6 +95,11 @@ public final class TeleportToUndergroundColiseum extends AbstractNpcAI
 		addTalkId(COLISEUM_HELPER, PADDIES);
 	}
 	
+	public static void main(String[] args)
+	{
+		new TeleportToUndergroundColiseum();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -115,6 +120,12 @@ public final class TeleportToUndergroundColiseum extends AbstractNpcAI
 	}
 	
 	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		return "32491.htm";
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		if (Util.contains(MANAGERS, npc.getId()))
@@ -126,16 +137,5 @@ public final class TeleportToUndergroundColiseum extends AbstractNpcAI
 			player.teleToLocation(COLISEUM_LOCS[getRandom(COLISEUM_LOCS.length)], false);
 		}
 		return null;
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		return "32491.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new TeleportToUndergroundColiseum();
 	}
 }

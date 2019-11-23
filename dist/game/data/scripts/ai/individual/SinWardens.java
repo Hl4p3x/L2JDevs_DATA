@@ -62,6 +62,11 @@ public final class SinWardens extends AbstractNpcAI
 		addKillId(SIN_WARDEN_MINIONS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SinWardens();
+	}
+	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -86,10 +91,5 @@ public final class SinWardens extends AbstractNpcAI
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new SinWardens();
 	}
 }

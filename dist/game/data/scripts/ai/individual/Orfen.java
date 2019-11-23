@@ -143,37 +143,9 @@ public final class Orfen extends AbstractNpcAI
 		}
 	}
 	
-	public void setSpawnPoint(L2Npc npc, int index)
+	public static void main(String[] args)
 	{
-		((L2Attackable) npc).clearAggroList();
-		npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
-		L2Spawn spawn = npc.getSpawn();
-		spawn.setLocation(POS[index]);
-		npc.teleToLocation(POS[index], false);
-	}
-	
-	public void spawnBoss(L2GrandBossInstance npc)
-	{
-		GrandBossManager.getInstance().addBoss(npc);
-		npc.broadcastPacket(Music.BS01_A_7000.getPacket());
-		startQuestTimer("check_orfen_pos", 10000, npc, null, true);
-		// Spawn minions
-		int x = npc.getX();
-		int y = npc.getY();
-		L2Attackable mob;
-		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x + 100, y + 100, npc.getZ(), 0, false, 0);
-		mob.setIsRaidMinion(true);
-		MINIONS.add(mob);
-		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x + 100, y - 100, npc.getZ(), 0, false, 0);
-		mob.setIsRaidMinion(true);
-		MINIONS.add(mob);
-		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x - 100, y + 100, npc.getZ(), 0, false, 0);
-		mob.setIsRaidMinion(true);
-		MINIONS.add(mob);
-		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x - 100, y - 100, npc.getZ(), 0, false, 0);
-		mob.setIsRaidMinion(true);
-		MINIONS.add(mob);
-		startQuestTimer("check_minion_loc", 10000, npc, null, true);
+		new Orfen();
 	}
 	
 	@Override
@@ -244,22 +216,35 @@ public final class Orfen extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		if (npc.getId() == ORFEN)
+		int npcId = npc.getId();
+		if (npcId == ORFEN)
 		{
-			L2Character originalCaster = isSummon ? caster.getSummon() : caster;
-			if ((skill.getEffectPoint() > 0) && (getRandom(5) == 0) && npc.isInsideRadius(originalCaster, 1000, false, false))
+			if (!_IsTeleported && ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2)))
 			{
-				NpcSay packet = new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npc.getId(), TEXT[getRandom(4)]);
-				packet.addStringParameter(caster.getName().toString());
+				_IsTeleported = true;
+				setSpawnPoint(npc, 0);
+			}
+			else if (npc.isInsideRadius(attacker, 1000, false, false) && !npc.isInsideRadius(attacker, 300, false, false) && (getRandom(10) == 0))
+			{
+				NpcSay packet = new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npcId, TEXT[getRandom(3)]);
+				packet.addStringParameter(attacker.getName().toString());
 				npc.broadcastPacket(packet);
-				originalCaster.teleToLocation(npc.getLocation());
-				npc.setTarget(originalCaster);
+				attacker.teleToLocation(npc.getLocation());
+				npc.setTarget(attacker);
 				npc.doCast(PARALYSIS);
 			}
 		}
-		return super.onSkillSee(npc, caster, skill, targets, isSummon);
+		else if (npcId == RIBA_IREN)
+		{
+			if (!npc.isCastingNow() && ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2.0)))
+			{
+				npc.setTarget(attacker);
+				npc.doCast(ORFEN_HEAL);
+			}
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 	
 	@Override
@@ -294,38 +279,6 @@ public final class Orfen extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
-	{
-		int npcId = npc.getId();
-		if (npcId == ORFEN)
-		{
-			if (!_IsTeleported && ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2)))
-			{
-				_IsTeleported = true;
-				setSpawnPoint(npc, 0);
-			}
-			else if (npc.isInsideRadius(attacker, 1000, false, false) && !npc.isInsideRadius(attacker, 300, false, false) && (getRandom(10) == 0))
-			{
-				NpcSay packet = new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npcId, TEXT[getRandom(3)]);
-				packet.addStringParameter(attacker.getName().toString());
-				npc.broadcastPacket(packet);
-				attacker.teleToLocation(npc.getLocation());
-				npc.setTarget(attacker);
-				npc.doCast(PARALYSIS);
-			}
-		}
-		else if (npcId == RIBA_IREN)
-		{
-			if (!npc.isCastingNow() && ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2.0)))
-			{
-				npc.setTarget(attacker);
-				npc.doCast(ORFEN_HEAL);
-			}
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		if (npc.getId() == ORFEN)
@@ -353,8 +306,55 @@ public final class Orfen extends AbstractNpcAI
 		return super.onKill(npc, killer, isSummon);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
-		new Orfen();
+		if (npc.getId() == ORFEN)
+		{
+			L2Character originalCaster = isSummon ? caster.getSummon() : caster;
+			if ((skill.getEffectPoint() > 0) && (getRandom(5) == 0) && npc.isInsideRadius(originalCaster, 1000, false, false))
+			{
+				NpcSay packet = new NpcSay(npc.getObjectId(), Say2.NPC_ALL, npc.getId(), TEXT[getRandom(4)]);
+				packet.addStringParameter(caster.getName().toString());
+				npc.broadcastPacket(packet);
+				originalCaster.teleToLocation(npc.getLocation());
+				npc.setTarget(originalCaster);
+				npc.doCast(PARALYSIS);
+			}
+		}
+		return super.onSkillSee(npc, caster, skill, targets, isSummon);
+	}
+	
+	public void setSpawnPoint(L2Npc npc, int index)
+	{
+		((L2Attackable) npc).clearAggroList();
+		npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
+		L2Spawn spawn = npc.getSpawn();
+		spawn.setLocation(POS[index]);
+		npc.teleToLocation(POS[index], false);
+	}
+	
+	public void spawnBoss(L2GrandBossInstance npc)
+	{
+		GrandBossManager.getInstance().addBoss(npc);
+		npc.broadcastPacket(Music.BS01_A_7000.getPacket());
+		startQuestTimer("check_orfen_pos", 10000, npc, null, true);
+		// Spawn minions
+		int x = npc.getX();
+		int y = npc.getY();
+		L2Attackable mob;
+		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x + 100, y + 100, npc.getZ(), 0, false, 0);
+		mob.setIsRaidMinion(true);
+		MINIONS.add(mob);
+		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x + 100, y - 100, npc.getZ(), 0, false, 0);
+		mob.setIsRaidMinion(true);
+		MINIONS.add(mob);
+		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x - 100, y + 100, npc.getZ(), 0, false, 0);
+		mob.setIsRaidMinion(true);
+		MINIONS.add(mob);
+		mob = (L2Attackable) addSpawn(RAIKEL_LEOS, x - 100, y - 100, npc.getZ(), 0, false, 0);
+		mob.setIsRaidMinion(true);
+		MINIONS.add(mob);
+		startQuestTimer("check_minion_loc", 10000, npc, null, true);
 	}
 }

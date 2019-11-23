@@ -33,30 +33,9 @@ import org.l2jdevs.gameserver.util.Util;
  */
 public final class Q00371_ShrieksOfGhosts extends Quest
 {
-	private static final class DropInfo
-	{
-		public final int _firstChance;
-		public final int _secondChance;
-		
-		public DropInfo(int firstChance, int secondChance)
-		{
-			_firstChance = firstChance;
-			_secondChance = secondChance;
-		}
-		
-		public int getFirstChance()
-		{
-			return _firstChance;
-		}
-		
-		public int getSecondChance()
-		{
-			return _secondChance;
-		}
-	}
-	
 	// NPCs
 	private static final int REVA = 30867;
+	
 	private static final int PATRIN = 30929;
 	// Items
 	private static final int ANCIENT_ASH_URN = 5903;
@@ -67,15 +46,14 @@ public final class Q00371_ShrieksOfGhosts extends Quest
 	private static final int ANCIENT_PORCELAIN_LOWEST_QUALITY = 6006;
 	// Misc
 	private static final int MIN_LEVEL = 59;
-	
 	private static final Map<Integer, DropInfo> MOBS = new HashMap<>();
+	
 	static
 	{
 		MOBS.put(20818, new DropInfo(350, 400)); // hallates_warrior
 		MOBS.put(20820, new DropInfo(583, 673)); // hallates_knight
 		MOBS.put(20824, new DropInfo(458, 538)); // hallates_commander
 	}
-	
 	public Q00371_ShrieksOfGhosts()
 	{
 		super(371, Q00371_ShrieksOfGhosts.class.getSimpleName(), "Shrieks of Ghosts");
@@ -228,5 +206,27 @@ public final class Q00371_ShrieksOfGhosts extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private static final class DropInfo
+	{
+		public final int _firstChance;
+		public final int _secondChance;
+		
+		public DropInfo(int firstChance, int secondChance)
+		{
+			_firstChance = firstChance;
+			_secondChance = secondChance;
+		}
+		
+		public int getFirstChance()
+		{
+			return _firstChance;
+		}
+		
+		public int getSecondChance()
+		{
+			return _secondChance;
+		}
 	}
 }

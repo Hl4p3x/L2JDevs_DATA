@@ -36,6 +36,12 @@ public class AdminGraciaSeeds implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
@@ -77,11 +83,5 @@ public class AdminGraciaSeeds implements IAdminCommandHandler
 			html.replace("%sodtime%", "-1");
 		}
 		activeChar.sendPacket(html);
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

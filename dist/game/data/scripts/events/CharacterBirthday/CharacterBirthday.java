@@ -65,6 +65,11 @@ public final class CharacterBirthday extends Quest
 		addTalkId(GK);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CharacterBirthday();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -115,10 +120,5 @@ public final class CharacterBirthday extends Quest
 			return "tooclose.htm";
 		}
 		return null;
-	}
-	
-	public static void main(String[] args)
-	{
-		new CharacterBirthday();
 	}
 }

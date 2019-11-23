@@ -75,64 +75,11 @@ import quests.Q00131_BirdInACage.Q00131_BirdInACage;
  */
 public final class CrystalCaverns extends AbstractInstance
 {
-	protected static class CrystalGolem
-	{
-		protected L2ItemInstance foodItem = null;
-		protected boolean isAtDestination = false;
-		protected Location oldLoc = null;
-	}
-	
-	private class CCWorld extends InstanceWorld
-	{
-		public Map<L2Npc, Boolean> npcList1 = new HashMap<>();
-		public L2Npc tears;
-		public boolean isUsedInvulSkill = false;
-		public long dragonScaleStart = 0;
-		public int dragonScaleNeed = 0;
-		public int cleanedRooms = 0;
-		public long endTime = 0;
-		public List<L2Npc> copys = new ArrayList<>();
-		public Map<L2Npc, CrystalGolem> crystalGolems = new HashMap<>();
-		public int correctGolems = 0;
-		public boolean[] OracleTriggered =
-		{
-			false,
-			false,
-			false
-		};
-		public int kechisHenchmanSpawn = 0;
-		public int[] roomsStatus =
-		{
-			0,
-			0,
-			0,
-			0
-		}; // 0: not spawned, 1: spawned, 2: cleared
-		public Map<L2DoorInstance, L2PcInstance> openedDoors = new ConcurrentHashMap<>();
-		public Map<Integer, Map<L2Npc, Boolean>> npcList2 = new HashMap<>();
-		public Map<L2Npc, L2Npc> oracles = new HashMap<>();
-		public List<L2Npc> keyKeepers = new ArrayList<>();
-		public List<L2Npc> guards = new ArrayList<>();
-		public List<L2Npc> oracle = new ArrayList<>();
-		// baylor variables
-		protected final List<L2PcInstance> _raiders = new ArrayList<>();
-		protected int _raidStatus = 0;
-		protected long _dragonClawStart = 0;
-		protected int _dragonClawNeed = 0;
-		protected final List<L2Npc> _animationMobs = new ArrayList<>();
-		protected L2Npc _camera = null;
-		protected L2Npc _baylor = null;
-		protected L2Npc _alarm = null;
-		
-		public CCWorld(Long time)
-		{
-			endTime = time;
-		}
-	}
-	
 	// Items
 	private static final int WHITE_SEED_OF_EVIL_SHARD = 9597;
+	
 	private static final int BLACK_SEED_OF_EVIL_SHARD = 9598;
+	
 	private static final int CONTAMINATED_CRYSTAL = 9690;
 	private static final int RED_CORAL = 9692;
 	private static final int CRYSTAL_FRAGMENT = 9693;
@@ -213,11 +160,11 @@ public final class CrystalCaverns extends AbstractInstance
 		22419,
 		22420
 	};
-	
 	// Locations
 	private static final Location START_LOC = new Location(143348, 148707, -11972);
 	// Skills
 	private static final SkillHolder BERSERK = new SkillHolder(5224);
+	
 	private static final SkillHolder INVINCIBLE = new SkillHolder(5225);
 	private static final SkillHolder STRONG_PUNCH = new SkillHolder(5229);
 	private static final SkillHolder EVENT_TIMER_1 = new SkillHolder(5239);
@@ -257,7 +204,6 @@ public final class CrystalCaverns extends AbstractInstance
 		{32274, 147090, 152645, -12169, 31613},
 		{32274, 147090, 152715, -12169, 31613}
 	};
-	
 	private static final int[][] ordreOracle2 =
 	{
 		{32274, 149783, 152505, -12169, 31613},
@@ -265,7 +211,6 @@ public final class CrystalCaverns extends AbstractInstance
 		{32274, 149783, 152645, -12169, 31613},
 		{32276, 149783, 152715, -12169, 31613}
 	};
-	
 	private static final int[][] ordreOracle3 =
 	{
 		{32274, 152461, 152505, -12169, 31613},
@@ -273,6 +218,7 @@ public final class CrystalCaverns extends AbstractInstance
 		{32277, 152461, 152645, -12169, 31613},
 		// {32274, 152461, 152715, -12169, 31613}
 	};
+	
 	private static int[][] HALL_SPAWNS =
 	{
 		{141842, 152556, -11814, 50449},
@@ -347,7 +293,6 @@ public final class CrystalCaverns extends AbstractInstance
 		{22285, 147738, 149210, -12132, 20971},
 		{22285, 147769, 149757, -12132, 34980}
 	};
-	
 	// Emerald Square
 	private static int[][] EMERALD_SPAWNS =
 	{
@@ -448,6 +393,7 @@ public final class CrystalCaverns extends AbstractInstance
 		// {22308, 146116, 152976, -12133, 32571}
 	
 	};
+	
 	private static int[][] STEAM2_SPAWNS =
 	{
 		{22306, 147740, 152767, -12165, 65043},
@@ -479,7 +425,6 @@ public final class CrystalCaverns extends AbstractInstance
 		// {22309, 150488, 152350, -12165, 29072},
 		// {22310, 151139, 152238, -12132, 1069}
 	};
-	
 	private static int[][] STEAM4_SPAWNS =
 	{
 		// {22308, 151707, 150199, -12165, 32859},
@@ -497,10 +442,11 @@ public final class CrystalCaverns extends AbstractInstance
 		{22420, 150744, 150006, -12165, 63},
 		// {22417, 149782, 150188, -12151, 64001}
 	};
+	
 	// @formatter:on
 	private static final int DRAGONSCALETIME = 3000;
-	private static final int DRAGONCLAWTIME = 3000;
 	
+	private static final int DRAGONCLAWTIME = 3000;
 	public CrystalCaverns()
 	{
 		super(CrystalCaverns.class.getSimpleName());
@@ -517,619 +463,6 @@ public final class CrystalCaverns extends AbstractInstance
 		addEnterZoneId(ZONES);
 		addExitZoneId(ZONES);
 	}
-	
-	@Override
-	protected boolean checkConditions(L2PcInstance player)
-	{
-		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
-		{
-			return true;
-		}
-		
-		final L2Party party = player.getParty();
-		if (party == null)
-		{
-			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
-			return false;
-		}
-		if (party.getLeader() != player)
-		{
-			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
-			return false;
-		}
-		for (L2PcInstance partyMember : party.getMembers())
-		{
-			if (partyMember.getLevel() < MIN_LEVEL)
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			L2ItemInstance item = partyMember.getInventory().getItemByItemId(CONTAMINATED_CRYSTAL);
-			if (item == null)
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_ITEM_REQUIREMENT_NOT_SUFFICIENT);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (!Util.checkIfInRange(1000, player, partyMember, true))
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (System.currentTimeMillis() < InstanceManager.getInstance().getInstanceTime(partyMember.getObjectId(), TEMPLATE_ID))
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_MAY_NOT_RE_ENTER_YET);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	private boolean checkOracleConditions(L2PcInstance player)
-	{
-		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
-		{
-			return true;
-		}
-		
-		L2Party party = player.getParty();
-		if (party == null)
-		{
-			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
-			return false;
-		}
-		if (party.getLeader() != player)
-		{
-			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
-			return false;
-		}
-		for (L2PcInstance partyMember : party.getMembers())
-		{
-			L2ItemInstance item = partyMember.getInventory().getItemByItemId(RED_CORAL);
-			if (item == null)
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_ITEM_REQUIREMENT_NOT_SUFFICIENT);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (!Util.checkIfInRange(1000, player, partyMember, true))
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	private boolean checkBaylorConditions(L2PcInstance player)
-	{
-		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
-		{
-			return true;
-		}
-		
-		L2Party party = player.getParty();
-		if (party == null)
-		{
-			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
-			return false;
-		}
-		if (party.getLeader() != player)
-		{
-			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
-			return false;
-		}
-		for (L2PcInstance partyMember : party.getMembers())
-		{
-			L2ItemInstance item1 = partyMember.getInventory().getItemByItemId(BLUE_CRYSTAL);
-			L2ItemInstance item2 = partyMember.getInventory().getItemByItemId(RED_CRYSTAL);
-			L2ItemInstance item3 = partyMember.getInventory().getItemByItemId(CLEAR_CRYSTAL);
-			if ((item1 == null) || (item2 == null) || (item3 == null))
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_ITEM_REQUIREMENT_NOT_SUFFICIENT);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (!Util.checkIfInRange(1000, player, partyMember, true))
-			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	// this should be handled from skill effect
-	private void Throw(L2Character effector, L2Character effected)
-	{
-		// Get current position of the L2Character
-		final int curX = effected.getX();
-		final int curY = effected.getY();
-		final int curZ = effected.getZ();
-		
-		// Calculate distance between effector and effected current position
-		double dx = effector.getX() - curX;
-		double dy = effector.getY() - curY;
-		double dz = effector.getZ() - curZ;
-		double distance = Math.sqrt((dx * dx) + (dy * dy));
-		int offset = Math.min((int) distance + 300, 1400);
-		
-		double cos;
-		double sin;
-		
-		// approximation for moving futher when z coordinates are different
-		// TODO: handle Z axis movement better
-		offset += Math.abs(dz);
-		if (offset < 5)
-		{
-			offset = 5;
-		}
-		
-		if (distance < 1)
-		{
-			return;
-		}
-		// Calculate movement angles needed
-		sin = dy / distance;
-		cos = dx / distance;
-		
-		// Calculate the new destination with offset included
-		int _x = effector.getX() - (int) (offset * cos);
-		int _y = effector.getY() - (int) (offset * sin);
-		int _z = effected.getZ();
-		
-		Location destination = GeoData.getInstance().moveCheck(effected.getX(), effected.getY(), effected.getZ(), _x, _y, _z, effected.getInstanceId());
-		
-		effected.broadcastPacket(new FlyToLocation(effected, destination, FlyType.THROW_UP));
-		
-		// maybe is need force set X,Y,Z
-		effected.setXYZ(destination);
-		effected.broadcastPacket(new ValidateLocation(effected));
-	}
-	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			if (player.getParty() == null)
-			{
-				teleportPlayer(player, START_LOC, world.getInstanceId());
-				world.addAllowed(player.getObjectId());
-			}
-			else
-			{
-				for (L2PcInstance partyMember : player.getParty().getMembers())
-				{
-					teleportPlayer(partyMember, START_LOC, world.getInstanceId());
-					world.addAllowed(partyMember.getObjectId());
-				}
-			}
-			runOracle((CCWorld) world);
-		}
-		else
-		{
-			teleportPlayer(player, START_LOC, world.getInstanceId());
-		}
-	}
-	
-	protected void stopAttack(L2PcInstance player)
-	{
-		player.setTarget(null);
-		player.abortAttack();
-		player.abortCast();
-		player.breakAttack();
-		player.breakCast();
-		player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		L2Summon pet = player.getSummon();
-		if (pet != null)
-		{
-			pet.setTarget(null);
-			pet.abortAttack();
-			pet.abortCast();
-			pet.breakAttack();
-			pet.breakCast();
-			pet.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		}
-	}
-	
-	protected void runOracle(CCWorld world)
-	{
-		world.setStatus(0);
-		world.oracle.add(addSpawn(ORACLE_GUIDE_1, 143172, 148894, -11975, 0, false, 0, false, world.getInstanceId()));
-	}
-	
-	protected void runEmerald(CCWorld world)
-	{
-		world.setStatus(1);
-		runFirst(world);
-		openDoor(DOOR1, world.getInstanceId());
-	}
-	
-	protected void runCoral(CCWorld world)
-	{
-		world.setStatus(1);
-		runHall(world);
-		openDoor(DOOR2, world.getInstanceId());
-		openDoor(DOOR5, world.getInstanceId());
-	}
-	
-	protected void runHall(CCWorld world)
-	{
-		world.setStatus(2);
-		
-		for (int[] spawn : HALL_SPAWNS)
-		{
-			L2Npc mob = addSpawn(CGMOBS[getRandom(CGMOBS.length)], spawn[0], spawn[1], spawn[2], spawn[3], false, 0, false, world.getInstanceId());
-			world.npcList1.put(mob, false);
-		}
-	}
-	
-	protected void runFirst(CCWorld world)
-	{
-		world.setStatus(2);
-		world.keyKeepers.add(addSpawn(GATEKEEPER_LOHAN, 148206, 149486, -12140, 32308, false, 0, false, world.getInstanceId()));
-		world.keyKeepers.add(addSpawn(GATEKEEPER_PROVO, 148203, 151093, -12140, 31100, false, 0, false, world.getInstanceId()));
-		
-		for (int[] spawn : FIRST_SPAWNS)
-		{
-			addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
-		}
-	}
-	
-	protected void runEmeraldSquare(CCWorld world)
-	{
-		world.setStatus(3);
-		
-		Map<L2Npc, Boolean> spawnList = new HashMap<>();
-		for (int[] spawn : EMERALD_SPAWNS)
-		{
-			L2Npc mob = addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
-			spawnList.put(mob, false);
-		}
-		world.npcList2.put(0, spawnList);
-	}
-	
-	protected void runEmeraldRooms(CCWorld world, int[][] spawnList, int room)
-	{
-		Map<L2Npc, Boolean> spawned = new HashMap<>();
-		for (int[] spawn : spawnList)
-		{
-			L2Npc mob = addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
-			spawned.put(mob, false);
-		}
-		if (room == 1)
-		{
-			addSpawn(32359, 142110, 139896, -11888, 8033, false, 0, false, world.getInstanceId());
-		}
-		world.npcList2.put(room, spawned);
-		world.roomsStatus[room - 1] = 1;
-	}
-	
-	protected void runDarnel(CCWorld world)
-	{
-		world.setStatus(9);
-		
-		addSpawn(DARNEL, 152759, 145949, -12588, 21592, false, 0, false, world.getInstanceId());
-		// TODO: missing traps
-		openDoor(24220005, world.getInstanceId());
-		openDoor(24220006, world.getInstanceId());
-	}
-	
-	protected void runSteamRooms(CCWorld world, int[][] spawnList, int status)
-	{
-		world.setStatus(status);
-		
-		Map<L2Npc, Boolean> spawned = new HashMap<>();
-		for (int[] spawn : spawnList)
-		{
-			L2Npc mob = addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
-			spawned.put(mob, false);
-		}
-		world.npcList2.put(0, spawned);
-	}
-	
-	protected void runSteamOracles(CCWorld world, int[][] oracleOrder)
-	{
-		world.oracles.clear();
-		for (int[] oracle : oracleOrder)
-		{
-			world.oracles.put(addSpawn(oracle[0], oracle[1], oracle[2], oracle[3], oracle[4], false, 0, false, world.getInstanceId()), null);
-		}
-	}
-	
-	protected boolean checkKillProgress(int room, L2Npc mob, CCWorld world)
-	{
-		if (world.npcList2.get(room).containsKey(mob))
-		{
-			world.npcList2.get(room).put(mob, true);
-		}
-		for (boolean isDead : world.npcList2.get(room).values())
-		{
-			if (!isDead)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/*
-	 * protected void runBaylorRoom(CCWorld world) { world.status = 30; addSpawn(29101,152758,143479,-12706,52961,false,0,false,world.getInstanceId(),0);//up power addSpawn(29101,151951,142078,-12706,65203,false,0,false,world.getInstanceId(),0);//up power
-	 * addSpawn(29101,154396,140667,-12706,22197,false,0,false,world.getInstanceId(),0);//up power addSpawn(29102,152162,141249,-12706,5511,false,0,false,world.getInstanceId(),0);//down power addSpawn(29102,153571,140458,-12706,16699,false,0,false,world.getInstanceId(),0);//down power
-	 * addSpawn(29102,154976,141265,-12706,26908,false,0,false,world.getInstanceId(),0);//down power addSpawn(29102,155203,142071,-12706,31560,false,0,false,world.getInstanceId(),0);//down power addSpawn(29102,154380,143468,-12708,43943,false,0,false,world.getInstanceId(),0);//down power
-	 * addSpawn(32271,153573,142069,-9722,11175,false,0,false,world.getInstanceId()); world.Baylor = addSpawn(BAYLOR,153557,142089,-12735,11175,false,0,false,world.getInstanceId(),0); }
-	 */
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		if (npc.getId() == ORACLE_GUIDE_1)
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpworld instanceof CCWorld)
-			{
-				CCWorld world = (CCWorld) tmpworld;
-				if ((world.getStatus() == 0) && world.oracle.contains(npc))
-				{
-					return "32281.htm";// TODO: Missing HTML.
-				}
-			}
-			npc.showChatWindow(player);
-			return null;
-		}
-		else if ((npc.getId() >= 32275) && (npc.getId() <= 32277))
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpworld instanceof CCWorld)
-			{
-				CCWorld world = (CCWorld) tmpworld;
-				if (!world.OracleTriggered[npc.getId() - 32275])
-				{
-					return "no.htm"; // TODO: Missing HTML.
-				}
-				npc.showChatWindow(player);
-				return null;
-			}
-		}
-		else if (npc.getId() == 32274)
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpworld instanceof CCWorld)
-			{
-				return "no.htm"; // TODO: Missing HTML.
-			}
-		}
-		else if (npc.getId() == 32279)
-		{
-			final QuestState st = player.getQuestState(Q00131_BirdInACage.class.getSimpleName());
-			return (st != null) && !st.isCompleted() ? "32279-01.htm" : "32279.htm";
-		}
-		else if (npc.getId() == CRYSTALLINE_GOLEM)
-		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
-		return "";
-	}
-	
-	@Override
-	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
-	{
-		
-		boolean doReturn = true;
-		for (L2Object obj : targets)
-		{
-			if (obj == npc)
-			{
-				doReturn = false;
-			}
-		}
-		if (doReturn)
-		{
-			return super.onSkillSee(npc, caster, skill, targets, isSummon);
-		}
-		
-		switch (skill.getId())
-		{
-			case 1011:
-			case 1015:
-			case 1217:
-			case 1218:
-			case 1401:
-			case 2360:
-			case 2369:
-			case 5146:
-				doReturn = false;
-				break;
-			default:
-				doReturn = true;
-		}
-		if (doReturn)
-		{
-			return super.onSkillSee(npc, caster, skill, targets, isSummon);
-		}
-		
-		if ((npc.getId() >= 32275) && (npc.getId() <= 32277) && (skill.getId() != 2360) && (skill.getId() != 2369))
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if ((tmpworld instanceof CCWorld) && (getRandom(100) < 15))
-			{
-				for (L2Npc oracle : ((CCWorld) tmpworld).oracles.keySet())
-				{
-					if (oracle != npc)
-					{
-						oracle.decayMe();
-					}
-				}
-				((CCWorld) tmpworld).OracleTriggered[npc.getId() - 32275] = true;
-			}
-		}
-		else if (npc.isInvul() && (npc.getId() == BAYLOR) && (skill.getId() == 2360) && (caster != null))
-		{
-			if (caster.getParty() == null)
-			{
-				return super.onSkillSee(npc, caster, skill, targets, isSummon);
-			}
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpworld instanceof CCWorld)
-			{
-				CCWorld world = (CCWorld) tmpworld;
-				
-				if (((world._dragonClawStart + DRAGONCLAWTIME) <= System.currentTimeMillis()) || (world._dragonClawNeed <= 0))
-				{
-					world._dragonClawStart = System.currentTimeMillis();
-					world._dragonClawNeed = caster.getParty().getMemberCount() - 1;
-				}
-				else
-				{
-					world._dragonClawNeed--;
-				}
-				if (world._dragonClawNeed == 0)
-				{
-					npc.stopSkillEffects(false, 5225);
-					npc.broadcastPacket(new MagicSkillUse(npc, npc, 5480, 1, 4000, 0));
-					if (world._raidStatus == 3)
-					{
-						world._raidStatus++;
-					}
-				}
-			}
-		}
-		else if (npc.isInvul() && (npc.getId() == TEARS) && (skill.getId() == 2369) && (caster != null))
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpworld instanceof CCWorld)
-			{
-				CCWorld world = (CCWorld) tmpworld;
-				if (caster.getParty() == null)
-				{
-					return super.onSkillSee(npc, caster, skill, targets, isSummon);
-				}
-				else if (((world.dragonScaleStart + DRAGONSCALETIME) <= System.currentTimeMillis()) || (world.dragonScaleNeed <= 0))
-				{
-					world.dragonScaleStart = System.currentTimeMillis();
-					world.dragonScaleNeed = caster.getParty().getMemberCount() - 1;
-				}
-				else
-				{
-					world.dragonScaleNeed--;
-				}
-				if ((world.dragonScaleNeed == 0) && (getRandom(100) < 80))
-				{
-					npc.setIsInvul(false);
-				}
-			}
-		}
-		return super.onSkillSee(npc, caster, skill, targets, isSummon);
-	}
-	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
-	{
-		if (npc.getId() == TEARS)
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpworld instanceof CCWorld)
-			{
-				CCWorld world = (CCWorld) tmpworld;
-				if ((world.getStatus() != 4) && (attacker != null))
-				{
-					// Lucky cheater, the code only kicks his/her ass out of the dungeon
-					teleportPlayer(attacker, new Location(149361, 172327, -945), 0);
-					world.removeAllowed(attacker.getObjectId());
-				}
-				else if (world.tears != npc)
-				{
-					return "";
-				}
-				else if (!world.copys.isEmpty())
-				{
-					boolean notAOE = true;
-					if ((skill != null) && ((skill.getTargetType() == L2TargetType.AREA) || (skill.getTargetType() == L2TargetType.FRONT_AREA) || (skill.getTargetType() == L2TargetType.BEHIND_AREA) || (skill.getTargetType() == L2TargetType.AURA) || (skill.getTargetType() == L2TargetType.FRONT_AURA)
-						|| (skill.getTargetType() == L2TargetType.BEHIND_AURA)))
-					{
-						notAOE = false;
-					}
-					if (notAOE)
-					{
-						for (L2Npc copy : world.copys)
-						{
-							copy.onDecay();
-						}
-						world.copys.clear();
-					}
-					return "";
-				}
-				
-				int maxHp = npc.getMaxHp();
-				double nowHp = npc.getStatus().getCurrentHp();
-				int rand = getRandom(1000);
-				
-				if ((nowHp < (maxHp * 0.4)) && (rand < 5))
-				{
-					L2Party party = attacker.getParty();
-					if (party != null)
-					{
-						for (L2PcInstance partyMember : party.getMembers())
-						{
-							stopAttack(partyMember);
-						}
-					}
-					else
-					{
-						stopAttack(attacker);
-					}
-					L2Character target = npc.getAI().getAttackTarget();
-					for (int i = 0; i < 10; i++)
-					{
-						L2Npc copy = addSpawn(TEARS_COPY, npc.getX(), npc.getY(), npc.getZ(), 0, false, 0, false, attacker.getInstanceId());
-						copy.setRunning();
-						((L2Attackable) copy).addDamageHate(target, 0, 99999);
-						copy.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
-						copy.setCurrentHp(nowHp);
-						world.copys.add(copy);
-					}
-				}
-				else if ((nowHp < (maxHp * 0.15)) && !world.isUsedInvulSkill)
-				{
-					if ((rand > 994) || (nowHp < (maxHp * 0.1)))
-					{
-						world.isUsedInvulSkill = true;
-						npc.setIsInvul(true);
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
-	{
-		if ((npc.getId() == BAYLOR) && (skill.getId() == 5225))
-		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpworld instanceof CCWorld)
-			{
-				((CCWorld) tmpworld)._raidStatus++;
-			}
-		}
-		return super.onSpellFinished(npc, player, skill);
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -1473,50 +806,265 @@ public final class CrystalCaverns extends AbstractInstance
 		return "";
 	}
 	
-	private void giveRewards(L2PcInstance player, int instanceId, int bossCry, boolean isBaylor)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
 	{
-		final int num = Math.max((int) Config.RATE_DEATH_DROP_CHANCE_MULTIPLIER, 1);
-		
-		L2Party party = player.getParty();
-		if (party != null)
+		if (npc.getId() == TEARS)
 		{
-			for (L2PcInstance partyMember : party.getMembers())
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpworld instanceof CCWorld)
 			{
-				if (partyMember.getInstanceId() == instanceId)
+				CCWorld world = (CCWorld) tmpworld;
+				if ((world.getStatus() != 4) && (attacker != null))
 				{
-					if (!isBaylor && hasQuestItems(partyMember, CONTAMINATED_CRYSTAL))
+					// Lucky cheater, the code only kicks his/her ass out of the dungeon
+					teleportPlayer(attacker, new Location(149361, 172327, -945), 0);
+					world.removeAllowed(attacker.getObjectId());
+				}
+				else if (world.tears != npc)
+				{
+					return "";
+				}
+				else if (!world.copys.isEmpty())
+				{
+					boolean notAOE = true;
+					if ((skill != null) && ((skill.getTargetType() == L2TargetType.AREA) || (skill.getTargetType() == L2TargetType.FRONT_AREA) || (skill.getTargetType() == L2TargetType.BEHIND_AREA) || (skill.getTargetType() == L2TargetType.AURA) || (skill.getTargetType() == L2TargetType.FRONT_AURA)
+						|| (skill.getTargetType() == L2TargetType.BEHIND_AURA)))
 					{
-						takeItems(partyMember, CONTAMINATED_CRYSTAL, 1);
-						giveItems(partyMember, bossCry, 1);
+						notAOE = false;
 					}
-					if (getRandom(10) < 5)
+					if (notAOE)
 					{
-						giveItems(partyMember, WHITE_SEED_OF_EVIL_SHARD, num);
+						for (L2Npc copy : world.copys)
+						{
+							copy.onDecay();
+						}
+						world.copys.clear();
+					}
+					return "";
+				}
+				
+				int maxHp = npc.getMaxHp();
+				double nowHp = npc.getStatus().getCurrentHp();
+				int rand = getRandom(1000);
+				
+				if ((nowHp < (maxHp * 0.4)) && (rand < 5))
+				{
+					L2Party party = attacker.getParty();
+					if (party != null)
+					{
+						for (L2PcInstance partyMember : party.getMembers())
+						{
+							stopAttack(partyMember);
+						}
 					}
 					else
 					{
-						giveItems(partyMember, BLACK_SEED_OF_EVIL_SHARD, num);
+						stopAttack(attacker);
+					}
+					L2Character target = npc.getAI().getAttackTarget();
+					for (int i = 0; i < 10; i++)
+					{
+						L2Npc copy = addSpawn(TEARS_COPY, npc.getX(), npc.getY(), npc.getZ(), 0, false, 0, false, attacker.getInstanceId());
+						copy.setRunning();
+						((L2Attackable) copy).addDamageHate(target, 0, 99999);
+						copy.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
+						copy.setCurrentHp(nowHp);
+						world.copys.add(copy);
+					}
+				}
+				else if ((nowHp < (maxHp * 0.15)) && !world.isUsedInvulSkill)
+				{
+					if ((rand > 994) || (nowHp < (maxHp * 0.1)))
+					{
+						world.isUsedInvulSkill = true;
+						npc.setIsInvul(true);
 					}
 				}
 			}
 		}
-		else if (player.getInstanceId() == instanceId)
+		return null;
+	}
+	
+	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
 		{
-			if (!isBaylor && hasQuestItems(player, CONTAMINATED_CRYSTAL))
+			if (player.getParty() == null)
 			{
-				takeItems(player, CONTAMINATED_CRYSTAL, 1);
-				giveItems(player, bossCry, 1);
-			}
-			if (getRandom(10) < 5)
-			{
-				giveItems(player, WHITE_SEED_OF_EVIL_SHARD, num);
+				teleportPlayer(player, START_LOC, world.getInstanceId());
+				world.addAllowed(player.getObjectId());
 			}
 			else
 			{
-				giveItems(player, BLACK_SEED_OF_EVIL_SHARD, num);
+				for (L2PcInstance partyMember : player.getParty().getMembers())
+				{
+					teleportPlayer(partyMember, START_LOC, world.getInstanceId());
+					world.addAllowed(partyMember.getObjectId());
+				}
+			}
+			runOracle((CCWorld) world);
+		}
+		else
+		{
+			teleportPlayer(player, START_LOC, world.getInstanceId());
+		}
+	}
+	
+	@Override
+	public String onEnterZone(L2Character character, L2ZoneType zone)
+	{
+		if (character instanceof L2PcInstance)
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(character.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				CCWorld world = (CCWorld) tmpworld;
+				if (world.getStatus() == 8)
+				{
+					int room;
+					int[][] spawns;
+					switch (zone.getId())
+					{
+						case 20105:
+							spawns = ROOM2_SPAWNS;
+							room = 2;
+							break;
+						case 20106:
+							spawns = ROOM3_SPAWNS;
+							room = 3;
+							break;
+						case 20107:
+							spawns = ROOM4_SPAWNS;
+							room = 4;
+							break;
+						default:
+							return super.onEnterZone(character, zone);
+					}
+					for (L2DoorInstance door : InstanceManager.getInstance().getInstance(world.getInstanceId()).getDoors())
+					{
+						if (door.getId() == (room + 24220000))
+						{
+							if (door.getOpen())
+							{
+								return "";
+							}
+							
+							if (!hasQuestItems((L2PcInstance) character, SECRET_KEY))
+							{
+								return "";
+							}
+							if (world.roomsStatus[zone.getId() - 20104] == 0)
+							{
+								runEmeraldRooms(world, spawns, room);
+							}
+							door.openMe();
+							takeItems((L2PcInstance) character, SECRET_KEY, 1);
+							world.openedDoors.put(door, (L2PcInstance) character);
+							break;
+						}
+					}
+				}
 			}
 		}
-		
+		return super.onEnterZone(character, zone);
+	}
+	
+	@Override
+	public String onExitZone(L2Character character, L2ZoneType zone)
+	{
+		if (character instanceof L2PcInstance)
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(character.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				CCWorld world = (CCWorld) tmpworld;
+				if (world.getStatus() == 8)
+				{
+					int doorId;
+					switch (zone.getId())
+					{
+						case 20105:
+							doorId = 24220002;
+							break;
+						case 20106:
+							doorId = 24220003;
+							break;
+						case 20107:
+							doorId = 24220004;
+							break;
+						default:
+							return super.onExitZone(character, zone);
+					}
+					for (L2DoorInstance door : InstanceManager.getInstance().getInstance(world.getInstanceId()).getDoors())
+					{
+						if (door.getId() == doorId)
+						{
+							if (door.getOpen() && (world.openedDoors.get(door) == character))
+							{
+								door.closeMe();
+								world.openedDoors.remove(door);
+							}
+							break;
+						}
+					}
+					
+				}
+			}
+		}
+		return super.onExitZone(character, zone);
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		if (npc.getId() == ORACLE_GUIDE_1)
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				CCWorld world = (CCWorld) tmpworld;
+				if ((world.getStatus() == 0) && world.oracle.contains(npc))
+				{
+					return "32281.htm";// TODO: Missing HTML.
+				}
+			}
+			npc.showChatWindow(player);
+			return null;
+		}
+		else if ((npc.getId() >= 32275) && (npc.getId() <= 32277))
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				CCWorld world = (CCWorld) tmpworld;
+				if (!world.OracleTriggered[npc.getId() - 32275])
+				{
+					return "no.htm"; // TODO: Missing HTML.
+				}
+				npc.showChatWindow(player);
+				return null;
+			}
+		}
+		else if (npc.getId() == 32274)
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				return "no.htm"; // TODO: Missing HTML.
+			}
+		}
+		else if (npc.getId() == 32279)
+		{
+			final QuestState st = player.getQuestState(Q00131_BirdInACage.class.getSimpleName());
+			return (st != null) && !st.isCompleted() ? "32279-01.htm" : "32279.htm";
+		}
+		else if (npc.getId() == CRYSTALLINE_GOLEM)
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+		}
+		return "";
 	}
 	
 	@Override
@@ -1753,6 +1301,131 @@ public final class CrystalCaverns extends AbstractInstance
 	}
 	
 	@Override
+	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
+	{
+		
+		boolean doReturn = true;
+		for (L2Object obj : targets)
+		{
+			if (obj == npc)
+			{
+				doReturn = false;
+			}
+		}
+		if (doReturn)
+		{
+			return super.onSkillSee(npc, caster, skill, targets, isSummon);
+		}
+		
+		switch (skill.getId())
+		{
+			case 1011:
+			case 1015:
+			case 1217:
+			case 1218:
+			case 1401:
+			case 2360:
+			case 2369:
+			case 5146:
+				doReturn = false;
+				break;
+			default:
+				doReturn = true;
+		}
+		if (doReturn)
+		{
+			return super.onSkillSee(npc, caster, skill, targets, isSummon);
+		}
+		
+		if ((npc.getId() >= 32275) && (npc.getId() <= 32277) && (skill.getId() != 2360) && (skill.getId() != 2369))
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if ((tmpworld instanceof CCWorld) && (getRandom(100) < 15))
+			{
+				for (L2Npc oracle : ((CCWorld) tmpworld).oracles.keySet())
+				{
+					if (oracle != npc)
+					{
+						oracle.decayMe();
+					}
+				}
+				((CCWorld) tmpworld).OracleTriggered[npc.getId() - 32275] = true;
+			}
+		}
+		else if (npc.isInvul() && (npc.getId() == BAYLOR) && (skill.getId() == 2360) && (caster != null))
+		{
+			if (caster.getParty() == null)
+			{
+				return super.onSkillSee(npc, caster, skill, targets, isSummon);
+			}
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				CCWorld world = (CCWorld) tmpworld;
+				
+				if (((world._dragonClawStart + DRAGONCLAWTIME) <= System.currentTimeMillis()) || (world._dragonClawNeed <= 0))
+				{
+					world._dragonClawStart = System.currentTimeMillis();
+					world._dragonClawNeed = caster.getParty().getMemberCount() - 1;
+				}
+				else
+				{
+					world._dragonClawNeed--;
+				}
+				if (world._dragonClawNeed == 0)
+				{
+					npc.stopSkillEffects(false, 5225);
+					npc.broadcastPacket(new MagicSkillUse(npc, npc, 5480, 1, 4000, 0));
+					if (world._raidStatus == 3)
+					{
+						world._raidStatus++;
+					}
+				}
+			}
+		}
+		else if (npc.isInvul() && (npc.getId() == TEARS) && (skill.getId() == 2369) && (caster != null))
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				CCWorld world = (CCWorld) tmpworld;
+				if (caster.getParty() == null)
+				{
+					return super.onSkillSee(npc, caster, skill, targets, isSummon);
+				}
+				else if (((world.dragonScaleStart + DRAGONSCALETIME) <= System.currentTimeMillis()) || (world.dragonScaleNeed <= 0))
+				{
+					world.dragonScaleStart = System.currentTimeMillis();
+					world.dragonScaleNeed = caster.getParty().getMemberCount() - 1;
+				}
+				else
+				{
+					world.dragonScaleNeed--;
+				}
+				if ((world.dragonScaleNeed == 0) && (getRandom(100) < 80))
+				{
+					npc.setIsInvul(false);
+				}
+			}
+		}
+		return super.onSkillSee(npc, caster, skill, targets, isSummon);
+	}
+	
+	@Override
+	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
+	{
+		if ((npc.getId() == BAYLOR) && (skill.getId() == 5225))
+		{
+			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			if (tmpworld instanceof CCWorld)
+			{
+				((CCWorld) tmpworld)._raidStatus++;
+			}
+		}
+		return super.onSpellFinished(npc, player, skill);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		int npcId = npc.getId();
@@ -1968,106 +1641,433 @@ public final class CrystalCaverns extends AbstractInstance
 	}
 	
 	@Override
-	public String onEnterZone(L2Character character, L2ZoneType zone)
+	protected boolean checkConditions(L2PcInstance player)
 	{
-		if (character instanceof L2PcInstance)
+		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
 		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(character.getInstanceId());
-			if (tmpworld instanceof CCWorld)
+			return true;
+		}
+		
+		final L2Party party = player.getParty();
+		if (party == null)
+		{
+			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
+			return false;
+		}
+		if (party.getLeader() != player)
+		{
+			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
+			return false;
+		}
+		for (L2PcInstance partyMember : party.getMembers())
+		{
+			if (partyMember.getLevel() < MIN_LEVEL)
 			{
-				CCWorld world = (CCWorld) tmpworld;
-				if (world.getStatus() == 8)
-				{
-					int room;
-					int[][] spawns;
-					switch (zone.getId())
-					{
-						case 20105:
-							spawns = ROOM2_SPAWNS;
-							room = 2;
-							break;
-						case 20106:
-							spawns = ROOM3_SPAWNS;
-							room = 3;
-							break;
-						case 20107:
-							spawns = ROOM4_SPAWNS;
-							room = 4;
-							break;
-						default:
-							return super.onEnterZone(character, zone);
-					}
-					for (L2DoorInstance door : InstanceManager.getInstance().getInstance(world.getInstanceId()).getDoors())
-					{
-						if (door.getId() == (room + 24220000))
-						{
-							if (door.getOpen())
-							{
-								return "";
-							}
-							
-							if (!hasQuestItems((L2PcInstance) character, SECRET_KEY))
-							{
-								return "";
-							}
-							if (world.roomsStatus[zone.getId() - 20104] == 0)
-							{
-								runEmeraldRooms(world, spawns, room);
-							}
-							door.openMe();
-							takeItems((L2PcInstance) character, SECRET_KEY, 1);
-							world.openedDoors.put(door, (L2PcInstance) character);
-							break;
-						}
-					}
-				}
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			L2ItemInstance item = partyMember.getInventory().getItemByItemId(CONTAMINATED_CRYSTAL);
+			if (item == null)
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_ITEM_REQUIREMENT_NOT_SUFFICIENT);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (!Util.checkIfInRange(1000, player, partyMember, true))
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (System.currentTimeMillis() < InstanceManager.getInstance().getInstanceTime(partyMember.getObjectId(), TEMPLATE_ID))
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_MAY_NOT_RE_ENTER_YET);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
 			}
 		}
-		return super.onEnterZone(character, zone);
+		return true;
 	}
 	
-	@Override
-	public String onExitZone(L2Character character, L2ZoneType zone)
+	protected boolean checkKillProgress(int room, L2Npc mob, CCWorld world)
 	{
-		if (character instanceof L2PcInstance)
+		if (world.npcList2.get(room).containsKey(mob))
 		{
-			InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(character.getInstanceId());
-			if (tmpworld instanceof CCWorld)
+			world.npcList2.get(room).put(mob, true);
+		}
+		for (boolean isDead : world.npcList2.get(room).values())
+		{
+			if (!isDead)
 			{
-				CCWorld world = (CCWorld) tmpworld;
-				if (world.getStatus() == 8)
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	protected void runCoral(CCWorld world)
+	{
+		world.setStatus(1);
+		runHall(world);
+		openDoor(DOOR2, world.getInstanceId());
+		openDoor(DOOR5, world.getInstanceId());
+	}
+	
+	protected void runDarnel(CCWorld world)
+	{
+		world.setStatus(9);
+		
+		addSpawn(DARNEL, 152759, 145949, -12588, 21592, false, 0, false, world.getInstanceId());
+		// TODO: missing traps
+		openDoor(24220005, world.getInstanceId());
+		openDoor(24220006, world.getInstanceId());
+	}
+	
+	protected void runEmerald(CCWorld world)
+	{
+		world.setStatus(1);
+		runFirst(world);
+		openDoor(DOOR1, world.getInstanceId());
+	}
+	
+	protected void runEmeraldRooms(CCWorld world, int[][] spawnList, int room)
+	{
+		Map<L2Npc, Boolean> spawned = new HashMap<>();
+		for (int[] spawn : spawnList)
+		{
+			L2Npc mob = addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
+			spawned.put(mob, false);
+		}
+		if (room == 1)
+		{
+			addSpawn(32359, 142110, 139896, -11888, 8033, false, 0, false, world.getInstanceId());
+		}
+		world.npcList2.put(room, spawned);
+		world.roomsStatus[room - 1] = 1;
+	}
+	
+	protected void runEmeraldSquare(CCWorld world)
+	{
+		world.setStatus(3);
+		
+		Map<L2Npc, Boolean> spawnList = new HashMap<>();
+		for (int[] spawn : EMERALD_SPAWNS)
+		{
+			L2Npc mob = addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
+			spawnList.put(mob, false);
+		}
+		world.npcList2.put(0, spawnList);
+	}
+	
+	protected void runFirst(CCWorld world)
+	{
+		world.setStatus(2);
+		world.keyKeepers.add(addSpawn(GATEKEEPER_LOHAN, 148206, 149486, -12140, 32308, false, 0, false, world.getInstanceId()));
+		world.keyKeepers.add(addSpawn(GATEKEEPER_PROVO, 148203, 151093, -12140, 31100, false, 0, false, world.getInstanceId()));
+		
+		for (int[] spawn : FIRST_SPAWNS)
+		{
+			addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
+		}
+	}
+	
+	/*
+	 * protected void runBaylorRoom(CCWorld world) { world.status = 30; addSpawn(29101,152758,143479,-12706,52961,false,0,false,world.getInstanceId(),0);//up power addSpawn(29101,151951,142078,-12706,65203,false,0,false,world.getInstanceId(),0);//up power
+	 * addSpawn(29101,154396,140667,-12706,22197,false,0,false,world.getInstanceId(),0);//up power addSpawn(29102,152162,141249,-12706,5511,false,0,false,world.getInstanceId(),0);//down power addSpawn(29102,153571,140458,-12706,16699,false,0,false,world.getInstanceId(),0);//down power
+	 * addSpawn(29102,154976,141265,-12706,26908,false,0,false,world.getInstanceId(),0);//down power addSpawn(29102,155203,142071,-12706,31560,false,0,false,world.getInstanceId(),0);//down power addSpawn(29102,154380,143468,-12708,43943,false,0,false,world.getInstanceId(),0);//down power
+	 * addSpawn(32271,153573,142069,-9722,11175,false,0,false,world.getInstanceId()); world.Baylor = addSpawn(BAYLOR,153557,142089,-12735,11175,false,0,false,world.getInstanceId(),0); }
+	 */
+	
+	protected void runHall(CCWorld world)
+	{
+		world.setStatus(2);
+		
+		for (int[] spawn : HALL_SPAWNS)
+		{
+			L2Npc mob = addSpawn(CGMOBS[getRandom(CGMOBS.length)], spawn[0], spawn[1], spawn[2], spawn[3], false, 0, false, world.getInstanceId());
+			world.npcList1.put(mob, false);
+		}
+	}
+	
+	protected void runOracle(CCWorld world)
+	{
+		world.setStatus(0);
+		world.oracle.add(addSpawn(ORACLE_GUIDE_1, 143172, 148894, -11975, 0, false, 0, false, world.getInstanceId()));
+	}
+	
+	protected void runSteamOracles(CCWorld world, int[][] oracleOrder)
+	{
+		world.oracles.clear();
+		for (int[] oracle : oracleOrder)
+		{
+			world.oracles.put(addSpawn(oracle[0], oracle[1], oracle[2], oracle[3], oracle[4], false, 0, false, world.getInstanceId()), null);
+		}
+	}
+	
+	protected void runSteamRooms(CCWorld world, int[][] spawnList, int status)
+	{
+		world.setStatus(status);
+		
+		Map<L2Npc, Boolean> spawned = new HashMap<>();
+		for (int[] spawn : spawnList)
+		{
+			L2Npc mob = addSpawn(spawn[0], spawn[1], spawn[2], spawn[3], spawn[4], false, 0, false, world.getInstanceId());
+			spawned.put(mob, false);
+		}
+		world.npcList2.put(0, spawned);
+	}
+	
+	protected void stopAttack(L2PcInstance player)
+	{
+		player.setTarget(null);
+		player.abortAttack();
+		player.abortCast();
+		player.breakAttack();
+		player.breakCast();
+		player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		L2Summon pet = player.getSummon();
+		if (pet != null)
+		{
+			pet.setTarget(null);
+			pet.abortAttack();
+			pet.abortCast();
+			pet.breakAttack();
+			pet.breakCast();
+			pet.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		}
+	}
+	
+	private boolean checkBaylorConditions(L2PcInstance player)
+	{
+		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
+		{
+			return true;
+		}
+		
+		L2Party party = player.getParty();
+		if (party == null)
+		{
+			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
+			return false;
+		}
+		if (party.getLeader() != player)
+		{
+			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
+			return false;
+		}
+		for (L2PcInstance partyMember : party.getMembers())
+		{
+			L2ItemInstance item1 = partyMember.getInventory().getItemByItemId(BLUE_CRYSTAL);
+			L2ItemInstance item2 = partyMember.getInventory().getItemByItemId(RED_CRYSTAL);
+			L2ItemInstance item3 = partyMember.getInventory().getItemByItemId(CLEAR_CRYSTAL);
+			if ((item1 == null) || (item2 == null) || (item3 == null))
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_ITEM_REQUIREMENT_NOT_SUFFICIENT);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (!Util.checkIfInRange(1000, player, partyMember, true))
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean checkOracleConditions(L2PcInstance player)
+	{
+		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
+		{
+			return true;
+		}
+		
+		L2Party party = player.getParty();
+		if (party == null)
+		{
+			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
+			return false;
+		}
+		if (party.getLeader() != player)
+		{
+			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
+			return false;
+		}
+		for (L2PcInstance partyMember : party.getMembers())
+		{
+			L2ItemInstance item = partyMember.getInventory().getItemByItemId(RED_CORAL);
+			if (item == null)
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_ITEM_REQUIREMENT_NOT_SUFFICIENT);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (!Util.checkIfInRange(1000, player, partyMember, true))
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void giveRewards(L2PcInstance player, int instanceId, int bossCry, boolean isBaylor)
+	{
+		final int num = Math.max((int) Config.RATE_DEATH_DROP_CHANCE_MULTIPLIER, 1);
+		
+		L2Party party = player.getParty();
+		if (party != null)
+		{
+			for (L2PcInstance partyMember : party.getMembers())
+			{
+				if (partyMember.getInstanceId() == instanceId)
 				{
-					int doorId;
-					switch (zone.getId())
+					if (!isBaylor && hasQuestItems(partyMember, CONTAMINATED_CRYSTAL))
 					{
-						case 20105:
-							doorId = 24220002;
-							break;
-						case 20106:
-							doorId = 24220003;
-							break;
-						case 20107:
-							doorId = 24220004;
-							break;
-						default:
-							return super.onExitZone(character, zone);
+						takeItems(partyMember, CONTAMINATED_CRYSTAL, 1);
+						giveItems(partyMember, bossCry, 1);
 					}
-					for (L2DoorInstance door : InstanceManager.getInstance().getInstance(world.getInstanceId()).getDoors())
+					if (getRandom(10) < 5)
 					{
-						if (door.getId() == doorId)
-						{
-							if (door.getOpen() && (world.openedDoors.get(door) == character))
-							{
-								door.closeMe();
-								world.openedDoors.remove(door);
-							}
-							break;
-						}
+						giveItems(partyMember, WHITE_SEED_OF_EVIL_SHARD, num);
 					}
-					
+					else
+					{
+						giveItems(partyMember, BLACK_SEED_OF_EVIL_SHARD, num);
+					}
 				}
 			}
 		}
-		return super.onExitZone(character, zone);
+		else if (player.getInstanceId() == instanceId)
+		{
+			if (!isBaylor && hasQuestItems(player, CONTAMINATED_CRYSTAL))
+			{
+				takeItems(player, CONTAMINATED_CRYSTAL, 1);
+				giveItems(player, bossCry, 1);
+			}
+			if (getRandom(10) < 5)
+			{
+				giveItems(player, WHITE_SEED_OF_EVIL_SHARD, num);
+			}
+			else
+			{
+				giveItems(player, BLACK_SEED_OF_EVIL_SHARD, num);
+			}
+		}
+		
+	}
+	
+	// this should be handled from skill effect
+	private void Throw(L2Character effector, L2Character effected)
+	{
+		// Get current position of the L2Character
+		final int curX = effected.getX();
+		final int curY = effected.getY();
+		final int curZ = effected.getZ();
+		
+		// Calculate distance between effector and effected current position
+		double dx = effector.getX() - curX;
+		double dy = effector.getY() - curY;
+		double dz = effector.getZ() - curZ;
+		double distance = Math.sqrt((dx * dx) + (dy * dy));
+		int offset = Math.min((int) distance + 300, 1400);
+		
+		double cos;
+		double sin;
+		
+		// approximation for moving futher when z coordinates are different
+		// TODO: handle Z axis movement better
+		offset += Math.abs(dz);
+		if (offset < 5)
+		{
+			offset = 5;
+		}
+		
+		if (distance < 1)
+		{
+			return;
+		}
+		// Calculate movement angles needed
+		sin = dy / distance;
+		cos = dx / distance;
+		
+		// Calculate the new destination with offset included
+		int _x = effector.getX() - (int) (offset * cos);
+		int _y = effector.getY() - (int) (offset * sin);
+		int _z = effected.getZ();
+		
+		Location destination = GeoData.getInstance().moveCheck(effected.getX(), effected.getY(), effected.getZ(), _x, _y, _z, effected.getInstanceId());
+		
+		effected.broadcastPacket(new FlyToLocation(effected, destination, FlyType.THROW_UP));
+		
+		// maybe is need force set X,Y,Z
+		effected.setXYZ(destination);
+		effected.broadcastPacket(new ValidateLocation(effected));
+	}
+	
+	protected static class CrystalGolem
+	{
+		protected L2ItemInstance foodItem = null;
+		protected boolean isAtDestination = false;
+		protected Location oldLoc = null;
+	}
+	
+	private class CCWorld extends InstanceWorld
+	{
+		public Map<L2Npc, Boolean> npcList1 = new HashMap<>();
+		public L2Npc tears;
+		public boolean isUsedInvulSkill = false;
+		public long dragonScaleStart = 0;
+		public int dragonScaleNeed = 0;
+		public int cleanedRooms = 0;
+		public long endTime = 0;
+		public List<L2Npc> copys = new ArrayList<>();
+		public Map<L2Npc, CrystalGolem> crystalGolems = new HashMap<>();
+		public int correctGolems = 0;
+		public boolean[] OracleTriggered =
+		{
+			false,
+			false,
+			false
+		};
+		public int kechisHenchmanSpawn = 0;
+		public int[] roomsStatus =
+		{
+			0,
+			0,
+			0,
+			0
+		}; // 0: not spawned, 1: spawned, 2: cleared
+		public Map<L2DoorInstance, L2PcInstance> openedDoors = new ConcurrentHashMap<>();
+		public Map<Integer, Map<L2Npc, Boolean>> npcList2 = new HashMap<>();
+		public Map<L2Npc, L2Npc> oracles = new HashMap<>();
+		public List<L2Npc> keyKeepers = new ArrayList<>();
+		public List<L2Npc> guards = new ArrayList<>();
+		public List<L2Npc> oracle = new ArrayList<>();
+		// baylor variables
+		protected final List<L2PcInstance> _raiders = new ArrayList<>();
+		protected int _raidStatus = 0;
+		protected long _dragonClawStart = 0;
+		protected int _dragonClawNeed = 0;
+		protected final List<L2Npc> _animationMobs = new ArrayList<>();
+		protected L2Npc _camera = null;
+		protected L2Npc _baylor = null;
+		protected L2Npc _alarm = null;
+		
+		public CCWorld(Long time)
+		{
+			endTime = time;
+		}
 	}
 }

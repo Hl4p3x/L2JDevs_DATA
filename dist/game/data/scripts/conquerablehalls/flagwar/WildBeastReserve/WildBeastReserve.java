@@ -92,31 +92,15 @@ public final class WildBeastReserve extends FlagWar
 		super(WildBeastReserve.class.getSimpleName(), BEAST_FARM);
 	}
 	
-	@Override
-	public String getFlagHtml(int flag)
+	public static void main(String[] args)
 	{
-		String result = null;
-		
-		switch (flag)
-		{
-			case 35607:
-				result = "messenger_flag1.htm";
-				break;
-			case 35608:
-				result = "messenger_flag2.htm";
-				break;
-			case 35609:
-				result = "messenger_flag3.htm";
-				break;
-			case 35610:
-				result = "messenger_flag4.htm";
-				break;
-			case 35611:
-				result = "messenger_flag5.htm";
-				break;
-		}
-		
-		return result;
+		new WildBeastReserve();
+	}
+	
+	@Override
+	public boolean canPayRegistration()
+	{
+		return false;
 	}
 	
 	@Override
@@ -147,13 +131,29 @@ public final class WildBeastReserve extends FlagWar
 	}
 	
 	@Override
-	public boolean canPayRegistration()
+	public String getFlagHtml(int flag)
 	{
-		return false;
-	}
-	
-	public static void main(String[] args)
-	{
-		new WildBeastReserve();
+		String result = null;
+		
+		switch (flag)
+		{
+			case 35607:
+				result = "messenger_flag1.htm";
+				break;
+			case 35608:
+				result = "messenger_flag2.htm";
+				break;
+			case 35609:
+				result = "messenger_flag3.htm";
+				break;
+			case 35610:
+				result = "messenger_flag4.htm";
+				break;
+			case 35611:
+				result = "messenger_flag5.htm";
+				break;
+		}
+		
+		return result;
 	}
 }

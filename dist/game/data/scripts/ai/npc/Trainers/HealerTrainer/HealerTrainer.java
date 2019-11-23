@@ -63,6 +63,44 @@ public final class HealerTrainer extends AbstractNpcAI
 		addFirstTalkId(HEALER_TRAINERS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new HealerTrainer();
+	}
+	
+	/**
+	 * Verify if the player has the required item.
+	 * @param player the player to verify
+	 * @return {@code true} if the player has the item for the current class, {@code false} otherwise
+	 */
+	private static boolean hasTransferSkillItems(L2PcInstance player)
+	{
+		int itemId;
+		switch (player.getClassId())
+		{
+			case cardinal:
+			{
+				itemId = 15307;
+				break;
+			}
+			case evaSaint:
+			{
+				itemId = 15308;
+				break;
+			}
+			case shillienSaint:
+			{
+				itemId = 15309;
+				break;
+			}
+			default:
+			{
+				itemId = -1;
+			}
+		}
+		return (player.getInventory().getInventoryItemCount(itemId, -1) > 0);
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -168,43 +206,5 @@ public final class HealerTrainer extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	/**
-	 * Verify if the player has the required item.
-	 * @param player the player to verify
-	 * @return {@code true} if the player has the item for the current class, {@code false} otherwise
-	 */
-	private static boolean hasTransferSkillItems(L2PcInstance player)
-	{
-		int itemId;
-		switch (player.getClassId())
-		{
-			case cardinal:
-			{
-				itemId = 15307;
-				break;
-			}
-			case evaSaint:
-			{
-				itemId = 15308;
-				break;
-			}
-			case shillienSaint:
-			{
-				itemId = 15309;
-				break;
-			}
-			default:
-			{
-				itemId = -1;
-			}
-		}
-		return (player.getInventory().getInventoryItemCount(itemId, -1) > 0);
-	}
-	
-	public static void main(String[] args)
-	{
-		new HealerTrainer();
 	}
 }

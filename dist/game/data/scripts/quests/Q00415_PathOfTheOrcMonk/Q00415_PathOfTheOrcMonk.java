@@ -92,6 +92,12 @@ public final class Q00415_PathOfTheOrcMonk extends Quest
 		registerQuestItems(POMEGRANATE, LEATHER_POUCH_1ST, LEATHER_POUCH_2ND, LEATHER_POUCH_3RD, LEATHER_POUCH_1ST_FULL, LEATHER_POUCH_2ND_FULL, LEATHER_POUCH_3RD_FULL, KASHA_BEAR_CLAW, KASHA_BLADE_SPIDER_TALON, SCARLET_SALAMANDER_SCALE, FIERY_SPIRIT_SCROLL, ROSHEEKS_LETTER, GANTAKIS_LETTRT_OF_RECOMMENDATION, FIG, LEATHER_POUCH_4TF, LEATHER_POUCH_4TF_FULL, VUKU_ORK_TUSK, RATMAN_FANG, LANGK_LIZARDMAN_TOOTH, FELIM_LIZARDMAN_TOOTH, IRON_WILL_SCROLL, TORUKUS_LETTER, KASHA_SPIDERS_TOOTH, HORN_OF_BAAR_DRE_VANUL);
 	}
 	
+	private static boolean checkWeapon(L2PcInstance player)
+	{
+		L2ItemInstance weapon = player.getActiveWeaponInstance();
+		return ((weapon == null) || (weapon.getItemType() == WeaponType.FIST) || (weapon.getItemType() == WeaponType.DUALFIST));
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -697,11 +703,5 @@ public final class Q00415_PathOfTheOrcMonk extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	private static boolean checkWeapon(L2PcInstance player)
-	{
-		L2ItemInstance weapon = player.getActiveWeaponInstance();
-		return ((weapon == null) || (weapon.getItemType() == WeaponType.FIST) || (weapon.getItemType() == WeaponType.DUALFIST));
 	}
 }

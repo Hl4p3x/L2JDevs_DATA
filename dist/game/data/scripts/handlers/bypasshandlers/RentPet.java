@@ -36,54 +36,6 @@ public class RentPet implements IBypassHandler
 		"RentPet"
 	};
 	
-	@Override
-	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
-	{
-		if (!(target instanceof L2MerchantInstance))
-		{
-			return false;
-		}
-		
-		if (!Config.ALLOW_RENTPET)
-		{
-			return false;
-		}
-		
-		if (!Config.LIST_PET_RENT_NPC.contains(target.getId()))
-		{
-			return false;
-		}
-		
-		try
-		{
-			StringTokenizer st = new StringTokenizer(command, " ");
-			st.nextToken();
-			
-			if (st.countTokens() < 1)
-			{
-				final NpcHtmlMessage msg = new NpcHtmlMessage(((L2Npc) target).getObjectId());
-				msg.setHtml("<html><body>Pet Manager:<br>" + "You can rent a wyvern or strider for adena.<br>My prices:<br1>" + "<table border=0><tr><td>Ride</td></tr>" + "<tr><td>Wyvern</td><td>Strider</td></tr>"
-					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 1\">30 sec/1800 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 11\">30 sec/900 adena</a></td></tr>"
-					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 2\">1 min/7200 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 12\">1 min/3600 adena</a></td></tr>"
-					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 3\">10 min/720000 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 13\">10 min/360000 adena</a></td></tr>"
-					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 4\">30 min/6480000 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 14\">30 min/3240000 adena</a></td></tr>" + "</table>" + "</body></html>");
-				msg.replace("%objectId%", String.valueOf(((L2Npc) target).getObjectId()));
-				activeChar.sendPacket(msg);
-			}
-			else
-			{
-				tryRentPet(activeChar, Integer.parseInt(st.nextToken()));
-			}
-			
-			return true;
-		}
-		catch (Exception e)
-		{
-			_log.info("Exception in " + getClass().getSimpleName());
-		}
-		return false;
-	}
-	
 	public static final void tryRentPet(L2PcInstance player, int val)
 	{
 		if ((player == null) || player.hasSummon() || player.isMounted() || player.isRentedPet() || player.isTransformed() || player.isCursedWeaponEquipped())
@@ -146,5 +98,53 @@ public class RentPet implements IBypassHandler
 	public String[] getBypassList()
 	{
 		return COMMANDS;
+	}
+	
+	@Override
+	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
+	{
+		if (!(target instanceof L2MerchantInstance))
+		{
+			return false;
+		}
+		
+		if (!Config.ALLOW_RENTPET)
+		{
+			return false;
+		}
+		
+		if (!Config.LIST_PET_RENT_NPC.contains(target.getId()))
+		{
+			return false;
+		}
+		
+		try
+		{
+			StringTokenizer st = new StringTokenizer(command, " ");
+			st.nextToken();
+			
+			if (st.countTokens() < 1)
+			{
+				final NpcHtmlMessage msg = new NpcHtmlMessage(((L2Npc) target).getObjectId());
+				msg.setHtml("<html><body>Pet Manager:<br>" + "You can rent a wyvern or strider for adena.<br>My prices:<br1>" + "<table border=0><tr><td>Ride</td></tr>" + "<tr><td>Wyvern</td><td>Strider</td></tr>"
+					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 1\">30 sec/1800 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 11\">30 sec/900 adena</a></td></tr>"
+					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 2\">1 min/7200 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 12\">1 min/3600 adena</a></td></tr>"
+					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 3\">10 min/720000 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 13\">10 min/360000 adena</a></td></tr>"
+					+ "<tr><td><a action=\"bypass -h npc_%objectId%_RentPet 4\">30 min/6480000 adena</a></td><td><a action=\"bypass -h npc_%objectId%_RentPet 14\">30 min/3240000 adena</a></td></tr>" + "</table>" + "</body></html>");
+				msg.replace("%objectId%", String.valueOf(((L2Npc) target).getObjectId()));
+				activeChar.sendPacket(msg);
+			}
+			else
+			{
+				tryRentPet(activeChar, Integer.parseInt(st.nextToken()));
+			}
+			
+			return true;
+		}
+		catch (Exception e)
+		{
+			_log.info("Exception in " + getClass().getSimpleName());
+		}
+		return false;
 	}
 }

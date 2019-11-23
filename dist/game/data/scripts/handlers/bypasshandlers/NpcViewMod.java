@@ -55,167 +55,6 @@ public class NpcViewMod implements IBypassHandler
 	
 	private static final int DROP_LIST_ITEMS_PER_PAGE = 10;
 	
-	@Override
-	public boolean useBypass(String command, L2PcInstance activeChar, L2Character bypassOrigin)
-	{
-		final StringTokenizer st = new StringTokenizer(command);
-		st.nextToken();
-		
-		if (!st.hasMoreTokens())
-		{
-			_log.warning("Bypass[NpcViewMod] used without enough parameters.");
-			return false;
-		}
-		
-		final String actualCommand = st.nextToken();
-		switch (actualCommand.toLowerCase())
-		{
-			case "view":
-			{
-				final L2Object target;
-				if (st.hasMoreElements())
-				{
-					try
-					{
-						target = L2World.getInstance().findObject(Integer.parseInt(st.nextToken()));
-					}
-					catch (NumberFormatException e)
-					{
-						return false;
-					}
-				}
-				else
-				{
-					target = activeChar.getTarget();
-				}
-				
-				final L2Npc npc = target instanceof L2Npc ? (L2Npc) target : null;
-				if (npc == null)
-				{
-					return false;
-				}
-				
-				NpcViewMod.sendNpcView(activeChar, npc);
-				break;
-			}
-			case "droplist":
-			{
-				if (st.countTokens() < 2)
-				{
-					_log.warning("Bypass[NpcViewMod] used without enough parameters.");
-					return false;
-				}
-				
-				final String dropListScopeString = st.nextToken();
-				try
-				{
-					final DropListScope dropListScope = Enum.valueOf(DropListScope.class, dropListScopeString);
-					final L2Object target = L2World.getInstance().findObject(Integer.parseInt(st.nextToken()));
-					final L2Npc npc = target instanceof L2Npc ? (L2Npc) target : null;
-					if (npc == null)
-					{
-						return false;
-					}
-					final int page = st.hasMoreElements() ? Integer.parseInt(st.nextToken()) : 0;
-					sendNpcDropList(activeChar, npc, dropListScope, page);
-				}
-				catch (NumberFormatException e)
-				{
-					return false;
-				}
-				catch (IllegalArgumentException e)
-				{
-					_log.warning("Bypass[NpcViewMod] unknown drop list scope: " + dropListScopeString);
-					return false;
-				}
-				break;
-			}
-		}
-		
-		return true;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
-	}
-	
-	public static void sendNpcView(L2PcInstance activeChar, L2Npc npc)
-	{
-		final NpcHtmlMessage html = new NpcHtmlMessage();
-		html.setFile(activeChar.getHtmlPrefix(), "data/html/mods/NpcView/Info.htm");
-		html.replace("%name%", npc.getName());
-		html.replace("%hpGauge%", HtmlUtil.getHpGauge(250, (long) npc.getCurrentHp(), npc.getMaxHp(), false));
-		html.replace("%mpGauge%", HtmlUtil.getMpGauge(250, (long) npc.getCurrentMp(), npc.getMaxMp(), false));
-		
-		final L2Spawn npcSpawn = npc.getSpawn();
-		if ((npcSpawn == null) || (npcSpawn.getRespawnMinDelay() == 0))
-		{
-			html.replace("%respawn%", "None");
-		}
-		else
-		{
-			TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-			long min = Long.MAX_VALUE;
-			for (TimeUnit tu : TimeUnit.values())
-			{
-				final long minTimeFromMillis = tu.convert(npcSpawn.getRespawnMinDelay(), TimeUnit.MILLISECONDS);
-				final long maxTimeFromMillis = tu.convert(npcSpawn.getRespawnMaxDelay(), TimeUnit.MILLISECONDS);
-				if ((TimeUnit.MILLISECONDS.convert(minTimeFromMillis, tu) == npcSpawn.getRespawnMinDelay()) && (TimeUnit.MILLISECONDS.convert(maxTimeFromMillis, tu) == npcSpawn.getRespawnMaxDelay()))
-				{
-					if (min > minTimeFromMillis)
-					{
-						min = minTimeFromMillis;
-						timeUnit = tu;
-					}
-				}
-			}
-			final long minRespawnDelay = timeUnit.convert(npcSpawn.getRespawnMinDelay(), TimeUnit.MILLISECONDS);
-			final long maxRespawnDelay = timeUnit.convert(npcSpawn.getRespawnMaxDelay(), TimeUnit.MILLISECONDS);
-			final String timeUnitName = timeUnit.name().charAt(0) + timeUnit.name().toLowerCase().substring(1);
-			if (npcSpawn.hasRespawnRandom())
-			{
-				html.replace("%respawn%", minRespawnDelay + "-" + maxRespawnDelay + " " + timeUnitName);
-			}
-			else
-			{
-				html.replace("%respawn%", minRespawnDelay + " " + timeUnitName);
-			}
-		}
-		
-		html.replace("%atktype%", Util.capitalizeFirst(npc.getAttackType().name().toLowerCase()));
-		html.replace("%atkrange%", npc.getStat().getPhysicalAttackRange());
-		
-		html.replace("%patk%", (int) npc.getPAtk(activeChar));
-		html.replace("%pdef%", (int) npc.getPDef(activeChar));
-		
-		html.replace("%matk%", (int) npc.getMAtk(activeChar, null));
-		html.replace("%mdef%", (int) npc.getMDef(activeChar, null));
-		
-		html.replace("%atkspd%", npc.getPAtkSpd());
-		html.replace("%castspd%", npc.getMAtkSpd());
-		
-		html.replace("%critrate%", npc.getStat().getCriticalHit(activeChar, null));
-		html.replace("%evasion%", npc.getEvasionRate(activeChar));
-		
-		html.replace("%accuracy%", npc.getStat().getAccuracy());
-		html.replace("%speed%", (int) npc.getStat().getMoveSpeed());
-		
-		html.replace("%attributeatktype%", Elementals.getElementName(npc.getStat().getAttackElement()));
-		html.replace("%attributeatkvalue%", npc.getStat().getAttackElementValue(npc.getStat().getAttackElement()));
-		html.replace("%attributefire%", npc.getStat().getDefenseElementValue(Elementals.FIRE));
-		html.replace("%attributewater%", npc.getStat().getDefenseElementValue(Elementals.WATER));
-		html.replace("%attributewind%", npc.getStat().getDefenseElementValue(Elementals.WIND));
-		html.replace("%attributeearth%", npc.getStat().getDefenseElementValue(Elementals.EARTH));
-		html.replace("%attributedark%", npc.getStat().getDefenseElementValue(Elementals.DARK));
-		html.replace("%attributeholy%", npc.getStat().getDefenseElementValue(Elementals.HOLY));
-		
-		html.replace("%dropListButtons%", getDropListButtons(npc));
-		
-		activeChar.sendPacket(html);
-	}
-	
 	public static String getDropListButtons(L2Npc npc)
 	{
 		final StringBuilder sb = new StringBuilder();
@@ -388,6 +227,81 @@ public class NpcViewMod implements IBypassHandler
 		Util.sendCBHtml(activeChar, html);
 	}
 	
+	public static void sendNpcView(L2PcInstance activeChar, L2Npc npc)
+	{
+		final NpcHtmlMessage html = new NpcHtmlMessage();
+		html.setFile(activeChar.getHtmlPrefix(), "data/html/mods/NpcView/Info.htm");
+		html.replace("%name%", npc.getName());
+		html.replace("%hpGauge%", HtmlUtil.getHpGauge(250, (long) npc.getCurrentHp(), npc.getMaxHp(), false));
+		html.replace("%mpGauge%", HtmlUtil.getMpGauge(250, (long) npc.getCurrentMp(), npc.getMaxMp(), false));
+		
+		final L2Spawn npcSpawn = npc.getSpawn();
+		if ((npcSpawn == null) || (npcSpawn.getRespawnMinDelay() == 0))
+		{
+			html.replace("%respawn%", "None");
+		}
+		else
+		{
+			TimeUnit timeUnit = TimeUnit.MILLISECONDS;
+			long min = Long.MAX_VALUE;
+			for (TimeUnit tu : TimeUnit.values())
+			{
+				final long minTimeFromMillis = tu.convert(npcSpawn.getRespawnMinDelay(), TimeUnit.MILLISECONDS);
+				final long maxTimeFromMillis = tu.convert(npcSpawn.getRespawnMaxDelay(), TimeUnit.MILLISECONDS);
+				if ((TimeUnit.MILLISECONDS.convert(minTimeFromMillis, tu) == npcSpawn.getRespawnMinDelay()) && (TimeUnit.MILLISECONDS.convert(maxTimeFromMillis, tu) == npcSpawn.getRespawnMaxDelay()))
+				{
+					if (min > minTimeFromMillis)
+					{
+						min = minTimeFromMillis;
+						timeUnit = tu;
+					}
+				}
+			}
+			final long minRespawnDelay = timeUnit.convert(npcSpawn.getRespawnMinDelay(), TimeUnit.MILLISECONDS);
+			final long maxRespawnDelay = timeUnit.convert(npcSpawn.getRespawnMaxDelay(), TimeUnit.MILLISECONDS);
+			final String timeUnitName = timeUnit.name().charAt(0) + timeUnit.name().toLowerCase().substring(1);
+			if (npcSpawn.hasRespawnRandom())
+			{
+				html.replace("%respawn%", minRespawnDelay + "-" + maxRespawnDelay + " " + timeUnitName);
+			}
+			else
+			{
+				html.replace("%respawn%", minRespawnDelay + " " + timeUnitName);
+			}
+		}
+		
+		html.replace("%atktype%", Util.capitalizeFirst(npc.getAttackType().name().toLowerCase()));
+		html.replace("%atkrange%", npc.getStat().getPhysicalAttackRange());
+		
+		html.replace("%patk%", (int) npc.getPAtk(activeChar));
+		html.replace("%pdef%", (int) npc.getPDef(activeChar));
+		
+		html.replace("%matk%", (int) npc.getMAtk(activeChar, null));
+		html.replace("%mdef%", (int) npc.getMDef(activeChar, null));
+		
+		html.replace("%atkspd%", npc.getPAtkSpd());
+		html.replace("%castspd%", npc.getMAtkSpd());
+		
+		html.replace("%critrate%", npc.getStat().getCriticalHit(activeChar, null));
+		html.replace("%evasion%", npc.getEvasionRate(activeChar));
+		
+		html.replace("%accuracy%", npc.getStat().getAccuracy());
+		html.replace("%speed%", (int) npc.getStat().getMoveSpeed());
+		
+		html.replace("%attributeatktype%", Elementals.getElementName(npc.getStat().getAttackElement()));
+		html.replace("%attributeatkvalue%", npc.getStat().getAttackElementValue(npc.getStat().getAttackElement()));
+		html.replace("%attributefire%", npc.getStat().getDefenseElementValue(Elementals.FIRE));
+		html.replace("%attributewater%", npc.getStat().getDefenseElementValue(Elementals.WATER));
+		html.replace("%attributewind%", npc.getStat().getDefenseElementValue(Elementals.WIND));
+		html.replace("%attributeearth%", npc.getStat().getDefenseElementValue(Elementals.EARTH));
+		html.replace("%attributedark%", npc.getStat().getDefenseElementValue(Elementals.DARK));
+		html.replace("%attributeholy%", npc.getStat().getDefenseElementValue(Elementals.HOLY));
+		
+		html.replace("%dropListButtons%", getDropListButtons(npc));
+		
+		activeChar.sendPacket(html);
+	}
+	
 	/**
 	 * @param activeChar
 	 * @param npc
@@ -428,17 +342,6 @@ public class NpcViewMod implements IBypassHandler
 		sb.append("%</td></tr></table></td></tr><tr><td width=32></td><td width=300>&nbsp;</td></tr></table>");
 	}
 	
-	private static class MinMax
-	{
-		public long _min, _max;
-		
-		public MinMax(long min, long max)
-		{
-			_min = min;
-			_max = max;
-		}
-	}
-	
 	private static MinMax getPreciseMinMax(double chance, long min, long max, boolean isPrecise)
 	{
 		if (!isPrecise || (chance <= 100))
@@ -448,5 +351,102 @@ public class NpcViewMod implements IBypassHandler
 		
 		int mult = (int) (chance) / 100;
 		return new MinMax(mult * min, (chance % 100) > 0 ? (mult + 1) * max : mult * max);
+	}
+	
+	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
+	public boolean useBypass(String command, L2PcInstance activeChar, L2Character bypassOrigin)
+	{
+		final StringTokenizer st = new StringTokenizer(command);
+		st.nextToken();
+		
+		if (!st.hasMoreTokens())
+		{
+			_log.warning("Bypass[NpcViewMod] used without enough parameters.");
+			return false;
+		}
+		
+		final String actualCommand = st.nextToken();
+		switch (actualCommand.toLowerCase())
+		{
+			case "view":
+			{
+				final L2Object target;
+				if (st.hasMoreElements())
+				{
+					try
+					{
+						target = L2World.getInstance().findObject(Integer.parseInt(st.nextToken()));
+					}
+					catch (NumberFormatException e)
+					{
+						return false;
+					}
+				}
+				else
+				{
+					target = activeChar.getTarget();
+				}
+				
+				final L2Npc npc = target instanceof L2Npc ? (L2Npc) target : null;
+				if (npc == null)
+				{
+					return false;
+				}
+				
+				NpcViewMod.sendNpcView(activeChar, npc);
+				break;
+			}
+			case "droplist":
+			{
+				if (st.countTokens() < 2)
+				{
+					_log.warning("Bypass[NpcViewMod] used without enough parameters.");
+					return false;
+				}
+				
+				final String dropListScopeString = st.nextToken();
+				try
+				{
+					final DropListScope dropListScope = Enum.valueOf(DropListScope.class, dropListScopeString);
+					final L2Object target = L2World.getInstance().findObject(Integer.parseInt(st.nextToken()));
+					final L2Npc npc = target instanceof L2Npc ? (L2Npc) target : null;
+					if (npc == null)
+					{
+						return false;
+					}
+					final int page = st.hasMoreElements() ? Integer.parseInt(st.nextToken()) : 0;
+					sendNpcDropList(activeChar, npc, dropListScope, page);
+				}
+				catch (NumberFormatException e)
+				{
+					return false;
+				}
+				catch (IllegalArgumentException e)
+				{
+					_log.warning("Bypass[NpcViewMod] unknown drop list scope: " + dropListScopeString);
+					return false;
+				}
+				break;
+			}
+		}
+		
+		return true;
+	}
+	
+	private static class MinMax
+	{
+		public long _min, _max;
+		
+		public MinMax(long min, long max)
+		{
+			_min = min;
+			_max = max;
+		}
 	}
 }

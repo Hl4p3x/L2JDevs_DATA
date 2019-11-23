@@ -34,6 +34,12 @@ public class AdminTarget implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_target"))
@@ -41,12 +47,6 @@ public class AdminTarget implements IAdminCommandHandler
 			handleTarget(command, activeChar);
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void handleTarget(String command, L2PcInstance activeChar)

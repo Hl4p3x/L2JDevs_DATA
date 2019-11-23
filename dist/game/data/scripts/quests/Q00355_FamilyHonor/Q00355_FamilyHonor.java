@@ -33,30 +33,9 @@ import org.l2jdevs.gameserver.util.Util;
  */
 public final class Q00355_FamilyHonor extends Quest
 {
-	private static final class DropInfo
-	{
-		public final int _firstChance;
-		public final int _secondChance;
-		
-		public DropInfo(int firstChance, int secondChance)
-		{
-			_firstChance = firstChance;
-			_secondChance = secondChance;
-		}
-		
-		public int getFirstChance()
-		{
-			return _firstChance;
-		}
-		
-		public int getSecondChance()
-		{
-			return _secondChance;
-		}
-	}
-	
 	// NPCs
 	private static final int GALIBREDO = 30181;
+	
 	private static final int PATRIN = 30929;
 	// Items
 	private static final int GALFREDO_ROMERS_BUST = 4252;
@@ -67,8 +46,8 @@ public final class Q00355_FamilyHonor extends Quest
 	private static final int ANCIENT_STATUE_FORGERY = 4354;
 	// Misc
 	private static final int MIN_LEVEL = 36;
-	
 	private static final Map<Integer, DropInfo> MOBS = new HashMap<>();
+	
 	static
 	{
 		MOBS.put(20767, new DropInfo(560, 684)); // timak_orc_troop_leader
@@ -76,7 +55,6 @@ public final class Q00355_FamilyHonor extends Quest
 		MOBS.put(20769, new DropInfo(420, 516)); // timak_orc_troop_warrior
 		MOBS.put(20770, new DropInfo(440, 560)); // timak_orc_troop_archer
 	}
-	
 	public Q00355_FamilyHonor()
 	{
 		super(355, Q00355_FamilyHonor.class.getSimpleName(), "Family Honor");
@@ -243,5 +221,27 @@ public final class Q00355_FamilyHonor extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private static final class DropInfo
+	{
+		public final int _firstChance;
+		public final int _secondChance;
+		
+		public DropInfo(int firstChance, int secondChance)
+		{
+			_firstChance = firstChance;
+			_secondChance = secondChance;
+		}
+		
+		public int getFirstChance()
+		{
+			return _firstChance;
+		}
+		
+		public int getSecondChance()
+		{
+			return _secondChance;
+		}
 	}
 }

@@ -33,6 +33,12 @@ public class BuyShadowItem implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!(target instanceof L2MerchantInstance))
@@ -61,11 +67,5 @@ public class BuyShadowItem implements IBypassHandler
 		activeChar.sendPacket(html);
 		
 		return true;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

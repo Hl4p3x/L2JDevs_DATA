@@ -33,6 +33,12 @@ public class AdminDebug implements IAdminCommandHandler
 	};
 	
 	@Override
+	public final String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public final boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		String[] commandSplit = command.split(" ");
@@ -63,12 +69,6 @@ public class AdminDebug implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public final String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private final void setDebug(L2PcInstance activeChar, L2Character target)

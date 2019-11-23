@@ -46,6 +46,11 @@ public final class CrumaTower extends AbstractNpcAI
 		addTalkId(MOZELLA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CrumaTower();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
@@ -55,10 +60,5 @@ public final class CrumaTower extends AbstractNpcAI
 			return null;
 		}
 		return "30483-1.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new CrumaTower();
 	}
 }

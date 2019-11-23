@@ -34,16 +34,9 @@ public final class L2Day extends LongTimeEvent
 {
 	// NPCs
 	private static final Map<Integer, Integer> MANAGERS = new HashMap<>();
-	{
-		MANAGERS.put(31854, 7117); // Talking Island Village
-		MANAGERS.put(31855, 7118); // Elven Village
-		MANAGERS.put(31856, 7119); // Dark Elven Village
-		MANAGERS.put(31857, 7121); // Dwarven Village
-		MANAGERS.put(31858, 7120); // Orc Village
-	}
-	
 	// Items
 	private static final int A = 3875;
+	
 	private static final int C = 3876;
 	private static final int E = 3877;
 	private static final int F = 3878;
@@ -57,7 +50,6 @@ public final class L2Day extends LongTimeEvent
 	private static final int S = 3886;
 	private static final int T = 3887;
 	private static final int II = 3888;
-	
 	// Rewards
 	private static final QuestItemHolder[] L2_REWARDS =
 	{
@@ -146,12 +138,25 @@ public final class L2Day extends LongTimeEvent
 		new QuestItemHolder(6662, 0, 1), // Ring of Core
 	};
 	
+	{
+		MANAGERS.put(31854, 7117); // Talking Island Village
+		MANAGERS.put(31855, 7118); // Elven Village
+		MANAGERS.put(31856, 7119); // Dark Elven Village
+		MANAGERS.put(31857, 7121); // Dwarven Village
+		MANAGERS.put(31858, 7120); // Orc Village
+	}
+	
 	private L2Day()
 	{
 		super(L2Day.class.getSimpleName(), "events");
 		addStartNpc(MANAGERS.keySet());
 		addFirstTalkId(MANAGERS.keySet());
 		addTalkId(MANAGERS.keySet());
+	}
+	
+	public static void main(String[] args)
+	{
+		new L2Day();
 	}
 	
 	@Override
@@ -265,10 +270,5 @@ public final class L2Day extends LongTimeEvent
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return "manager.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new L2Day();
 	}
 }

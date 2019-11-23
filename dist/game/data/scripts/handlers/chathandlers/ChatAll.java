@@ -46,6 +46,15 @@ public class ChatAll implements IChatHandler
 	};
 	
 	/**
+	 * Returns the chat types registered to this handler.
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	/**
 	 * Handle chat type 'all'
 	 */
 	@Override
@@ -117,14 +126,5 @@ public class ChatAll implements IChatHandler
 				activeChar.sendPacket(cs);
 			}
 		}
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler.
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
 	}
 }

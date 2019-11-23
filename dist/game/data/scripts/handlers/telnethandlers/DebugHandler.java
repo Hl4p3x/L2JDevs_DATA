@@ -66,6 +66,117 @@ public class DebugHandler implements ITelnetHandler
 	private int _uptime = 0;
 	
 	@Override
+	public String[] getCommandList()
+	{
+		return _commands;
+	}
+	
+	public String getServerStatus()
+	{
+		int playerCount = 0, objectCount = 0;
+		int max = LoginServerThread.getInstance().getMaxPlayer();
+		
+		playerCount = L2World.getInstance().getAllPlayersCount();
+		objectCount = L2World.getInstance().getVisibleObjectsCount();
+		
+		int itemCount = 0;
+		int itemVoidCount = 0;
+		int monsterCount = 0;
+		int minionCount = 0;
+		int minionsGroupCount = 0;
+		int npcCount = 0;
+		int charCount = 0;
+		int pcCount = 0;
+		int detachedCount = 0;
+		int doorCount = 0;
+		int summonCount = 0;
+		int AICount = 0;
+		
+		for (L2Object obj : L2World.getInstance().getVisibleObjects())
+		{
+			if (obj == null)
+			{
+				continue;
+			}
+			if (obj instanceof L2Character)
+			{
+				if (((L2Character) obj).hasAI())
+				{
+					AICount++;
+				}
+			}
+			if (obj instanceof L2ItemInstance)
+			{
+				if (((L2ItemInstance) obj).getItemLocation() == ItemLocation.VOID)
+				{
+					itemVoidCount++;
+				}
+				else
+				{
+					itemCount++;
+				}
+			}
+			else if (obj instanceof L2MonsterInstance)
+			{
+				monsterCount++;
+				if (((L2MonsterInstance) obj).hasMinions())
+				{
+					minionCount += ((L2MonsterInstance) obj).getMinionList().countSpawnedMinions();
+					minionsGroupCount += ((L2MonsterInstance) obj).getMinionList().lazyCountSpawnedMinionsGroups();
+				}
+			}
+			else if (obj instanceof L2Npc)
+			{
+				npcCount++;
+			}
+			else if (obj instanceof L2PcInstance)
+			{
+				pcCount++;
+				if ((((L2PcInstance) obj).getClient() != null) && ((L2PcInstance) obj).getClient().isDetached())
+				{
+					detachedCount++;
+				}
+			}
+			else if (obj instanceof L2Summon)
+			{
+				summonCount++;
+			}
+			else if (obj instanceof L2DoorInstance)
+			{
+				doorCount++;
+			}
+			else if (obj instanceof L2Character)
+			{
+				charCount++;
+			}
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("Server Status: ");
+		sb.append("\r\n  --->  Player Count: " + playerCount + "/" + max);
+		sb.append("\r\n  ---> Offline Count: " + detachedCount + "/" + playerCount);
+		sb.append("\r\n  +-->  Object Count: " + objectCount);
+		sb.append("\r\n  +-->      AI Count: " + AICount);
+		sb.append("\r\n  +.... L2Item(Void): " + itemVoidCount);
+		sb.append("\r\n  +.......... L2Item: " + itemCount);
+		sb.append("\r\n  +....... L2Monster: " + monsterCount);
+		sb.append("\r\n  +......... Minions: " + minionCount);
+		sb.append("\r\n  +.. Minions Groups: " + minionsGroupCount);
+		sb.append("\r\n  +........... L2Npc: " + npcCount);
+		sb.append("\r\n  +............ L2Pc: " + pcCount);
+		sb.append("\r\n  +........ L2Summon: " + summonCount);
+		sb.append("\r\n  +.......... L2Door: " + doorCount);
+		sb.append("\r\n  +.......... L2Char: " + charCount);
+		sb.append("\r\n  --->   Ingame Time: " + gameTime());
+		sb.append("\r\n  ---> Server Uptime: " + getUptime(_uptime));
+		sb.append("\r\n  --->      GM Count: " + getOnlineGMS());
+		sb.append("\r\n  --->       Threads: " + Thread.activeCount());
+		sb.append("\r\n  RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576)); // 1024 * 1024 = 1048576
+		sb.append("\r\n");
+		
+		return sb.toString();
+	}
+	
+	@Override
 	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int uptime)
 	{
 		if (command.startsWith("debug") && (command.length() > 6))
@@ -330,109 +441,16 @@ public class DebugHandler implements ITelnetHandler
 		throw new IllegalStateException("Deadlocked Thread not found");
 	}
 	
-	public String getServerStatus()
+	private String gameTime()
 	{
-		int playerCount = 0, objectCount = 0;
-		int max = LoginServerThread.getInstance().getMaxPlayer();
-		
-		playerCount = L2World.getInstance().getAllPlayersCount();
-		objectCount = L2World.getInstance().getVisibleObjectsCount();
-		
-		int itemCount = 0;
-		int itemVoidCount = 0;
-		int monsterCount = 0;
-		int minionCount = 0;
-		int minionsGroupCount = 0;
-		int npcCount = 0;
-		int charCount = 0;
-		int pcCount = 0;
-		int detachedCount = 0;
-		int doorCount = 0;
-		int summonCount = 0;
-		int AICount = 0;
-		
-		for (L2Object obj : L2World.getInstance().getVisibleObjects())
-		{
-			if (obj == null)
-			{
-				continue;
-			}
-			if (obj instanceof L2Character)
-			{
-				if (((L2Character) obj).hasAI())
-				{
-					AICount++;
-				}
-			}
-			if (obj instanceof L2ItemInstance)
-			{
-				if (((L2ItemInstance) obj).getItemLocation() == ItemLocation.VOID)
-				{
-					itemVoidCount++;
-				}
-				else
-				{
-					itemCount++;
-				}
-			}
-			else if (obj instanceof L2MonsterInstance)
-			{
-				monsterCount++;
-				if (((L2MonsterInstance) obj).hasMinions())
-				{
-					minionCount += ((L2MonsterInstance) obj).getMinionList().countSpawnedMinions();
-					minionsGroupCount += ((L2MonsterInstance) obj).getMinionList().lazyCountSpawnedMinionsGroups();
-				}
-			}
-			else if (obj instanceof L2Npc)
-			{
-				npcCount++;
-			}
-			else if (obj instanceof L2PcInstance)
-			{
-				pcCount++;
-				if ((((L2PcInstance) obj).getClient() != null) && ((L2PcInstance) obj).getClient().isDetached())
-				{
-					detachedCount++;
-				}
-			}
-			else if (obj instanceof L2Summon)
-			{
-				summonCount++;
-			}
-			else if (obj instanceof L2DoorInstance)
-			{
-				doorCount++;
-			}
-			else if (obj instanceof L2Character)
-			{
-				charCount++;
-			}
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append("Server Status: ");
-		sb.append("\r\n  --->  Player Count: " + playerCount + "/" + max);
-		sb.append("\r\n  ---> Offline Count: " + detachedCount + "/" + playerCount);
-		sb.append("\r\n  +-->  Object Count: " + objectCount);
-		sb.append("\r\n  +-->      AI Count: " + AICount);
-		sb.append("\r\n  +.... L2Item(Void): " + itemVoidCount);
-		sb.append("\r\n  +.......... L2Item: " + itemCount);
-		sb.append("\r\n  +....... L2Monster: " + monsterCount);
-		sb.append("\r\n  +......... Minions: " + minionCount);
-		sb.append("\r\n  +.. Minions Groups: " + minionsGroupCount);
-		sb.append("\r\n  +........... L2Npc: " + npcCount);
-		sb.append("\r\n  +............ L2Pc: " + pcCount);
-		sb.append("\r\n  +........ L2Summon: " + summonCount);
-		sb.append("\r\n  +.......... L2Door: " + doorCount);
-		sb.append("\r\n  +.......... L2Char: " + charCount);
-		sb.append("\r\n  --->   Ingame Time: " + gameTime());
-		sb.append("\r\n  ---> Server Uptime: " + getUptime(_uptime));
-		sb.append("\r\n  --->      GM Count: " + getOnlineGMS());
-		sb.append("\r\n  --->       Threads: " + Thread.activeCount());
-		sb.append("\r\n  RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576)); // 1024 * 1024 = 1048576
-		sb.append("\r\n");
-		
-		return sb.toString();
+		int t = GameTimeController.getInstance().getGameTime();
+		int h = t / 60;
+		int m = t % 60;
+		SimpleDateFormat format = new SimpleDateFormat("H:mm");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, h);
+		cal.set(Calendar.MINUTE, m);
+		return format.format(cal.getTime());
 	}
 	
 	private int getOnlineGMS()
@@ -448,23 +466,5 @@ public class DebugHandler implements ITelnetHandler
 		int m = (uptime - (h * 3600)) / 60;
 		int s = ((uptime - (h * 3600)) - (m * 60));
 		return h + "hrs " + m + "mins " + s + "secs";
-	}
-	
-	private String gameTime()
-	{
-		int t = GameTimeController.getInstance().getGameTime();
-		int h = t / 60;
-		int m = t % 60;
-		SimpleDateFormat format = new SimpleDateFormat("H:mm");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, h);
-		cal.set(Calendar.MINUTE, m);
-		return format.format(cal.getTime());
-	}
-	
-	@Override
-	public String[] getCommandList()
-	{
-		return _commands;
 	}
 }

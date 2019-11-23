@@ -49,6 +49,21 @@ public class Q10289_FadeToBlack extends Quest
 		registerQuestItems(MARK_OF_SPLENDOR, MARK_OF_DARKNESS);
 	}
 	
+	private static final void rewardPlayer(QuestState qs, boolean isLucky)
+	{
+		if ((qs != null) && qs.isCond(1))
+		{
+			giveItems(qs.getPlayer(), (isLucky ? MARK_OF_SPLENDOR : MARK_OF_DARKNESS), 1);
+			qs.setCond(isLucky ? 3 : 2, true);
+		}
+	}
+	
+	@Override
+	public boolean checkPartyMember(QuestState qs, L2Npc npc)
+	{
+		return (qs.getCond() < 3);
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -231,12 +246,6 @@ public class Q10289_FadeToBlack extends Quest
 	}
 	
 	@Override
-	public boolean checkPartyMember(QuestState qs, L2Npc npc)
-	{
-		return (qs.getCond() < 3);
-	}
-	
-	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -271,14 +280,5 @@ public class Q10289_FadeToBlack extends Quest
 			htmltext = "32757-10.html";
 		}
 		return htmltext;
-	}
-	
-	private static final void rewardPlayer(QuestState qs, boolean isLucky)
-	{
-		if ((qs != null) && qs.isCond(1))
-		{
-			giveItems(qs.getPlayer(), (isLucky ? MARK_OF_SPLENDOR : MARK_OF_DARKNESS), 1);
-			qs.setCond(isLucky ? 3 : 2, true);
-		}
 	}
 }

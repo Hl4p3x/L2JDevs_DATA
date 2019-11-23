@@ -74,17 +74,6 @@ public class Q00998_FallenAngelSelect extends Quest
 		return null;
 	}
 	
-	private void startQuest(String name, L2PcInstance player)
-	{
-		final Quest q = QuestManager.getInstance().getQuest(name);
-		if (q != null)
-		{
-			q.newQuestState(player);
-			q.notifyEvent("30894-01.html", null, player);
-			player.getQuestState(getName()).setState(State.COMPLETED);
-		}
-	}
-	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -95,5 +84,16 @@ public class Q00998_FallenAngelSelect extends Quest
 			return getNoQuestMsg(player);
 		}
 		return ((player.getLevel() >= MIN_LEVEL) && (qs != null) && qs.isCompleted()) ? "30894-01.html" : "30894-00.html";
+	}
+	
+	private void startQuest(String name, L2PcInstance player)
+	{
+		final Quest q = QuestManager.getInstance().getQuest(name);
+		if (q != null)
+		{
+			q.newQuestState(player);
+			q.notifyEvent("30894-01.html", null, player);
+			player.getQuestState(getName()).setState(State.COMPLETED);
+		}
 	}
 }

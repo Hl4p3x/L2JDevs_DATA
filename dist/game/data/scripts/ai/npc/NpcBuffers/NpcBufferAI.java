@@ -116,51 +116,6 @@ public class NpcBufferAI implements Runnable
 	}
 	
 	/**
-	 * Verifies if the character is an friend and can be affected by positive effect.
-	 * @param player the player
-	 * @param target the target
-	 * @return {@code true} if target can be affected by positive effect, {@code false} otherwise
-	 */
-	private boolean isFriendly(L2PcInstance player, L2Character target)
-	{
-		if (target.isPlayable())
-		{
-			final L2PcInstance targetPlayer = target.getActingPlayer();
-			
-			if (player == targetPlayer)
-			{
-				return true;
-			}
-			
-			if (player.isInPartyWith(targetPlayer))
-			{
-				return true;
-			}
-			
-			if (player.isInCommandChannelWith(targetPlayer))
-			{
-				return true;
-			}
-			
-			if (player.isInClanWith(targetPlayer))
-			{
-				return true;
-			}
-			
-			if (player.isInAllyWith(targetPlayer))
-			{
-				return true;
-			}
-			
-			if (player.isOnSameSiegeSideWith(targetPlayer))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
 	 * Verifies if the character is an enemy and can be affected by negative effect.
 	 * @param player the player
 	 * @param target the target
@@ -208,6 +163,51 @@ public class NpcBufferAI implements Runnable
 				{
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Verifies if the character is an friend and can be affected by positive effect.
+	 * @param player the player
+	 * @param target the target
+	 * @return {@code true} if target can be affected by positive effect, {@code false} otherwise
+	 */
+	private boolean isFriendly(L2PcInstance player, L2Character target)
+	{
+		if (target.isPlayable())
+		{
+			final L2PcInstance targetPlayer = target.getActingPlayer();
+			
+			if (player == targetPlayer)
+			{
+				return true;
+			}
+			
+			if (player.isInPartyWith(targetPlayer))
+			{
+				return true;
+			}
+			
+			if (player.isInCommandChannelWith(targetPlayer))
+			{
+				return true;
+			}
+			
+			if (player.isInClanWith(targetPlayer))
+			{
+				return true;
+			}
+			
+			if (player.isInAllyWith(targetPlayer))
+			{
+				return true;
+			}
+			
+			if (player.isOnSameSiegeSideWith(targetPlayer))
+			{
+				return true;
 			}
 		}
 		return false;

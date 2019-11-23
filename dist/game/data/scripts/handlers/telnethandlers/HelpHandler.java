@@ -34,6 +34,12 @@ public class HelpHandler implements ITelnetHandler
 	};
 	
 	@Override
+	public String[] getCommandList()
+	{
+		return _commands;
+	}
+	
+	@Override
 	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int _uptime)
 	{
 		if (command.equals("help"))
@@ -73,11 +79,5 @@ public class HelpHandler implements ITelnetHandler
 			_print.println("GeneralTP           - prints info about the General ThreadPool");
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getCommandList()
-	{
-		return _commands;
 	}
 }

@@ -39,6 +39,12 @@ public class AdminTvTEvent implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_tvt_add"))
@@ -71,12 +77,6 @@ public class AdminTvTEvent implements IAdminCommandHandler
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void add(L2PcInstance activeChar, L2PcInstance playerInstance)

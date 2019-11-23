@@ -99,6 +99,17 @@ public class BoatRunePrimeval implements Runnable
 		BUSY_RUNE = new CreatureSay(0, Say2.BOAT, 801, SystemMessageId.FERRY_FROM_PRIMEVAL_TO_RUNE_DELAYED);
 	}
 	
+	public static void main(String[] args)
+	{
+		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(5, 34381, -37680, -3610, 40785);
+		if (boat != null)
+		{
+			boat.registerEngine(new BoatRunePrimeval(boat));
+			boat.runEngine(180000);
+			BoatManager.getInstance().dockShip(BoatManager.RUNE_HARBOR, true);
+		}
+	}
+	
 	@Override
 	public void run()
 	{
@@ -156,17 +167,6 @@ public class BoatRunePrimeval implements Runnable
 		catch (Exception e)
 		{
 			_log.log(Level.WARNING, e.getMessage());
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		final L2BoatInstance boat = BoatManager.getInstance().getNewBoat(5, 34381, -37680, -3610, 40785);
-		if (boat != null)
-		{
-			boat.registerEngine(new BoatRunePrimeval(boat));
-			boat.runEngine(180000);
-			BoatManager.getInstance().dockShip(BoatManager.RUNE_HARBOR, true);
 		}
 	}
 }

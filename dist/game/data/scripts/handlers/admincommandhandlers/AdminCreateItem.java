@@ -42,6 +42,12 @@ public class AdminCreateItem implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_itemcreate"))
@@ -198,12 +204,6 @@ public class AdminCreateItem implements IAdminCommandHandler
 			activeChar.sendMessage(counter + " players rewarded with " + template.getName());
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void createItem(L2PcInstance activeChar, L2PcInstance target, int id, long num)

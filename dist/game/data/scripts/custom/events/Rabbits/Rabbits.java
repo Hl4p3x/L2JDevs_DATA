@@ -52,10 +52,6 @@ public final class Rabbits extends Event
 	private static final int EVENT_TIME = 10;
 	private static final int TOTAL_CHEST_COUNT = 75;
 	private static final int TRANSFORMATION_ID = 105;
-	private final Set<L2Npc> _npcs = ConcurrentHashMap.newKeySet(TOTAL_CHEST_COUNT + 1);
-	private final List<L2PcInstance> _players = new ArrayList<>();
-	private boolean _isActive = false;
-	
 	/**
 	 * Drop data:<br>
 	 * Higher the chance harder the item.<br>
@@ -75,6 +71,10 @@ public final class Rabbits extends Event
 		{ 20004,   0,  1, 1 }	// Energy Ginseng
 	};
 	// @formatter:on
+	private final Set<L2Npc> _npcs = ConcurrentHashMap.newKeySet(TOTAL_CHEST_COUNT + 1);
+	private final List<L2PcInstance> _players = new ArrayList<>();
+	
+	private boolean _isActive = false;
 	
 	private Rabbits()
 	{
@@ -84,6 +84,42 @@ public final class Rabbits extends Event
 		addStartNpc(NPC_MANAGER);
 		addSkillSeeId(CHEST);
 		addAttackId(CHEST);
+	}
+	
+	public static void main(String[] args)
+	{
+		new Rabbits();
+	}
+	
+	private static void dropItem(L2Npc npc, L2PcInstance player, int[][] droplist)
+	{
+		final int chance = getRandom(100);
+		for (int[] drop : droplist)
+		{
+			if (chance > drop[1])
+			{
+				npc.dropItem(player, drop[0], getRandom(drop[2], drop[3]));
+				return;
+			}
+		}
+	}
+	
+	private static void recordSpawn(Set<L2Npc> npcs, int npcId, int x, int y, int z, int heading, boolean randomOffSet, long despawnDelay)
+	{
+		final L2Npc npc = addSpawn(npcId, x, y, z, heading, randomOffSet, despawnDelay);
+		if (npc.getId() == CHEST)
+		{
+			npc.setIsImmobilized(true);
+			npc.disableCoreAI(true);
+			npc.setInvisible(true);
+		}
+		npcs.add(npc);
+	}
+	
+	@Override
+	public boolean eventBypass(L2PcInstance activeChar, String bypass)
+	{
+		return false;
 	}
 	
 	@Override
@@ -195,6 +231,16 @@ public final class Rabbits extends Event
 	}
 	
 	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
+	{
+		if (_isActive && ((skill == null) || (skill.getId() != RABBIT_TORNADO.getSkillId())))
+		{
+			RAID_CURSE.getSkill().applyEffects(npc, attacker);
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return npc.getId() + ".htm";
@@ -226,51 +272,5 @@ public final class Rabbits extends Event
 			}
 		}
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
-	}
-	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
-	{
-		if (_isActive && ((skill == null) || (skill.getId() != RABBIT_TORNADO.getSkillId())))
-		{
-			RAID_CURSE.getSkill().applyEffects(npc, attacker);
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	private static void dropItem(L2Npc npc, L2PcInstance player, int[][] droplist)
-	{
-		final int chance = getRandom(100);
-		for (int[] drop : droplist)
-		{
-			if (chance > drop[1])
-			{
-				npc.dropItem(player, drop[0], getRandom(drop[2], drop[3]));
-				return;
-			}
-		}
-	}
-	
-	private static void recordSpawn(Set<L2Npc> npcs, int npcId, int x, int y, int z, int heading, boolean randomOffSet, long despawnDelay)
-	{
-		final L2Npc npc = addSpawn(npcId, x, y, z, heading, randomOffSet, despawnDelay);
-		if (npc.getId() == CHEST)
-		{
-			npc.setIsImmobilized(true);
-			npc.disableCoreAI(true);
-			npc.setInvisible(true);
-		}
-		npcs.add(npc);
-	}
-	
-	@Override
-	public boolean eventBypass(L2PcInstance activeChar, String bypass)
-	{
-		return false;
-	}
-	
-	public static void main(String[] args)
-	{
-		new Rabbits();
 	}
 }

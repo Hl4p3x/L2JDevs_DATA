@@ -66,6 +66,12 @@ public class AuraFriendly implements ITargetTypeHandler
 		return targetList.toArray(new L2Character[targetList.size()]);
 	}
 	
+	@Override
+	public Enum<L2TargetType> getTargetType()
+	{
+		return L2TargetType.AURA_FRIENDLY;
+	}
+	
 	private boolean checkTarget(L2PcInstance activeChar, L2Character target)
 	{
 		if ((target == null) || !GeoData.getInstance().canSeeTarget(activeChar, target))
@@ -109,11 +115,5 @@ public class AuraFriendly implements ITargetTypeHandler
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public Enum<L2TargetType> getTargetType()
-	{
-		return L2TargetType.AURA_FRIENDLY;
 	}
 }

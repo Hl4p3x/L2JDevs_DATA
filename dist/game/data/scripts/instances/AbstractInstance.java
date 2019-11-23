@@ -44,14 +44,24 @@ import ai.npc.AbstractNpcAI;
  */
 public abstract class AbstractInstance extends AbstractNpcAI
 {
+	public AbstractInstance(String name)
+	{
+		super(name, "instances");
+	}
+	
 	public AbstractInstance(String name, String desc)
 	{
 		super(name, desc);
 	}
 	
-	public AbstractInstance(String name)
+	protected boolean checkConditions(L2PcInstance player)
 	{
-		super(name, "instances");
+		return true;
+	}
+	
+	protected boolean checkConditions(L2PcInstance player, int templateId)
+	{
+		return checkConditions(player);
 	}
 	
 	protected void enterInstance(L2PcInstance player, InstanceWorld instance, String template, int templateId)
@@ -190,27 +200,6 @@ public abstract class AbstractInstance extends AbstractNpcAI
 	
 	protected abstract void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance);
 	
-	protected boolean checkConditions(L2PcInstance player, int templateId)
-	{
-		return checkConditions(player);
-	}
-	
-	protected boolean checkConditions(L2PcInstance player)
-	{
-		return true;
-	}
-	
-	/**
-	 * Spawns group of instance NPC's
-	 * @param groupName the name of group from XML definition to spawn
-	 * @param instanceId the instance ID
-	 * @return list of spawned NPC's
-	 */
-	protected List<L2Npc> spawnGroup(String groupName, int instanceId)
-	{
-		return InstanceManager.getInstance().getInstance(instanceId).spawnGroup(groupName);
-	}
-	
 	/**
 	 * Sets reenter time for every player in the instance.
 	 * @param world the instance
@@ -232,6 +221,17 @@ public abstract class AbstractInstance extends AbstractNpcAI
 		{
 			_log.info("Time restrictions has been set for player in instance ID: " + world.getInstanceId() + " (" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(time) + ")");
 		}
+	}
+	
+	/**
+	 * Spawns group of instance NPC's
+	 * @param groupName the name of group from XML definition to spawn
+	 * @param instanceId the instance ID
+	 * @return list of spawned NPC's
+	 */
+	protected List<L2Npc> spawnGroup(String groupName, int instanceId)
+	{
+		return InstanceManager.getInstance().getInstance(instanceId).spawnGroup(groupName);
 	}
 	
 	private void handleRemoveBuffs(L2PcInstance player, InstanceWorld world)

@@ -34,42 +34,6 @@ import ai.npc.AbstractNpcAI;
  */
 public final class EchoCrystals extends AbstractNpcAI
 {
-	private static final class RewardInfo
-	{
-		public final int _crystalId;
-		public final String _okMsg;
-		public final String _noAdenaMsg;
-		public final String _noScoreMsg;
-		
-		public RewardInfo(int crystalId, String okMsg, String noAdenaMsg, String noScoreMsg)
-		{
-			_crystalId = crystalId;
-			_okMsg = okMsg;
-			_noAdenaMsg = noAdenaMsg;
-			_noScoreMsg = noScoreMsg;
-		}
-		
-		public int getCrystalId()
-		{
-			return _crystalId;
-		}
-		
-		public String getOkMsg()
-		{
-			return _okMsg;
-		}
-		
-		public String getNoAdenaMsg()
-		{
-			return _noAdenaMsg;
-		}
-		
-		public String getNoScoreMsg()
-		{
-			return _noScoreMsg;
-		}
-	}
-	
 	// NPCs
 	private final static int[] NPCs =
 	{
@@ -78,6 +42,7 @@ public final class EchoCrystals extends AbstractNpcAI
 	};
 	
 	private static final Map<Integer, RewardInfo> SCORES = new HashMap<>();
+	
 	static
 	{
 		SCORES.put(4410, new RewardInfo(4411, "01", "02", "03"));
@@ -88,12 +53,16 @@ public final class EchoCrystals extends AbstractNpcAI
 		SCORES.put(4419, new RewardInfo(4417, "16", "02", "03"));
 		SCORES.put(4418, new RewardInfo(4416, "17", "02", "03"));
 	}
-	
 	private EchoCrystals()
 	{
 		super(EchoCrystals.class.getSimpleName(), "ai/npc");
 		addStartNpc(NPCs);
 		addTalkId(NPCs);
+	}
+	
+	public static void main(String[] args)
+	{
+		new EchoCrystals();
 	}
 	
 	@Override
@@ -121,8 +90,39 @@ public final class EchoCrystals extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	public static void main(String[] args)
+	private static final class RewardInfo
 	{
-		new EchoCrystals();
+		public final int _crystalId;
+		public final String _okMsg;
+		public final String _noAdenaMsg;
+		public final String _noScoreMsg;
+		
+		public RewardInfo(int crystalId, String okMsg, String noAdenaMsg, String noScoreMsg)
+		{
+			_crystalId = crystalId;
+			_okMsg = okMsg;
+			_noAdenaMsg = noAdenaMsg;
+			_noScoreMsg = noScoreMsg;
+		}
+		
+		public int getCrystalId()
+		{
+			return _crystalId;
+		}
+		
+		public String getNoAdenaMsg()
+		{
+			return _noAdenaMsg;
+		}
+		
+		public String getNoScoreMsg()
+		{
+			return _noScoreMsg;
+		}
+		
+		public String getOkMsg()
+		{
+			return _okMsg;
+		}
 	}
 }

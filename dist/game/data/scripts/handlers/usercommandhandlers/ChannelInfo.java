@@ -35,6 +35,12 @@ public class ChannelInfo implements IUserCommandHandler
 	};
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (id != COMMAND_IDS[0])
@@ -50,11 +56,5 @@ public class ChannelInfo implements IUserCommandHandler
 		final L2CommandChannel channel = activeChar.getParty().getCommandChannel();
 		activeChar.sendPacket(new ExMultiPartyCommandChannelInfo(channel));
 		return true;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

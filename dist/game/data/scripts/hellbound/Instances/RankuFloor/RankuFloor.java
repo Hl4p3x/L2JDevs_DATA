@@ -38,13 +38,9 @@ import instances.AbstractInstance;
  */
 public final class RankuFloor extends AbstractInstance
 {
-	protected class RFWorld extends InstanceWorld
-	{
-		
-	}
-	
 	// NPCs
 	private static final int GK_9 = 32752;
+	
 	private static final int CUBE = 32374;
 	private static final int RANKU = 25542;
 	// Item
@@ -55,13 +51,54 @@ public final class RankuFloor extends AbstractInstance
 	// Misc
 	private static final int TEMPLATE_ID = 143;
 	private static final int MIN_LV = 78;
-	
 	public RankuFloor()
 	{
 		super(RankuFloor.class.getSimpleName(), "hellbound/Instances");
 		addStartNpc(GK_9, CUBE);
 		addTalkId(GK_9, CUBE);
 		addKillId(RANKU);
+	}
+	
+	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			if (player.getParty() == null)
+			{
+				teleportPlayer(player, ENTRY_POINT, world.getInstanceId());
+				player.destroyItemByItemId("Quest", SEAL_BREAKER_10, 1, null, true);
+				world.addAllowed(player.getObjectId());
+			}
+			else
+			{
+				for (L2PcInstance partyMember : player.getParty().getMembers())
+				{
+					teleportPlayer(partyMember, ENTRY_POINT, world.getInstanceId());
+					partyMember.destroyItemByItemId("Quest", SEAL_BREAKER_10, 1, null, true);
+					world.addAllowed(partyMember.getObjectId());
+				}
+			}
+		}
+		else
+		{
+			teleportPlayer(player, ENTRY_POINT, world.getInstanceId());
+		}
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final int instanceId = npc.getInstanceId();
+		if (instanceId > 0)
+		{
+			final Instance inst = InstanceManager.getInstance().getInstance(instanceId);
+			final InstanceWorld world = InstanceManager.getInstance().getWorld(npc.getInstanceId());
+			inst.setExitLoc(EXIT_POINT);
+			finishInstance(world);
+			addSpawn(CUBE, -19056, 278732, -15000, 0, false, 0, false, instanceId);
+		}
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -97,21 +134,6 @@ public final class RankuFloor extends AbstractInstance
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final int instanceId = npc.getInstanceId();
-		if (instanceId > 0)
-		{
-			final Instance inst = InstanceManager.getInstance().getInstance(instanceId);
-			final InstanceWorld world = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			inst.setExitLoc(EXIT_POINT);
-			finishInstance(world);
-			addSpawn(CUBE, -19056, 278732, -15000, 0, false, 0, false, instanceId);
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -166,30 +188,8 @@ public final class RankuFloor extends AbstractInstance
 		return true;
 	}
 	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	protected class RFWorld extends InstanceWorld
 	{
-		if (firstEntrance)
-		{
-			if (player.getParty() == null)
-			{
-				teleportPlayer(player, ENTRY_POINT, world.getInstanceId());
-				player.destroyItemByItemId("Quest", SEAL_BREAKER_10, 1, null, true);
-				world.addAllowed(player.getObjectId());
-			}
-			else
-			{
-				for (L2PcInstance partyMember : player.getParty().getMembers())
-				{
-					teleportPlayer(partyMember, ENTRY_POINT, world.getInstanceId());
-					partyMember.destroyItemByItemId("Quest", SEAL_BREAKER_10, 1, null, true);
-					world.addAllowed(partyMember.getObjectId());
-				}
-			}
-		}
-		else
-		{
-			teleportPlayer(player, ENTRY_POINT, world.getInstanceId());
-		}
+		
 	}
 }

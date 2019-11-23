@@ -37,6 +37,15 @@ public class ChatPartyRoomCommander implements IChatHandler
 	};
 	
 	/**
+	 * Returns the chat types registered to this handler.
+	 */
+	@Override
+	public int[] getChatTypeList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	/**
 	 * Handle chat type 'party room commander'
 	 */
 	@Override
@@ -56,14 +65,5 @@ public class ChatPartyRoomCommander implements IChatHandler
 				activeChar.getParty().getCommandChannel().broadcastCreatureSay(cs, activeChar);
 			}
 		}
-	}
-	
-	/**
-	 * Returns the chat types registered to this handler.
-	 */
-	@Override
-	public int[] getChatTypeList()
-	{
-		return COMMAND_IDS;
 	}
 }

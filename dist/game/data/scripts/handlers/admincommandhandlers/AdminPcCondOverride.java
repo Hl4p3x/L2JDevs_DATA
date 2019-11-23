@@ -39,6 +39,12 @@ public class AdminPcCondOverride implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -119,11 +125,5 @@ public class AdminPcCondOverride implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return COMMANDS;
 	}
 }

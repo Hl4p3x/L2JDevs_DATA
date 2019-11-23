@@ -49,6 +49,11 @@ public final class DrChaos extends Quest
 		_IsGolemSpawned = false;
 	}
 	
+	public static void main(String[] args)
+	{
+		new DrChaos();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -123,10 +128,5 @@ public final class DrChaos extends Quest
 			this.startQuestTimer("1", 3000, npc, player);
 		}
 		return "";
-	}
-	
-	public static void main(String[] args)
-	{
-		new DrChaos();
 	}
 }

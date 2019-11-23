@@ -45,6 +45,11 @@ public final class StrongholdsTeleports extends AbstractNpcAI
 		addFirstTalkId(NPCs);
 	}
 	
+	public static void main(String[] args)
+	{
+		new StrongholdsTeleports();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -53,10 +58,5 @@ public final class StrongholdsTeleports extends AbstractNpcAI
 			return String.valueOf(npc.getId()) + ".htm";
 		}
 		return String.valueOf(npc.getId()) + "-no.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new StrongholdsTeleports();
 	}
 }

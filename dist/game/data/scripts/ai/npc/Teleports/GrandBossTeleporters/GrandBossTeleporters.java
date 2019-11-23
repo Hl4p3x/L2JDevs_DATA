@@ -65,6 +65,11 @@ public final class GrandBossTeleporters extends AbstractNpcAI
 		addTalkId(NPCs);
 	}
 	
+	public static void main(String[] args)
+	{
+		new GrandBossTeleporters();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -195,10 +200,5 @@ public final class GrandBossTeleporters extends AbstractNpcAI
 	private Quest valakasAI()
 	{
 		return QuestManager.getInstance().getQuest(Valakas.class.getSimpleName());
-	}
-	
-	public static void main(String[] args)
-	{
-		new GrandBossTeleporters();
 	}
 }

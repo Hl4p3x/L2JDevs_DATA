@@ -61,36 +61,9 @@ public class ShadowSummoner extends AbstractNpcAI
 		addSeeCreatureId(SHADOW_SUMMONER);
 	}
 	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
+	public static void main(String[] args)
 	{
-		if (Util.calculateDistance(npc, npc.getSpawn(), false, false) > MAX_CHASE_DIST)
-		{
-			npc.teleToLocation(npc.getSpawn().getX(), npc.getSpawn().getY(), npc.getSpawn().getZ());
-		}
-		
-		if ((npc.getCurrentHp() < (npc.getMaxHp() * MIN_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(LOW_HP_FLAG, false))
-		{
-			npc.getVariables().set(LOW_HP_FLAG, true);
-			startQuestTimer(SUMMON_TIMER, 1000, npc, attacker);
-			startQuestTimer(FEED_TIMER, 30000, npc, attacker);
-			startQuestTimer(LIMIT_TIMER, 600000, npc, attacker);
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	@Override
-	public String onSeeCreature(L2Npc npc, L2Character creature, boolean isSummon)
-	{
-		if (!creature.isPlayer())
-		{
-			if (creature.getId() == DEMONS_BANQUET_2)
-			{
-				((L2Attackable) npc).clearAggroList();
-				addAttackDesire(npc, creature, 9999999999999999L);
-			}
-		}
-		return super.onSeeCreature(npc, creature, isSummon);
+		new ShadowSummoner();
 	}
 	
 	@Override
@@ -130,8 +103,35 @@ public class ShadowSummoner extends AbstractNpcAI
 		return super.onAdvEvent(event, npc, player);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		new ShadowSummoner();
+		if (Util.calculateDistance(npc, npc.getSpawn(), false, false) > MAX_CHASE_DIST)
+		{
+			npc.teleToLocation(npc.getSpawn().getX(), npc.getSpawn().getY(), npc.getSpawn().getZ());
+		}
+		
+		if ((npc.getCurrentHp() < (npc.getMaxHp() * MIN_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(LOW_HP_FLAG, false))
+		{
+			npc.getVariables().set(LOW_HP_FLAG, true);
+			startQuestTimer(SUMMON_TIMER, 1000, npc, attacker);
+			startQuestTimer(FEED_TIMER, 30000, npc, attacker);
+			startQuestTimer(LIMIT_TIMER, 600000, npc, attacker);
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
+	public String onSeeCreature(L2Npc npc, L2Character creature, boolean isSummon)
+	{
+		if (!creature.isPlayer())
+		{
+			if (creature.getId() == DEMONS_BANQUET_2)
+			{
+				((L2Attackable) npc).clearAggroList();
+				addAttackDesire(npc, creature, 9999999999999999L);
+			}
+		}
+		return super.onSeeCreature(npc, creature, isSummon);
 	}
 }

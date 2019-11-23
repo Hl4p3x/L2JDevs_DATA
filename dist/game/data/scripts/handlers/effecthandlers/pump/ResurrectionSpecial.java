@@ -46,15 +46,15 @@ public final class ResurrectionSpecial extends AbstractEffect
 	}
 	
 	@Override
-	public L2EffectType getEffectType()
-	{
-		return L2EffectType.RESURRECTION_SPECIAL;
-	}
-	
-	@Override
 	public int getEffectFlags()
 	{
 		return EffectFlag.RESURRECTION_SPECIAL.getMask();
+	}
+	
+	@Override
+	public L2EffectType getEffectType()
+	{
+		return L2EffectType.RESURRECTION_SPECIAL;
 	}
 	
 	@Override

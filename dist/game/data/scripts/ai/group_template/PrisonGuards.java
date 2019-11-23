@@ -55,6 +55,11 @@ public final class PrisonGuards extends AbstractNpcAI
 		addSpellFinishedId(GUARD_HEAD, GUARD);
 	}
 	
+	public static void main(String[] args)
+	{
+		new PrisonGuards();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -110,6 +115,12 @@ public final class PrisonGuards extends AbstractNpcAI
 	}
 	
 	@Override
+	public boolean onNpcHate(L2Attackable mob, L2PcInstance player, boolean isSummon)
+	{
+		return player.isAffectedBySkill(TIMER);
+	}
+	
+	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
 		if (!caster.isAffectedBySkill(TIMER))
@@ -118,23 +129,6 @@ public final class PrisonGuards extends AbstractNpcAI
 			npc.doCast(SILENCE);
 		}
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
-	}
-	
-	@Override
-	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
-	{
-		if ((skill == SILENCE.getSkill()) || (skill == STONE.getSkill()))
-		{
-			((L2Attackable) npc).clearAggroList();
-			npc.setTarget(npc);
-		}
-		return super.onSpellFinished(npc, player, skill);
-	}
-	
-	@Override
-	public boolean onNpcHate(L2Attackable mob, L2PcInstance player, boolean isSummon)
-	{
-		return player.isAffectedBySkill(TIMER);
 	}
 	
 	@Override
@@ -154,8 +148,14 @@ public final class PrisonGuards extends AbstractNpcAI
 		return super.onSpawn(npc);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onSpellFinished(L2Npc npc, L2PcInstance player, Skill skill)
 	{
-		new PrisonGuards();
+		if ((skill == SILENCE.getSkill()) || (skill == STONE.getSkill()))
+		{
+			((L2Attackable) npc).clearAggroList();
+			npc.setTarget(npc);
+		}
+		return super.onSpellFinished(npc, player, skill);
 	}
 }

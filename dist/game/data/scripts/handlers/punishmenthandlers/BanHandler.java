@@ -32,6 +32,27 @@ import org.l2jdevs.gameserver.network.L2GameClient;
  */
 public class BanHandler implements IPunishmentHandler
 {
+	/**
+	 * Applies all punishment effects from the player.
+	 * @param player
+	 */
+	private static void applyToPlayer(L2PcInstance player)
+	{
+		player.logout();
+	}
+	
+	@Override
+	public PunishmentType getType()
+	{
+		return PunishmentType.BAN;
+	}
+	
+	@Override
+	public void onEnd(PunishmentTask task)
+	{
+		
+	}
+	
 	@Override
 	public void onStart(PunishmentTask task)
 	{
@@ -78,26 +99,5 @@ public class BanHandler implements IPunishmentHandler
 				break;
 			}
 		}
-	}
-	
-	@Override
-	public void onEnd(PunishmentTask task)
-	{
-		
-	}
-	
-	/**
-	 * Applies all punishment effects from the player.
-	 * @param player
-	 */
-	private static void applyToPlayer(L2PcInstance player)
-	{
-		player.logout();
-	}
-	
-	@Override
-	public PunishmentType getType()
-	{
-		return PunishmentType.BAN;
 	}
 }

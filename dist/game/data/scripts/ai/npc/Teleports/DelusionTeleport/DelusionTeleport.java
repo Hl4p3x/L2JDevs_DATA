@@ -75,6 +75,11 @@ public final class DelusionTeleport extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DelusionTeleport();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -92,10 +97,5 @@ public final class DelusionTeleport extends AbstractNpcAI
 			player.getVariables().remove(DELUSION_RETURN);
 		}
 		return super.onTalk(npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new DelusionTeleport();
 	}
 }

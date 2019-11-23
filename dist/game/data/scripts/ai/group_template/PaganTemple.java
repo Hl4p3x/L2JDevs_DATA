@@ -54,16 +54,9 @@ public final class PaganTemple extends AbstractNpcAI
 		addAggroRangeEnterId(ANDREAS_CAPTAIN, TRIOL_LAYPERSON, TRIOL_BELIEVER, TRIOL_PRIEST_1, TRIOL_PRIEST_2);
 	}
 	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
+	public static void main(String[] args)
 	{
-		final L2MonsterInstance mob = (L2MonsterInstance) npc;
-		if ((getRandom(10) < 3) && (mob.getCurrentHp() < (mob.getMaxHp() * 0.7)))
-		{
-			mob.doCast(WIDE_WILD_SWEEP);
-			mob.doDie(attacker);
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
+		new PaganTemple();
 	}
 	
 	@Override
@@ -106,8 +99,15 @@ public final class PaganTemple extends AbstractNpcAI
 		return super.onAggroRangeEnter(npc, player, isSummon);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		new PaganTemple();
+		final L2MonsterInstance mob = (L2MonsterInstance) npc;
+		if ((getRandom(10) < 3) && (mob.getCurrentHp() < (mob.getMaxHp() * 0.7)))
+		{
+			mob.doCast(WIDE_WILD_SWEEP);
+			mob.doDie(attacker);
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 }

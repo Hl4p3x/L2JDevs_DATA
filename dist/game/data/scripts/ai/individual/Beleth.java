@@ -139,6 +139,11 @@ public final class Beleth extends AbstractNpcAI
 		DoorData.getInstance().getDoor(DOOR1).openMe();
 	}
 	
+	public static void main(String[] args)
+	{
+		new Beleth();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -853,10 +858,5 @@ public final class Beleth extends AbstractNpcAI
 		{
 			LOG.warn("{}: Couldn't update respawn time to database {} {}", getClass().getSimpleName(), sqle.getMessage(), sqle);
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Beleth();
 	}
 }

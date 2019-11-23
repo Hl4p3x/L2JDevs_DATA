@@ -47,10 +47,9 @@ public final class BlackMarketeerOfMammon extends AbstractNpcAI
 		addTalkId(BLACK_MARKETEER);
 	}
 	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance talker)
+	public static void main(String[] args)
 	{
-		return exchangeAvailable() ? "31092-01.html" : "31092-02.html";
+		new BlackMarketeerOfMammon();
 	}
 	
 	@Override
@@ -98,14 +97,15 @@ public final class BlackMarketeerOfMammon extends AbstractNpcAI
 		return htmltext;
 	}
 	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		return exchangeAvailable() ? "31092-01.html" : "31092-02.html";
+	}
+	
 	private boolean exchangeAvailable()
 	{
 		LocalTime localTime = LocalTime.now();
 		return (localTime.isAfter(LocalTime.parse("20:00:00")) && localTime.isBefore(LocalTime.MAX));
-	}
-	
-	public static void main(String[] args)
-	{
-		new BlackMarketeerOfMammon();
 	}
 }

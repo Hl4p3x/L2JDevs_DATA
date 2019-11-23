@@ -46,6 +46,12 @@ public class AdminMonsterRace implements IAdminCommandHandler
 	protected static int state = -1;
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equalsIgnoreCase("admin_mons"))
@@ -53,12 +59,6 @@ public class AdminMonsterRace implements IAdminCommandHandler
 			handleSendPacket(activeChar);
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void handleSendPacket(L2PcInstance activeChar)

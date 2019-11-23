@@ -130,6 +130,11 @@ public final class SupportUnitCaptain extends AbstractNpcAI
 		addFirstTalkId(UNIT_CAPTAIN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SupportUnitCaptain();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -277,10 +282,5 @@ public final class SupportUnitCaptain extends AbstractNpcAI
 	{
 		final int fortOwner = npc.getFort().getOwnerClan() == null ? 0 : npc.getFort().getOwnerClan().getId();
 		return ((player.getClan() != null) && (player.getClanId() == fortOwner)) ? "unitcaptain.html" : "unitcaptain-04.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new SupportUnitCaptain();
 	}
 }

@@ -44,6 +44,11 @@ public final class CofferOfShadows extends LongTimeEvent
 		addTalkId(EVENT_MANAGER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CofferOfShadows();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -60,10 +65,5 @@ public final class CofferOfShadows extends LongTimeEvent
 			giveItems(player, REWARD_ID, REWARD_AMOUNT);
 		}
 		return null;
-	}
-	
-	public static void main(String[] args)
-	{
-		new CofferOfShadows();
 	}
 }

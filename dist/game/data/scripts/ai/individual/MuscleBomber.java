@@ -56,28 +56,9 @@ public class MuscleBomber extends AbstractNpcAI
 		addAttackId(MUSCLE_BOMBER);
 	}
 	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
+	public static void main(String[] args)
 	{
-		if (Util.calculateDistance(npc, npc.getSpawn(), false, false) > MAX_CHASE_DIST)
-		{
-			npc.teleToLocation(npc.getSpawn().getX(), npc.getSpawn().getY(), npc.getSpawn().getZ());
-		}
-		
-		if ((npc.getCurrentHp() < (npc.getMaxHp() * HIGH_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(HIGH_HP_FLAG, false))
-		{
-			npc.getVariables().set(HIGH_HP_FLAG, true);
-			addSkillCastDesire(npc, npc, ENHANCE_LVL_1, 999999999000000000L);
-		}
-		
-		if ((npc.getCurrentHp() < (npc.getMaxHp() * MED_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(MED_HP_FLAG, false))
-		{
-			npc.getVariables().set(MED_HP_FLAG, true);
-			addSkillCastDesire(npc, npc, ENHANCE_LVL_2, 999999999000000000L);
-			startQuestTimer(TIMER_SUMMON, 60000, npc, attacker);
-			startQuestTimer(TIMER_LIMIT, 300000, npc, attacker);
-		}
-		return super.onAttack(npc, attacker, damage, isSummon);
+		new MuscleBomber();
 	}
 	
 	@Override
@@ -107,8 +88,27 @@ public class MuscleBomber extends AbstractNpcAI
 		return super.onAdvEvent(event, npc, player);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		new MuscleBomber();
+		if (Util.calculateDistance(npc, npc.getSpawn(), false, false) > MAX_CHASE_DIST)
+		{
+			npc.teleToLocation(npc.getSpawn().getX(), npc.getSpawn().getY(), npc.getSpawn().getZ());
+		}
+		
+		if ((npc.getCurrentHp() < (npc.getMaxHp() * HIGH_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(HIGH_HP_FLAG, false))
+		{
+			npc.getVariables().set(HIGH_HP_FLAG, true);
+			addSkillCastDesire(npc, npc, ENHANCE_LVL_1, 999999999000000000L);
+		}
+		
+		if ((npc.getCurrentHp() < (npc.getMaxHp() * MED_HP_PERCENTAGE)) && !npc.getVariables().getBoolean(MED_HP_FLAG, false))
+		{
+			npc.getVariables().set(MED_HP_FLAG, true);
+			addSkillCastDesire(npc, npc, ENHANCE_LVL_2, 999999999000000000L);
+			startQuestTimer(TIMER_SUMMON, 60000, npc, attacker);
+			startQuestTimer(TIMER_LIMIT, 300000, npc, attacker);
+		}
+		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 }

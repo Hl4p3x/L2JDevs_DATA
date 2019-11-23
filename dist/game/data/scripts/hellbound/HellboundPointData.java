@@ -40,6 +40,60 @@ public final class HellboundPointData implements IXmlReader
 		load();
 	}
 	
+	public static HellboundPointData getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	/**
+	 * Get the lowest trust limit for the given NPC ID.
+	 * @param npcId the NPC ID
+	 * @return the lowest trust limit for the given NPC ID
+	 */
+	public int getLowestTrustLimit(int npcId)
+	{
+		return _pointsInfo.get(npcId)[3];
+	}
+	
+	/**
+	 * Get the maximum Hellbound level for the given NPC ID.
+	 * @param npcId the NPC ID
+	 * @return the maximum Hellbound level for the given NPC ID
+	 */
+	public int getMaxHbLvl(int npcId)
+	{
+		return _pointsInfo.get(npcId)[2];
+	}
+	
+	/**
+	 * Get the minimum Hellbound level for the given NPC ID.
+	 * @param npcId the NPC ID
+	 * @return the minimum Hellbound level for the given NPC ID
+	 */
+	public int getMinHbLvl(int npcId)
+	{
+		return _pointsInfo.get(npcId)[1];
+	}
+	
+	/**
+	 * Gets the points amount for an specific NPC ID.
+	 * @param npcId the NPC ID
+	 * @return the points for an specific NPC ID
+	 */
+	public int getPointsAmount(int npcId)
+	{
+		return _pointsInfo.get(npcId)[0];
+	}
+	
+	/**
+	 * Gets all the points data.
+	 * @return the points data
+	 */
+	public Map<Integer, int[]> getPointsInfo()
+	{
+		return _pointsInfo;
+	}
+	
 	@Override
 	public void load()
 	{
@@ -115,60 +169,6 @@ public final class HellboundPointData implements IXmlReader
 				lowestTrustLimit
 			});
 		}
-	}
-	
-	/**
-	 * Gets all the points data.
-	 * @return the points data
-	 */
-	public Map<Integer, int[]> getPointsInfo()
-	{
-		return _pointsInfo;
-	}
-	
-	/**
-	 * Gets the points amount for an specific NPC ID.
-	 * @param npcId the NPC ID
-	 * @return the points for an specific NPC ID
-	 */
-	public int getPointsAmount(int npcId)
-	{
-		return _pointsInfo.get(npcId)[0];
-	}
-	
-	/**
-	 * Get the minimum Hellbound level for the given NPC ID.
-	 * @param npcId the NPC ID
-	 * @return the minimum Hellbound level for the given NPC ID
-	 */
-	public int getMinHbLvl(int npcId)
-	{
-		return _pointsInfo.get(npcId)[1];
-	}
-	
-	/**
-	 * Get the maximum Hellbound level for the given NPC ID.
-	 * @param npcId the NPC ID
-	 * @return the maximum Hellbound level for the given NPC ID
-	 */
-	public int getMaxHbLvl(int npcId)
-	{
-		return _pointsInfo.get(npcId)[2];
-	}
-	
-	/**
-	 * Get the lowest trust limit for the given NPC ID.
-	 * @param npcId the NPC ID
-	 * @return the lowest trust limit for the given NPC ID
-	 */
-	public int getLowestTrustLimit(int npcId)
-	{
-		return _pointsInfo.get(npcId)[3];
-	}
-	
-	public static HellboundPointData getInstance()
-	{
-		return SingletonHolder.INSTANCE;
 	}
 	
 	private static class SingletonHolder

@@ -72,14 +72,9 @@ public final class LoversJubilee extends LongTimeEvent
 		addTalkId(ROSALIA);
 	}
 	
-	@RegisterEvent(EventType.ON_PLAYER_LOGIN)
-	@RegisterType(ListenerRegisterType.GLOBAL_PLAYERS)
-	public void onPlayerLogin(OnPlayerLogin event)
+	public static void main(String[] args)
 	{
-		if (isEventPeriod())
-		{
-			event.getActiveChar().sendPacket(new ExBrBroadcastEventState(ExBrBroadcastEventState.LOVERS_JUBILEE, 1));
-		}
+		new LoversJubilee();
 	}
 	
 	@Override
@@ -265,8 +260,13 @@ public final class LoversJubilee extends LongTimeEvent
 		return "4305-001.html";
 	}
 	
-	public static void main(String[] args)
+	@RegisterEvent(EventType.ON_PLAYER_LOGIN)
+	@RegisterType(ListenerRegisterType.GLOBAL_PLAYERS)
+	public void onPlayerLogin(OnPlayerLogin event)
 	{
-		new LoversJubilee();
+		if (isEventPeriod())
+		{
+			event.getActiveChar().sendPacket(new ExBrBroadcastEventState(ExBrBroadcastEventState.LOVERS_JUBILEE, 1));
+		}
 	}
 }

@@ -51,6 +51,11 @@ public final class MithrilMinesTeleporter extends AbstractNpcAI
 		addTalkId(TELEPORT_CRYSTAL);
 	}
 	
+	public static void main(String[] args)
+	{
+		new MithrilMinesTeleporter();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -81,10 +86,5 @@ public final class MithrilMinesTeleporter extends AbstractNpcAI
 			return "32652-03.htm";
 		}
 		return super.onFirstTalk(npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new MithrilMinesTeleporter();
 	}
 }

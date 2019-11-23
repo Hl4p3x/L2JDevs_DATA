@@ -51,218 +51,10 @@ public final class AdminPForge implements IAdminCommandHandler
 		"admin_forge_send"
 	};
 	
-	private String[] getOpCodes(StringTokenizer st)
+	@Override
+	public String[] getAdminCommandList()
 	{
-		Collection<String> opCodes = null;
-		while (st.hasMoreTokens())
-		{
-			String token = st.nextToken();
-			if (";".equals(token))
-			{
-				break;
-			}
-			
-			if (opCodes == null)
-			{
-				opCodes = new LinkedList<>();
-			}
-			opCodes.add(token);
-		}
-		
-		if (opCodes == null)
-		{
-			return null;
-		}
-		
-		return opCodes.toArray(new String[opCodes.size()]);
-	}
-	
-	private boolean validateOpCodes(String[] opCodes)
-	{
-		if ((opCodes == null) || (opCodes.length == 0) || (opCodes.length > 3))
-		{
-			return false;
-		}
-		
-		for (int i = 0; i < opCodes.length; ++i)
-		{
-			final String opCode = opCodes[i];
-			long opCodeLong;
-			try
-			{
-				opCodeLong = Long.parseLong(opCode);
-			}
-			catch (Exception e)
-			{
-				if (i > 0)
-				{
-					return true;
-				}
-				
-				return false;
-			}
-			
-			if (opCodeLong < 0)
-			{
-				return false;
-			}
-			
-			if ((i == 0) && (opCodeLong > 255))
-			{
-				return false;
-			}
-			else if ((i == 1) && (opCodeLong > 65535))
-			{
-				return false;
-			}
-			else if ((i == 2) && (opCodeLong > 4294967295L))
-			{
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	private boolean validateFormat(String format)
-	{
-		for (int chIdx = 0; chIdx < format.length(); ++chIdx)
-		{
-			switch (format.charAt(chIdx))
-			{
-				case 'b':
-				case 'B':
-				case 'x':
-				case 'X':
-					// array
-					break;
-				case 'c':
-				case 'C':
-					// byte
-					break;
-				case 'h':
-				case 'H':
-					// word
-					break;
-				case 'd':
-				case 'D':
-					// dword
-					break;
-				case 'q':
-				case 'Q':
-					// qword
-					break;
-				case 'f':
-				case 'F':
-					// double
-					break;
-				case 's':
-				case 'S':
-					// string
-					break;
-				default:
-					return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	private boolean validateMethod(String method)
-	{
-		switch (method)
-		{
-			case "sc":
-			case "sb":
-			case "cs":
-				return true;
-		}
-		
-		return false;
-	}
-	
-	private void showValuesUsage(L2PcInstance activeChar)
-	{
-		activeChar.sendMessage("Usage: //forge_values opcode1[ opcode2[ opcode3]] ;[ format]");
-		showMainPage(activeChar);
-	}
-	
-	private void showSendUsage(L2PcInstance activeChar, String[] opCodes, String format)
-	{
-		activeChar.sendMessage("Usage: //forge_send sc|sb|cs opcode1[;opcode2[;opcode3]][ format value1 ... valueN] ");
-		if (opCodes == null)
-		{
-			showMainPage(activeChar);
-		}
-		else
-		{
-			showValuesPage(activeChar, opCodes, format);
-		}
-	}
-	
-	private void showMainPage(L2PcInstance activeChar)
-	{
-		AdminHtml.showAdminHtml(activeChar, "pforge/main.htm");
-	}
-	
-	private void showValuesPage(L2PcInstance activeChar, String[] opCodes, String format)
-	{
-		String sendBypass = null;
-		String valuesHtml = HtmCache.getInstance().getHtmForce(activeChar.getHtmlPrefix(), "data/html/admin/pforge/values.htm");
-		if (opCodes.length == 3)
-		{
-			valuesHtml = valuesHtml.replace("%opformat%", "chd");
-			sendBypass = opCodes[0] + ";" + opCodes[1] + ";" + opCodes[2];
-		}
-		else if (opCodes.length == 2)
-		{
-			valuesHtml = valuesHtml.replace("%opformat%", "ch");
-			sendBypass = opCodes[0] + ";" + opCodes[1];
-		}
-		else
-		{
-			valuesHtml = valuesHtml.replace("%opformat%", "c");
-			sendBypass = opCodes[0];
-		}
-		
-		valuesHtml = valuesHtml.replace("%opcodes%", sendBypass);
-		
-		String editorsHtml = "";
-		
-		if (format == null)
-		{
-			valuesHtml = valuesHtml.replace("%format%", "");
-			editorsHtml = "";
-		}
-		else
-		{
-			valuesHtml = valuesHtml.replace("%format%", format);
-			sendBypass += " " + format;
-			
-			String editorTemplate = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/admin/pforge/inc/editor.htm");
-			
-			if (editorTemplate != null)
-			{
-				StringBuilder singleCharSequence = new StringBuilder(1);
-				singleCharSequence.append(' ');
-				
-				for (int chIdx = 0; chIdx < format.length(); ++chIdx)
-				{
-					char ch = format.charAt(chIdx);
-					singleCharSequence.setCharAt(0, ch);
-					editorsHtml += editorTemplate.replace("%format%", singleCharSequence).replace("%editor_index%", String.valueOf(chIdx));
-					sendBypass += " $v" + chIdx;
-				}
-			}
-			else
-			{
-				editorsHtml = "";
-			}
-		}
-		
-		valuesHtml = valuesHtml.replace("%editors%", editorsHtml);
-		valuesHtml = valuesHtml.replace("%send_bypass%", sendBypass);
-		activeChar.sendPacket(new NpcHtmlMessage(valuesHtml));
+		return ADMIN_COMMANDS;
 	}
 	
 	@Override
@@ -573,6 +365,220 @@ public final class AdminPForge implements IAdminCommandHandler
 		return true;
 	}
 	
+	private String[] getOpCodes(StringTokenizer st)
+	{
+		Collection<String> opCodes = null;
+		while (st.hasMoreTokens())
+		{
+			String token = st.nextToken();
+			if (";".equals(token))
+			{
+				break;
+			}
+			
+			if (opCodes == null)
+			{
+				opCodes = new LinkedList<>();
+			}
+			opCodes.add(token);
+		}
+		
+		if (opCodes == null)
+		{
+			return null;
+		}
+		
+		return opCodes.toArray(new String[opCodes.size()]);
+	}
+	
+	private void showMainPage(L2PcInstance activeChar)
+	{
+		AdminHtml.showAdminHtml(activeChar, "pforge/main.htm");
+	}
+	
+	private void showSendUsage(L2PcInstance activeChar, String[] opCodes, String format)
+	{
+		activeChar.sendMessage("Usage: //forge_send sc|sb|cs opcode1[;opcode2[;opcode3]][ format value1 ... valueN] ");
+		if (opCodes == null)
+		{
+			showMainPage(activeChar);
+		}
+		else
+		{
+			showValuesPage(activeChar, opCodes, format);
+		}
+	}
+	
+	private void showValuesPage(L2PcInstance activeChar, String[] opCodes, String format)
+	{
+		String sendBypass = null;
+		String valuesHtml = HtmCache.getInstance().getHtmForce(activeChar.getHtmlPrefix(), "data/html/admin/pforge/values.htm");
+		if (opCodes.length == 3)
+		{
+			valuesHtml = valuesHtml.replace("%opformat%", "chd");
+			sendBypass = opCodes[0] + ";" + opCodes[1] + ";" + opCodes[2];
+		}
+		else if (opCodes.length == 2)
+		{
+			valuesHtml = valuesHtml.replace("%opformat%", "ch");
+			sendBypass = opCodes[0] + ";" + opCodes[1];
+		}
+		else
+		{
+			valuesHtml = valuesHtml.replace("%opformat%", "c");
+			sendBypass = opCodes[0];
+		}
+		
+		valuesHtml = valuesHtml.replace("%opcodes%", sendBypass);
+		
+		String editorsHtml = "";
+		
+		if (format == null)
+		{
+			valuesHtml = valuesHtml.replace("%format%", "");
+			editorsHtml = "";
+		}
+		else
+		{
+			valuesHtml = valuesHtml.replace("%format%", format);
+			sendBypass += " " + format;
+			
+			String editorTemplate = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/admin/pforge/inc/editor.htm");
+			
+			if (editorTemplate != null)
+			{
+				StringBuilder singleCharSequence = new StringBuilder(1);
+				singleCharSequence.append(' ');
+				
+				for (int chIdx = 0; chIdx < format.length(); ++chIdx)
+				{
+					char ch = format.charAt(chIdx);
+					singleCharSequence.setCharAt(0, ch);
+					editorsHtml += editorTemplate.replace("%format%", singleCharSequence).replace("%editor_index%", String.valueOf(chIdx));
+					sendBypass += " $v" + chIdx;
+				}
+			}
+			else
+			{
+				editorsHtml = "";
+			}
+		}
+		
+		valuesHtml = valuesHtml.replace("%editors%", editorsHtml);
+		valuesHtml = valuesHtml.replace("%send_bypass%", sendBypass);
+		activeChar.sendPacket(new NpcHtmlMessage(valuesHtml));
+	}
+	
+	private void showValuesUsage(L2PcInstance activeChar)
+	{
+		activeChar.sendMessage("Usage: //forge_values opcode1[ opcode2[ opcode3]] ;[ format]");
+		showMainPage(activeChar);
+	}
+	
+	private boolean validateFormat(String format)
+	{
+		for (int chIdx = 0; chIdx < format.length(); ++chIdx)
+		{
+			switch (format.charAt(chIdx))
+			{
+				case 'b':
+				case 'B':
+				case 'x':
+				case 'X':
+					// array
+					break;
+				case 'c':
+				case 'C':
+					// byte
+					break;
+				case 'h':
+				case 'H':
+					// word
+					break;
+				case 'd':
+				case 'D':
+					// dword
+					break;
+				case 'q':
+				case 'Q':
+					// qword
+					break;
+				case 'f':
+				case 'F':
+					// double
+					break;
+				case 's':
+				case 'S':
+					// string
+					break;
+				default:
+					return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private boolean validateMethod(String method)
+	{
+		switch (method)
+		{
+			case "sc":
+			case "sb":
+			case "cs":
+				return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean validateOpCodes(String[] opCodes)
+	{
+		if ((opCodes == null) || (opCodes.length == 0) || (opCodes.length > 3))
+		{
+			return false;
+		}
+		
+		for (int i = 0; i < opCodes.length; ++i)
+		{
+			final String opCode = opCodes[i];
+			long opCodeLong;
+			try
+			{
+				opCodeLong = Long.parseLong(opCode);
+			}
+			catch (Exception e)
+			{
+				if (i > 0)
+				{
+					return true;
+				}
+				
+				return false;
+			}
+			
+			if (opCodeLong < 0)
+			{
+				return false;
+			}
+			
+			if ((i == 0) && (opCodeLong > 255))
+			{
+				return false;
+			}
+			else if ((i == 1) && (opCodeLong > 65535))
+			{
+				return false;
+			}
+			else if ((i == 2) && (opCodeLong > 4294967295L))
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	private boolean write(byte b, String string, ByteBuffer buf)
 	{
 		if ((b == 'C') || (b == 'c'))
@@ -616,11 +622,5 @@ public final class AdminPForge implements IAdminCommandHandler
 			return true;
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

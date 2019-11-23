@@ -61,6 +61,33 @@ public final class HeavyMedal extends LongTimeEvent
 		addFirstTalkId(CAT_WINNIE);
 	}
 	
+	public static void main(String[] args)
+	{
+		new HeavyMedal();
+	}
+	
+	public int checkLevel(L2PcInstance player)
+	{
+		int _lev = 0;
+		if (hasQuestItems(player, 6402))
+		{
+			_lev = 4;
+		}
+		else if (hasQuestItems(player, 6401))
+		{
+			_lev = 3;
+		}
+		else if (hasQuestItems(player, 6400))
+		{
+			_lev = 2;
+		}
+		else if (hasQuestItems(player, 6399))
+		{
+			_lev = 1;
+		}
+		return _lev;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -113,32 +140,5 @@ public final class HeavyMedal extends LongTimeEvent
 			newQuestState(player);
 		}
 		return npc.getId() + ".htm";
-	}
-	
-	public int checkLevel(L2PcInstance player)
-	{
-		int _lev = 0;
-		if (hasQuestItems(player, 6402))
-		{
-			_lev = 4;
-		}
-		else if (hasQuestItems(player, 6401))
-		{
-			_lev = 3;
-		}
-		else if (hasQuestItems(player, 6400))
-		{
-			_lev = 2;
-		}
-		else if (hasQuestItems(player, 6399))
-		{
-			_lev = 1;
-		}
-		return _lev;
-	}
-	
-	public static void main(String[] args)
-	{
-		new HeavyMedal();
 	}
 }

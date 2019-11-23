@@ -134,34 +134,6 @@ public final class Quarry extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		npc.setAutoAttackable(false);
-		if (npc instanceof L2QuestGuardInstance)
-		{
-			((L2QuestGuardInstance) npc).setPassive(true);
-		}
-		return super.onSpawn(npc);
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		if (HellboundEngine.getInstance().getLevel() != 5)
-		{
-			return "32299.htm";
-		}
-		return "32299-01.htm";
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		npc.setAutoAttackable(false);
-		return super.onKill(npc, killer, isSummon);
-	}
-	
-	@Override
 	public String onEnterZone(L2Character character, L2ZoneType zone)
 	{
 		if (character.isAttackable())
@@ -187,5 +159,33 @@ public final class Quarry extends AbstractNpcAI
 			}
 		}
 		return super.onEnterZone(character, zone);
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		if (HellboundEngine.getInstance().getLevel() != 5)
+		{
+			return "32299.htm";
+		}
+		return "32299-01.htm";
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		npc.setAutoAttackable(false);
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		npc.setAutoAttackable(false);
+		if (npc instanceof L2QuestGuardInstance)
+		{
+			((L2QuestGuardInstance) npc).setPassive(true);
+		}
+		return super.onSpawn(npc);
 	}
 }

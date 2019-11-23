@@ -36,13 +36,9 @@ import instances.AbstractInstance;
  */
 public final class PailakaSongOfIceAndFire extends AbstractInstance
 {
-	protected class PSoIWorld extends InstanceWorld
-	{
-		
-	}
-	
 	// NPCs
 	private static final int ADLER1 = 32497;
+	
 	private static final int GARGOS = 18607;
 	private static final int BLOOM = 18616;
 	private static final int BOTTLE = 32492;
@@ -57,7 +53,6 @@ public final class PailakaSongOfIceAndFire extends AbstractInstance
 	// Misc
 	private static final int TEMPLATE_ID = 43;
 	private static final int ZONE = 20108;
-	
 	public PailakaSongOfIceAndFire()
 	{
 		super(PailakaSongOfIceAndFire.class.getSimpleName());
@@ -68,16 +63,6 @@ public final class PailakaSongOfIceAndFire extends AbstractInstance
 		addSeeCreatureId(GARGOS);
 		addSpawnId(BLOOM);
 		addKillId(BLOOM);
-	}
-	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			world.addAllowed(player.getObjectId());
-		}
-		teleportPlayer(player, TELEPORT, world.getInstanceId());
 	}
 	
 	@Override
@@ -166,10 +151,13 @@ public final class PailakaSongOfIceAndFire extends AbstractInstance
 	}
 	
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
 	{
-		npc.dropItem(player, getRandomBoolean() ? SHIELD_POTION : HEAL_POTION, getRandom(1, 7));
-		return super.onKill(npc, player, isSummon);
+		if (firstEntrance)
+		{
+			world.addAllowed(player.getObjectId());
+		}
+		teleportPlayer(player, TELEPORT, world.getInstanceId());
 	}
 	
 	@Override
@@ -184,6 +172,13 @@ public final class PailakaSongOfIceAndFire extends AbstractInstance
 			}
 		}
 		return super.onExitZone(character, zone);
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		npc.dropItem(player, getRandomBoolean() ? SHIELD_POTION : HEAL_POTION, getRandom(1, 7));
+		return super.onKill(npc, player, isSummon);
 	}
 	
 	@Override
@@ -203,5 +198,10 @@ public final class PailakaSongOfIceAndFire extends AbstractInstance
 		npc.setInvisible(true);
 		startQuestTimer("BLOOM_TIMER", 1000, npc, null);
 		return super.onSpawn(npc);
+	}
+	
+	protected class PSoIWorld extends InstanceWorld
+	{
+		
 	}
 }

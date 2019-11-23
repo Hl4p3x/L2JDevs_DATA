@@ -76,15 +76,61 @@ public final class TerritoryManagers extends AbstractNpcAI
 		}
 	}
 	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public static void main(String[] args)
 	{
-		if ((player.getClassId().level() < 2) || (player.getLevel() < 40))
+		new TerritoryManagers();
+	}
+	
+	/**
+	 * Deletes the item if exists.
+	 * @param player the player owner of the item that must be deleted
+	 * @param itemId the item Id of the item that must be deleted
+	 * @param event the event leading to this deletion
+	 * @param npc the npc referencing this deletion
+	 */
+	private static void deleteIfExist(L2PcInstance player, int itemId, String event, L2Npc npc)
+	{
+		final L2ItemInstance item = player.getInventory().getItemByItemId(itemId);
+		if (item != null)
 		{
-			// If the player does not have the second class transfer or is under level 40, it cannot continue.
-			return "36490-08.html";
+			player.destroyItem(event, item, npc, true);
 		}
-		return npc.getId() + ".html";
+	}
+	
+	/**
+	 * Complete the following quests and delete its quest specific items.
+	 * @param player the active player that will be processed
+	 * @param questId the quest Id of the quest that will be processed
+	 * @param itemIds the item Ids should be deleted
+	 */
+	private static void processNoblesseQuest(L2PcInstance player, int questId, int[] itemIds)
+	{
+		final Quest q = QuestManager.getInstance().getQuest(questId);
+		if (q == null)
+		{
+			return;
+		}
+		
+		QuestState qs = player.getQuestState(q.getName());
+		if (qs == null)
+		{
+			qs = q.newQuestState(player);
+			qs.setState(State.STARTED);
+		}
+		
+		if (!qs.isCompleted())
+		{
+			// Take the quest specific items.
+			if (itemIds != null)
+			{
+				for (int itemId : itemIds)
+				{
+					takeItems(player, itemId, -1);
+				}
+			}
+			// Completes the quest.
+			qs.exitQuest(false);
+		}
 	}
 	
 	@Override
@@ -261,60 +307,14 @@ public final class TerritoryManagers extends AbstractNpcAI
 		return htmltext;
 	}
 	
-	/**
-	 * Complete the following quests and delete its quest specific items.
-	 * @param player the active player that will be processed
-	 * @param questId the quest Id of the quest that will be processed
-	 * @param itemIds the item Ids should be deleted
-	 */
-	private static void processNoblesseQuest(L2PcInstance player, int questId, int[] itemIds)
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		final Quest q = QuestManager.getInstance().getQuest(questId);
-		if (q == null)
+		if ((player.getClassId().level() < 2) || (player.getLevel() < 40))
 		{
-			return;
+			// If the player does not have the second class transfer or is under level 40, it cannot continue.
+			return "36490-08.html";
 		}
-		
-		QuestState qs = player.getQuestState(q.getName());
-		if (qs == null)
-		{
-			qs = q.newQuestState(player);
-			qs.setState(State.STARTED);
-		}
-		
-		if (!qs.isCompleted())
-		{
-			// Take the quest specific items.
-			if (itemIds != null)
-			{
-				for (int itemId : itemIds)
-				{
-					takeItems(player, itemId, -1);
-				}
-			}
-			// Completes the quest.
-			qs.exitQuest(false);
-		}
-	}
-	
-	/**
-	 * Deletes the item if exists.
-	 * @param player the player owner of the item that must be deleted
-	 * @param itemId the item Id of the item that must be deleted
-	 * @param event the event leading to this deletion
-	 * @param npc the npc referencing this deletion
-	 */
-	private static void deleteIfExist(L2PcInstance player, int itemId, String event, L2Npc npc)
-	{
-		final L2ItemInstance item = player.getInventory().getItemByItemId(itemId);
-		if (item != null)
-		{
-			player.destroyItem(event, item, npc, true);
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new TerritoryManagers();
+		return npc.getId() + ".html";
 	}
 }

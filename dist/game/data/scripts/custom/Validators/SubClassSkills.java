@@ -94,6 +94,11 @@ public final class SubClassSkills extends Quest
 		setOnEnterWorld(true);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SubClassSkills();
+	}
+	
 	@Override
 	public String onEnterWorld(L2PcInstance player)
 	{
@@ -306,19 +311,6 @@ public final class SubClassSkills extends Quest
 		return null;
 	}
 	
-	private List<Skill> getCertSkills(L2PcInstance player)
-	{
-		final List<Skill> tmp = new ArrayList<>();
-		for (Skill s : player.getAllSkills())
-		{
-			if ((s != null) && (Arrays.binarySearch(_allCertSkillIds, s.getId()) >= 0))
-			{
-				tmp.add(s);
-			}
-		}
-		return tmp;
-	}
-	
 	private List<L2ItemInstance> getCertItems(L2PcInstance player)
 	{
 		final List<L2ItemInstance> tmp = new ArrayList<>();
@@ -332,8 +324,16 @@ public final class SubClassSkills extends Quest
 		return tmp;
 	}
 	
-	public static void main(String[] args)
+	private List<Skill> getCertSkills(L2PcInstance player)
 	{
-		new SubClassSkills();
+		final List<Skill> tmp = new ArrayList<>();
+		for (Skill s : player.getAllSkills())
+		{
+			if ((s != null) && (Arrays.binarySearch(_allCertSkillIds, s.getId()) >= 0))
+			{
+				tmp.add(s);
+			}
+		}
+		return tmp;
 	}
 }

@@ -41,16 +41,16 @@ public class Sandstorms extends AbstractNpcAI
 		addAggroRangeEnterId(SANDSTORM); // Sandstorm
 	}
 	
+	public static void main(String[] args)
+	{
+		new Sandstorms();
+	}
+	
 	@Override
 	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
 		npc.setTarget(player);
 		npc.doCast(GUST);
 		return super.onAggroRangeEnter(npc, player, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Sandstorms();
 	}
 }

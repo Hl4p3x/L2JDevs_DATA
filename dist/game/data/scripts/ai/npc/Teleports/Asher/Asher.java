@@ -46,6 +46,11 @@ public class Asher extends AbstractNpcAI
 		addStartNpc(ASHER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Asher();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -66,10 +71,5 @@ public class Asher extends AbstractNpcAI
 			return event;
 		}
 		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Asher();
 	}
 }

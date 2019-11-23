@@ -54,6 +54,11 @@ public final class HuntingGroundsTeleport extends AbstractNpcAI
 		addTalkId(PRIESTS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new HuntingGroundsTeleport();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -141,10 +146,5 @@ public final class HuntingGroundsTeleport extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new HuntingGroundsTeleport();
 	}
 }

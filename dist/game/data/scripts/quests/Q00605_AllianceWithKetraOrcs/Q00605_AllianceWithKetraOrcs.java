@@ -34,48 +34,9 @@ import org.l2jdevs.gameserver.model.quest.State;
  */
 public class Q00605_AllianceWithKetraOrcs extends Quest
 {
-	private static class DropInfo
-	{
-		private final int _chance;
-		private final int _minCond;
-		private final int _itemId;
-		
-		public DropInfo(int chance, int minCond)
-		{
-			_chance = chance;
-			_minCond = minCond;
-			switch (_minCond)
-			{
-				case 1:
-					_itemId = VARKA_BADGE_SOLDIER;
-					break;
-				case 2:
-					_itemId = VARKA_BADGE_OFFICER;
-					break;
-				default:
-					_itemId = VARKA_BADGE_CAPTAIN;
-					break;
-			}
-		}
-		
-		public int getMinCond()
-		{
-			return _minCond;
-		}
-		
-		public int getChance()
-		{
-			return _chance;
-		}
-		
-		public int getItemId()
-		{
-			return _itemId;
-		}
-	}
-	
 	// NPC
 	private static final int WAHKAN = 31371;
+	
 	// Monsters
 	private static final Map<Integer, DropInfo> MOBS = new HashMap<>();
 	static
@@ -150,7 +111,6 @@ public class Q00605_AllianceWithKetraOrcs extends Quest
 		200, // cond 4
 		200, // cond 5
 	};
-	
 	public Q00605_AllianceWithKetraOrcs()
 	{
 		super(605, Q00605_AllianceWithKetraOrcs.class.getSimpleName(), "Alliance with Ketra Orcs");
@@ -158,28 +118,6 @@ public class Q00605_AllianceWithKetraOrcs extends Quest
 		addTalkId(WAHKAN);
 		addKillId(MOBS.keySet());
 		registerQuestItems(VARKA_BADGE_SOLDIER, VARKA_BADGE_OFFICER, VARKA_BADGE_CAPTAIN);
-	}
-	
-	private boolean canGetItem(QuestState st, int itemId)
-	{
-		int count = 0;
-		switch (itemId)
-		{
-			case VARKA_BADGE_SOLDIER:
-				count = SOLDIER_BADGE_COUNT[st.getCond() - 1];
-				break;
-			case VARKA_BADGE_OFFICER:
-				count = OFFICER_BADGE_COUNT[st.getCond() - 1];
-				break;
-			case VARKA_BADGE_CAPTAIN:
-				count = CAPTAIN_BADGE_COUNT[st.getCond() - 1];
-				break;
-		}
-		if (st.getQuestItemsCount(itemId) < count)
-		{
-			return true;
-		}
-		return false;
 	}
 	
 	@Override
@@ -327,5 +265,67 @@ public class Q00605_AllianceWithKetraOrcs extends Quest
 				break;
 		}
 		return htmltext;
+	}
+	
+	private boolean canGetItem(QuestState st, int itemId)
+	{
+		int count = 0;
+		switch (itemId)
+		{
+			case VARKA_BADGE_SOLDIER:
+				count = SOLDIER_BADGE_COUNT[st.getCond() - 1];
+				break;
+			case VARKA_BADGE_OFFICER:
+				count = OFFICER_BADGE_COUNT[st.getCond() - 1];
+				break;
+			case VARKA_BADGE_CAPTAIN:
+				count = CAPTAIN_BADGE_COUNT[st.getCond() - 1];
+				break;
+		}
+		if (st.getQuestItemsCount(itemId) < count)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	private static class DropInfo
+	{
+		private final int _chance;
+		private final int _minCond;
+		private final int _itemId;
+		
+		public DropInfo(int chance, int minCond)
+		{
+			_chance = chance;
+			_minCond = minCond;
+			switch (_minCond)
+			{
+				case 1:
+					_itemId = VARKA_BADGE_SOLDIER;
+					break;
+				case 2:
+					_itemId = VARKA_BADGE_OFFICER;
+					break;
+				default:
+					_itemId = VARKA_BADGE_CAPTAIN;
+					break;
+			}
+		}
+		
+		public int getChance()
+		{
+			return _chance;
+		}
+		
+		public int getItemId()
+		{
+			return _itemId;
+		}
+		
+		public int getMinCond()
+		{
+			return _minCond;
+		}
 	}
 }

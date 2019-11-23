@@ -57,14 +57,6 @@ public final class Slaves extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		((L2MonsterInstance) npc).enableMinions(HellboundEngine.getInstance().getLevel() < 5);
-		((L2MonsterInstance) npc).setOnKillDelay(1000);
-		return super.onSpawn(npc);
-	}
-	
-	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		if (((L2MonsterInstance) npc).getMinionList() != null)
@@ -93,5 +85,13 @@ public final class Slaves extends AbstractNpcAI
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		((L2MonsterInstance) npc).enableMinions(HellboundEngine.getInstance().getLevel() < 5);
+		((L2MonsterInstance) npc).setOnKillDelay(1000);
+		return super.onSpawn(npc);
 	}
 }

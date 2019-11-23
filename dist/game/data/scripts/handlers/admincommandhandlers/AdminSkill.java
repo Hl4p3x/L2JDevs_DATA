@@ -85,6 +85,12 @@ public class AdminSkill implements IAdminCommandHandler
 	private static Skill[] adminSkills;
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_show_skills"))
@@ -210,6 +216,152 @@ public class AdminSkill implements IAdminCommandHandler
 	}
 	
 	/**
+	 * @param activeChar the active Game Master.
+	 * @param id
+	 * @param level
+	 */
+	private void adminAddClanSkill(L2PcInstance activeChar, int id, int level)
+	{
+		final L2Object target = activeChar.getTarget();
+		if ((target == null) || !target.isPlayer())
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+			showMainPage(activeChar);
+			return;
+		}
+		final L2PcInstance player = target.getActingPlayer();
+		if (!player.isClanLeader())
+		{
+			final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_IS_NOT_A_CLAN_LEADER);
+			sm.addString(player.getName());
+			activeChar.sendPacket(sm);
+			showMainPage(activeChar);
+			return;
+		}
+		if ((id < 370) || (id > 391) || (level < 1) || (level > 3))
+		{
+			activeChar.sendMessage("Usage: //add_clan_skill <skill_id> <level>");
+			showMainPage(activeChar);
+			return;
+		}
+		
+		final Skill skill = SkillData.getInstance().getSkill(id, level);
+		if (skill == null)
+		{
+			activeChar.sendMessage("Error: there is no such skill.");
+			return;
+		}
+		
+		String skillname = skill.getName();
+		SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_SKILL_S1_ADDED);
+		sm.addSkillName(skill);
+		player.sendPacket(sm);
+		final L2Clan clan = player.getClan();
+		clan.broadcastToOnlineMembers(sm);
+		clan.addNewSkill(skill);
+		activeChar.sendMessage("You gave the Clan Skill: " + skillname + " to the clan " + clan.getName() + ".");
+		
+		clan.broadcastToOnlineMembers(new PledgeSkillList(clan));
+		for (L2PcInstance member : clan.getOnlineMembers(0))
+		{
+			member.sendSkillList();
+		}
+		
+		showMainPage(activeChar);
+	}
+	
+	/**
+	 * @param activeChar the active Game Master.
+	 * @param val
+	 */
+	private void adminAddSkill(L2PcInstance activeChar, String val)
+	{
+		final L2Object target = activeChar.getTarget();
+		if ((target == null) || !target.isPlayer())
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+			showMainPage(activeChar);
+			return;
+		}
+		final L2PcInstance player = target.getActingPlayer();
+		final StringTokenizer st = new StringTokenizer(val);
+		if (st.countTokens() != 2)
+		{
+			showMainPage(activeChar);
+		}
+		else
+		{
+			Skill skill = null;
+			try
+			{
+				String id = st.nextToken();
+				String level = st.nextToken();
+				int idval = Integer.parseInt(id);
+				int levelval = Integer.parseInt(level);
+				skill = SkillData.getInstance().getSkill(idval, levelval);
+			}
+			catch (Exception e)
+			{
+				_log.log(Level.WARNING, "", e);
+			}
+			if (skill != null)
+			{
+				String name = skill.getName();
+				// Player's info.
+				player.sendMessage("Admin gave you the skill " + name + ".");
+				player.addSkill(skill, true);
+				player.sendSkillList();
+				// Admin info.
+				activeChar.sendMessage("You gave the skill " + name + " to " + player.getName() + ".");
+				if (Config.DEBUG)
+				{
+					_log.fine("[GM]" + activeChar.getName() + " gave skill " + name + " to " + player.getName() + ".");
+				}
+				activeChar.sendSkillList();
+			}
+			else
+			{
+				activeChar.sendMessage("Error: there is no such skill.");
+			}
+			showMainPage(activeChar); // Back to start
+		}
+	}
+	
+	/**
+	 * @param activeChar the active Game Master.
+	 */
+	private void adminGetSkills(L2PcInstance activeChar)
+	{
+		final L2Object target = activeChar.getTarget();
+		if ((target == null) || !target.isPlayer())
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+			return;
+		}
+		final L2PcInstance player = target.getActingPlayer();
+		if (player.getName().equals(activeChar.getName()))
+		{
+			player.sendPacket(SystemMessageId.CANNOT_USE_ON_YOURSELF);
+		}
+		else
+		{
+			Skill[] skills = player.getAllSkills().toArray(new Skill[player.getAllSkills().size()]);
+			adminSkills = activeChar.getAllSkills().toArray(new Skill[activeChar.getAllSkills().size()]);
+			for (Skill skill : adminSkills)
+			{
+				activeChar.removeSkill(skill);
+			}
+			for (Skill skill : skills)
+			{
+				activeChar.addSkill(skill, true);
+			}
+			activeChar.sendMessage("You now have all the skills of " + player.getName() + ".");
+			activeChar.sendSkillList();
+		}
+		showMainPage(activeChar);
+	}
+	
+	/**
 	 * This function will give all the skills that the target can learn at his/her level
 	 * @param activeChar the active char
 	 * @param includedByFs if {@code true} Forgotten Scroll skills will be delivered.
@@ -274,6 +426,84 @@ public class AdminSkill implements IAdminCommandHandler
 		
 		activeChar.sendMessage("You gave " + skills.size() + " skills to " + player.getName() + "'s clan " + clan.getName() + ".");
 		player.sendMessage("Your clan received " + skills.size() + " skills.");
+	}
+	
+	/**
+	 * @param activeChar the active Game Master.
+	 * @param idval
+	 */
+	private void adminRemoveSkill(L2PcInstance activeChar, int idval)
+	{
+		final L2Object target = activeChar.getTarget();
+		if ((target == null) || !target.isPlayer())
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+			return;
+		}
+		final L2PcInstance player = target.getActingPlayer();
+		Skill skill = SkillData.getInstance().getSkill(idval, player.getSkillLevel(idval));
+		if (skill != null)
+		{
+			String skillname = skill.getName();
+			player.sendMessage("Admin removed the skill " + skillname + " from your skills list.");
+			player.removeSkill(skill);
+			// Admin information
+			activeChar.sendMessage("You removed the skill " + skillname + " from " + player.getName() + ".");
+			if (Config.DEBUG)
+			{
+				_log.fine("[GM]" + activeChar.getName() + " removed skill " + skillname + " from " + player.getName() + ".");
+			}
+			activeChar.sendSkillList();
+		}
+		else
+		{
+			activeChar.sendMessage("Error: there is no such skill.");
+		}
+		removeSkillsPage(activeChar, 0); // Back to previous page
+	}
+	
+	/**
+	 * @param activeChar the active Game Master.
+	 */
+	private void adminResetSkills(L2PcInstance activeChar)
+	{
+		final L2Object target = activeChar.getTarget();
+		if ((target == null) || !target.isPlayer())
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+			return;
+		}
+		final L2PcInstance player = target.getActingPlayer();
+		if (adminSkills == null)
+		{
+			activeChar.sendMessage("You must get the skills of someone in order to do this.");
+		}
+		else
+		{
+			Skill[] skills = player.getAllSkills().toArray(new Skill[player.getAllSkills().size()]);
+			for (Skill skill : skills)
+			{
+				player.removeSkill(skill);
+			}
+			for (Skill skill : activeChar.getAllSkills())
+			{
+				player.addSkill(skill, true);
+			}
+			for (Skill skill : skills)
+			{
+				activeChar.removeSkill(skill);
+			}
+			for (Skill skill : adminSkills)
+			{
+				activeChar.addSkill(skill, true);
+			}
+			player.sendMessage("[GM]" + activeChar.getName() + " updated your skills.");
+			activeChar.sendMessage("You now have all your skills back.");
+			adminSkills = null;
+			activeChar.sendSkillList();
+			player.sendSkillList();
+		}
+		showMainPage(activeChar);
 	}
 	
 	/**
@@ -357,235 +587,5 @@ public class AdminSkill implements IAdminCommandHandler
 		adminReply.replace("%level%", String.valueOf(player.getLevel()));
 		adminReply.replace("%class%", ClassListData.getInstance().getClass(player.getClassId()).getClientCode());
 		activeChar.sendPacket(adminReply);
-	}
-	
-	/**
-	 * @param activeChar the active Game Master.
-	 */
-	private void adminGetSkills(L2PcInstance activeChar)
-	{
-		final L2Object target = activeChar.getTarget();
-		if ((target == null) || !target.isPlayer())
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			return;
-		}
-		final L2PcInstance player = target.getActingPlayer();
-		if (player.getName().equals(activeChar.getName()))
-		{
-			player.sendPacket(SystemMessageId.CANNOT_USE_ON_YOURSELF);
-		}
-		else
-		{
-			Skill[] skills = player.getAllSkills().toArray(new Skill[player.getAllSkills().size()]);
-			adminSkills = activeChar.getAllSkills().toArray(new Skill[activeChar.getAllSkills().size()]);
-			for (Skill skill : adminSkills)
-			{
-				activeChar.removeSkill(skill);
-			}
-			for (Skill skill : skills)
-			{
-				activeChar.addSkill(skill, true);
-			}
-			activeChar.sendMessage("You now have all the skills of " + player.getName() + ".");
-			activeChar.sendSkillList();
-		}
-		showMainPage(activeChar);
-	}
-	
-	/**
-	 * @param activeChar the active Game Master.
-	 */
-	private void adminResetSkills(L2PcInstance activeChar)
-	{
-		final L2Object target = activeChar.getTarget();
-		if ((target == null) || !target.isPlayer())
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			return;
-		}
-		final L2PcInstance player = target.getActingPlayer();
-		if (adminSkills == null)
-		{
-			activeChar.sendMessage("You must get the skills of someone in order to do this.");
-		}
-		else
-		{
-			Skill[] skills = player.getAllSkills().toArray(new Skill[player.getAllSkills().size()]);
-			for (Skill skill : skills)
-			{
-				player.removeSkill(skill);
-			}
-			for (Skill skill : activeChar.getAllSkills())
-			{
-				player.addSkill(skill, true);
-			}
-			for (Skill skill : skills)
-			{
-				activeChar.removeSkill(skill);
-			}
-			for (Skill skill : adminSkills)
-			{
-				activeChar.addSkill(skill, true);
-			}
-			player.sendMessage("[GM]" + activeChar.getName() + " updated your skills.");
-			activeChar.sendMessage("You now have all your skills back.");
-			adminSkills = null;
-			activeChar.sendSkillList();
-			player.sendSkillList();
-		}
-		showMainPage(activeChar);
-	}
-	
-	/**
-	 * @param activeChar the active Game Master.
-	 * @param val
-	 */
-	private void adminAddSkill(L2PcInstance activeChar, String val)
-	{
-		final L2Object target = activeChar.getTarget();
-		if ((target == null) || !target.isPlayer())
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			showMainPage(activeChar);
-			return;
-		}
-		final L2PcInstance player = target.getActingPlayer();
-		final StringTokenizer st = new StringTokenizer(val);
-		if (st.countTokens() != 2)
-		{
-			showMainPage(activeChar);
-		}
-		else
-		{
-			Skill skill = null;
-			try
-			{
-				String id = st.nextToken();
-				String level = st.nextToken();
-				int idval = Integer.parseInt(id);
-				int levelval = Integer.parseInt(level);
-				skill = SkillData.getInstance().getSkill(idval, levelval);
-			}
-			catch (Exception e)
-			{
-				_log.log(Level.WARNING, "", e);
-			}
-			if (skill != null)
-			{
-				String name = skill.getName();
-				// Player's info.
-				player.sendMessage("Admin gave you the skill " + name + ".");
-				player.addSkill(skill, true);
-				player.sendSkillList();
-				// Admin info.
-				activeChar.sendMessage("You gave the skill " + name + " to " + player.getName() + ".");
-				if (Config.DEBUG)
-				{
-					_log.fine("[GM]" + activeChar.getName() + " gave skill " + name + " to " + player.getName() + ".");
-				}
-				activeChar.sendSkillList();
-			}
-			else
-			{
-				activeChar.sendMessage("Error: there is no such skill.");
-			}
-			showMainPage(activeChar); // Back to start
-		}
-	}
-	
-	/**
-	 * @param activeChar the active Game Master.
-	 * @param idval
-	 */
-	private void adminRemoveSkill(L2PcInstance activeChar, int idval)
-	{
-		final L2Object target = activeChar.getTarget();
-		if ((target == null) || !target.isPlayer())
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			return;
-		}
-		final L2PcInstance player = target.getActingPlayer();
-		Skill skill = SkillData.getInstance().getSkill(idval, player.getSkillLevel(idval));
-		if (skill != null)
-		{
-			String skillname = skill.getName();
-			player.sendMessage("Admin removed the skill " + skillname + " from your skills list.");
-			player.removeSkill(skill);
-			// Admin information
-			activeChar.sendMessage("You removed the skill " + skillname + " from " + player.getName() + ".");
-			if (Config.DEBUG)
-			{
-				_log.fine("[GM]" + activeChar.getName() + " removed skill " + skillname + " from " + player.getName() + ".");
-			}
-			activeChar.sendSkillList();
-		}
-		else
-		{
-			activeChar.sendMessage("Error: there is no such skill.");
-		}
-		removeSkillsPage(activeChar, 0); // Back to previous page
-	}
-	
-	/**
-	 * @param activeChar the active Game Master.
-	 * @param id
-	 * @param level
-	 */
-	private void adminAddClanSkill(L2PcInstance activeChar, int id, int level)
-	{
-		final L2Object target = activeChar.getTarget();
-		if ((target == null) || !target.isPlayer())
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			showMainPage(activeChar);
-			return;
-		}
-		final L2PcInstance player = target.getActingPlayer();
-		if (!player.isClanLeader())
-		{
-			final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_IS_NOT_A_CLAN_LEADER);
-			sm.addString(player.getName());
-			activeChar.sendPacket(sm);
-			showMainPage(activeChar);
-			return;
-		}
-		if ((id < 370) || (id > 391) || (level < 1) || (level > 3))
-		{
-			activeChar.sendMessage("Usage: //add_clan_skill <skill_id> <level>");
-			showMainPage(activeChar);
-			return;
-		}
-		
-		final Skill skill = SkillData.getInstance().getSkill(id, level);
-		if (skill == null)
-		{
-			activeChar.sendMessage("Error: there is no such skill.");
-			return;
-		}
-		
-		String skillname = skill.getName();
-		SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_SKILL_S1_ADDED);
-		sm.addSkillName(skill);
-		player.sendPacket(sm);
-		final L2Clan clan = player.getClan();
-		clan.broadcastToOnlineMembers(sm);
-		clan.addNewSkill(skill);
-		activeChar.sendMessage("You gave the Clan Skill: " + skillname + " to the clan " + clan.getName() + ".");
-		
-		clan.broadcastToOnlineMembers(new PledgeSkillList(clan));
-		for (L2PcInstance member : clan.getOnlineMembers(0))
-		{
-			member.sendSkillList();
-		}
-		
-		showMainPage(activeChar);
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

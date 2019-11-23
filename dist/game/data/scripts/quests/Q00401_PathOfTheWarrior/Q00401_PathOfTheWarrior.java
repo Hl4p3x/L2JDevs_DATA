@@ -65,6 +65,12 @@ public final class Q00401_PathOfTheWarrior extends Quest
 		registerQuestItems(AURONS_LETTER, WARRIOR_GUILD_MARK, RUSTED_BRONZE_SWORD1, RUSTED_BRONZE_SWORD2, RUSTED_BRONZE_SWORD3, SIMPLONS_LETTER, VENOMOUS_SPIDERS_LEG);
 	}
 	
+	private static boolean checkWeapon(L2PcInstance player)
+	{
+		L2ItemInstance weapon = player.getActiveWeaponInstance();
+		return ((weapon != null) && ((weapon.getId() == RUSTED_BRONZE_SWORD3)));
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -334,11 +340,5 @@ public final class Q00401_PathOfTheWarrior extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	private static boolean checkWeapon(L2PcInstance player)
-	{
-		L2ItemInstance weapon = player.getActiveWeaponInstance();
-		return ((weapon != null) && ((weapon.getId() == RUSTED_BRONZE_SWORD3)));
 	}
 }

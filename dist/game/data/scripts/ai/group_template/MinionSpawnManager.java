@@ -418,19 +418,9 @@ public final class MinionSpawnManager extends AbstractNpcAI
 		addAttackId(ON_ATTACK_NPC);
 	}
 	
-	@Override
-	public String onSpawn(L2Npc npc)
+	public static void main(String[] args)
 	{
-		if (npc.getTemplate().getParameters().getSet().get("SummonPrivateRate") == null)
-		{
-			((L2MonsterInstance) npc).getMinionList().spawnMinions(npc.getTemplate().getParameters().getMinionList("Privates"));
-			npc.setScriptValue(1);
-		}
-		else
-		{
-			npc.setScriptValue(0);
-		}
-		return super.onSpawn(npc);
+		new MinionSpawnManager();
 	}
 	
 	@Override
@@ -455,8 +445,18 @@ public final class MinionSpawnManager extends AbstractNpcAI
 		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onSpawn(L2Npc npc)
 	{
-		new MinionSpawnManager();
+		if (npc.getTemplate().getParameters().getSet().get("SummonPrivateRate") == null)
+		{
+			((L2MonsterInstance) npc).getMinionList().spawnMinions(npc.getTemplate().getParameters().getMinionList("Privates"));
+			npc.setScriptValue(1);
+		}
+		else
+		{
+			npc.setScriptValue(0);
+		}
+		return super.onSpawn(npc);
 	}
 }

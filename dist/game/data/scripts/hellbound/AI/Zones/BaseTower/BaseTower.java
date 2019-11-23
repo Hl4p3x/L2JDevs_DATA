@@ -54,17 +54,6 @@ public final class BaseTower extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		final ClassId classId = player.getClassId();
-		if (classId.equalsOrChildOf(ClassId.hellKnight) || classId.equalsOrChildOf(ClassId.soultaker))
-		{
-			return "32301-02.htm";
-		}
-		return "32301-01.htm";
-	}
-	
-	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("CLOSE"))
@@ -84,6 +73,17 @@ public final class BaseTower extends AbstractNpcAI
 			npc.doSimultaneousCast(DEATH_WORD);
 		}
 		return super.onAggroRangeEnter(npc, player, isSummon);
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		final ClassId classId = player.getClassId();
+		if (classId.equalsOrChildOf(ClassId.hellKnight) || classId.equalsOrChildOf(ClassId.soultaker))
+		{
+			return "32301-02.htm";
+		}
+		return "32301-01.htm";
 	}
 	
 	@Override

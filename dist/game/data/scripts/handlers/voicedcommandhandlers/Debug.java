@@ -31,6 +31,12 @@ public class Debug implements IVoicedCommandHandler
 	};
 	
 	@Override
+	public String[] getVoicedCommandList()
+	{
+		return VOICED_COMMANDS;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		if (!AdminData.getInstance().hasAccess(command, activeChar.getAccessLevel()))
@@ -52,11 +58,5 @@ public class Debug implements IVoicedCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return VOICED_COMMANDS;
 	}
 }

@@ -730,6 +730,61 @@ public final class Q00236_SeedsOfChaos extends Quest
 	}
 	
 	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		switch (npc.getId())
+		{
+			case KATENAR:
+			{
+				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
+				startQuestTimer("KATENAR_120", 120000, npc, null);
+				if (c0 != null)
+				{
+					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_FINALLY_WE_MEET).addStringParameter(c0.getAppearance().getVisibleName()));
+				}
+				break;
+			}
+			case HARKILGAMED:
+			{
+				startQuestTimer("HARKILGAMED_120", 120000, npc, null);
+				npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.HMM_IS_SOMEONE_APPROACHING));
+				break;
+			}
+			case KATENAR_A:
+			{
+				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
+				startQuestTimer("KATENAR_A_120", 120000, npc, null);
+				if (c0 != null)
+				{
+					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_DID_YOU_WAIT_FOR_LONG).addStringParameter(c0.getAppearance().getVisibleName()));
+				}
+				break;
+			}
+			case KATENAR_B:
+			{
+				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
+				startQuestTimer("KATENAR_B_120", 120000, npc, null);
+				if (c0 != null)
+				{
+					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.DID_YOU_BRING_WHAT_I_ASKED_S1).addStringParameter(c0.getAppearance().getVisibleName()));
+				}
+				break;
+			}
+			case HARKILGAMED_A:
+			{
+				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
+				startQuestTimer("HARKILGAMED_A_120", 120000, npc, null);
+				if (c0 != null)
+				{
+					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_HAS_EVERYTHING_BEEN_FOUND).addStringParameter(c0.getAppearance().getVisibleName()));
+				}
+				break;
+			}
+		}
+		return super.onSpawn(npc);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -1151,60 +1206,5 @@ public final class Q00236_SeedsOfChaos extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		switch (npc.getId())
-		{
-			case KATENAR:
-			{
-				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
-				startQuestTimer("KATENAR_120", 120000, npc, null);
-				if (c0 != null)
-				{
-					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_FINALLY_WE_MEET).addStringParameter(c0.getAppearance().getVisibleName()));
-				}
-				break;
-			}
-			case HARKILGAMED:
-			{
-				startQuestTimer("HARKILGAMED_120", 120000, npc, null);
-				npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.HMM_IS_SOMEONE_APPROACHING));
-				break;
-			}
-			case KATENAR_A:
-			{
-				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
-				startQuestTimer("KATENAR_A_120", 120000, npc, null);
-				if (c0 != null)
-				{
-					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_DID_YOU_WAIT_FOR_LONG).addStringParameter(c0.getAppearance().getVisibleName()));
-				}
-				break;
-			}
-			case KATENAR_B:
-			{
-				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
-				startQuestTimer("KATENAR_B_120", 120000, npc, null);
-				if (c0 != null)
-				{
-					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.DID_YOU_BRING_WHAT_I_ASKED_S1).addStringParameter(c0.getAppearance().getVisibleName()));
-				}
-				break;
-			}
-			case HARKILGAMED_A:
-			{
-				final L2PcInstance c0 = npc.getVariables().getObject("player0", L2PcInstance.class);
-				startQuestTimer("HARKILGAMED_A_120", 120000, npc, null);
-				if (c0 != null)
-				{
-					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.S1_HAS_EVERYTHING_BEEN_FOUND).addStringParameter(c0.getAppearance().getVisibleName()));
-				}
-				break;
-			}
-		}
-		return super.onSpawn(npc);
 	}
 }

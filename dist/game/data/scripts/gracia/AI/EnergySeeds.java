@@ -87,15 +87,6 @@ public class EnergySeeds extends AbstractNpcAI
 	// @formatter:off
 	private static final int SOD_ZONE = 60009;
 	
-	private enum GraciaSeeds
-	{
-		INFINITY,
-		DESTRUCTION,
-		ANNIHILATION_BISTAKON,
-		ANNIHILATION_REPTILIKON,
-		ANNIHILATION_COKRAKON
-	}
-	
 	public EnergySeeds()
 	{
 		super(EnergySeeds.class.getSimpleName(), "gracia/AI");
@@ -107,20 +98,97 @@ public class EnergySeeds extends AbstractNpcAI
 		startAI();
 	}
 	
-	protected boolean isSeedActive(GraciaSeeds seed)
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		switch (seed)
+		if (event.equalsIgnoreCase("StartSoDAi"))
 		{
-			case INFINITY:
-				return false;
-			case DESTRUCTION:
-				return GraciaSeedsManager.getInstance().getSoDState() == 2;
-			case ANNIHILATION_BISTAKON:
-			case ANNIHILATION_REPTILIKON:
-			case ANNIHILATION_COKRAKON:
-				return true;
+			for (int doorId : SEED_OF_DESTRUCTION_DOORS)
+			{
+				L2DoorInstance doorInstance = DoorData.getInstance().getDoor(doorId);
+				if (doorInstance != null)
+				{
+					doorInstance.openMe();
+				}
+			}
+			startAI(GraciaSeeds.DESTRUCTION);
 		}
-		return true;
+		else if (event.equalsIgnoreCase("StopSoDAi"))
+		{
+			for (int doorId : SEED_OF_DESTRUCTION_DOORS)
+			{
+				L2DoorInstance doorInstance = DoorData.getInstance().getDoor(doorId);
+				if (doorInstance != null)
+				{
+					doorInstance.closeMe();
+				}
+			}
+			for (L2PcInstance ch : ZoneManager.getInstance().getZoneById(SOD_ZONE).getPlayersInside())
+			{
+				if (ch != null)
+				{
+					ch.teleToLocation(SOD_EXIT_POINT);
+				}
+			}
+			stopAI(GraciaSeeds.DESTRUCTION);
+		}
+		else if (event.equalsIgnoreCase("DeSpawnTask"))
+		{
+			if (npc.isInCombat())
+			{
+				startQuestTimer("DeSpawnTask", 30000, npc, null);
+			}
+			else
+			{
+				npc.deleteMe();
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public String onEnterZone(L2Character character, L2ZoneType zone)
+	{
+		if (character.getInstanceId() != 0)
+		{
+			return super.onEnterZone(character, zone);
+		}
+		
+		if (character instanceof L2PcInstance)
+		{
+			switch (zone.getId())
+			{
+				case SOD_ZONE:
+					if (!isSeedActive(GraciaSeeds.DESTRUCTION) && !character.isGM())
+					{
+						character.teleToLocation(SOD_EXIT_POINT);
+					}
+					break;
+			}
+		}
+		return super.onEnterZone(character, zone);
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		if (npc.getId() == TEMPORARY_TELEPORTER)
+		{
+			player.teleToLocation(SOD_EXIT_POINT);
+		}
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		return null;
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
+	{
+		if (_spawnedNpcs.containsKey(npc) && SPAWNS.containsKey(_spawnedNpcs.get(npc)))
+		{
+			SPAWNS.get(_spawnedNpcs.get(npc)).scheduleRespawn(RESPAWN + getRandom(RANDOM_RESPAWN_OFFSET));
+			_spawnedNpcs.remove(npc);
+		}
+		return super.onKill(npc, player, isSummon);
 	}
 	
 	@Override
@@ -180,134 +248,6 @@ public class EnergySeeds extends AbstractNpcAI
 		}
 		
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
-	}
-	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (event.equalsIgnoreCase("StartSoDAi"))
-		{
-			for (int doorId : SEED_OF_DESTRUCTION_DOORS)
-			{
-				L2DoorInstance doorInstance = DoorData.getInstance().getDoor(doorId);
-				if (doorInstance != null)
-				{
-					doorInstance.openMe();
-				}
-			}
-			startAI(GraciaSeeds.DESTRUCTION);
-		}
-		else if (event.equalsIgnoreCase("StopSoDAi"))
-		{
-			for (int doorId : SEED_OF_DESTRUCTION_DOORS)
-			{
-				L2DoorInstance doorInstance = DoorData.getInstance().getDoor(doorId);
-				if (doorInstance != null)
-				{
-					doorInstance.closeMe();
-				}
-			}
-			for (L2PcInstance ch : ZoneManager.getInstance().getZoneById(SOD_ZONE).getPlayersInside())
-			{
-				if (ch != null)
-				{
-					ch.teleToLocation(SOD_EXIT_POINT);
-				}
-			}
-			stopAI(GraciaSeeds.DESTRUCTION);
-		}
-		else if (event.equalsIgnoreCase("DeSpawnTask"))
-		{
-			if (npc.isInCombat())
-			{
-				startQuestTimer("DeSpawnTask", 30000, npc, null);
-			}
-			else
-			{
-				npc.deleteMe();
-			}
-		}
-		return null;
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		if (npc.getId() == TEMPORARY_TELEPORTER)
-		{
-			player.teleToLocation(SOD_EXIT_POINT);
-		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-		return null;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
-	{
-		if (_spawnedNpcs.containsKey(npc) && SPAWNS.containsKey(_spawnedNpcs.get(npc)))
-		{
-			SPAWNS.get(_spawnedNpcs.get(npc)).scheduleRespawn(RESPAWN + getRandom(RANDOM_RESPAWN_OFFSET));
-			_spawnedNpcs.remove(npc);
-		}
-		return super.onKill(npc, player, isSummon);
-	}
-	
-	@Override
-	public String onEnterZone(L2Character character, L2ZoneType zone)
-	{
-		if (character.getInstanceId() != 0)
-		{
-			return super.onEnterZone(character, zone);
-		}
-		
-		if (character instanceof L2PcInstance)
-		{
-			switch (zone.getId())
-			{
-				case SOD_ZONE:
-					if (!isSeedActive(GraciaSeeds.DESTRUCTION) && !character.isGM())
-					{
-						character.teleToLocation(SOD_EXIT_POINT);
-					}
-					break;
-			}
-		}
-		return super.onEnterZone(character, zone);
-	}
-	
-	public void startAI()
-	{
-		// spawn all NPCs
-		for (ESSpawn spawn : SPAWNS.values())
-		{
-			if (isSeedActive(spawn._seedId))
-			{
-				spawn.scheduleRespawn(0);
-			}
-		}
-	}
-	
-	public void startAI(GraciaSeeds type)
-	{
-		// spawn all NPCs
-		for (ESSpawn spawn : SPAWNS.values())
-		{
-			if (spawn._seedId == type)
-			{
-				spawn.scheduleRespawn(0);
-			}
-		}
-	}
-	
-	public void stopAI(GraciaSeeds type)
-	{
-		for (L2Npc seed : _spawnedNpcs.keySet())
-		{
-			if (type == SPAWNS.get(_spawnedNpcs.get(seed))._seedId)
-			{
-				seed.deleteMe();
-			}
-		}
 	}
 	
 	public void seedCollectEvent(L2PcInstance player, L2Npc seedEnergy, GraciaSeeds seedType)
@@ -373,33 +313,55 @@ public class EnergySeeds extends AbstractNpcAI
 		}
 	}
 	
-	private L2MonsterInstance spawnSupriseMob(L2Npc energy, int npcId)
+	public void startAI()
 	{
-		L2NpcTemplate surpriseMobTemplate = NpcData.getInstance().getTemplate(npcId);
-		L2MonsterInstance monster = new L2MonsterInstance(surpriseMobTemplate);
-		monster.setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
-		monster.setHeading(energy.getHeading());
-		monster.setInstanceId(energy.getInstanceId());
-		monster.setShowSummonAnimation(true);
-		monster.spawnMe(energy.getX(), energy.getY(), energy.getZ());
-		startQuestTimer("DeSpawnTask", 30000, monster, null);
-		return monster;
+		// spawn all NPCs
+		for (ESSpawn spawn : SPAWNS.values())
+		{
+			if (isSeedActive(spawn._seedId))
+			{
+				spawn.scheduleRespawn(0);
+			}
+		}
 	}
 	
-	private void handleQuestDrop(L2PcInstance player, int itemId)
+	public void startAI(GraciaSeeds type)
 	{
-		double chance = HOWTOOPPOSEEVIL_CHANCE * Config.RATE_QUEST_DROP;
-		int numItems = (int) (chance / 100);
-		chance = chance % 100;
-		if (getRandom(100) < chance)
+		// spawn all NPCs
+		for (ESSpawn spawn : SPAWNS.values())
 		{
-			numItems++;
+			if (spawn._seedId == type)
+			{
+				spawn.scheduleRespawn(0);
+			}
 		}
-		if (numItems > 0)
+	}
+	
+	public void stopAI(GraciaSeeds type)
+	{
+		for (L2Npc seed : _spawnedNpcs.keySet())
 		{
-			giveItems(player, itemId, numItems);
-			playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+			if (type == SPAWNS.get(_spawnedNpcs.get(seed))._seedId)
+			{
+				seed.deleteMe();
+			}
 		}
+	}
+	
+	protected boolean isSeedActive(GraciaSeeds seed)
+	{
+		switch (seed)
+		{
+			case INFINITY:
+				return false;
+			case DESTRUCTION:
+				return GraciaSeedsManager.getInstance().getSoDState() == 2;
+			case ANNIHILATION_BISTAKON:
+			case ANNIHILATION_REPTILIKON:
+			case ANNIHILATION_COKRAKON:
+				return true;
+		}
+		return true;
 	}
 	
 	private void addSpawnsToList()
@@ -740,6 +702,35 @@ public class EnergySeeds extends AbstractNpcAI
 		//@formatter:on
 	}
 	
+	private void handleQuestDrop(L2PcInstance player, int itemId)
+	{
+		double chance = HOWTOOPPOSEEVIL_CHANCE * Config.RATE_QUEST_DROP;
+		int numItems = (int) (chance / 100);
+		chance = chance % 100;
+		if (getRandom(100) < chance)
+		{
+			numItems++;
+		}
+		if (numItems > 0)
+		{
+			giveItems(player, itemId, numItems);
+			playSound(player, Sound.ITEMSOUND_QUEST_ITEMGET);
+		}
+	}
+	
+	private L2MonsterInstance spawnSupriseMob(L2Npc energy, int npcId)
+	{
+		L2NpcTemplate surpriseMobTemplate = NpcData.getInstance().getTemplate(npcId);
+		L2MonsterInstance monster = new L2MonsterInstance(surpriseMobTemplate);
+		monster.setCurrentHpMp(monster.getMaxHp(), monster.getMaxMp());
+		monster.setHeading(energy.getHeading());
+		monster.setInstanceId(energy.getInstanceId());
+		monster.setShowSummonAnimation(true);
+		monster.spawnMe(energy.getX(), energy.getY(), energy.getZ());
+		startQuestTimer("DeSpawnTask", 30000, monster, null);
+		return monster;
+	}
+	
 	private class ESSpawn
 	{
 		protected final int _spawnId;
@@ -768,5 +759,14 @@ public class EnergySeeds extends AbstractNpcAI
 				}
 			}, waitTime);
 		}
+	}
+	
+	private enum GraciaSeeds
+	{
+		INFINITY,
+		DESTRUCTION,
+		ANNIHILATION_BISTAKON,
+		ANNIHILATION_REPTILIKON,
+		ANNIHILATION_COKRAKON
 	}
 }

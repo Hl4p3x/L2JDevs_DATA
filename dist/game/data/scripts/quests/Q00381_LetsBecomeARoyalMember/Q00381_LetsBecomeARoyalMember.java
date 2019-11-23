@@ -92,6 +92,25 @@ public final class Q00381_LetsBecomeARoyalMember extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getQuestState(killer, false);
+		if ((qs != null) && qs.isStarted() && Util.checkIfInRange(1500, npc, killer, true))
+		{
+			if (npc.getId() == ANCIENT_GARGOYLE)
+			{
+				giveItemRandomly(killer, npc, KAILS_COIN, 1, 1, 0.05, true);
+			}
+			else if (qs.isMemoState(2) && !hasQuestItems(killer, FOUR_LEAF_COIN))
+			{
+				giveItems(killer, FOUR_LEAF_COIN, 1);
+				playSound(killer, Sound.ITEMSOUND_QUEST_MIDDLE);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -168,24 +187,5 @@ public final class Q00381_LetsBecomeARoyalMember extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs != null) && qs.isStarted() && Util.checkIfInRange(1500, npc, killer, true))
-		{
-			if (npc.getId() == ANCIENT_GARGOYLE)
-			{
-				giveItemRandomly(killer, npc, KAILS_COIN, 1, 1, 0.05, true);
-			}
-			else if (qs.isMemoState(2) && !hasQuestItems(killer, FOUR_LEAF_COIN))
-			{
-				giveItems(killer, FOUR_LEAF_COIN, 1);
-				playSound(killer, Sound.ITEMSOUND_QUEST_MIDDLE);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

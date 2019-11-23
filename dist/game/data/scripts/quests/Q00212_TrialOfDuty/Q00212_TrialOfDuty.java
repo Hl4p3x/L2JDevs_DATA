@@ -89,6 +89,27 @@ public final class Q00212_TrialOfDuty extends Quest
 		registerQuestItems(LETTER_OF_DUSTIN, KNIGHTS_TEAR, MIRROR_OF_ORPIC, TEAR_OF_CONFESSION, REPORT_PIECE.getId(), TALIANUSS_REPORT, TEAR_OF_LOYALTY, MILITAS_ARTICLE.getId(), SAINTS_ASHES_URN, ATHEBALDTS_SKULL, ATHEBALDTS_RIBS, ATHEBALDTS_SHIN, LETTER_OF_WINDAWOOD, OLD_KNIGHTS_SWORD);
 	}
 	
+	private static boolean rewardDimensionalDiamonds(L2PcInstance player)
+	{
+		final PlayerVariables vars = player.getVariables();
+		
+		if (vars.getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
+		{
+			if (player.getClassId() == ClassId.knight)
+			{
+				rewardItems(player, DIMENSIONAL_DIAMOND, 45);
+			}
+			else
+			{
+				rewardItems(player, DIMENSIONAL_DIAMOND, 61);
+			}
+			
+			vars.set("2ND_CLASS_DIAMOND_REWARD", 1);
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -564,26 +585,5 @@ public final class Q00212_TrialOfDuty extends Quest
 			}
 		}
 		return html;
-	}
-	
-	private static boolean rewardDimensionalDiamonds(L2PcInstance player)
-	{
-		final PlayerVariables vars = player.getVariables();
-		
-		if (vars.getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
-		{
-			if (player.getClassId() == ClassId.knight)
-			{
-				rewardItems(player, DIMENSIONAL_DIAMOND, 45);
-			}
-			else
-			{
-				rewardItems(player, DIMENSIONAL_DIAMOND, 61);
-			}
-			
-			vars.set("2ND_CLASS_DIAMOND_REWARD", 1);
-			return true;
-		}
-		return false;
 	}
 }

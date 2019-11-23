@@ -55,19 +55,9 @@ public final class ClanTrader extends AbstractNpcAI
 		addFirstTalkId(CLAN_TRADER);
 	}
 	
-	private String giveReputation(L2Npc npc, L2PcInstance player, int count, int itemId, int itemCount)
+	public static void main(String[] args)
 	{
-		if (getQuestItemsCount(player, itemId) >= itemCount)
-		{
-			takeItems(player, itemId, itemCount);
-			player.getClan().addReputationScore(count, true);
-			
-			final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_ADDED_S1S_POINTS_TO_REPUTATION_SCORE);
-			sm.addInt(count);
-			player.sendPacket(sm);
-			return npc.getId() + "-04.html";
-		}
-		return npc.getId() + "-03.html";
+		new ClanTrader();
 	}
 	
 	@Override
@@ -118,8 +108,18 @@ public final class ClanTrader extends AbstractNpcAI
 		return npc.getId() + "-01.html";
 	}
 	
-	public static void main(String[] args)
+	private String giveReputation(L2Npc npc, L2PcInstance player, int count, int itemId, int itemCount)
 	{
-		new ClanTrader();
+		if (getQuestItemsCount(player, itemId) >= itemCount)
+		{
+			takeItems(player, itemId, itemCount);
+			player.getClan().addReputationScore(count, true);
+			
+			final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_ADDED_S1S_POINTS_TO_REPUTATION_SCORE);
+			sm.addInt(count);
+			player.sendPacket(sm);
+			return npc.getId() + "-04.html";
+		}
+		return npc.getId() + "-03.html";
 	}
 }

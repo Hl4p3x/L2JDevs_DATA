@@ -42,6 +42,12 @@ public class Time implements IUserCommandHandler
 	private static final SimpleDateFormat fmt = new SimpleDateFormat("H:mm.");
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (COMMAND_IDS[0] != id)
@@ -80,11 +86,5 @@ public class Time implements IUserCommandHandler
 			activeChar.sendMessage(LanguageData.getInstance().getMsg(activeChar, "dp_handler_time").replace("%s%", fmt.format(new Date(System.currentTimeMillis())) + ""));
 		}
 		return true;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

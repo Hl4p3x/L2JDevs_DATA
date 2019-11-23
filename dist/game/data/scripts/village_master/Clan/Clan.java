@@ -70,6 +70,11 @@ public final class Clan extends Quest
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Clan();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -87,10 +92,5 @@ public final class Clan extends Quest
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		return "9000-01.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new Clan();
 	}
 }

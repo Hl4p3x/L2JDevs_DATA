@@ -54,6 +54,11 @@ public final class HotSprings extends AbstractNpcAI
 		addAttackId(BANDERSNATCHLING, FLAVA, ATROXSPAWN, NEPENTHES, ATROX, BANDERSNATCH);
 	}
 	
+	public static void main(String[] args)
+	{
+		new HotSprings();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -100,10 +105,5 @@ public final class HotSprings extends AbstractNpcAI
 			npc.setTarget(player);
 			npc.doCast(skill);
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new HotSprings();
 	}
 }

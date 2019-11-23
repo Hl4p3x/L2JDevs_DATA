@@ -113,6 +113,12 @@ public class AdminEffects implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -660,6 +666,59 @@ public class AdminEffects implements IAdminCommandHandler
 	}
 	
 	/**
+	 * @param type - atmosphere type (signssky,sky)
+	 * @param state - atmosphere state(night,day)
+	 * @param duration
+	 * @param activeChar
+	 */
+	private void adminAtmosphere(String type, String state, int duration, L2PcInstance activeChar)
+	{
+		L2GameServerPacket packet = null;
+		
+		if (type.equals("signsky"))
+		{
+			if (state.equals("dawn"))
+			{
+				packet = new SSQInfo(2);
+			}
+			else if (state.equals("dusk"))
+			{
+				packet = new SSQInfo(1);
+			}
+		}
+		else if (type.equals("sky"))
+		{
+			if (state.equals("night"))
+			{
+				packet = SunSet.STATIC_PACKET;
+			}
+			else if (state.equals("day"))
+			{
+				packet = SunRise.STATIC_PACKET;
+			}
+			else if (state.equals("red"))
+			{
+				if (duration != 0)
+				{
+					packet = new ExRedSky(duration);
+				}
+				else
+				{
+					packet = new ExRedSky(10);
+				}
+			}
+		}
+		else
+		{
+			activeChar.sendMessage("Usage: //atmosphere <signsky dawn|dusk>|<sky day|night|red> <duration>");
+		}
+		if (packet != null)
+		{
+			Broadcast.toAllOnlinePlayers(packet);
+		}
+	}
+	
+	/**
 	 * @param ave the abnormal visual effect
 	 * @param target the target
 	 * @return {@code true} if target's abnormal state was affected, {@code false} otherwise.
@@ -717,71 +776,12 @@ public class AdminEffects implements IAdminCommandHandler
 		return true;
 	}
 	
-	/**
-	 * @param type - atmosphere type (signssky,sky)
-	 * @param state - atmosphere state(night,day)
-	 * @param duration
-	 * @param activeChar
-	 */
-	private void adminAtmosphere(String type, String state, int duration, L2PcInstance activeChar)
-	{
-		L2GameServerPacket packet = null;
-		
-		if (type.equals("signsky"))
-		{
-			if (state.equals("dawn"))
-			{
-				packet = new SSQInfo(2);
-			}
-			else if (state.equals("dusk"))
-			{
-				packet = new SSQInfo(1);
-			}
-		}
-		else if (type.equals("sky"))
-		{
-			if (state.equals("night"))
-			{
-				packet = SunSet.STATIC_PACKET;
-			}
-			else if (state.equals("day"))
-			{
-				packet = SunRise.STATIC_PACKET;
-			}
-			else if (state.equals("red"))
-			{
-				if (duration != 0)
-				{
-					packet = new ExRedSky(duration);
-				}
-				else
-				{
-					packet = new ExRedSky(10);
-				}
-			}
-		}
-		else
-		{
-			activeChar.sendMessage("Usage: //atmosphere <signsky dawn|dusk>|<sky day|night|red> <duration>");
-		}
-		if (packet != null)
-		{
-			Broadcast.toAllOnlinePlayers(packet);
-		}
-	}
-	
 	private void playAdminSound(L2PcInstance activeChar, String sound)
 	{
 		PlaySound _snd = PlaySound.createSound(sound);
 		activeChar.sendPacket(_snd);
 		activeChar.broadcastPacket(_snd);
 		activeChar.sendMessage("Playing " + sound + ".");
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void showMainPage(L2PcInstance activeChar, String command)

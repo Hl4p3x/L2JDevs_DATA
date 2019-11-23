@@ -194,6 +194,69 @@ public final class Q00211_TrialOfTheChallenger extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getQuestState(killer, false);
+		if ((qs == null) || !Util.checkIfInRange(1500, npc, killer, true))
+		{
+			return super.onKill(npc, killer, isSummon);
+		}
+		
+		switch (npc.getId())
+		{
+			case SHYSLASSYS:
+			{
+				if (qs.isCond(1))
+				{
+					if (SpawnTable.getInstance().getSpawns(npc.getId()).size() < 10)
+					{
+						addSpawn(CHEST_OF_SHYSLASSYS, npc, false, 200000);
+					}
+					giveItems(killer, SCROLL_OF_SHYSLASSYS, 1);
+					giveItems(killer, BROKEN_KEY, 1);
+					qs.setCond(2, true);
+				}
+				break;
+			}
+			case GORR:
+			{
+				if (qs.isCond(4))
+				{
+					giveItems(killer, WATCHERS_EYE1, 1);
+					qs.setCond(5, true);
+				}
+				break;
+			}
+			case BARAHAM:
+			{
+				if (qs.isCond(6))
+				{
+					if (SpawnTable.getInstance().getSpawns(npc.getId()).size() < 10)
+					{
+						addSpawn(RALDO, npc, false, 100000);
+					}
+					giveItems(killer, WATCHERS_EYE2, 1);
+					qs.setCond(7, true);
+				}
+				break;
+			}
+			case QUEEN_OF_SUCCUBUS:
+			{
+				if (qs.isCond(9))
+				{
+					if (SpawnTable.getInstance().getSpawns(npc.getId()).size() < 10)
+					{
+						addSpawn(RALDO, npc, false, 100000);
+					}
+					qs.setCond(10, true);
+				}
+				break;
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -379,68 +442,5 @@ public final class Q00211_TrialOfTheChallenger extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs == null) || !Util.checkIfInRange(1500, npc, killer, true))
-		{
-			return super.onKill(npc, killer, isSummon);
-		}
-		
-		switch (npc.getId())
-		{
-			case SHYSLASSYS:
-			{
-				if (qs.isCond(1))
-				{
-					if (SpawnTable.getInstance().getSpawns(npc.getId()).size() < 10)
-					{
-						addSpawn(CHEST_OF_SHYSLASSYS, npc, false, 200000);
-					}
-					giveItems(killer, SCROLL_OF_SHYSLASSYS, 1);
-					giveItems(killer, BROKEN_KEY, 1);
-					qs.setCond(2, true);
-				}
-				break;
-			}
-			case GORR:
-			{
-				if (qs.isCond(4))
-				{
-					giveItems(killer, WATCHERS_EYE1, 1);
-					qs.setCond(5, true);
-				}
-				break;
-			}
-			case BARAHAM:
-			{
-				if (qs.isCond(6))
-				{
-					if (SpawnTable.getInstance().getSpawns(npc.getId()).size() < 10)
-					{
-						addSpawn(RALDO, npc, false, 100000);
-					}
-					giveItems(killer, WATCHERS_EYE2, 1);
-					qs.setCond(7, true);
-				}
-				break;
-			}
-			case QUEEN_OF_SUCCUBUS:
-			{
-				if (qs.isCond(9))
-				{
-					if (SpawnTable.getInstance().getSpawns(npc.getId()).size() < 10)
-					{
-						addSpawn(RALDO, npc, false, 100000);
-					}
-					qs.setCond(10, true);
-				}
-				break;
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

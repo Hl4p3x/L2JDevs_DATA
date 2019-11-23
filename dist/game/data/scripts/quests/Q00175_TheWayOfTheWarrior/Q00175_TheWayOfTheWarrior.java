@@ -84,6 +84,27 @@ public final class Q00175_TheWayOfTheWarrior extends Quest
 		registerQuestItems(WOLF_TAIL.getId(), MUERTOS_CLAW.getId());
 	}
 	
+	public static void giveNewbieReward(L2PcInstance player)
+	{
+		final PlayerVariables vars = player.getVariables();
+		if ((player.getLevel() < 25) && !vars.getBoolean("NEWBIE_SHOTS", false))
+		{
+			playSound(player, Voice.TUTORIAL_VOICE_026_1000);
+			giveItems(player, SOULSHOTS_NO_GRADE_FOR_ROOKIES);
+			vars.set("NEWBIE_SHOTS", true);
+		}
+		if (vars.getString("GUIDE_MISSION", null) == null)
+		{
+			vars.set("GUIDE_MISSION", 100000);
+			player.sendPacket(MESSAGE);
+		}
+		else if (((vars.getInt("GUIDE_MISSION") % 1000000) / 100000) != 1)
+		{
+			vars.set("GUIDE_MISSION", vars.getInt("GUIDE_MISSION") + 100000);
+			player.sendPacket(MESSAGE);
+		}
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -295,26 +316,5 @@ public final class Q00175_TheWayOfTheWarrior extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	public static void giveNewbieReward(L2PcInstance player)
-	{
-		final PlayerVariables vars = player.getVariables();
-		if ((player.getLevel() < 25) && !vars.getBoolean("NEWBIE_SHOTS", false))
-		{
-			playSound(player, Voice.TUTORIAL_VOICE_026_1000);
-			giveItems(player, SOULSHOTS_NO_GRADE_FOR_ROOKIES);
-			vars.set("NEWBIE_SHOTS", true);
-		}
-		if (vars.getString("GUIDE_MISSION", null) == null)
-		{
-			vars.set("GUIDE_MISSION", 100000);
-			player.sendPacket(MESSAGE);
-		}
-		else if (((vars.getInt("GUIDE_MISSION") % 1000000) / 100000) != 1)
-		{
-			vars.set("GUIDE_MISSION", vars.getInt("GUIDE_MISSION") + 100000);
-			player.sendPacket(MESSAGE);
-		}
 	}
 }

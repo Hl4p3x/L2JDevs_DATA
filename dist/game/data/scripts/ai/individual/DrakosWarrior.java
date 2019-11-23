@@ -43,6 +43,11 @@ public class DrakosWarrior extends AbstractNpcAI
 		addAttackId(DRAKOS_WARRIOR);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DrakosWarrior();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -56,10 +61,5 @@ public class DrakosWarrior extends AbstractNpcAI
 			}
 		}
 		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new DrakosWarrior();
 	}
 }

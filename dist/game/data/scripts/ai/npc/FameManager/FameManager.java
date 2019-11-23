@@ -52,6 +52,11 @@ public final class FameManager extends AbstractNpcAI
 		addFirstTalkId(FAME_MANAGER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new FameManager();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -121,10 +126,5 @@ public final class FameManager extends AbstractNpcAI
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return ((player.getFame() > 0) && (player.getLevel() >= MIN_LVL) && (player.getClassId().level() >= CLASS_LVL)) ? npc.getId() + ".html" : npc.getId() + "-01.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new FameManager();
 	}
 }

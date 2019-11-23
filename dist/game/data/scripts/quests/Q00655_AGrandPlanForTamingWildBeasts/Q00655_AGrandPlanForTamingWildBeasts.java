@@ -58,6 +58,69 @@ public final class Q00655_AGrandPlanForTamingWildBeasts extends Quest
 		registerQuestItems(CRYSTAL_OF_PURITY, TRAINER_LICENSE);
 	}
 	
+	/**
+	 * Rewards the clan leader with a Crystal of Purity after player tame a wild beast.
+	 * @param player the player
+	 * @param npc the wild beast
+	 */
+	public static void reward(L2PcInstance player, L2Npc npc)
+	{
+		final L2Clan clan = player.getClan();
+		final L2PcInstance clanLeader = clan != null ? clan.getLeader().getPlayerInstance() : null;
+		if (clanLeader != null)
+		{
+			final QuestState qs655 = clanLeader.getQuestState(Q00655_AGrandPlanForTamingWildBeasts.class.getSimpleName());
+			if (qs655 != null)
+			{
+				if ((getQuestItemsCount(clanLeader, CRYSTAL_OF_PURITY) < REQUIRED_CRYSTAL_COUNT) && Util.checkIfInRange(2000, clanLeader, npc, true))
+				{
+					if (clanLeader.getLevel() >= REQUIRED_CLAN_LEVEL)
+					{
+						giveItems(clanLeader, CRYSTAL_OF_PURITY, 1);
+					}
+					
+					if (getQuestItemsCount(clanLeader, CRYSTAL_OF_PURITY) >= 9)
+					{
+						qs655.setCond(2, true);
+					}
+					else
+					{
+						playSound(clanLeader, Sound.ITEMSOUND_QUEST_ITEMGET);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Gets the minutes to next siege.
+	 * @return minutes to next siege
+	 */
+	private static long getMinutesToSiege()
+	{
+		final SiegableHall hall = CHSiegeManager.getInstance().getSiegableHall(ClanHallSiegeEngine.BEAST_FARM);
+		if (hall != null)
+		{
+			return (hall.getNextSiegeTime() - Calendar.getInstance().getTimeInMillis()) / 3600;
+		}
+		return -1;
+	}
+	
+	/**
+	 * Gets the Wild Beast Reserve's siege date.
+	 * @return the siege date
+	 */
+	private static String getSiegeDate()
+	{
+		final SiegableHall hall = CHSiegeManager.getInstance().getSiegableHall(ClanHallSiegeEngine.BEAST_FARM);
+		if (hall != null)
+		{
+			final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			return sdf.format(hall.getSiegeDate().getTime());
+		}
+		return "Error in date.";
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -191,68 +254,5 @@ public final class Q00655_AGrandPlanForTamingWildBeasts extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	/**
-	 * Gets the Wild Beast Reserve's siege date.
-	 * @return the siege date
-	 */
-	private static String getSiegeDate()
-	{
-		final SiegableHall hall = CHSiegeManager.getInstance().getSiegableHall(ClanHallSiegeEngine.BEAST_FARM);
-		if (hall != null)
-		{
-			final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			return sdf.format(hall.getSiegeDate().getTime());
-		}
-		return "Error in date.";
-	}
-	
-	/**
-	 * Gets the minutes to next siege.
-	 * @return minutes to next siege
-	 */
-	private static long getMinutesToSiege()
-	{
-		final SiegableHall hall = CHSiegeManager.getInstance().getSiegableHall(ClanHallSiegeEngine.BEAST_FARM);
-		if (hall != null)
-		{
-			return (hall.getNextSiegeTime() - Calendar.getInstance().getTimeInMillis()) / 3600;
-		}
-		return -1;
-	}
-	
-	/**
-	 * Rewards the clan leader with a Crystal of Purity after player tame a wild beast.
-	 * @param player the player
-	 * @param npc the wild beast
-	 */
-	public static void reward(L2PcInstance player, L2Npc npc)
-	{
-		final L2Clan clan = player.getClan();
-		final L2PcInstance clanLeader = clan != null ? clan.getLeader().getPlayerInstance() : null;
-		if (clanLeader != null)
-		{
-			final QuestState qs655 = clanLeader.getQuestState(Q00655_AGrandPlanForTamingWildBeasts.class.getSimpleName());
-			if (qs655 != null)
-			{
-				if ((getQuestItemsCount(clanLeader, CRYSTAL_OF_PURITY) < REQUIRED_CRYSTAL_COUNT) && Util.checkIfInRange(2000, clanLeader, npc, true))
-				{
-					if (clanLeader.getLevel() >= REQUIRED_CLAN_LEVEL)
-					{
-						giveItems(clanLeader, CRYSTAL_OF_PURITY, 1);
-					}
-					
-					if (getQuestItemsCount(clanLeader, CRYSTAL_OF_PURITY) >= 9)
-					{
-						qs655.setCond(2, true);
-					}
-					else
-					{
-						playSound(clanLeader, Sound.ITEMSOUND_QUEST_ITEMGET);
-					}
-				}
-			}
-		}
 	}
 }

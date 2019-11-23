@@ -90,6 +90,11 @@ public final class ForgeOfTheGods extends AbstractNpcAI
 		startQuestTimer("refresh", REFRESH * 1000, null, null, true);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ForgeOfTheGods();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -195,10 +200,5 @@ public final class ForgeOfTheGods extends AbstractNpcAI
 			mob = addSpawn(mobs[1], npc, true);
 		}
 		return mob;
-	}
-	
-	public static void main(String[] args)
-	{
-		new ForgeOfTheGods();
 	}
 }

@@ -45,6 +45,11 @@ public class Klemis extends AbstractNpcAI
 		addFirstTalkId(KLEMIS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Klemis();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -60,10 +65,5 @@ public class Klemis extends AbstractNpcAI
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Klemis();
 	}
 }

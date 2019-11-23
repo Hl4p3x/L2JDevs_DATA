@@ -88,6 +88,11 @@ public final class Servitors extends AbstractNpcAI
 		super(Servitors.class.getSimpleName(), "ai/npc/Summons");
 	}
 	
+	public static void main(String[] args)
+	{
+		new Servitors();
+	}
+	
 	@RegisterEvent(EventType.ON_CREATURE_KILL)
 	@RegisterType(ListenerRegisterType.NPC)
 	// @formatter:off
@@ -125,10 +130,5 @@ public final class Servitors extends AbstractNpcAI
 				takeItems(master, items.get(0), -1); // Crystal of Starting
 			}
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Servitors();
 	}
 }

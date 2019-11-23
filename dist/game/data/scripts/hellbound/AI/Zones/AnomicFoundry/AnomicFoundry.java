@@ -47,8 +47,6 @@ public final class AnomicFoundry extends AbstractNpcAI
 	private static int FOREMAN = 22397;
 	private static int LESSER_EVIL = 22398;
 	private static int GREATER_EVIL = 22399;
-	// Misc
-	private final Map<Integer, Integer> _atkIndex = new ConcurrentHashMap<>();
 	// npcId, x, y, z, heading, max count
 	//@formatter:off
 	private static int[][] SPAWNS =
@@ -60,6 +58,8 @@ public final class AnomicFoundry extends AbstractNpcAI
 		{GREATER_EVIL, 28684, 244118, -3700, -22560, 10},
 	};
 	//@formatter:on
+	// Misc
+	private final Map<Integer, Integer> _atkIndex = new ConcurrentHashMap<>();
 	
 	private int respawnTime = 60000;
 	private final int respawnMin = 20000;
@@ -83,6 +83,35 @@ public final class AnomicFoundry extends AbstractNpcAI
 		addSpawnId(LABORER, LESSER_EVIL, GREATER_EVIL);
 		addTeleportId(LABORER, LESSER_EVIL, GREATER_EVIL);
 		startQuestTimer("make_spawn_1", respawnTime, null, null);
+	}
+	
+	private static int getSpawnGroup(L2Npc npc)
+	{
+		final int coordX = npc.getSpawn().getX();
+		final int coordY = npc.getSpawn().getY();
+		final int npcId = npc.getId();
+		
+		for (int i = 0; i < 5; i++)
+		{
+			if ((SPAWNS[i][0] == npcId) && (SPAWNS[i][1] == coordX) && (SPAWNS[i][2] == coordY))
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	// Zoey76: TODO: This should be done with onFactionCall(..)
+	private static void requestHelp(L2Npc requester, L2PcInstance agressor, int range, int helperId)
+	{
+		for (L2Spawn spawn : SpawnTable.getInstance().getSpawns(helperId))
+		{
+			final L2MonsterInstance monster = (L2MonsterInstance) spawn.getLastSpawn();
+			if ((monster != null) && (agressor != null) && !monster.isDead() && monster.isInsideRadius(requester, range, true, false) && !agressor.isDead())
+			{
+				monster.addDamageHate(agressor, 0, 1000);
+			}
+		}
 	}
 	
 	@Override
@@ -233,35 +262,6 @@ public final class AnomicFoundry extends AbstractNpcAI
 			_spawned[3]--;
 			SpawnTable.getInstance().deleteSpawn(npc.getSpawn(), false);
 			npc.scheduleDespawn(100);
-		}
-	}
-	
-	private static int getSpawnGroup(L2Npc npc)
-	{
-		final int coordX = npc.getSpawn().getX();
-		final int coordY = npc.getSpawn().getY();
-		final int npcId = npc.getId();
-		
-		for (int i = 0; i < 5; i++)
-		{
-			if ((SPAWNS[i][0] == npcId) && (SPAWNS[i][1] == coordX) && (SPAWNS[i][2] == coordY))
-			{
-				return i;
-			}
-		}
-		return -1;
-	}
-	
-	// Zoey76: TODO: This should be done with onFactionCall(..)
-	private static void requestHelp(L2Npc requester, L2PcInstance agressor, int range, int helperId)
-	{
-		for (L2Spawn spawn : SpawnTable.getInstance().getSpawns(helperId))
-		{
-			final L2MonsterInstance monster = (L2MonsterInstance) spawn.getLastSpawn();
-			if ((monster != null) && (agressor != null) && !monster.isDead() && monster.isInsideRadius(requester, range, true, false) && !agressor.isDead())
-			{
-				monster.addDamageHate(agressor, 0, 1000);
-			}
 		}
 	}
 }

@@ -51,107 +51,6 @@ public class JailHandler implements IPunishmentHandler
 		Containers.Global().addListener(new ConsumerEventListener(Containers.Global(), EventType.ON_PLAYER_LOGIN, (OnPlayerLogin event) -> onPlayerLogin(event), this));
 	}
 	
-	public void onPlayerLogin(OnPlayerLogin event)
-	{
-		final L2PcInstance activeChar = event.getActiveChar();
-		if (activeChar.isJailed() && !activeChar.isInsideZone(ZoneId.JAIL))
-		{
-			applyToPlayer(null, activeChar);
-		}
-		else if (!activeChar.isJailed() && activeChar.isInsideZone(ZoneId.JAIL) && !activeChar.isGM())
-		{
-			removeFromPlayer(activeChar);
-		}
-	}
-	
-	@Override
-	public void onStart(PunishmentTask task)
-	{
-		switch (task.getAffect())
-		{
-			case CHARACTER:
-			{
-				int objectId = Integer.parseInt(String.valueOf(task.getKey()));
-				final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
-				if (player != null)
-				{
-					applyToPlayer(task, player);
-				}
-				break;
-			}
-			case ACCOUNT:
-			{
-				String account = String.valueOf(task.getKey());
-				final L2GameClient client = LoginServerThread.getInstance().getClient(account);
-				if (client != null)
-				{
-					final L2PcInstance player = client.getActiveChar();
-					if (player != null)
-					{
-						applyToPlayer(task, player);
-					}
-				}
-				break;
-			}
-			case IP:
-			{
-				String ip = String.valueOf(task.getKey());
-				for (L2PcInstance player : L2World.getInstance().getPlayers())
-				{
-					if (player.getIPAddress().equals(ip))
-					{
-						applyToPlayer(task, player);
-					}
-				}
-				break;
-			}
-		}
-	}
-	
-	@Override
-	public void onEnd(PunishmentTask task)
-	{
-		switch (task.getAffect())
-		{
-			case CHARACTER:
-			{
-				int objectId = Integer.parseInt(String.valueOf(task.getKey()));
-				final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
-				if (player != null)
-				{
-					removeFromPlayer(player);
-				}
-				break;
-			}
-			case ACCOUNT:
-			{
-				String account = String.valueOf(task.getKey());
-				final L2GameClient client = LoginServerThread.getInstance().getClient(account);
-				if (client != null)
-				{
-					final L2PcInstance player = client.getActiveChar();
-					if (player != null)
-					{
-						removeFromPlayer(player);
-					}
-				}
-				break;
-			}
-			case IP:
-			{
-				String ip = String.valueOf(task.getKey());
-				for (L2PcInstance player : L2World.getInstance().getPlayers())
-				{
-					if (player.getIPAddress().equals(ip))
-					{
-						removeFromPlayer(player);
-					}
-				}
-				break;
-			}
-		}
-	}
-	
 	/**
 	 * Applies all punishment effects from the player.
 	 * @param task
@@ -228,5 +127,106 @@ public class JailHandler implements IPunishmentHandler
 	public PunishmentType getType()
 	{
 		return PunishmentType.JAIL;
+	}
+	
+	@Override
+	public void onEnd(PunishmentTask task)
+	{
+		switch (task.getAffect())
+		{
+			case CHARACTER:
+			{
+				int objectId = Integer.parseInt(String.valueOf(task.getKey()));
+				final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
+				if (player != null)
+				{
+					removeFromPlayer(player);
+				}
+				break;
+			}
+			case ACCOUNT:
+			{
+				String account = String.valueOf(task.getKey());
+				final L2GameClient client = LoginServerThread.getInstance().getClient(account);
+				if (client != null)
+				{
+					final L2PcInstance player = client.getActiveChar();
+					if (player != null)
+					{
+						removeFromPlayer(player);
+					}
+				}
+				break;
+			}
+			case IP:
+			{
+				String ip = String.valueOf(task.getKey());
+				for (L2PcInstance player : L2World.getInstance().getPlayers())
+				{
+					if (player.getIPAddress().equals(ip))
+					{
+						removeFromPlayer(player);
+					}
+				}
+				break;
+			}
+		}
+	}
+	
+	public void onPlayerLogin(OnPlayerLogin event)
+	{
+		final L2PcInstance activeChar = event.getActiveChar();
+		if (activeChar.isJailed() && !activeChar.isInsideZone(ZoneId.JAIL))
+		{
+			applyToPlayer(null, activeChar);
+		}
+		else if (!activeChar.isJailed() && activeChar.isInsideZone(ZoneId.JAIL) && !activeChar.isGM())
+		{
+			removeFromPlayer(activeChar);
+		}
+	}
+	
+	@Override
+	public void onStart(PunishmentTask task)
+	{
+		switch (task.getAffect())
+		{
+			case CHARACTER:
+			{
+				int objectId = Integer.parseInt(String.valueOf(task.getKey()));
+				final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
+				if (player != null)
+				{
+					applyToPlayer(task, player);
+				}
+				break;
+			}
+			case ACCOUNT:
+			{
+				String account = String.valueOf(task.getKey());
+				final L2GameClient client = LoginServerThread.getInstance().getClient(account);
+				if (client != null)
+				{
+					final L2PcInstance player = client.getActiveChar();
+					if (player != null)
+					{
+						applyToPlayer(task, player);
+					}
+				}
+				break;
+			}
+			case IP:
+			{
+				String ip = String.valueOf(task.getKey());
+				for (L2PcInstance player : L2World.getInstance().getPlayers())
+				{
+					if (player.getIPAddress().equals(ip))
+					{
+						applyToPlayer(task, player);
+					}
+				}
+				break;
+			}
+		}
 	}
 }

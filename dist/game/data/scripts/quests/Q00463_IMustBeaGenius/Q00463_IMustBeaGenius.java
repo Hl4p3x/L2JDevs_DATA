@@ -39,34 +39,12 @@ import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
  */
 public class Q00463_IMustBeaGenius extends Quest
 {
-	private static class DropInfo
-	{
-		private final int _count;
-		private final int _chance;
-		
-		public DropInfo(int count, int chance)
-		{
-			_count = count;
-			_chance = chance;
-		}
-		
-		public int getCount()
-		{
-			return _count;
-		}
-		
-		public int getSpecialChance()
-		{
-			return _chance;
-		}
-	}
-	
 	// NPC
 	private static final int GUTENHAGEN = 32069;
+	
 	// Items
 	private static final int CORPSE_LOG = 15510;
 	private static final int COLLECTION = 15511;
-	
 	// Mobs
 	private static final Map<Integer, DropInfo> MOBS = new HashMap<>();
 	
@@ -242,5 +220,27 @@ public class Q00463_IMustBeaGenius extends Quest
 				break;
 		}
 		return htmltext;
+	}
+	
+	private static class DropInfo
+	{
+		private final int _count;
+		private final int _chance;
+		
+		public DropInfo(int count, int chance)
+		{
+			_count = count;
+			_chance = chance;
+		}
+		
+		public int getCount()
+		{
+			return _count;
+		}
+		
+		public int getSpecialChance()
+		{
+			return _chance;
+		}
 	}
 }

@@ -34,14 +34,14 @@ public class NpcBufferData
 		_id = id;
 	}
 	
-	public int getId()
-	{
-		return _id;
-	}
-	
 	public void addSkill(NpcBufferSkillData skill)
 	{
 		_skills.add(skill);
+	}
+	
+	public int getId()
+	{
+		return _id;
 	}
 	
 	public List<NpcBufferSkillData> getSkills()

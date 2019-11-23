@@ -89,6 +89,11 @@ public final class TeleportToFantasy extends AbstractNpcAI
 		addTalkId(TELEPORTERS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new TeleportToFantasy();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -113,10 +118,5 @@ public final class TeleportToFantasy extends AbstractNpcAI
 			player.getVariables().set(FANTASY_RETURN, String.valueOf(TELEPORTERS.get(npc.getId())));
 		}
 		return super.onTalk(npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new TeleportToFantasy();
 	}
 }

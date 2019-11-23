@@ -130,65 +130,6 @@ public final class Q00039_RedEyedInvaders extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance talker)
-	{
-		final QuestState qs = getQuestState(talker, true);
-		String htmltext = getNoQuestMsg(talker);
-		switch (npc.getId())
-		{
-			case CAPTAIN_BATHIA:
-			{
-				switch (qs.getCond())
-				{
-					case 1:
-					{
-						htmltext = "30332-01.html";
-						break;
-					}
-					case 2:
-					{
-						htmltext = "30332-03.html";
-						break;
-					}
-					case 3:
-					{
-						htmltext = "30332-04.html";
-						break;
-					}
-					case 4:
-					{
-						htmltext = "30332-07.html";
-						break;
-					}
-					case 5:
-					{
-						htmltext = "30332-08.html";
-						break;
-					}
-				}
-				break;
-			}
-			case GUARD_BABENCO:
-			{
-				if (qs.isCreated())
-				{
-					htmltext = (talker.getLevel() >= MIN_LVL) ? "30334-01.htm" : "30334-02.htm";
-				}
-				else if (qs.isStarted() && qs.isCond(1))
-				{
-					htmltext = "30334-04.html";
-				}
-				else if (qs.isCompleted())
-				{
-					htmltext = getAlreadyCompletedMsg(talker);
-				}
-				break;
-			}
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		switch (npc.getId())
@@ -271,5 +212,64 @@ public final class Q00039_RedEyedInvaders extends Quest
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		final QuestState qs = getQuestState(talker, true);
+		String htmltext = getNoQuestMsg(talker);
+		switch (npc.getId())
+		{
+			case CAPTAIN_BATHIA:
+			{
+				switch (qs.getCond())
+				{
+					case 1:
+					{
+						htmltext = "30332-01.html";
+						break;
+					}
+					case 2:
+					{
+						htmltext = "30332-03.html";
+						break;
+					}
+					case 3:
+					{
+						htmltext = "30332-04.html";
+						break;
+					}
+					case 4:
+					{
+						htmltext = "30332-07.html";
+						break;
+					}
+					case 5:
+					{
+						htmltext = "30332-08.html";
+						break;
+					}
+				}
+				break;
+			}
+			case GUARD_BABENCO:
+			{
+				if (qs.isCreated())
+				{
+					htmltext = (talker.getLevel() >= MIN_LVL) ? "30334-01.htm" : "30334-02.htm";
+				}
+				else if (qs.isStarted() && qs.isCond(1))
+				{
+					htmltext = "30334-04.html";
+				}
+				else if (qs.isCompleted())
+				{
+					htmltext = getAlreadyCompletedMsg(talker);
+				}
+				break;
+			}
+		}
+		return htmltext;
 	}
 }

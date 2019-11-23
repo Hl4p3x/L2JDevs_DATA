@@ -101,22 +101,6 @@ public final class Q00382_KailsMagicCoin extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance talker)
-	{
-		final QuestState qs = getQuestState(talker, true);
-		String htmltext = getNoQuestMsg(talker);
-		if (qs.isCreated())
-		{
-			htmltext = (((talker.getLevel() >= MIN_LVL) && hasQuestItems(talker, ROYAL_MEMBERSHIP)) ? "30687-02.htm" : "30687-01.htm");
-		}
-		else if (qs.isStarted())
-		{
-			htmltext = "30687-04.htm";
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		final QuestState qs = getQuestState(killer, false);
@@ -133,5 +117,21 @@ public final class Q00382_KailsMagicCoin extends Quest
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		final QuestState qs = getQuestState(talker, true);
+		String htmltext = getNoQuestMsg(talker);
+		if (qs.isCreated())
+		{
+			htmltext = (((talker.getLevel() >= MIN_LVL) && hasQuestItems(talker, ROYAL_MEMBERSHIP)) ? "30687-02.htm" : "30687-01.htm");
+		}
+		else if (qs.isStarted())
+		{
+			htmltext = "30687-04.htm";
+		}
+		return htmltext;
 	}
 }

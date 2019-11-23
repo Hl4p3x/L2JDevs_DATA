@@ -44,37 +44,6 @@ public final class HomeBoard implements IParseBoardHandler
 		"_bbstop"
 	};
 	
-	@Override
-	public String[] getCommunityBoardCommands()
-	{
-		return COMMANDS;
-	}
-	
-	@Override
-	public boolean parseCommunityBoardCommand(String command, L2PcInstance activeChar)
-	{
-		if (command.equals("_bbshome") || command.equals("_bbstop"))
-		{
-			CommunityBoardHandler.getInstance().addBypass(activeChar, "Home", command);
-			
-			String html = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/CommunityBoard/home.html");
-			html = html.replaceAll("%fav_count%", Integer.toString(getFavoriteCount(activeChar)));
-			html = html.replaceAll("%region_count%", Integer.toString(getRegionCount(activeChar)));
-			html = html.replaceAll("%clan_count%", Integer.toString(ClanTable.getInstance().getClanCount()));
-			CommunityBoardHandler.separateAndSend(html, activeChar);
-		}
-		else if (command.startsWith("_bbstop;"))
-		{
-			final String path = command.replace("_bbstop;", "");
-			if ((path.length() > 0) && path.endsWith(".html"))
-			{
-				final String html = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/CommunityBoard/" + path);
-				CommunityBoardHandler.separateAndSend(html, activeChar);
-			}
-		}
-		return true;
-	}
-	
 	/**
 	 * Gets the Favorite links for the given player.
 	 * @param player the player
@@ -110,5 +79,36 @@ public final class HomeBoard implements IParseBoardHandler
 	private static int getRegionCount(L2PcInstance player)
 	{
 		return 0; // TODO: Implement.
+	}
+	
+	@Override
+	public String[] getCommunityBoardCommands()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
+	public boolean parseCommunityBoardCommand(String command, L2PcInstance activeChar)
+	{
+		if (command.equals("_bbshome") || command.equals("_bbstop"))
+		{
+			CommunityBoardHandler.getInstance().addBypass(activeChar, "Home", command);
+			
+			String html = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/CommunityBoard/home.html");
+			html = html.replaceAll("%fav_count%", Integer.toString(getFavoriteCount(activeChar)));
+			html = html.replaceAll("%region_count%", Integer.toString(getRegionCount(activeChar)));
+			html = html.replaceAll("%clan_count%", Integer.toString(ClanTable.getInstance().getClanCount()));
+			CommunityBoardHandler.separateAndSend(html, activeChar);
+		}
+		else if (command.startsWith("_bbstop;"))
+		{
+			final String path = command.replace("_bbstop;", "");
+			if ((path.length() > 0) && path.endsWith(".html"))
+			{
+				final String html = HtmCache.getInstance().getHtm(activeChar.getHtmlPrefix(), "data/html/CommunityBoard/" + path);
+				CommunityBoardHandler.separateAndSend(html, activeChar);
+			}
+		}
+		return true;
 	}
 }

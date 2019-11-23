@@ -45,13 +45,6 @@ import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
  */
 public abstract class AbstractSagaQuest extends Quest
 {
-	protected int[] _npc;
-	protected int[] Items;
-	protected int[] Mob;
-	protected int[] classid;
-	protected int[] prevclass;
-	protected Location[] npcSpawnLocations;
-	protected String[] Text;
 	private static final Map<L2Npc, Integer> SPAWN_LIST = new HashMap<>();
 	// @formatter:off
 	private static int[][] QuestClass =
@@ -63,95 +56,51 @@ public abstract class AbstractSagaQuest extends Quest
 		{ 0x0d }, { 0x06 }, { 0x22 }, { 0x21 }, { 0x2b }, { 0x37 }, { 0x39 }
 	};
 	// @formatter:on
+	protected int[] _npc;
+	protected int[] Items;
+	protected int[] Mob;
+	protected int[] classid;
+	protected int[] prevclass;
+	protected Location[] npcSpawnLocations;
+	protected String[] Text;
 	
 	public AbstractSagaQuest(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 	}
 	
-	private QuestState findQuest(L2PcInstance player)
+	private static void addSpawn(QuestState st, L2Npc mob)
 	{
-		QuestState st = getQuestState(player, false);
-		if (st != null)
-		{
-			if (getId() == 68)
-			{
-				for (int q = 0; q < 2; q++)
-				{
-					if (player.getClassId().getId() == QuestClass[1][q])
-					{
-						return st;
-					}
-				}
-			}
-			else if (player.getClassId().getId() == QuestClass[getId() - 67][0])
-			{
-				return st;
-			}
-		}
-		return null;
+		SPAWN_LIST.put(mob, st.getPlayer().getObjectId());
 	}
 	
-	private QuestState findRightState(L2Npc npc)
+	private static void autoChat(L2Npc npc, String text)
 	{
-		L2PcInstance player = null;
-		QuestState st = null;
+		npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), text));
+	}
+	
+	private static void cast(L2Npc npc, L2Character target, int skillId, int level)
+	{
+		target.broadcastPacket(new MagicSkillUse(target, target, skillId, level, 6000, 1));
+		target.broadcastPacket(new MagicSkillUse(npc, npc, skillId, level, 6000, 1));
+	}
+	
+	private static void DeleteSpawn(QuestState st, L2Npc npc)
+	{
 		if (SPAWN_LIST.containsKey(npc))
 		{
-			player = L2World.getInstance().getPlayer(SPAWN_LIST.get(npc));
-			if (player != null)
-			{
-				st = player.getQuestState(getName());
-			}
+			SPAWN_LIST.remove(npc);
+			npc.deleteMe();
 		}
-		return st;
 	}
 	
-	private int getClassId(L2PcInstance player)
+	private static L2Npc FindSpawn(L2PcInstance player, L2Npc npc)
 	{
-		if (player.getClassId().getId() == 0x81)
+		if (SPAWN_LIST.containsKey(npc) && (SPAWN_LIST.get(npc) == player.getObjectId()))
 		{
-			return classid[1];
+			return npc;
 		}
-		return classid[0];
-	}
-	
-	private int getPrevClass(L2PcInstance player)
-	{
-		if (player.getClassId().getId() == 0x81)
-		{
-			if (prevclass.length == 1)
-			{
-				return -1;
-			}
-			return prevclass[1];
-		}
-		return prevclass[0];
-	}
-	
-	private void giveHalishaMark(QuestState st2)
-	{
-		if (st2.getInt("spawned") == 0)
-		{
-			if (st2.getQuestItemsCount(Items[3]) >= 700)
-			{
-				st2.takeItems(Items[3], 20);
-				int xx = st2.getPlayer().getX();
-				int yy = st2.getPlayer().getY();
-				int zz = st2.getPlayer().getZ();
-				L2Npc Archon = st2.addSpawn(Mob[1], xx, yy, zz);
-				addSpawn(st2, Archon);
-				st2.set("spawned", "1");
-				st2.startQuestTimer("Archon Hellisha has despawned", 600000, Archon);
-				autoChat(Archon, Text[13].replace("PLAYERNAME", st2.getPlayer().getName()));
-				((L2Attackable) Archon).addDamageHate(st2.getPlayer(), 0, 99999);
-				Archon.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, st2.getPlayer(), null);
-			}
-			else
-			{
-				st2.giveItems(Items[3], getRandom(1, 4));
-			}
-		}
+		return null;
 	}
 	
 	@Override
@@ -1000,37 +949,88 @@ public abstract class AbstractSagaQuest extends Quest
 		}
 	}
 	
-	private static void addSpawn(QuestState st, L2Npc mob)
+	private QuestState findQuest(L2PcInstance player)
 	{
-		SPAWN_LIST.put(mob, st.getPlayer().getObjectId());
-	}
-	
-	private static void autoChat(L2Npc npc, String text)
-	{
-		npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getId(), text));
-	}
-	
-	private static void cast(L2Npc npc, L2Character target, int skillId, int level)
-	{
-		target.broadcastPacket(new MagicSkillUse(target, target, skillId, level, 6000, 1));
-		target.broadcastPacket(new MagicSkillUse(npc, npc, skillId, level, 6000, 1));
-	}
-	
-	private static void DeleteSpawn(QuestState st, L2Npc npc)
-	{
-		if (SPAWN_LIST.containsKey(npc))
+		QuestState st = getQuestState(player, false);
+		if (st != null)
 		{
-			SPAWN_LIST.remove(npc);
-			npc.deleteMe();
-		}
-	}
-	
-	private static L2Npc FindSpawn(L2PcInstance player, L2Npc npc)
-	{
-		if (SPAWN_LIST.containsKey(npc) && (SPAWN_LIST.get(npc) == player.getObjectId()))
-		{
-			return npc;
+			if (getId() == 68)
+			{
+				for (int q = 0; q < 2; q++)
+				{
+					if (player.getClassId().getId() == QuestClass[1][q])
+					{
+						return st;
+					}
+				}
+			}
+			else if (player.getClassId().getId() == QuestClass[getId() - 67][0])
+			{
+				return st;
+			}
 		}
 		return null;
+	}
+	
+	private QuestState findRightState(L2Npc npc)
+	{
+		L2PcInstance player = null;
+		QuestState st = null;
+		if (SPAWN_LIST.containsKey(npc))
+		{
+			player = L2World.getInstance().getPlayer(SPAWN_LIST.get(npc));
+			if (player != null)
+			{
+				st = player.getQuestState(getName());
+			}
+		}
+		return st;
+	}
+	
+	private int getClassId(L2PcInstance player)
+	{
+		if (player.getClassId().getId() == 0x81)
+		{
+			return classid[1];
+		}
+		return classid[0];
+	}
+	
+	private int getPrevClass(L2PcInstance player)
+	{
+		if (player.getClassId().getId() == 0x81)
+		{
+			if (prevclass.length == 1)
+			{
+				return -1;
+			}
+			return prevclass[1];
+		}
+		return prevclass[0];
+	}
+	
+	private void giveHalishaMark(QuestState st2)
+	{
+		if (st2.getInt("spawned") == 0)
+		{
+			if (st2.getQuestItemsCount(Items[3]) >= 700)
+			{
+				st2.takeItems(Items[3], 20);
+				int xx = st2.getPlayer().getX();
+				int yy = st2.getPlayer().getY();
+				int zz = st2.getPlayer().getZ();
+				L2Npc Archon = st2.addSpawn(Mob[1], xx, yy, zz);
+				addSpawn(st2, Archon);
+				st2.set("spawned", "1");
+				st2.startQuestTimer("Archon Hellisha has despawned", 600000, Archon);
+				autoChat(Archon, Text[13].replace("PLAYERNAME", st2.getPlayer().getName()));
+				((L2Attackable) Archon).addDamageHate(st2.getPlayer(), 0, 99999);
+				Archon.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, st2.getPlayer(), null);
+			}
+			else
+			{
+				st2.giveItems(Items[3], getRandom(1, 4));
+			}
+		}
 	}
 }

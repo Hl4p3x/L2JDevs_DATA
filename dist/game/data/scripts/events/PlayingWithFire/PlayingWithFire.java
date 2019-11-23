@@ -39,15 +39,15 @@ public final class PlayingWithFire extends LongTimeEvent
 		addTalkId(EVENT_MANAGER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new PlayingWithFire();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		MultisellData.getInstance().separateAndSend(10005, player, npc, false);
 		return null;
-	}
-	
-	public static void main(String[] args)
-	{
-		new PlayingWithFire();
 	}
 }

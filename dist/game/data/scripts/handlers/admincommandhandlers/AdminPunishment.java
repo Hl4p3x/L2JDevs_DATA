@@ -64,6 +64,22 @@ public class AdminPunishment implements IAdminCommandHandler
 	
 	private static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 	
+	private static final String findCharId(String key)
+	{
+		int charId = CharNameTable.getInstance().getIdByName(key);
+		if (charId > 0) // Yeah its a char name!
+		{
+			return Integer.toString(charId);
+		}
+		return key;
+	}
+	
+	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
 	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -385,21 +401,5 @@ public class AdminPunishment implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	private static final String findCharId(String key)
-	{
-		int charId = CharNameTable.getInstance().getIdByName(key);
-		if (charId > 0) // Yeah its a char name!
-		{
-			return Integer.toString(charId);
-		}
-		return key;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

@@ -38,6 +38,12 @@ public class AdminInstanceZone implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		String target = (activeChar.getTarget() != null) ? activeChar.getTarget().getName() : "no-target";
@@ -108,12 +114,6 @@ public class AdminInstanceZone implements IAdminCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void display(L2PcInstance player, L2PcInstance activeChar)

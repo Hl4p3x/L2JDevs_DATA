@@ -47,6 +47,11 @@ public final class Katenar extends AbstractNpcAI
 		addSpawnId(KATENAR);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Katenar();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -135,10 +140,5 @@ public final class Katenar extends AbstractNpcAI
 			broadcastNpcSay(npc, Say2.NPC_ALL, NpcStringId.I_AM_LATE);
 		}
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Katenar();
 	}
 }

@@ -76,6 +76,79 @@ public class AvantGarde extends AbstractNpcAI
 		addAcquireSkillId(AVANT_GARDE);
 	}
 	
+	public static void main(String[] args)
+	{
+		new AvantGarde();
+	}
+	
+	/**
+	 * Display the Sub-Class Skill list to the player.
+	 * @param player the player
+	 */
+	public static void showSubClassSkillList(L2PcInstance player)
+	{
+		final List<L2SkillLearn> subClassSkills = SkillTreesData.getInstance().getAvailableSubClassSkills(player);
+		final AcquireSkillList asl = new AcquireSkillList(AcquireSkillType.SUBCLASS);
+		int count = 0;
+		
+		for (L2SkillLearn s : subClassSkills)
+		{
+			if (SkillData.getInstance().getSkill(s.getSkillId(), s.getSkillLevel()) != null)
+			{
+				count++;
+				asl.addSkill(s.getSkillId(), s.getSkillLevel(), s.getSkillLevel(), 0, 0);
+			}
+		}
+		if (count > 0)
+		{
+			player.sendPacket(asl);
+		}
+		else
+		{
+			player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
+		}
+	}
+	
+	/**
+	 * This displays Transformation Skill List to the player.
+	 * @param player the active character.
+	 */
+	public static void showTransformSkillList(L2PcInstance player)
+	{
+		final List<L2SkillLearn> skills = SkillTreesData.getInstance().getAvailableTransformSkills(player);
+		final AcquireSkillList asl = new AcquireSkillList(AcquireSkillType.TRANSFORM);
+		int counts = 0;
+		
+		for (L2SkillLearn s : skills)
+		{
+			if (SkillData.getInstance().getSkill(s.getSkillId(), s.getSkillLevel()) != null)
+			{
+				counts++;
+				asl.addSkill(s.getSkillId(), s.getSkillLevel(), s.getSkillLevel(), s.getLevelUpSp(), 0);
+			}
+		}
+		
+		if (counts == 0)
+		{
+			final int minlevel = SkillTreesData.getInstance().getMinLevelForNewSkill(player, SkillTreesData.getInstance().getTransformSkillTree());
+			if (minlevel > 0)
+			{
+				// No more skills to learn, come back when you level.
+				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1);
+				sm.addInt(minlevel);
+				player.sendPacket(sm);
+			}
+			else
+			{
+				player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
+			}
+		}
+		else
+		{
+			player.sendPacket(asl);
+		}
+	}
+	
 	@Override
 	public String onAcquireSkill(L2Npc npc, L2PcInstance player, Skill skill, AcquireSkillType type)
 	{
@@ -299,78 +372,5 @@ public class AvantGarde extends AbstractNpcAI
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		return "32323-01.html";
-	}
-	
-	/**
-	 * Display the Sub-Class Skill list to the player.
-	 * @param player the player
-	 */
-	public static void showSubClassSkillList(L2PcInstance player)
-	{
-		final List<L2SkillLearn> subClassSkills = SkillTreesData.getInstance().getAvailableSubClassSkills(player);
-		final AcquireSkillList asl = new AcquireSkillList(AcquireSkillType.SUBCLASS);
-		int count = 0;
-		
-		for (L2SkillLearn s : subClassSkills)
-		{
-			if (SkillData.getInstance().getSkill(s.getSkillId(), s.getSkillLevel()) != null)
-			{
-				count++;
-				asl.addSkill(s.getSkillId(), s.getSkillLevel(), s.getSkillLevel(), 0, 0);
-			}
-		}
-		if (count > 0)
-		{
-			player.sendPacket(asl);
-		}
-		else
-		{
-			player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
-		}
-	}
-	
-	/**
-	 * This displays Transformation Skill List to the player.
-	 * @param player the active character.
-	 */
-	public static void showTransformSkillList(L2PcInstance player)
-	{
-		final List<L2SkillLearn> skills = SkillTreesData.getInstance().getAvailableTransformSkills(player);
-		final AcquireSkillList asl = new AcquireSkillList(AcquireSkillType.TRANSFORM);
-		int counts = 0;
-		
-		for (L2SkillLearn s : skills)
-		{
-			if (SkillData.getInstance().getSkill(s.getSkillId(), s.getSkillLevel()) != null)
-			{
-				counts++;
-				asl.addSkill(s.getSkillId(), s.getSkillLevel(), s.getSkillLevel(), s.getLevelUpSp(), 0);
-			}
-		}
-		
-		if (counts == 0)
-		{
-			final int minlevel = SkillTreesData.getInstance().getMinLevelForNewSkill(player, SkillTreesData.getInstance().getTransformSkillTree());
-			if (minlevel > 0)
-			{
-				// No more skills to learn, come back when you level.
-				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1);
-				sm.addInt(minlevel);
-				player.sendPacket(sm);
-			}
-			else
-			{
-				player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
-			}
-		}
-		else
-		{
-			player.sendPacket(asl);
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new AvantGarde();
 	}
 }

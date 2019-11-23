@@ -150,6 +150,16 @@ public class ItemSkillsTemplate implements IItemHandler
 		return true;
 	}
 	
+	// this will fix exploits with item that contains skills
+	private boolean canRunSimultaneously(L2Item item, boolean checkScrollType)
+	{
+		if (checkScrollType && (item.isScroll() || item.isPotion()))
+		{
+			return true;
+		}
+		return item.hasImmediateEffect() || item.hasExImmediateEffect() || item.isElixir();
+	}
+	
 	/**
 	 * @param item the item being used
 	 * @param hasConsumeSkill
@@ -170,16 +180,6 @@ public class ItemSkillsTemplate implements IItemHandler
 			}
 		}
 		return false;
-	}
-	
-	// this will fix exploits with item that contains skills
-	private boolean canRunSimultaneously(L2Item item, boolean checkScrollType)
-	{
-		if (checkScrollType && (item.isScroll() || item.isPotion()))
-		{
-			return true;
-		}
-		return item.hasImmediateEffect() || item.hasExImmediateEffect() || item.isElixir();
 	}
 	
 	/**

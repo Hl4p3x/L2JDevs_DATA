@@ -335,18 +335,6 @@ public class Q00426_QuestForFishingShot extends Quest
 		registerQuestItems(SWEET_FLUID);
 	}
 	
-	private static class ChanceReward
-	{
-		final int _chance;
-		final int _reward;
-		
-		ChanceReward(int chance, int reward)
-		{
-			_chance = chance;
-			_reward = reward;
-		}
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -431,5 +419,17 @@ public class Q00426_QuestForFishingShot extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private static class ChanceReward
+	{
+		final int _chance;
+		final int _reward;
+		
+		ChanceReward(int chance, int reward)
+		{
+			_chance = chance;
+			_reward = reward;
+		}
 	}
 }

@@ -58,22 +58,26 @@ public final class FortressOfTheDead extends ClanHallSiegeEngine
 		addAttackId(LIDIA);
 	}
 	
-	@Override
-	public String onSpawn(L2Npc npc)
+	public static void main(String[] args)
 	{
-		if (npc.getId() == LIDIA)
+		new FortressOfTheDead();
+	}
+	
+	@Override
+	public L2Clan getWinner()
+	{
+		int counter = 0;
+		int damagest = 0;
+		for (Entry<Integer, Integer> e : _damageToLidia.entrySet())
 		{
-			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.HMM_THOSE_WHO_ARE_NOT_OF_THE_BLOODLINE_ARE_COMING_THIS_WAY_TO_TAKE_OVER_THE_CASTLE_HUMPH_THE_BITTER_GRUDGES_OF_THE_DEAD_YOU_MUST_NOT_MAKE_LIGHT_OF_THEIR_POWER);
+			final int damage = e.getValue();
+			if (damage > counter)
+			{
+				counter = damage;
+				damagest = e.getKey();
+			}
 		}
-		else if (npc.getId() == ALFRED)
-		{
-			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.HEH_HEH_I_SEE_THAT_THE_FEAST_HAS_BEGUN_BE_WARY_THE_CURSE_OF_THE_HELLMANN_FAMILY_HAS_POISONED_THIS_LAND);
-		}
-		else if (npc.getId() == GISELLE)
-		{
-			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.ARISE_MY_FAITHFUL_SERVANTS_YOU_MY_PEOPLE_WHO_HAVE_INHERITED_THE_BLOOD_IT_IS_THE_CALLING_OF_MY_DAUGHTER_THE_FEAST_OF_BLOOD_WILL_NOW_BEGIN);
-		}
-		return null;
+		return ClanTable.getInstance().getClan(damagest);
 	}
 	
 	@Override
@@ -135,20 +139,21 @@ public final class FortressOfTheDead extends ClanHallSiegeEngine
 	}
 	
 	@Override
-	public L2Clan getWinner()
+	public String onSpawn(L2Npc npc)
 	{
-		int counter = 0;
-		int damagest = 0;
-		for (Entry<Integer, Integer> e : _damageToLidia.entrySet())
+		if (npc.getId() == LIDIA)
 		{
-			final int damage = e.getValue();
-			if (damage > counter)
-			{
-				counter = damage;
-				damagest = e.getKey();
-			}
+			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.HMM_THOSE_WHO_ARE_NOT_OF_THE_BLOODLINE_ARE_COMING_THIS_WAY_TO_TAKE_OVER_THE_CASTLE_HUMPH_THE_BITTER_GRUDGES_OF_THE_DEAD_YOU_MUST_NOT_MAKE_LIGHT_OF_THEIR_POWER);
 		}
-		return ClanTable.getInstance().getClan(damagest);
+		else if (npc.getId() == ALFRED)
+		{
+			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.HEH_HEH_I_SEE_THAT_THE_FEAST_HAS_BEGUN_BE_WARY_THE_CURSE_OF_THE_HELLMANN_FAMILY_HAS_POISONED_THIS_LAND);
+		}
+		else if (npc.getId() == GISELLE)
+		{
+			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.ARISE_MY_FAITHFUL_SERVANTS_YOU_MY_PEOPLE_WHO_HAVE_INHERITED_THE_BLOOD_IT_IS_THE_CALLING_OF_MY_DAUGHTER_THE_FEAST_OF_BLOOD_WILL_NOW_BEGIN);
+		}
+		return null;
 	}
 	
 	@Override
@@ -167,10 +172,5 @@ public final class FortressOfTheDead extends ClanHallSiegeEngine
 		{
 			super.startSiege();
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new FortressOfTheDead();
 	}
 }

@@ -129,6 +129,11 @@ public final class DragonValley extends AbstractNpcAI
 		addSpawnId(SPOIL_REACT_MONSTER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DragonValley();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -214,10 +219,5 @@ public final class DragonValley extends AbstractNpcAI
 				}
 			}
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new DragonValley();
 	}
 }

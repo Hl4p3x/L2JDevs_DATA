@@ -40,11 +40,17 @@ public class AdminRide implements IAdminCommandHandler
 		"admin_ride_wolf",
 		"admin_unride_wolf",
 	};
-	private int _petRideId;
-	
 	private static final int PURPLE_MANED_HORSE_TRANSFORMATION_ID = 106;
 	
 	private static final int JET_BIKE_TRANSFORMATION_ID = 20001;
+	
+	private int _petRideId;
+	
+	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 	
 	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -143,12 +149,6 @@ public class AdminRide implements IAdminCommandHandler
 		}
 		
 		return player;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 }

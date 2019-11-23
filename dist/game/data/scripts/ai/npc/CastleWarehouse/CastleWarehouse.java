@@ -54,6 +54,11 @@ public final class CastleWarehouse extends AbstractNpcAI
 		addFirstTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CastleWarehouse();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -110,10 +115,5 @@ public final class CastleWarehouse extends AbstractNpcAI
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return "warehouse-01.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new CastleWarehouse();
 	}
 }

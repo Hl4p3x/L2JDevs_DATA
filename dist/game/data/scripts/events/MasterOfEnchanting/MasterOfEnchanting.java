@@ -75,6 +75,11 @@ public final class MasterOfEnchanting extends LongTimeEvent
 		addTalkId(MASTER_YOGI);
 	}
 	
+	public static void main(String[] args)
+	{
+		new MasterOfEnchanting();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -273,10 +278,5 @@ public final class MasterOfEnchanting extends LongTimeEvent
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return npc.getId() + ".htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new MasterOfEnchanting();
 	}
 }

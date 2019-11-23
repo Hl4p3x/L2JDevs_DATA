@@ -46,6 +46,12 @@ public class AdminShop implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_buy"))
@@ -64,12 +70,6 @@ public class AdminShop implements IAdminCommandHandler
 			AdminHtml.showAdminHtml(activeChar, "gmshops.htm");
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private void handleBuyRequest(L2PcInstance activeChar, String command)

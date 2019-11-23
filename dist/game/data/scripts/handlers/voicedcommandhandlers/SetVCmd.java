@@ -37,6 +37,12 @@ public class SetVCmd implements IVoicedCommandHandler
 	};
 	
 	@Override
+	public String[] getVoicedCommandList()
+	{
+		return VOICED_COMMANDS;
+	}
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		if (command.equals("set"))
@@ -76,11 +82,5 @@ public class SetVCmd implements IVoicedCommandHandler
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return VOICED_COMMANDS;
 	}
 }

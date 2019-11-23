@@ -216,6 +216,27 @@ public class Q00021_HiddenTruth extends Quest
 	}
 	
 	@Override
+	public void onRouteFinished(L2Npc npc)
+	{
+		final QuestState st = L2World.getInstance().getPlayer(npc.getScriptValue()).getQuestState(getName());
+		if (st != null)
+		{
+			st.startQuestTimer("DESPAWN", 15000, npc);
+			MOVE_ENDED = true;
+		}
+	}
+	
+	@Override
+	public String onSeeCreature(L2Npc npc, L2Character creature, boolean isSummon)
+	{
+		if (creature.isPlayer())
+		{
+			playSound((L2PcInstance) creature, Sound.HORROR_01);
+		}
+		return super.onSeeCreature(npc, creature, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		QuestState st = getQuestState(player, true);
@@ -430,26 +451,5 @@ public class Q00021_HiddenTruth extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSeeCreature(L2Npc npc, L2Character creature, boolean isSummon)
-	{
-		if (creature.isPlayer())
-		{
-			playSound((L2PcInstance) creature, Sound.HORROR_01);
-		}
-		return super.onSeeCreature(npc, creature, isSummon);
-	}
-	
-	@Override
-	public void onRouteFinished(L2Npc npc)
-	{
-		final QuestState st = L2World.getInstance().getPlayer(npc.getScriptValue()).getQuestState(getName());
-		if (st != null)
-		{
-			st.startQuestTimer("DESPAWN", 15000, npc);
-			MOVE_ENDED = true;
-		}
 	}
 }

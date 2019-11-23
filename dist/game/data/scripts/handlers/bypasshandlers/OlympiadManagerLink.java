@@ -78,6 +78,12 @@ public class OlympiadManagerLink implements IBypassHandler
 	};
 	
 	@Override
+	public final String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public final boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!(target instanceof L2OlympiadManagerInstance))
@@ -366,11 +372,5 @@ public class OlympiadManagerLink implements IBypassHandler
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public final String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

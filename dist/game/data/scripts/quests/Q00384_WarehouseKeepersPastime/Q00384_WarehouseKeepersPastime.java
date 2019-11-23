@@ -99,40 +99,6 @@ public final class Q00384_WarehouseKeepersPastime extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		switch (npc.getId())
-		{
-			case CLIFF:
-				if (qs.isCreated())
-				{
-					if (player.getLevel() >= 40)
-					{
-						return "30182-01.htm";
-					}
-					return "30182-04.html";
-				}
-				if (qs.getQuestItemsCount(Q_IRONGATE_MEDAL) < 10)
-				{
-					return "30182-06.html";
-				}
-				return "30182-07.html";
-			case WAREHOUSE_CHIEF_BAXT:
-				if (qs.hasMemoState())
-				{
-					if (qs.getQuestItemsCount(Q_IRONGATE_MEDAL) < 10)
-					{
-						return "30685-06.html";
-					}
-					return "30685-07.html";
-				}
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, false);
@@ -313,336 +279,6 @@ public final class Q00384_WarehouseKeepersPastime extends Quest
 		return super.onAdvEvent(event, npc, player);
 	}
 	
-	private String takeHtml(L2PcInstance player, QuestState qs, int num, int npcId)
-	{
-		String html = null;
-		int i3;
-		if (!isSelectedBingoNumber(qs, num))
-		{
-			selectBingoNumber(qs, num);
-			i3 = getBingoSelectCount(qs);
-			
-			if (i3 == 2)
-			{
-				html = getHtm(player.getHtmlPrefix(), npcId + "-14.html");
-			}
-			else if (i3 == 3)
-			{
-				html = getHtm(player.getHtmlPrefix(), npcId + "-16.html");
-			}
-			else if (i3 == 4)
-			{
-				html = getHtm(player.getHtmlPrefix(), npcId + "-18.html");
-			}
-			else if (i3 == 5)
-			{
-				html = getHtm(player.getHtmlPrefix(), npcId + "-20.html");
-			}
-			return fillBoard(player, qs, html);
-		}
-		i3 = getBingoSelectCount(qs);
-		if (i3 == 1)
-		{
-			html = getHtm(player.getHtmlPrefix(), npcId + "-15.html");
-		}
-		else if (i3 == 2)
-		{
-			html = getHtm(player.getHtmlPrefix(), npcId + "-17.html");
-		}
-		else if (i3 == 3)
-		{
-			html = getHtm(player.getHtmlPrefix(), npcId + "-19.html");
-		}
-		else if (i3 == 4)
-		{
-			html = getHtm(player.getHtmlPrefix(), npcId + "-21.html");
-		}
-		return fillBoard(player, qs, html);
-	}
-	
-	private String fillBoard(L2PcInstance player, QuestState qs, String html)
-	{
-		for (int i0 = 0; i0 < 9; i0 = i0 + 1)
-		{
-			int i1 = getNumberFromBingoBoard(qs, i0);
-			if (isSelectedBingoNumber(qs, i1))
-			{
-				html = html.replace("<?Cell" + (i0 + 1) + "?>", i1 + "");
-			}
-			else
-			{
-				html = html.replace("<?Cell" + (i0 + 1) + "?>", "?");
-			}
-		}
-		return html;
-	}
-	
-	private String colorBoard(L2PcInstance player, QuestState qs, String html)
-	{
-		for (int i0 = 0; i0 < 9; i0 = i0 + 1)
-		{
-			int i1 = getNumberFromBingoBoard(qs, i0);
-			html = html.replace("<?FontColor" + (i0 + 1) + "?>", (isSelectedBingoNumber(qs, i1)) ? "ff0000" : "ffffff");
-			html = html.replace("<?Cell" + (i0 + 1) + "?>", i1 + "");
-		}
-		return html;
-	}
-	
-	private String beforeReward(L2PcInstance player, QuestState qs, int num, int npcId)
-	{
-		if (!isSelectedBingoNumber(qs, num))
-		{
-			selectBingoNumber(qs, num);
-			int i3 = getMatchedBingoLineCount(qs);
-			String html;
-			if ((i3 == 3) && ((getBingoSelectCount(qs)) == 6))
-			{
-				reward(player, qs, i3);
-				html = getHtm(player.getHtmlPrefix(), npcId + "-22.html");
-			}
-			else if ((i3 == 0) && (getBingoSelectCount(qs) == 6))
-			{
-				reward(player, qs, i3);
-				html = getHtm(player.getHtmlPrefix(), npcId + "-24.html");
-			}
-			else
-			{
-				html = getHtm(player.getHtmlPrefix(), npcId + "-23.html");
-			}
-			return colorBoard(player, qs, html);
-		}
-		return fillBoard(player, qs, getHtm(player.getHtmlPrefix(), npcId + "-25.html"));
-	}
-	
-	private void reward(L2PcInstance player, QuestState qs, int i3)
-	{
-		if (i3 == 3)
-		{
-			if (qs.getMemoState() == 10)
-			{
-				int random = getRandom(100);
-				if (random < 16)
-				{
-					qs.giveItems(SYNTHESIS_COKES, 1);
-				}
-				else if (random < 32)
-				{
-					qs.giveItems(VARNISH_OF_PURITY, 1);
-				}
-				else if (random < 50)
-				{
-					qs.giveItems(CRAFTED_LEATHER, 1);
-				}
-				else if (random < 80)
-				{
-					qs.giveItems(SCRL_OF_ENCH_AM_C, 1);
-				}
-				else if (random < 89)
-				{
-					qs.giveItems(MITHIRL_ALLOY, 1);
-				}
-				else if (random < 98)
-				{
-					qs.giveItems(ORIHARUKON, 1);
-				}
-				else
-				{
-					qs.giveItems(SCRL_OF_ENCH_WP_C, 1);
-				}
-				
-			}
-			else if (qs.getMemoState() == 20)
-			{
-				int random = getRandom(100);
-				
-				if (random < 50)
-				{
-					qs.giveItems(AQUASTONE_RING, 1);
-				}
-				else if (random < 80)
-				{
-					qs.giveItems(SCRL_OF_ENCH_WP_C, 1);
-				}
-				else if (random < 98)
-				{
-					qs.giveItems(MOONSTONE_EARING, 1);
-				}
-				else
-				{
-					qs.giveItems(DRAKE_LEATHER_MAIL, 1);
-				}
-			}
-		}
-		else if (i3 == 0)
-		{
-			if (qs.getMemoState() == 10)
-			{
-				int random = getRandom(100);
-				
-				if (random < 50)
-				{
-					qs.giveItems(MOLD_HARDENER, 1);
-				}
-				else if (random < 80)
-				{
-					qs.giveItems(SCRL_OF_ENCH_AM_C, 1);
-				}
-				else if (random < 98)
-				{
-					qs.giveItems(BLACKSMITH_S_FRAME, 1);
-				}
-				else
-				{
-					qs.giveItems(NECKLACE_OF_MERMAID, 1);
-				}
-			}
-			else if (qs.getMemoState() == 20)
-			{
-				int random = getRandom(100);
-				
-				if (random < 50)
-				{
-					qs.giveItems(SCRL_OF_ENCH_WP_C, 1);
-				}
-				else if (random < 80)
-				{
-					qs.giveItems(GREAT_HELMET, 1);
-				}
-				else if (random < 98)
-				{
-					qs.giveItems(DRAKE_LEATHER_BOOTS, 1);
-					qs.giveItems(BLESSED_GLOVES, 1);
-				}
-				else
-				{
-					qs.giveItems(SAMURAI_LONGSWORD, 1);
-				}
-			}
-		}
-	}
-	
-	/**
-	 * @param qs
-	 */
-	private void createBingoBoard(QuestState qs)
-	{
-		//@formatter:off
-		Integer[] arr = {1,2,3,4,5,6,7,8,9};
-		//@formatter:on
-		Collections.shuffle(Arrays.asList(arr));
-		qs.set("numbers", Arrays.asList(arr).toString().replaceAll("[^\\d ]", ""));
-		qs.set("selected", "? ? ? ? ? ? ? ? ?");
-	}
-	
-	/**
-	 * @param qs
-	 * @return
-	 */
-	private int getMatchedBingoLineCount(QuestState qs)
-	{
-		String[] q = qs.get("selected").split(" ");
-		int found = 0;
-		// Horizontal
-		if ((q[0] + q[1] + q[2]).matches("\\d+"))
-		{
-			found++;
-		}
-		if ((q[3] + q[4] + q[5]).matches("\\d+"))
-		{
-			found++;
-		}
-		if ((q[6] + q[7] + q[8]).matches("\\d+"))
-		{
-			found++;
-		}
-		// Vertical
-		if ((q[0] + q[3] + q[6]).matches("\\d+"))
-		{
-			found++;
-		}
-		if ((q[1] + q[4] + q[7]).matches("\\d+"))
-		{
-			found++;
-		}
-		if ((q[2] + q[5] + q[8]).matches("\\d+"))
-		{
-			found++;
-		}
-		// Diagonal
-		if ((q[0] + q[4] + q[8]).matches("\\d+"))
-		{
-			found++;
-		}
-		if ((q[2] + q[4] + q[6]).matches("\\d+"))
-		{
-			found++;
-		}
-		return found;
-	}
-	
-	/**
-	 * @param qs
-	 * @param num
-	 */
-	private void selectBingoNumber(QuestState qs, int num)
-	{
-		String[] numbers = qs.get("numbers").split(" ");
-		int pos = 0;
-		for (int i = 0; i < numbers.length; i++)
-		{
-			if (Integer.parseInt(numbers[i]) == num)
-			{
-				pos = i;
-				break;
-			}
-		}
-		String[] selected = qs.get("selected").split(" ");
-		for (int i = 0; i < selected.length; i++)
-		{
-			if (i == pos)
-			{
-				selected[i] = num + "";
-				continue;
-			}
-		}
-		String result = selected[0];
-		for (int i = 1; i < selected.length; i++)
-		{
-			result += " " + selected[i];
-		}
-		qs.set("selected", result);
-	}
-	
-	/**
-	 * @param qs
-	 * @param num
-	 * @return
-	 */
-	private boolean isSelectedBingoNumber(QuestState qs, int num)
-	{
-		return qs.get("selected").contains(num + "");
-	}
-	
-	/**
-	 * @param qs
-	 * @param num
-	 * @return
-	 */
-	private int getNumberFromBingoBoard(QuestState qs, int num)
-	{
-		return Integer.parseInt(qs.get("numbers").split(" ")[num]);
-	}
-	
-	/**
-	 * @param qs
-	 * @return
-	 */
-	private int getBingoSelectCount(QuestState qs)
-	{
-		String current = qs.get("selected");
-		return current.replaceAll("\\D", "").length();
-	}
-	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -813,6 +449,173 @@ public final class Q00384_WarehouseKeepersPastime extends Quest
 		return super.onKill(npc, killer, isSummon);
 	}
 	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState qs = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		switch (npc.getId())
+		{
+			case CLIFF:
+				if (qs.isCreated())
+				{
+					if (player.getLevel() >= 40)
+					{
+						return "30182-01.htm";
+					}
+					return "30182-04.html";
+				}
+				if (qs.getQuestItemsCount(Q_IRONGATE_MEDAL) < 10)
+				{
+					return "30182-06.html";
+				}
+				return "30182-07.html";
+			case WAREHOUSE_CHIEF_BAXT:
+				if (qs.hasMemoState())
+				{
+					if (qs.getQuestItemsCount(Q_IRONGATE_MEDAL) < 10)
+					{
+						return "30685-06.html";
+					}
+					return "30685-07.html";
+				}
+		}
+		return htmltext;
+	}
+	
+	private String beforeReward(L2PcInstance player, QuestState qs, int num, int npcId)
+	{
+		if (!isSelectedBingoNumber(qs, num))
+		{
+			selectBingoNumber(qs, num);
+			int i3 = getMatchedBingoLineCount(qs);
+			String html;
+			if ((i3 == 3) && ((getBingoSelectCount(qs)) == 6))
+			{
+				reward(player, qs, i3);
+				html = getHtm(player.getHtmlPrefix(), npcId + "-22.html");
+			}
+			else if ((i3 == 0) && (getBingoSelectCount(qs) == 6))
+			{
+				reward(player, qs, i3);
+				html = getHtm(player.getHtmlPrefix(), npcId + "-24.html");
+			}
+			else
+			{
+				html = getHtm(player.getHtmlPrefix(), npcId + "-23.html");
+			}
+			return colorBoard(player, qs, html);
+		}
+		return fillBoard(player, qs, getHtm(player.getHtmlPrefix(), npcId + "-25.html"));
+	}
+	
+	private String colorBoard(L2PcInstance player, QuestState qs, String html)
+	{
+		for (int i0 = 0; i0 < 9; i0 = i0 + 1)
+		{
+			int i1 = getNumberFromBingoBoard(qs, i0);
+			html = html.replace("<?FontColor" + (i0 + 1) + "?>", (isSelectedBingoNumber(qs, i1)) ? "ff0000" : "ffffff");
+			html = html.replace("<?Cell" + (i0 + 1) + "?>", i1 + "");
+		}
+		return html;
+	}
+	
+	/**
+	 * @param qs
+	 */
+	private void createBingoBoard(QuestState qs)
+	{
+		//@formatter:off
+		Integer[] arr = {1,2,3,4,5,6,7,8,9};
+		//@formatter:on
+		Collections.shuffle(Arrays.asList(arr));
+		qs.set("numbers", Arrays.asList(arr).toString().replaceAll("[^\\d ]", ""));
+		qs.set("selected", "? ? ? ? ? ? ? ? ?");
+	}
+	
+	private String fillBoard(L2PcInstance player, QuestState qs, String html)
+	{
+		for (int i0 = 0; i0 < 9; i0 = i0 + 1)
+		{
+			int i1 = getNumberFromBingoBoard(qs, i0);
+			if (isSelectedBingoNumber(qs, i1))
+			{
+				html = html.replace("<?Cell" + (i0 + 1) + "?>", i1 + "");
+			}
+			else
+			{
+				html = html.replace("<?Cell" + (i0 + 1) + "?>", "?");
+			}
+		}
+		return html;
+	}
+	
+	/**
+	 * @param qs
+	 * @return
+	 */
+	private int getBingoSelectCount(QuestState qs)
+	{
+		String current = qs.get("selected");
+		return current.replaceAll("\\D", "").length();
+	}
+	
+	/**
+	 * @param qs
+	 * @return
+	 */
+	private int getMatchedBingoLineCount(QuestState qs)
+	{
+		String[] q = qs.get("selected").split(" ");
+		int found = 0;
+		// Horizontal
+		if ((q[0] + q[1] + q[2]).matches("\\d+"))
+		{
+			found++;
+		}
+		if ((q[3] + q[4] + q[5]).matches("\\d+"))
+		{
+			found++;
+		}
+		if ((q[6] + q[7] + q[8]).matches("\\d+"))
+		{
+			found++;
+		}
+		// Vertical
+		if ((q[0] + q[3] + q[6]).matches("\\d+"))
+		{
+			found++;
+		}
+		if ((q[1] + q[4] + q[7]).matches("\\d+"))
+		{
+			found++;
+		}
+		if ((q[2] + q[5] + q[8]).matches("\\d+"))
+		{
+			found++;
+		}
+		// Diagonal
+		if ((q[0] + q[4] + q[8]).matches("\\d+"))
+		{
+			found++;
+		}
+		if ((q[2] + q[4] + q[6]).matches("\\d+"))
+		{
+			found++;
+		}
+		return found;
+	}
+	
+	/**
+	 * @param qs
+	 * @param num
+	 * @return
+	 */
+	private int getNumberFromBingoBoard(QuestState qs, int num)
+	{
+		return Integer.parseInt(qs.get("numbers").split(" ")[num]);
+	}
+	
 	private QuestState getRandomPlayerFromParty(L2PcInstance player, L2Npc npc)
 	{
 		QuestState qs = getQuestState(player, false);
@@ -837,5 +640,202 @@ public final class Q00384_WarehouseKeepersPastime extends Quest
 			});
 		}
 		return candidates.isEmpty() ? null : candidates.get(getRandom(candidates.size()));
+	}
+	
+	/**
+	 * @param qs
+	 * @param num
+	 * @return
+	 */
+	private boolean isSelectedBingoNumber(QuestState qs, int num)
+	{
+		return qs.get("selected").contains(num + "");
+	}
+	
+	private void reward(L2PcInstance player, QuestState qs, int i3)
+	{
+		if (i3 == 3)
+		{
+			if (qs.getMemoState() == 10)
+			{
+				int random = getRandom(100);
+				if (random < 16)
+				{
+					qs.giveItems(SYNTHESIS_COKES, 1);
+				}
+				else if (random < 32)
+				{
+					qs.giveItems(VARNISH_OF_PURITY, 1);
+				}
+				else if (random < 50)
+				{
+					qs.giveItems(CRAFTED_LEATHER, 1);
+				}
+				else if (random < 80)
+				{
+					qs.giveItems(SCRL_OF_ENCH_AM_C, 1);
+				}
+				else if (random < 89)
+				{
+					qs.giveItems(MITHIRL_ALLOY, 1);
+				}
+				else if (random < 98)
+				{
+					qs.giveItems(ORIHARUKON, 1);
+				}
+				else
+				{
+					qs.giveItems(SCRL_OF_ENCH_WP_C, 1);
+				}
+				
+			}
+			else if (qs.getMemoState() == 20)
+			{
+				int random = getRandom(100);
+				
+				if (random < 50)
+				{
+					qs.giveItems(AQUASTONE_RING, 1);
+				}
+				else if (random < 80)
+				{
+					qs.giveItems(SCRL_OF_ENCH_WP_C, 1);
+				}
+				else if (random < 98)
+				{
+					qs.giveItems(MOONSTONE_EARING, 1);
+				}
+				else
+				{
+					qs.giveItems(DRAKE_LEATHER_MAIL, 1);
+				}
+			}
+		}
+		else if (i3 == 0)
+		{
+			if (qs.getMemoState() == 10)
+			{
+				int random = getRandom(100);
+				
+				if (random < 50)
+				{
+					qs.giveItems(MOLD_HARDENER, 1);
+				}
+				else if (random < 80)
+				{
+					qs.giveItems(SCRL_OF_ENCH_AM_C, 1);
+				}
+				else if (random < 98)
+				{
+					qs.giveItems(BLACKSMITH_S_FRAME, 1);
+				}
+				else
+				{
+					qs.giveItems(NECKLACE_OF_MERMAID, 1);
+				}
+			}
+			else if (qs.getMemoState() == 20)
+			{
+				int random = getRandom(100);
+				
+				if (random < 50)
+				{
+					qs.giveItems(SCRL_OF_ENCH_WP_C, 1);
+				}
+				else if (random < 80)
+				{
+					qs.giveItems(GREAT_HELMET, 1);
+				}
+				else if (random < 98)
+				{
+					qs.giveItems(DRAKE_LEATHER_BOOTS, 1);
+					qs.giveItems(BLESSED_GLOVES, 1);
+				}
+				else
+				{
+					qs.giveItems(SAMURAI_LONGSWORD, 1);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * @param qs
+	 * @param num
+	 */
+	private void selectBingoNumber(QuestState qs, int num)
+	{
+		String[] numbers = qs.get("numbers").split(" ");
+		int pos = 0;
+		for (int i = 0; i < numbers.length; i++)
+		{
+			if (Integer.parseInt(numbers[i]) == num)
+			{
+				pos = i;
+				break;
+			}
+		}
+		String[] selected = qs.get("selected").split(" ");
+		for (int i = 0; i < selected.length; i++)
+		{
+			if (i == pos)
+			{
+				selected[i] = num + "";
+				continue;
+			}
+		}
+		String result = selected[0];
+		for (int i = 1; i < selected.length; i++)
+		{
+			result += " " + selected[i];
+		}
+		qs.set("selected", result);
+	}
+	
+	private String takeHtml(L2PcInstance player, QuestState qs, int num, int npcId)
+	{
+		String html = null;
+		int i3;
+		if (!isSelectedBingoNumber(qs, num))
+		{
+			selectBingoNumber(qs, num);
+			i3 = getBingoSelectCount(qs);
+			
+			if (i3 == 2)
+			{
+				html = getHtm(player.getHtmlPrefix(), npcId + "-14.html");
+			}
+			else if (i3 == 3)
+			{
+				html = getHtm(player.getHtmlPrefix(), npcId + "-16.html");
+			}
+			else if (i3 == 4)
+			{
+				html = getHtm(player.getHtmlPrefix(), npcId + "-18.html");
+			}
+			else if (i3 == 5)
+			{
+				html = getHtm(player.getHtmlPrefix(), npcId + "-20.html");
+			}
+			return fillBoard(player, qs, html);
+		}
+		i3 = getBingoSelectCount(qs);
+		if (i3 == 1)
+		{
+			html = getHtm(player.getHtmlPrefix(), npcId + "-15.html");
+		}
+		else if (i3 == 2)
+		{
+			html = getHtm(player.getHtmlPrefix(), npcId + "-17.html");
+		}
+		else if (i3 == 3)
+		{
+			html = getHtm(player.getHtmlPrefix(), npcId + "-19.html");
+		}
+		else if (i3 == 4)
+		{
+			html = getHtm(player.getHtmlPrefix(), npcId + "-21.html");
+		}
+		return fillBoard(player, qs, html);
 	}
 }

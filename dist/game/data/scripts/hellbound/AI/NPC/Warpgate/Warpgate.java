@@ -64,6 +64,20 @@ public final class Warpgate extends AbstractNpcAI
 		addEnterZoneId(ZONE);
 	}
 	
+	private static boolean canEnter(L2PcInstance player)
+	{
+		if (player.isFlying())
+		{
+			return false;
+		}
+		
+		if (Config.HELLBOUND_WITHOUT_QUEST)
+		{
+			return true;
+		}
+		return (player.hasQuestCompleted(Q00130_PathToHellbound.class.getSimpleName()) || player.hasQuestCompleted(Q00133_ThatsBloodyHot.class.getSimpleName()));
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -86,12 +100,6 @@ public final class Warpgate extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		return HellboundEngine.getInstance().isLocked() ? "Warpgate-01.html" : "Warpgate-02.html";
-	}
-	
-	@Override
 	public String onEnterZone(L2Character character, L2ZoneType zone)
 	{
 		if (character.isPlayer())
@@ -110,17 +118,9 @@ public final class Warpgate extends AbstractNpcAI
 		return super.onEnterZone(character, zone);
 	}
 	
-	private static boolean canEnter(L2PcInstance player)
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		if (player.isFlying())
-		{
-			return false;
-		}
-		
-		if (Config.HELLBOUND_WITHOUT_QUEST)
-		{
-			return true;
-		}
-		return (player.hasQuestCompleted(Q00130_PathToHellbound.class.getSimpleName()) || player.hasQuestCompleted(Q00133_ThatsBloodyHot.class.getSimpleName()));
+		return HellboundEngine.getInstance().isLocked() ? "Warpgate-01.html" : "Warpgate-02.html";
 	}
 }

@@ -197,6 +197,35 @@ public final class Q00038_DragonFangs extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		switch (npc.getId())
+		{
+			case LIZARDMAN_SUB_LEADER:
+			case LIZARDMAN_SENTINEL:
+			{
+				final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
+				if ((qs != null) && giveItemRandomly(qs.getPlayer(), npc, FEATHER.getId(), 1, FEATHER.getCount(), 1.0, true))
+				{
+					qs.setCond(2);
+				}
+				break;
+			}
+			case LIZARDMAN_LEADER:
+			case LIZARDMAN_SHAMAN:
+			{
+				final QuestState qs = getRandomPartyMemberState(killer, 6, 3, npc);
+				if ((qs != null) && giveItemRandomly(qs.getPlayer(), npc, TOTEM_TOOTH_2ND.getId(), 1, TOTEM_TOOTH_2ND.getCount(), 0.5, true))
+				{
+					qs.setCond(7);
+				}
+				break;
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -289,34 +318,5 @@ public final class Q00038_DragonFangs extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		switch (npc.getId())
-		{
-			case LIZARDMAN_SUB_LEADER:
-			case LIZARDMAN_SENTINEL:
-			{
-				final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
-				if ((qs != null) && giveItemRandomly(qs.getPlayer(), npc, FEATHER.getId(), 1, FEATHER.getCount(), 1.0, true))
-				{
-					qs.setCond(2);
-				}
-				break;
-			}
-			case LIZARDMAN_LEADER:
-			case LIZARDMAN_SHAMAN:
-			{
-				final QuestState qs = getRandomPartyMemberState(killer, 6, 3, npc);
-				if ((qs != null) && giveItemRandomly(qs.getPlayer(), npc, TOTEM_TOOTH_2ND.getId(), 1, TOTEM_TOOTH_2ND.getCount(), 0.5, true))
-				{
-					qs.setCond(7);
-				}
-				break;
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

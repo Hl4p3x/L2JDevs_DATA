@@ -53,9 +53,9 @@ public final class CastleBlacksmith extends AbstractNpcAI
 		addFirstTalkId(NPCS);
 	}
 	
-	private boolean hasRights(L2PcInstance player, L2Npc npc)
+	public static void main(String[] args)
 	{
-		return player.canOverrideCond(PcCondOverride.CASTLE_CONDITIONS) || npc.isMyLord(player) || ((player.getClanId() == npc.getCastle().getOwnerId()) && player.hasClanPrivilege(ClanPrivilege.CS_MANOR_ADMIN));
+		new CastleBlacksmith();
 	}
 	
 	@Override
@@ -70,8 +70,8 @@ public final class CastleBlacksmith extends AbstractNpcAI
 		return (hasRights(player, npc)) ? npc.getId() + "-01.html" : "no.html";
 	}
 	
-	public static void main(String[] args)
+	private boolean hasRights(L2PcInstance player, L2Npc npc)
 	{
-		new CastleBlacksmith();
+		return player.canOverrideCond(PcCondOverride.CASTLE_CONDITIONS) || npc.isMyLord(player) || ((player.getClanId() == npc.getCastle().getOwnerId()) && player.hasClanPrivilege(ClanPrivilege.CS_MANOR_ADMIN));
 	}
 }

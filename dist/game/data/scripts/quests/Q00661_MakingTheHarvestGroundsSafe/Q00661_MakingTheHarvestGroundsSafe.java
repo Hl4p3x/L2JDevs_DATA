@@ -40,6 +40,8 @@ public final class Q00661_MakingTheHarvestGroundsSafe extends Quest
 	private static final int BIG_HORNET_STING = 8283;
 	private static final int CLOUD_GEM = 8284;
 	private static final int YOUNG_ARANEID_CLAW = 8285;
+	// Misc
+	private static final int MIN_LVL = 21;
 	// Monsters
 	private final Map<Integer, ItemChanceHolder> MONSTER_CHANCES = new HashMap<>();
 	{
@@ -47,8 +49,6 @@ public final class Q00661_MakingTheHarvestGroundsSafe extends Quest
 		MONSTER_CHANCES.put(21096, new ItemChanceHolder(CLOUD_GEM, 0.5)); // Cloudy Beast
 		MONSTER_CHANCES.put(21097, new ItemChanceHolder(YOUNG_ARANEID_CLAW, 0.516)); // Young Araneid
 	}
-	// Misc
-	private static final int MIN_LVL = 21;
 	
 	public Q00661_MakingTheHarvestGroundsSafe()
 	{
@@ -116,6 +116,18 @@ public final class Q00661_MakingTheHarvestGroundsSafe extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
+		if (qs != null)
+		{
+			final ItemChanceHolder item = MONSTER_CHANCES.get(npc.getId());
+			giveItemRandomly(qs.getPlayer(), npc, item.getId(), item.getCount(), 0, item.getChance(), true);
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -141,17 +153,5 @@ public final class Q00661_MakingTheHarvestGroundsSafe extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
-		if (qs != null)
-		{
-			final ItemChanceHolder item = MONSTER_CHANCES.get(npc.getId());
-			giveItemRandomly(qs.getPlayer(), npc, item.getId(), item.getCount(), 0, item.getChance(), true);
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

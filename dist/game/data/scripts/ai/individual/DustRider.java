@@ -47,6 +47,11 @@ public class DustRider extends AbstractNpcAI
 		addAttackId(DUST_RIDER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DustRider();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -61,10 +66,5 @@ public class DustRider extends AbstractNpcAI
 			addSkillCastDesire(npc, npc, NPC_HASTE_LVL_3, 99999999999000000L);
 		}
 		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new DustRider();
 	}
 }

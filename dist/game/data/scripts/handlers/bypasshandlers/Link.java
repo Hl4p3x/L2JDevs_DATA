@@ -31,6 +31,12 @@ public class Link implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		String htmlPath = command.substring(4).trim();
@@ -52,11 +58,5 @@ public class Link implements IBypassHandler
 		html.replace("%objectId%", String.valueOf(target != null ? target.getObjectId() : 0));
 		activeChar.sendPacket(html);
 		return true;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

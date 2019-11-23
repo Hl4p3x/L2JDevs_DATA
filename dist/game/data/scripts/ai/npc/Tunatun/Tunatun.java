@@ -46,6 +46,11 @@ public final class Tunatun extends AbstractNpcAI
 		addTalkId(TUNATUN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Tunatun();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -68,10 +73,5 @@ public final class Tunatun extends AbstractNpcAI
 			}
 		}
 		return event;
-	}
-	
-	public static void main(String[] args)
-	{
-		new Tunatun();
 	}
 }

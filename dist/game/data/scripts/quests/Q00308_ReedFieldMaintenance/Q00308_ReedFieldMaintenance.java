@@ -101,32 +101,6 @@ public class Q00308_ReedFieldMaintenance extends Quest
 		addKillId(MUCROKIAN.keySet());
 	}
 	
-	private boolean canGiveItem(QuestState st, int quanty)
-	{
-		long mucrokian = st.getQuestItemsCount(MUCROKIAN_HIDE);
-		long awakened = st.getQuestItemsCount(AWAKENED_MUCROKIAN_HIDE);
-		if (awakened > 0)
-		{
-			if (awakened >= (quanty / 2))
-			{
-				st.takeItems(AWAKENED_MUCROKIAN_HIDE, (quanty / 2));
-				return true;
-			}
-			else if (mucrokian >= (quanty - (awakened * 2)))
-			{
-				st.takeItems(AWAKENED_MUCROKIAN_HIDE, awakened);
-				st.takeItems(MUCROKIAN_HIDE, (quanty - (awakened * 2)));
-				return true;
-			}
-		}
-		else if (mucrokian >= quanty)
-		{
-			st.takeItems(MUCROKIAN_HIDE, quanty);
-			return true;
-		}
-		return false;
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -187,29 +161,6 @@ public class Q00308_ReedFieldMaintenance extends Quest
 		return htmltext;
 	}
 	
-	private String onItemExchangeRequest(QuestState st, int item, int quanty)
-	{
-		String htmltext;
-		if (canGiveItem(st, quanty))
-		{
-			if (Util.contains(MOIRAI_PIECES, item))
-			{
-				st.giveItems(item, getRandom(1, 4));
-			}
-			else
-			{
-				st.giveItems(item, 1);
-			}
-			st.playSound(Sound.ITEMSOUND_QUEST_FINISH);
-			htmltext = "32646-14.html";
-		}
-		else
-		{
-			htmltext = "32646-13.html";
-		}
-		return htmltext;
-	}
-	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -251,6 +202,55 @@ public class Q00308_ReedFieldMaintenance extends Quest
 		else
 		{
 			htmltext = (talker.getLevel() >= MIN_LEVEL) ? "32646-01.htm" : "32646-00.html";
+		}
+		return htmltext;
+	}
+	
+	private boolean canGiveItem(QuestState st, int quanty)
+	{
+		long mucrokian = st.getQuestItemsCount(MUCROKIAN_HIDE);
+		long awakened = st.getQuestItemsCount(AWAKENED_MUCROKIAN_HIDE);
+		if (awakened > 0)
+		{
+			if (awakened >= (quanty / 2))
+			{
+				st.takeItems(AWAKENED_MUCROKIAN_HIDE, (quanty / 2));
+				return true;
+			}
+			else if (mucrokian >= (quanty - (awakened * 2)))
+			{
+				st.takeItems(AWAKENED_MUCROKIAN_HIDE, awakened);
+				st.takeItems(MUCROKIAN_HIDE, (quanty - (awakened * 2)));
+				return true;
+			}
+		}
+		else if (mucrokian >= quanty)
+		{
+			st.takeItems(MUCROKIAN_HIDE, quanty);
+			return true;
+		}
+		return false;
+	}
+	
+	private String onItemExchangeRequest(QuestState st, int item, int quanty)
+	{
+		String htmltext;
+		if (canGiveItem(st, quanty))
+		{
+			if (Util.contains(MOIRAI_PIECES, item))
+			{
+				st.giveItems(item, getRandom(1, 4));
+			}
+			else
+			{
+				st.giveItems(item, 1);
+			}
+			st.playSound(Sound.ITEMSOUND_QUEST_FINISH);
+			htmltext = "32646-14.html";
+		}
+		else
+		{
+			htmltext = "32646-13.html";
 		}
 		return htmltext;
 	}

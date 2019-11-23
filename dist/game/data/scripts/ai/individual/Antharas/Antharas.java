@@ -64,29 +64,9 @@ public final class Antharas extends AbstractNpcAI
 	private static final int HEART = 13001; // Heart of Warding
 	private static final int CUBE = 31859; // Teleportation Cubic
 	private static final Map<Integer, Location> INVISIBLE_NPC = new HashMap<>();
-	{
-		INVISIBLE_NPC.put(29077, new Location(177229, 113298, -7735)); // antaras_clear_npc_1
-		INVISIBLE_NPC.put(29078, new Location(176707, 113585, -7735)); // antaras_clear_npc_2
-		INVISIBLE_NPC.put(29079, new Location(176385, 113889, -7735)); // antaras_clear_npc_3
-		INVISIBLE_NPC.put(29080, new Location(176082, 114241, -7735)); // antaras_clear_npc_4
-		INVISIBLE_NPC.put(29081, new Location(176066, 114802, -7735)); // antaras_clear_npc_5
-		INVISIBLE_NPC.put(29082, new Location(176095, 115313, -7735)); // antaras_clear_npc_6
-		INVISIBLE_NPC.put(29083, new Location(176425, 115829, -7735)); // antaras_clear_npc_7
-		INVISIBLE_NPC.put(29084, new Location(176949, 116378, -7735)); // antaras_clear_npc_8
-		INVISIBLE_NPC.put(29085, new Location(177655, 116402, -7735)); // antaras_clear_npc_9
-		INVISIBLE_NPC.put(29086, new Location(178248, 116395, -7735)); // antaras_clear_npc_10
-		INVISIBLE_NPC.put(29087, new Location(178706, 115998, -7735)); // antaras_clear_npc_11
-		INVISIBLE_NPC.put(29088, new Location(179208, 115452, -7735)); // antaras_clear_npc_12
-		INVISIBLE_NPC.put(29089, new Location(179191, 115079, -7735)); // antaras_clear_npc_13
-		INVISIBLE_NPC.put(29090, new Location(179221, 114546, -7735)); // antaras_clear_npc_14
-		INVISIBLE_NPC.put(29091, new Location(178916, 113925, -7735)); // antaras_clear_npc_15
-		INVISIBLE_NPC.put(29092, new Location(178782, 113814, -7735)); // antaras_clear_npc_16
-		INVISIBLE_NPC.put(29093, new Location(178419, 113417, -7735)); // antaras_clear_npc_17
-		INVISIBLE_NPC.put(29094, new Location(177855, 113282, -7735)); // antaras_clear_npc_18
-	}
-	
 	// Item
 	private static final int STONE = 3865; // Portal Stone
+	
 	// Skill
 	private static final SkillHolder ANTH_JUMP = new SkillHolder(4106); // Antharas Stun
 	private static final SkillHolder ANTH_TAIL = new SkillHolder(4107); // Antharas Stun
@@ -113,7 +93,6 @@ public final class Antharas extends AbstractNpcAI
 	private static final int DEAD = 3;
 	// Misc
 	private static final int MAX_PEOPLE = 200; // Max allowed players
-	private L2GrandBossInstance _antharas = null;
 	private static long _lastAttack = 0;
 	private static int _minionCount = 0;
 	private static int minionMultipler = 0;
@@ -125,6 +104,27 @@ public final class Antharas extends AbstractNpcAI
 	private static int attacker_1_hate = 0;
 	private static int attacker_2_hate = 0;
 	private static int attacker_3_hate = 0;
+	{
+		INVISIBLE_NPC.put(29077, new Location(177229, 113298, -7735)); // antaras_clear_npc_1
+		INVISIBLE_NPC.put(29078, new Location(176707, 113585, -7735)); // antaras_clear_npc_2
+		INVISIBLE_NPC.put(29079, new Location(176385, 113889, -7735)); // antaras_clear_npc_3
+		INVISIBLE_NPC.put(29080, new Location(176082, 114241, -7735)); // antaras_clear_npc_4
+		INVISIBLE_NPC.put(29081, new Location(176066, 114802, -7735)); // antaras_clear_npc_5
+		INVISIBLE_NPC.put(29082, new Location(176095, 115313, -7735)); // antaras_clear_npc_6
+		INVISIBLE_NPC.put(29083, new Location(176425, 115829, -7735)); // antaras_clear_npc_7
+		INVISIBLE_NPC.put(29084, new Location(176949, 116378, -7735)); // antaras_clear_npc_8
+		INVISIBLE_NPC.put(29085, new Location(177655, 116402, -7735)); // antaras_clear_npc_9
+		INVISIBLE_NPC.put(29086, new Location(178248, 116395, -7735)); // antaras_clear_npc_10
+		INVISIBLE_NPC.put(29087, new Location(178706, 115998, -7735)); // antaras_clear_npc_11
+		INVISIBLE_NPC.put(29088, new Location(179208, 115452, -7735)); // antaras_clear_npc_12
+		INVISIBLE_NPC.put(29089, new Location(179191, 115079, -7735)); // antaras_clear_npc_13
+		INVISIBLE_NPC.put(29090, new Location(179221, 114546, -7735)); // antaras_clear_npc_14
+		INVISIBLE_NPC.put(29091, new Location(178916, 113925, -7735)); // antaras_clear_npc_15
+		INVISIBLE_NPC.put(29092, new Location(178782, 113814, -7735)); // antaras_clear_npc_16
+		INVISIBLE_NPC.put(29093, new Location(178419, 113417, -7735)); // antaras_clear_npc_17
+		INVISIBLE_NPC.put(29094, new Location(177855, 113282, -7735)); // antaras_clear_npc_18
+	}
+	private L2GrandBossInstance _antharas = null;
 	
 	private Antharas()
 	{
@@ -192,6 +192,11 @@ public final class Antharas extends AbstractNpcAI
 				break;
 			}
 		}
+	}
+	
+	public static void main(String[] args)
+	{
+		new Antharas();
 	}
 	
 	@Override
@@ -753,68 +758,14 @@ public final class Antharas extends AbstractNpcAI
 		return super.unload(removeFromList);
 	}
 	
-	private int getStatus()
-	{
-		return GrandBossManager.getInstance().getBossStatus(ANTHARAS);
-	}
-	
 	private void addBoss(L2GrandBossInstance grandboss)
 	{
 		GrandBossManager.getInstance().addBoss(grandboss);
 	}
 	
-	private void setStatus(int status)
+	private int getStatus()
 	{
-		GrandBossManager.getInstance().setBossStatus(ANTHARAS, status);
-	}
-	
-	private void setRespawn(long respawnTime)
-	{
-		GrandBossManager.getInstance().getStatsSet(ANTHARAS).set("respawn_time", (System.currentTimeMillis() + respawnTime));
-	}
-	
-	private void refreshAiParams(L2PcInstance attacker, int damage)
-	{
-		if ((attacker_1 != null) && (attacker == attacker_1))
-		{
-			if (attacker_1_hate < (damage + 1000))
-			{
-				attacker_1_hate = damage + getRandom(3000);
-			}
-		}
-		else if ((attacker_2 != null) && (attacker == attacker_2))
-		{
-			if (attacker_2_hate < (damage + 1000))
-			{
-				attacker_2_hate = damage + getRandom(3000);
-			}
-		}
-		else if ((attacker_3 != null) && (attacker == attacker_3))
-		{
-			if (attacker_3_hate < (damage + 1000))
-			{
-				attacker_3_hate = damage + getRandom(3000);
-			}
-		}
-		else
-		{
-			final int i1 = Util.min(attacker_1_hate, attacker_2_hate, attacker_3_hate);
-			if (attacker_1_hate == i1)
-			{
-				attacker_1_hate = damage + getRandom(3000);
-				attacker_1 = attacker;
-			}
-			else if (attacker_2_hate == i1)
-			{
-				attacker_2_hate = damage + getRandom(3000);
-				attacker_2 = attacker;
-			}
-			else if (attacker_3_hate == i1)
-			{
-				attacker_3_hate = damage + getRandom(3000);
-				attacker_3 = attacker;
-			}
-		}
+		return GrandBossManager.getInstance().getBossStatus(ANTHARAS);
 	}
 	
 	private void manageSkills(L2Npc npc)
@@ -1047,8 +998,57 @@ public final class Antharas extends AbstractNpcAI
 		}
 	}
 	
-	public static void main(String[] args)
+	private void refreshAiParams(L2PcInstance attacker, int damage)
 	{
-		new Antharas();
+		if ((attacker_1 != null) && (attacker == attacker_1))
+		{
+			if (attacker_1_hate < (damage + 1000))
+			{
+				attacker_1_hate = damage + getRandom(3000);
+			}
+		}
+		else if ((attacker_2 != null) && (attacker == attacker_2))
+		{
+			if (attacker_2_hate < (damage + 1000))
+			{
+				attacker_2_hate = damage + getRandom(3000);
+			}
+		}
+		else if ((attacker_3 != null) && (attacker == attacker_3))
+		{
+			if (attacker_3_hate < (damage + 1000))
+			{
+				attacker_3_hate = damage + getRandom(3000);
+			}
+		}
+		else
+		{
+			final int i1 = Util.min(attacker_1_hate, attacker_2_hate, attacker_3_hate);
+			if (attacker_1_hate == i1)
+			{
+				attacker_1_hate = damage + getRandom(3000);
+				attacker_1 = attacker;
+			}
+			else if (attacker_2_hate == i1)
+			{
+				attacker_2_hate = damage + getRandom(3000);
+				attacker_2 = attacker;
+			}
+			else if (attacker_3_hate == i1)
+			{
+				attacker_3_hate = damage + getRandom(3000);
+				attacker_3 = attacker;
+			}
+		}
+	}
+	
+	private void setRespawn(long respawnTime)
+	{
+		GrandBossManager.getInstance().getStatsSet(ANTHARAS).set("respawn_time", (System.currentTimeMillis() + respawnTime));
+	}
+	
+	private void setStatus(int status)
+	{
+		GrandBossManager.getInstance().setBossStatus(ANTHARAS, status);
 	}
 }

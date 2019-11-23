@@ -93,6 +93,11 @@ public final class RangeGuard extends AbstractNpcAI
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new RangeGuard();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon, Skill skill)
 	{
@@ -112,10 +117,5 @@ public final class RangeGuard extends AbstractNpcAI
 			npc.setTarget(target);
 		}
 		return super.onAttack(npc, attacker, damage, isSummon, skill);
-	}
-	
-	public static void main(String[] args)
-	{
-		new RangeGuard();
 	}
 }

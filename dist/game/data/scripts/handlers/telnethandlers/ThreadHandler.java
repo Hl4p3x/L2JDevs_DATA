@@ -36,6 +36,12 @@ public class ThreadHandler implements ITelnetHandler
 	};
 	
 	@Override
+	public String[] getCommandList()
+	{
+		return _commands;
+	}
+	
+	@Override
 	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int _uptime)
 	{
 		if (command.equals("performance"))
@@ -58,11 +64,5 @@ public class ThreadHandler implements ITelnetHandler
 			_print.flush();
 		}
 		return false;
-	}
-	
-	@Override
-	public String[] getCommandList()
-	{
-		return _commands;
 	}
 }

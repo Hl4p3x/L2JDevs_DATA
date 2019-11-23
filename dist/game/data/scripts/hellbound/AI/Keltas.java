@@ -111,48 +111,6 @@ public final class Keltas extends AbstractNpcAI
 		addSpawnId(KELTAS);
 	}
 	
-	private void spawnMinions()
-	{
-		for (Location loc : ENFORCER_SPAWN_POINTS)
-		{
-			final L2MonsterInstance minion = (L2MonsterInstance) addSpawn(ENFORCER, loc, false, 0, false);
-			final L2Spawn spawn = minion.getSpawn();
-			spawn.setRespawnDelay(60);
-			spawn.setAmount(1);
-			spawn.startRespawn();
-			_spawnedMonsters.add(spawn);
-		}
-		
-		for (Location loc : EXECUTIONER_SPAWN_POINTS)
-		{
-			final L2MonsterInstance minion = (L2MonsterInstance) addSpawn(EXECUTIONER, loc, false, 0, false);
-			final L2Spawn spawn = minion.getSpawn();
-			spawn.setRespawnDelay(80);
-			spawn.setAmount(1);
-			spawn.startRespawn();
-			_spawnedMonsters.add(spawn);
-		}
-	}
-	
-	private void despawnMinions()
-	{
-		if (_spawnedMonsters.isEmpty())
-		{
-			return;
-		}
-		
-		for (L2Spawn spawn : _spawnedMonsters)
-		{
-			spawn.stopRespawn();
-			L2Npc minion = spawn.getLastSpawn();
-			if ((minion != null) && !minion.isDead())
-			{
-				minion.deleteMe();
-			}
-		}
-		_spawnedMonsters.clear();
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -186,5 +144,47 @@ public final class Keltas extends AbstractNpcAI
 		spawnMinions();
 		startQuestTimer("despawn", 1800000, null, null);
 		return super.onSpawn(npc);
+	}
+	
+	private void despawnMinions()
+	{
+		if (_spawnedMonsters.isEmpty())
+		{
+			return;
+		}
+		
+		for (L2Spawn spawn : _spawnedMonsters)
+		{
+			spawn.stopRespawn();
+			L2Npc minion = spawn.getLastSpawn();
+			if ((minion != null) && !minion.isDead())
+			{
+				minion.deleteMe();
+			}
+		}
+		_spawnedMonsters.clear();
+	}
+	
+	private void spawnMinions()
+	{
+		for (Location loc : ENFORCER_SPAWN_POINTS)
+		{
+			final L2MonsterInstance minion = (L2MonsterInstance) addSpawn(ENFORCER, loc, false, 0, false);
+			final L2Spawn spawn = minion.getSpawn();
+			spawn.setRespawnDelay(60);
+			spawn.setAmount(1);
+			spawn.startRespawn();
+			_spawnedMonsters.add(spawn);
+		}
+		
+		for (Location loc : EXECUTIONER_SPAWN_POINTS)
+		{
+			final L2MonsterInstance minion = (L2MonsterInstance) addSpawn(EXECUTIONER, loc, false, 0, false);
+			final L2Spawn spawn = minion.getSpawn();
+			spawn.setRespawnDelay(80);
+			spawn.setAmount(1);
+			spawn.startRespawn();
+			_spawnedMonsters.add(spawn);
+		}
 	}
 }

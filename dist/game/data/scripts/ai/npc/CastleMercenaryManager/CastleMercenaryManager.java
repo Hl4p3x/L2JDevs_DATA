@@ -59,6 +59,11 @@ public final class CastleMercenaryManager extends AbstractNpcAI
 		addFirstTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CastleMercenaryManager();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -143,10 +148,5 @@ public final class CastleMercenaryManager extends AbstractNpcAI
 			htmltext = "mercmanager-no.html";
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new CastleMercenaryManager();
 	}
 }

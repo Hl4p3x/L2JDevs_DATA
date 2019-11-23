@@ -57,6 +57,36 @@ public class EmeraldHorn extends AbstractNpcAI
 		addSpellFinishedId(EMERALD_HORN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new EmeraldHorn();
+	}
+	
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		if (DAMAGE_TIMER_15S.equals(event))
+		{
+			if (!npc.getVariables().getBoolean(HIGH_DAMAGE_FLAG, false))
+			{
+				final L2Character mostHated = ((L2Attackable) npc).getMostHated();
+				if (mostHated != null)
+				{
+					if (mostHated.isDead())
+					{
+						((L2Attackable) npc).stopHating(mostHated);
+					}
+					else
+					{
+						addSkillCastDesire(npc, mostHated, PIERCING_STORM, 9999000000000000L);
+					}
+				}
+			}
+			npc.getVariables().set(CAST_FLAG, false);
+		}
+		return super.onAdvEvent(event, npc, player);
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -102,35 +132,5 @@ public class EmeraldHorn extends AbstractNpcAI
 			startQuestTimer(DAMAGE_TIMER_15S, 15 * 1000, npc, player);
 		}
 		return super.onSpellFinished(npc, player, skill);
-	}
-	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (DAMAGE_TIMER_15S.equals(event))
-		{
-			if (!npc.getVariables().getBoolean(HIGH_DAMAGE_FLAG, false))
-			{
-				final L2Character mostHated = ((L2Attackable) npc).getMostHated();
-				if (mostHated != null)
-				{
-					if (mostHated.isDead())
-					{
-						((L2Attackable) npc).stopHating(mostHated);
-					}
-					else
-					{
-						addSkillCastDesire(npc, mostHated, PIERCING_STORM, 9999000000000000L);
-					}
-				}
-			}
-			npc.getVariables().set(CAST_FLAG, false);
-		}
-		return super.onAdvEvent(event, npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new EmeraldHorn();
 	}
 }

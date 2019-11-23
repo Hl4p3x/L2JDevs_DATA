@@ -34,13 +34,9 @@ import instances.AbstractInstance;
  */
 public final class LibraryOfSages extends AbstractInstance
 {
-	protected class LoSWorld extends InstanceWorld
-	{
-		protected L2Npc elcadia = null;
-	}
-	
 	// NPCs
 	private static final int SOPHIA1 = 32596;
+	
 	private static final int PILE_OF_BOOKS1 = 32809;
 	private static final int PILE_OF_BOOKS2 = 32810;
 	private static final int PILE_OF_BOOKS3 = 32811;
@@ -63,7 +59,6 @@ public final class LibraryOfSages extends AbstractInstance
 	};
 	// Misc
 	private static final int TEMPLATE_ID = 156;
-	
 	public LibraryOfSages()
 	{
 		super(LibraryOfSages.class.getSimpleName());
@@ -115,13 +110,6 @@ public final class LibraryOfSages extends AbstractInstance
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance talker)
-	{
-		enterInstance(talker, new LoSWorld(), "LibraryOfSages.xml", TEMPLATE_ID);
-		return super.onTalk(npc, talker);
-	}
-	
-	@Override
 	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
 	{
 		if (firstEntrance)
@@ -132,6 +120,13 @@ public final class LibraryOfSages extends AbstractInstance
 		spawnElcadia(player, (LoSWorld) world);
 	}
 	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance talker)
+	{
+		enterInstance(talker, new LoSWorld(), "LibraryOfSages.xml", TEMPLATE_ID);
+		return super.onTalk(npc, talker);
+	}
+	
 	private void spawnElcadia(L2PcInstance player, LoSWorld world)
 	{
 		if (world.elcadia != null)
@@ -140,5 +135,10 @@ public final class LibraryOfSages extends AbstractInstance
 		}
 		world.elcadia = addSpawn(ELCADIA_INSTANCE, player, false, 0, false, player.getInstanceId());
 		startQuestTimer("FOLLOW", 3000, world.elcadia, player);
+	}
+	
+	protected class LoSWorld extends InstanceWorld
+	{
+		protected L2Npc elcadia = null;
 	}
 }

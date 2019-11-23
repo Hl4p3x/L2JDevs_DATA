@@ -37,15 +37,15 @@ public final class GolemTrader extends AbstractNpcAI
 		addSpawnId(GOLEM_TRADER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new GolemTrader();
+	}
+	
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
 		npc.scheduleDespawn(180000);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new GolemTrader();
 	}
 }

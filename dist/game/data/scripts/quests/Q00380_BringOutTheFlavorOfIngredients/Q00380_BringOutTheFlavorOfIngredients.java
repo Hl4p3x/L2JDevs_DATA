@@ -44,16 +44,16 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 	private static final int LEECH_FLUIDS = 5897;
 	// Monsters
 	private static final Map<Integer, ItemChanceHolder> MONSTER_CHANCES = new HashMap<>();
-	{
-		MONSTER_CHANCES.put(20205, new ItemChanceHolder(RITRON_FRUIT, 0.1, 4)); // Dire Wolf
-		MONSTER_CHANCES.put(20206, new ItemChanceHolder(MOON_FLOWER, 0.5, 20)); // Kadif Werewolf
-		MONSTER_CHANCES.put(20225, new ItemChanceHolder(LEECH_FLUIDS, 0.5, 10)); // Giant Mist Leech
-	}
 	// Rewards
 	private static final int RITRON_RECIPE = 5959;
 	private static final int RITRON_DESSERT = 5960;
 	// Misc
 	private static final int MIN_LVL = 24;
+	{
+		MONSTER_CHANCES.put(20205, new ItemChanceHolder(RITRON_FRUIT, 0.1, 4)); // Dire Wolf
+		MONSTER_CHANCES.put(20206, new ItemChanceHolder(MOON_FLOWER, 0.5, 20)); // Kadif Werewolf
+		MONSTER_CHANCES.put(20225, new ItemChanceHolder(LEECH_FLUIDS, 0.5, 10)); // Giant Mist Leech
+	}
 	
 	public Q00380_BringOutTheFlavorOfIngredients()
 	{
@@ -102,6 +102,25 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
+		if ((qs != null) && (qs.getCond() < 4))
+		{
+			final ItemChanceHolder item = MONSTER_CHANCES.get(npc.getId());
+			if (hasItem(qs.getPlayer(), new ItemHolder(RITRON_FRUIT, 4)) && hasItem(qs.getPlayer(), new ItemHolder(MOON_FLOWER, 20)) && hasItem(qs.getPlayer(), new ItemHolder(LEECH_FLUIDS, 10)) && hasItem(qs.getPlayer(), new ItemHolder(ANTIDOTE, 2)))
+			{
+				qs.setCond(qs.getCond() + 1, true);
+			}
+			else
+			{
+				giveItemRandomly(qs.getPlayer(), npc, item.getId(), 1, item.getCount(), item.getChance(), true);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -186,24 +205,5 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
-		if ((qs != null) && (qs.getCond() < 4))
-		{
-			final ItemChanceHolder item = MONSTER_CHANCES.get(npc.getId());
-			if (hasItem(qs.getPlayer(), new ItemHolder(RITRON_FRUIT, 4)) && hasItem(qs.getPlayer(), new ItemHolder(MOON_FLOWER, 20)) && hasItem(qs.getPlayer(), new ItemHolder(LEECH_FLUIDS, 10)) && hasItem(qs.getPlayer(), new ItemHolder(ANTIDOTE, 2)))
-			{
-				qs.setCond(qs.getCond() + 1, true);
-			}
-			else
-			{
-				giveItemRandomly(qs.getPlayer(), npc, item.getId(), 1, item.getCount(), item.getChance(), true);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

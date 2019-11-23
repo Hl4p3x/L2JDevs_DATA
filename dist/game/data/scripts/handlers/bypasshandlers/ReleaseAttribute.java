@@ -31,6 +31,12 @@ public class ReleaseAttribute implements IBypassHandler
 	};
 	
 	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
+	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
 		if (!target.isNpc())
@@ -40,11 +46,5 @@ public class ReleaseAttribute implements IBypassHandler
 		
 		activeChar.sendPacket(new ExShowBaseAttributeCancelWindow(activeChar));
 		return true;
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

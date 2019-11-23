@@ -28,12 +28,6 @@ import org.l2jdevs.gameserver.model.effects.EffectFlag;
  */
 public final class BlockDamage extends AbstractEffect
 {
-	public enum BlockType
-	{
-		HP,
-		MP
-	}
-	
 	private final BlockType _type;
 	
 	public BlockDamage(Condition attachCond, Condition applyCond, StatsSet set, StatsSet params)
@@ -46,5 +40,11 @@ public final class BlockDamage extends AbstractEffect
 	public int getEffectFlags()
 	{
 		return _type == BlockType.HP ? EffectFlag.BLOCK_HP.getMask() : EffectFlag.BLOCK_MP.getMask();
+	}
+	
+	public enum BlockType
+	{
+		HP,
+		MP
 	}
 }

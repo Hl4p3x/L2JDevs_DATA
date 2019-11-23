@@ -74,6 +74,11 @@ public final class FreyaCelebration extends LongTimeEvent
 		addSkillSeeId(FREYA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new FreyaCelebration();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -115,6 +120,12 @@ public final class FreyaCelebration extends LongTimeEvent
 	}
 	
 	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		return "13296.htm";
+	}
+	
+	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
 		if ((caster == null) || (npc == null))
@@ -142,16 +153,5 @@ public final class FreyaCelebration extends LongTimeEvent
 			}
 		}
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		return "13296.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new FreyaCelebration();
 	}
 }

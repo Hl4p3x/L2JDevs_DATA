@@ -150,21 +150,6 @@ public final class TowerOfNaia extends AbstractNpcAI
 	private static Map<Integer, Integer> ZONES = new HashMap<>();
 	private static Map<Integer, int[][]> SPAWNS = new HashMap<>();
 	
-	private L2MonsterInstance _lock;
-	private final L2Npc _controller;
-	private int _counter;
-	private final AtomicInteger _despawnedSporesCount = new AtomicInteger();
-	private final int[] _indexCount =
-	{
-		0,
-		0
-	};
-	private int _challengeState;
-	private int _winIndex;
-	
-	private final Map<Integer, Boolean> _activeRooms = new HashMap<>();
-	private final Map<Integer, List<L2Npc>> _spawns = new ConcurrentHashMap<>();
-	private final Set<L2Npc> _sporeSpawn = ConcurrentHashMap.newKeySet();
 	static
 	{
 		// Format: entrance_door, exit_door
@@ -348,6 +333,21 @@ public final class TowerOfNaia extends AbstractNpcAI
 		});
 		//@formatter:on
 	}
+	private L2MonsterInstance _lock;
+	private final L2Npc _controller;
+	private int _counter;
+	private final AtomicInteger _despawnedSporesCount = new AtomicInteger();
+	private final int[] _indexCount =
+	{
+		0,
+		0
+	};
+	private int _challengeState;
+	
+	private int _winIndex;
+	private final Map<Integer, Boolean> _activeRooms = new HashMap<>();
+	private final Map<Integer, List<L2Npc>> _spawns = new ConcurrentHashMap<>();
+	private final Set<L2Npc> _sporeSpawn = ConcurrentHashMap.newKeySet();
 	
 	public TowerOfNaia()
 	{
@@ -383,36 +383,6 @@ public final class TowerOfNaia extends AbstractNpcAI
 		_counter = 90;
 		initSporeChallenge();
 		spawnElpy();
-	}
-	
-	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		final int npcId = npc.getId();
-		
-		if (npcId == CONTROLLER)
-		{
-			if (_lock == null)
-			{
-				return "18492-02.htm";
-			}
-			return "18492-01.htm";
-		}
-		
-		else if ((npcId >= ROOM_MANAGER_FIRST) && (npcId <= ROOM_MANAGER_LAST))
-		{
-			if (_activeRooms.containsKey(npcId) && !_activeRooms.get(npcId))
-			{
-				if (player.getParty() == null)
-				{
-					player.sendPacket(SystemMessageId.CAN_OPERATE_MACHINE_WHEN_IN_PARTY);
-					return null;
-				}
-				return "manager.htm";
-			}
-			return null;
-		}
-		return super.onFirstTalk(npc, player);
 	}
 	
 	@Override
@@ -600,6 +570,36 @@ public final class TowerOfNaia extends AbstractNpcAI
 	}
 	
 	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		final int npcId = npc.getId();
+		
+		if (npcId == CONTROLLER)
+		{
+			if (_lock == null)
+			{
+				return "18492-02.htm";
+			}
+			return "18492-01.htm";
+		}
+		
+		else if ((npcId >= ROOM_MANAGER_FIRST) && (npcId <= ROOM_MANAGER_LAST))
+		{
+			if (_activeRooms.containsKey(npcId) && !_activeRooms.get(npcId))
+			{
+				if (player.getParty() == null)
+				{
+					player.sendPacket(SystemMessageId.CAN_OPERATE_MACHINE_WHEN_IN_PARTY);
+					return null;
+				}
+				return "manager.htm";
+			}
+			return null;
+		}
+		return super.onFirstTalk(npc, player);
+	}
+	
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		int npcId = npc.getId();
@@ -761,25 +761,6 @@ public final class TowerOfNaia extends AbstractNpcAI
 		return super.onSpawn(npc);
 	}
 	
-	private int getSporeGroup(int sporeId)
-	{
-		int ret;
-		switch (sporeId)
-		{
-			case SPORE_FIRE:
-			case SPORE_WATER:
-				ret = 0;
-				break;
-			case SPORE_WIND:
-			case SPORE_EARTH:
-				ret = 1;
-				break;
-			default:
-				ret = -1;
-		}
-		return ret;
-	}
-	
 	protected void initRoom(int managerId)
 	{
 		removeAllPlayers(managerId);
@@ -805,6 +786,25 @@ public final class TowerOfNaia extends AbstractNpcAI
 			_spawns.get(managerId).clear();
 			_spawns.remove(managerId);
 		}
+	}
+	
+	private int getSporeGroup(int sporeId)
+	{
+		int ret;
+		switch (sporeId)
+		{
+			case SPORE_FIRE:
+			case SPORE_WATER:
+				ret = 0;
+				break;
+			case SPORE_WIND:
+			case SPORE_EARTH:
+				ret = 1;
+				break;
+			default:
+				ret = -1;
+		}
+		return ret;
 	}
 	
 	private void initSporeChallenge()
@@ -844,6 +844,53 @@ public final class TowerOfNaia extends AbstractNpcAI
 		return time == 0 ? 100 : time;
 	}
 	
+	private void removeAllPlayers(int managerId)
+	{
+		if (ZONES.containsKey(managerId) && (ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null))
+		{
+			L2ZoneType zone = ZoneManager.getInstance().getZoneById(ZONES.get(managerId));
+			for (L2PcInstance player : zone.getPlayersInside())
+			{
+				if (player != null)
+				{
+					player.teleToLocation(16110, 243841, 11616);
+				}
+			}
+		}
+	}
+	
+	private void removeForeigners(int managerId, L2Party party)
+	{
+		if ((party != null) && ZONES.containsKey(managerId) && (ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null))
+		{
+			L2ZoneType zone = ZoneManager.getInstance().getZoneById(ZONES.get(managerId));
+			for (L2PcInstance player : zone.getPlayersInside())
+			{
+				if (player != null)
+				{
+					L2Party charParty = player.getParty();
+					if ((charParty == null) || (charParty.getLeaderObjectId() != party.getLeaderObjectId()))
+					{
+						player.teleToLocation(16110, 243841, 11616);
+					}
+				}
+			}
+		}
+	}
+	
+	private void removeSpores()
+	{
+		for (L2Npc spore : _sporeSpawn)
+		{
+			if ((spore != null) && !spore.isDead())
+			{
+				spore.deleteMe();
+			}
+		}
+		_sporeSpawn.clear();
+		cancelQuestTimers("despawn_spore");
+	}
+	
 	private void spawnElpy()
 	{
 		final long respawnTime = GlobalVariablesManager.getInstance().getLong("elpy_respawn_time", 0);
@@ -857,15 +904,15 @@ public final class TowerOfNaia extends AbstractNpcAI
 		}
 	}
 	
-	private L2Npc spawnRandomSpore()
-	{
-		return addSpawn(getRandom(SPORE_FIRE, SPORE_EARTH), -45474, 247450, -13994, 49152, false, 0, false);
-	}
-	
 	private L2Npc spawnOppositeSpore(int srcSporeId)
 	{
 		final int idx = Arrays.binarySearch(ELEMENTS, srcSporeId);
 		return idx >= 0 ? addSpawn(OPPOSITE_ELEMENTS[idx], -45474, 247450, -13994, 49152, false, 0, false) : null;
+	}
+	
+	private L2Npc spawnRandomSpore()
+	{
+		return addSpawn(getRandom(SPORE_FIRE, SPORE_EARTH), -45474, 247450, -13994, 49152, false, 0, false);
 	}
 	
 	private void startRoom(int managerId)
@@ -892,53 +939,6 @@ public final class TowerOfNaia extends AbstractNpcAI
 				_spawns.put(managerId, spawned);
 			}
 		}
-	}
-	
-	private void removeForeigners(int managerId, L2Party party)
-	{
-		if ((party != null) && ZONES.containsKey(managerId) && (ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null))
-		{
-			L2ZoneType zone = ZoneManager.getInstance().getZoneById(ZONES.get(managerId));
-			for (L2PcInstance player : zone.getPlayersInside())
-			{
-				if (player != null)
-				{
-					L2Party charParty = player.getParty();
-					if ((charParty == null) || (charParty.getLeaderObjectId() != party.getLeaderObjectId()))
-					{
-						player.teleToLocation(16110, 243841, 11616);
-					}
-				}
-			}
-		}
-	}
-	
-	private void removeAllPlayers(int managerId)
-	{
-		if (ZONES.containsKey(managerId) && (ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null))
-		{
-			L2ZoneType zone = ZoneManager.getInstance().getZoneById(ZONES.get(managerId));
-			for (L2PcInstance player : zone.getPlayersInside())
-			{
-				if (player != null)
-				{
-					player.teleToLocation(16110, 243841, 11616);
-				}
-			}
-		}
-	}
-	
-	private void removeSpores()
-	{
-		for (L2Npc spore : _sporeSpawn)
-		{
-			if ((spore != null) && !spore.isDead())
-			{
-				spore.deleteMe();
-			}
-		}
-		_sporeSpawn.clear();
-		cancelQuestTimers("despawn_spore");
 	}
 	
 	private class StopRoomTask implements Runnable

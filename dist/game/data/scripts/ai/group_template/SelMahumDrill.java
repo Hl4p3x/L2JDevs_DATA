@@ -87,47 +87,6 @@ public final class SelMahumDrill extends AbstractNpcAI
 	// Chiefs event broadcast range
 	private static final int TRAINING_RANGE = 1000;
 	
-	private enum Actions
-	{
-		SCE_TRAINING_ACTION_A(4, -1, 2, 2333),
-		SCE_TRAINING_ACTION_B(1, -1, 2, 4333),
-		SCE_TRAINING_ACTION_C(6, 5, 4, 1000),
-		SCE_TRAINING_ACTION_D(7, -1, 2, 1000);
-		
-		private final int _socialActionId;
-		private final int _altSocialActionId;
-		private final int _repeatCount;
-		private final int _repeatInterval;
-		
-		private Actions(int socialActionId, int altSocialActionId, int repeatCount, int repeatInterval)
-		{
-			_socialActionId = socialActionId;
-			_altSocialActionId = altSocialActionId;
-			_repeatCount = repeatCount;
-			_repeatInterval = repeatInterval;
-		}
-		
-		protected int getSocialActionId()
-		{
-			return _socialActionId;
-		}
-		
-		protected int getAltSocialActionId()
-		{
-			return _altSocialActionId;
-		}
-		
-		protected int getRepeatCount()
-		{
-			return _repeatCount;
-		}
-		
-		protected int getRepeatInterval()
-		{
-			return _repeatInterval;
-		}
-	}
-	
 	private SelMahumDrill()
 	{
 		super(SelMahumDrill.class.getSimpleName(), "ai/group_template");
@@ -141,6 +100,11 @@ public final class SelMahumDrill extends AbstractNpcAI
 		addSpawnId(MAHUM_SOLDIERS);
 		// Start global return home timer
 		startQuestTimer("return_home", 120000, null, null, true);
+	}
+	
+	public static void main(String[] args)
+	{
+		new SelMahumDrill();
 	}
 	
 	@Override
@@ -330,8 +294,44 @@ public final class SelMahumDrill extends AbstractNpcAI
 		}
 	}
 	
-	public static void main(String[] args)
+	private enum Actions
 	{
-		new SelMahumDrill();
+		SCE_TRAINING_ACTION_A(4, -1, 2, 2333),
+		SCE_TRAINING_ACTION_B(1, -1, 2, 4333),
+		SCE_TRAINING_ACTION_C(6, 5, 4, 1000),
+		SCE_TRAINING_ACTION_D(7, -1, 2, 1000);
+		
+		private final int _socialActionId;
+		private final int _altSocialActionId;
+		private final int _repeatCount;
+		private final int _repeatInterval;
+		
+		private Actions(int socialActionId, int altSocialActionId, int repeatCount, int repeatInterval)
+		{
+			_socialActionId = socialActionId;
+			_altSocialActionId = altSocialActionId;
+			_repeatCount = repeatCount;
+			_repeatInterval = repeatInterval;
+		}
+		
+		protected int getAltSocialActionId()
+		{
+			return _altSocialActionId;
+		}
+		
+		protected int getRepeatCount()
+		{
+			return _repeatCount;
+		}
+		
+		protected int getRepeatInterval()
+		{
+			return _repeatInterval;
+		}
+		
+		protected int getSocialActionId()
+		{
+			return _socialActionId;
+		}
 	}
 }

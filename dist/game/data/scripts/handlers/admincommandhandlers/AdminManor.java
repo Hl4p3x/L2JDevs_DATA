@@ -33,6 +33,15 @@ import org.l2jdevs.util.StringUtil;
 public final class AdminManor implements IAdminCommandHandler
 {
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return new String[]
+		{
+			"admin_manor"
+		};
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		final CastleManorManager manor = CastleManorManager.getInstance();
@@ -54,14 +63,5 @@ public final class AdminManor implements IAdminCommandHandler
 		
 		sb.setLength(0);
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return new String[]
-		{
-			"admin_manor"
-		};
 	}
 }

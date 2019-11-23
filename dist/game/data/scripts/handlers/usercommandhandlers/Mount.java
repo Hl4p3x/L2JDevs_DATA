@@ -33,6 +33,12 @@ public class Mount implements IUserCommandHandler
 	};
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public synchronized boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (id != COMMAND_IDS[0])
@@ -40,11 +46,5 @@ public class Mount implements IUserCommandHandler
 			return false;
 		}
 		return activeChar.mountPlayer(activeChar.getSummon());
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

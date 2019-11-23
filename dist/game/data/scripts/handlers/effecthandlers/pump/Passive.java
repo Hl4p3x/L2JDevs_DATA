@@ -36,16 +36,16 @@ public final class Passive extends AbstractEffect
 	}
 	
 	@Override
+	public boolean canStart(BuffInfo info)
+	{
+		return info.getEffected().isAttackable();
+	}
+	
+	@Override
 	public void onExit(BuffInfo info)
 	{
 		info.getEffected().enableAllSkills();
 		info.getEffected().setIsImmobilized(false);
-	}
-	
-	@Override
-	public boolean canStart(BuffInfo info)
-	{
-		return info.getEffected().isAttackable();
 	}
 	
 	@Override

@@ -58,13 +58,6 @@ public final class Sailren extends AbstractNpcAI
 	private static int _killCount = 0;
 	private static long _lastAttack = 0;
 	
-	private enum Status
-	{
-		ALIVE,
-		IN_FIGHT,
-		DEAD
-	}
-	
 	private Sailren()
 	{
 		super(Sailren.class.getSimpleName(), "ai/individual");
@@ -80,6 +73,11 @@ public final class Sailren extends AbstractNpcAI
 			STATUS = Status.DEAD;
 			startQuestTimer("CLEAR_STATUS", remain, null, null);
 		}
+	}
+	
+	public static void main(String[] args)
+	{
+		new Sailren();
 	}
 	
 	@Override
@@ -323,8 +321,10 @@ public final class Sailren extends AbstractNpcAI
 		return super.unload(removeFromList);
 	}
 	
-	public static void main(String[] args)
+	private enum Status
 	{
-		new Sailren();
+		ALIVE,
+		IN_FIGHT,
+		DEAD
 	}
 }

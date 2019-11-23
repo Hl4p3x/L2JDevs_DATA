@@ -97,6 +97,11 @@ public final class PlainsOfLizardman extends AbstractNpcAI
 		addKillId(TANTA_LIZARDMEN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new PlainsOfLizardman();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -218,6 +223,13 @@ public final class PlainsOfLizardman extends AbstractNpcAI
 		return super.onKill(npc, killer, isSummon);
 	}
 	
+	@Override
+	protected void castSkill(L2Npc npc, L2Playable target, SkillHolder skill)
+	{
+		npc.doDie(target);
+		super.castSkill(addSpawn(INVISIBLE_NPC, npc, false, 6000), target, skill);
+	}
+	
 	private void castRandomBuff(L2Npc npc, int chance1, int chance2, SkillHolder... buffs)
 	{
 		final int rand = getRandom(100);
@@ -233,17 +245,5 @@ public final class PlainsOfLizardman extends AbstractNpcAI
 		{
 			npc.doCast(buffs[0]);
 		}
-	}
-	
-	@Override
-	protected void castSkill(L2Npc npc, L2Playable target, SkillHolder skill)
-	{
-		npc.doDie(target);
-		super.castSkill(addSpawn(INVISIBLE_NPC, npc, false, 6000), target, skill);
-	}
-	
-	public static void main(String[] args)
-	{
-		new PlainsOfLizardman();
 	}
 }

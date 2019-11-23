@@ -837,6 +837,11 @@ public final class TreasureChest extends AbstractNpcAI
 		addAttackId(DROPS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new TreasureChest();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -850,15 +855,6 @@ public final class TreasureChest extends AbstractNpcAI
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		// TODO(Zoey76): Disable Core AI.
-		npc.getVariables().set("MAESTRO_SKILL_USED", 0);
-		startQuestTimer(TIMER_2, MAX_SPAWN_TIME, npc, null);
-		return super.onSpawn(npc);
 	}
 	
 	@Override
@@ -923,8 +919,12 @@ public final class TreasureChest extends AbstractNpcAI
 		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 	
-	public static void main(String[] args)
+	@Override
+	public String onSpawn(L2Npc npc)
 	{
-		new TreasureChest();
+		// TODO(Zoey76): Disable Core AI.
+		npc.getVariables().set("MAESTRO_SKILL_USED", 0);
+		startQuestTimer(TIMER_2, MAX_SPAWN_TIME, npc, null);
+		return super.onSpawn(npc);
 	}
 }

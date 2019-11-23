@@ -40,6 +40,12 @@ public class AdminUnblockIp implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		
@@ -60,12 +66,6 @@ public class AdminUnblockIp implements IAdminCommandHandler
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 	
 	private boolean unblockIp(String ipAddress, L2PcInstance activeChar)

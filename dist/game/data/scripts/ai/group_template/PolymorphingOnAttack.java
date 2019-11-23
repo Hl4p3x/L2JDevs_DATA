@@ -85,6 +85,11 @@ public final class PolymorphingOnAttack extends AbstractNpcAI
 		addAttackId(MOBSPAWNS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new PolymorphingOnAttack();
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -111,10 +116,5 @@ public final class PolymorphingOnAttack extends AbstractNpcAI
 			}
 		}
 		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new PolymorphingOnAttack();
 	}
 }

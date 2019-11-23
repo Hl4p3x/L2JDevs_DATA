@@ -86,6 +86,19 @@ public final class Q00503_PursuitOfClanAmbition extends Quest
 		registerQuestItems(MIST_DRAKES_EGG, BLITZ_WYRM_EGG, DRAKES_EGG, THUNDER_WYRM_EGG, BROOCH_OF_THE_MAGPIE, IMPERIAL_KEY, GUSTAVS_1ST_LETTER, GUSTAVS_2ND_LETTER, GUSTAVS_3RD_LETTER, SCEPTER_OF_JUDGMENT, BLACK_ANVIL_COIN, RECIPE_SPITEFUL_SOUL_ENERGY, SPITEFUL_SOUL_ENERGY, SPITEFUL_SOUL_VENGEANCE);
 	}
 	
+	private static QuestState getLeaderQuestState(L2PcInstance player, String quest)
+	{
+		if (player.getClan() != null)
+		{
+			final L2PcInstance leader = player.getClan().getLeader().getPlayerInstance();
+			if (leader != null)
+			{
+				return leader.getQuestState(quest);
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -429,6 +442,44 @@ public final class Q00503_PursuitOfClanAmbition extends Quest
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		switch (npc.getId())
+		{
+			case WITCH_ATHREA:
+			{
+				if (npc.isScriptValue(50301))
+				{
+					startQuestTimer("DESPAWN_WITCH_ATHREA", 5000, npc, null);
+					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.WAR_AND_DEATH));
+				}
+				break;
+			}
+			case WITCH_KALIS:
+			{
+				if (npc.isScriptValue(50302))
+				{
+					startQuestTimer("DESPAWN_WITCH_KALIS", 5000, npc, null);
+					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.AMBITION_AND_POWER));
+				}
+				break;
+			}
+			case IMPERIAL_COFFER:
+			{
+				startQuestTimer("DESPAWN_IMPERIAL_COFFER", 180000, npc, null);
+				npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.CURSE_OF_THE_GODS_ON_THE_ONE_THAT_DEFILES_THE_PROPERTY_OF_THE_EMPIRE));
+				break;
+			}
+			case BLITZ_WYRM:
+			{
+				startQuestTimer("DESPAWN_BLITZ_WYRM", 180000, npc, null);
+				break;
+			}
+		}
+		return super.onSpawn(npc);
 	}
 	
 	@Override
@@ -798,56 +849,5 @@ public final class Q00503_PursuitOfClanAmbition extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		switch (npc.getId())
-		{
-			case WITCH_ATHREA:
-			{
-				if (npc.isScriptValue(50301))
-				{
-					startQuestTimer("DESPAWN_WITCH_ATHREA", 5000, npc, null);
-					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.WAR_AND_DEATH));
-				}
-				break;
-			}
-			case WITCH_KALIS:
-			{
-				if (npc.isScriptValue(50302))
-				{
-					startQuestTimer("DESPAWN_WITCH_KALIS", 5000, npc, null);
-					npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.AMBITION_AND_POWER));
-				}
-				break;
-			}
-			case IMPERIAL_COFFER:
-			{
-				startQuestTimer("DESPAWN_IMPERIAL_COFFER", 180000, npc, null);
-				npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.CURSE_OF_THE_GODS_ON_THE_ONE_THAT_DEFILES_THE_PROPERTY_OF_THE_EMPIRE));
-				break;
-			}
-			case BLITZ_WYRM:
-			{
-				startQuestTimer("DESPAWN_BLITZ_WYRM", 180000, npc, null);
-				break;
-			}
-		}
-		return super.onSpawn(npc);
-	}
-	
-	private static QuestState getLeaderQuestState(L2PcInstance player, String quest)
-	{
-		if (player.getClan() != null)
-		{
-			final L2PcInstance leader = player.getClan().getLeader().getPlayerInstance();
-			if (leader != null)
-			{
-				return leader.getQuestState(quest);
-			}
-		}
-		return null;
 	}
 }

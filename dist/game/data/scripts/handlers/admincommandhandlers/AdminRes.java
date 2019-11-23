@@ -44,6 +44,12 @@ public class AdminRes implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_res "))
@@ -66,10 +72,66 @@ public class AdminRes implements IAdminCommandHandler
 		return true;
 	}
 	
-	@Override
-	public String[] getAdminCommandList()
+	private void doResurrect(L2Character targetChar)
 	{
-		return ADMIN_COMMANDS;
+		if (!targetChar.isDead())
+		{
+			return;
+		}
+		
+		// If the target is a player, then restore the XP lost on death.
+		if (targetChar instanceof L2PcInstance)
+		{
+			targetChar.doRevive(100.0);
+		}
+		else
+		{
+			DecayTaskManager.getInstance().cancel(targetChar);
+			targetChar.doRevive();
+		}
+	}
+	
+	private void handleNonPlayerRes(L2PcInstance activeChar)
+	{
+		handleNonPlayerRes(activeChar, "");
+	}
+	
+	private void handleNonPlayerRes(L2PcInstance activeChar, String radiusStr)
+	{
+		L2Object obj = activeChar.getTarget();
+		
+		try
+		{
+			int radius = 0;
+			
+			if (!radiusStr.isEmpty())
+			{
+				radius = Integer.parseInt(radiusStr);
+				
+				for (L2Character knownChar : activeChar.getKnownList().getKnownCharactersInRadius(radius))
+				{
+					if (!(knownChar instanceof L2PcInstance) && !(knownChar instanceof L2ControllableMobInstance))
+					{
+						doResurrect(knownChar);
+					}
+				}
+				
+				activeChar.sendMessage("Resurrected all non-players within a " + radius + " unit radius.");
+			}
+		}
+		catch (NumberFormatException e)
+		{
+			activeChar.sendMessage("Enter a valid radius.");
+			return;
+		}
+		
+		if ((obj instanceof L2PcInstance) || (obj instanceof L2ControllableMobInstance))
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
+			return;
+		}
+		
+		doResurrect((L2Character) obj);
 	}
 	
 	private void handleRes(L2PcInstance activeChar)
@@ -129,68 +191,6 @@ public class AdminRes implements IAdminCommandHandler
 		if (Config.DEBUG)
 		{
 			_log.fine("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") resurrected character " + obj.getObjectId());
-		}
-	}
-	
-	private void handleNonPlayerRes(L2PcInstance activeChar)
-	{
-		handleNonPlayerRes(activeChar, "");
-	}
-	
-	private void handleNonPlayerRes(L2PcInstance activeChar, String radiusStr)
-	{
-		L2Object obj = activeChar.getTarget();
-		
-		try
-		{
-			int radius = 0;
-			
-			if (!radiusStr.isEmpty())
-			{
-				radius = Integer.parseInt(radiusStr);
-				
-				for (L2Character knownChar : activeChar.getKnownList().getKnownCharactersInRadius(radius))
-				{
-					if (!(knownChar instanceof L2PcInstance) && !(knownChar instanceof L2ControllableMobInstance))
-					{
-						doResurrect(knownChar);
-					}
-				}
-				
-				activeChar.sendMessage("Resurrected all non-players within a " + radius + " unit radius.");
-			}
-		}
-		catch (NumberFormatException e)
-		{
-			activeChar.sendMessage("Enter a valid radius.");
-			return;
-		}
-		
-		if ((obj instanceof L2PcInstance) || (obj instanceof L2ControllableMobInstance))
-		{
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			return;
-		}
-		
-		doResurrect((L2Character) obj);
-	}
-	
-	private void doResurrect(L2Character targetChar)
-	{
-		if (!targetChar.isDead())
-		{
-			return;
-		}
-		
-		// If the target is a player, then restore the XP lost on death.
-		if (targetChar instanceof L2PcInstance)
-		{
-			targetChar.doRevive(100.0);
-		}
-		else
-		{
-			DecayTaskManager.getInstance().cancel(targetChar);
-			targetChar.doRevive();
 		}
 	}
 }

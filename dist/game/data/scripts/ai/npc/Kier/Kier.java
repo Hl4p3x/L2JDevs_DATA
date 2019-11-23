@@ -42,6 +42,11 @@ public final class Kier extends AbstractNpcAI
 		addFirstTalkId(KIER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Kier();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -69,10 +74,5 @@ public final class Kier extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new Kier();
 	}
 }

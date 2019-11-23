@@ -62,6 +62,12 @@ public final class TriggerSkillBySkill extends AbstractEffect
 		_targetType = params.getEnum("targetType", L2TargetType.class, L2TargetType.ONE);
 	}
 	
+	@Override
+	public void onExit(BuffInfo info)
+	{
+		info.getEffected().removeListenerIf(EventType.ON_CREATURE_SKILL_USE, listener -> listener.getOwner() == this);
+	}
+	
 	public void onSkillUseEvent(OnCreatureSkillUse event)
 	{
 		if ((_chance == 0) || ((_skill.getSkillId() == 0) || (_skill.getSkillLvl() == 0) || (_castSkillId == 0)))
@@ -102,12 +108,6 @@ public final class TriggerSkillBySkill extends AbstractEffect
 				event.getCaster().makeTriggerCast(triggerSkill, targetChar);
 			}
 		}
-	}
-	
-	@Override
-	public void onExit(BuffInfo info)
-	{
-		info.getEffected().removeListenerIf(EventType.ON_CREATURE_SKILL_USE, listener -> listener.getOwner() == this);
 	}
 	
 	@Override

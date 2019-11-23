@@ -59,6 +59,11 @@ public final class CastleAmbassador extends AbstractNpcAI
 		addSpawnId(CASTLE_AMBASSADOR);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CastleAmbassador();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -169,10 +174,5 @@ public final class CastleAmbassador extends AbstractNpcAI
 			startQuestTimer("DESPAWN", 3600000, npc, null);
 		}
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new CastleAmbassador();
 	}
 }

@@ -51,34 +51,107 @@ public class QuestLink implements IBypassHandler
 		"Quest"
 	};
 	
-	@Override
-	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
+	/**
+	 * Collect awaiting quests/start points and display a QuestChooseWindow (if several available) or QuestWindow.
+	 * @param player the L2PcInstance that talk with the {@code npc}.
+	 * @param npc the L2NpcInstance that chats with the {@code player}.
+	 */
+	public static void showQuestWindow(L2PcInstance player, L2Npc npc)
 	{
-		String quest = "";
-		try
+		boolean conditionMeet = false;
+		final Set<Quest> options = new HashSet<>();
+		for (QuestState state : getQuestsForTalk(player, npc.getId()))
 		{
-			quest = command.substring(5).trim();
+			final Quest quest = state.getQuest();
+			if (quest == null)
+			{
+				_log.log(Level.WARNING, player + " Requested incorrect quest state for non existing quest: " + state.getQuestName());
+				continue;
+			}
+			if ((quest.getId() > 0) && (quest.getId() < 20000))
+			{
+				options.add(quest);
+				if (quest.canStartQuest(player))
+				{
+					conditionMeet = true;
+				}
+			}
 		}
-		catch (IndexOutOfBoundsException ioobe)
+		
+		for (AbstractEventListener listener : npc.getListeners(EventType.ON_NPC_QUEST_START))
 		{
+			if (listener.getOwner() instanceof Quest)
+			{
+				final Quest quest = (Quest) listener.getOwner();
+				if (quest.isVisibleInQuestWindow())
+				{
+					if ((quest.getId() > 0) && (quest.getId() < 20000))
+					{
+						options.add(quest);
+						if (quest.canStartQuest(player))
+						{
+							conditionMeet = true;
+						}
+					}
+				}
+			}
 		}
-		if (quest.length() == 0)
+		
+		if (!conditionMeet)
 		{
-			showQuestWindow(activeChar, (L2Npc) target);
+			showQuestWindow(player, npc, "");
+		}
+		else if ((options.size() > 1) || ((player.getApprentice() > 0) && (L2World.getInstance().getPlayer(player.getApprentice()) != null) && options.stream().anyMatch(q -> q.getId() == TO_LEAD_AND_BE_LED)))
+		{
+			showQuestChooseWindow(player, npc, options.toArray(new Quest[options.size()]));
+		}
+		else if (options.size() == 1)
+		{
+			showQuestWindow(player, npc, options.stream().findFirst().get().getName());
 		}
 		else
 		{
-			int questNameEnd = quest.indexOf(" ");
-			if (questNameEnd == -1)
+			showQuestWindow(player, npc, "");
+		}
+	}
+	
+	/**
+	 * @param player the player talking to the NPC
+	 * @param npcId The Identifier of the NPC
+	 * @return a table containing all QuestState from the table _quests in which the L2PcInstance must talk to the NPC.
+	 */
+	private static List<QuestState> getQuestsForTalk(L2PcInstance player, int npcId)
+	{
+		// Create a QuestState table that will contain all QuestState to modify
+		final List<QuestState> states = new ArrayList<>();
+		
+		final L2NpcTemplate template = NpcData.getInstance().getTemplate(npcId);
+		if (template == null)
+		{
+			_log.log(Level.WARNING, QuestLink.class.getSimpleName() + ": " + player.getName() + " requested quests for talk on non existing npc " + npcId);
+			return states;
+		}
+		
+		// Go through the QuestState of the L2PcInstance quests
+		for (AbstractEventListener listener : template.getListeners(EventType.ON_NPC_TALK))
+		{
+			if (listener.getOwner() instanceof Quest)
 			{
-				showQuestWindow(activeChar, (L2Npc) target, quest);
-			}
-			else
-			{
-				activeChar.processQuestEvent(quest.substring(0, questNameEnd), quest.substring(questNameEnd).trim());
+				final Quest quest = (Quest) listener.getOwner();
+				if (quest.isVisibleInQuestWindow())
+				{
+					// Copy the current L2PcInstance QuestState in the QuestState table
+					final QuestState st = player.getQuestState(quest.getName());
+					if (st != null)
+					{
+						states.add(st);
+					}
+				}
 			}
 		}
-		return true;
+		
+		// Return a table containing all QuestState to modify
+		return states;
 	}
 	
 	/**
@@ -229,112 +302,39 @@ public class QuestLink implements IBypassHandler
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
-	/**
-	 * @param player the player talking to the NPC
-	 * @param npcId The Identifier of the NPC
-	 * @return a table containing all QuestState from the table _quests in which the L2PcInstance must talk to the NPC.
-	 */
-	private static List<QuestState> getQuestsForTalk(L2PcInstance player, int npcId)
-	{
-		// Create a QuestState table that will contain all QuestState to modify
-		final List<QuestState> states = new ArrayList<>();
-		
-		final L2NpcTemplate template = NpcData.getInstance().getTemplate(npcId);
-		if (template == null)
-		{
-			_log.log(Level.WARNING, QuestLink.class.getSimpleName() + ": " + player.getName() + " requested quests for talk on non existing npc " + npcId);
-			return states;
-		}
-		
-		// Go through the QuestState of the L2PcInstance quests
-		for (AbstractEventListener listener : template.getListeners(EventType.ON_NPC_TALK))
-		{
-			if (listener.getOwner() instanceof Quest)
-			{
-				final Quest quest = (Quest) listener.getOwner();
-				if (quest.isVisibleInQuestWindow())
-				{
-					// Copy the current L2PcInstance QuestState in the QuestState table
-					final QuestState st = player.getQuestState(quest.getName());
-					if (st != null)
-					{
-						states.add(st);
-					}
-				}
-			}
-		}
-		
-		// Return a table containing all QuestState to modify
-		return states;
-	}
-	
-	/**
-	 * Collect awaiting quests/start points and display a QuestChooseWindow (if several available) or QuestWindow.
-	 * @param player the L2PcInstance that talk with the {@code npc}.
-	 * @param npc the L2NpcInstance that chats with the {@code player}.
-	 */
-	public static void showQuestWindow(L2PcInstance player, L2Npc npc)
-	{
-		boolean conditionMeet = false;
-		final Set<Quest> options = new HashSet<>();
-		for (QuestState state : getQuestsForTalk(player, npc.getId()))
-		{
-			final Quest quest = state.getQuest();
-			if (quest == null)
-			{
-				_log.log(Level.WARNING, player + " Requested incorrect quest state for non existing quest: " + state.getQuestName());
-				continue;
-			}
-			if ((quest.getId() > 0) && (quest.getId() < 20000))
-			{
-				options.add(quest);
-				if (quest.canStartQuest(player))
-				{
-					conditionMeet = true;
-				}
-			}
-		}
-		
-		for (AbstractEventListener listener : npc.getListeners(EventType.ON_NPC_QUEST_START))
-		{
-			if (listener.getOwner() instanceof Quest)
-			{
-				final Quest quest = (Quest) listener.getOwner();
-				if (quest.isVisibleInQuestWindow())
-				{
-					if ((quest.getId() > 0) && (quest.getId() < 20000))
-					{
-						options.add(quest);
-						if (quest.canStartQuest(player))
-						{
-							conditionMeet = true;
-						}
-					}
-				}
-			}
-		}
-		
-		if (!conditionMeet)
-		{
-			showQuestWindow(player, npc, "");
-		}
-		else if ((options.size() > 1) || ((player.getApprentice() > 0) && (L2World.getInstance().getPlayer(player.getApprentice()) != null) && options.stream().anyMatch(q -> q.getId() == TO_LEAD_AND_BE_LED)))
-		{
-			showQuestChooseWindow(player, npc, options.toArray(new Quest[options.size()]));
-		}
-		else if (options.size() == 1)
-		{
-			showQuestWindow(player, npc, options.stream().findFirst().get().getName());
-		}
-		else
-		{
-			showQuestWindow(player, npc, "");
-		}
-	}
-	
 	@Override
 	public String[] getBypassList()
 	{
 		return COMMANDS;
+	}
+	
+	@Override
+	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
+	{
+		String quest = "";
+		try
+		{
+			quest = command.substring(5).trim();
+		}
+		catch (IndexOutOfBoundsException ioobe)
+		{
+		}
+		if (quest.length() == 0)
+		{
+			showQuestWindow(activeChar, (L2Npc) target);
+		}
+		else
+		{
+			int questNameEnd = quest.indexOf(" ");
+			if (questNameEnd == -1)
+			{
+				showQuestWindow(activeChar, (L2Npc) target, quest);
+			}
+			else
+			{
+				activeChar.processQuestEvent(quest.substring(0, questNameEnd), quest.substring(questNameEnd).trim());
+			}
+		}
+		return true;
 	}
 }

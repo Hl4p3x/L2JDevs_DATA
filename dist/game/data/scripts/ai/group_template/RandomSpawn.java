@@ -85,6 +85,11 @@ public final class RandomSpawn extends AbstractNpcAI
 		addSpawnId(SPAWN_POINTS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new RandomSpawn();
+	}
+	
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
@@ -114,10 +119,5 @@ public final class RandomSpawn extends AbstractNpcAI
 		{
 			_npc.teleToLocation(_loc, false);
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new RandomSpawn();
 	}
 }

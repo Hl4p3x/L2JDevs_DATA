@@ -66,6 +66,11 @@ public final class Q00457_LostAndFound extends Quest
 		addKillId(SOLINA_CLAN);
 	}
 	
+	public void broadcastNpcSay(L2Npc npc, L2PcInstance player, NpcStringId stringId, boolean whisper)
+	{
+		((whisper) ? player : npc).sendPacket(new NpcSay(npc.getObjectId(), ((whisper) ? Say2.TELL : Say2.ALL), npc.getId(), stringId));
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -204,6 +209,13 @@ public final class Q00457_LostAndFound extends Quest
 	}
 	
 	@Override
+	public String onSpawn(L2Npc npc)
+	{
+		_escortCheckers = SpawnTable.getInstance().getSpawns(ESCORT_CHECKER);
+		return super.onSpawn(npc);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = getNoQuestMsg(player);
@@ -230,17 +242,5 @@ public final class Q00457_LostAndFound extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onSpawn(L2Npc npc)
-	{
-		_escortCheckers = SpawnTable.getInstance().getSpawns(ESCORT_CHECKER);
-		return super.onSpawn(npc);
-	}
-	
-	public void broadcastNpcSay(L2Npc npc, L2PcInstance player, NpcStringId stringId, boolean whisper)
-	{
-		((whisper) ? player : npc).sendPacket(new NpcSay(npc.getObjectId(), ((whisper) ? Say2.TELL : Say2.ALL), npc.getId(), stringId));
 	}
 }

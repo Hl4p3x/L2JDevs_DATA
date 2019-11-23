@@ -48,16 +48,16 @@ public final class PolymorphingAngel extends AbstractNpcAI
 		addKillId(ANGELSPAWNS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new PolymorphingAngel();
+	}
+	
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		final L2Attackable newNpc = (L2Attackable) addSpawn(ANGELSPAWNS.get(npc.getId()), npc);
 		newNpc.setRunning();
 		return super.onKill(npc, killer, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new PolymorphingAngel();
 	}
 }

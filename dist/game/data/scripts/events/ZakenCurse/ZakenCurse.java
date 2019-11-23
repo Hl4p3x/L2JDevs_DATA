@@ -120,6 +120,11 @@ public final class ZakenCurse extends LongTimeEvent
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new ZakenCurse();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -374,10 +379,5 @@ public final class ZakenCurse extends LongTimeEvent
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new ZakenCurse();
 	}
 }

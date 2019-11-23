@@ -44,6 +44,12 @@ public class AdminTest implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_stats"))
@@ -120,11 +126,5 @@ public class AdminTest implements IAdminCommandHandler
 				caster.doCast(_skill);
 			}
 		}
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
 	}
 }

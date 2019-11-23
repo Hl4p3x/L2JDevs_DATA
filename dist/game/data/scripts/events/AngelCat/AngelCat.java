@@ -44,6 +44,11 @@ public final class AngelCat extends LongTimeEvent
 		addTalkId(ANGEL_CAT);
 	}
 	
+	public static void main(String[] args)
+	{
+		new AngelCat();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -78,10 +83,5 @@ public final class AngelCat extends LongTimeEvent
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return npc.getId() + ".htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new AngelCat();
 	}
 }

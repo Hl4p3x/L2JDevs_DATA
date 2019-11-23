@@ -32,12 +32,8 @@ import org.l2jdevs.gameserver.network.SystemMessageId;
  */
 public final class SecretArea extends Quest
 {
-	protected class SAWorld extends InstanceWorld
-	{
-		
-	}
-	
 	private static final int TEMPLATE_ID = 118;
+	
 	private static final int GINBY = 32566;
 	private static final int LELRIKIA = 32567;
 	private static final int ENTER = 0;
@@ -47,13 +43,29 @@ public final class SecretArea extends Quest
 		new Location(-23758, -8959, -5384),
 		new Location(-185057, 242821, 1576)
 	};
-	
 	public SecretArea()
 	{
 		super(-1, SecretArea.class.getSimpleName(), "gracia/instances");
 		addStartNpc(GINBY);
 		addTalkId(GINBY);
 		addTalkId(LELRIKIA);
+	}
+	
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = getNoQuestMsg(player);
+		if ((npc.getId() == GINBY) && event.equalsIgnoreCase("enter"))
+		{
+			enterInstance(player);
+			return "32566-01.html";
+		}
+		else if ((npc.getId() == LELRIKIA) && event.equalsIgnoreCase("exit"))
+		{
+			teleportPlayer(player, TELEPORTS[EXIT], 0);
+			return "32567-01.html";
+		}
+		return htmltext;
 	}
 	
 	protected void enterInstance(L2PcInstance player)
@@ -80,20 +92,8 @@ public final class SecretArea extends Quest
 		teleportPlayer(player, TELEPORTS[ENTER], world.getInstanceId());
 	}
 	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	protected class SAWorld extends InstanceWorld
 	{
-		String htmltext = getNoQuestMsg(player);
-		if ((npc.getId() == GINBY) && event.equalsIgnoreCase("enter"))
-		{
-			enterInstance(player);
-			return "32566-01.html";
-		}
-		else if ((npc.getId() == LELRIKIA) && event.equalsIgnoreCase("exit"))
-		{
-			teleportPlayer(player, TELEPORTS[EXIT], 0);
-			return "32567-01.html";
-		}
-		return htmltext;
+		
 	}
 }

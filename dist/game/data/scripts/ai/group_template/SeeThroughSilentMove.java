@@ -46,6 +46,11 @@ public class SeeThroughSilentMove extends AbstractNpcAI
 		addSpawnId(MONSTERS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new SeeThroughSilentMove();
+	}
+	
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
@@ -54,10 +59,5 @@ public class SeeThroughSilentMove extends AbstractNpcAI
 			((L2Attackable) npc).setSeeThroughSilentMove(true);
 		}
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new SeeThroughSilentMove();
 	}
 }

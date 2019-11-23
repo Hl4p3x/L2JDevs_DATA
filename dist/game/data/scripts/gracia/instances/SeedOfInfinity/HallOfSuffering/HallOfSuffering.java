@@ -53,21 +53,9 @@ import quests.Q00695_DefendTheHallOfSuffering.Q00695_DefendTheHallOfSuffering;
  */
 public final class HallOfSuffering extends AbstractInstance
 {
-	protected class HSWorld extends InstanceWorld
-	{
-		protected Map<L2Npc, Boolean> npcList = new HashMap<>();
-		protected L2Npc klodekus = null;
-		protected L2Npc klanikus = null;
-		protected boolean isBossesAttacked = false;
-		protected long startTime = 0;
-		protected String ptLeaderName = "";
-		protected int rewardItemId = -1;
-		protected String rewardHtm = "";
-		protected boolean isRewarded = false;
-	}
-	
 	// NPCs
 	private static final int MOUTH_OF_EKIMUS = 32537;
+	
 	private static final int TEPIOS = 32530;
 	// Location
 	private static final Location ENTER_TELEPORT = new Location(-187567, 205570, -9538);
@@ -171,7 +159,6 @@ public final class HallOfSuffering extends AbstractInstance
 	private static final int TEMPLATE_ID = 115;
 	private static final int MIN_LEVEL = 75;
 	private static final int MAX_LEVEL = 82;
-	
 	public HallOfSuffering()
 	{
 		super(HallOfSuffering.class.getSimpleName(), "gracia/instances/SeedOfInfinity");
@@ -182,256 +169,6 @@ public final class HallOfSuffering extends AbstractInstance
 		addAttackId(KLODEKUS, KLANIKUS);
 		addSkillSeeId(TUMOR_MOBIDS);
 		addKillId(TUMOR_MOBIDS);
-	}
-	
-	@Override
-	protected boolean checkConditions(L2PcInstance player)
-	{
-		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
-		{
-			return true;
-		}
-		
-		final L2Party party = player.getParty();
-		if (party == null)
-		{
-			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
-			return false;
-		}
-		
-		if (party.getLeader() != player)
-		{
-			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
-			return false;
-		}
-		
-		for (L2PcInstance partyMember : party.getMembers())
-		{
-			if ((partyMember.getLevel() < MIN_LEVEL) || (partyMember.getLevel() > MAX_LEVEL))
-			{
-				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (!Util.checkIfInRange(1000, player, partyMember, true))
-			{
-				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-			if (System.currentTimeMillis() < InstanceManager.getInstance().getInstanceTime(partyMember.getObjectId(), TEMPLATE_ID))
-			{
-				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_MAY_NOT_RE_ENTER_YET);
-				sm.addPcName(partyMember);
-				party.broadcastPacket(sm);
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	@Override
-	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
-	{
-		if (firstEntrance)
-		{
-			if (!player.isInParty())
-			{
-				teleportPlayer(player, ENTER_TELEPORT, world.getInstanceId());
-				world.addAllowed(player.getObjectId());
-			}
-			else
-			{
-				for (L2PcInstance players : player.getParty().getMembers())
-				{
-					teleportPlayer(players, ENTER_TELEPORT, world.getInstanceId());
-					world.addAllowed(players.getObjectId());
-					getQuestState(players, true);
-				}
-			}
-			
-			runTumors((HSWorld) world);
-		}
-		else
-		{
-			teleportPlayer(player, ENTER_TELEPORT, world.getInstanceId());
-		}
-	}
-	
-	private boolean checkKillProgress(L2Npc mob, HSWorld world)
-	{
-		if (world.npcList.containsKey(mob))
-		{
-			world.npcList.put(mob, true);
-		}
-		for (boolean isDead : world.npcList.values())
-		{
-			if (!isDead)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	private int[][] getRoomSpawns(int room)
-	{
-		switch (room)
-		{
-			case 0:
-				return ROOM_1_MOBS;
-			case 1:
-				return ROOM_2_MOBS;
-			case 2:
-				return ROOM_3_MOBS;
-			case 3:
-				return ROOM_4_MOBS;
-			case 4:
-				return ROOM_5_MOBS;
-		}
-		_log.warning("");
-		return new int[][] {};
-	}
-	
-	private void runTumors(HSWorld world)
-	{
-		for (int[] mob : getRoomSpawns(world.getStatus()))
-		{
-			final L2Npc npc = addSpawn(mob[0], mob[1], mob[2], mob[3], 0, false, 0, false, world.getInstanceId());
-			world.npcList.put(npc, false);
-		}
-		
-		final L2Npc mob = addSpawn(TUMOR_ALIVE, TUMOR_SPAWNS[world.getStatus()], false, 0, false, world.getInstanceId());
-		mob.disableCoreAI(true);
-		mob.setIsImmobilized(true);
-		mob.setCurrentHp(mob.getMaxHp() * 0.5);
-		world.npcList.put(mob, false);
-		world.incStatus();
-	}
-	
-	private void runTwins(HSWorld world)
-	{
-		world.incStatus();
-		world.klodekus = addSpawn(KLODEKUS, KLODEKUS_SPAWN, false, 0, false, world.getInstanceId());
-		world.klanikus = addSpawn(KLANIKUS, KLANIKUS_SPAWN, false, 0, false, world.getInstanceId());
-		world.klanikus.setIsMortal(false);
-		world.klodekus.setIsMortal(false);
-	}
-	
-	private void bossSimpleDie(L2Npc boss)
-	{
-		// killing is only possible one time
-		synchronized (this)
-		{
-			if (boss.isDead())
-			{
-				return;
-			}
-			// now reset currentHp to zero
-			boss.setCurrentHp(0);
-			boss.setIsDead(true);
-		}
-		
-		// Set target to null and cancel Attack or Cast
-		boss.setTarget(null);
-		
-		// Stop movement
-		boss.stopMove(null);
-		
-		// Stop HP/MP/CP Regeneration task
-		boss.getStatus().stopHpMpRegeneration();
-		
-		boss.stopAllEffectsExceptThoseThatLastThroughDeath();
-		
-		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
-		boss.broadcastStatusUpdate();
-		
-		// Notify L2Character AI
-		boss.getAI().notifyEvent(CtrlEvent.EVT_DEAD);
-		
-		if (boss.getWorldRegion() != null)
-		{
-			boss.getWorldRegion().onDeath(boss);
-		}
-	}
-	
-	private void calcRewardItemId(HSWorld world)
-	{
-		Long finishDiff = System.currentTimeMillis() - world.startTime;
-		if (finishDiff < 1200000)
-		{
-			world.rewardHtm = "32530-00.htm";
-			world.rewardItemId = 13777;
-		}
-		else if (finishDiff <= 1260000)
-		{
-			world.rewardHtm = "32530-01.htm";
-			world.rewardItemId = 13778;
-		}
-		else if (finishDiff <= 1320000)
-		{
-			world.rewardHtm = "32530-02.htm";
-			world.rewardItemId = 13779;
-		}
-		else if (finishDiff <= 1380000)
-		{
-			world.rewardHtm = "32530-03.htm";
-			world.rewardItemId = 13780;
-		}
-		else if (finishDiff <= 1440000)
-		{
-			world.rewardHtm = "32530-04.htm";
-			world.rewardItemId = 13781;
-		}
-		else if (finishDiff <= 1500000)
-		{
-			world.rewardHtm = "32530-05.htm";
-			world.rewardItemId = 13782;
-		}
-		else if (finishDiff <= 1560000)
-		{
-			world.rewardHtm = "32530-06.htm";
-			world.rewardItemId = 13783;
-		}
-		else if (finishDiff <= 1620000)
-		{
-			world.rewardHtm = "32530-07.htm";
-			world.rewardItemId = 13784;
-		}
-		else if (finishDiff <= 1680000)
-		{
-			world.rewardHtm = "32530-08.htm";
-			world.rewardItemId = 13785;
-		}
-		else
-		{
-			world.rewardHtm = "32530-09.htm";
-			world.rewardItemId = 13786;
-		}
-	}
-	
-	private String getPtLeaderText(L2PcInstance player, HSWorld world)
-	{
-		String htmltext = HtmCache.getInstance().getHtm(player.getHtmlPrefix(), "/data/scripts/gracia/instances/SeedOfInfinity/HallOfSuffering/32530-10.htm");
-		htmltext = htmltext.replaceAll("%ptLeader%", String.valueOf(world.ptLeaderName));
-		return htmltext;
-	}
-	
-	@Override
-	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
-	{
-		if (skill.hasEffectType(L2EffectType.REBALANCE_HP, L2EffectType.HP))
-		{
-			int hate = 2 * skill.getEffectPoint();
-			if (hate < 2)
-			{
-				hate = 1000;
-			}
-			((L2Attackable) npc).addDamageHate(caster, 0, hate);
-		}
-		return super.onSkillSee(npc, caster, skill, targets, isSummon);
 	}
 	
 	@Override
@@ -534,6 +271,59 @@ public final class HallOfSuffering extends AbstractInstance
 	}
 	
 	@Override
+	public void onEnterInstance(L2PcInstance player, InstanceWorld world, boolean firstEntrance)
+	{
+		if (firstEntrance)
+		{
+			if (!player.isInParty())
+			{
+				teleportPlayer(player, ENTER_TELEPORT, world.getInstanceId());
+				world.addAllowed(player.getObjectId());
+			}
+			else
+			{
+				for (L2PcInstance players : player.getParty().getMembers())
+				{
+					teleportPlayer(players, ENTER_TELEPORT, world.getInstanceId());
+					world.addAllowed(players.getObjectId());
+					getQuestState(players, true);
+				}
+			}
+			
+			runTumors((HSWorld) world);
+		}
+		else
+		{
+			teleportPlayer(player, ENTER_TELEPORT, world.getInstanceId());
+		}
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		if (npc.getId() == TEPIOS)
+		{
+			InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
+			if (((HSWorld) world).rewardItemId == -1)
+			{
+				_log.warning("Hall of Suffering: " + player.getName() + "(" + player.getObjectId() + ") is try to cheat!");
+				return getPtLeaderText(player, (HSWorld) world);
+			}
+			else if (((HSWorld) world).isRewarded)
+			{
+				return "32530-11.htm";
+			}
+			else if ((player.getParty() != null) && (player.getParty().getLeaderObjectId() == player.getObjectId()))
+			{
+				return ((HSWorld) world).rewardHtm;
+			}
+			
+			return getPtLeaderText(player, (HSWorld) world);
+		}
+		return super.onFirstTalk(npc, player);
+	}
+	
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		InstanceWorld tmpworld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
@@ -580,28 +370,18 @@ public final class HallOfSuffering extends AbstractInstance
 	}
 	
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	public String onSkillSee(L2Npc npc, L2PcInstance caster, Skill skill, L2Object[] targets, boolean isSummon)
 	{
-		if (npc.getId() == TEPIOS)
+		if (skill.hasEffectType(L2EffectType.REBALANCE_HP, L2EffectType.HP))
 		{
-			InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
-			if (((HSWorld) world).rewardItemId == -1)
+			int hate = 2 * skill.getEffectPoint();
+			if (hate < 2)
 			{
-				_log.warning("Hall of Suffering: " + player.getName() + "(" + player.getObjectId() + ") is try to cheat!");
-				return getPtLeaderText(player, (HSWorld) world);
+				hate = 1000;
 			}
-			else if (((HSWorld) world).isRewarded)
-			{
-				return "32530-11.htm";
-			}
-			else if ((player.getParty() != null) && (player.getParty().getLeaderObjectId() == player.getObjectId()))
-			{
-				return ((HSWorld) world).rewardHtm;
-			}
-			
-			return getPtLeaderText(player, (HSWorld) world);
+			((L2Attackable) npc).addDamageHate(caster, 0, hate);
 		}
-		return super.onFirstTalk(npc, player);
+		return super.onSkillSee(npc, caster, skill, targets, isSummon);
 	}
 	
 	@Override
@@ -643,5 +423,225 @@ public final class HallOfSuffering extends AbstractInstance
 			return getPtLeaderText(talker, (HSWorld) world);
 		}
 		return super.onTalk(npc, talker);
+	}
+	
+	@Override
+	protected boolean checkConditions(L2PcInstance player)
+	{
+		if (player.canOverrideCond(PcCondOverride.INSTANCE_CONDITIONS))
+		{
+			return true;
+		}
+		
+		final L2Party party = player.getParty();
+		if (party == null)
+		{
+			player.sendPacket(SystemMessageId.NOT_IN_PARTY_CANT_ENTER);
+			return false;
+		}
+		
+		if (party.getLeader() != player)
+		{
+			player.sendPacket(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER);
+			return false;
+		}
+		
+		for (L2PcInstance partyMember : party.getMembers())
+		{
+			if ((partyMember.getLevel() < MIN_LEVEL) || (partyMember.getLevel() > MAX_LEVEL))
+			{
+				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_S_LEVEL_REQUIREMENT_IS_NOT_SUFFICIENT_AND_CANNOT_BE_ENTERED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (!Util.checkIfInRange(1000, player, partyMember, true))
+			{
+				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_IS_IN_A_LOCATION_WHICH_CANNOT_BE_ENTERED_THEREFORE_IT_CANNOT_BE_PROCESSED);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+			if (System.currentTimeMillis() < InstanceManager.getInstance().getInstanceTime(partyMember.getObjectId(), TEMPLATE_ID))
+			{
+				final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.C1_MAY_NOT_RE_ENTER_YET);
+				sm.addPcName(partyMember);
+				party.broadcastPacket(sm);
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void bossSimpleDie(L2Npc boss)
+	{
+		// killing is only possible one time
+		synchronized (this)
+		{
+			if (boss.isDead())
+			{
+				return;
+			}
+			// now reset currentHp to zero
+			boss.setCurrentHp(0);
+			boss.setIsDead(true);
+		}
+		
+		// Set target to null and cancel Attack or Cast
+		boss.setTarget(null);
+		
+		// Stop movement
+		boss.stopMove(null);
+		
+		// Stop HP/MP/CP Regeneration task
+		boss.getStatus().stopHpMpRegeneration();
+		
+		boss.stopAllEffectsExceptThoseThatLastThroughDeath();
+		
+		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
+		boss.broadcastStatusUpdate();
+		
+		// Notify L2Character AI
+		boss.getAI().notifyEvent(CtrlEvent.EVT_DEAD);
+		
+		if (boss.getWorldRegion() != null)
+		{
+			boss.getWorldRegion().onDeath(boss);
+		}
+	}
+	
+	private void calcRewardItemId(HSWorld world)
+	{
+		Long finishDiff = System.currentTimeMillis() - world.startTime;
+		if (finishDiff < 1200000)
+		{
+			world.rewardHtm = "32530-00.htm";
+			world.rewardItemId = 13777;
+		}
+		else if (finishDiff <= 1260000)
+		{
+			world.rewardHtm = "32530-01.htm";
+			world.rewardItemId = 13778;
+		}
+		else if (finishDiff <= 1320000)
+		{
+			world.rewardHtm = "32530-02.htm";
+			world.rewardItemId = 13779;
+		}
+		else if (finishDiff <= 1380000)
+		{
+			world.rewardHtm = "32530-03.htm";
+			world.rewardItemId = 13780;
+		}
+		else if (finishDiff <= 1440000)
+		{
+			world.rewardHtm = "32530-04.htm";
+			world.rewardItemId = 13781;
+		}
+		else if (finishDiff <= 1500000)
+		{
+			world.rewardHtm = "32530-05.htm";
+			world.rewardItemId = 13782;
+		}
+		else if (finishDiff <= 1560000)
+		{
+			world.rewardHtm = "32530-06.htm";
+			world.rewardItemId = 13783;
+		}
+		else if (finishDiff <= 1620000)
+		{
+			world.rewardHtm = "32530-07.htm";
+			world.rewardItemId = 13784;
+		}
+		else if (finishDiff <= 1680000)
+		{
+			world.rewardHtm = "32530-08.htm";
+			world.rewardItemId = 13785;
+		}
+		else
+		{
+			world.rewardHtm = "32530-09.htm";
+			world.rewardItemId = 13786;
+		}
+	}
+	
+	private boolean checkKillProgress(L2Npc mob, HSWorld world)
+	{
+		if (world.npcList.containsKey(mob))
+		{
+			world.npcList.put(mob, true);
+		}
+		for (boolean isDead : world.npcList.values())
+		{
+			if (!isDead)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private String getPtLeaderText(L2PcInstance player, HSWorld world)
+	{
+		String htmltext = HtmCache.getInstance().getHtm(player.getHtmlPrefix(), "/data/scripts/gracia/instances/SeedOfInfinity/HallOfSuffering/32530-10.htm");
+		htmltext = htmltext.replaceAll("%ptLeader%", String.valueOf(world.ptLeaderName));
+		return htmltext;
+	}
+	
+	private int[][] getRoomSpawns(int room)
+	{
+		switch (room)
+		{
+			case 0:
+				return ROOM_1_MOBS;
+			case 1:
+				return ROOM_2_MOBS;
+			case 2:
+				return ROOM_3_MOBS;
+			case 3:
+				return ROOM_4_MOBS;
+			case 4:
+				return ROOM_5_MOBS;
+		}
+		_log.warning("");
+		return new int[][] {};
+	}
+	
+	private void runTumors(HSWorld world)
+	{
+		for (int[] mob : getRoomSpawns(world.getStatus()))
+		{
+			final L2Npc npc = addSpawn(mob[0], mob[1], mob[2], mob[3], 0, false, 0, false, world.getInstanceId());
+			world.npcList.put(npc, false);
+		}
+		
+		final L2Npc mob = addSpawn(TUMOR_ALIVE, TUMOR_SPAWNS[world.getStatus()], false, 0, false, world.getInstanceId());
+		mob.disableCoreAI(true);
+		mob.setIsImmobilized(true);
+		mob.setCurrentHp(mob.getMaxHp() * 0.5);
+		world.npcList.put(mob, false);
+		world.incStatus();
+	}
+	
+	private void runTwins(HSWorld world)
+	{
+		world.incStatus();
+		world.klodekus = addSpawn(KLODEKUS, KLODEKUS_SPAWN, false, 0, false, world.getInstanceId());
+		world.klanikus = addSpawn(KLANIKUS, KLANIKUS_SPAWN, false, 0, false, world.getInstanceId());
+		world.klanikus.setIsMortal(false);
+		world.klodekus.setIsMortal(false);
+	}
+	
+	protected class HSWorld extends InstanceWorld
+	{
+		protected Map<L2Npc, Boolean> npcList = new HashMap<>();
+		protected L2Npc klodekus = null;
+		protected L2Npc klanikus = null;
+		protected boolean isBossesAttacked = false;
+		protected long startTime = 0;
+		protected String ptLeaderName = "";
+		protected int rewardItemId = -1;
+		protected String rewardHtm = "";
+		protected boolean isRewarded = false;
 	}
 }

@@ -100,6 +100,25 @@ public final class Q00649_ALooterAndARailroadMan extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState st = getQuestState(killer, false);
+		if ((st != null) && st.isCond(1) && Util.checkIfInRange(1500, npc, killer, false) && (getRandom(1000) < MONSTERS.get(npc.getId())))
+		{
+			st.giveItems(THIEF_GUILD_MARK, 1);
+			if (st.getQuestItemsCount(THIEF_GUILD_MARK) == 200)
+			{
+				st.setCond(2, true);
+			}
+			else
+			{
+				st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState st = getQuestState(player, true);
@@ -118,24 +137,5 @@ public final class Q00649_ALooterAndARailroadMan extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && st.isCond(1) && Util.checkIfInRange(1500, npc, killer, false) && (getRandom(1000) < MONSTERS.get(npc.getId())))
-		{
-			st.giveItems(THIEF_GUILD_MARK, 1);
-			if (st.getQuestItemsCount(THIEF_GUILD_MARK) == 200)
-			{
-				st.setCond(2, true);
-			}
-			else
-			{
-				st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

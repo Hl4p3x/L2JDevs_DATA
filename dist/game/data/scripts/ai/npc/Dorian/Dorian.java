@@ -46,6 +46,11 @@ public final class Dorian extends AbstractNpcAI
 		addSeeCreatureId(DORIAN);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Dorian();
+	}
+	
 	@Override
 	public String onSeeCreature(L2Npc npc, L2Character creature, boolean isSummon)
 	{
@@ -62,10 +67,5 @@ public final class Dorian extends AbstractNpcAI
 			}
 		}
 		return super.onSeeCreature(npc, creature, isSummon);
-	}
-	
-	public static void main(String[] args)
-	{
-		new Dorian();
 	}
 }

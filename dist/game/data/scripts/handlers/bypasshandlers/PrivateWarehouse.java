@@ -42,6 +42,38 @@ public class PrivateWarehouse implements IBypassHandler
 		"depositp"
 	};
 	
+	private static final void showWithdrawWindow(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.setActiveWarehouse(player.getWarehouse());
+		
+		if (player.getActiveWarehouse().getSize() == 0)
+		{
+			player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
+			return;
+		}
+		
+		if (itemtype != null)
+		{
+			player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE, itemtype, sortorder));
+		}
+		else
+		{
+			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE));
+		}
+		
+		if (Config.DEBUG)
+		{
+			_log.fine("Source: L2WarehouseInstance.java; Player: " + player.getName() + "; Command: showRetrieveWindow; Message: Showing stored items.");
+		}
+	}
+	
+	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
 	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
@@ -106,37 +138,5 @@ public class PrivateWarehouse implements IBypassHandler
 			_log.log(Level.WARNING, "Exception in " + getClass().getSimpleName(), e);
 		}
 		return false;
-	}
-	
-	private static final void showWithdrawWindow(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
-	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-		player.setActiveWarehouse(player.getWarehouse());
-		
-		if (player.getActiveWarehouse().getSize() == 0)
-		{
-			player.sendPacket(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
-			return;
-		}
-		
-		if (itemtype != null)
-		{
-			player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE, itemtype, sortorder));
-		}
-		else
-		{
-			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE));
-		}
-		
-		if (Config.DEBUG)
-		{
-			_log.fine("Source: L2WarehouseInstance.java; Player: " + player.getName() + "; Command: showRetrieveWindow; Message: Showing stored items.");
-		}
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

@@ -58,6 +58,11 @@ public final class KamaelChange1 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new KamaelChange1();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -82,6 +87,40 @@ public final class KamaelChange1 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.getRace() != Race.KAMAEL)
+		{
+			htmltext = "32191-01.htm"; // master_all_kamael002a
+		}
+		else if (player.isInCategory(CategoryType.KAMAEL_FIRST_CLASS_GROUP))
+		{
+			if (player.getClassId() == ClassId.maleSoldier)
+			{
+				htmltext = "32191-02.htm"; // master_all_kamael003m
+			}
+			else if (player.getClassId() == ClassId.femaleSoldier)
+			{
+				htmltext = "32191-06.htm"; // master_all_kamael003f
+			}
+		}
+		else if (player.isInCategory(CategoryType.KAMAEL_SECOND_CLASS_GROUP))
+		{
+			htmltext = "32191-10.htm"; // master_all_kamael004a
+		}
+		else if (player.isInCategory(CategoryType.KAMAEL_THIRD_CLASS_GROUP))
+		{
+			htmltext = "32191-11.htm"; // master_all_kamael005a
+		}
+		else
+		{
+			htmltext = "32191-12.htm"; // master_all_kamael100a
 		}
 		return htmltext;
 	}
@@ -163,44 +202,5 @@ public final class KamaelChange1 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.getRace() != Race.KAMAEL)
-		{
-			htmltext = "32191-01.htm"; // master_all_kamael002a
-		}
-		else if (player.isInCategory(CategoryType.KAMAEL_FIRST_CLASS_GROUP))
-		{
-			if (player.getClassId() == ClassId.maleSoldier)
-			{
-				htmltext = "32191-02.htm"; // master_all_kamael003m
-			}
-			else if (player.getClassId() == ClassId.femaleSoldier)
-			{
-				htmltext = "32191-06.htm"; // master_all_kamael003f
-			}
-		}
-		else if (player.isInCategory(CategoryType.KAMAEL_SECOND_CLASS_GROUP))
-		{
-			htmltext = "32191-10.htm"; // master_all_kamael004a
-		}
-		else if (player.isInCategory(CategoryType.KAMAEL_THIRD_CLASS_GROUP))
-		{
-			htmltext = "32191-11.htm"; // master_all_kamael005a
-		}
-		else
-		{
-			htmltext = "32191-12.htm"; // master_all_kamael100a
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new KamaelChange1();
 	}
 }

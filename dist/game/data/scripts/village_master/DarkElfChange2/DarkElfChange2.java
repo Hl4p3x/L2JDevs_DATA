@@ -80,6 +80,11 @@ public final class DarkElfChange2 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new DarkElfChange2();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -126,6 +131,45 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.DELF_MALL_CLASS) || player.isInCategory(CategoryType.DELF_FALL_CLASS)))
+		{
+			htmltext = "30195-01.htm";
+		}
+		else if ((player.isInCategory(CategoryType.DELF_MALL_CLASS) || player.isInCategory(CategoryType.DELF_FALL_CLASS)))
+		{
+			final ClassId classId = player.getClassId();
+			if ((classId == ClassId.palusKnight) || (classId == ClassId.shillienKnight) || (classId == ClassId.bladedancer))
+			{
+				htmltext = "30195-02.htm";
+			}
+			else if ((classId == ClassId.assassin) || (classId == ClassId.abyssWalker) || (classId == ClassId.phantomRanger))
+			{
+				htmltext = "30195-09.htm";
+			}
+			else if ((classId == ClassId.darkWizard) || (classId == ClassId.spellhowler) || (classId == ClassId.phantomSummoner))
+			{
+				htmltext = "30195-16.htm";
+			}
+			else if ((classId == ClassId.shillienOracle) || (classId == ClassId.shillenElder))
+			{
+				htmltext = "30195-23.htm";
+			}
+			else
+			{
+				htmltext = "30195-27.htm";
+			}
+		}
+		else
+		{
+			htmltext = "30195-28.htm";
 		}
 		return htmltext;
 	}
@@ -334,49 +378,5 @@ public final class DarkElfChange2 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.DELF_MALL_CLASS) || player.isInCategory(CategoryType.DELF_FALL_CLASS)))
-		{
-			htmltext = "30195-01.htm";
-		}
-		else if ((player.isInCategory(CategoryType.DELF_MALL_CLASS) || player.isInCategory(CategoryType.DELF_FALL_CLASS)))
-		{
-			final ClassId classId = player.getClassId();
-			if ((classId == ClassId.palusKnight) || (classId == ClassId.shillienKnight) || (classId == ClassId.bladedancer))
-			{
-				htmltext = "30195-02.htm";
-			}
-			else if ((classId == ClassId.assassin) || (classId == ClassId.abyssWalker) || (classId == ClassId.phantomRanger))
-			{
-				htmltext = "30195-09.htm";
-			}
-			else if ((classId == ClassId.darkWizard) || (classId == ClassId.spellhowler) || (classId == ClassId.phantomSummoner))
-			{
-				htmltext = "30195-16.htm";
-			}
-			else if ((classId == ClassId.shillienOracle) || (classId == ClassId.shillenElder))
-			{
-				htmltext = "30195-23.htm";
-			}
-			else
-			{
-				htmltext = "30195-27.htm";
-			}
-		}
-		else
-		{
-			htmltext = "30195-28.htm";
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new DarkElfChange2();
 	}
 }

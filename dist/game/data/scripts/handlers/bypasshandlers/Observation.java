@@ -90,6 +90,23 @@ public class Observation implements IBypassHandler
 		//@formatter:on
 	};
 	
+	private static final void doObserve(final L2PcInstance player, final L2Npc npc, final Location pos, final long cost)
+	{
+		if (player.reduceAdena("Broadcast", cost, npc, true))
+		{
+			// enter mode
+			player.enterObserverMode(pos);
+			player.sendPacket(new ItemList(player, false));
+		}
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
+	
+	@Override
+	public String[] getBypassList()
+	{
+		return COMMANDS;
+	}
+	
 	@Override
 	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
 	{
@@ -156,22 +173,5 @@ public class Observation implements IBypassHandler
 			}
 		}
 		return false;
-	}
-	
-	private static final void doObserve(final L2PcInstance player, final L2Npc npc, final Location pos, final long cost)
-	{
-		if (player.reduceAdena("Broadcast", cost, npc, true))
-		{
-			// enter mode
-			player.enterObserverMode(pos);
-			player.sendPacket(new ItemList(player, false));
-		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-	
-	@Override
-	public String[] getBypassList()
-	{
-		return COMMANDS;
 	}
 }

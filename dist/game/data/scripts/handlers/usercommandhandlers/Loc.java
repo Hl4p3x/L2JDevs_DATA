@@ -38,6 +38,12 @@ public class Loc implements IUserCommandHandler
 	};
 	
 	@Override
+	public int[] getUserCommandList()
+	{
+		return COMMAND_IDS;
+	}
+	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		int region;
@@ -69,11 +75,5 @@ public class Loc implements IUserCommandHandler
 		}
 		activeChar.sendPacket(sm);
 		return true;
-	}
-	
-	@Override
-	public int[] getUserCommandList()
-	{
-		return COMMAND_IDS;
 	}
 }

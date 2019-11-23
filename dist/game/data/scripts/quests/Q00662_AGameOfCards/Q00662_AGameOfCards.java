@@ -98,6 +98,90 @@ public final class Q00662_AGameOfCards extends Quest
 		addKillId(MONSTERS.keySet());
 	}
 	
+	private static String setHtml(String htmltext, int var, String regex)
+	{
+		String replacement = null;
+		switch (var)
+		{
+			case 1:
+			{
+				replacement = "!";
+				break;
+			}
+			case 2:
+			{
+				replacement = "=";
+				break;
+			}
+			case 3:
+			{
+				replacement = "T";
+				break;
+			}
+			case 4:
+			{
+				replacement = "V";
+				break;
+			}
+			case 5:
+			{
+				replacement = "O";
+				break;
+			}
+			case 6:
+			{
+				replacement = "P";
+				break;
+			}
+			case 7:
+			{
+				replacement = "S";
+				break;
+			}
+			case 8:
+			{
+				replacement = "E";
+				break;
+			}
+			case 9:
+			{
+				replacement = "H";
+				break;
+			}
+			case 10:
+			{
+				replacement = "A";
+				break;
+			}
+			case 11:
+			{
+				replacement = "R";
+				break;
+			}
+			case 12:
+			{
+				replacement = "D";
+				break;
+			}
+			case 13:
+			{
+				replacement = "I";
+				break;
+			}
+			case 14:
+			{
+				replacement = "N";
+				break;
+			}
+			default:
+			{
+				replacement = "ERROR";
+				break;
+			}
+		}
+		return htmltext.replaceAll(regex, replacement);
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -609,6 +693,39 @@ public final class Q00662_AGameOfCards extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final List<L2PcInstance> players = new ArrayList<>();
+		players.add(killer);
+		players.add(killer);
+		
+		if (killer.isInParty())
+		{
+			for (L2PcInstance member : killer.getParty().getMembers())
+			{
+				if (getQuestState(member, false) != null)
+				{
+					players.add(member);
+				}
+			}
+		}
+		
+		final L2PcInstance player = players.get(Rnd.get(players.size()));
+		if ((player != null) && Util.checkIfInRange(1500, npc, player, false))
+		{
+			if (MONSTERS.get(npc.getId()) < getRandom(1000))
+			{
+				final QuestState st = getQuestState(player, false);
+				if (st != null)
+				{
+					giveItemRandomly(st.getPlayer(), npc, RED_GEM, 1, 0, MONSTERS.get(npc.getId()), true);
+				}
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState st = getQuestState(player, true);
@@ -700,122 +817,5 @@ public final class Q00662_AGameOfCards extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final List<L2PcInstance> players = new ArrayList<>();
-		players.add(killer);
-		players.add(killer);
-		
-		if (killer.isInParty())
-		{
-			for (L2PcInstance member : killer.getParty().getMembers())
-			{
-				if (getQuestState(member, false) != null)
-				{
-					players.add(member);
-				}
-			}
-		}
-		
-		final L2PcInstance player = players.get(Rnd.get(players.size()));
-		if ((player != null) && Util.checkIfInRange(1500, npc, player, false))
-		{
-			if (MONSTERS.get(npc.getId()) < getRandom(1000))
-			{
-				final QuestState st = getQuestState(player, false);
-				if (st != null)
-				{
-					giveItemRandomly(st.getPlayer(), npc, RED_GEM, 1, 0, MONSTERS.get(npc.getId()), true);
-				}
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
-	}
-	
-	private static String setHtml(String htmltext, int var, String regex)
-	{
-		String replacement = null;
-		switch (var)
-		{
-			case 1:
-			{
-				replacement = "!";
-				break;
-			}
-			case 2:
-			{
-				replacement = "=";
-				break;
-			}
-			case 3:
-			{
-				replacement = "T";
-				break;
-			}
-			case 4:
-			{
-				replacement = "V";
-				break;
-			}
-			case 5:
-			{
-				replacement = "O";
-				break;
-			}
-			case 6:
-			{
-				replacement = "P";
-				break;
-			}
-			case 7:
-			{
-				replacement = "S";
-				break;
-			}
-			case 8:
-			{
-				replacement = "E";
-				break;
-			}
-			case 9:
-			{
-				replacement = "H";
-				break;
-			}
-			case 10:
-			{
-				replacement = "A";
-				break;
-			}
-			case 11:
-			{
-				replacement = "R";
-				break;
-			}
-			case 12:
-			{
-				replacement = "D";
-				break;
-			}
-			case 13:
-			{
-				replacement = "I";
-				break;
-			}
-			case 14:
-			{
-				replacement = "N";
-				break;
-			}
-			default:
-			{
-				replacement = "ERROR";
-				break;
-			}
-		}
-		return htmltext.replaceAll(regex, replacement);
 	}
 }

@@ -48,6 +48,11 @@ public final class TeleportWithCharm extends AbstractNpcAI
 		addTalkId(WHIRPY, TAMIL);
 	}
 	
+	public static void main(String[] args)
+	{
+		new TeleportWithCharm();
+	}
+	
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -81,10 +86,5 @@ public final class TeleportWithCharm extends AbstractNpcAI
 			}
 		}
 		return super.onTalk(npc, player);
-	}
-	
-	public static void main(String[] args)
-	{
-		new TeleportWithCharm();
 	}
 }

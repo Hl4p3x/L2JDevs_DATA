@@ -44,6 +44,11 @@ public final class TheValentineEvent extends LongTimeEvent
 		addTalkId(NPC);
 	}
 	
+	public static void main(String[] args)
+	{
+		new TheValentineEvent();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -67,10 +72,5 @@ public final class TheValentineEvent extends LongTimeEvent
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return npc.getId() + ".htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new TheValentineEvent();
 	}
 }

@@ -64,6 +64,11 @@ public final class FirstClassTransferTalk extends AbstractNpcAI
 		addTalkId(MASTERS.keySet());
 	}
 	
+	public static void main(String[] args)
+	{
+		new FirstClassTransferTalk();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -159,10 +164,5 @@ public final class FirstClassTransferTalk extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new FirstClassTransferTalk();
 	}
 }

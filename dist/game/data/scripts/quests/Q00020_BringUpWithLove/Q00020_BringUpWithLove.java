@@ -45,6 +45,16 @@ public class Q00020_BringUpWithLove extends Quest
 		addTalkId(TUNATUN);
 	}
 	
+	public static void checkJewelOfInnocence(L2PcInstance player)
+	{
+		final QuestState st = player.getQuestState(Q00020_BringUpWithLove.class.getSimpleName());
+		if ((st != null) && st.isCond(1) && !st.hasQuestItems(INNOCENCE_JEWEL) && (getRandom(100) < 5))
+		{
+			st.giveItems(INNOCENCE_JEWEL, 1);
+			st.setCond(2, true);
+		}
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -124,15 +134,5 @@ public class Q00020_BringUpWithLove extends Quest
 				break;
 		}
 		return htmltext;
-	}
-	
-	public static void checkJewelOfInnocence(L2PcInstance player)
-	{
-		final QuestState st = player.getQuestState(Q00020_BringUpWithLove.class.getSimpleName());
-		if ((st != null) && st.isCond(1) && !st.hasQuestItems(INNOCENCE_JEWEL) && (getRandom(100) < 5))
-		{
-			st.giveItems(INNOCENCE_JEWEL, 1);
-			st.setCond(2, true);
-		}
 	}
 }

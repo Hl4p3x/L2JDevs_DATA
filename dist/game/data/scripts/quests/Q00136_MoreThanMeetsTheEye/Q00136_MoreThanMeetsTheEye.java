@@ -73,19 +73,6 @@ public class Q00136_MoreThanMeetsTheEye extends Quest
 		registerQuestItems(ECTOPLASM, STABILIZED_ECTOPLASM, ORDER, GLASS_JAGUAR_CRYSTAL, BOOK_OF_SEAL);
 	}
 	
-	private void giveItem(QuestState st, int itemId, int count, int maxCount, int cond)
-	{
-		st.giveItems(itemId, count);
-		if (st.getQuestItemsCount(itemId) >= maxCount)
-		{
-			st.setCond(cond, true);
-		}
-		else
-		{
-			st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-		}
-	}
-	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -306,5 +293,18 @@ public class Q00136_MoreThanMeetsTheEye extends Quest
 				break;
 		}
 		return htmltext;
+	}
+	
+	private void giveItem(QuestState st, int itemId, int count, int maxCount, int cond)
+	{
+		st.giveItems(itemId, count);
+		if (st.getQuestItemsCount(itemId) >= maxCount)
+		{
+			st.setCond(cond, true);
+		}
+		else
+		{
+			st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+		}
 	}
 }

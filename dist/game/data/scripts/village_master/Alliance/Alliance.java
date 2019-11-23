@@ -52,6 +52,11 @@ public final class Alliance extends Quest
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Alliance();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -66,10 +71,5 @@ public final class Alliance extends Quest
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		return "9001-01.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new Alliance();
 	}
 }

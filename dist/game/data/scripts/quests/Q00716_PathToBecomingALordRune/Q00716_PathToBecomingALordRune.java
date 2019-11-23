@@ -115,6 +115,39 @@ public final class Q00716_PathToBecomingALordRune extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = killer.getQuestState(getName());
+		if (qs == null)
+		{
+			return super.onKill(npc, killer, isSummon);
+		}
+		
+		if (qs.getState() != State.STARTED)
+		{
+			return super.onKill(npc, killer, isSummon);
+		}
+		
+		final Castle castle = CastleManager.getInstance().getCastleById(RUNE_CASTLE);
+		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
+		if ((qs.getState() == State.STARTED) && qs.isCond(0))
+		{
+			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()) != null) && (castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).isCond(7)))
+			{
+				if (castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).get("paganCount") != null)
+				{
+					castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).set("paganCount", String.valueOf(castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).getInt("paganCount") + 1));
+				}
+				else
+				{
+					castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).set("paganCount", "1");
+				}
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, true);
@@ -266,39 +299,6 @@ public final class Q00716_PathToBecomingALordRune extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = killer.getQuestState(getName());
-		if (qs == null)
-		{
-			return super.onKill(npc, killer, isSummon);
-		}
-		
-		if (qs.getState() != State.STARTED)
-		{
-			return super.onKill(npc, killer, isSummon);
-		}
-		
-		final Castle castle = CastleManager.getInstance().getCastleById(RUNE_CASTLE);
-		final L2PcInstance castleOwner = castle.getOwner().getLeader().getPlayerInstance();
-		if ((qs.getState() == State.STARTED) && qs.isCond(0))
-		{
-			if ((castleOwner != null) && (castleOwner != qs.getPlayer()) && (castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()) != null) && (castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).isCond(7)))
-			{
-				if (castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).get("paganCount") != null)
-				{
-					castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).set("paganCount", String.valueOf(castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).getInt("paganCount") + 1));
-				}
-				else
-				{
-					castleOwner.getQuestState(Q00716_PathToBecomingALordRune.class.getSimpleName()).set("paganCount", "1");
-				}
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 	
 	private boolean hasFort()

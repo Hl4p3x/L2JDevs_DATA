@@ -63,43 +63,6 @@ public final class Natives extends AbstractNpcAI
 	}
 	
 	@Override
-	public String onFirstTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		final int hellboundLevel = HellboundEngine.getInstance().getLevel();
-		switch (npc.getId())
-		{
-			case NATIVE:
-			{
-				htmltext = hellboundLevel > 5 ? "32362-01.htm" : "32362.htm";
-				break;
-			}
-			case INSURGENT:
-			{
-				htmltext = hellboundLevel > 5 ? "32363-01.htm" : "32363.htm";
-				break;
-			}
-			case INCASTLE:
-			{
-				if (hellboundLevel < 9)
-				{
-					htmltext = "32357-01a.htm";
-				}
-				else if (hellboundLevel == 9)
-				{
-					htmltext = npc.isBusy() ? "32357-02.htm" : "32357-01.htm";
-				}
-				else
-				{
-					htmltext = "32357-01b.htm";
-				}
-				break;
-			}
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = null;
@@ -173,6 +136,43 @@ public final class Natives extends AbstractNpcAI
 				npc.setBusy(false); // TODO: Does it really need?
 				npc.deleteMe();
 				npc.getSpawn().decreaseCount(npc);
+			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onFirstTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		final int hellboundLevel = HellboundEngine.getInstance().getLevel();
+		switch (npc.getId())
+		{
+			case NATIVE:
+			{
+				htmltext = hellboundLevel > 5 ? "32362-01.htm" : "32362.htm";
+				break;
+			}
+			case INSURGENT:
+			{
+				htmltext = hellboundLevel > 5 ? "32363-01.htm" : "32363.htm";
+				break;
+			}
+			case INCASTLE:
+			{
+				if (hellboundLevel < 9)
+				{
+					htmltext = "32357-01a.htm";
+				}
+				else if (hellboundLevel == 9)
+				{
+					htmltext = npc.isBusy() ? "32357-02.htm" : "32357-01.htm";
+				}
+				else
+				{
+					htmltext = "32357-01b.htm";
+				}
+				break;
 			}
 		}
 		return htmltext;

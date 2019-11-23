@@ -66,6 +66,11 @@ public final class ElfHumanWizardChange2 extends AbstractNpcAI
 		addTalkId(NPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new ElfHumanWizardChange2();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -102,6 +107,37 @@ public final class ElfHumanWizardChange2 extends AbstractNpcAI
 				htmltext = ClassChangeRequested(player, Integer.valueOf(event));
 				break;
 			}
+		}
+		return htmltext;
+	}
+	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (player.isInCategory(CategoryType.WIZARD_GROUP) && player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.HUMAN_MALL_CLASS) || player.isInCategory(CategoryType.ELF_MALL_CLASS)))
+		{
+			htmltext = "30115-01.htm"; // fnYouAreFourthClass
+		}
+		else if (player.isInCategory(CategoryType.WIZARD_GROUP) && (player.isInCategory(CategoryType.HUMAN_MALL_CLASS) || player.isInCategory(CategoryType.ELF_MALL_CLASS)))
+		{
+			final ClassId classId = player.getClassId();
+			if ((classId == ClassId.wizard) || (classId == ClassId.sorceror) || (classId == ClassId.necromancer) || (classId == ClassId.warlock))
+			{
+				htmltext = "30115-02.htm"; // fnClassList1
+			}
+			else if ((classId == ClassId.elvenWizard) || (classId == ClassId.spellsinger) || (classId == ClassId.elementalSummoner))
+			{
+				htmltext = "30115-12.htm"; // fnClassList2
+			}
+			else
+			{
+				htmltext = "30115-19.htm"; // fnYouAreFirstClass
+			}
+		}
+		else
+		{
+			htmltext = "30115-20.htm"; // fnClassMismatch
 		}
 		return htmltext;
 	}
@@ -254,41 +290,5 @@ public final class ElfHumanWizardChange2 extends AbstractNpcAI
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (player.isInCategory(CategoryType.WIZARD_GROUP) && player.isInCategory(CategoryType.FOURTH_CLASS_GROUP) && (player.isInCategory(CategoryType.HUMAN_MALL_CLASS) || player.isInCategory(CategoryType.ELF_MALL_CLASS)))
-		{
-			htmltext = "30115-01.htm"; // fnYouAreFourthClass
-		}
-		else if (player.isInCategory(CategoryType.WIZARD_GROUP) && (player.isInCategory(CategoryType.HUMAN_MALL_CLASS) || player.isInCategory(CategoryType.ELF_MALL_CLASS)))
-		{
-			final ClassId classId = player.getClassId();
-			if ((classId == ClassId.wizard) || (classId == ClassId.sorceror) || (classId == ClassId.necromancer) || (classId == ClassId.warlock))
-			{
-				htmltext = "30115-02.htm"; // fnClassList1
-			}
-			else if ((classId == ClassId.elvenWizard) || (classId == ClassId.spellsinger) || (classId == ClassId.elementalSummoner))
-			{
-				htmltext = "30115-12.htm"; // fnClassList2
-			}
-			else
-			{
-				htmltext = "30115-19.htm"; // fnYouAreFirstClass
-			}
-		}
-		else
-		{
-			htmltext = "30115-20.htm"; // fnClassMismatch
-		}
-		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new ElfHumanWizardChange2();
 	}
 }

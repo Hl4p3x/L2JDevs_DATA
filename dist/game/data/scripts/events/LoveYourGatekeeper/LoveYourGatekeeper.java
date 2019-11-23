@@ -51,6 +51,11 @@ public final class LoveYourGatekeeper extends LongTimeEvent
 		addTalkId(GATEKEEPER);
 	}
 	
+	public static void main(String[] args)
+	{
+		new LoveYourGatekeeper();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -101,10 +106,5 @@ public final class LoveYourGatekeeper extends LongTimeEvent
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		return "32477.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new LoveYourGatekeeper();
 	}
 }

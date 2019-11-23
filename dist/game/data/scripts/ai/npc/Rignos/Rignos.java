@@ -48,6 +48,11 @@ public class Rignos extends AbstractNpcAI
 		addFirstTalkId(RIGNOS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Rignos();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -103,10 +108,5 @@ public class Rignos extends AbstractNpcAI
 			htmltext = "32349-01.html";
 		}
 		return htmltext;
-	}
-	
-	public static void main(String[] args)
-	{
-		new Rignos();
 	}
 }

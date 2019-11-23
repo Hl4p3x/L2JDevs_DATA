@@ -107,6 +107,41 @@ public final class Q00103_SpiritOfCraftsman extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
+		if (qs == null)
+		{
+			return super.onKill(npc, killer, isSummon);
+		}
+		
+		switch (npc.getId())
+		{
+			case MARSH_ZOMBIE:
+			{
+				if (hasQuestItems(killer, PRESERVE_OIL) && (getRandom(10) < 5) && Util.checkIfInRange(1500, npc, killer, true))
+				{
+					giveItems(killer, ZOMBIE_HEAD, 1);
+					takeItems(killer, PRESERVE_OIL, -1);
+					qs.setCond(7, true);
+				}
+				break;
+			}
+			case DOOM_SOLDIER:
+			case SKELETON_HUNTER:
+			case SKELETON_HUNTER_ARCHER:
+			{
+				if (hasQuestItems(killer, CECKTINONS_VOUCHER2) && giveItemRandomly(qs.getPlayer(), npc, BONE_FRAGMENT, 1, 10, 1.0, true))
+				{
+					qs.setCond(4, true);
+				}
+				break;
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -232,40 +267,5 @@ public final class Q00103_SpiritOfCraftsman extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
-		if (qs == null)
-		{
-			return super.onKill(npc, killer, isSummon);
-		}
-		
-		switch (npc.getId())
-		{
-			case MARSH_ZOMBIE:
-			{
-				if (hasQuestItems(killer, PRESERVE_OIL) && (getRandom(10) < 5) && Util.checkIfInRange(1500, npc, killer, true))
-				{
-					giveItems(killer, ZOMBIE_HEAD, 1);
-					takeItems(killer, PRESERVE_OIL, -1);
-					qs.setCond(7, true);
-				}
-				break;
-			}
-			case DOOM_SOLDIER:
-			case SKELETON_HUNTER:
-			case SKELETON_HUNTER_ARCHER:
-			{
-				if (hasQuestItems(killer, CECKTINONS_VOUCHER2) && giveItemRandomly(qs.getPlayer(), npc, BONE_FRAGMENT, 1, 10, 1.0, true))
-				{
-					qs.setCond(4, true);
-				}
-				break;
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

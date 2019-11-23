@@ -64,28 +64,6 @@ public class Wedding implements IVoicedCommandHandler
 		"gotolove"
 	};
 	
-	@Override
-	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
-	{
-		if (activeChar == null)
-		{
-			return false;
-		}
-		if (command.startsWith("engage"))
-		{
-			return engage(activeChar);
-		}
-		else if (command.startsWith("divorce"))
-		{
-			return divorce(activeChar);
-		}
-		else if (command.startsWith("gotolove"))
-		{
-			return goToLove(activeChar);
-		}
-		return false;
-	}
-	
 	public boolean divorce(L2PcInstance activeChar)
 	{
 		if (activeChar.getPartnerId() == 0)
@@ -245,6 +223,12 @@ public class Wedding implements IVoicedCommandHandler
 		dlg.addTime(15 * 1000);
 		ptarget.sendPacket(dlg);
 		return true;
+	}
+	
+	@Override
+	public String[] getVoicedCommandList()
+	{
+		return _voicedCommands;
 	}
 	
 	public boolean goToLove(L2PcInstance activeChar)
@@ -479,6 +463,28 @@ public class Wedding implements IVoicedCommandHandler
 		return true;
 	}
 	
+	@Override
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
+	{
+		if (activeChar == null)
+		{
+			return false;
+		}
+		if (command.startsWith("engage"))
+		{
+			return engage(activeChar);
+		}
+		else if (command.startsWith("divorce"))
+		{
+			return divorce(activeChar);
+		}
+		else if (command.startsWith("gotolove"))
+		{
+			return goToLove(activeChar);
+		}
+		return false;
+	}
+	
 	static class EscapeFinalizer implements Runnable
 	{
 		private final L2PcInstance _activeChar;
@@ -519,11 +525,5 @@ public class Wedding implements IVoicedCommandHandler
 				_log.log(Level.SEVERE, "", e);
 			}
 		}
-	}
-	
-	@Override
-	public String[] getVoicedCommandList()
-	{
-		return _voicedCommands;
 	}
 }

@@ -60,15 +60,15 @@ public final class NonTalkingNpcs extends AbstractNpcAI
 		addSpawnId(NONTALKINGNPCS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new NonTalkingNpcs();
+	}
+	
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
 		npc.setTalking(false);
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new NonTalkingNpcs();
 	}
 }

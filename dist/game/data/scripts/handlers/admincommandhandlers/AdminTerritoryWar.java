@@ -45,6 +45,12 @@ public class AdminTerritoryWar implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return _adminCommands;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -167,10 +173,9 @@ public class AdminTerritoryWar implements IAdminCommandHandler
 		return true;
 	}
 	
-	@Override
-	public String[] getAdminCommandList()
+	private void showMainPage(L2PcInstance activeChar)
 	{
-		return _adminCommands;
+		AdminHtml.showAdminHtml(activeChar, "territorywar.htm");
 	}
 	
 	private void showSiegeTimePage(L2PcInstance activeChar)
@@ -179,10 +184,5 @@ public class AdminTerritoryWar implements IAdminCommandHandler
 		adminReply.setFile(activeChar.getHtmlPrefix(), "data/html/admin/territorywartime.htm");
 		adminReply.replace("%time%", TerritoryWarManager.getInstance().getTWStart().getTime().toString());
 		activeChar.sendPacket(adminReply);
-	}
-	
-	private void showMainPage(L2PcInstance activeChar)
-	{
-		AdminHtml.showAdminHtml(activeChar, "territorywar.htm");
 	}
 }

@@ -43,6 +43,11 @@ public final class Sirra extends AbstractNpcAI
 		addFirstTalkId(SIRRA);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Sirra();
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -57,10 +62,5 @@ public final class Sirra extends AbstractNpcAI
 			return (world.isStatus(0)) ? "32762-hard.html" : "32762-hardfight.html";
 		}
 		return "32762.html";
-	}
-	
-	public static void main(String[] args)
-	{
-		new Sirra();
 	}
 }

@@ -55,66 +55,9 @@ public class StatusHandler implements ITelnetHandler
 	private int _uptime;
 	
 	@Override
-	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int uptime)
+	public String[] getCommandList()
 	{
-		if (command.equals("status"))
-		{
-			_uptime = uptime;
-			_print.print(getServerStatus());
-			_print.flush();
-		}
-		else if (command.equals("forcegc"))
-		{
-			System.gc();
-			StringBuilder sb = new StringBuilder();
-			sb.append("RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576)); // 1024 * 1024 = 1048576
-			_print.println(sb.toString());
-		}
-		else if (command.startsWith("memusage"))
-		{
-			double max = Runtime.getRuntime().maxMemory() / 1024; // maxMemory is the upper
-			// limit the jvm can use
-			double allocated = Runtime.getRuntime().totalMemory() / 1024; // totalMemory the
-			// size of the
-			// current
-			// allocation pool
-			double nonAllocated = max - allocated; // non allocated memory till jvm limit
-			double cached = Runtime.getRuntime().freeMemory() / 1024; // freeMemory the
-			// unused memory in
-			// the allocation pool
-			double used = allocated - cached; // really used memory
-			double useable = max - used; // allocated, but non-used and non-allocated memory
-			
-			DecimalFormat df = new DecimalFormat(" (0.0000'%')");
-			DecimalFormat df2 = new DecimalFormat(" # 'KB'");
-			
-			_print.println("+----");// ...
-			_print.println("| Allowed Memory:" + df2.format(max));
-			_print.println("|    |= Allocated Memory:" + df2.format(allocated) + df.format((allocated / max) * 100));
-			_print.println("|    |= Non-Allocated Memory:" + df2.format(nonAllocated) + df.format((nonAllocated / max) * 100));
-			_print.println("| Allocated Memory:" + df2.format(allocated));
-			_print.println("|    |= Used Memory:" + df2.format(used) + df.format((used / max) * 100));
-			_print.println("|    |= Unused (cached) Memory:" + df2.format(cached) + df.format((cached / max) * 100));
-			_print.println("| Useable Memory:" + df2.format(useable) + df.format((useable / max) * 100)); // ...
-			_print.println("+----");
-		}
-		else if (command.equals("gmlist"))
-		{
-			int igm = 0;
-			String gmList = "";
-			
-			for (String player : AdminData.getInstance().getAllGmNames(true))
-			{
-				gmList = gmList + ", " + player;
-				igm++;
-			}
-			_print.println("There are currently " + igm + " GM(s) online...");
-			if (!gmList.isEmpty())
-			{
-				_print.println(gmList);
-			}
-		}
-		return false;
+		return _commands;
 	}
 	
 	public String getServerStatus()
@@ -222,19 +165,67 @@ public class StatusHandler implements ITelnetHandler
 		return sb.toString();
 	}
 	
-	private int getOnlineGMS()
+	@Override
+	public boolean useCommand(String command, PrintWriter _print, Socket _cSocket, int uptime)
 	{
-		return AdminData.getInstance().getAllGms(true).size();
-	}
-	
-	private String getUptime(int time)
-	{
-		int uptime = (int) System.currentTimeMillis() - time;
-		uptime = uptime / 1000;
-		int h = uptime / 3600;
-		int m = (uptime - (h * 3600)) / 60;
-		int s = ((uptime - (h * 3600)) - (m * 60));
-		return h + "hrs " + m + "mins " + s + "secs";
+		if (command.equals("status"))
+		{
+			_uptime = uptime;
+			_print.print(getServerStatus());
+			_print.flush();
+		}
+		else if (command.equals("forcegc"))
+		{
+			System.gc();
+			StringBuilder sb = new StringBuilder();
+			sb.append("RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576)); // 1024 * 1024 = 1048576
+			_print.println(sb.toString());
+		}
+		else if (command.startsWith("memusage"))
+		{
+			double max = Runtime.getRuntime().maxMemory() / 1024; // maxMemory is the upper
+			// limit the jvm can use
+			double allocated = Runtime.getRuntime().totalMemory() / 1024; // totalMemory the
+			// size of the
+			// current
+			// allocation pool
+			double nonAllocated = max - allocated; // non allocated memory till jvm limit
+			double cached = Runtime.getRuntime().freeMemory() / 1024; // freeMemory the
+			// unused memory in
+			// the allocation pool
+			double used = allocated - cached; // really used memory
+			double useable = max - used; // allocated, but non-used and non-allocated memory
+			
+			DecimalFormat df = new DecimalFormat(" (0.0000'%')");
+			DecimalFormat df2 = new DecimalFormat(" # 'KB'");
+			
+			_print.println("+----");// ...
+			_print.println("| Allowed Memory:" + df2.format(max));
+			_print.println("|    |= Allocated Memory:" + df2.format(allocated) + df.format((allocated / max) * 100));
+			_print.println("|    |= Non-Allocated Memory:" + df2.format(nonAllocated) + df.format((nonAllocated / max) * 100));
+			_print.println("| Allocated Memory:" + df2.format(allocated));
+			_print.println("|    |= Used Memory:" + df2.format(used) + df.format((used / max) * 100));
+			_print.println("|    |= Unused (cached) Memory:" + df2.format(cached) + df.format((cached / max) * 100));
+			_print.println("| Useable Memory:" + df2.format(useable) + df.format((useable / max) * 100)); // ...
+			_print.println("+----");
+		}
+		else if (command.equals("gmlist"))
+		{
+			int igm = 0;
+			String gmList = "";
+			
+			for (String player : AdminData.getInstance().getAllGmNames(true))
+			{
+				gmList = gmList + ", " + player;
+				igm++;
+			}
+			_print.println("There are currently " + igm + " GM(s) online...");
+			if (!gmList.isEmpty())
+			{
+				_print.println(gmList);
+			}
+		}
+		return false;
 	}
 	
 	private String gameTime()
@@ -249,9 +240,18 @@ public class StatusHandler implements ITelnetHandler
 		return format.format(cal.getTime());
 	}
 	
-	@Override
-	public String[] getCommandList()
+	private int getOnlineGMS()
 	{
-		return _commands;
+		return AdminData.getInstance().getAllGms(true).size();
+	}
+	
+	private String getUptime(int time)
+	{
+		int uptime = (int) System.currentTimeMillis() - time;
+		uptime = uptime / 1000;
+		int h = uptime / 3600;
+		int m = (uptime - (h * 3600)) / 60;
+		int s = ((uptime - (h * 3600)) - (m * 60));
+		return h + "hrs " + m + "mins " + s + "secs";
 	}
 }

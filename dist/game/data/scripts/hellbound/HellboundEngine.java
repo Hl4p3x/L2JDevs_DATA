@@ -71,89 +71,14 @@ public final class HellboundEngine extends AbstractNpcAI
 		_log.info(HellboundEngine.class.getSimpleName() + ": Status: " + (isLocked() ? "locked." : "unlocked."));
 	}
 	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	public static HellboundEngine getInstance()
 	{
-		if (event.equals(UPDATE_EVENT))
-		{
-			int level = getLevel();
-			if ((level > 0) && (level == getCachedLevel()))
-			{
-				if ((getTrust() == getMaxTrust()) && (level != 4)) // Only exclusion is kill of Derek.
-				{
-					level++;
-					setLevel(level);
-					onLevelChange(level);
-				}
-			}
-			else
-			{
-				onLevelChange(level); // First run or changed by administrator.
-			}
-			startQuestTimer(UPDATE_EVENT, UPDATE_INTERVAL, null, null);
-		}
-		return super.onAdvEvent(event, npc, player);
+		return SingletonHolder.INSTANCE;
 	}
 	
-	/**
-	 * Adds and removes spawns for Hellbound given the conditions for spawn.
-	 */
-	private void doSpawn()
+	public int getCachedLevel()
 	{
-		int added = 0;
-		int deleted = 0;
-		final HellboundSpawns hellboundSpawns = HellboundSpawns.getInstance();
-		for (L2Spawn spawn : hellboundSpawns.getSpawns())
-		{
-			final L2Npc npc = spawn.getLastSpawn();
-			if ((getLevel() < hellboundSpawns.getSpawnMinLevel(spawn.getId())) || (getLevel() > hellboundSpawns.getSpawnMaxLevel(spawn.getId())))
-			{
-				spawn.stopRespawn();
-				
-				if ((npc != null) && npc.isVisible())
-				{
-					npc.deleteMe();
-					deleted++;
-				}
-			}
-			else
-			{
-				spawn.startRespawn();
-				if (npc == null)
-				{
-					spawn.doSpawn();
-					added++;
-				}
-				else
-				{
-					if (npc.isDecayed())
-					{
-						npc.setDecayed(false);
-					}
-					if (npc.isDead())
-					{
-						npc.doRevive();
-					}
-					if (!npc.isVisible())
-					{
-						npc.setIsVisible(true);
-						added++;
-					}
-					
-					npc.setCurrentHp(npc.getMaxHp());
-					npc.setCurrentMp(npc.getMaxMp());
-				}
-			}
-		}
-		
-		if (added > 0)
-		{
-			_log.info(getClass().getSimpleName() + ": Spawned " + added + " NPCs.");
-		}
-		if (deleted > 0)
-		{
-			_log.info(getClass().getSimpleName() + ": Removed " + deleted + " NPCs.");
-		}
+		return _cachedLevel;
 	}
 	
 	/**
@@ -163,27 +88,6 @@ public final class HellboundEngine extends AbstractNpcAI
 	public int getLevel()
 	{
 		return GlobalVariablesManager.getInstance().getInt("HBLevel", 0);
-	}
-	
-	/**
-	 * Sets the Hellbound level.
-	 * @param lvl the level to set
-	 */
-	public void setLevel(int lvl)
-	{
-		if (lvl == getLevel())
-		{
-			return;
-		}
-		
-		_log.info(HellboundEngine.class.getSimpleName() + ": Changing level from " + getLevel() + " to " + lvl + ".");
-		
-		GlobalVariablesManager.getInstance().set("HBLevel", lvl);
-	}
-	
-	public int getCachedLevel()
-	{
-		return _cachedLevel;
 	}
 	
 	public int getMaxTrust()
@@ -206,21 +110,36 @@ public final class HellboundEngine extends AbstractNpcAI
 	}
 	
 	/**
-	 * Sets the truest.
-	 * @param trust the trust to set
-	 */
-	private void setTrust(int trust)
-	{
-		GlobalVariablesManager.getInstance().set("HBTrust", trust);
-	}
-	
-	/**
 	 * Verifies if Hellbound is locked.
 	 * @return {@code true} if Hellbound is locked, {@code false} otherwise
 	 */
 	public boolean isLocked()
 	{
 		return getLevel() <= 0;
+	}
+	
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		if (event.equals(UPDATE_EVENT))
+		{
+			int level = getLevel();
+			if ((level > 0) && (level == getCachedLevel()))
+			{
+				if ((getTrust() == getMaxTrust()) && (level != 4)) // Only exclusion is kill of Derek.
+				{
+					level++;
+					setLevel(level);
+					onLevelChange(level);
+				}
+			}
+			else
+			{
+				onLevelChange(level); // First run or changed by administrator.
+			}
+			startQuestTimer(UPDATE_EVENT, UPDATE_INTERVAL, null, null);
+		}
+		return super.onAdvEvent(event, npc, player);
 	}
 	
 	@Override
@@ -299,30 +218,19 @@ public final class HellboundEngine extends AbstractNpcAI
 	}
 	
 	/**
-	 * Sets the maximum trust for the current level.
-	 * @param trust the maximum trust
+	 * Sets the Hellbound level.
+	 * @param lvl the level to set
 	 */
-	private void setMaxTrust(int trust)
+	public void setLevel(int lvl)
 	{
-		_maxTrust = trust;
-		if ((_maxTrust > 0) && (getTrust() > _maxTrust))
+		if (lvl == getLevel())
 		{
-			setTrust(_maxTrust);
+			return;
 		}
-	}
-	
-	/**
-	 * Sets the minimum trust for the current level.
-	 * @param trust the minimum trust
-	 */
-	private void setMinTrust(int trust)
-	{
-		_minTrust = trust;
 		
-		if (getTrust() >= _maxTrust)
-		{
-			setTrust(_minTrust);
-		}
+		_log.info(HellboundEngine.class.getSimpleName() + ": Changing level from " + getLevel() + " to " + lvl + ".");
+		
+		GlobalVariablesManager.getInstance().set("HBLevel", lvl);
 	}
 	
 	@Override
@@ -361,9 +269,101 @@ public final class HellboundEngine extends AbstractNpcAI
 		}
 	}
 	
-	public static HellboundEngine getInstance()
+	/**
+	 * Adds and removes spawns for Hellbound given the conditions for spawn.
+	 */
+	private void doSpawn()
 	{
-		return SingletonHolder.INSTANCE;
+		int added = 0;
+		int deleted = 0;
+		final HellboundSpawns hellboundSpawns = HellboundSpawns.getInstance();
+		for (L2Spawn spawn : hellboundSpawns.getSpawns())
+		{
+			final L2Npc npc = spawn.getLastSpawn();
+			if ((getLevel() < hellboundSpawns.getSpawnMinLevel(spawn.getId())) || (getLevel() > hellboundSpawns.getSpawnMaxLevel(spawn.getId())))
+			{
+				spawn.stopRespawn();
+				
+				if ((npc != null) && npc.isVisible())
+				{
+					npc.deleteMe();
+					deleted++;
+				}
+			}
+			else
+			{
+				spawn.startRespawn();
+				if (npc == null)
+				{
+					spawn.doSpawn();
+					added++;
+				}
+				else
+				{
+					if (npc.isDecayed())
+					{
+						npc.setDecayed(false);
+					}
+					if (npc.isDead())
+					{
+						npc.doRevive();
+					}
+					if (!npc.isVisible())
+					{
+						npc.setIsVisible(true);
+						added++;
+					}
+					
+					npc.setCurrentHp(npc.getMaxHp());
+					npc.setCurrentMp(npc.getMaxMp());
+				}
+			}
+		}
+		
+		if (added > 0)
+		{
+			_log.info(getClass().getSimpleName() + ": Spawned " + added + " NPCs.");
+		}
+		if (deleted > 0)
+		{
+			_log.info(getClass().getSimpleName() + ": Removed " + deleted + " NPCs.");
+		}
+	}
+	
+	/**
+	 * Sets the maximum trust for the current level.
+	 * @param trust the maximum trust
+	 */
+	private void setMaxTrust(int trust)
+	{
+		_maxTrust = trust;
+		if ((_maxTrust > 0) && (getTrust() > _maxTrust))
+		{
+			setTrust(_maxTrust);
+		}
+	}
+	
+	/**
+	 * Sets the minimum trust for the current level.
+	 * @param trust the minimum trust
+	 */
+	private void setMinTrust(int trust)
+	{
+		_minTrust = trust;
+		
+		if (getTrust() >= _maxTrust)
+		{
+			setTrust(_minTrust);
+		}
+	}
+	
+	/**
+	 * Sets the truest.
+	 * @param trust the trust to set
+	 */
+	private void setTrust(int trust)
+	{
+		GlobalVariablesManager.getInstance().set("HBTrust", trust);
 	}
 	
 	private static class SingletonHolder

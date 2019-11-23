@@ -69,6 +69,29 @@ public final class CabaleBuffer extends AbstractNpcAI
 		addSpawnId(SevenSigns.ORATOR_NPC_ID, SevenSigns.PREACHER_NPC_ID);
 	}
 	
+	public static void main(String[] args)
+	{
+		new CabaleBuffer();
+	}
+	
+	public void broadcastSay(L2Npc npc, NpcStringId message, String param, int chance)
+	{
+		if (chance == -1)
+		{
+			broadcastNpcSay(npc, Say2.NPC_ALL, message);
+		}
+		else if (getRandom(10000) < chance)
+		{
+			broadcastNpcSay(npc, Say2.NPC_ALL, message, param);
+		}
+	}
+	
+	public int getAbnormalLvl(L2PcInstance player, int skillId)
+	{
+		final BuffInfo info = player.getEffectList().getBuffInfoBySkillId(skillId);
+		return (info != null) ? info.getSkill().getAbnormalLvl() : 0;
+	}
+	
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
@@ -81,31 +104,6 @@ public final class CabaleBuffer extends AbstractNpcAI
 		ThreadPoolManager.getInstance().scheduleGeneral(new CabaleAI(npc), 3000);
 		ThreadPoolManager.getInstance().scheduleGeneral(new Talk(npc), 60000);
 		return super.onSpawn(npc);
-	}
-	
-	protected class Talk implements Runnable
-	{
-		private final L2Npc _npc;
-		
-		protected Talk(L2Npc npc)
-		{
-			_npc = npc;
-		}
-		
-		@Override
-		public void run()
-		{
-			if ((_npc != null) && !_npc.isDecayed())
-			{
-				NpcStringId[] messages = ORATOR_MSG;
-				if (_npc.getId() == SevenSigns.PREACHER_NPC_ID)
-				{
-					messages = PREACHER_MSG;
-				}
-				broadcastSay(_npc, messages[getRandom(messages.length)], null, -1);
-				ThreadPoolManager.getInstance().scheduleGeneral(this, 60000);
-			}
-		}
 	}
 	
 	protected class CabaleAI implements Runnable
@@ -278,26 +276,28 @@ public final class CabaleBuffer extends AbstractNpcAI
 		}
 	}
 	
-	public void broadcastSay(L2Npc npc, NpcStringId message, String param, int chance)
+	protected class Talk implements Runnable
 	{
-		if (chance == -1)
+		private final L2Npc _npc;
+		
+		protected Talk(L2Npc npc)
 		{
-			broadcastNpcSay(npc, Say2.NPC_ALL, message);
+			_npc = npc;
 		}
-		else if (getRandom(10000) < chance)
+		
+		@Override
+		public void run()
 		{
-			broadcastNpcSay(npc, Say2.NPC_ALL, message, param);
+			if ((_npc != null) && !_npc.isDecayed())
+			{
+				NpcStringId[] messages = ORATOR_MSG;
+				if (_npc.getId() == SevenSigns.PREACHER_NPC_ID)
+				{
+					messages = PREACHER_MSG;
+				}
+				broadcastSay(_npc, messages[getRandom(messages.length)], null, -1);
+				ThreadPoolManager.getInstance().scheduleGeneral(this, 60000);
+			}
 		}
-	}
-	
-	public int getAbnormalLvl(L2PcInstance player, int skillId)
-	{
-		final BuffInfo info = player.getEffectList().getBuffInfoBySkillId(skillId);
-		return (info != null) ? info.getSkill().getAbnormalLvl() : 0;
-	}
-	
-	public static void main(String[] args)
-	{
-		new CabaleBuffer();
 	}
 }

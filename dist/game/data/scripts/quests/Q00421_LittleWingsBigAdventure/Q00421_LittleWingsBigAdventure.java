@@ -86,6 +86,24 @@ public final class Q00421_LittleWingsBigAdventure extends Quest
 		registerQuestItems(FAIRY_LEAF);
 	}
 	
+	private static L2ItemInstance getFlute(L2PcInstance player)
+	{
+		final int fluteItemId;
+		if (hasQuestItems(player, DRAGONFLUTE_OF_WIND))
+		{
+			fluteItemId = DRAGONFLUTE_OF_WIND;
+		}
+		else if (hasQuestItems(player, DRAGONFLUTE_OF_STAR))
+		{
+			fluteItemId = DRAGONFLUTE_OF_STAR;
+		}
+		else
+		{
+			fluteItemId = DRAGONFLUTE_OF_TWILIGHT;
+		}
+		return player.getInventory().getItemByItemId(fluteItemId);
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -183,6 +201,101 @@ public final class Q00421_LittleWingsBigAdventure extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
+	{
+		final QuestState qs = getQuestState(attacker, false);
+		if ((qs != null) && qs.isCond(2))
+		{
+			if (isSummon)
+			{
+				final NpcData data = NPC_DATA.get(npc.getId());
+				if ((qs.getMemoState() % data._memoStateMod) < data._memoStateValue)
+				{
+					if (attacker.getSummon().getControlObjectId() == qs.getInt("fluteObjectId"))
+					{
+						final int hits = qs.getInt("hits") + 1;
+						qs.set("hits", hits);
+						
+						if (hits < data._minHits)
+						{
+							if ((npc.getId() == TREE_OF_ABYSS) && (getRandom(100) < 2))
+							{
+								npc.setTarget(attacker);
+								npc.doCast(DRYAD_ROOT);
+							}
+						}
+						else if (getRandom(100) < 2)
+						{
+							if (hasQuestItems(attacker, FAIRY_LEAF))
+							{
+								npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.GIVE_ME_A_FAIRY_LEAF));
+								takeItems(attacker, FAIRY_LEAF, 1);
+								qs.setMemoState(qs.getMemoState() + data._memoStateValue);
+								qs.unset("hits");
+								playSound(attacker, Sound.ITEMSOUND_QUEST_MIDDLE);
+								
+								if (qs.getMemoState() == 15)
+								{
+									qs.setCond(3);
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					switch (getRandom(3))
+					{
+						case 0:
+							npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.WHY_DO_YOU_BOTHER_ME_AGAIN));
+							break;
+						case 1:
+							npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, data._message));
+							break;
+						case 2:
+							npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.LEAVE_NOW_BEFORE_YOU_INCUR_THE_WRATH_OF_THE_GUARDIAN_GHOST));
+							break;
+					}
+				}
+			}
+			else if (getRandom(100) < 30)
+			{
+				npc.setTarget(attacker);
+				npc.doCast(VICIOUS_POISON);
+			}
+		}
+		else if ((npc.getCurrentHp() < (npc.getMaxHp() * 0.67)) && (getRandom(100) < 30))
+		{
+			npc.setTarget(attacker);
+			npc.doCast(VICIOUS_POISON);
+		}
+		
+		return super.onAttack(npc, attacker, damage, isSummon);
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		if (Util.checkIfInRange(1500, killer, npc, true))
+		{
+			for (int i = 0; i < 20; i++)
+			{
+				L2Npc guardian = addSpawn(SOUL_OF_TREE_GUARDIAN, npc);
+				startQuestTimer("DESPAWN_GUARDIAN", 300000, guardian, null);
+				
+				if (i == 0)
+				{
+					npc.setTarget(killer);
+					npc.doCast(VICIOUS_POISON);
+				}
+				
+				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, killer);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -371,119 +484,6 @@ public final class Q00421_LittleWingsBigAdventure extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
-	{
-		final QuestState qs = getQuestState(attacker, false);
-		if ((qs != null) && qs.isCond(2))
-		{
-			if (isSummon)
-			{
-				final NpcData data = NPC_DATA.get(npc.getId());
-				if ((qs.getMemoState() % data._memoStateMod) < data._memoStateValue)
-				{
-					if (attacker.getSummon().getControlObjectId() == qs.getInt("fluteObjectId"))
-					{
-						final int hits = qs.getInt("hits") + 1;
-						qs.set("hits", hits);
-						
-						if (hits < data._minHits)
-						{
-							if ((npc.getId() == TREE_OF_ABYSS) && (getRandom(100) < 2))
-							{
-								npc.setTarget(attacker);
-								npc.doCast(DRYAD_ROOT);
-							}
-						}
-						else if (getRandom(100) < 2)
-						{
-							if (hasQuestItems(attacker, FAIRY_LEAF))
-							{
-								npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.GIVE_ME_A_FAIRY_LEAF));
-								takeItems(attacker, FAIRY_LEAF, 1);
-								qs.setMemoState(qs.getMemoState() + data._memoStateValue);
-								qs.unset("hits");
-								playSound(attacker, Sound.ITEMSOUND_QUEST_MIDDLE);
-								
-								if (qs.getMemoState() == 15)
-								{
-									qs.setCond(3);
-								}
-							}
-						}
-					}
-				}
-				else
-				{
-					switch (getRandom(3))
-					{
-						case 0:
-							npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.WHY_DO_YOU_BOTHER_ME_AGAIN));
-							break;
-						case 1:
-							npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, data._message));
-							break;
-						case 2:
-							npc.broadcastPacket(new NpcSay(npc, Say2.NPC_ALL, NpcStringId.LEAVE_NOW_BEFORE_YOU_INCUR_THE_WRATH_OF_THE_GUARDIAN_GHOST));
-							break;
-					}
-				}
-			}
-			else if (getRandom(100) < 30)
-			{
-				npc.setTarget(attacker);
-				npc.doCast(VICIOUS_POISON);
-			}
-		}
-		else if ((npc.getCurrentHp() < (npc.getMaxHp() * 0.67)) && (getRandom(100) < 30))
-		{
-			npc.setTarget(attacker);
-			npc.doCast(VICIOUS_POISON);
-		}
-		
-		return super.onAttack(npc, attacker, damage, isSummon);
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		if (Util.checkIfInRange(1500, killer, npc, true))
-		{
-			for (int i = 0; i < 20; i++)
-			{
-				L2Npc guardian = addSpawn(SOUL_OF_TREE_GUARDIAN, npc);
-				startQuestTimer("DESPAWN_GUARDIAN", 300000, guardian, null);
-				
-				if (i == 0)
-				{
-					npc.setTarget(killer);
-					npc.doCast(VICIOUS_POISON);
-				}
-				
-				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, killer);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
-	}
-	
-	private static L2ItemInstance getFlute(L2PcInstance player)
-	{
-		final int fluteItemId;
-		if (hasQuestItems(player, DRAGONFLUTE_OF_WIND))
-		{
-			fluteItemId = DRAGONFLUTE_OF_WIND;
-		}
-		else if (hasQuestItems(player, DRAGONFLUTE_OF_STAR))
-		{
-			fluteItemId = DRAGONFLUTE_OF_STAR;
-		}
-		else
-		{
-			fluteItemId = DRAGONFLUTE_OF_TWILIGHT;
-		}
-		return player.getInventory().getItemByItemId(fluteItemId);
 	}
 	
 	private static final class NpcData

@@ -107,11 +107,28 @@ public final class DenOfEvil extends AbstractNpcAI
 		}
 	}
 	
-	private int getSkillIdByNpcId(int npcId)
+	public static void main(String[] args)
 	{
-		int diff = npcId - EYE_IDS[0];
-		diff *= 2;
-		return SKILL_ID + diff;
+		new DenOfEvil();
+	}
+	
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		ThreadPoolManager.getInstance().scheduleAi(() ->
+		{
+			addSpawn(EYE_IDS[getRandom(EYE_IDS.length)], npc.getLocation(), false, 0);
+		}, 15000);
+		L2EffectZone zone = ZoneManager.getInstance().getZone(npc, L2EffectZone.class);
+		if (zone == null)
+		{
+			_log.warning("NPC " + npc + " killed outside of L2EffectZone, check your zone coords! X:" + npc.getX() + " Y:" + npc.getY() + " Z:" + npc.getZ());
+			return null;
+		}
+		int skillId = getSkillIdByNpcId(npc.getId());
+		int skillLevel = zone.getSkillLevel(skillId);
+		zone.addSkill(skillId, skillLevel - 1);
+		return super.onKill(npc, killer, isSummon);
 	}
 	
 	@Override
@@ -140,23 +157,11 @@ public final class DenOfEvil extends AbstractNpcAI
 		return super.onSpawn(npc);
 	}
 	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	private int getSkillIdByNpcId(int npcId)
 	{
-		ThreadPoolManager.getInstance().scheduleAi(() ->
-		{
-			addSpawn(EYE_IDS[getRandom(EYE_IDS.length)], npc.getLocation(), false, 0);
-		}, 15000);
-		L2EffectZone zone = ZoneManager.getInstance().getZone(npc, L2EffectZone.class);
-		if (zone == null)
-		{
-			_log.warning("NPC " + npc + " killed outside of L2EffectZone, check your zone coords! X:" + npc.getX() + " Y:" + npc.getY() + " Z:" + npc.getZ());
-			return null;
-		}
-		int skillId = getSkillIdByNpcId(npc.getId());
-		int skillLevel = zone.getSkillLevel(skillId);
-		zone.addSkill(skillId, skillLevel - 1);
-		return super.onKill(npc, killer, isSummon);
+		int diff = npcId - EYE_IDS[0];
+		diff *= 2;
+		return SKILL_ID + diff;
 	}
 	
 	private static class KashaDestruction implements Runnable
@@ -219,10 +224,5 @@ public final class DenOfEvil extends AbstractNpcAI
 				_zone.removeSkill(i);
 			}
 		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new DenOfEvil();
 	}
 }

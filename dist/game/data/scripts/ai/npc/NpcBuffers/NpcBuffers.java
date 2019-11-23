@@ -43,6 +43,11 @@ public final class NpcBuffers extends AbstractNpcAI
 		}
 	}
 	
+	public static void main(String[] args)
+	{
+		new NpcBuffers();
+	}
+	
 	// TODO: Cleanup once npc rework is finished and default html is configurable.
 	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
@@ -59,10 +64,5 @@ public final class NpcBuffers extends AbstractNpcAI
 			ThreadPoolManager.getInstance().scheduleAi(new NpcBufferAI(npc, skill), skill.getInitialDelay());
 		}
 		return super.onSpawn(npc);
-	}
-	
-	public static void main(String[] args)
-	{
-		new NpcBuffers();
 	}
 }

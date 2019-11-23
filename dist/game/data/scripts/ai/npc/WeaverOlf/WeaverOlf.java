@@ -159,6 +159,11 @@ public final class WeaverOlf extends AbstractNpcAI
 		addTalkId(NPCs);
 	}
 	
+	public static void main(String[] args)
+	{
+		new WeaverOlf();
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -238,10 +243,5 @@ public final class WeaverOlf extends AbstractNpcAI
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		return npc.getId() + "-1.htm";
-	}
-	
-	public static void main(String[] args)
-	{
-		new WeaverOlf();
 	}
 }

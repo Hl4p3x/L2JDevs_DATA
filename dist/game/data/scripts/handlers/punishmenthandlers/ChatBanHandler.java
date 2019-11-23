@@ -34,48 +34,39 @@ import org.l2jdevs.gameserver.network.serverpackets.EtcStatusUpdate;
  */
 public class ChatBanHandler implements IPunishmentHandler
 {
-	@Override
-	public void onStart(PunishmentTask task)
+	/**
+	 * Applies all punishment effects from the player.
+	 * @param task
+	 * @param player
+	 */
+	private static void applyToPlayer(PunishmentTask task, L2PcInstance player)
 	{
-		switch (task.getAffect())
+		long delay = ((task.getExpirationTime() - System.currentTimeMillis()) / 1000);
+		if (delay > 0)
 		{
-			case CHARACTER:
-			{
-				int objectId = Integer.parseInt(String.valueOf(task.getKey()));
-				final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
-				if (player != null)
-				{
-					applyToPlayer(task, player);
-				}
-				break;
-			}
-			case ACCOUNT:
-			{
-				String account = String.valueOf(task.getKey());
-				final L2GameClient client = LoginServerThread.getInstance().getClient(account);
-				if (client != null)
-				{
-					final L2PcInstance player = client.getActiveChar();
-					if (player != null)
-					{
-						applyToPlayer(task, player);
-					}
-				}
-				break;
-			}
-			case IP:
-			{
-				String ip = String.valueOf(task.getKey());
-				for (L2PcInstance player : L2World.getInstance().getPlayers())
-				{
-					if (player.getIPAddress().equals(ip))
-					{
-						applyToPlayer(task, player);
-					}
-				}
-				break;
-			}
+			player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
 		}
+		else
+		{
+			player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_forever"));
+		}
+		player.sendPacket(new EtcStatusUpdate(player));
+	}
+	
+	/**
+	 * Removes any punishment effects from the player.
+	 * @param player
+	 */
+	private static void removeFromPlayer(L2PcInstance player)
+	{
+		player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_lifted"));
+		player.sendPacket(new EtcStatusUpdate(player));
+	}
+	
+	@Override
+	public PunishmentType getType()
+	{
+		return PunishmentType.CHAT_BAN;
 	}
 	
 	@Override
@@ -122,38 +113,47 @@ public class ChatBanHandler implements IPunishmentHandler
 		}
 	}
 	
-	/**
-	 * Applies all punishment effects from the player.
-	 * @param task
-	 * @param player
-	 */
-	private static void applyToPlayer(PunishmentTask task, L2PcInstance player)
-	{
-		long delay = ((task.getExpirationTime() - System.currentTimeMillis()) / 1000);
-		if (delay > 0)
-		{
-			player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_time").replace("%s%", (delay > 60 ? ((delay / 60) + " m.") : delay + " s.")));
-		}
-		else
-		{
-			player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_forever"));
-		}
-		player.sendPacket(new EtcStatusUpdate(player));
-	}
-	
-	/**
-	 * Removes any punishment effects from the player.
-	 * @param player
-	 */
-	private static void removeFromPlayer(L2PcInstance player)
-	{
-		player.sendMessage(LanguageData.getInstance().getMsg(player, "player_chat_banned_lifted"));
-		player.sendPacket(new EtcStatusUpdate(player));
-	}
-	
 	@Override
-	public PunishmentType getType()
+	public void onStart(PunishmentTask task)
 	{
-		return PunishmentType.CHAT_BAN;
+		switch (task.getAffect())
+		{
+			case CHARACTER:
+			{
+				int objectId = Integer.parseInt(String.valueOf(task.getKey()));
+				final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
+				if (player != null)
+				{
+					applyToPlayer(task, player);
+				}
+				break;
+			}
+			case ACCOUNT:
+			{
+				String account = String.valueOf(task.getKey());
+				final L2GameClient client = LoginServerThread.getInstance().getClient(account);
+				if (client != null)
+				{
+					final L2PcInstance player = client.getActiveChar();
+					if (player != null)
+					{
+						applyToPlayer(task, player);
+					}
+				}
+				break;
+			}
+			case IP:
+			{
+				String ip = String.valueOf(task.getKey());
+				for (L2PcInstance player : L2World.getInstance().getPlayers())
+				{
+					if (player.getIPAddress().equals(ip))
+					{
+						applyToPlayer(task, player);
+					}
+				}
+				break;
+			}
+		}
 	}
 }

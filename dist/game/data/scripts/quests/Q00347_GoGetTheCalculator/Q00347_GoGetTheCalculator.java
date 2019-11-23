@@ -138,6 +138,20 @@ public final class Q00347_GoGetTheCalculator extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, 4, 3, npc);
+		if (qs != null)
+		{
+			if (giveItemRandomly(qs.getPlayer(), npc, GEMSTONE, 1, 10, 0.4, true))
+			{
+				qs.setCond(5);
+			}
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -257,19 +271,5 @@ public final class Q00347_GoGetTheCalculator extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, 4, 3, npc);
-		if (qs != null)
-		{
-			if (giveItemRandomly(qs.getPlayer(), npc, GEMSTONE, 1, 10, 0.4, true))
-			{
-				qs.setCond(5);
-			}
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

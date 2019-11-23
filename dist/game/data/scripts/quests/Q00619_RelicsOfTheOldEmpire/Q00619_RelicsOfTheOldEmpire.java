@@ -33,37 +33,9 @@ import org.l2jdevs.gameserver.util.Util;
  */
 public final class Q00619_RelicsOfTheOldEmpire extends Quest
 {
-	private static final class DropInfo
-	{
-		public final double _dropChance;
-		public final int _doubleItemChance;
-		public final boolean _dropEntrancePass;
-		
-		public DropInfo(double dropChance, int doubleItemChance, boolean dropEntrancePass)
-		{
-			_dropChance = dropChance;
-			_doubleItemChance = doubleItemChance;
-			_dropEntrancePass = dropEntrancePass;
-		}
-		
-		public double getDropChance()
-		{
-			return _dropChance;
-		}
-		
-		public int getDoubleItemChance()
-		{
-			return _doubleItemChance;
-		}
-		
-		public boolean getDropEntrancePass()
-		{
-			return _dropEntrancePass;
-		}
-	}
-	
 	// NPC
 	private static final int GHOST_OF_ADVENTURER = 31538;
+	
 	// Items
 	private static final int ENTRANCE_PASS_TO_THE_SEPULCHER = 7075;
 	private static final int BROKEN_RELIC_PART = 7254;
@@ -205,7 +177,6 @@ public final class Q00619_RelicsOfTheOldEmpire extends Quest
 		MOBS.put(18229, new DropInfo(1.00, 19, false)); // r5_wizard_slefbuff
 		MOBS.put(18230, new DropInfo(0.49, 0, false)); // r5_bomb
 	}
-	
 	// @formatter:off
 	private static final int[] ARCHON_OF_HALISHA =
 	{
@@ -317,5 +288,34 @@ public final class Q00619_RelicsOfTheOldEmpire extends Quest
 			htmltext = ((getQuestItemsCount(player, BROKEN_RELIC_PART) >= REQUIRED_RELIC_COUNT) ? "31538-04.html" : "31538-07.html");
 		}
 		return htmltext;
+	}
+	
+	private static final class DropInfo
+	{
+		public final double _dropChance;
+		public final int _doubleItemChance;
+		public final boolean _dropEntrancePass;
+		
+		public DropInfo(double dropChance, int doubleItemChance, boolean dropEntrancePass)
+		{
+			_dropChance = dropChance;
+			_doubleItemChance = doubleItemChance;
+			_dropEntrancePass = dropEntrancePass;
+		}
+		
+		public int getDoubleItemChance()
+		{
+			return _doubleItemChance;
+		}
+		
+		public double getDropChance()
+		{
+			return _dropChance;
+		}
+		
+		public boolean getDropEntrancePass()
+		{
+			return _dropEntrancePass;
+		}
 	}
 }

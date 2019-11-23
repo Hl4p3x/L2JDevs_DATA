@@ -42,6 +42,12 @@ public class AdminGmChat implements IAdminCommandHandler
 	};
 	
 	@Override
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_gmchat"))
@@ -57,6 +63,34 @@ public class AdminGmChat implements IAdminCommandHandler
 			AdminHtml.showAdminHtml(activeChar, "gm_menu.htm");
 		}
 		return true;
+	}
+	
+	/**
+	 * @param command
+	 * @param activeChar
+	 */
+	private void handleGmChat(String command, L2PcInstance activeChar)
+	{
+		try
+		{
+			int offset = 0;
+			String text;
+			if (command.startsWith("admin_gmchat_menu"))
+			{
+				offset = 18;
+			}
+			else
+			{
+				offset = 13;
+			}
+			text = command.substring(offset);
+			CreatureSay cs = new CreatureSay(0, Say2.ALLIANCE, activeChar.getName(), text);
+			AdminData.getInstance().broadcastToGMs(cs);
+		}
+		catch (StringIndexOutOfBoundsException e)
+		{
+			// Who cares?
+		}
 	}
 	
 	/**
@@ -88,39 +122,5 @@ public class AdminGmChat implements IAdminCommandHandler
 		L2PcInstance player = (L2PcInstance) target;
 		player.addSnooper(activeChar);
 		activeChar.addSnooped(player);
-	}
-	
-	@Override
-	public String[] getAdminCommandList()
-	{
-		return ADMIN_COMMANDS;
-	}
-	
-	/**
-	 * @param command
-	 * @param activeChar
-	 */
-	private void handleGmChat(String command, L2PcInstance activeChar)
-	{
-		try
-		{
-			int offset = 0;
-			String text;
-			if (command.startsWith("admin_gmchat_menu"))
-			{
-				offset = 18;
-			}
-			else
-			{
-				offset = 13;
-			}
-			text = command.substring(offset);
-			CreatureSay cs = new CreatureSay(0, Say2.ALLIANCE, activeChar.getName(), text);
-			AdminData.getInstance().broadcastToGMs(cs);
-		}
-		catch (StringIndexOutOfBoundsException e)
-		{
-			// Who cares?
-		}
 	}
 }

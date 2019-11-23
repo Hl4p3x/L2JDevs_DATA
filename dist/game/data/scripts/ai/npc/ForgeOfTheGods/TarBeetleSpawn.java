@@ -122,6 +122,12 @@ public class TarBeetleSpawn implements IXmlReader
 		}
 	}
 	
+	public final void removeBeetle(L2Npc npc)
+	{
+		zones.get(npc.getVariables().getInt("zoneIndex", 0)).removeSpawn(npc);
+		npc.deleteMe();
+	}
+	
 	public final void unload()
 	{
 		if (spawnTask != null)
@@ -134,57 +140,6 @@ public class TarBeetleSpawn implements IXmlReader
 		}
 		zones.forEach(SpawnZone::unload);
 		zones.clear();
-	}
-	
-	public final void removeBeetle(L2Npc npc)
-	{
-		zones.get(npc.getVariables().getInt("zoneIndex", 0)).removeSpawn(npc);
-		npc.deleteMe();
-	}
-	
-	private final class Zone extends L2Territory
-	{
-		private List<Zone> _bannedZones;
-		
-		public Zone()
-		{
-			super(1);
-		}
-		
-		@Override
-		public Location getRandomPoint()
-		{
-			Location location = super.getRandomPoint();
-			while ((location != null) && isInsideBannedZone(location))
-			{
-				location = super.getRandomPoint();
-			}
-			return location;
-		}
-		
-		public void addBannedZone(Zone bZone)
-		{
-			if (_bannedZones == null)
-			{
-				_bannedZones = new ArrayList<>();
-			}
-			_bannedZones.add(bZone);
-		}
-		
-		private boolean isInsideBannedZone(Location location)
-		{
-			if (_bannedZones != null)
-			{
-				for (Zone z : _bannedZones)
-				{
-					if (z.isInside(location.getX(), location.getY()))
-					{
-						return true;
-					}
-				}
-			}
-			return false;
-		}
 	}
 	
 	private final class SpawnZone
@@ -205,16 +160,24 @@ public class TarBeetleSpawn implements IXmlReader
 			_zones.add(zone);
 		}
 		
-		public void removeSpawn(L2Npc obj)
+		public void refreshShots()
 		{
-			_spawn.remove(obj);
-		}
-		
-		public void unload()
-		{
-			_spawn.forEach(L2Npc::deleteMe);
-			_spawn.clear();
-			_zones.clear();
+			if (_spawn.size() > 0)
+			{
+				for (L2Npc npc : _spawn)
+				{
+					final int val = npc.getScriptValue();
+					if (val == 5)
+					{
+						npc.deleteMe();
+						_spawn.remove(npc);
+					}
+					else
+					{
+						npc.setScriptValue(val + 1);
+					}
+				}
+			}
 		}
 		
 		public void refreshSpawn()
@@ -249,24 +212,61 @@ public class TarBeetleSpawn implements IXmlReader
 			}
 		}
 		
-		public void refreshShots()
+		public void removeSpawn(L2Npc obj)
 		{
-			if (_spawn.size() > 0)
+			_spawn.remove(obj);
+		}
+		
+		public void unload()
+		{
+			_spawn.forEach(L2Npc::deleteMe);
+			_spawn.clear();
+			_zones.clear();
+		}
+	}
+	
+	private final class Zone extends L2Territory
+	{
+		private List<Zone> _bannedZones;
+		
+		public Zone()
+		{
+			super(1);
+		}
+		
+		public void addBannedZone(Zone bZone)
+		{
+			if (_bannedZones == null)
 			{
-				for (L2Npc npc : _spawn)
+				_bannedZones = new ArrayList<>();
+			}
+			_bannedZones.add(bZone);
+		}
+		
+		@Override
+		public Location getRandomPoint()
+		{
+			Location location = super.getRandomPoint();
+			while ((location != null) && isInsideBannedZone(location))
+			{
+				location = super.getRandomPoint();
+			}
+			return location;
+		}
+		
+		private boolean isInsideBannedZone(Location location)
+		{
+			if (_bannedZones != null)
+			{
+				for (Zone z : _bannedZones)
 				{
-					final int val = npc.getScriptValue();
-					if (val == 5)
+					if (z.isInside(location.getX(), location.getY()))
 					{
-						npc.deleteMe();
-						_spawn.remove(npc);
-					}
-					else
-					{
-						npc.setScriptValue(val + 1);
+						return true;
 					}
 				}
 			}
+			return false;
 		}
 	}
 }

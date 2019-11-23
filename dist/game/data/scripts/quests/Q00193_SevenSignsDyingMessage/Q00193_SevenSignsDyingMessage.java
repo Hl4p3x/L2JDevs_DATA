@@ -51,9 +51,9 @@ public final class Q00193_SevenSignsDyingMessage extends Quest
 	private static final int SCULPTURE_OF_DOUBT = 14353;
 	// Misc
 	private static final int MIN_LEVEL = 79;
-	private boolean isBusy = false;
 	// Skill
 	private static final SkillHolder NPC_HEAL = new SkillHolder(4065, 8);
+	private boolean isBusy = false;
 	
 	public Q00193_SevenSignsDyingMessage()
 	{

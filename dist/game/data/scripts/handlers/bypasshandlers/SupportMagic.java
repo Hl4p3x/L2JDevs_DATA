@@ -78,25 +78,6 @@ public class SupportMagic implements IBypassHandler
 	private static final int CUBIC_HIGHEST = 34;
 	private static final int HASTE_LEVEL_2 = 40;
 	
-	@Override
-	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
-	{
-		if (!target.isNpc() || activeChar.isCursedWeaponEquipped())
-		{
-			return false;
-		}
-		
-		if (command.equalsIgnoreCase(COMMANDS[0]))
-		{
-			makeSupportMagic(activeChar, (L2Npc) target, true);
-		}
-		else if (command.equalsIgnoreCase(COMMANDS[1]))
-		{
-			makeSupportMagic(activeChar, (L2Npc) target, false);
-		}
-		return true;
-	}
-	
 	private static void makeSupportMagic(L2PcInstance player, L2Npc npc, boolean isSummon)
 	{
 		final int level = player.getLevel();
@@ -176,5 +157,24 @@ public class SupportMagic implements IBypassHandler
 	public String[] getBypassList()
 	{
 		return COMMANDS;
+	}
+	
+	@Override
+	public boolean useBypass(String command, L2PcInstance activeChar, L2Character target)
+	{
+		if (!target.isNpc() || activeChar.isCursedWeaponEquipped())
+		{
+			return false;
+		}
+		
+		if (command.equalsIgnoreCase(COMMANDS[0]))
+		{
+			makeSupportMagic(activeChar, (L2Npc) target, true);
+		}
+		else if (command.equalsIgnoreCase(COMMANDS[1]))
+		{
+			makeSupportMagic(activeChar, (L2Npc) target, false);
+		}
+		return true;
 	}
 }

@@ -35,28 +35,6 @@ import org.l2jdevs.gameserver.util.Util;
  */
 public class Q00512_BladeUnderFoot extends Quest
 {
-	private static final class DropInfo
-	{
-		public final int _firstChance;
-		public final int _secondChance;
-		
-		public DropInfo(int firstChance, int secondChance)
-		{
-			_firstChance = firstChance;
-			_secondChance = secondChance;
-		}
-		
-		public int getFirstChance()
-		{
-			return _firstChance;
-		}
-		
-		public int getSecondChance()
-		{
-			return _secondChance;
-		}
-	}
-	
 	// NPCs
 	private static final int[] WARDEN =
 	{
@@ -73,6 +51,7 @@ public class Q00512_BladeUnderFoot extends Quest
 	
 	// Misc
 	private static final int MIN_LEVEL = 70;
+	
 	// Item
 	private static final int FRAGMENT_OF_THE_DUNGEON_LEADER_MARK = 9798;
 	// Reward
@@ -85,7 +64,6 @@ public class Q00512_BladeUnderFoot extends Quest
 		RAID_BOSSES.put(25566, new DropInfo(176, 1447)); // Nagen the Tomboy
 		RAID_BOSSES.put(25569, new DropInfo(177, 1450)); // Jax the Destroyer
 	}
-	
 	public Q00512_BladeUnderFoot()
 	{
 		super(512, Q00512_BladeUnderFoot.class.getSimpleName(), "Blade Under Foot");
@@ -210,5 +188,27 @@ public class Q00512_BladeUnderFoot extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private static final class DropInfo
+	{
+		public final int _firstChance;
+		public final int _secondChance;
+		
+		public DropInfo(int firstChance, int secondChance)
+		{
+			_firstChance = firstChance;
+			_secondChance = secondChance;
+		}
+		
+		public int getFirstChance()
+		{
+			return _firstChance;
+		}
+		
+		public int getSecondChance()
+		{
+			return _secondChance;
+		}
 	}
 }

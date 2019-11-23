@@ -49,6 +49,8 @@ public final class Q00385_YokeOfThePast extends Quest
 	private static final int BLANK_SCROLL = 5965;
 	// Monsters
 	private static final Map<Integer, Double> MONSTER_CHANCES = new HashMap<>();
+	// Misc
+	private static final int MIN_LVL = 20;
 	{
 		MONSTER_CHANCES.put(21144, 0.306); // Catacomb Shadow
 		MONSTER_CHANCES.put(21156, 0.994); // Purgatory Shadow
@@ -94,8 +96,6 @@ public final class Q00385_YokeOfThePast extends Quest
 		MONSTER_CHANCES.put(21254, 0.354); // Tomb Guard
 		MONSTER_CHANCES.put(21255, 0.250); // Tomb Preacher
 	}
-	// Misc
-	private static final int MIN_LVL = 20;
 	
 	public Q00385_YokeOfThePast()
 	{
@@ -144,6 +144,17 @@ public final class Q00385_YokeOfThePast extends Quest
 	}
 	
 	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	{
+		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
+		if (qs != null)
+		{
+			giveItemRandomly(qs.getPlayer(), npc, SCROLL_OF_ANCIENT_MAGIC, 1, 0, MONSTER_CHANCES.get(npc.getId()), true);
+		}
+		return super.onKill(npc, killer, isSummon);
+	}
+	
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
 		final QuestState qs = getQuestState(talker, true);
@@ -171,16 +182,5 @@ public final class Q00385_YokeOfThePast extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
-	{
-		final QuestState qs = getRandomPartyMemberState(killer, -1, 3, npc);
-		if (qs != null)
-		{
-			giveItemRandomly(qs.getPlayer(), npc, SCROLL_OF_ANCIENT_MAGIC, 1, 0, MONSTER_CHANCES.get(npc.getId()), true);
-		}
-		return super.onKill(npc, killer, isSummon);
 	}
 }

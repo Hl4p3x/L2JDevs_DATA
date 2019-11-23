@@ -161,114 +161,6 @@ public final class Q00336_CoinsOfMagic extends Quest
 	}
 	
 	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		switch (npc.getId())
-		{
-			case PANO:
-			case COLLOB:
-			case HEAD_BLACKSMITH_FERRIS:
-			{
-				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1))
-				{
-					resetParams(qs);
-					return npc.getId() + "-01.html";
-				}
-				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_2) || qs.hasQuestItems(Q_CC_MEMBERSHIP_3))
-				{
-					return npc.getId() + "-54.html";
-				}
-				break;
-			}
-			case RAPIN:
-			case STAN:
-			case BLACKSMITH_DUNING:
-			{
-				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1) || qs.hasQuestItems(Q_CC_MEMBERSHIP_2))
-				{
-					resetParams(qs);
-					return npc.getId() + "-01.html";
-				}
-				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_3))
-				{
-					return npc.getId() + "-54.html";
-				}
-				break;
-			}
-			case HAGGER:
-			case MAGISTER_PAGE:
-			case RESEARCHER_LORAIN:
-			{
-				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1) || qs.hasQuestItems(Q_CC_MEMBERSHIP_2) || qs.hasQuestItems(Q_CC_MEMBERSHIP_3))
-				{
-					resetParams(qs);
-					return npc.getId() + "-01.html";
-				}
-				break;
-			}
-			case UNION_PRESIDENT_BERNARD:
-			{
-				if ((qs.getMemoState() == 1) && qs.hasQuestItems(Q_COIN_DIAGRAM))
-				{
-					return "30702-01.html";
-				}
-				if (qs.getMemoState() >= 3)
-				{
-					return "30702-05.html";
-				}
-				if (qs.getMemoState() == 2)
-				{
-					return "30702-02a.html";
-				}
-			}
-			case WAREHOUSE_KEEPER_SORINT:
-			{
-				if (qs.isCreated())
-				{
-					if (player.getLevel() < 40)
-					{
-						return "30232-01.htm";
-					}
-					return "30232-02.htm";
-				}
-				if (qs.isStarted())
-				{
-					if (!qs.hasQuestItems(Q_KALDIS_GOLD_DRAGON) && ((qs.getMemoState() == 1) || (qs.getMemoState() == 2)))
-					{
-						return "30232-06.html";
-					}
-					if (qs.hasQuestItems(Q_KALDIS_GOLD_DRAGON) && ((qs.getMemoState() == 1) || (qs.getMemoState() == 2)))
-					{
-						qs.giveItems(Q_CC_MEMBERSHIP_3, 1);
-						qs.takeItems(Q_COIN_DIAGRAM, -1);
-						qs.takeItems(Q_KALDIS_GOLD_DRAGON, 1);
-						qs.setMemoState(3);
-						qs.setCond(4);
-						qs.showQuestionMark(336);
-						qs.playSound(Sound.ITEMSOUND_QUEST_MIDDLE);
-						return "30232-07.html";
-					}
-					if (qs.hasQuestItems(Q_CC_MEMBERSHIP_3) && (qs.getMemoState() == 3))
-					{
-						return "30232-10.html";
-					}
-					if (qs.hasQuestItems(Q_CC_MEMBERSHIP_2) && (qs.getMemoState() == 3))
-					{
-						return "30232-11.html";
-					}
-					if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1) && (qs.getMemoState() == 3))
-					{
-						return "30232-12.html";
-					}
-				}
-			}
-		}
-		return htmltext;
-	}
-	
-	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, false);
@@ -1346,6 +1238,165 @@ public final class Q00336_CoinsOfMagic extends Quest
 		return super.onKill(npc, killer, isSummon);
 	}
 	
+	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState qs = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		switch (npc.getId())
+		{
+			case PANO:
+			case COLLOB:
+			case HEAD_BLACKSMITH_FERRIS:
+			{
+				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1))
+				{
+					resetParams(qs);
+					return npc.getId() + "-01.html";
+				}
+				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_2) || qs.hasQuestItems(Q_CC_MEMBERSHIP_3))
+				{
+					return npc.getId() + "-54.html";
+				}
+				break;
+			}
+			case RAPIN:
+			case STAN:
+			case BLACKSMITH_DUNING:
+			{
+				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1) || qs.hasQuestItems(Q_CC_MEMBERSHIP_2))
+				{
+					resetParams(qs);
+					return npc.getId() + "-01.html";
+				}
+				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_3))
+				{
+					return npc.getId() + "-54.html";
+				}
+				break;
+			}
+			case HAGGER:
+			case MAGISTER_PAGE:
+			case RESEARCHER_LORAIN:
+			{
+				if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1) || qs.hasQuestItems(Q_CC_MEMBERSHIP_2) || qs.hasQuestItems(Q_CC_MEMBERSHIP_3))
+				{
+					resetParams(qs);
+					return npc.getId() + "-01.html";
+				}
+				break;
+			}
+			case UNION_PRESIDENT_BERNARD:
+			{
+				if ((qs.getMemoState() == 1) && qs.hasQuestItems(Q_COIN_DIAGRAM))
+				{
+					return "30702-01.html";
+				}
+				if (qs.getMemoState() >= 3)
+				{
+					return "30702-05.html";
+				}
+				if (qs.getMemoState() == 2)
+				{
+					return "30702-02a.html";
+				}
+			}
+			case WAREHOUSE_KEEPER_SORINT:
+			{
+				if (qs.isCreated())
+				{
+					if (player.getLevel() < 40)
+					{
+						return "30232-01.htm";
+					}
+					return "30232-02.htm";
+				}
+				if (qs.isStarted())
+				{
+					if (!qs.hasQuestItems(Q_KALDIS_GOLD_DRAGON) && ((qs.getMemoState() == 1) || (qs.getMemoState() == 2)))
+					{
+						return "30232-06.html";
+					}
+					if (qs.hasQuestItems(Q_KALDIS_GOLD_DRAGON) && ((qs.getMemoState() == 1) || (qs.getMemoState() == 2)))
+					{
+						qs.giveItems(Q_CC_MEMBERSHIP_3, 1);
+						qs.takeItems(Q_COIN_DIAGRAM, -1);
+						qs.takeItems(Q_KALDIS_GOLD_DRAGON, 1);
+						qs.setMemoState(3);
+						qs.setCond(4);
+						qs.showQuestionMark(336);
+						qs.playSound(Sound.ITEMSOUND_QUEST_MIDDLE);
+						return "30232-07.html";
+					}
+					if (qs.hasQuestItems(Q_CC_MEMBERSHIP_3) && (qs.getMemoState() == 3))
+					{
+						return "30232-10.html";
+					}
+					if (qs.hasQuestItems(Q_CC_MEMBERSHIP_2) && (qs.getMemoState() == 3))
+					{
+						return "30232-11.html";
+					}
+					if (qs.hasQuestItems(Q_CC_MEMBERSHIP_1) && (qs.getMemoState() == 3))
+					{
+						return "30232-12.html";
+					}
+				}
+			}
+		}
+		return htmltext;
+	}
+	
+	private QuestState getRandomPlayerFromParty(L2PcInstance player, L2Npc npc, int memoState)
+	{
+		QuestState qs = getQuestState(player, false);
+		final List<QuestState> candidates = new ArrayList<>();
+		
+		if ((qs != null) && qs.isStarted() && (qs.getMemoState() == memoState))
+		{
+			candidates.add(qs);
+			candidates.add(qs);
+		}
+		
+		if (player.isInParty())
+		{
+			player.getParty().getMembers().stream().forEach(pm ->
+			{
+				
+				QuestState qss = getQuestState(pm, false);
+				if ((qss != null) && qss.isStarted() && (qss.getMemoState() == memoState) && Util.checkIfInRange(1500, npc, pm, true))
+				{
+					candidates.add(qss);
+				}
+			});
+		}
+		return candidates.isEmpty() ? null : candidates.get(getRandom(candidates.size()));
+	}
+	
+	private QuestState getRandomPlayerFromPartyCoin(L2PcInstance player, L2Npc npc, int memoState)
+	{
+		QuestState qs = getQuestState(player, false);
+		final List<QuestState> candidates = new ArrayList<>();
+		if ((qs != null) && qs.isStarted() && (qs.getMemoState() == memoState) && !qs.hasQuestItems(Q_KALDIS_GOLD_DRAGON))
+		{
+			candidates.add(qs);
+			candidates.add(qs);
+		}
+		
+		if (player.isInParty())
+		{
+			player.getParty().getMembers().stream().forEach(pm ->
+			{
+				
+				QuestState qss = getQuestState(pm, false);
+				if ((qss != null) && qss.isStarted() && (qss.getMemoState() == memoState) && !qss.hasQuestItems(Q_KALDIS_GOLD_DRAGON) && Util.checkIfInRange(1500, npc, pm, true))
+				{
+					candidates.add(qss);
+				}
+			});
+		}
+		return candidates.isEmpty() ? null : candidates.get(getRandom(candidates.size()));
+	}
+	
 	/**
 	 * @param qs
 	 */
@@ -1785,56 +1836,5 @@ public final class Q00336_CoinsOfMagic extends Quest
 			}
 		}
 		return null;
-	}
-	
-	private QuestState getRandomPlayerFromParty(L2PcInstance player, L2Npc npc, int memoState)
-	{
-		QuestState qs = getQuestState(player, false);
-		final List<QuestState> candidates = new ArrayList<>();
-		
-		if ((qs != null) && qs.isStarted() && (qs.getMemoState() == memoState))
-		{
-			candidates.add(qs);
-			candidates.add(qs);
-		}
-		
-		if (player.isInParty())
-		{
-			player.getParty().getMembers().stream().forEach(pm ->
-			{
-				
-				QuestState qss = getQuestState(pm, false);
-				if ((qss != null) && qss.isStarted() && (qss.getMemoState() == memoState) && Util.checkIfInRange(1500, npc, pm, true))
-				{
-					candidates.add(qss);
-				}
-			});
-		}
-		return candidates.isEmpty() ? null : candidates.get(getRandom(candidates.size()));
-	}
-	
-	private QuestState getRandomPlayerFromPartyCoin(L2PcInstance player, L2Npc npc, int memoState)
-	{
-		QuestState qs = getQuestState(player, false);
-		final List<QuestState> candidates = new ArrayList<>();
-		if ((qs != null) && qs.isStarted() && (qs.getMemoState() == memoState) && !qs.hasQuestItems(Q_KALDIS_GOLD_DRAGON))
-		{
-			candidates.add(qs);
-			candidates.add(qs);
-		}
-		
-		if (player.isInParty())
-		{
-			player.getParty().getMembers().stream().forEach(pm ->
-			{
-				
-				QuestState qss = getQuestState(pm, false);
-				if ((qss != null) && qss.isStarted() && (qss.getMemoState() == memoState) && !qss.hasQuestItems(Q_KALDIS_GOLD_DRAGON) && Util.checkIfInRange(1500, npc, pm, true))
-				{
-					candidates.add(qss);
-				}
-			});
-		}
-		return candidates.isEmpty() ? null : candidates.get(getRandom(candidates.size()));
 	}
 }

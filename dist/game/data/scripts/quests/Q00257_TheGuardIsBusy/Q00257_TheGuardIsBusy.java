@@ -39,26 +39,9 @@ import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
  */
 public final class Q00257_TheGuardIsBusy extends Quest
 {
-	public final static class MobDrop extends ItemHolder
-	{
-		private final int _chance;
-		private final int _random;
-		
-		public MobDrop(int random, int chance, int id, long count)
-		{
-			super(id, count);
-			_random = random;
-			_chance = chance;
-		}
-		
-		public boolean getDrop()
-		{
-			return (getRandom(_random) < _chance);
-		}
-	}
-	
 	// NPC
 	private static final int GILBERT = 30039;
+	
 	// Misc
 	private static final int MIN_LVL = 6;
 	// Monsters
@@ -68,7 +51,6 @@ public final class Q00257_TheGuardIsBusy extends Quest
 	private static final int ORC_AMULET = 752;
 	private static final int ORC_NECKLACE = 1085;
 	private static final int WEREWOLF_FANG = 1086;
-	
 	static
 	{
 		MONSTERS.put(20006, Arrays.asList(new MobDrop(10, 2, ORC_AMULET, 2), new MobDrop(10, 10, ORC_AMULET, 1))); // Orc Archer
@@ -177,5 +159,23 @@ public final class Q00257_TheGuardIsBusy extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	public final static class MobDrop extends ItemHolder
+	{
+		private final int _chance;
+		private final int _random;
+		
+		public MobDrop(int random, int chance, int id, long count)
+		{
+			super(id, count);
+			_random = random;
+			_chance = chance;
+		}
+		
+		public boolean getDrop()
+		{
+			return (getRandom(_random) < _chance);
+		}
 	}
 }

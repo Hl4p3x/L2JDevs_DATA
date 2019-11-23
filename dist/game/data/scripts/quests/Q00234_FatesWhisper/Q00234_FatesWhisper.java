@@ -155,337 +155,9 @@ public final class Q00234_FatesWhisper extends Quest
 	}
 	
 	@Override
-	public String onSpawn(L2Npc npc)
+	public boolean checkPartyMember(QuestState qs, L2Npc npc)
 	{
-		switch (npc.getId())
-		{
-			case COFFER_OF_THE_DEAD:
-			{
-				startQuestTimer("23401", 1000 * 120, npc, null);
-				break;
-			}
-			case CHEST_OF_KERNON:
-			{
-				startQuestTimer("23402", 1000 * 120, npc, null);
-				break;
-			}
-			case CHEST_OF_HALLATE:
-			{
-				startQuestTimer("23403", 1000 * 120, npc, null);
-				break;
-			}
-			case CHEST_OF_GOLKONDA:
-			{
-				startQuestTimer("23404", 1000 * 120, npc, null);
-				break;
-			}
-		}
-		return super.onSpawn(npc);
-	}
-	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
-	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		switch (npc.getId())
-		{
-			case ZENKIN:
-			{
-				switch (qs.getMemoState())
-				{
-					case 6:
-						return "30178-01.html";
-					case 7:
-						return "30178-03.html";
-					case 8:
-						return "30178-04.html";
-				}
-				break;
-			}
-			case CLIFF:
-			{
-				if (qs.isMemoState(4) && !qs.hasQuestItems(Q_INFERNIUM_VARNISH))
-				{
-					return "30182-01.html";
-				}
-				if (qs.isMemoState(4) && qs.hasQuestItems(Q_INFERNIUM_VARNISH))
-				{
-					return "30182-05.html";
-				}
-				if (qs.getMemoState() >= 5)
-				{
-					return "30182-06.html";
-				}
-			}
-			case MASTER_KASPAR:
-			{
-				if (qs.isMemoState(7))
-				{
-					return "30833-01.html";
-				}
-				
-				final long bloodyFabricCount = qs.getQuestItemsCount(Q_BLOODY_FABRIC_Q0234);
-				final long whiteFabricCount = qs.getQuestItemsCount(Q_WHITE_FABRIC_Q0234);
-				final long whiteBloodyFabricCount = bloodyFabricCount + whiteFabricCount;
-				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (whiteBloodyFabricCount <= 0))
-				{
-					return "30833-03.html";
-				}
-				if (qs.isMemoState(8) && qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (whiteBloodyFabricCount <= 0))
-				{
-					qs.giveItems(Q_MAESTRO_REORINS_MOLD, 1);
-					qs.takeItems(Q_RED_PIPETTE_KNIFE, 1);
-					qs.setMemoState(9);
-					qs.setCond(10, true);
-					qs.showQuestionMark(234);
-					return "30833-04.html";
-				}
-				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (bloodyFabricCount < 30) && (whiteBloodyFabricCount >= 30))
-				{
-					return "30833-03c.html";
-				}
-				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (bloodyFabricCount >= 30) && (whiteBloodyFabricCount >= 30))
-				{
-					qs.giveItems(Q_MAESTRO_REORINS_MOLD, 1);
-					qs.takeItems(Q_BLOODY_FABRIC_Q0234, -1);
-					qs.setMemoState(9);
-					qs.setCond(10, true);
-					qs.showQuestionMark(234);
-					return "30833-03d.html";
-				}
-				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (whiteBloodyFabricCount < 30) && (whiteBloodyFabricCount > 0))
-				{
-					qs.giveItems(Q_WHITE_FABRIC_Q0234, 30 - whiteFabricCount);
-					qs.takeItems(Q_BLOODY_FABRIC_Q0234, -1);
-					return "30833-03e.html";
-				}
-				if (qs.getMemoState() >= 9)
-				{
-					return "30833-05.html";
-				}
-				break;
-			}
-			case HEAD_BLACKSMITH_FERRIS:
-			{
-				if (qs.isMemoState(5))
-				{
-					if (qs.hasQuestItems(Q_MAESTRO_REORINS_HAMMER))
-					{
-						return "30847-02.html";
-					}
-					qs.giveItems(Q_MAESTRO_REORINS_HAMMER, 1);
-					return "30847-01.html";
-				}
-				if (qs.getMemoState() >= 6)
-				{
-					return "30847-03.html";
-				}
-				break;
-			}
-			case MAESTRO_LEORIN:
-			{
-				if (qs.isCreated() && (player.getLevel() >= 75))
-				{
-					return "31002-01.htm";
-				}
-				if (qs.isCreated() && (player.getLevel() < 75))
-				{
-					return "31002-01a.htm";
-				}
-				if (qs.isCompleted())
-				{
-					return getAlreadyCompletedMsg(player);
-				}
-				if (qs.isMemoState(1) && !qs.hasQuestItems(Q_REIRIAS_SOULORB))
-				{
-					return "31002-09.html";
-				}
-				if (qs.isMemoState(1) && qs.hasQuestItems(Q_REIRIAS_SOULORB))
-				{
-					return "31002-10.html";
-				}
-				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1, Q_INFERNIUM_SCEPTER_2, Q_INFERNIUM_SCEPTER_3))
-				{
-					return "31002-12.html";
-				}
-				if (qs.isMemoState(2) && qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1, Q_INFERNIUM_SCEPTER_2, Q_INFERNIUM_SCEPTER_3))
-				{
-					return "31002-13.html";
-				}
-				if (qs.isMemoState(4) && !qs.hasQuestItems(Q_INFERNIUM_VARNISH))
-				{
-					return "31002-15.html";
-				}
-				if (qs.isMemoState(4) && qs.hasQuestItems(Q_INFERNIUM_VARNISH))
-				{
-					return "31002-16.html";
-				}
-				if (qs.isMemoState(5) && !qs.hasQuestItems(Q_MAESTRO_REORINS_HAMMER))
-				{
-					return "31002-18.html";
-				}
-				if (qs.isMemoState(5) && qs.hasQuestItems(Q_MAESTRO_REORINS_HAMMER))
-				{
-					return "31002-19.html";
-				}
-				if ((qs.getMemoState() < 9) && (qs.getMemoState() >= 6))
-				{
-					return "31002-21.html";
-				}
-				if (qs.isMemoState(9) && qs.hasQuestItems(Q_MAESTRO_REORINS_MOLD))
-				{
-					return "31002-22.html";
-				}
-				if (qs.isMemoState(10) && (qs.getQuestItemsCount(CRYSTAL_B) < 984))
-				{
-					return "31002-24.html";
-				}
-				if (qs.isMemoState(10) && (qs.getQuestItemsCount(CRYSTAL_B) >= 984))
-				{
-					return "31002-25.html";
-				}
-				switch (qs.getMemoState())
-				{
-					case 11:
-						if (hasAtLeastOneQuestItem(player, SWORD_OF_DAMASCUS, SWORD_OF_DAMASCUS_FOCUS, SWORD_OF_DAMASCUS_CRT_DAMAGE, SWORD_OF_DAMASCUS_HASTE))
-						{
-							return "31002-35.html";
-						}
-						return "31002-35a.html";
-					case 12:
-						if (hasAtLeastOneQuestItem(player, HAZARD_BOW_GUIDENCE, HAZARD_BOW_QUICKRECOVERY, HAZARD_BOW_CHEAPSHOT, HAZARD_BOW))
-						{
-							return "31002-36.html";
-						}
-						return "31002-36a.html";
-					case 13:
-						if (hasAtLeastOneQuestItem(player, LANCIA_ANGER, LANCIA_CRT_STUN, LANCIA_LONGBLOW, LANCIA))
-						{
-							return "31002-37.html";
-						}
-						return "31002-37a.html";
-					case 14:
-						if (hasAtLeastOneQuestItem(player, ART_OF_BATTLE_AXE_HEALTH, ART_OF_BATTLE_AXE_RSK_FOCUS, ART_OF_BATTLE_AXE_HASTE, ART_OF_BATTLE_AXE))
-						{
-							return "31002-38.html";
-						}
-						return "31002-38a.html";
-					case 15:
-						if (hasAtLeastOneQuestItem(player, STAFF_OF_EVIL_SPRIT_MAGICFOCUS, STAFF_OF_EVIL_SPRIT_MAGICBLESSTHEBODY, STAFF_OF_EVIL_SPRIT_MAGICPOISON, STAFF_OF_EVIL_SPRIT))
-						{
-							return "31002-39.html";
-						}
-						return "31002-39a.html";
-					case 16:
-						if (hasAtLeastOneQuestItem(player, DEMONS_SWORD_CRT_BLEED, DEMONS_SWORD_CRT_POISON, DEMONS_SWORD_MIGHTMOTAL, DEMONS_SWORD))
-						{
-							return "31002-40.html";
-						}
-						return "31002-40a.html";
-					case 17:
-						if (hasAtLeastOneQuestItem(player, BELLION_CESTUS_CRT_DRAIN, BELLION_CESTUS_CRT_POISON, BELLION_CESTUS_RSK_HASTE, BELLION_CESTUS))
-						{
-							return "31002-41.html";
-						}
-						return "31002-41a.html";
-					case 18:
-						if (hasAtLeastOneQuestItem(player, DEADMANS_GLORY_ANGER, DEADMANS_GLORY_HEALTH, DEADMANS_GLORY_HASTE, DEADMANS_GLORY))
-						{
-							return "31002-42.html";
-						}
-						return "31002-42a.html";
-					case 19:
-						if (hasAtLeastOneQuestItem(player, SAMURAI_LONGSWORD_SAMURAI_LONGSWORD))
-						{
-							return "31002-43.html";
-						}
-						return "31002-43a.html";
-					case 41:
-						if (hasAtLeastOneQuestItem(player, GUARDIANS_SWORD, GUARDIANS_SWORD_CRT_DRAIN, GUARDIANS_SWORD_HEALTH, GUARDIANS_SWORD_CRT_BLEED))
-						{
-							return "31002-43b.html";
-						}
-						return "31002-43c.html";
-					case 42:
-						if (hasAtLeastOneQuestItem(player, TEARS_OF_WIZARD, TEARS_OF_WIZARD_ACUMEN, TEARS_OF_WIZARD_MAGICPOWER, TEARS_OF_WIZARD_UPDOWN))
-						{
-							return "31002-43d.html";
-						}
-						return "31002-43e.html";
-					case 43:
-						if (hasAtLeastOneQuestItem(player, STAR_BUSTER, STAR_BUSTER_HEALTH, STAR_BUSTER_HASTE, STAR_BUSTER_RSK_FOCUS))
-						{
-							return "31002-43f.html";
-						}
-						return "31002-43g.html";
-					case 44:
-						if (hasAtLeastOneQuestItem(player, BONE_OF_KAIM_VANUL, BONE_OF_KAIM_VANUL_MANAUP, BONE_OF_KAIM_VANUL_MAGICSILENCE, BONE_OF_KAIM_VANUL_UPDOWN))
-						{
-							return "31002-43h.html";
-						}
-						return "31002-43i.html";
-				}
-				break;
-			}
-			case COFFER_OF_THE_DEAD:
-			{
-				if (qs.isMemoState(1) && !qs.hasQuestItems(Q_REIRIAS_SOULORB))
-				{
-					qs.giveItems(Q_REIRIAS_SOULORB, 1);
-					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-					return "31027-01.html";
-				}
-				if ((qs.getMemoState() > 1) || qs.hasQuestItems(Q_REIRIAS_SOULORB))
-				{
-					return "31027-02.html";
-				}
-				break;
-			}
-			case CHEST_OF_KERNON:
-			{
-				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1))
-				{
-					qs.giveItems(Q_INFERNIUM_SCEPTER_1, 1);
-					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-					return "31028-01.html";
-				}
-				if (!qs.isMemoState(2) || qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1))
-				{
-					return "31028-02.html";
-				}
-				break;
-			}
-			case CHEST_OF_GOLKONDA:
-			{
-				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_2))
-				{
-					qs.giveItems(Q_INFERNIUM_SCEPTER_2, 1);
-					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-					return "31029-01.html";
-				}
-				if (!qs.isMemoState(2) || qs.hasQuestItems(Q_INFERNIUM_SCEPTER_2))
-				{
-					return "31029-02.html";
-				}
-				break;
-			}
-			case CHEST_OF_HALLATE:
-			{
-				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_3))
-				{
-					qs.giveItems(Q_INFERNIUM_SCEPTER_3, 1);
-					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-					return "31030-01.html";
-				}
-				if (!qs.isMemoState(2) || qs.hasQuestItems(Q_INFERNIUM_SCEPTER_3))
-				{
-					return "31030-02.html";
-				}
-				break;
-			}
-		}
-		return htmltext;
+		return qs.hasQuestItems(Q_WHITE_FABRIC_Q0234) && qs.isMemoState(8);
 	}
 	
 	@Override
@@ -992,67 +664,21 @@ public final class Q00234_FatesWhisper extends Quest
 		return htmltext;
 	}
 	
-	private boolean calculateReward(QuestState qs, L2PcInstance player, int reward)
+	@Override
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
-		switch (qs.getMemoState())
+		QuestState qs = getQuestState(attacker, false);
+		if ((qs != null) && (npc.getId() == BAIUM))
 		{
-			case 11:
-				return getReward(qs, player, SWORD_OF_DAMASCUS, SWORD_OF_DAMASCUS_FOCUS, SWORD_OF_DAMASCUS_CRT_DAMAGE, SWORD_OF_DAMASCUS_HASTE, reward);
-			case 12:
-				return getReward(qs, player, HAZARD_BOW, HAZARD_BOW_GUIDENCE, HAZARD_BOW_QUICKRECOVERY, HAZARD_BOW_CHEAPSHOT, reward);
-			case 13:
-				return getReward(qs, player, LANCIA, LANCIA_ANGER, LANCIA_CRT_STUN, LANCIA_LONGBLOW, reward);
-			case 14:
-				return getReward(qs, player, ART_OF_BATTLE_AXE, ART_OF_BATTLE_AXE_HEALTH, ART_OF_BATTLE_AXE_RSK_FOCUS, ART_OF_BATTLE_AXE_HASTE, reward);
-			case 15:
-				return getReward(qs, player, STAFF_OF_EVIL_SPRIT, STAFF_OF_EVIL_SPRIT_MAGICFOCUS, STAFF_OF_EVIL_SPRIT_MAGICBLESSTHEBODY, STAFF_OF_EVIL_SPRIT_MAGICPOISON, reward);
-			case 16:
-				return getReward(qs, player, DEMONS_SWORD, DEMONS_SWORD_CRT_BLEED, DEMONS_SWORD_CRT_POISON, DEMONS_SWORD_MIGHTMOTAL, reward);
-			case 17:
-				return getReward(qs, player, BELLION_CESTUS, BELLION_CESTUS_CRT_DRAIN, BELLION_CESTUS_CRT_POISON, BELLION_CESTUS_RSK_HASTE, reward);
-			case 18:
-				return getReward(qs, player, DEADMANS_GLORY, DEADMANS_GLORY_ANGER, DEADMANS_GLORY_HEALTH, DEADMANS_GLORY_HASTE, reward);
-			case 19:
-				return getReward(qs, player, SAMURAI_LONGSWORD_SAMURAI_LONGSWORD, 0, 0, 0, reward);
-			case 41:
-				return getReward(qs, player, GUARDIANS_SWORD, GUARDIANS_SWORD_CRT_DRAIN, GUARDIANS_SWORD_HEALTH, GUARDIANS_SWORD_CRT_BLEED, reward);
-			case 42:
-				return getReward(qs, player, TEARS_OF_WIZARD, TEARS_OF_WIZARD_ACUMEN, TEARS_OF_WIZARD_MAGICPOWER, TEARS_OF_WIZARD_UPDOWN, reward);
-			case 43:
-				return getReward(qs, player, STAR_BUSTER, STAR_BUSTER_HEALTH, STAR_BUSTER_HASTE, STAR_BUSTER_RSK_FOCUS, reward);
-			case 44:
-				return getReward(qs, player, BONE_OF_KAIM_VANUL, BONE_OF_KAIM_VANUL_MANAUP, BONE_OF_KAIM_VANUL_MAGICSILENCE, BONE_OF_KAIM_VANUL_UPDOWN, reward);
+			if ((attacker.getActiveWeaponItem() != null) && (attacker.getActiveWeaponItem().getId() == Q_PIPETTE_KNIFE))
+			{
+				qs.takeItems(Q_PIPETTE_KNIFE, 1);
+				qs.giveItems(Q_RED_PIPETTE_KNIFE, 1);
+				qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+				npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.ALL, npc.getId(), WHO_DARES_TO_TRY_AND_STEAL_MY_NOBLE_BLOOD));
+			}
 		}
-		return false;
-	}
-	
-	private boolean getReward(QuestState qs, L2PcInstance player, int item1, int item2, int item3, int item4, int reward)
-	{
-		if (hasAtLeastOneQuestItem(player, item1, item2, item3, item4))
-		{
-			qs.giveItems(reward, 1);
-			qs.giveItems(Q_STAR_OF_DESTINY, 1);
-			if (qs.hasQuestItems(item1))
-			{
-				qs.takeItems(item1, 1);
-			}
-			else if (qs.hasQuestItems(item2))
-			{
-				qs.takeItems(item2, 1);
-			}
-			else if (qs.hasQuestItems(item3))
-			{
-				qs.takeItems(item3, 1);
-			}
-			else if (qs.hasQuestItems(item4))
-			{
-				qs.takeItems(item4, 1);
-			}
-			qs.exitQuest(false, true);
-			player.broadcastSocialAction(3);
-			return true;
-		}
-		return false;
+		return super.onAttack(npc, attacker, damage, isSummon);
 	}
 	
 	@Override
@@ -1116,25 +742,399 @@ public final class Q00234_FatesWhisper extends Quest
 	}
 	
 	@Override
-	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
+	public String onSpawn(L2Npc npc)
 	{
-		QuestState qs = getQuestState(attacker, false);
-		if ((qs != null) && (npc.getId() == BAIUM))
+		switch (npc.getId())
 		{
-			if ((attacker.getActiveWeaponItem() != null) && (attacker.getActiveWeaponItem().getId() == Q_PIPETTE_KNIFE))
+			case COFFER_OF_THE_DEAD:
 			{
-				qs.takeItems(Q_PIPETTE_KNIFE, 1);
-				qs.giveItems(Q_RED_PIPETTE_KNIFE, 1);
-				qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.ALL, npc.getId(), WHO_DARES_TO_TRY_AND_STEAL_MY_NOBLE_BLOOD));
+				startQuestTimer("23401", 1000 * 120, npc, null);
+				break;
+			}
+			case CHEST_OF_KERNON:
+			{
+				startQuestTimer("23402", 1000 * 120, npc, null);
+				break;
+			}
+			case CHEST_OF_HALLATE:
+			{
+				startQuestTimer("23403", 1000 * 120, npc, null);
+				break;
+			}
+			case CHEST_OF_GOLKONDA:
+			{
+				startQuestTimer("23404", 1000 * 120, npc, null);
+				break;
 			}
 		}
-		return super.onAttack(npc, attacker, damage, isSummon);
+		return super.onSpawn(npc);
 	}
 	
 	@Override
-	public boolean checkPartyMember(QuestState qs, L2Npc npc)
+	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
-		return qs.hasQuestItems(Q_WHITE_FABRIC_Q0234) && qs.isMemoState(8);
+		final QuestState qs = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		switch (npc.getId())
+		{
+			case ZENKIN:
+			{
+				switch (qs.getMemoState())
+				{
+					case 6:
+						return "30178-01.html";
+					case 7:
+						return "30178-03.html";
+					case 8:
+						return "30178-04.html";
+				}
+				break;
+			}
+			case CLIFF:
+			{
+				if (qs.isMemoState(4) && !qs.hasQuestItems(Q_INFERNIUM_VARNISH))
+				{
+					return "30182-01.html";
+				}
+				if (qs.isMemoState(4) && qs.hasQuestItems(Q_INFERNIUM_VARNISH))
+				{
+					return "30182-05.html";
+				}
+				if (qs.getMemoState() >= 5)
+				{
+					return "30182-06.html";
+				}
+			}
+			case MASTER_KASPAR:
+			{
+				if (qs.isMemoState(7))
+				{
+					return "30833-01.html";
+				}
+				
+				final long bloodyFabricCount = qs.getQuestItemsCount(Q_BLOODY_FABRIC_Q0234);
+				final long whiteFabricCount = qs.getQuestItemsCount(Q_WHITE_FABRIC_Q0234);
+				final long whiteBloodyFabricCount = bloodyFabricCount + whiteFabricCount;
+				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (whiteBloodyFabricCount <= 0))
+				{
+					return "30833-03.html";
+				}
+				if (qs.isMemoState(8) && qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (whiteBloodyFabricCount <= 0))
+				{
+					qs.giveItems(Q_MAESTRO_REORINS_MOLD, 1);
+					qs.takeItems(Q_RED_PIPETTE_KNIFE, 1);
+					qs.setMemoState(9);
+					qs.setCond(10, true);
+					qs.showQuestionMark(234);
+					return "30833-04.html";
+				}
+				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (bloodyFabricCount < 30) && (whiteBloodyFabricCount >= 30))
+				{
+					return "30833-03c.html";
+				}
+				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (bloodyFabricCount >= 30) && (whiteBloodyFabricCount >= 30))
+				{
+					qs.giveItems(Q_MAESTRO_REORINS_MOLD, 1);
+					qs.takeItems(Q_BLOODY_FABRIC_Q0234, -1);
+					qs.setMemoState(9);
+					qs.setCond(10, true);
+					qs.showQuestionMark(234);
+					return "30833-03d.html";
+				}
+				if (qs.isMemoState(8) && !qs.hasQuestItems(Q_RED_PIPETTE_KNIFE) && (whiteBloodyFabricCount < 30) && (whiteBloodyFabricCount > 0))
+				{
+					qs.giveItems(Q_WHITE_FABRIC_Q0234, 30 - whiteFabricCount);
+					qs.takeItems(Q_BLOODY_FABRIC_Q0234, -1);
+					return "30833-03e.html";
+				}
+				if (qs.getMemoState() >= 9)
+				{
+					return "30833-05.html";
+				}
+				break;
+			}
+			case HEAD_BLACKSMITH_FERRIS:
+			{
+				if (qs.isMemoState(5))
+				{
+					if (qs.hasQuestItems(Q_MAESTRO_REORINS_HAMMER))
+					{
+						return "30847-02.html";
+					}
+					qs.giveItems(Q_MAESTRO_REORINS_HAMMER, 1);
+					return "30847-01.html";
+				}
+				if (qs.getMemoState() >= 6)
+				{
+					return "30847-03.html";
+				}
+				break;
+			}
+			case MAESTRO_LEORIN:
+			{
+				if (qs.isCreated() && (player.getLevel() >= 75))
+				{
+					return "31002-01.htm";
+				}
+				if (qs.isCreated() && (player.getLevel() < 75))
+				{
+					return "31002-01a.htm";
+				}
+				if (qs.isCompleted())
+				{
+					return getAlreadyCompletedMsg(player);
+				}
+				if (qs.isMemoState(1) && !qs.hasQuestItems(Q_REIRIAS_SOULORB))
+				{
+					return "31002-09.html";
+				}
+				if (qs.isMemoState(1) && qs.hasQuestItems(Q_REIRIAS_SOULORB))
+				{
+					return "31002-10.html";
+				}
+				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1, Q_INFERNIUM_SCEPTER_2, Q_INFERNIUM_SCEPTER_3))
+				{
+					return "31002-12.html";
+				}
+				if (qs.isMemoState(2) && qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1, Q_INFERNIUM_SCEPTER_2, Q_INFERNIUM_SCEPTER_3))
+				{
+					return "31002-13.html";
+				}
+				if (qs.isMemoState(4) && !qs.hasQuestItems(Q_INFERNIUM_VARNISH))
+				{
+					return "31002-15.html";
+				}
+				if (qs.isMemoState(4) && qs.hasQuestItems(Q_INFERNIUM_VARNISH))
+				{
+					return "31002-16.html";
+				}
+				if (qs.isMemoState(5) && !qs.hasQuestItems(Q_MAESTRO_REORINS_HAMMER))
+				{
+					return "31002-18.html";
+				}
+				if (qs.isMemoState(5) && qs.hasQuestItems(Q_MAESTRO_REORINS_HAMMER))
+				{
+					return "31002-19.html";
+				}
+				if ((qs.getMemoState() < 9) && (qs.getMemoState() >= 6))
+				{
+					return "31002-21.html";
+				}
+				if (qs.isMemoState(9) && qs.hasQuestItems(Q_MAESTRO_REORINS_MOLD))
+				{
+					return "31002-22.html";
+				}
+				if (qs.isMemoState(10) && (qs.getQuestItemsCount(CRYSTAL_B) < 984))
+				{
+					return "31002-24.html";
+				}
+				if (qs.isMemoState(10) && (qs.getQuestItemsCount(CRYSTAL_B) >= 984))
+				{
+					return "31002-25.html";
+				}
+				switch (qs.getMemoState())
+				{
+					case 11:
+						if (hasAtLeastOneQuestItem(player, SWORD_OF_DAMASCUS, SWORD_OF_DAMASCUS_FOCUS, SWORD_OF_DAMASCUS_CRT_DAMAGE, SWORD_OF_DAMASCUS_HASTE))
+						{
+							return "31002-35.html";
+						}
+						return "31002-35a.html";
+					case 12:
+						if (hasAtLeastOneQuestItem(player, HAZARD_BOW_GUIDENCE, HAZARD_BOW_QUICKRECOVERY, HAZARD_BOW_CHEAPSHOT, HAZARD_BOW))
+						{
+							return "31002-36.html";
+						}
+						return "31002-36a.html";
+					case 13:
+						if (hasAtLeastOneQuestItem(player, LANCIA_ANGER, LANCIA_CRT_STUN, LANCIA_LONGBLOW, LANCIA))
+						{
+							return "31002-37.html";
+						}
+						return "31002-37a.html";
+					case 14:
+						if (hasAtLeastOneQuestItem(player, ART_OF_BATTLE_AXE_HEALTH, ART_OF_BATTLE_AXE_RSK_FOCUS, ART_OF_BATTLE_AXE_HASTE, ART_OF_BATTLE_AXE))
+						{
+							return "31002-38.html";
+						}
+						return "31002-38a.html";
+					case 15:
+						if (hasAtLeastOneQuestItem(player, STAFF_OF_EVIL_SPRIT_MAGICFOCUS, STAFF_OF_EVIL_SPRIT_MAGICBLESSTHEBODY, STAFF_OF_EVIL_SPRIT_MAGICPOISON, STAFF_OF_EVIL_SPRIT))
+						{
+							return "31002-39.html";
+						}
+						return "31002-39a.html";
+					case 16:
+						if (hasAtLeastOneQuestItem(player, DEMONS_SWORD_CRT_BLEED, DEMONS_SWORD_CRT_POISON, DEMONS_SWORD_MIGHTMOTAL, DEMONS_SWORD))
+						{
+							return "31002-40.html";
+						}
+						return "31002-40a.html";
+					case 17:
+						if (hasAtLeastOneQuestItem(player, BELLION_CESTUS_CRT_DRAIN, BELLION_CESTUS_CRT_POISON, BELLION_CESTUS_RSK_HASTE, BELLION_CESTUS))
+						{
+							return "31002-41.html";
+						}
+						return "31002-41a.html";
+					case 18:
+						if (hasAtLeastOneQuestItem(player, DEADMANS_GLORY_ANGER, DEADMANS_GLORY_HEALTH, DEADMANS_GLORY_HASTE, DEADMANS_GLORY))
+						{
+							return "31002-42.html";
+						}
+						return "31002-42a.html";
+					case 19:
+						if (hasAtLeastOneQuestItem(player, SAMURAI_LONGSWORD_SAMURAI_LONGSWORD))
+						{
+							return "31002-43.html";
+						}
+						return "31002-43a.html";
+					case 41:
+						if (hasAtLeastOneQuestItem(player, GUARDIANS_SWORD, GUARDIANS_SWORD_CRT_DRAIN, GUARDIANS_SWORD_HEALTH, GUARDIANS_SWORD_CRT_BLEED))
+						{
+							return "31002-43b.html";
+						}
+						return "31002-43c.html";
+					case 42:
+						if (hasAtLeastOneQuestItem(player, TEARS_OF_WIZARD, TEARS_OF_WIZARD_ACUMEN, TEARS_OF_WIZARD_MAGICPOWER, TEARS_OF_WIZARD_UPDOWN))
+						{
+							return "31002-43d.html";
+						}
+						return "31002-43e.html";
+					case 43:
+						if (hasAtLeastOneQuestItem(player, STAR_BUSTER, STAR_BUSTER_HEALTH, STAR_BUSTER_HASTE, STAR_BUSTER_RSK_FOCUS))
+						{
+							return "31002-43f.html";
+						}
+						return "31002-43g.html";
+					case 44:
+						if (hasAtLeastOneQuestItem(player, BONE_OF_KAIM_VANUL, BONE_OF_KAIM_VANUL_MANAUP, BONE_OF_KAIM_VANUL_MAGICSILENCE, BONE_OF_KAIM_VANUL_UPDOWN))
+						{
+							return "31002-43h.html";
+						}
+						return "31002-43i.html";
+				}
+				break;
+			}
+			case COFFER_OF_THE_DEAD:
+			{
+				if (qs.isMemoState(1) && !qs.hasQuestItems(Q_REIRIAS_SOULORB))
+				{
+					qs.giveItems(Q_REIRIAS_SOULORB, 1);
+					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+					return "31027-01.html";
+				}
+				if ((qs.getMemoState() > 1) || qs.hasQuestItems(Q_REIRIAS_SOULORB))
+				{
+					return "31027-02.html";
+				}
+				break;
+			}
+			case CHEST_OF_KERNON:
+			{
+				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1))
+				{
+					qs.giveItems(Q_INFERNIUM_SCEPTER_1, 1);
+					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+					return "31028-01.html";
+				}
+				if (!qs.isMemoState(2) || qs.hasQuestItems(Q_INFERNIUM_SCEPTER_1))
+				{
+					return "31028-02.html";
+				}
+				break;
+			}
+			case CHEST_OF_GOLKONDA:
+			{
+				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_2))
+				{
+					qs.giveItems(Q_INFERNIUM_SCEPTER_2, 1);
+					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+					return "31029-01.html";
+				}
+				if (!qs.isMemoState(2) || qs.hasQuestItems(Q_INFERNIUM_SCEPTER_2))
+				{
+					return "31029-02.html";
+				}
+				break;
+			}
+			case CHEST_OF_HALLATE:
+			{
+				if (qs.isMemoState(2) && !qs.hasQuestItems(Q_INFERNIUM_SCEPTER_3))
+				{
+					qs.giveItems(Q_INFERNIUM_SCEPTER_3, 1);
+					qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+					return "31030-01.html";
+				}
+				if (!qs.isMemoState(2) || qs.hasQuestItems(Q_INFERNIUM_SCEPTER_3))
+				{
+					return "31030-02.html";
+				}
+				break;
+			}
+		}
+		return htmltext;
+	}
+	
+	private boolean calculateReward(QuestState qs, L2PcInstance player, int reward)
+	{
+		switch (qs.getMemoState())
+		{
+			case 11:
+				return getReward(qs, player, SWORD_OF_DAMASCUS, SWORD_OF_DAMASCUS_FOCUS, SWORD_OF_DAMASCUS_CRT_DAMAGE, SWORD_OF_DAMASCUS_HASTE, reward);
+			case 12:
+				return getReward(qs, player, HAZARD_BOW, HAZARD_BOW_GUIDENCE, HAZARD_BOW_QUICKRECOVERY, HAZARD_BOW_CHEAPSHOT, reward);
+			case 13:
+				return getReward(qs, player, LANCIA, LANCIA_ANGER, LANCIA_CRT_STUN, LANCIA_LONGBLOW, reward);
+			case 14:
+				return getReward(qs, player, ART_OF_BATTLE_AXE, ART_OF_BATTLE_AXE_HEALTH, ART_OF_BATTLE_AXE_RSK_FOCUS, ART_OF_BATTLE_AXE_HASTE, reward);
+			case 15:
+				return getReward(qs, player, STAFF_OF_EVIL_SPRIT, STAFF_OF_EVIL_SPRIT_MAGICFOCUS, STAFF_OF_EVIL_SPRIT_MAGICBLESSTHEBODY, STAFF_OF_EVIL_SPRIT_MAGICPOISON, reward);
+			case 16:
+				return getReward(qs, player, DEMONS_SWORD, DEMONS_SWORD_CRT_BLEED, DEMONS_SWORD_CRT_POISON, DEMONS_SWORD_MIGHTMOTAL, reward);
+			case 17:
+				return getReward(qs, player, BELLION_CESTUS, BELLION_CESTUS_CRT_DRAIN, BELLION_CESTUS_CRT_POISON, BELLION_CESTUS_RSK_HASTE, reward);
+			case 18:
+				return getReward(qs, player, DEADMANS_GLORY, DEADMANS_GLORY_ANGER, DEADMANS_GLORY_HEALTH, DEADMANS_GLORY_HASTE, reward);
+			case 19:
+				return getReward(qs, player, SAMURAI_LONGSWORD_SAMURAI_LONGSWORD, 0, 0, 0, reward);
+			case 41:
+				return getReward(qs, player, GUARDIANS_SWORD, GUARDIANS_SWORD_CRT_DRAIN, GUARDIANS_SWORD_HEALTH, GUARDIANS_SWORD_CRT_BLEED, reward);
+			case 42:
+				return getReward(qs, player, TEARS_OF_WIZARD, TEARS_OF_WIZARD_ACUMEN, TEARS_OF_WIZARD_MAGICPOWER, TEARS_OF_WIZARD_UPDOWN, reward);
+			case 43:
+				return getReward(qs, player, STAR_BUSTER, STAR_BUSTER_HEALTH, STAR_BUSTER_HASTE, STAR_BUSTER_RSK_FOCUS, reward);
+			case 44:
+				return getReward(qs, player, BONE_OF_KAIM_VANUL, BONE_OF_KAIM_VANUL_MANAUP, BONE_OF_KAIM_VANUL_MAGICSILENCE, BONE_OF_KAIM_VANUL_UPDOWN, reward);
+		}
+		return false;
+	}
+	
+	private boolean getReward(QuestState qs, L2PcInstance player, int item1, int item2, int item3, int item4, int reward)
+	{
+		if (hasAtLeastOneQuestItem(player, item1, item2, item3, item4))
+		{
+			qs.giveItems(reward, 1);
+			qs.giveItems(Q_STAR_OF_DESTINY, 1);
+			if (qs.hasQuestItems(item1))
+			{
+				qs.takeItems(item1, 1);
+			}
+			else if (qs.hasQuestItems(item2))
+			{
+				qs.takeItems(item2, 1);
+			}
+			else if (qs.hasQuestItems(item3))
+			{
+				qs.takeItems(item3, 1);
+			}
+			else if (qs.hasQuestItems(item4))
+			{
+				qs.takeItems(item4, 1);
+			}
+			qs.exitQuest(false, true);
+			player.broadcastSocialAction(3);
+			return true;
+		}
+		return false;
 	}
 }

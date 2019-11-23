@@ -35,30 +35,9 @@ import quests.Q00115_TheOtherSideOfTruth.Q00115_TheOtherSideOfTruth;
  */
 public final class Q00648_AnIceMerchantsDream extends Quest
 {
-	private static class DropInfo
-	{
-		private final double _firstChance;
-		private final double _secondChance;
-		
-		public DropInfo(double firstChance, double secondChance)
-		{
-			_firstChance = firstChance;
-			_secondChance = secondChance;
-		}
-		
-		public double getFirstChance()
-		{
-			return _firstChance;
-		}
-		
-		public double getSecondChance()
-		{
-			return _secondChance;
-		}
-	}
-	
 	// NPCs
 	private static final int RAFFORTY = 32020;
+	
 	private static final int ICE_SHELF = 32023;
 	// Items
 	private static final int SILVER_HEMOCYTE = 8057;
@@ -90,7 +69,6 @@ public final class Q00648_AnIceMerchantsDream extends Quest
 		MONSTERS.put(22097, new DropInfo(0.693, 0.071)); // Lost Yeti
 		MONSTERS.put(22098, new DropInfo(0.717, 0.074)); // Frost Yeti
 	}
-	
 	public Q00648_AnIceMerchantsDream()
 	{
 		super(648, Q00648_AnIceMerchantsDream.class.getSimpleName(), "An Ice Merchants Dream");
@@ -372,5 +350,27 @@ public final class Q00648_AnIceMerchantsDream extends Quest
 			}
 		}
 		return htmltext;
+	}
+	
+	private static class DropInfo
+	{
+		private final double _firstChance;
+		private final double _secondChance;
+		
+		public DropInfo(double firstChance, double secondChance)
+		{
+			_firstChance = firstChance;
+			_secondChance = secondChance;
+		}
+		
+		public double getFirstChance()
+		{
+			return _firstChance;
+		}
+		
+		public double getSecondChance()
+		{
+			return _secondChance;
+		}
 	}
 }

@@ -46,6 +46,25 @@ public final class Falk extends AbstractNpcAI
 	}
 	
 	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		if (event.equalsIgnoreCase("badges"))
+		{
+			if (!hasAtLeastOneQuestItem(player, BASIC_CERT, STANDART_CERT, PREMIUM_CERT))
+			{
+				if (getQuestItemsCount(player, DARION_BADGE) >= 20)
+				{
+					takeItems(player, DARION_BADGE, 20);
+					giveItems(player, BASIC_CERT, 1);
+					return "32297-02a.htm";
+				}
+				return "32297-02b.htm";
+			}
+		}
+		return super.onAdvEvent(event, npc, player);
+	}
+	
+	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		if (hasAtLeastOneQuestItem(player, BASIC_CERT, STANDART_CERT, PREMIUM_CERT))
@@ -63,24 +82,5 @@ public final class Falk extends AbstractNpcAI
 			return "32297-01a.htm";
 		}
 		return "32297-02.htm";
-	}
-	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if (event.equalsIgnoreCase("badges"))
-		{
-			if (!hasAtLeastOneQuestItem(player, BASIC_CERT, STANDART_CERT, PREMIUM_CERT))
-			{
-				if (getQuestItemsCount(player, DARION_BADGE) >= 20)
-				{
-					takeItems(player, DARION_BADGE, 20);
-					giveItems(player, BASIC_CERT, 1);
-					return "32297-02a.htm";
-				}
-				return "32297-02b.htm";
-			}
-		}
-		return super.onAdvEvent(event, npc, player);
 	}
 }

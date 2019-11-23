@@ -92,6 +92,11 @@ public final class Q10294_SevenSignsToTheMonasteryOfSilence extends Quest
 		addTalkId(ELCADIA, ELCADIA_INSTANCE, ERIS_EVIL_THOUGHTS, RELIC_GUARDIAN, ODD_GLOBE, READING_DESK1, READING_DESK2, READING_DESK3, READING_DESK4, READING_DESK5, READING_DESK6, READING_DESK7, READING_DESK8, READING_DESK9, READING_DESK10, READING_DESK11, READING_DESK12, READING_DESK13, READING_DESK14, READING_DESK15, READING_DESK16, JUDE_VAN_ETINA, SOLINAS_EVIL_THOUGHTS, RELIC_WATCHER1, RELIC_WATCHER2, RELIC_WATCHER3, RELIC_WATCHER4);
 	}
 	
+	public boolean hasCheckedAllRightBooks(QuestState qs)
+	{
+		return ((qs.getInt("good1") == 1) && (qs.getInt("good2") == 1) && (qs.getInt("good3") == 1) && (qs.getInt("good4") == 1));
+	}
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -440,10 +445,5 @@ public final class Q10294_SevenSignsToTheMonasteryOfSilence extends Quest
 			}
 		}
 		return htmltext;
-	}
-	
-	public boolean hasCheckedAllRightBooks(QuestState qs)
-	{
-		return ((qs.getInt("good1") == 1) && (qs.getInt("good2") == 1) && (qs.getInt("good3") == 1) && (qs.getInt("good4") == 1));
 	}
 }

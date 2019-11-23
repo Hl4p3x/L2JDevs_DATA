@@ -55,18 +55,26 @@ public final class DevastatedCastle extends ClanHallSiegeEngine
 		addAttackId(GUSTAV);
 	}
 	
-	@Override
-	public String onSpawn(L2Npc npc)
+	public static void main(String[] args)
 	{
-		if (npc.getId() == MIKHAIL)
+		new DevastatedCastle();
+	}
+	
+	@Override
+	public L2Clan getWinner()
+	{
+		int counter = 0;
+		int damagest = 0;
+		for (Entry<Integer, Integer> e : _damageToGustav.entrySet())
 		{
-			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.GLORY_TO_ADEN_THE_KINGDOM_OF_THE_LION_GLORY_TO_SIR_GUSTAV_OUR_IMMORTAL_LORD);
+			final int damage = e.getValue();
+			if (damage > counter)
+			{
+				counter = damage;
+				damagest = e.getKey();
+			}
 		}
-		else if (npc.getId() == DIETRICH)
-		{
-			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.SOLDIERS_OF_GUSTAV_GO_FORTH_AND_DESTROY_THE_INVADERS);
-		}
-		return null;
+		return ClanTable.getInstance().getClan(damagest);
 	}
 	
 	@Override
@@ -128,24 +136,16 @@ public final class DevastatedCastle extends ClanHallSiegeEngine
 	}
 	
 	@Override
-	public L2Clan getWinner()
+	public String onSpawn(L2Npc npc)
 	{
-		int counter = 0;
-		int damagest = 0;
-		for (Entry<Integer, Integer> e : _damageToGustav.entrySet())
+		if (npc.getId() == MIKHAIL)
 		{
-			final int damage = e.getValue();
-			if (damage > counter)
-			{
-				counter = damage;
-				damagest = e.getKey();
-			}
+			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.GLORY_TO_ADEN_THE_KINGDOM_OF_THE_LION_GLORY_TO_SIR_GUSTAV_OUR_IMMORTAL_LORD);
 		}
-		return ClanTable.getInstance().getClan(damagest);
-	}
-	
-	public static void main(String[] args)
-	{
-		new DevastatedCastle();
+		else if (npc.getId() == DIETRICH)
+		{
+			broadcastNpcSay(npc, Say2.NPC_SHOUT, NpcStringId.SOLDIERS_OF_GUSTAV_GO_FORTH_AND_DESTROY_THE_INVADERS);
+		}
+		return null;
 	}
 }

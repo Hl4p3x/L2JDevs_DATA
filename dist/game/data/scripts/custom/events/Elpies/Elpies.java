@@ -74,6 +74,25 @@ public final class Elpies extends Event
 		addKillId(ELPY);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Elpies();
+	}
+	
+	private static void dropItem(L2Npc mob, L2PcInstance player, int[][] droplist)
+	{
+		final int chance = getRandom(100);
+		
+		for (int[] drop : droplist)
+		{
+			if (chance >= drop[1])
+			{
+				mob.dropItem(player, drop[0], getRandom(drop[2], drop[3]));
+				break;
+			}
+		}
+	}
+	
 	@Override
 	public boolean eventBypass(L2PcInstance activeChar, String bypass)
 	{
@@ -220,24 +239,5 @@ public final class Elpies extends Event
 		{
 			return _z;
 		}
-	}
-	
-	private static void dropItem(L2Npc mob, L2PcInstance player, int[][] droplist)
-	{
-		final int chance = getRandom(100);
-		
-		for (int[] drop : droplist)
-		{
-			if (chance >= drop[1])
-			{
-				mob.dropItem(player, drop[0], getRandom(drop[2], drop[3]));
-				break;
-			}
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		new Elpies();
 	}
 }

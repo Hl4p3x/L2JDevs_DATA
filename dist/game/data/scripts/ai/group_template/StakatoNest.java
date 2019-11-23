@@ -90,6 +90,58 @@ public final class StakatoNest extends AbstractNpcAI
 		registerMobs(STAKATO_MOBS);
 	}
 	
+	public static void main(String[] args)
+	{
+		new StakatoNest();
+	}
+	
+	private static L2MonsterInstance checkMinion(L2Npc npc)
+	{
+		final L2MonsterInstance mob = (L2MonsterInstance) npc;
+		if (mob.hasMinions())
+		{
+			final List<L2MonsterInstance> minion = mob.getMinionList().getSpawnedMinions();
+			if ((minion != null) && !minion.isEmpty() && (minion.get(0) != null) && !minion.get(0).isDead())
+			{
+				return minion.get(0);
+			}
+		}
+		return null;
+	}
+	
+	private static void giveCocoon(L2PcInstance player, L2Npc npc)
+	{
+		player.addItem("StakatoCocoon", ((getRandom(100) > 80) ? LARGE_COCOON : SMALL_COCOON), 1, npc, true);
+	}
+	
+	@Override
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		if ((npc == null) || (player == null) || npc.isDead())
+		{
+			return null;
+		}
+		
+		int npcId = 0;
+		switch (event)
+		{
+			case "nurse_change":
+				npcId = STAKATO_NURSE_2;
+				break;
+			case "male_change":
+				npcId = STAKATO_MALE_2;
+				break;
+		}
+		if (npcId > 0)
+		{
+			npc.getSpawn().decreaseCount(npc);
+			npc.deleteMe();
+			final L2Npc spawned = addSpawn(npcId, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), false, 0, true);
+			addAttackDesire(spawned, player);
+		}
+		return super.onAdvEvent(event, npc, player);
+	}
+	
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isSummon)
 	{
@@ -190,57 +242,5 @@ public final class StakatoNest extends AbstractNpcAI
 			addAttackDesire(spawned, caster);
 		}
 		return super.onSkillSee(npc, caster, skill, targets, isSummon);
-	}
-	
-	@Override
-	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		if ((npc == null) || (player == null) || npc.isDead())
-		{
-			return null;
-		}
-		
-		int npcId = 0;
-		switch (event)
-		{
-			case "nurse_change":
-				npcId = STAKATO_NURSE_2;
-				break;
-			case "male_change":
-				npcId = STAKATO_MALE_2;
-				break;
-		}
-		if (npcId > 0)
-		{
-			npc.getSpawn().decreaseCount(npc);
-			npc.deleteMe();
-			final L2Npc spawned = addSpawn(npcId, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), false, 0, true);
-			addAttackDesire(spawned, player);
-		}
-		return super.onAdvEvent(event, npc, player);
-	}
-	
-	private static L2MonsterInstance checkMinion(L2Npc npc)
-	{
-		final L2MonsterInstance mob = (L2MonsterInstance) npc;
-		if (mob.hasMinions())
-		{
-			final List<L2MonsterInstance> minion = mob.getMinionList().getSpawnedMinions();
-			if ((minion != null) && !minion.isEmpty() && (minion.get(0) != null) && !minion.get(0).isDead())
-			{
-				return minion.get(0);
-			}
-		}
-		return null;
-	}
-	
-	private static void giveCocoon(L2PcInstance player, L2Npc npc)
-	{
-		player.addItem("StakatoCocoon", ((getRandom(100) > 80) ? LARGE_COCOON : SMALL_COCOON), 1, npc, true);
-	}
-	
-	public static void main(String[] args)
-	{
-		new StakatoNest();
 	}
 }
