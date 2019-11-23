@@ -90,9 +90,9 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 	{
 		super(216, Q00216_TrialOfTheGuildsman.class.getSimpleName(), "Trial Of The Guildsman");
 		addStartNpc(WAREHOUSE_KEEPER_VALKON);
-		addTalkId(WAREHOUSE_KEEPER_VALKON, WAREHOUSE_KEEPER_NORMAN, BLACKSMITH_ALTRAN, BLACKSMITH_PINTER, BLACKSMITH_DUNING);
-		addKillId(ANT, ANT_CAPTAIN, ANT_OVERSEER, GRANITE_GOLEM, MANDRAGORA_SPROUT1, MANDRAGORA_SAPLONG, MANDRAGORA_BLOSSOM, SILENOS, STRAIN, GHOUL, DEAD_SEEKER, MANDRAGORA_SPROUT2, BREKA_ORC, BREKA_ORC_ARCHER, BREKA_ORC_SHAMAN, BREKA_ORC_OVERLORD, BREKA_ORC_WARRIOR);
 		registerQuestItems(RECIPE_JOURNEYMAN_RING, RECIPE_AMBER_BEAD, VALKONS_RECOMMENDATION, MANDRAGORA_BERRY, ALLTRANS_INSTRUCTIONS, ALLTRANS_1ST_RECOMMENDATION, ALLTRANS_2ND_RECOMMENDATION, NORMANS_INSTRUCTIONS, NORMANS_RECEIPT, DUNINGS_INSTRUCTIONS, DUNINGS_KEY, NORMANS_LIST, GRAY_BONE_POWDER, GRANITE_WHETSTONE, RED_PIGMENT, BRAIDED_YARN, JOURNEYMAN_GEM, PINTERS_INSTRUCTIONS, AMBER_BEAD, AMBER_LUMP, JOURNEYMAN_DECO_BEADS, JOURNEYMAN_RING);
+		addKillId(ANT, ANT_CAPTAIN, ANT_OVERSEER, GRANITE_GOLEM, MANDRAGORA_SPROUT1, MANDRAGORA_SAPLONG, MANDRAGORA_BLOSSOM, SILENOS, STRAIN, GHOUL, DEAD_SEEKER, MANDRAGORA_SPROUT2, BREKA_ORC, BREKA_ORC_ARCHER, BREKA_ORC_SHAMAN, BREKA_ORC_OVERLORD, BREKA_ORC_WARRIOR);
+		addTalkId(WAREHOUSE_KEEPER_VALKON, WAREHOUSE_KEEPER_NORMAN, BLACKSMITH_ALTRAN, BLACKSMITH_PINTER, BLACKSMITH_DUNING);
 	}
 	
 	@Override
@@ -160,11 +160,14 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 				{
 					qs.startQuest();
 					takeItems(player, Inventory.ADENA_ID, 2000);
+					
 					if (!hasQuestItems(player, VALKONS_RECOMMENDATION))
 					{
 						giveItems(player, VALKONS_RECOMMENDATION, 1);
 					}
+					
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+					
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 85);
@@ -512,7 +515,7 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 						{
 							htmltext = "30210-05.html";
 						}
-						else if (hasQuestItems(player, NORMANS_INSTRUCTIONS, DUNINGS_INSTRUCTIONS))
+						else if (hasQuestItems(player, NORMANS_INSTRUCTIONS, DUNINGS_INSTRUCTIONS) && (getQuestItemsCount(player, DUNINGS_KEY) < 30))
 						{
 							htmltext = "30210-06.html";
 						}
@@ -596,6 +599,7 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 								takeItems(player, AMBER_BEAD, -1);
 								takeItems(player, AMBER_LUMP, -1);
 								giveItems(player, JOURNEYMAN_DECO_BEADS, 7);
+								
 								if (getQuestItemsCount(player, JOURNEYMAN_GEM) >= 7)
 								{
 									qs.setCond(6, true);
@@ -618,13 +622,18 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 						{
 							htmltext = "30688-01.html";
 						}
-						if (hasQuestItems(player, DUNINGS_INSTRUCTIONS) && !hasQuestItems(player, NORMANS_RECEIPT) && (getQuestItemsCount(player, DUNINGS_KEY) < 30))
+						
+						if (hasQuestItems(player, DUNINGS_INSTRUCTIONS) && !hasQuestItems(player, NORMANS_RECEIPT))
 						{
 							htmltext = "30688-03.html";
 						}
 						else if ((getQuestItemsCount(player, DUNINGS_KEY) >= 30) && !hasQuestItems(player, DUNINGS_INSTRUCTIONS))
 						{
 							htmltext = "30688-04.html";
+							if (hasQuestItems(player, NORMANS_RECEIPT))
+							{
+								takeItems(player, NORMANS_RECEIPT, -1);
+							}
 						}
 					}
 					else if (hasQuestItems(player, ALLTRANS_INSTRUCTIONS) && !hasAtLeastOneQuestItem(player, NORMANS_INSTRUCTIONS, DUNINGS_INSTRUCTIONS))
