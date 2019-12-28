@@ -451,11 +451,6 @@ public final class PrimevalIsle extends AbstractNpcAI
 			npc.getVariables().set("SELFBUFF_USED", 0);
 			npc.getVariables().set("SKILL_MULTIPLER", 1);
 		}
-		
-		if (npc.getId() == EGG)
-		{
-			npc.setIsNoRndWalk(true);
-		}
 		return super.onSpawn(npc);
 	}
 	
