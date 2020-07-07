@@ -137,6 +137,7 @@
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
+			<add stat="fireRes" val="7" />
 		</for>
 	</item>
 	<item id="1512" type="EtcItem" name="Spellbook: Confusion">

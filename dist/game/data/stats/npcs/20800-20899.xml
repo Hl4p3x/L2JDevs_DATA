@@ -3659,6 +3659,26 @@
 				<group chance="70">
 					<item id="57" min="811" max="1647" chance="100" /> <!-- Adena -->
 				</group>
+				<group chance="4.700799942016602">
+					<item id="852" min="1" max="1" chance="0.5399" /> <!-- Moonstone Earring -->
+					<item id="1908" min="1" max="1" chance="30.499" /> <!-- Moonstone Earring Wire -->
+					<item id="915" min="1" max="1" chance="0.4051" /> <!-- Aquastone Necklace -->
+					<item id="1910" min="1" max="1" chance="24.2522" /> <!-- Aquastone Necklace Chain -->
+					<item id="883" min="1" max="1" chance="0.8102" /> <!-- Aquastone Ring -->
+					<item id="1909" min="1" max="1" chance="43.4936" /> <!-- Aquastone Ring Wire -->
+				</group>
+				<group chance="17.36750030517578">
+					<item id="1866" min="1" max="1" chance="34.8674" /> <!-- Suede -->
+					<item id="1871" min="1" max="1" chance="52.3011" /> <!-- Charcoal -->
+					<item id="5220" min="1" max="1" chance="2.092" /> <!-- Metal Hardener -->
+					<item id="1885" min="1" max="1" chance="4.3584" /> <!-- High-Grade Suede -->
+					<item id="4041" min="1" max="1" chance="0.4548" /> <!-- Mold Hardener -->
+					<item id="3004" min="1" max="1" chance="3.2485" /> <!-- Recipe: Rind Leather Gloves -->
+					<item id="8723" min="1" max="1" chance="2.092" /> <!-- Life Stone - Level 46 -->
+					<item id="8733" min="1" max="1" chance="0.523" /> <!-- Mid-Grade Life Stone - Level 46 -->
+					<item id="8743" min="1" max="1" chance="0.0523" /> <!-- High-Grade Life Stone - Level 46 -->
+					<item id="8753" min="1" max="1" chance="0.0105" /> <!-- Top-Grade Life Stone - Level 46 -->
+				</group>
 				<group chance="4.455100059509277">
 					<item id="62" min="1" max="1" chance="0.2489" /> <!-- Reinforced Mithril Boots -->
 					<item id="1958" min="1" max="1" chance="10.8622" /> <!-- Reinforced Mithril Boots Design -->
@@ -3694,6 +3714,9 @@
 				</group>
 			</death>
 			<corpse>
+				<item id="2216" min="1" max="1" chance="7.9419" /> <!-- Recipe: Great Helmet -->
+				<item id="1964" min="1" max="1" chance="15.5308" /> <!-- Eldarake Temper -->
+				<item id="1866" min="1" max="3" chance="64.0646" /> <!-- Suede -->
 				<item id="2214" min="1" max="1" chance="5.0878" /> <!-- Recipe: Dwarven Chain Gaiters -->
 				<item id="1960" min="1" max="1" chance="11.235" /> <!-- Chain Gaiters Part -->
 				<item id="1895" min="1" max="1" chance="58.5827" /> <!-- Metallic Fiber -->
@@ -3760,30 +3783,30 @@
 					<item id="57" min="760" max="1544" chance="100" /> <!-- Adena -->
 				</group>
 				<group chance="4.700799942016602">
-					<item id="852" min="1" max="1" chance="0.5399" /> <!-- Moonstone Earring -->
-					<item id="1908" min="1" max="1" chance="30.499" /> <!-- Moonstone Earring Wire -->
-					<item id="915" min="1" max="1" chance="0.4051" /> <!-- Aquastone Necklace -->
-					<item id="1910" min="1" max="1" chance="24.2522" /> <!-- Aquastone Necklace Chain -->
-					<item id="883" min="1" max="1" chance="0.8102" /> <!-- Aquastone Ring -->
-					<item id="1909" min="1" max="1" chance="43.4936" /> <!-- Aquastone Ring Wire -->
+					<item id="5078" min="1" max="1" chance="43.4936" /> <!-- red cobol -->
+					<item id="5075" min="1" max="1" chance="30.499" /> <!-- chilly cobol -->
+					<item id="5077" min="1" max="1" chance="24.2522" /> <!-- blue cobol -->
+					<item id="5082" min="1" max="1" chance="0.8102" /> <!-- thorn cobol -->
+					<item id="5079" min="1" max="1" chance="0.5399" /> <!-- golden cobol -->
+					<item id="5084" min="1" max="1" chance="0.4051" /> <!-- great cobol -->
 				</group>
 				<group chance="17.36750030517578">
-					<item id="1866" min="1" max="1" chance="34.8674" /> <!-- Suede -->
-					<item id="1871" min="1" max="1" chance="52.3011" /> <!-- Charcoal -->
-					<item id="5220" min="1" max="1" chance="2.092" /> <!-- Metal Hardener -->
-					<item id="1885" min="1" max="1" chance="4.3584" /> <!-- High-Grade Suede -->
-					<item id="4041" min="1" max="1" chance="0.4548" /> <!-- Mold Hardener -->
-					<item id="3004" min="1" max="1" chance="3.2485" /> <!-- Recipe: Rind Leather Gloves -->
-					<item id="8723" min="1" max="1" chance="2.092" /> <!-- Life Stone - Level 46 -->
-					<item id="8733" min="1" max="1" chance="0.523" /> <!-- Mid-Grade Life Stone - Level 46 -->
-					<item id="8743" min="1" max="1" chance="0.0523" /> <!-- High-Grade Life Stone - Level 46 -->
-					<item id="8753" min="1" max="1" chance="0.0105" /> <!-- Top-Grade Life Stone - Level 46 -->
+					<item id="1864" min="1" max="1" chance="34.8674" /> <!-- stem -->
+					<item id="1867" min="1" max="1" chance="52.3011" /> <!-- skin -->
+					<item id="1872" min="1" max="1" chance="2.092" /> <!-- bone -->
+					<item id="1875" min="1" max="1" chance="4.3584" /> <!-- stone of purity -->
+					<item id="5078" min="1" max="1" chance="3.2485" /> <!-- red cobol -->
+					<item id="5075" min="1" max="1" chance="2.092" /> <!-- chilly cobol -->
+					<item id="5077" min="1" max="1" chance="0.523" /> <!-- blue cobol -->
+					<item id="5082" min="1" max="1" chance="0.4548" /> <!-- thorn cobol -->
+					<item id="5079" min="1" max="1" chance="0.0523" /> <!-- golden cobol -->
+					<item id="5084" min="1" max="1" chance="0.0105" /> <!-- great cobol -->
 				</group>
 			</death>
 			<corpse>
-				<item id="2216" min="1" max="1" chance="7.9419" /> <!-- Recipe: Great Helmet -->
-				<item id="1964" min="1" max="1" chance="15.5308" /> <!-- Eldarake Temper -->
-				<item id="1866" min="1" max="3" chance="64.0646" /> <!-- Suede -->
+				<item id="5079" min="1" max="1" chance="7.9419" /> <!-- golden cobol -->
+				<item id="1867" min="1" max="1" chance="15.5308" /> <!-- skin -->
+				<item id="1864" min="1" max="3" chance="64.0646" /> <!-- stem -->
 			</corpse>
 		</dropLists>
 		<collision>

@@ -26,6 +26,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Trial Of The Seeker (213)
@@ -115,6 +116,7 @@ public final class Q00213_TrialOfTheSeeker extends Quest
 						giveItems(player, DUFNERS_LETTER, 1);
 					}
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 128);
@@ -433,9 +435,11 @@ public final class Q00213_TrialOfTheSeeker extends Quest
 					}
 					else if (hasQuestItems(player, TERRYS_REPORT) && !hasQuestItems(player, DUFNERS_LETTER))
 					{
-						giveAdena(player, 187606, true);
 						giveItems(player, MARK_OF_SEEKER, 1);
-						addExpAndSp(player, 1029478, 66768);
+                                                if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                    giveAdenaFuzzy(player, 187606, true);
+                                                    addExpAndSp(player, 1029478, 66768);
+                                                }
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						htmltext = "30106-08.html";

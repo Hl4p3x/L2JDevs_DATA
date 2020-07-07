@@ -104,7 +104,7 @@ public class Q00134_TempleMissionary extends Quest
 				break;
 			case "30067-10.html":
 				st.giveItems(BADGE_TEMPLE_MISSIONARY, 1);
-				st.giveAdena(15100, true);
+				st.giveAdenaFuzzy(15100, true);
 				if (player.getLevel() < MAX_REWARD_LEVEL)
 				{
 					st.addExpAndSp(30000, 2000);

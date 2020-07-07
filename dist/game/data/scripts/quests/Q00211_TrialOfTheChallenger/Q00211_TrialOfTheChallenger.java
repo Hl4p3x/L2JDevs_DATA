@@ -30,6 +30,7 @@ import org.l2jdevs.gameserver.model.variables.PlayerVariables;
 import org.l2jdevs.gameserver.network.serverpackets.RadarControl;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Trial of the Challenger (211)
@@ -111,6 +112,7 @@ public final class Q00211_TrialOfTheChallenger extends Quest
 				if (qs.isCreated())
 				{
 					final PlayerVariables vars = player.getVariables();
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (vars.getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMONDS);
@@ -159,7 +161,7 @@ public final class Q00211_TrialOfTheChallenger extends Quest
 					}
 					else
 					{
-						giveAdena(player, getRandom(1000) + 1, true);
+						giveAdenaFuzzy(player, getRandom(1000) + 1, true);
 						htmltext = event;
 					}
 				}
@@ -396,18 +398,21 @@ public final class Q00211_TrialOfTheChallenger extends Quest
 					}
 					case 10:
 					{
-						addExpAndSp(talker, 1067606, 69242);
-						giveAdena(talker, 194556, true);
+						if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                    addExpAndSp(talker, 1067606, 69242);
+                                                    giveAdenaFuzzy(talker, 194556, true);
+                                                }
 						giveItems(talker, MARK_OF_CHALLENGER, 1);
-						
+						/*
 						// redundant retail check - already rewarded at beginning of quest
 						final PlayerVariables vars = talker.getVariables();
+                                                if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 						if (vars.getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 						{
 							giveItems(talker, DIMENSIONAL_DIAMONDS);
 							vars.set("2ND_CLASS_DIAMOND_REWARD", 1);
 						}
-						
+						*/
 						talker.sendPacket(new SocialAction(talker.getObjectId(), 3));
 						qs.exitQuest(false, true);
 						htmltext = "30646-07.html";

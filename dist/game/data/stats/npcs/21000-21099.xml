@@ -303,8 +303,8 @@
 					<item id="4112" min="1" max="1" chance="90.8205" /> <!-- Dark Elven Longbow Shaft -->
 				</group>
 				<group chance="15.001700401306152">
-					<item id="1872" min="1" max="1" chance="45.6531" /> <!-- Animal Bone -->
-					<item id="1867" min="1" max="1" chance="45.6531" /> <!-- Animal Skin -->
+					<item id="1872" min="1" max="1" chance="45" /> <!-- Animal Bone -->
+					<item id="1867" min="1" max="1" chance="45" /> <!-- Animal Skin -->
 					<item id="1881" min="1" max="1" chance="4.5653" /> <!-- Coarse Bone Powder -->
 					<item id="1875" min="1" max="1" chance="2.2827" /> <!-- Stone of Purity -->
 					<item id="4041" min="1" max="1" chance="0.2977" /> <!-- Mold Hardener -->
@@ -1356,7 +1356,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="5" /> <!-- rhand: Mace -->
+		<equipment rhand="158" /> <!-- rhand: tarbar -->
 		<acquire expRate="1.74528" sp="86" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="604.08419" hpRegen="3.5" mp="329.4" mpRegen="1.5" />
@@ -1578,7 +1578,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="273" /> <!-- rhand: Composite Bow -->
+		<equipment rhand="278" /> <!-- rhand: gastraphetus -->
 		<acquire expRate="2.2506432" sp="130" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="668.47132" hpRegen="4.5" mp="358.32" mpRegen="1.8" />
@@ -1802,7 +1802,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="67" /> <!-- rhand: Orcish Sword -->
+		<equipment rhand="129" /> <!-- rhand: Sword of revolution -->
 		<acquire expRate="2.1184212" sp="143" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="736.96177" hpRegen="4.5" mp="387.72" mpRegen="1.8" />
@@ -1851,6 +1851,14 @@
 					<item id="127" min="1" max="1" chance="1.9824" /> <!-- Crimson Sword -->
 					<item id="130" min="1" max="1" chance="1.9825" /> <!-- Elven Sword -->
 				</group>
+				<group chance="10.636199951171875">
+					<item id="1869" min="1" max="1" chance="31.1434" /> <!-- Iron Ore -->
+					<item id="1880" min="1" max="1" chance="3.1143" /> <!-- Steel -->
+					<item id="5550" min="1" max="1" chance="0.4152" /> <!-- Durable Metal Plate -->
+					<item id="2279" min="1" max="1" chance="0.2225" /> <!-- Recipe: War Pick -->
+					<item id="8317" min="1" max="1" chance="0.2225" /> <!-- Recipe: Titan Hammer (100%) -->
+					<item id="735" min="1" max="1" chance="2.5953" /> <!-- Alacrity Potion -->
+				</group>
 				<group chance="23.63520050048828">
 					<item id="1873" min="1" max="1" chance="14.5932" /> <!-- Silver Nugget -->
 					<item id="1868" min="1" max="1" chance="72.9658" /> <!-- Thread -->
@@ -1894,6 +1902,9 @@
 				<item id="1940" min="1" max="1" chance="12.1028" /> <!-- Iron Boots Design -->
 				<item id="1869" min="1" max="1" chance="81.0885" /> <!-- Iron Ore -->
 				<item id="1873" min="1" max="1" chance="32.4354" /> <!-- Silver Nugget -->
+				<item id="2028" min="1" max="1" chance="0.5182" /> <!-- Shilen Knife Edge -->
+				<item id="2156" min="1" max="1" chance="3.4888" /> <!-- Recipe: Elven Necklace -->
+				<item id="2154" min="1" max="1" chance="4.6692" /> <!-- Recipe: Elven Earring -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -1956,6 +1967,14 @@
 			<death>
 				<group chance="70">
 					<item id="57" min="367" max="732" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.052400000393390656">
+					<item id="83" min="1" max="1" chance="2.676" /> <!-- Sword of Magic -->
+					<item id="144" min="1" max="1" chance="2.676" /> <!-- Sword of Occult -->
+					<item id="124" min="1" max="1" chance="1.9824" /> <!-- Two-Handed Sword -->
+					<item id="2026" min="1" max="1" chance="88.7007" /> <!-- Two-Handed Sword Edge -->
+					<item id="127" min="1" max="1" chance="1.9824" /> <!-- Crimson Sword -->
+					<item id="130" min="1" max="1" chance="1.9825" /> <!-- Elven Sword -->
 				</group>
 				<group chance="0.0771000012755394">
 					<item id="58" min="1" max="1" chance="12.1353" /> <!-- Mithril Breastplate -->
@@ -3499,6 +3518,12 @@
 					<item id="381" min="1" max="1" chance="0.9912" /> <!-- Chain Gaiters -->
 					<item id="1960" min="1" max="1" chance="65.963" /> <!-- Chain Gaiters Part -->
 				</group>
+				<group chance="0.5820000171661377">
+					<item id="70" min="1" max="1" chance="0.8123" /> <!-- Claymore -->
+					<item id="2047" min="1" max="1" chance="49.5227" /> <!-- Claymore Blade -->
+					<item id="2499" min="1" max="1" chance="0.8123" /> <!-- Elven Long Sword -->
+					<item id="2967" min="1" max="1" chance="48.8527" /> <!-- Elven Long Sword Blade -->
+				</group>
 				<group chance="7.179599761962891">
 					<item id="1895" min="1" max="1" chance="83.9352" /> <!-- Metallic Fiber -->
 					<item id="2318" min="1" max="1" chance="1.0236" /> <!-- Recipe: Spirit Sword -->
@@ -3506,6 +3531,12 @@
 					<item id="8733" min="1" max="1" chance="2.9377" /> <!-- Mid-Grade Life Stone - Level 46 -->
 					<item id="8743" min="1" max="1" chance="0.2938" /> <!-- High-Grade Life Stone - Level 46 -->
 					<item id="8753" min="1" max="1" chance="0.0588" /> <!-- Top-Grade Life Stone - Level 46 -->
+				</group>
+				<group chance="38.53020095825195">
+					<item id="1866" min="1" max="1" chance="37.8213" /> <!-- Suede -->
+					<item id="2162" min="1" max="1" chance="2.7407" /> <!-- Recipe: Aquastone Necklace -->
+					<item id="5159" min="1" max="1" chance="0.1891" /> <!-- Recipe: Spiritshot (C) Compressed Package (100%) -->
+					<item id="2312" min="1" max="1" chance="0.2477" /> <!-- Recipe: Crystallized Ice Bow -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -3543,6 +3574,7 @@
 				<item id="2070" min="1" max="1" chance="2.1261" /> <!-- Cursed Dagger Blade -->
 				<item id="2316" min="1" max="1" chance="0.933" /> <!-- Recipe: Katana -->
 				<item id="1895" min="1" max="1" chance="76.5042" /> <!-- Metallic Fiber -->
+				<item id="1805" min="1" max="1" chance="0.8706" /> <!-- Recipe: Soulshot (C-Grade) -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -3869,19 +3901,9 @@
 				<group chance="70">
 					<item id="57" min="1033" max="2097" chance="100" /> <!-- Adena -->
 				</group>
-				<group chance="0.5820000171661377">
-					<item id="70" min="1" max="1" chance="0.8123" /> <!-- Claymore -->
-					<item id="2047" min="1" max="1" chance="49.5227" /> <!-- Claymore Blade -->
-					<item id="2499" min="1" max="1" chance="0.8123" /> <!-- Elven Long Sword -->
-					<item id="2967" min="1" max="1" chance="48.8527" /> <!-- Elven Long Sword Blade -->
-				</group>
 				<group chance="38.53020095825195">
 					<item id="1871" min="1" max="1" chance="56.7319" /> <!-- Charcoal -->
-					<item id="1866" min="1" max="1" chance="37.8213" /> <!-- Suede -->
 					<item id="1877" min="1" max="1" chance="2.2693" /> <!-- Adamantite Nugget -->
-					<item id="2162" min="1" max="1" chance="2.7407" /> <!-- Recipe: Aquastone Necklace -->
-					<item id="5159" min="1" max="1" chance="0.1891" /> <!-- Recipe: Spiritshot (C) Compressed Package (100%) -->
-					<item id="2312" min="1" max="1" chance="0.2477" /> <!-- Recipe: Crystallized Ice Bow -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -3916,7 +3938,6 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="1805" min="1" max="1" chance="0.8706" /> <!-- Recipe: Soulshot (C-Grade) -->
 				<item id="1905" min="1" max="1" chance="25.4068" /> <!-- Omen Beast's Eye Earring Gemstone -->
 				<item id="1871" min="1" max="5" chance="87.0607" /> <!-- Charcoal -->
 			</corpse>
@@ -7226,7 +7247,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="216" /> <!-- rhand: Dirk -->
+		<equipment rhand="219" /> <!-- rhand: sword breaker -->
 		<acquire expRate="1.916172" sp="31" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="321.63954" hpRegen="2.5" mp="183.28" mpRegen="1.2" />
@@ -7329,7 +7350,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="3" /> <!-- rhand: Broadsword -->
+		<equipment rhand="2" /> <!-- rhand: long sword -->
 		<acquire expRate="1.78164" sp="32" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="342.5127" hpRegen="2.5" mp="192.0" mpRegen="1.2" />

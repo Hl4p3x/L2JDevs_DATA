@@ -147,7 +147,7 @@ public class Q00331_ArrowOfVengeance extends Quest
 				final long wyrmsTeeth = st.getQuestItemsCount(WYRMS_TOOTH);
 				if ((harpyFeathers + medusaVenoms + wyrmsTeeth) > 0)
 				{
-					st.giveAdena(((harpyFeathers * HARPY_FEATHER_ADENA) + (medusaVenoms * MEDUSA_VENOM_ADENA) + (wyrmsTeeth * WYRMS_TOOTH_ADENA) + ((harpyFeathers + medusaVenoms + wyrmsTeeth) >= BONUS_COUNT ? BONUS : 0)), true);
+					st.giveAdenaFuzzy(((harpyFeathers * HARPY_FEATHER_ADENA) + (medusaVenoms * MEDUSA_VENOM_ADENA) + (wyrmsTeeth * WYRMS_TOOTH_ADENA) + ((harpyFeathers + medusaVenoms + wyrmsTeeth) >= BONUS_COUNT ? BONUS : 0)), true);
 					takeItems(player, -1, HARPY_FEATHER, MEDUSA_VENOM, WYRMS_TOOTH);
 					htmltext = "30125-05.html";
 				}

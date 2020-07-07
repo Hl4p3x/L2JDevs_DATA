@@ -33,7 +33,10 @@ public final class Q00295_DreamingOfTheSkies extends Quest
 	// NPC
 	private static final int ARIN = 30536;
 	// Monster
-	private static final int MAGICAL_WEAVER = 20153;
+        private static final int MAGICAL_WEAVER = 20153,
+            EYE_TRACKER = 20331,
+            WILL_O_WISP = 20449,
+            CORPSE_CANDLE = 20483;
 	// Item
 	private static final int FLOATING_STONE = 1492;
 	// Reward
@@ -45,7 +48,7 @@ public final class Q00295_DreamingOfTheSkies extends Quest
 	{
 		super(295, Q00295_DreamingOfTheSkies.class.getSimpleName(), "Dreaming of the Skies");
 		addStartNpc(ARIN);
-		addKillId(MAGICAL_WEAVER);
+		addKillId(MAGICAL_WEAVER, EYE_TRACKER, WILL_O_WISP, CORPSE_CANDLE);
 		addTalkId(ARIN);
 		registerQuestItems(FLOATING_STONE);
 	}
@@ -65,10 +68,10 @@ public final class Q00295_DreamingOfTheSkies extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs != null) && qs.isCond(1) && Util.checkIfInRange(1500, npc, killer, true))
+                final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
+		if ((qs != null) && qs.isCond(1) && Util.checkIfInRange(1500, npc, qs.getPlayer(), true))
 		{
-			if (giveItemRandomly(killer, npc, FLOATING_STONE, (getRandom(100) > 25) ? 1 : 2, 50, 1.0, true))
+			if (giveItemRandomly(qs.getPlayer(), npc, FLOATING_STONE, (getRandom(100) > 25) ? 1 : 2, 50, 1.0, true))
 			{
 				qs.setCond(2);
 			}
@@ -91,7 +94,7 @@ public final class Q00295_DreamingOfTheSkies extends Quest
 			{
 				if (hasQuestItems(talker, RING_OF_FIREFLY))
 				{
-					giveAdena(talker, 2400, true);
+					giveAdenaFuzzy(talker, 2400, true);
 					html = "30536-06.html";
 				}
 				else

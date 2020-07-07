@@ -68,7 +68,7 @@ public class Q10277_MutatedKaneusDion extends Quest
 				st.startQuest();
 				break;
 			case "30461-03.html":
-				st.giveAdena(20000, true);
+				st.giveAdenaFuzzy(20000, true);
 				st.exitQuest(false, true);
 				break;
 		}

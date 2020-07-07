@@ -21,6 +21,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="400" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5103" type="EtcItem" name="Mature Dark Coda">
@@ -36,6 +37,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="500" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5105" type="EtcItem" name="Mature Chilly Cobol">
@@ -51,6 +53,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="500" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5107" type="EtcItem" name="Mature Blue Cobol">
@@ -74,7 +77,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
-		<set name="price" val="500" />
+		<set name="price" val="600" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5110" type="EtcItem" name="Mature Desert Cobol">
@@ -82,6 +85,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="500" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5111" type="EtcItem" name="Mature Sea Cobol">
@@ -89,6 +93,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="700" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5112" type="EtcItem" name="Mature Thorn Cobol">
@@ -104,6 +109,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="800" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5114" type="EtcItem" name="Mature Great Cobol">
@@ -127,6 +133,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="900" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5117" type="EtcItem" name="Mature Blue Codran">
@@ -150,6 +157,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="1000" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5120" type="EtcItem" name="Mature Desert Codran">
@@ -181,6 +189,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="1100" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5124" type="EtcItem" name="Mature Great Codran">
@@ -403,56 +412,67 @@
 		<set name="price" val="2300" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2078-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5135" type="EtcItem" name="Compressed Package of Soulshots (D-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="D" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="450" />
 		<set name="price" val="3300" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2079-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5136" type="EtcItem" name="Compressed Package of Soulshots (C-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="C" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="450" />
 		<set name="price" val="4950" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2080-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5137" type="EtcItem" name="Compressed Package of Soulshots (B-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="B" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="300" />
 		<set name="price" val="16500" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2081-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5138" type="EtcItem" name="Compressed Package of Soulshots (A-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="300" />
 		<set name="price" val="26400" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2082-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5139" type="EtcItem" name="Compressed Package of Soulshots (S-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="S" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="300" />
 		<set name="price" val="33000" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2083-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5140" type="EtcItem" name="Compressed Package of Spiritshots: No Grade">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
@@ -463,56 +483,67 @@
 		<set name="price" val="4950" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2084-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5141" type="EtcItem" name="Compressed Package of Spiritshots (D-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="D" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="750" />
 		<set name="price" val="5940" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2085-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5142" type="EtcItem" name="Compressed Package of Spiritshots (C-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="C" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="450" />
 		<set name="price" val="11550" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2086-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5143" type="EtcItem" name="Compressed Package of Spiritshots (B-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="B" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="450" />
 		<set name="price" val="33000" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2087-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5144" type="EtcItem" name="Compressed Package of Spiritshots (A-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="300" />
 		<set name="price" val="39600" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2088-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5145" type="EtcItem" name="Compressed Package of Spiritshots (S-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="S" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="300" />
 		<set name="price" val="49500" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2089-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5146" type="EtcItem" name="Compressed Package of Blessed Spiritshots: No Grade">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
@@ -523,56 +554,67 @@
 		<set name="price" val="11550" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2090-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5147" type="EtcItem" name="Compressed Package of Blessed Spiritshots (D-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="D" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="750" />
 		<set name="price" val="14850" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2091-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5148" type="EtcItem" name="Compressed Package of Blessed Spiritshots (C-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="C" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="450" />
 		<set name="price" val="29700" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2092-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5149" type="EtcItem" name="Compressed Package of Blessed Spiritshots (B-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="B" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="450" />
 		<set name="price" val="80850" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2093-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5150" type="EtcItem" name="Compressed Package of Blessed Spiritshots (A-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="300" />
 		<set name="price" val="95700" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2094-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5151" type="EtcItem" name="Compressed Package of Blessed Spiritshots (S-Grade)">
 		<set name="icon" val="icon.etc_pouch_yellow_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="S" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="300" />
 		<set name="price" val="115500" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2095-1" />
+		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5152" type="EtcItem" name="Magic Compressor">
 		<set name="icon" val="icon.etc_jewel_box_i00" />
@@ -1250,6 +1292,7 @@
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
 		<set name="price" val="100" />
+		<set name="crystal_type" val="D" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5193" type="EtcItem" name="Rope of Magic (C-Grade)">
@@ -1258,6 +1301,7 @@
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
 		<set name="price" val="150" />
+		<set name="crystal_type" val="C" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5194" type="EtcItem" name="Rope of Magic (B-Grade)">
@@ -1266,6 +1310,7 @@
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
 		<set name="price" val="250" />
+		<set name="crystal_type" val="B" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5195" type="EtcItem" name="Rope of Magic (A-Grade)">
@@ -1274,6 +1319,7 @@
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
 		<set name="price" val="400" />
+		<set name="crystal_type" val="A" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5196" type="EtcItem" name="Rope of Magic (S-Grade)">
@@ -1282,6 +1328,7 @@
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
 		<set name="price" val="1500" />
+		<set name="crystal_type" val="S" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5197" type="EtcItem" name="Chest Key - Grade 8">

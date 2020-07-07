@@ -95,7 +95,7 @@ public final class Q00383_TreasureHunt extends Quest
 			{
 				if (hasQuestItems(player, PIRATES_TREASURE_MAP))
 				{
-					giveAdena(player, 1000, false);
+					giveAdenaFuzzy(player, 1000, false);
 					takeItems(player, PIRATES_TREASURE_MAP, -1);
 					htmltext = event;
 				}
@@ -282,7 +282,7 @@ public final class Q00383_TreasureHunt extends Quest
 							bonus += 500;
 						}
 						
-						giveAdena(player, bonus, true);
+						giveAdenaFuzzy(player, bonus, true);
 					}
 					else
 					{

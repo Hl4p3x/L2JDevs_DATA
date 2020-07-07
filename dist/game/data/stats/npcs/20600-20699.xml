@@ -16,7 +16,7 @@
 		</parameters>
 		<race>GIANT</race>
 		<sex>MALE</sex>
-		<equipment rhand="88" /> <!-- rhand: Morning Star -->
+		<equipment rhand="159" /> <!-- rhand: bonebreaker -->
 		<acquire expRate="2.05632" sp="212" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="966.57792" hpRegen="4.5" mp="478.8" mpRegen="1.8" />
@@ -127,7 +127,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="2" /> <!-- rhand: Long Sword -->
+		<equipment rhand="127" /> <!-- rhand: crimson Sword -->
 		<acquire expRate="1.74528" sp="192" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1008.23781" hpRegen="5.5" mp="504.8" mpRegen="2.1" />
@@ -238,7 +238,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="14" /> <!-- rhand: Bow -->
+		<equipment rhand="280" /> <!-- rhand: light crossbow -->
 		<acquire expRate="2.2506432" sp="264" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1050.81652" hpRegen="5.5" mp="531.0" mpRegen="2.1" />
@@ -383,28 +383,10 @@
 				<group chance="70">
 					<item id="57" min="429" max="871" chance="100" /> <!-- Adena -->
 				</group>
-				<group chance="3.111799955368042">
-					<item id="1125" min="1" max="1" chance="0.3879" /> <!-- Assault Boots -->
-					<item id="1957" min="1" max="1" chance="16.2787" /> <!-- Assault Boots Part -->
-					<item id="2427" min="1" max="1" chance="0.3879" /> <!-- Salamander Skin Boots -->
-					<item id="2931" min="1" max="1" chance="16.2787" /> <!-- Salamander Skin Boot Lining -->
-					<item id="2428" min="1" max="1" chance="0.3879" /> <!-- Plate Boots -->
-					<item id="2932" min="1" max="1" chance="16.2787" /> <!-- Plate Boots Design -->
-					<item id="61" min="1" max="1" chance="0.3879" /> <!-- Mithril Plate Gloves -->
-					<item id="1949" min="1" max="1" chance="16.2787" /> <!-- Mithril Gloves Design -->
-					<item id="607" min="1" max="1" chance="0.3879" /> <!-- Ogre Power Gauntlets -->
-					<item id="1963" min="1" max="1" chance="16.2787" /> <!-- Ogre Power Gauntlets Part -->
-					<item id="2451" min="1" max="1" chance="0.3879" /> <!-- Sage's Worn Gloves -->
-					<item id="2933" min="1" max="1" chance="16.2791" /> <!-- Sage's Worn Gloves Lining -->
-				</group>
 				<group chance="25.725900650024414">
-					<item id="1872" min="1" max="1" chance="40.3245" /> <!-- Animal Bone -->
-					<item id="1867" min="1" max="1" chance="40.3245" /> <!-- Animal Skin -->
-					<item id="1881" min="1" max="1" chance="4.0325" /> <!-- Coarse Bone Powder -->
+					<item id="1872" min="1" max="1" chance="40" /> <!-- Animal Bone -->
+					<item id="1867" min="1" max="1" chance="40" /> <!-- Animal Skin -->
 					<item id="1875" min="1" max="1" chance="2.0162" /> <!-- Stone of Purity -->
-					<item id="2991" min="1" max="1" chance="2.4003" /> <!-- Recipe: Karmian Boots -->
-					<item id="5279" min="1" max="1" chance="0.1008" /> <!-- Recipe: Greater Blessed Spiritshot (C) Compressed Package(100%) -->
-					<item id="6668" min="1" max="1" chance="10.8012" /> <!-- Deluxe Chest Key - Grade 4 -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -439,9 +421,9 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="1952" min="1" max="1" chance="3.474" /> <!-- Salamander Skin Mail Texture -->
-				<item id="2311" min="1" max="1" chance="0.4736" /> <!-- Recipe: Chakram -->
-				<item id="1872" min="1" max="3" chance="72.3055" /> <!-- Animal Bone -->
+				<item id="1872" min="1" max="3" chance="40" /> <!-- Animal Bone -->
+				<item id="1867" min="1" max="3" chance="40" /> <!-- Animal Skin -->
+				<item id="1872" min="1" max="3" chance="72" /> <!-- Animal Bone -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -508,6 +490,26 @@
 					<item id="883" min="1" max="1" chance="0.8102" /> <!-- Aquastone Ring -->
 					<item id="1909" min="1" max="1" chance="43.4936" /> <!-- Aquastone Ring Wire -->
 				</group>
+				<group chance="3.111799955368042">
+					<item id="1125" min="1" max="1" chance="0.3879" /> <!-- Assault Boots -->
+					<item id="1957" min="1" max="1" chance="16.2787" /> <!-- Assault Boots Part -->
+					<item id="2427" min="1" max="1" chance="0.3879" /> <!-- Salamander Skin Boots -->
+					<item id="2931" min="1" max="1" chance="16.2787" /> <!-- Salamander Skin Boot Lining -->
+					<item id="2428" min="1" max="1" chance="0.3879" /> <!-- Plate Boots -->
+					<item id="2932" min="1" max="1" chance="16.2787" /> <!-- Plate Boots Design -->
+					<item id="61" min="1" max="1" chance="0.3879" /> <!-- Mithril Plate Gloves -->
+					<item id="1949" min="1" max="1" chance="16.2787" /> <!-- Mithril Gloves Design -->
+					<item id="607" min="1" max="1" chance="0.3879" /> <!-- Ogre Power Gauntlets -->
+					<item id="1963" min="1" max="1" chance="16.2787" /> <!-- Ogre Power Gauntlets Part -->
+					<item id="2451" min="1" max="1" chance="0.3879" /> <!-- Sage's Worn Gloves -->
+					<item id="2933" min="1" max="1" chance="16.2791" /> <!-- Sage's Worn Gloves Lining -->
+				</group>
+				<group chance="25.725900650024414">
+					<item id="1881" min="1" max="1" chance="4.0325" /> <!-- Coarse Bone Powder -->
+					<item id="2991" min="1" max="1" chance="2.4003" /> <!-- Recipe: Karmian Boots -->
+					<item id="5279" min="1" max="1" chance="0.1008" /> <!-- Recipe: Greater Blessed Spiritshot (C) Compressed Package(100%) -->
+					<item id="6668" min="1" max="1" chance="10.8012" /> <!-- Deluxe Chest Key - Grade 4 -->
+				</group>
 				<group chance="29.54210090637207">
 					<item id="1872" min="1" max="1" chance="40.3245" /> <!-- Animal Bone -->
 					<item id="1867" min="1" max="1" chance="40.3245" /> <!-- Animal Skin -->
@@ -550,6 +552,8 @@
 				</group>
 			</death>
 			<corpse>
+				<item id="1952" min="1" max="1" chance="3.474" /> <!-- Salamander Skin Mail Texture -->
+				<item id="2311" min="1" max="1" chance="0.4736" /> <!-- Recipe: Chakram -->
 				<item id="2323" min="1" max="1" chance="0.4611" /> <!-- Recipe: Elemental Bow -->
 				<item id="2322" min="1" max="1" chance="0.4611" /> <!-- Recipe: Soulfire Dirk -->
 				<item id="4553" min="1" max="1" chance="0.5293" /> <!-- Greater Dye of STR <Str+1 Con-1> -->
@@ -909,7 +913,7 @@
 		</parameters>
 		<race>UNDEAD</race>
 		<sex>MALE</sex>
-		<equipment rhand="14" /> <!-- rhand: Bow -->
+		<equipment rhand="275" /> <!-- rhand: long Bow -->
 		<acquire expRate="2.9180424" sp="132" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="573.42917" hpRegen="3.5" mp="315.12" mpRegen="1.5" />
@@ -928,6 +932,9 @@
 		<status undying="false" canBeSown="true" />
 		<skillList>
 			<skill id="4274" level="1" /> <!--Blunt Weapon Weak Point -->
+			<skill id="4273" level="2" /> <!-- Resist Daggers/Rapier Weapon -->
+			<skill id="4284" level="5" /> <!-- Resist Bleed Attacks -->
+			<skill id="4444" level="2" /> <!-- Higher Resist Bow/Crossbow Weapons -->
 			<skill id="4408" level="10" /> <!--HP Increase (2x) -->
 			<skill id="4409" level="1" /> <!--MP Increase (1x) -->
 			<skill id="4410" level="11" /> <!--Average P. Atk. -->
@@ -1729,6 +1736,9 @@
 		<skillList>
 			<skill id="4073" level="2" /> <!--Stun -->
 			<skill id="4274" level="1" /> <!--Blunt Weapon Weak Point -->
+			<skill id="4273" level="2" /> <!-- Resist Daggers/Rapier Weapon -->
+			<skill id="4284" level="5" /> <!-- Resist Bleed Attacks -->
+			<skill id="4444" level="2" /> <!-- Higher Resist Bow/Crossbow Weapons -->
 			<skill id="4408" level="10" /> <!--HP Increase (2x) -->
 			<skill id="4409" level="1" /> <!--MP Increase (1x) -->
 			<skill id="4410" level="11" /> <!--Average P. Atk. -->
@@ -3306,7 +3316,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="14" /> <!-- rhand: Bow -->
+		<equipment rhand="280" /> <!-- rhand: light crossbow -->
 		<acquire expRate="2.2506432" sp="247" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1008.23781" hpRegen="5.5" mp="504.8" mpRegen="2.1" />
@@ -3544,7 +3554,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="9" /> <!-- rhand: Cedar Staff -->
+		<equipment rhand="188" /> <!-- rhand: ghost Staff -->
 		<acquire expRate="1.991364" sp="248" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1094.28943" hpRegen="5.5" mp="557.4" mpRegen="2.1" />
@@ -4619,7 +4629,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="14" /> <!-- rhand: Bow -->
+		<equipment rhand="272" /> <!-- rhand: forest Bow -->
 		<acquire expRate="1.8702624" sp="391" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1520.38155" hpRegen="6.5" mp="804.0" mpRegen="2.4" />

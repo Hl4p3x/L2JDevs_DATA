@@ -83,7 +83,7 @@ public class Q00137_TempleChampionPart1 extends Quest
 				{
 					st.takeItems(EXECUTOR, -1);
 					st.takeItems(MISSIONARY, -1);
-					st.giveAdena(69146, true);
+					st.giveAdenaFuzzy(69146, true);
 					if (player.getLevel() < 41)
 					{
 						st.addExpAndSp(219975, 13047);

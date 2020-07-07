@@ -70,7 +70,7 @@ public final class Q00013_ParcelDelivery extends Quest
 			{
 				if (hasQuestItems(player, PACKAGE_TO_VULCAN))
 				{
-					giveAdena(player, 157834, true);
+					giveAdenaFuzzy(player, 157834, true);
 					addExpAndSp(player, 589092, 58794);
 					qs.exitQuest(false, true);
 					htmltext = event;

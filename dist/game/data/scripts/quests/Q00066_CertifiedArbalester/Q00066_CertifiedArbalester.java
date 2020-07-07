@@ -26,6 +26,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Certified Arbalester (66)
@@ -106,6 +107,7 @@ public final class Q00066_CertifiedArbalester extends Quest
 				{
 					qs.startQuest();
 					qs.setMemoState(1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 64);
@@ -1031,7 +1033,7 @@ public final class Q00066_CertifiedArbalester extends Quest
 						}
 						else
 						{
-							giveAdena(player, 77666, true);
+							giveAdenaFuzzy(player, 77666, true);
 							giveItems(player, KAMAEL_INQUISITOR_MARK, 1);
 							addExpAndSp(player, 429546, 29476);
 							qs.exitQuest(false, true);

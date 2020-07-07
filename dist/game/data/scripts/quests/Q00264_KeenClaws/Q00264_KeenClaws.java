@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.audio.Sound;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -50,16 +51,26 @@ public final class Q00264_KeenClaws extends Quest
 	private static final int WOLF_CLAW_COUNT = 50;
 	static
 	{
-		MONSTER_CHANCES.put(20003, Arrays.asList(new ItemHolder(2, 25), new ItemHolder(8, 50)));
-		MONSTER_CHANCES.put(20456, Arrays.asList(new ItemHolder(1, 80), new ItemHolder(2, 100)));
+            for (int wolfid : new int[] { // all wolves IG
+                    20524, 20525, 20527, 21638, 20317, 20318, 20783, 20442,
+                    20456, 20475, 20477, 20120, 22001, 20205, 20929, 22232,
+                    22233, 21121
+                })
+                MONSTER_CHANCES.put //
+                    (wolfid, Arrays.asList(new ItemHolder(1, 80), //
+                                           new ItemHolder(2, 100)));
+            // MONSTER_CHANCES.put(20456, Arrays.asList(new ItemHolder(1, 80), new ItemHolder(2, 100))); // ashen wolf
+            MONSTER_CHANCES.put(20003, Arrays.asList(new ItemHolder(2, 25), new ItemHolder(6, 50))); // goblin
+            MONSTER_CHANCES.put(20328, Arrays.asList(new ItemHolder(3, 20), new ItemHolder(8, 40))); // goblin lookout
+            MONSTER_CHANCES.put(20321, Arrays.asList(new ItemHolder(4, 15), new ItemHolder(10, 30))); // goblin thief
 		
-		REWARDS.put(1, Arrays.asList(new ItemHolder(4633, 1)));
-		REWARDS.put(2, Arrays.asList(new ItemHolder(57, 2000)));
-		REWARDS.put(5, Arrays.asList(new ItemHolder(5140, 1)));
-		REWARDS.put(8, Arrays.asList(new ItemHolder(735, 1), new ItemHolder(57, 50)));
-		REWARDS.put(11, Arrays.asList(new ItemHolder(737, 1)));
-		REWARDS.put(14, Arrays.asList(new ItemHolder(734, 1)));
-		REWARDS.put(17, Arrays.asList(new ItemHolder(35, 1), new ItemHolder(57, 50)));
+            REWARDS.put(1, Arrays.asList(new ItemHolder(4630, 1))); // red soul crystal Lv.1 (Lv.4 too much!)
+            REWARDS.put(2, Arrays.asList(new ItemHolder(57, 2000))); // adena, 2千
+            REWARDS.put(5, Arrays.asList(new ItemHolder(5140, 1))); // C.Pack Sp.Shots NG
+            REWARDS.put(8, Arrays.asList(new ItemHolder(735, 1), new ItemHolder(57, 50))); // alacrity pot.
+            REWARDS.put(11, Arrays.asList(new ItemHolder(737, 1))); // scroll of resurrection
+            REWARDS.put(14, Arrays.asList(new ItemHolder(734, 1))); // haste pot.
+            REWARDS.put(17, Arrays.asList(new ItemHolder(35, 1), new ItemHolder(57, 50))); // cloth shoes
 	}
 	
 	public Q00264_KeenClaws()
@@ -86,13 +97,15 @@ public final class Q00264_KeenClaws extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
 		if ((st != null) && st.isCond(1))
 		{
 			final int random = getRandom(100);
 			for (ItemHolder drop : MONSTER_CHANCES.get(npc.getId()))
 			{
-				if (random < drop.getCount())
+                            if (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS //
+                                || random < Integer.max((int)drop.getCount(), //
+                                                        Config.L2JMOD_QUEST_ITEM_MIN_DROP_RATE_INT))
 				{
 					if (st.giveItemRandomly(WOLF_CLAW, drop.getId(), WOLF_CLAW_COUNT, 1, true))
 					{

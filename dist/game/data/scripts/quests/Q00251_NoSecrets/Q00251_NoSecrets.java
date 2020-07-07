@@ -132,7 +132,7 @@ public class Q00251_NoSecrets extends Quest
 				else if ((st.isCond(2)) && (st.getQuestItemsCount(DIARY) >= 10) && (st.getQuestItemsCount(TABLE) >= 5))
 				{
 					htmltext = "30201-04.htm";
-					st.giveAdena(313355, true);
+					st.giveAdenaFuzzy(313355, true);
 					st.addExpAndSp(56787, 160578);
 					st.exitQuest(false, true);
 				}

@@ -181,7 +181,7 @@ public class Q00239_WontYouJoinUs extends Quest
 						if (st.getQuestItemsCount(ENCHANTED_GOLEM_FRAGMENT) == ENCHANTED_GOLEM_FRAGMENT_NEEDED)
 						{
 							htmltext = "32643-10.html";
-							st.giveAdena(283346, true);
+							st.giveAdenaFuzzy(283346, true);
 							st.takeItems(SUPPORT_CERTIFICATE, 1);
 							st.addExpAndSp(1319736, 103553);
 							st.exitQuest(false, true);

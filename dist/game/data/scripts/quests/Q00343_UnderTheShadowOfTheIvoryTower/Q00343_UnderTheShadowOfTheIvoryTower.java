@@ -103,7 +103,7 @@ public final class Q00343_UnderTheShadowOfTheIvoryTower extends Quest
 			{
 				if (hasQuestItems(player, NEBULITE_ORB))
 				{
-					giveAdena(player, (getQuestItemsCount(player, NEBULITE_ORB) * 120), true);
+					giveAdenaFuzzy(player, (getQuestItemsCount(player, NEBULITE_ORB) * 120), true);
 					takeItems(player, NEBULITE_ORB, -1);
 					htmltext = event;
 				}

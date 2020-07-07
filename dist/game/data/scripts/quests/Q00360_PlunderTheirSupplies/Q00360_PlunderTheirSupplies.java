@@ -150,7 +150,7 @@ public final class Q00360_PlunderTheirSupplies extends Quest
 					}
 					else
 					{
-						st.giveAdena((recipeCount * 6000), true);
+						st.giveAdenaFuzzy((recipeCount * 6000), true);
 						st.takeItems(RECIPE_OF_SUPPLY, -1);
 						htmltext = "30873-08.html";
 					}
@@ -159,13 +159,13 @@ public final class Q00360_PlunderTheirSupplies extends Quest
 				{
 					if (recipeCount == 0)
 					{
-						st.giveAdena(((supplyCount * 100) + 6000), true);
+						st.giveAdenaFuzzy(((supplyCount * 100) + 6000), true);
 						st.takeItems(SUPPLY_ITEMS, -1);
 						htmltext = "30873-06.html";
 					}
 					else
 					{
-						st.giveAdena((((supplyCount * 100) + 6000) + (recipeCount * 6000)), true);
+						st.giveAdenaFuzzy((((supplyCount * 100) + 6000) + (recipeCount * 6000)), true);
 						st.takeItems(SUPPLY_ITEMS, -1);
 						st.takeItems(RECIPE_OF_SUPPLY, -1);
 						htmltext = "30873-07.html";

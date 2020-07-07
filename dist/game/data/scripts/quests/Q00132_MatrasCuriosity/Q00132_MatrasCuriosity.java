@@ -79,7 +79,7 @@ public final class Q00132_MatrasCuriosity extends Quest
 		}
 		else if (event.equalsIgnoreCase("32245-07.htm") && st.isCond(3) && !st.isCompleted())
 		{
-			st.giveAdena(65884, true);
+			st.giveAdenaFuzzy(65884, true);
 			st.addExpAndSp(50541, 5094);
 			st.giveItems(FIRE, 1);
 			st.giveItems(WATER, 1);

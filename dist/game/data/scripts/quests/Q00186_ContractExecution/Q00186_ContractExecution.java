@@ -131,7 +131,7 @@ public final class Q00186_ContractExecution extends Quest
 			{
 				if (qs.isMemoState(3))
 				{
-					giveAdena(player, 105083, true);
+					giveAdenaFuzzy(player, 105083, true);
 					if (player.getLevel() < MAX_LEVEL_FOR_EXP_SP)
 					{
 						addExpAndSp(player, 285935, 18711);

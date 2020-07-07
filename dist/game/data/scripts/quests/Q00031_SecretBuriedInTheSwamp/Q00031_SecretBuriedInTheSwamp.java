@@ -114,7 +114,7 @@ public final class Q00031_SecretBuriedInTheSwamp extends Quest
 				if (st.isCond(7))
 				{
 					st.addExpAndSp(490000, 45880);
-					st.giveAdena(120000, true);
+					st.giveAdenaFuzzy(120000, true);
 					st.exitQuest(false, true);
 					htmltext = event;
 				}

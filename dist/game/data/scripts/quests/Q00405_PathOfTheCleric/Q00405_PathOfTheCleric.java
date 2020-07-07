@@ -162,23 +162,10 @@ public final class Q00405_PathOfTheCleric extends Quest
 					}
 					else if (hasQuestItems(player, LETTER_OF_ORDER_2ND, LEMONIELLS_COVENANT))
 					{
-						giveAdena(player, 163800, true);
 						takeItems(player, LETTER_OF_ORDER_2ND, 1);
 						takeItems(player, LEMONIELLS_COVENANT, 1);
 						giveItems(player, MARK_OF_FAITH, 1);
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 320534, 23152);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 456128, 28630);
-						}
-						else
-						{
-							addExpAndSp(player, 591724, 35328);
-						}
+                                                give1stTransferReward(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

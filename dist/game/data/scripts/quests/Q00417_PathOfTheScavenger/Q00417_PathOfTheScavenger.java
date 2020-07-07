@@ -308,21 +308,8 @@ public final class Q00417_PathOfTheScavenger extends Quest
 			{
 				if (qs.isMemoState(2) && hasQuestItems(player, BEAD_PARCEL2))
 				{
-					giveAdena(player, 163800, true);
 					giveItems(player, RING_OF_RAVEN, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 320534, 35412);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 456128, 42110);
-					}
-					else
-					{
-						addExpAndSp(player, 591724, 48808);
-					}
+                                        give1stTransferReward(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -656,21 +643,8 @@ public final class Q00417_PathOfTheScavenger extends Quest
 					}
 					else if (hasQuestItems(player, SUCCUBUS_UNDIES))
 					{
-						giveAdena(player, 81900, true);
 						giveItems(player, RING_OF_RAVEN, 1);
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 160267, 17706);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 228064, 21055);
-						}
-						else
-						{
-							addExpAndSp(player, 295862, 24404);
-						}
+                                                give1stTransferRewardHalf(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

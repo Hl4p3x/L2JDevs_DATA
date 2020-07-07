@@ -64,7 +64,7 @@ public class Q00014_WhereaboutsOfTheArchaeologist extends Quest
 			case "31538-01.html":
 				if (st.isCond(1) && st.hasQuestItems(LETTER))
 				{
-					st.giveAdena(136928, true);
+					st.giveAdenaFuzzy(136928, true);
 					st.addExpAndSp(325881, 32524);
 					st.exitQuest(false, true);
 				}

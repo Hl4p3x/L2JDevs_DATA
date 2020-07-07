@@ -105,7 +105,7 @@ public final class Q00116_BeyondTheHillsOfWinter extends Quest
 			{
 				if (st.isMemoState(2))
 				{
-					st.giveAdena(17387, true);
+					st.giveAdenaFuzzy(17387, true);
 					st.addExpAndSp(82792, 4981);
 					st.exitQuest(false, true);
 					htmltext = "32052-03.html";

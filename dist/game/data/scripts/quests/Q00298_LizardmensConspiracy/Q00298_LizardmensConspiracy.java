@@ -122,7 +122,7 @@ public final class Q00298_LizardmensConspiracy extends Quest
 		if (qs != null)
 		{
 			final ItemChanceHolder item = MONSTERS.get(npc.getId());
-			if (giveItemRandomly(qs.getPlayer(), npc, item.getId(), item.getCount(), 50, item.getChance(), true) //
+			if (giveItemRandomly(qs.getPlayer(), npc, item.getId(), item.getCount(), 50, getEffectiveChance(item.getChance()), true) //
 				&& (getQuestItemsCount(qs.getPlayer(), SHINING_GEM) >= 50) //
 				&& (getQuestItemsCount(qs.getPlayer(), SHINING_RED_GEM) >= 50))
 			{

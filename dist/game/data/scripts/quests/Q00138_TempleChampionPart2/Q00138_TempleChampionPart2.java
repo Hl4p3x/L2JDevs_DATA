@@ -74,7 +74,7 @@ public class Q00138_TempleChampionPart2 extends Quest
 				st.giveItems(TEMPLE_MANIFESTO, 1);
 				break;
 			case "30070-05.html":
-				st.giveAdena(84593, true);
+				st.giveAdenaFuzzy(84593, true);
 				if ((player.getLevel() < 42))
 				{
 					st.addExpAndSp(187062, 11307);

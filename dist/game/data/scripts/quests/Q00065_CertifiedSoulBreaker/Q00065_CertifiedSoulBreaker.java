@@ -31,6 +31,7 @@ import org.l2jdevs.gameserver.network.clientpackets.Say2;
 import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Certified Soul Breaker (65)
@@ -127,6 +128,7 @@ public final class Q00065_CertifiedSoulBreaker extends Quest
 				{
 					qs.startQuest();
 					qs.setMemoState(1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 47);
@@ -415,7 +417,7 @@ public final class Q00065_CertifiedSoulBreaker extends Quest
 					}
 					else if (memoState == 24)
 					{
-						giveAdena(player, 71194, true);
+						giveAdenaFuzzy(player, 71194, true);
 						giveItems(player, SOUL_BREAKER_CERTIFICATE, 1);
 						addExpAndSp(player, 393750, 27020);
 						qs.exitQuest(false, true);

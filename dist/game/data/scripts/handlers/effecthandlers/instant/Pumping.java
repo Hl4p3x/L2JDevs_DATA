@@ -84,37 +84,33 @@ public final class Pumping extends AbstractEffect
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
 		final L2Weapon weaponItem = player.getActiveWeaponItem();
 		final L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		if ((weaponInst == null) || (weaponItem == null))
 		{
 			return;
 		}
-		
 		int SS = 1;
 		int pen = 0;
-		
 		if (activeChar.isChargedShot(ShotType.FISH_SOULSHOTS))
 		{
 			SS = 2;
 		}
-		
 		final L2FishingRod fishingRod = FishingRodsData.getInstance().getFishingRod(weaponItem.getId());
 		final double gradeBonus = fishingRod.getFishingRodLevel() * 0.1; // TODO: Check this formula (is guessed)
 		int dmg = (int) ((fishingRod.getFishingRodDamage() + player.calcStat(Stats.FISHING_EXPERTISE, 1, null, null) + _power) * gradeBonus * SS);
-		// Penalty 50% less damage dealt
-		if (player.getSkillLevel(1315) <= (info.getSkill().getLevel() - 3)) // 1315 - Fish Expertise
-		{
+		// Penalty 5% per diff levels less damage dealt. Skill 1315 - Fish Expertise
+                final int lvldiff = info.getSkill().getLevel() - player.getSkillLevel(1315);
+		if (lvldiff > 2) {
 			player.sendPacket(SystemMessageId.REELING_PUMPING_3_LEVELS_HIGHER_THAN_FISHING_PENALTY);
-			pen = (int) (dmg * 0.5);
-			dmg = dmg - pen;
+			pen = (int) (dmg * (lvldiff - 2) * 0.05);
+			dmg = dmg < pen ? 1 : dmg - pen;
 		}
-		
 		if (SS > 1)
 		{
 			weaponInst.setChargedShot(ShotType.FISH_SOULSHOTS, false);
 		}
+		
 		fish.usePumping(dmg, pen);
 	}
 }

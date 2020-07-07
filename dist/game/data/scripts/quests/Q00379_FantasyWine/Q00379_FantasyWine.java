@@ -115,16 +115,16 @@ public final class Q00379_FantasyWine extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
+                final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
 		
-		if ((qs == null) || !Util.checkIfInRange(1500, npc, killer, true))
+		if ((qs == null) || !Util.checkIfInRange(1500, npc, qs.getPlayer(), true))
 		{
 			return null;
 		}
 		
 		final ItemHolder dropItem = ((npc.getId() == ENKU_ORC_CHAMPION) ? LEAF_OF_EUCALYPTUS : STONE_OF_CHILL);
 		
-		if (giveItemRandomly(killer, npc, dropItem.getId(), 1, dropItem.getCount(), 1.0, true) && hasAllItems(killer, true, LEAF_OF_EUCALYPTUS, STONE_OF_CHILL))
+		if (giveItemRandomly(qs.getPlayer(), npc, dropItem.getId(), 1, dropItem.getCount(), 1.0, true) && hasAllItems(killer, true, LEAF_OF_EUCALYPTUS, STONE_OF_CHILL))
 		{
 			qs.setCond(2);
 		}

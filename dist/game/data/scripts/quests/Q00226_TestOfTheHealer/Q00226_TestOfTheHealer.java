@@ -27,6 +27,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of The Healer(226)
@@ -103,6 +104,7 @@ public final class Q00226_TestOfTheHealer extends Quest
 					qs.setMemoState(1);
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
 					giveItems(player, REPORT_OF_PERRIN, 1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						if (player.getClassId() == ClassId.cleric)
@@ -143,9 +145,11 @@ public final class Q00226_TestOfTheHealer extends Quest
 			{
 				if (qs.isMemoState(10) && hasQuestItems(player, GOLDEN_STATUE))
 				{
-					giveAdena(player, 233490, true);
 					giveItems(player, MARK_OF_HEALER, 1);
-					addExpAndSp(player, 738283, 50662);
+                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                            giveAdenaFuzzy(player, 233490, true);
+                                            addExpAndSp(player, 738283, 50662);
+                                        }
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					htmltext = event;
@@ -354,9 +358,11 @@ public final class Q00226_TestOfTheHealer extends Quest
 						}
 						else
 						{
-							giveAdena(player, 266980, true);
 							giveItems(player, MARK_OF_HEALER, 1);
-							addExpAndSp(player, 1476566, 101324);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 266980, true);
+                                                            addExpAndSp(player, 1476566, 101324);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30473-06.html";

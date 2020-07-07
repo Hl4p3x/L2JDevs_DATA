@@ -74,7 +74,7 @@ public class Q00119_LastImperialPrince extends Quest
 			{
 				if (st.isCond(2))
 				{
-					st.giveAdena(150292, true);
+					st.giveAdenaFuzzy(150292, true);
 					st.addExpAndSp(902439, 90067);
 					st.exitQuest(false, true);
 					htmltext = event;

@@ -148,7 +148,7 @@ public final class Q00622_SpecialtyLiquorDelivery extends Quest
 					if (rnd < 800)
 					{
 						rewardItems(player, QUICK_STEP_POTION, 1);
-						giveAdena(player, 18800, true);
+						giveAdenaFuzzy(player, 18800, true);
 					}
 					else if (rnd < 880)
 					{

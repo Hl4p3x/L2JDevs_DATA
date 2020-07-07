@@ -75,15 +75,8 @@ public final class Q00262_TradeWithTheIvoryTower extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
-		final L2PcInstance partyMember = getRandomPartyMember(player, 1);
-		if (partyMember == null)
-		{
-			return super.onKill(npc, player, isSummon);
-		}
-		
-		final QuestState st = getQuestState(partyMember, false);
-		float chance = (MOBS_SAC.get(npc.getId()) * Config.RATE_QUEST_DROP);
-		if (getRandom(10) < chance)
+                final QuestState st = getRandomPartyMemberState(player, 1, 3, npc);
+		if (st != null && getRandom(10) < getEffectiveChance(MOBS_SAC.get(npc.getId())))
 		{
 			st.rewardItems(SPORE_SAC, 1);
 			if (st.getQuestItemsCount(SPORE_SAC) >= REQUIRED_ITEM_COUNT)
@@ -127,7 +120,7 @@ public final class Q00262_TradeWithTheIvoryTower extends Quest
 						if (st.getQuestItemsCount(SPORE_SAC) >= REQUIRED_ITEM_COUNT)
 						{
 							htmltext = "30137-05.html";
-							st.giveAdena(3000, true);
+							st.giveAdenaFuzzy(3000, true);
 							st.exitQuest(true, true);
 						}
 						break;

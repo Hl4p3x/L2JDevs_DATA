@@ -1,14 +1,14 @@
 /*
- * Copyright © 2004-2019 L2JDevs
+ * Copyright © 2004-2019 L2J DataPack
  * 
- * This file is part of L2JDevs.
+ * This file is part of L2J DataPack.
  * 
- * L2JDevs is free software: you can redistribute it and/or modify
+ * L2J DataPack is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * L2JDevs is distributed in the hope that it will be useful,
+ * L2J DataPack is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
@@ -31,8 +31,6 @@ import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
-
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
 
 /**
  * Jumble, Tumble, Diamond Fuss (108)
@@ -158,31 +156,15 @@ public final class Q00108_JumbleTumbleDiamondFuss extends Quest
 					{
 						final double dropChance = GOBLIN_DROP_CHANCES.get(npc.getId());
 						boolean playSound = false;
-						if (st.giveItemRandomly(npc, AQUAMARINE, 1, MAX_GEM_COUNT, dropChance, false))
-						{
-							if (st.getQuestItemsCount(CHRYSOBERYL) >= MAX_GEM_COUNT)
-							{
-								st.setCond(6, true);
-								break;
-							}
-							
-							playSound = true;
-						}
-						if (st.giveItemRandomly(npc, CHRYSOBERYL, 1, MAX_GEM_COUNT, dropChance, false))
-						{
-							if (st.getQuestItemsCount(AQUAMARINE) >= MAX_GEM_COUNT)
-							{
-								st.setCond(6, true);
-								break;
-							}
-							
-							playSound = true;
-						}
-						
-						if (playSound)
-						{
-							st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-						}
+						if(st.giveItemRandomly(npc, AQUAMARINE, 1, MAX_GEM_COUNT, dropChance, false))
+                                                    playSound = true;
+						if(st.giveItemRandomly(npc, CHRYSOBERYL, 1, MAX_GEM_COUNT, dropChance, false))
+                                                    playSound = true;
+                                                if(st.getQuestItemsCount(AQUAMARINE) >= MAX_GEM_COUNT //
+                                                   && st.getQuestItemsCount(CHRYSOBERYL) >= MAX_GEM_COUNT)
+                                                    st.setCond(6, true);
+						if(playSound)
+                                                    st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
 					}
 					break;
 				}
@@ -280,9 +262,9 @@ public final class Q00108_JumbleTumbleDiamondFuss extends Quest
 							{
 								if (st.hasQuestItems(STAR_DIAMOND))
 								{
-									Q00281_HeadForTheHills.giveNewbieReward(talker);
+									giveNewbieReward(talker);
 									st.addExpAndSp(34565, 2962);
-									st.giveAdena(14666, true);
+									st.giveAdenaFuzzy(14666, true);
 									for (ItemHolder reward : REWARDS)
 									{
 										st.giveItems(reward);

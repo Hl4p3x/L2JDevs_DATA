@@ -468,7 +468,7 @@ public final class Q00171_ActsOfEvil extends Quest
 						}
 						case 11:
 						{
-							giveAdena(player, 95000, true);
+							giveAdenaFuzzy(player, 95000, true);
 							addExpAndSp(player, 159820, 9182);
 							htmltext = "30381-17.html";
 							qs.exitQuest(false, true);
@@ -588,7 +588,7 @@ public final class Q00171_ActsOfEvil extends Quest
 						}
 						else
 						{
-							giveAdena(player, 8000, true);
+							giveAdenaFuzzy(player, 8000, true);
 							takeItems(player, OL_MAHUM_CAPTAINS_HEAD, -1);
 							qs.setMemoState(11);
 							qs.setCond(11, true);

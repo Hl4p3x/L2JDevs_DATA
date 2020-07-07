@@ -157,7 +157,8 @@ public final class Q00259_RequestFromTheFarmOwner extends Quest
 						if (st.hasQuestItems(SPIDER_SKIN))
 						{
 							final long skins = st.getQuestItemsCount(SPIDER_SKIN);
-							st.giveAdena((skins * SKIN_REWARD) + ((skins >= 10) ? SKIN_BONUS : 0), true);
+                                                        final long s10 = (skins / 10) * SKIN_BONUS;
+							st.giveAdenaFuzzy((skins * SKIN_REWARD) + s10, true);
 							st.takeItems(SPIDER_SKIN, -1);
 							htmltext = "30497-05.html";
 						}

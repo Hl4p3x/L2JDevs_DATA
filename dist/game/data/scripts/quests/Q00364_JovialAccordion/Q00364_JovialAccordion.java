@@ -85,8 +85,7 @@ public final class Q00364_JovialAccordion extends Quest
 			{
 				if (st.hasQuestItems(BEER_CHEST_KEY))
 				{
-					if (getRandomBoolean())
-					{
+                                        if (getEffectiveChance(getRandomBoolean())) {
 						st.giveItems(STOLEN_BLACK_BEER, 1);
 						htmltext = "30960-02.html";
 					}
@@ -106,8 +105,7 @@ public final class Q00364_JovialAccordion extends Quest
 			{
 				if (st.hasQuestItems(CLOTHES_CHEST_KEY))
 				{
-					if (getRandomBoolean())
-					{
+                                        if (getEffectiveChance(getRandomBoolean())) {
 						st.giveItems(STOLEN_EVENT_CLOTHES, 1);
 						htmltext = "30961-02.html";
 					}
@@ -268,7 +266,7 @@ public final class Q00364_JovialAccordion extends Quest
 								{
 									st.setMemoState(5);
 									st.setCond(3, true);
-									st.giveAdena(100, true);
+									st.giveAdenaFuzzy(100, true);
 									htmltext = "30957-05.html";
 								}
 								break;

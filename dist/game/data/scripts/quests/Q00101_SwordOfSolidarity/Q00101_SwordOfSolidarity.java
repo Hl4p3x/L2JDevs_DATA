@@ -27,8 +27,6 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Sword of Solidarity (101)
  * @author xban1x
@@ -111,13 +109,13 @@ public class Q00101_SwordOfSolidarity extends Quest
 				{
 					if (st.isCond(5) && st.hasQuestItems(BROKEN_SWORD_HANDLE))
 					{
-						Q00281_HeadForTheHills.giveNewbieReward(player);
+						giveNewbieReward(player);
 						for (ItemHolder reward : REWARDS)
 						{
 							st.giveItems(reward);
 						}
 						st.addExpAndSp(25747, 2171);
-						st.giveAdena(10981, true);
+						st.giveAdenaFuzzy(10981, true);
 						st.exitQuest(false, true);
 						htmltext = event;
 					}
@@ -131,7 +129,7 @@ public class Q00101_SwordOfSolidarity extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
+		final QuestState st = getRandomPartyMemberState(killer, 2, 3, npc);
 		if ((st != null) && st.isCond(2) && (getRandom(5) == 0))
 		{
 			if (!st.hasQuestItems(BROKEN_BLADE_TOP))

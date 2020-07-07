@@ -88,7 +88,7 @@ public class Q10268_ToTheSeedOfInfinity extends Quest
 				{
 					case State.STARTED:
 						htmltext = "32530-01.html";
-						st.giveAdena(16671, true);
+						st.giveAdenaFuzzy(16671, true);
 						st.addExpAndSp(100640, 10098);
 						st.exitQuest(false, true);
 						break;

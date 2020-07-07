@@ -88,7 +88,7 @@ public class Q10269_ToTheSeedOfDestruction extends Quest
 				{
 					case State.STARTED:
 						htmltext = "32526-01.html";
-						st.giveAdena(29174, true);
+						st.giveAdenaFuzzy(29174, true);
 						st.addExpAndSp(176121, 7671);
 						st.exitQuest(false, true);
 						break;

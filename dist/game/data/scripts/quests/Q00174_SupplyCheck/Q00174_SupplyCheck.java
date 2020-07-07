@@ -39,13 +39,26 @@ public class Q00174_SupplyCheck extends Quest
 	// Items
 	private static final int WAREHOUSE_MANIFEST = 9792;
 	private static final int GROCERY_STORE_MANIFEST = 9793;
+	private static final int REWARD_COST_UPRANGE = 6200;
 	private static final int[] REWARD =
 	{
-		23, // Wooden Breastplate
-		43, // Wooden Helmet
-		49, // Gloves
-		2386, // Wooden Gaiters
-		37, // Leather Shoes
+            // price, itemId
+            28, 36, // Leather Sandals
+            29, 48, // Short Gloves
+            42, 41, // Cloth Cap
+            71, 28, // Pants
+            113, 21, // Shirt
+            700, 42, // Leather Cap
+            1170, 29, // Leather Pants
+            1870, 22, // Leather Shirt
+            2040, 37, // Leather Shoes
+            2041, 49, // Gloves
+            3060, 43, // Wooden Helmet
+            3820, 2386, // Wooden Gaiters
+            3820, 30, // Hard Leather Pants
+            5210, 50, // Leather Gloves
+            5211, 38, // Low Boots
+            6120, 23, // Wooden Breastplate
 	};
 	
 	// Misc
@@ -105,11 +118,13 @@ public class Q00174_SupplyCheck extends Quest
 								htmltext = "32173-06.html";
 								break;
 							case 4:
-								for (int itemId : REWARD)
-								{
-									st.giveItems(itemId, 1);
-								}
-								st.giveAdena(2466, true);
+                                                            int rng = getRandom(REWARD_COST_UPRANGE);
+                                                            for(int i = 0; i < REWARD.length; i+=2)
+                                                                if(REWARD[i] >= rng) {
+                                                                    st.giveItems(REWARD[i+1], 1);
+                                                                    break;
+                                                                }
+                                                            st.giveAdenaFuzzy(1000 + getRandom(1466), true);
 								st.addExpAndSp(5672, 446);
 								st.exitQuest(false, true);
 								// Newbie Guide

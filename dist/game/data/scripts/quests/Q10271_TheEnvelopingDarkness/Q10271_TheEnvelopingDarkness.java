@@ -102,7 +102,7 @@ public class Q10271_TheEnvelopingDarkness extends Quest
 								break;
 							case 4:
 								htmltext = "32560-08.html";
-								st.giveAdena(62516, true);
+								st.giveAdenaFuzzy(62516, true);
 								st.addExpAndSp(377403, 37867);
 								st.exitQuest(false, true);
 								break;

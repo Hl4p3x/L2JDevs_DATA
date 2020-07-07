@@ -24,8 +24,6 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.util.Util;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Tarantula's Spider Silk (296)
  * @author xban1x
@@ -41,9 +39,10 @@ public final class Q00296_TarantulasSpiderSilk extends Quest
 	// Monsters
 	private static final int[] MONSTERS = new int[]
 	{
-		20394,
-		20403,
-		20508,
+                20394, // Crimson Tarantula 15
+		20403, // hunter tarantula 16
+		20508, // plunder tarantula 17
+                21125, // northern trimden 19
 	};
 	// Misc
 	private static final int MIN_LVL = 15;
@@ -119,17 +118,17 @@ public final class Q00296_TarantulasSpiderSilk extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs != null) && Util.checkIfInRange(1500, npc, killer, true))
+		final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
+                if ((qs != null) && Util.checkIfInRange(1500, npc, qs.getPlayer(), true))
 		{
 			final int chance = getRandom(100);
 			if (chance > 95)
 			{
-				giveItemRandomly(killer, npc, TARANTULA_SPINNERETTE, 1, 0, 1, true);
+				giveItemRandomly(qs.getPlayer(), npc, TARANTULA_SPINNERETTE, 1, 0, 1, true);
 			}
 			else if (chance > 45)
 			{
-				giveItemRandomly(killer, npc, TARANTULA_SPIDER_SILK, 1, 0, 1, true);
+				giveItemRandomly(qs.getPlayer(), npc, TARANTULA_SPIDER_SILK, 1, 0, 1, true);
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
@@ -151,9 +150,10 @@ public final class Q00296_TarantulasSpiderSilk extends Quest
 				final long silk = getQuestItemsCount(talker, TARANTULA_SPIDER_SILK);
 				if (silk >= 1)
 				{
-					giveAdena(talker, (silk * 30) + (silk >= 10 ? 2000 : 0), true);
+                                        final long bonus = silk / 10;
+					giveAdenaFuzzy(talker, silk * 30 + bonus * 2000, true);
 					takeItems(talker, TARANTULA_SPIDER_SILK, -1);
-					Q00281_HeadForTheHills.giveNewbieReward(talker);// TODO: It's using wrong bitmask, need to create a general bitmask for this using EnumIntBitmask class inside Quest class for handling Quest rewards.
+					giveNewbieReward(talker);// TODO: It's using wrong bitmask, need to create a general bitmask for this using EnumIntBitmask class inside Quest class for handling Quest rewards.
 					html = "30519-05.html";
 				}
 				else

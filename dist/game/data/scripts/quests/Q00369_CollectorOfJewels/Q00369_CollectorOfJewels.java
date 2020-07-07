@@ -151,7 +151,7 @@ public final class Q00369_CollectorOfJewels extends Quest
 				{
 					if (getQuestItemsCount(player, FLARE_SHARD, FREEZING_SHARD) >= 100)
 					{
-						giveAdena(player, 31810, true);
+						giveAdenaFuzzy(player, 31810, true);
 						takeItems(player, -1, FLARE_SHARD, FREEZING_SHARD);
 						st.setMemoState(2);
 						htmltext = "30376-04.html";
@@ -171,7 +171,7 @@ public final class Q00369_CollectorOfJewels extends Quest
 				{
 					if (getQuestItemsCount(player, FLARE_SHARD, FREEZING_SHARD) >= 400)
 					{
-						giveAdena(player, 84415, true);
+						giveAdenaFuzzy(player, 84415, true);
 						takeItems(player, -1, FLARE_SHARD, FREEZING_SHARD);
 						st.exitQuest(true, true);
 						htmltext = "30376-10.html";

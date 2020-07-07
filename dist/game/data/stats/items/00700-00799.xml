@@ -371,7 +371,7 @@
 		</cond>
 	</item>
 	<item id="727" type="EtcItem" name="Healing Potion">
-		<set name="icon" val="icon.item_system03" />
+		<set name="icon" val="icon.etc_reagent_red_i00" />
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="POTION" />
 		<set name="immediate_effect" val="true" />
@@ -406,6 +406,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="1800000" />
@@ -419,6 +420,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="240000" />
@@ -430,21 +432,29 @@
 	<item id="731" type="EtcItem" name="Crystal Scroll: Enchant Weapon (A-Grade)">
 		<set name="icon" val="icon.etc_scroll_of_enchant_weapon_i01" />
 		<set name="default_action" val="SKILL_REDUCE" />
-		<set name="etcitem_type" val="SCROLL" />
+		<set name="etcitem_type" val="SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
+		<set name="price" val="18000000" />
 		<set name="is_oly_restricted" val="true" />
+		<set name="is_stackable" val="true" />
 		<set name="handler" val="EnchantScrolls" />
+		<set name="item_skill" val="2006-1" />
 	</item>
 	<item id="732" type="EtcItem" name="Crystal Scroll: Enchant Armor (A-Grade)">
 		<set name="icon" val="icon.etc_scroll_of_enchant_armor_i01" />
 		<set name="default_action" val="SKILL_REDUCE" />
-		<set name="etcitem_type" val="SCROLL" />
+		<set name="etcitem_type" val="SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
+		<set name="price" val="2400000" />
 		<set name="is_oly_restricted" val="true" />
+		<set name="is_stackable" val="true" />
+		<set name="item_skill" val="2007-1" />
 		<set name="handler" val="EnchantScrolls" />
 	</item>
 	<item id="733" type="EtcItem" name="Endeavor Potion">

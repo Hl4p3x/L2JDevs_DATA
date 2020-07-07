@@ -18,6 +18,7 @@
  */
 package village_master.ElfHumanFighterChange1;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.enums.Race;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
@@ -216,7 +217,8 @@ public final class ElfHumanFighterChange1 extends AbstractNpcAI
 				player.setBaseClass(WARRIOR);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-23.htm"; // fnAfterClassChange11
 			}
 			else
@@ -244,7 +246,8 @@ public final class ElfHumanFighterChange1 extends AbstractNpcAI
 				player.setBaseClass(KNIGHT);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-27.htm"; // fnAfterClassChange12
 			}
 			else
@@ -272,7 +275,8 @@ public final class ElfHumanFighterChange1 extends AbstractNpcAI
 				player.setBaseClass(ROGUE);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-31.htm"; // fnAfterClassChange13
 			}
 			else
@@ -300,7 +304,8 @@ public final class ElfHumanFighterChange1 extends AbstractNpcAI
 				player.setBaseClass(ELVEN_KNIGHT);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-35.htm"; // fnAfterClassChange21
 			}
 			else
@@ -328,7 +333,8 @@ public final class ElfHumanFighterChange1 extends AbstractNpcAI
 				player.setBaseClass(ELVEN_SCOUT);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-39.htm"; // fnAfterClassChange22
 			}
 			else

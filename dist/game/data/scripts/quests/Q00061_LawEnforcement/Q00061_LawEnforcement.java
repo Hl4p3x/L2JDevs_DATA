@@ -145,7 +145,7 @@ public final class Q00061_LawEnforcement extends Quest
 					player.setClassId(136);
 					// SystemMessage and cast skill is done by setClassId
 					player.broadcastUserInfo();
-					giveAdena(player, 26000, true);
+					giveAdenaFuzzy(player, 26000, true);
 					qs.exitQuest(false, true);
 					htmltext = event;
 				}

@@ -38,6 +38,8 @@ import org.l2jdevs.gameserver.network.serverpackets.ExShowProcureCropDetail;
 import org.l2jdevs.gameserver.network.serverpackets.ExShowSeedInfo;
 import org.l2jdevs.gameserver.network.serverpackets.ExShowSellCropList;
 import org.l2jdevs.gameserver.network.serverpackets.SystemMessage;
+import org.l2jdevs.gameserver.network.serverpackets.ExShowCropSetting;
+import org.l2jdevs.gameserver.network.serverpackets.ExShowSeedSetting;
 
 import ai.npc.AbstractNpcAI;
 
@@ -151,6 +153,12 @@ public final class ManorManager extends AbstractNpcAI
 				break;
 			case 6: // Buy harvester
 				((L2MerchantInstance) npc).showBuyWindow(player, 300000 + npc.getId());
+				break;
+			case 7: // Seed Setup
+				player.sendPacket(new ExShowSeedSetting(evt.getManorId()));
+				break;
+			case 8: // Crop Setup
+				player.sendPacket(new ExShowCropSetting(evt.getManorId()));
 				break;
 			case 9: // Edit sales (Crop sales)
 				player.sendPacket(new ExShowProcureCropDetail(evt.getManorId()));

@@ -18,6 +18,7 @@
  */
 package village_master.DwarfWarehouseChange2;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -140,7 +141,8 @@ public final class DwarfWarehouseChange2 extends AbstractNpcAI
 				player.setBaseClass(BOUNTY_HUNTER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30511-11.htm"; // fnAfterClassChange11
 			}
 			else

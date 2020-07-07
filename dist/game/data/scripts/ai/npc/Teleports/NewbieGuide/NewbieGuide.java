@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.data.xml.impl.MultisellData;
 import org.l2jdevs.gameserver.enums.Race;
 import org.l2jdevs.gameserver.enums.audio.Voice;
@@ -419,18 +420,18 @@ public final class NewbieGuide extends AbstractNpcAI
 						{
 							if ((talker.getLevel() < 20) && (talker.getClassId().level() == 0))
 							{
+                                                                String page = "newbie-guide-004.htm";
 								if (getOneTimeQuestFlag(talker, 207) == 0)
 								{
-									qs.giveItems(APPRENTICE_ADVENTURERS_WEAPON_EXCHANGE_COUPON, FIRST_COUPON_SIZE);
+									if(Config.L2JMOD_SHADOW_COUPONS) {
+                                                                            qs.giveItems(APPRENTICE_ADVENTURERS_WEAPON_EXCHANGE_COUPON, FIRST_COUPON_SIZE);
+                                                                            showOnScreenMsg(talker, NpcStringId.ACQUISITION_OF_WEAPON_EXCHANGE_COUPON_FOR_BEGINNERS_COMPLETE_N_GO_SPEAK_WITH_THE_NEWBIE_GUIDE, 2, 5000, "");
+                                                                            page = "newbie-guide-002.htm";
+                                                                        }
 									setOneTimeQuestFlag(talker, 207, 1);
-									showPage(talker, "newbie-guide-002.htm");
 									qs.setNRMemoState(talker, GUIDE_MISSION, qs.getNRMemoState(talker, GUIDE_MISSION) + 100);
-									showOnScreenMsg(talker, NpcStringId.ACQUISITION_OF_WEAPON_EXCHANGE_COUPON_FOR_BEGINNERS_COMPLETE_N_GO_SPEAK_WITH_THE_NEWBIE_GUIDE, 2, 5000, "");
 								}
-								else
-								{
-									showPage(talker, "newbie-guide-004.htm");
-								}
+                                                                showPage(talker, page);
 							}
 							else
 							{
@@ -449,16 +450,16 @@ public final class NewbieGuide extends AbstractNpcAI
 						{
 							if (talker.getLevel() < 40)
 							{
+                                                                String page = "newbie-guide-013.htm";
 								if (getOneTimeQuestFlag(talker, 208) == 0)
 								{
-									qs.giveItems(ADVENTURERS_MAGIC_ACCESSORY_EXCHANGE_COUPON, SECOND_COUPON_SIZE);
+                                                                        if(Config.L2JMOD_SHADOW_COUPONS) {
+                                                                            qs.giveItems(ADVENTURERS_MAGIC_ACCESSORY_EXCHANGE_COUPON, SECOND_COUPON_SIZE);
+                                                                            page = "newbie-guide-011.htm";
+                                                                        }
 									setOneTimeQuestFlag(talker, 208, 1);
-									showPage(talker, "newbie-guide-011.htm");
 								}
-								else
-								{
-									showPage(talker, "newbie-guide-013.htm");
-								}
+								showPage(talker, page);
 							}
 							else
 							{
@@ -1672,7 +1673,8 @@ public final class NewbieGuide extends AbstractNpcAI
 			if (!talker.isMageClass())
 			{
 				qs.playSound(Voice.TUTORIAL_VOICE_026_1000);
-				qs.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS, 200);
+                                if(Config.L2JMOD_ALLOW_QUEST_SSHOTS)
+                                    qs.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS, 200);
 				qs.giveItems(SCROLL_RECOVERY_NO_GRADE, 2);
 				tutorialQS.setMemoStateEx(1, 5);
 				if (talker.getLevel() <= 1)
@@ -1689,12 +1691,14 @@ public final class NewbieGuide extends AbstractNpcAI
 				if (talker.getClassId() == ClassId.orcMage)
 				{
 					qs.playSound(Voice.TUTORIAL_VOICE_026_1000);
-					qs.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS, 200);
+                                        if(Config.L2JMOD_ALLOW_QUEST_SSHOTS)
+                                            qs.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS, 200);
 				}
 				else
 				{
 					qs.playSound(Voice.TUTORIAL_VOICE_027_1000);
-					qs.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS, 100);
+                                        if(Config.L2JMOD_ALLOW_QUEST_SSHOTS)
+                                            qs.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS, 100);
 				}
 				qs.giveItems(SCROLL_RECOVERY_NO_GRADE, 2);
 				tutorialQS.setMemoStateEx(1, 5);

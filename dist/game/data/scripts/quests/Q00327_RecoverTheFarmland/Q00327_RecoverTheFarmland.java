@@ -419,8 +419,8 @@ public final class Q00327_RecoverTheFarmland extends Quest
 							html = "30597-05.html";
 							final long dogTags = getQuestItemsCount(player, TUREK_DOG_TAG);
 							final long medallions = getQuestItemsCount(player, TUREK_MEDALLION);
-							final long rewardCount = (dogTags * 40) + (medallions * 50) + (((dogTags + medallions) >= 10) ? 619 : 0);
-							giveAdena(player, rewardCount, true);
+							final long rewardCount = (dogTags * 40) + (medallions * 50) + ((dogTags + medallions) / 10) * 619;
+							giveAdenaFuzzy(player, rewardCount, true);
 							takeItems(player, TUREK_DOG_TAG, -1);
 							takeItems(player, TUREK_MEDALLION, -1);
 							st.setCond(4, true);

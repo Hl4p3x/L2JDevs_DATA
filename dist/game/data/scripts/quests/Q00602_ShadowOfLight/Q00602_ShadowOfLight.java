@@ -108,7 +108,7 @@ public class Q00602_ShadowOfLight extends Quest
 				{
 					st.giveItems(REWARD[i][0], 3);
 				}
-				st.giveAdena(REWARD[i][1], true);
+				st.giveAdenaFuzzy(REWARD[i][1], true);
 				st.addExpAndSp(REWARD[i][2], REWARD[i][3]);
 				st.exitQuest(true, true);
 				break;

@@ -496,8 +496,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="51" />
-			<set stat="mAtk" val="32" />
+			<set stat="pAtk" val="58" />
+			<set stat="mAtk" val="33" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -523,8 +523,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="51" />
-			<set stat="mAtk" val="32" />
+			<set stat="pAtk" val="62" />
+			<set stat="mAtk" val="35" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -550,7 +550,7 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="64" />
+			<set stat="pAtk" val="70" />
 			<set stat="mAtk" val="39" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
@@ -577,8 +577,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="51" />
-			<set stat="mAtk" val="32" />
+			<set stat="pAtk" val="66" />
+			<set stat="mAtk" val="37" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -631,8 +631,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="64" />
-			<set stat="mAtk" val="39" />
+			<set stat="pAtk" val="74" />
+			<set stat="mAtk" val="43" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -659,7 +659,7 @@
 		<set name="enchant_enabled" val="1" />
 		<for>
 			<set stat="pAtk" val="122" />
-			<set stat="mAtk" val="68" />
+			<set stat="mAtk" val="67" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -685,8 +685,8 @@
 		<set name="spiritshots" val="3" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="139" />
-			<set stat="mAtk" val="76" />
+			<set stat="pAtk" val="132" />
+			<set stat="mAtk" val="73" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -712,8 +712,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="122" />
-			<set stat="mAtk" val="68" />
+			<set stat="pAtk" val="127" />
+			<set stat="mAtk" val="70" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -739,8 +739,8 @@
 		<set name="spiritshots" val="3" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="139" />
-			<set stat="mAtk" val="76" />
+			<set stat="pAtk" val="151" />
+			<set stat="mAtk" val="81" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="379" />
 			<enchant val="0" stat="pAtk" />
@@ -1283,13 +1283,13 @@
 		<set name="crystal_type" val="D" />
 		<set name="material" val="FINE_STEEL" />
 		<set name="weight" val="1730" />
-		<set name="price" val="1074000" />
+		<set name="price" val="1085000" />
 		<set name="soulshots" val="3" />
 		<set name="spiritshots" val="3" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="79" />
-			<set stat="mAtk" val="47" />
+			<set stat="pAtk" val="81" />
+			<set stat="mAtk" val="48" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1342,8 +1342,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="107" />
-			<set stat="mAtk" val="61" />
+			<set stat="pAtk" val="115" />
+			<set stat="mAtk" val="65" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1369,8 +1369,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="107" />
-			<set stat="mAtk" val="61" />
+			<set stat="pAtk" val="123" />
+			<set stat="mAtk" val="68" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1396,8 +1396,8 @@
 		<set name="spiritshots" val="3" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="139" />
-			<set stat="mAtk" val="76" />
+			<set stat="pAtk" val="148" />
+			<set stat="mAtk" val="79" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1491,8 +1491,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="40" />
-			<set stat="mAtk" val="26" />
+			<set stat="pAtk" val="42" />
+			<set stat="mAtk" val="27" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1513,13 +1513,13 @@
 		<set name="crystal_type" val="D" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="1810" />
-		<set name="price" val="315000" />
+		<set name="price" val="326000" />
 		<set name="soulshots" val="2" />
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="40" />
-			<set stat="mAtk" val="26" />
+			<set stat="pAtk" val="44" />
+			<set stat="mAtk" val="28" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1540,13 +1540,13 @@
 		<set name="crystal_type" val="D" />
 		<set name="material" val="STEEL" />
 		<set name="weight" val="1790" />
-		<set name="price" val="315000" />
+		<set name="price" val="337000" />
 		<set name="soulshots" val="2" />
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="40" />
-			<set stat="mAtk" val="26" />
+			<set stat="pAtk" val="46" />
+			<set stat="mAtk" val="29" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1567,13 +1567,13 @@
 		<set name="crystal_type" val="D" />
 		<set name="material" val="FINE_STEEL" />
 		<set name="weight" val="1740" />
-		<set name="price" val="1074000" />
+		<set name="price" val="1096000" />
 		<set name="soulshots" val="3" />
 		<set name="spiritshots" val="3" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="79" />
-			<set stat="mAtk" val="47" />
+			<set stat="pAtk" val="83" />
+			<set stat="mAtk" val="49" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1635,13 +1635,13 @@
 		<set name="crystal_type" val="D" />
 		<set name="material" val="BONE" />
 		<set name="weight" val="1730" />
-		<set name="price" val="1074000" />
+		<set name="price" val="1107000" />
 		<set name="soulshots" val="3" />
 		<set name="spiritshots" val="3" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="79" />
-			<set stat="mAtk" val="47" />
+			<set stat="pAtk" val="85" />
+			<set stat="mAtk" val="50" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -1667,8 +1667,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="107" />
-			<set stat="mAtk" val="61" />
+			<set stat="pAtk" val="132" />
+			<set stat="mAtk" val="72" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="379" />
@@ -2049,7 +2049,7 @@
 		<set name="is_magic_weapon" val="true" />
 		<for>
 			<set stat="pAtk" val="90" />
-			<set stat="mAtk" val="79" />
+			<set stat="mAtk" val="78" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />
 			<set stat="pAtkSpd" val="325" />
@@ -2126,13 +2126,13 @@
 		<set name="crystal_type" val="D" />
 		<set name="material" val="FINE_STEEL" />
 		<set name="weight" val="1010" />
-		<set name="price" val="1387000" />
+		<set name="price" val="1398000" />
 		<set name="soulshots" val="3" />
 		<set name="spiritshots" val="3" />
 		<set name="enchant_enabled" val="1" />
 		<set name="is_magic_weapon" val="true" />
 		<for>
-			<set stat="pAtk" val="90" />
+			<set stat="pAtk" val="91" />
 			<set stat="mAtk" val="79" />
 			<set stat="critRate" val="4" />
 			<add stat="accCombat" val="4.75" />

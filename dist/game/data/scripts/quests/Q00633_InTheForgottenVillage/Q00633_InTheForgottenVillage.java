@@ -120,7 +120,7 @@ public final class Q00633_InTheForgottenVillage extends Quest
 				{
 					if (getQuestItemsCount(player, RIB_BONE_OF_A_BLACK_MAGUS) >= RIB_BONE_REQUIRED_COUNT)
 					{
-						giveAdena(player, 25000, true);
+						giveAdenaFuzzy(player, 25000, true);
 						addExpAndSp(player, 305235, 0);
 						takeItems(player, RIB_BONE_OF_A_BLACK_MAGUS, -1);
 						qs.setCond(1, true);

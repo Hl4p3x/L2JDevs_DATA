@@ -252,7 +252,7 @@ public class Q10272_LightFragment extends Quest
 							break;
 						case 8:
 							htmltext = "32559-18.html";
-							st.giveAdena(556980, true);
+							st.giveAdenaFuzzy(556980, true);
 							st.addExpAndSp(1009016, 91363);
 							st.exitQuest(false, true);
 							break;

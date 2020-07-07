@@ -215,7 +215,7 @@ public class Q00663_SeductiveWhispers extends Quest
 						{
 							if (((qs.getMemoState() % 100) / 10) >= 7)
 							{
-								giveAdena(player, 2384000, true);
+								giveAdenaFuzzy(player, 2384000, true);
 								giveItems(player, SCROLL_ENCHANT_WEAPON_A_GRADE);
 								giveItems(player, SCROLL_ENCHANT_ARMOR_A_GRADE);
 								qs.setMemoState(4);
@@ -240,7 +240,7 @@ public class Q00663_SeductiveWhispers extends Quest
 						{
 							if (((qs.getMemoState() % 100) / 10) >= 7)
 							{
-								giveAdena(player, 2384000, true);
+								giveAdenaFuzzy(player, 2384000, true);
 								giveItems(player, SCROLL_ENCHANT_WEAPON_A_GRADE);
 								giveItems(player, SCROLL_ENCHANT_ARMOR_A_GRADE);
 								qs.setMemoState(4);
@@ -322,25 +322,25 @@ public class Q00663_SeductiveWhispers extends Quest
 					int i0 = qs.getMemoState() / 10;
 					if (i0 == 0)
 					{
-						giveAdena(player, 40000, true);
+						giveAdenaFuzzy(player, 40000, true);
 					}
 					else if (i0 == 1)
 					{
-						giveAdena(player, 80000, true);
+						giveAdenaFuzzy(player, 80000, true);
 					}
 					else if (i0 == 2)
 					{
-						giveAdena(player, 110000, true);
+						giveAdenaFuzzy(player, 110000, true);
 						giveItems(player, SCROLL_ENCHANT_WEAPON_D_GRADE, 1);
 					}
 					else if (i0 == 3)
 					{
-						giveAdena(player, 199000, true);
+						giveAdenaFuzzy(player, 199000, true);
 						giveItems(player, SCROLL_ENCHANT_WEAPON_C_GRADE, 1);
 					}
 					else if (i0 == 4)
 					{
-						giveAdena(player, 388000, true);
+						giveAdenaFuzzy(player, 388000, true);
 						final int rdn = getRandom(18) + 1;
 						if (rdn == 1)
 						{
@@ -417,7 +417,7 @@ public class Q00663_SeductiveWhispers extends Quest
 					}
 					else if (i0 == 5)
 					{
-						giveAdena(player, 675000, true);
+						giveAdenaFuzzy(player, 675000, true);
 						final int rnd = getRandom(18) + 1;
 						if (rnd == 1)
 						{
@@ -494,7 +494,7 @@ public class Q00663_SeductiveWhispers extends Quest
 					}
 					else if (i0 == 6)
 					{
-						giveAdena(player, 1284000, true);
+						giveAdenaFuzzy(player, 1284000, true);
 						giveItems(player, SCROLL_ENCHANT_WEAPON_B_GRADE);
 						giveItems(player, SCROLL_ENCHANT_ARMOR_B_GRADE);
 					}
@@ -550,7 +550,7 @@ public class Q00663_SeductiveWhispers extends Quest
 						{
 							qs.setMemoState(1);
 							qs.setMemoStateEx(1, 0);
-							giveAdena(player, 800, true);
+							giveAdenaFuzzy(player, 800, true);
 							htmltext = getHtml(player, "30846-25.html", card1pic, card2pic, -1, card1);
 						}
 						else
@@ -566,7 +566,7 @@ public class Q00663_SeductiveWhispers extends Quest
 						{
 							qs.setMemoState(1);
 							qs.setMemoStateEx(1, 0);
-							giveAdena(player, 800, true);
+							giveAdenaFuzzy(player, 800, true);
 							htmltext = getHtml(player, "30846-25.html", card1pic, card2pic, -1, -1);
 						}
 						else

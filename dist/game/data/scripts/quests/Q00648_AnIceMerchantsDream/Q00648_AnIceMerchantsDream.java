@@ -129,7 +129,7 @@ public final class Q00648_AnIceMerchantsDream extends Quest
 					final long blackCryCount = getQuestItemsCount(player, BLACK_ICE_CRYSTAL);
 					if ((silverCryCount + blackCryCount) > 0)
 					{
-						giveAdena(player, (silverCryCount * 300) + (blackCryCount * 1200), true);
+						giveAdenaFuzzy(player, (silverCryCount * 300) + (blackCryCount * 1200), true);
 						takeItems(player, -1, SILVER_ICE_CRYSTAL, BLACK_ICE_CRYSTAL);
 						htmltext = ((q115 != null) && !q115.isCompleted()) ? "32020-16.html" : "32020-17.html";
 					}

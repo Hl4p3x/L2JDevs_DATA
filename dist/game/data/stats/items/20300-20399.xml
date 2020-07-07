@@ -406,6 +406,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="500" />
+		<set name="price" val="5000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -418,6 +419,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="500" />
+		<set name="price" val="8000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -430,6 +432,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="500" />
+		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -442,6 +445,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="500" />
+		<set name="price" val="10000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -453,7 +457,8 @@
 		<set name="default_action" val="PEEL" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="weight" val="500" />
+		<set name="weight" val="1000" />
+		<set name="price" val="15000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -465,7 +470,8 @@
 		<set name="default_action" val="PEEL" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="weight" val="500" />
+		<set name="weight" val="1000" />
+		<set name="price" val="40000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />

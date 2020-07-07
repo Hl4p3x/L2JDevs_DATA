@@ -39,13 +39,21 @@ public final class Q00294_CovertBusiness extends Quest
 	// NPC
 	private static final int KEEF = 30534;
 	// Item
-	private static final int BAT_FANG = 1491;
+        private static final int BAT_FANG = 1491,
+            BLADE_BAT = 20480, // 10
+            BARBED_BAT = 20370, // 12
+            MINESHAFT_BAT = 20330, // 11
+            ORE_BAT = 20541, // 17
+            RED_EYE_BAT = 21124; // 18
 	// Monsters
 	private static final Map<Integer, List<Integer>> MONSTER_DROP_CHANCE = new HashMap<>();
 	static
 	{
-		MONSTER_DROP_CHANCE.put(20370, Arrays.asList(6, 3, 1, -1));
-		MONSTER_DROP_CHANCE.put(20480, Arrays.asList(5, 2, -1));
+		MONSTER_DROP_CHANCE.put(BARBED_BAT, Arrays.asList(6, 3, 1, -1));
+		MONSTER_DROP_CHANCE.put(BLADE_BAT, Arrays.asList(5, 2, -1));
+		MONSTER_DROP_CHANCE.put(MINESHAFT_BAT, Arrays.asList(5, 3, -1));
+		MONSTER_DROP_CHANCE.put(ORE_BAT, Arrays.asList(7, 3, 2, -1));
+		MONSTER_DROP_CHANCE.put(RED_EYE_BAT, Arrays.asList(7, 4, 3, 1, -1));
 	}
 	// Reward
 	private static final int RING_OF_RACCOON = 1508;
@@ -76,8 +84,8 @@ public final class Q00294_CovertBusiness extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs != null) && qs.isCond(1) && Util.checkIfInRange(1500, npc, killer, true))
+                final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
+		if ((qs != null) && qs.isCond(1) && Util.checkIfInRange(1500, npc, qs.getPlayer(), true))
 		{
 			final int chance = getRandom(10);
 			int count = 0;
@@ -86,7 +94,7 @@ public final class Q00294_CovertBusiness extends Quest
 				count++;
 				if (chance > i)
 				{
-					if (giveItemRandomly(killer, npc, BAT_FANG, count, 100, 1.0, true))
+					if (giveItemRandomly(qs.getPlayer(), npc, BAT_FANG, count, 100, 1.0, true))
 					{
 						qs.setCond(2);
 					}
@@ -112,7 +120,7 @@ public final class Q00294_CovertBusiness extends Quest
 			{
 				if (hasQuestItems(talker, RING_OF_RACCOON))
 				{
-					giveAdena(talker, 2400, true);
+					giveAdenaFuzzy(talker, 2400, true);
 					html = "30534-06.html";
 				}
 				else

@@ -215,22 +215,9 @@ public final class Q00062_PathOfTheTrooper extends Quest
 							}
 							else
 							{
-								giveAdena(player, 163800, true);
 								takeItems(player, TUMRAN_BUGBEAR_HEART, 1);
 								giveItems(player, GWAINS_RECOMMENDATION, 1);
-								final int level = player.getLevel();
-								if (level >= 20)
-								{
-									addExpAndSp(player, 320534, 20848);
-								}
-								else if (level == 19)
-								{
-									addExpAndSp(player, 456128, 27546);
-								}
-								else
-								{
-									addExpAndSp(player, 591724, 34244);
-								}
+                                                                give1stTransferReward(player);
 								qs.exitQuest(false, true);
 								player.sendPacket(new SocialAction(player.getObjectId(), 3));
 								qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

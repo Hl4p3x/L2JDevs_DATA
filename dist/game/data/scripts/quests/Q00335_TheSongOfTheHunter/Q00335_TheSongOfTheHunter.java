@@ -430,6 +430,181 @@ public class Q00335_TheSongOfTheHunter extends Quest
 	}
 	
 	@Override
+	public String onTalk(L2Npc npc, L2PcInstance player)
+	{
+		final QuestState qs = getQuestState(player, true);
+		String htmltext = getNoQuestMsg(player);
+		if (qs.isCreated())
+		{
+			htmltext = player.getLevel() < MIN_LEVEL ? "30744-01.htm" : "30744-02.htm";
+		}
+		else if (qs.isStarted())
+		{
+			switch (npc.getId())
+			{
+				case GREY:
+				{
+					if (hasQuestItems(player, TEST_INSTRUCTIONS_1))
+					{
+						final long count = Arrays.asList(getQuestItemsCount(player, GUARDIAN_BASILISK_SCALE) >= 40, getQuestItemsCount(player, KARUT_WEED) >= 20, (getQuestItemsCount(player, HAKAS_HEAD) + getQuestItemsCount(player, JAKAS_HEAD)
+							+ getQuestItemsCount(player, MARKAS_HEAD)) >= 3, hasQuestItems(player, WINDSUS_ALEPH_SKIN), getQuestItemsCount(player, INDIGO_SPIRIT_ORE) >= 20, getQuestItemsCount(player, SPORESEA_SEED) >= 30).stream().filter(b -> b).count();
+						if (count < 3)
+						{
+							htmltext = "30744-05.html";
+						}
+						else
+						{
+							qs.setCond(2, true);
+							giveItems(player, FIRST_CIRCLE_HUNTER_LICENSE, 1);
+							takeItems(player, GUARDIAN_BASILISK_SCALE, -1);
+							takeItems(player, KARUT_WEED, -1);
+							takeItems(player, HAKAS_HEAD, -1);
+							takeItems(player, JAKAS_HEAD, -1);
+							takeItems(player, MARKAS_HEAD, -1);
+							takeItems(player, WINDSUS_ALEPH_SKIN, -1);
+							takeItems(player, INDIGO_SPIRIT_ORE, -1);
+							takeItems(player, SPORESEA_SEED, -1);
+							takeItems(player, TEST_INSTRUCTIONS_1, -1);
+							htmltext = "30744-06.html";
+						}
+					}
+					
+					if (hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
+					{
+						if (player.getLevel() < MAX_LEVEL)
+						{
+							htmltext = "30744-07.html";
+						}
+						else if (!hasQuestItems(player, TEST_INSTRUCTIONS_2))
+						{
+							htmltext = "30744-08.html";
+						}
+					}
+					
+					if (hasQuestItems(player, TEST_INSTRUCTIONS_2))
+					{
+						final long count = Arrays.asList(getQuestItemsCount(player, TIMAK_ORC_TOTEM) >= 20, getQuestItemsCount(player, TRISALIM_SILK) >= 20, getQuestItemsCount(player, AMBROSIUS_FRUIT) >= 30, getQuestItemsCount(player, BALEFIRE_CRYSTAL) >= 20, getQuestItemsCount(player, IMPERIAL_ARROWHEAD) >= 20, ((getQuestItemsCount(player, ATHUS_HEAD)
+							+ getQuestItemsCount(player, LANKAS_HEAD) + getQuestItemsCount(player, TRISKAS_HEAD) + getQuestItemsCount(player, MOTURAS_HEAD) + getQuestItemsCount(player, KALATHS_HEAD)) >= 5)).stream().filter(b -> b).count();
+						if (count < 3)
+						{
+							htmltext = "30744-11.html";
+						}
+						else
+						{
+							qs.setCond(3, true);
+							giveItems(player, SECOND_CIRCLE_HUNTER_LICENSE, 1);
+							takeItems(player, TRISALIM_SILK, -1);
+							takeItems(player, TIMAK_ORC_TOTEM, -1);
+							takeItems(player, AMBROSIUS_FRUIT, -1);
+							takeItems(player, BALEFIRE_CRYSTAL, -1);
+							takeItems(player, IMPERIAL_ARROWHEAD, -1);
+							takeItems(player, ATHUS_HEAD, -1);
+							takeItems(player, LANKAS_HEAD, -1);
+							takeItems(player, TRISKAS_HEAD, -1);
+							takeItems(player, MOTURAS_HEAD, -1);
+							takeItems(player, KALATHS_HEAD, -1);
+							takeItems(player, TEST_INSTRUCTIONS_2, -1);
+							takeItems(player, FIRST_CIRCLE_HUNTER_LICENSE, -1);
+							htmltext = "30744-12.html";
+						}
+					}
+					
+					if (hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE))
+					{
+						htmltext = "30744-14.html";
+					}
+					break;
+				}
+				case CYBELLIN:
+				{
+					if (!hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE) && !hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
+					{
+						htmltext = "30746-01.html";
+					}
+					else if (!hasQuestItems(player, CYBELLINS_REQUEST))
+					{
+						htmltext = "30746-02.html";
+					}
+					else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_1))
+					{
+						htmltext = "30746-04.html";
+					}
+					else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_2) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_3) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_4) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_5) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_6)
+						|| hasQuestItems(player, BLOOD_CRYSTAL_PURITY_7) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_8) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_9))
+					{
+						htmltext = "30746-05.html";
+					}
+					else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_10))
+					{
+						giveAdena(player, 870400, true);
+						takeItems(player, BLOOD_CRYSTAL_PURITY_10, -1);
+						htmltext = "30746-05a.html";
+					}
+					else if (!hasQuestItems(player, BROKEN_BLOOD_CRYSTAL))
+					{
+						htmltext = "30746-08.html";
+					}
+					else
+					{
+						takeItems(player, BROKEN_BLOOD_CRYSTAL, -1);
+						htmltext = "30746-09.html";
+					}
+					break;
+				}
+				case TOR:
+				{
+					if (!hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE) && !hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
+					{
+						htmltext = "30745-01a.html";
+					}
+					else
+					{
+						final long requestCount = getQuestItemsCount(player, FIRST_CIRCLE_REQUEST_1C, FIRST_CIRCLE_REQUEST_2C, FIRST_CIRCLE_REQUEST_3C, FIRST_CIRCLE_REQUEST_4C, FIRST_CIRCLE_REQUEST_5C, FIRST_CIRCLE_REQUEST_6C, FIRST_CIRCLE_REQUEST_7C, FIRST_CIRCLE_REQUEST_8C, FIRST_CIRCLE_REQUEST_9C, FIRST_CIRCLE_REQUEST_10C, FIRST_CIRCLE_REQUEST_11C, FIRST_CIRCLE_REQUEST_12C, FIRST_CIRCLE_REQUEST_1B, FIRST_CIRCLE_REQUEST_2B, FIRST_CIRCLE_REQUEST_3B, FIRST_CIRCLE_REQUEST_4B, FIRST_CIRCLE_REQUEST_5B, FIRST_CIRCLE_REQUEST_6B, FIRST_CIRCLE_REQUEST_1A, FIRST_CIRCLE_REQUEST_2A, FIRST_CIRCLE_REQUEST_3A, SECOND_CIRCLE_REQUEST_1C, SECOND_CIRCLE_REQUEST_2C, SECOND_CIRCLE_REQUEST_3C, SECOND_CIRCLE_REQUEST_4C, SECOND_CIRCLE_REQUEST_5C, SECOND_CIRCLE_REQUEST_6C, SECOND_CIRCLE_REQUEST_7C, SECOND_CIRCLE_REQUEST_8C, SECOND_CIRCLE_REQUEST_9C, SECOND_CIRCLE_REQUEST_10C, SECOND_CIRCLE_REQUEST_11C, SECOND_CIRCLE_REQUEST_12C, SECOND_CIRCLE_REQUEST_1B, SECOND_CIRCLE_REQUEST_2B, SECOND_CIRCLE_REQUEST_3B, SECOND_CIRCLE_REQUEST_4B, SECOND_CIRCLE_REQUEST_5B, SECOND_CIRCLE_REQUEST_6B, SECOND_CIRCLE_REQUEST_1A, SECOND_CIRCLE_REQUEST_2A, SECOND_CIRCLE_REQUEST_3A);
+						if (hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
+						{
+							if (requestCount == 0)
+							{
+								if (player.getLevel() < MAX_LEVEL)
+								{
+									htmltext = "30745-01b.html";
+								}
+								else
+								{
+									if (hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE))
+									{
+										htmltext = "30745-03.html";
+									}
+									else
+									{
+										htmltext = "30745-03a.html";
+									}
+								}
+							}
+							else
+							{
+								htmltext = reward(player, qs, REWARDS);
+							}
+						}
+						else if (hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE))
+						{
+							if (requestCount == 0)
+							{
+								htmltext = "30745-03b.html";
+							}
+							else
+							{
+								htmltext = reward(player, qs, REWARDS);
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		return htmltext;
+	}
+	
+	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		final QuestState qs = getQuestState(player, false);
@@ -517,7 +692,7 @@ public class Q00335_TheSongOfTheHunter extends Quest
 				}
 				else
 				{
-					giveAdena(player, 20000, true);
+					giveAdenaFuzzy(player, 20000, true);
 					htmltext = "30744-17.html";
 				}
 				break;
@@ -772,39 +947,39 @@ public class Q00335_TheSongOfTheHunter extends Quest
 			{
 				if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_2))
 				{
-					giveAdena(player, 3400, true);
+					giveAdenaFuzzy(player, 3400, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_3))
 				{
-					giveAdena(player, 6800, true);
+					giveAdenaFuzzy(player, 6800, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_4))
 				{
-					giveAdena(player, 13600, true);
+					giveAdenaFuzzy(player, 13600, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_5))
 				{
-					giveAdena(player, 27200, true);
+					giveAdenaFuzzy(player, 27200, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_6))
 				{
-					giveAdena(player, 54400, true);
+					giveAdenaFuzzy(player, 54400, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_7))
 				{
-					giveAdena(player, 108800, true);
+					giveAdenaFuzzy(player, 108800, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_8))
 				{
-					giveAdena(player, 217600, true);
+					giveAdenaFuzzy(player, 217600, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_9))
 				{
-					giveAdena(player, 435200, true);
+					giveAdenaFuzzy(player, 435200, true);
 				}
 				else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_10))
 				{
-					giveAdena(player, 870400, true);
+					giveAdenaFuzzy(player, 870400, true);
 				}
 				takeItems(player, BLOOD_CRYSTAL_PURITY_2, -1);
 				takeItems(player, BLOOD_CRYSTAL_PURITY_3, -1);
@@ -1378,179 +1553,45 @@ public class Q00335_TheSongOfTheHunter extends Quest
 		return super.onKill(npc, player, isSummon);
 	}
 	
-	@Override
-	public String onTalk(L2Npc npc, L2PcInstance player)
+	private String reward(L2PcInstance player, QuestState qs, int[][] rewards)
 	{
-		final QuestState qs = getQuestState(player, true);
-		String htmltext = getNoQuestMsg(player);
-		if (qs.isCreated())
+		for (int i = rewards.length - 1; i >= 0; i--)
 		{
-			htmltext = player.getLevel() < MIN_LEVEL ? "30744-01.htm" : "30744-02.htm";
-		}
-		else if (qs.isStarted())
-		{
-			switch (npc.getId())
+			final int[] reward = rewards[i];
+			if (hasQuestItems(player, reward[0]))
 			{
-				case GREY:
+				if (getQuestItemsCount(player, reward[1]) >= reward[2])
 				{
-					if (hasQuestItems(player, TEST_INSTRUCTIONS_1))
+					giveItems(player, LAUREL_LEAF_PIN, 1);
+					giveAdenaFuzzy(player, reward[3], true);
+					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+					qs.setMemoState(0);
+					takeItems(player, reward[0], -1);
+					if (reward[1] == GIANT_MONSTER_EYE_MEAT)
 					{
-						final long count = Arrays.asList(getQuestItemsCount(player, GUARDIAN_BASILISK_SCALE) >= 40, getQuestItemsCount(player, KARUT_WEED) >= 20, (getQuestItemsCount(player, HAKAS_HEAD) + getQuestItemsCount(player, JAKAS_HEAD)
-							+ getQuestItemsCount(player, MARKAS_HEAD)) >= 3, hasQuestItems(player, WINDSUS_ALEPH_SKIN), getQuestItemsCount(player, INDIGO_SPIRIT_ORE) >= 20, getQuestItemsCount(player, SPORESEA_SEED) >= 30).stream().filter(b -> b).count();
-						if (count < 3)
-						{
-							htmltext = "30744-05.html";
-						}
-						else
-						{
-							qs.setCond(2, true);
-							giveItems(player, FIRST_CIRCLE_HUNTER_LICENSE, 1);
-							takeItems(player, GUARDIAN_BASILISK_SCALE, -1);
-							takeItems(player, KARUT_WEED, -1);
-							takeItems(player, HAKAS_HEAD, -1);
-							takeItems(player, JAKAS_HEAD, -1);
-							takeItems(player, MARKAS_HEAD, -1);
-							takeItems(player, WINDSUS_ALEPH_SKIN, -1);
-							takeItems(player, INDIGO_SPIRIT_ORE, -1);
-							takeItems(player, SPORESEA_SEED, -1);
-							takeItems(player, TEST_INSTRUCTIONS_1, -1);
-							htmltext = "30744-06.html";
-						}
-					}
-					
-					if (hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
-					{
-						if (player.getLevel() < MAX_LEVEL)
-						{
-							htmltext = "30744-07.html";
-						}
-						else if (!hasQuestItems(player, TEST_INSTRUCTIONS_2))
-						{
-							htmltext = "30744-08.html";
-						}
-					}
-					
-					if (hasQuestItems(player, TEST_INSTRUCTIONS_2))
-					{
-						final long count = Arrays.asList(getQuestItemsCount(player, TIMAK_ORC_TOTEM) >= 20, getQuestItemsCount(player, TRISALIM_SILK) >= 20, getQuestItemsCount(player, AMBROSIUS_FRUIT) >= 30, getQuestItemsCount(player, BALEFIRE_CRYSTAL) >= 20, getQuestItemsCount(player, IMPERIAL_ARROWHEAD) >= 20, ((getQuestItemsCount(player, ATHUS_HEAD)
-							+ getQuestItemsCount(player, LANKAS_HEAD) + getQuestItemsCount(player, TRISKAS_HEAD) + getQuestItemsCount(player, MOTURAS_HEAD) + getQuestItemsCount(player, KALATHS_HEAD)) >= 5)).stream().filter(b -> b).count();
-						if (count < 3)
-						{
-							htmltext = "30744-11.html";
-						}
-						else
-						{
-							qs.setCond(3, true);
-							giveItems(player, SECOND_CIRCLE_HUNTER_LICENSE, 1);
-							takeItems(player, TRISALIM_SILK, -1);
-							takeItems(player, TIMAK_ORC_TOTEM, -1);
-							takeItems(player, AMBROSIUS_FRUIT, -1);
-							takeItems(player, BALEFIRE_CRYSTAL, -1);
-							takeItems(player, IMPERIAL_ARROWHEAD, -1);
-							takeItems(player, ATHUS_HEAD, -1);
-							takeItems(player, LANKAS_HEAD, -1);
-							takeItems(player, TRISKAS_HEAD, -1);
-							takeItems(player, MOTURAS_HEAD, -1);
-							takeItems(player, KALATHS_HEAD, -1);
-							takeItems(player, TEST_INSTRUCTIONS_2, -1);
-							takeItems(player, FIRST_CIRCLE_HUNTER_LICENSE, -1);
-							htmltext = "30744-12.html";
-						}
-					}
-					
-					if (hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE))
-					{
-						htmltext = "30744-14.html";
-					}
-					break;
-				}
-				case CYBELLIN:
-				{
-					if (!hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE) && !hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
-					{
-						htmltext = "30746-01.html";
-					}
-					else if (!hasQuestItems(player, CYBELLINS_REQUEST))
-					{
-						htmltext = "30746-02.html";
-					}
-					else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_1))
-					{
-						htmltext = "30746-04.html";
-					}
-					else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_2) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_3) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_4) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_5) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_6)
-						|| hasQuestItems(player, BLOOD_CRYSTAL_PURITY_7) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_8) || hasQuestItems(player, BLOOD_CRYSTAL_PURITY_9))
-					{
-						htmltext = "30746-05.html";
-					}
-					else if (hasQuestItems(player, BLOOD_CRYSTAL_PURITY_10))
-					{
-						giveAdena(player, 870400, true);
-						takeItems(player, BLOOD_CRYSTAL_PURITY_10, -1);
-						htmltext = "30746-05a.html";
-					}
-					else if (!hasQuestItems(player, BROKEN_BLOOD_CRYSTAL))
-					{
-						htmltext = "30746-08.html";
+						takeItems(player, reward[1], reward[2]);
 					}
 					else
 					{
-						takeItems(player, BROKEN_BLOOD_CRYSTAL, -1);
-						htmltext = "30746-09.html";
+						takeItems(player, reward[1], -1);
 					}
-					break;
+					return (hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE) ? "30745-06a.html" : "30745-06b.html");
 				}
-				case TOR:
-				{
-					if (!hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE) && !hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
-					{
-						htmltext = "30745-01a.html";
-					}
-					else
-					{
-						final long requestCount = getQuestItemsCount(player, FIRST_CIRCLE_REQUEST_1C, FIRST_CIRCLE_REQUEST_2C, FIRST_CIRCLE_REQUEST_3C, FIRST_CIRCLE_REQUEST_4C, FIRST_CIRCLE_REQUEST_5C, FIRST_CIRCLE_REQUEST_6C, FIRST_CIRCLE_REQUEST_7C, FIRST_CIRCLE_REQUEST_8C, FIRST_CIRCLE_REQUEST_9C, FIRST_CIRCLE_REQUEST_10C, FIRST_CIRCLE_REQUEST_11C, FIRST_CIRCLE_REQUEST_12C, FIRST_CIRCLE_REQUEST_1B, FIRST_CIRCLE_REQUEST_2B, FIRST_CIRCLE_REQUEST_3B, FIRST_CIRCLE_REQUEST_4B, FIRST_CIRCLE_REQUEST_5B, FIRST_CIRCLE_REQUEST_6B, FIRST_CIRCLE_REQUEST_1A, FIRST_CIRCLE_REQUEST_2A, FIRST_CIRCLE_REQUEST_3A, SECOND_CIRCLE_REQUEST_1C, SECOND_CIRCLE_REQUEST_2C, SECOND_CIRCLE_REQUEST_3C, SECOND_CIRCLE_REQUEST_4C, SECOND_CIRCLE_REQUEST_5C, SECOND_CIRCLE_REQUEST_6C, SECOND_CIRCLE_REQUEST_7C, SECOND_CIRCLE_REQUEST_8C, SECOND_CIRCLE_REQUEST_9C, SECOND_CIRCLE_REQUEST_10C, SECOND_CIRCLE_REQUEST_11C, SECOND_CIRCLE_REQUEST_12C, SECOND_CIRCLE_REQUEST_1B, SECOND_CIRCLE_REQUEST_2B, SECOND_CIRCLE_REQUEST_3B, SECOND_CIRCLE_REQUEST_4B, SECOND_CIRCLE_REQUEST_5B, SECOND_CIRCLE_REQUEST_6B, SECOND_CIRCLE_REQUEST_1A, SECOND_CIRCLE_REQUEST_2A, SECOND_CIRCLE_REQUEST_3A);
-						if (hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE))
-						{
-							if (requestCount == 0)
-							{
-								if (player.getLevel() < MAX_LEVEL)
-								{
-									htmltext = "30745-01b.html";
-								}
-								else
-								{
-									if (hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE))
-									{
-										htmltext = "30745-03.html";
-									}
-									else
-									{
-										htmltext = "30745-03a.html";
-									}
-								}
-							}
-							else
-							{
-								htmltext = reward(player, qs, REWARDS);
-							}
-						}
-						else if (hasQuestItems(player, SECOND_CIRCLE_HUNTER_LICENSE))
-						{
-							if (requestCount == 0)
-							{
-								htmltext = "30745-03b.html";
-							}
-							else
-							{
-								htmltext = reward(player, qs, REWARDS);
-							}
-						}
-					}
-					break;
-				}
+				return "30745-05.html";
 			}
 		}
-		return htmltext;
+		return null;
+	}
+	
+	private String getHtml(L2PcInstance player, String htmlName, int i0, int i1, int i2, int i3, int i4)
+	{
+		String html = getHtm(player.getHtmlPrefix(), htmlName);
+		html = html.replace("<?reply1?>", LINKS.get(i0));
+		html = html.replace("<?reply2?>", LINKS.get(i1));
+		html = html.replace("<?reply3?>", LINKS.get(i2));
+		html = html.replace("<?reply4?>", LINKS.get(i3));
+		html = html.replace("<?reply5?>", LINKS.get(i4));
+		return html;
 	}
 	
 	private void evolveBloodCrystal(L2PcInstance player)
@@ -1620,46 +1661,5 @@ public class Q00335_TheSongOfTheHunter extends Quest
 				giveItems(player, BROKEN_BLOOD_CRYSTAL, 1);
 			}
 		}
-	}
-	
-	private String getHtml(L2PcInstance player, String htmlName, int i0, int i1, int i2, int i3, int i4)
-	{
-		String html = getHtm(player.getHtmlPrefix(), htmlName);
-		html = html.replace("<?reply1?>", LINKS.get(i0));
-		html = html.replace("<?reply2?>", LINKS.get(i1));
-		html = html.replace("<?reply3?>", LINKS.get(i2));
-		html = html.replace("<?reply4?>", LINKS.get(i3));
-		html = html.replace("<?reply5?>", LINKS.get(i4));
-		return html;
-	}
-	
-	private String reward(L2PcInstance player, QuestState qs, int[][] rewards)
-	{
-		for (int i = rewards.length - 1; i >= 0; i--)
-		{
-			final int[] reward = rewards[i];
-			if (hasQuestItems(player, reward[0]))
-			{
-				if (getQuestItemsCount(player, reward[1]) >= reward[2])
-				{
-					giveItems(player, LAUREL_LEAF_PIN, 1);
-					giveAdena(player, reward[3], true);
-					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
-					qs.setMemoState(0);
-					takeItems(player, reward[0], -1);
-					if (reward[1] == GIANT_MONSTER_EYE_MEAT)
-					{
-						takeItems(player, reward[1], reward[2]);
-					}
-					else
-					{
-						takeItems(player, reward[1], -1);
-					}
-					return (hasQuestItems(player, FIRST_CIRCLE_HUNTER_LICENSE) ? "30745-06a.html" : "30745-06b.html");
-				}
-				return "30745-05.html";
-			}
-		}
-		return null;
 	}
 }

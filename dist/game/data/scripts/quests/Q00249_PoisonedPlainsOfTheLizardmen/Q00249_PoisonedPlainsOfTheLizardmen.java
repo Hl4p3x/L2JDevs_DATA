@@ -61,7 +61,7 @@ public class Q00249_PoisonedPlainsOfTheLizardmen extends Quest
 		}
 		else if ((npc.getId() == JOHNNY) && event.equalsIgnoreCase("32744-03.htm"))
 		{
-			st.giveAdena(83056, true);
+			st.giveAdenaFuzzy(83056, true);
 			st.addExpAndSp(477496, 58743);
 			st.exitQuest(false, true);
 		}

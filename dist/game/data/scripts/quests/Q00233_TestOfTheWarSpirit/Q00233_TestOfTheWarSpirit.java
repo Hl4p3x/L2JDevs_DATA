@@ -27,6 +27,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of The War Spirit (233)
@@ -124,6 +125,7 @@ public final class Q00233_TestOfTheWarSpirit extends Quest
 				if (qs.isCreated())
 				{
 					qs.startQuest();
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 92);
@@ -179,9 +181,11 @@ public final class Q00233_TestOfTheWarSpirit extends Quest
 			{
 				if (hasQuestItems(player, TONARS_REMAINS2))
 				{
-					giveAdena(player, 161806, true);
 					giveItems(player, MARK_OF_WARSPIRIT, 1);
-					addExpAndSp(player, 894888, 61408);
+                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                            giveAdenaFuzzy(player, 161806, true);
+                                            addExpAndSp(player, 894888, 61408);
+                                        }
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					htmltext = event;

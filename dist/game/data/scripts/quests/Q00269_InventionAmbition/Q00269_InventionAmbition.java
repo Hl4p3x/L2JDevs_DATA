@@ -130,7 +130,8 @@ public final class Q00269_InventionAmbition extends Quest
 			if (st.hasQuestItems(ENERGY_ORE))
 			{
 				final long count = getQuestItemsCount(player, ENERGY_ORE);
-				giveAdena(player, (count * 50) + (count >= 10 ? 2044 : 0), true);
+                                final long c10 = (count / 10) * 2044;
+				giveAdenaFuzzy(player, (count * 50) + c10, true);
 				takeItems(player, ENERGY_ORE, -1);
 				htmltext = "32486-06.html";
 			}

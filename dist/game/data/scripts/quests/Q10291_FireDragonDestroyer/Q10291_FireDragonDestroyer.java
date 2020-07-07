@@ -143,7 +143,7 @@ public class Q10291_FireDragonDestroyer extends Quest
 				else if (st.isCond(2) && st.hasQuestItems(VALOR_NECKLACE))
 				{
 					htmltext = "31540-08.html";
-					st.giveAdena(126549, true);
+					st.giveAdenaFuzzy(126549, true);
 					st.addExpAndSp(717291, 77397);
 					st.giveItems(VALAKAS_SLAYER_CIRCLET, 1);
 					st.exitQuest(false, true);

@@ -368,7 +368,7 @@ public final class Q00023_LidiasHeart extends Quest
 							}
 							else
 							{
-								giveAdena(player, 350000, true);
+								giveAdenaFuzzy(player, 350000, true);
 								addExpAndSp(player, 456893, 42112);
 								qs.exitQuest(false, true);
 								htmltext = "31386-03.html";

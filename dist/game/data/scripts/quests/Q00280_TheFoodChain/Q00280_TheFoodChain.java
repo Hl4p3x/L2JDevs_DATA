@@ -104,7 +104,7 @@ public final class Q00280_TheFoodChain extends Quest
 				{
 					final long greyTeeth = st.getQuestItemsCount(GREY_KELTIR_TOOTH);
 					final long blackTeeth = st.getQuestItemsCount(BLACK_WOLF_TOOTH);
-					st.giveAdena(2 * (greyTeeth + blackTeeth), true);
+					st.giveAdenaFuzzy(2 * (greyTeeth + blackTeeth), true);
 					takeItems(player, -1, GREY_KELTIR_TOOTH, BLACK_WOLF_TOOTH);
 					htmltext = event;
 				}

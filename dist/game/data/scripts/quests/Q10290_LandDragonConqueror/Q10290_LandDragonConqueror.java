@@ -144,7 +144,7 @@ public final class Q10290_LandDragonConqueror extends Quest
 				else if ((st.isCond(2)) && st.hasQuestItems(MIRACLE_NECKLACE))
 				{
 					htmltext = "30755-08.html";
-					st.giveAdena(131236, true);
+					st.giveAdenaFuzzy(131236, true);
 					st.addExpAndSp(702557, 76334);
 					st.giveItems(ANTHARAS_SLAYER_CIRCLET, 1);
 					st.exitQuest(false, true);

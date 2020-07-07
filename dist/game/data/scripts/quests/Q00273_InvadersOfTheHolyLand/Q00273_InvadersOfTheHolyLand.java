@@ -29,8 +29,6 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Invaders of the Holy Land (273)
  * @author xban1x
@@ -130,9 +128,11 @@ public final class Q00273_InvadersOfTheHolyLand extends Quest
 				{
 					final long black = st.getQuestItemsCount(BLACK_SOULSTONE);
 					final long red = st.getQuestItemsCount(RED_SOULSTONE);
-					st.giveAdena((red * 10) + (black * 3) + ((red > 0) ? (((red + black) >= 10) ? 1800 : 0) : ((black >= 10) ? 1500 : 0)), true);
+                                        final long srb10 = ((red + black) / 10) * 1800;
+                                        final long sb10 = (black / 10) * 1500;
+					st.giveAdenaFuzzy((red * 10) + (black * 3) + srb10 + sb10, true);
 					takeItems(player, -1, BLACK_SOULSTONE, RED_SOULSTONE);
-					Q00281_HeadForTheHills.giveNewbieReward(player);
+					giveNewbieReward(player);
 					htmltext = (red > 0) ? "30566-07.html" : "30566-06.html";
 				}
 				else

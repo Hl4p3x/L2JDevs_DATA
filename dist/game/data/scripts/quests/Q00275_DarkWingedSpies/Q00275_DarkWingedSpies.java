@@ -150,7 +150,7 @@ public final class Q00275_DarkWingedSpies extends Quest
 						final long count = st.getQuestItemsCount(DARKWING_BAT_FANG);
 						if (count >= MAX_BAT_FANG_COUNT)
 						{
-							st.giveAdena(count * FANG_PRICE, true);
+							st.giveAdenaFuzzy(count * FANG_PRICE, true);
 							st.exitQuest(true, true);
 							htmltext = "30567-05.html";
 						}

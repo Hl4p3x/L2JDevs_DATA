@@ -117,7 +117,7 @@ public class Q00451_LuciensAltar extends Quest
 					}
 					else
 					{
-						st.giveAdena(255380, true); // Tauti reward: 13 773 960 exp, 16 232 820 sp, 742 800 Adena
+						st.giveAdenaFuzzy(255380, true); // Tauti reward: 13 773 960 exp, 16 232 820 sp, 742 800 Adena
 						st.exitQuest(QuestType.DAILY, true);
 						htmltext = "30537-08.html";
 					}

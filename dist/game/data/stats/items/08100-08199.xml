@@ -1776,6 +1776,7 @@
 		<set name="bodypart" val="hair2" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="WOOD" />
+		<set name="price" val="500000" />
 		<set name="weight" val="10" />
 	</item>
 	<item id="8188" type="Armor" name="Little Angel Wings">

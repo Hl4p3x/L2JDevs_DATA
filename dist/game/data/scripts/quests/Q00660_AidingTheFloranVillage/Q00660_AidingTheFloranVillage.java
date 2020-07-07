@@ -170,7 +170,7 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 				final long itemCount = getQuestItemsCount(player, WATCHING_EYES) + getQuestItemsCount(player, ROUGHLY_HEWN_ROCK_GOLEM_SHARD) + getQuestItemsCount(player, DELU_LIZARDMANS_SCALE);
 				if (itemCount > 0)
 				{
-					giveAdena(player, itemCount * 100, true);
+					giveAdenaFuzzy(player, itemCount * 100, true);
 					takeItems(player, -1, WATCHING_EYES, ROUGHLY_HEWN_ROCK_GOLEM_SHARD, DELU_LIZARDMANS_SCALE);
 					htmltext = event;
 				}
@@ -204,12 +204,12 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 					if (getRandom(99) > 50)
 					{
 						giveItems(player, SCROLL_ENCHANT_ARMOR_D_GRADE, 1);
-						giveAdena(player, ADENA_REWARD_1, true);
+						giveAdenaFuzzy(player, ADENA_REWARD_1, true);
 						htmltext = event;
 					}
 					else
 					{
-						giveAdena(player, ADENA_REWARD_2, true);
+						giveAdenaFuzzy(player, ADENA_REWARD_2, true);
 						htmltext = "30291-13.html";
 					}
 				}
@@ -234,7 +234,7 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 						if (getRandom(2) == 0)
 						{
 							giveItems(player, SCROLL_ENCHANT_ARMOR_D_GRADE, 1);
-							giveAdena(player, ADENA_REWARD_3, true);
+							giveAdenaFuzzy(player, ADENA_REWARD_3, true);
 						}
 						else
 						{
@@ -244,7 +244,7 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 					}
 					else
 					{
-						giveAdena(player, ADENA_REWARD_4, true);
+						giveAdenaFuzzy(player, ADENA_REWARD_4, true);
 						htmltext = "30291-17.html";
 					}
 				}
@@ -267,12 +267,12 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 					if (getRandom(100) >= 50)
 					{
 						giveItems(player, SCROLL_ENCHANT_ARMOR_D_GRADE, 1);
-						giveAdena(player, ADENA_REWARD_5, true);
+						giveAdenaFuzzy(player, ADENA_REWARD_5, true);
 						htmltext = event;
 					}
 					else
 					{
-						giveAdena(player, ADENA_REWARD_6, true);
+						giveAdenaFuzzy(player, ADENA_REWARD_6, true);
 						htmltext = "30291-21.html";
 					}
 				}
@@ -287,7 +287,7 @@ public final class Q00660_AidingTheFloranVillage extends Quest
 				}
 				else
 				{
-					giveAdena(player, itemCount * 100, true);
+					giveAdenaFuzzy(player, itemCount * 100, true);
 					htmltext = event;
 				}
 				

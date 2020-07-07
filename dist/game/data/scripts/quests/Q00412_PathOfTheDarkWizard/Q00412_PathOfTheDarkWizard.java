@@ -270,7 +270,7 @@ public final class Q00412_PathOfTheDarkWizard extends Quest
 				{
 					if (hasQuestItems(player, SEEDS_OF_DESPAIR, SEEDS_OF_HORROR, SEEDS_OF_LUNACY, SEEDS_OF_ANGER))
 					{
-						giveAdena(player, 163800, true);
+						giveAdenaFuzzy(player, 163800, true);
 						giveItems(player, JEWEL_OF_DARKNESS, 1);
 						final int level = player.getLevel();
 						if (level >= 20)

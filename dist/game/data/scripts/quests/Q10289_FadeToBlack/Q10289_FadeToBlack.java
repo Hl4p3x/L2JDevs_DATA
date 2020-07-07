@@ -124,82 +124,82 @@ public class Q10289_FadeToBlack extends Quest
 					{
 						case "11":
 							rewardItems(player, 15775, 1);
-							giveAdena(player, 420920, true);
+							giveAdenaFuzzy(player, 420920, true);
 							break;
 						case "12":
 							rewardItems(player, 15776, 1);
-							giveAdena(player, 420920, true);
+							giveAdenaFuzzy(player, 420920, true);
 							break;
 						case "13":
 							rewardItems(player, 15777, 1);
-							giveAdena(player, 420920, true);
+							giveAdenaFuzzy(player, 420920, true);
 							break;
 						case "14":
 							rewardItems(player, 15778, 1);
 							break;
 						case "15":
 							rewardItems(player, 15779, 1);
-							giveAdena(player, 168360, true);
+							giveAdenaFuzzy(player, 168360, true);
 							break;
 						case "16":
 							rewardItems(player, 15780, 1);
-							giveAdena(player, 168360, true);
+							giveAdenaFuzzy(player, 168360, true);
 							break;
 						case "17":
 							rewardItems(player, 15781, 1);
-							giveAdena(player, 252540, true);
+							giveAdenaFuzzy(player, 252540, true);
 							break;
 						case "18":
 							rewardItems(player, 15782, 1);
-							giveAdena(player, 357780, true);
+							giveAdenaFuzzy(player, 357780, true);
 							break;
 						case "19":
 							rewardItems(player, 15783, 1);
-							giveAdena(player, 357780, true);
+							giveAdenaFuzzy(player, 357780, true);
 							break;
 						case "20":
 							rewardItems(player, 15784, 1);
-							giveAdena(player, 505100, true);
+							giveAdenaFuzzy(player, 505100, true);
 							break;
 						case "21":
 							rewardItems(player, 15785, 1);
-							giveAdena(player, 505100, true);
+							giveAdenaFuzzy(player, 505100, true);
 							break;
 						case "22":
 							rewardItems(player, 15786, 1);
-							giveAdena(player, 505100, true);
+							giveAdenaFuzzy(player, 505100, true);
 							break;
 						case "23":
 							rewardItems(player, 15787, 1);
-							giveAdena(player, 505100, true);
+							giveAdenaFuzzy(player, 505100, true);
 							break;
 						case "24":
 							rewardItems(player, 15787, 1);
-							giveAdena(player, 505100, true);
+							giveAdenaFuzzy(player, 505100, true);
 							break;
 						case "25":
 							rewardItems(player, 15789, 1);
-							giveAdena(player, 505100, true);
+							giveAdenaFuzzy(player, 505100, true);
 							break;
 						case "26":
 							rewardItems(player, 15790, 1);
-							giveAdena(player, 496680, true);
+							giveAdenaFuzzy(player, 496680, true);
 							break;
 						case "27":
 							rewardItems(player, 15791, 1);
-							giveAdena(player, 496680, true);
+							giveAdenaFuzzy(player, 496680, true);
 							break;
 						case "28":
 							rewardItems(player, 15792, 1);
-							giveAdena(player, 563860, true);
+							giveAdenaFuzzy(player, 563860, true);
 							break;
 						case "29":
 							rewardItems(player, 15793, 1);
-							giveAdena(player, 509040, true);
+							giveAdenaFuzzy(player, 509040, true);
 							break;
 						case "30":
 							rewardItems(player, 15794, 1);
-							giveAdena(player, 454240, true);
+							giveAdenaFuzzy(player, 454240, true);
 							break;
 					}
 					

@@ -68,7 +68,7 @@ public class Q10276_MutatedKaneusGludio extends Quest
 				st.startQuest();
 				break;
 			case "30344-03.htm":
-				st.giveAdena(8500, true);
+				st.giveAdenaFuzzy(8500, true);
 				st.exitQuest(false, true);
 				break;
 		}

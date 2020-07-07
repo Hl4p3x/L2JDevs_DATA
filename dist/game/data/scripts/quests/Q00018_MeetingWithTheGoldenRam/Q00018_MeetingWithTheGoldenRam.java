@@ -75,7 +75,7 @@ public class Q00018_MeetingWithTheGoldenRam extends Quest
 			case "31555-02.html":
 				if (st.hasQuestItems(BOX))
 				{
-					st.giveAdena(40000, true);
+					st.giveAdenaFuzzy(40000, true);
 					st.addExpAndSp(126668, 11731);
 					st.exitQuest(false, true);
 				}

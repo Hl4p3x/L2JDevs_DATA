@@ -157,7 +157,7 @@ public final class Q00638_SeekersOfTheHolyGrail extends Quest
 					}
 					else
 					{
-						giveAdena(player, 3576000, true);
+						giveAdenaFuzzy(player, 3576000, true);
 						htmltext = "31328-08.html";
 					}
 					takeItems(player, TOTEM, 2000);

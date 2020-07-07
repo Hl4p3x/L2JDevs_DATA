@@ -125,7 +125,7 @@ public final class Q00344_1000YearsTheEndOfLamentation extends Quest
 						takeItems(player, ARTICLES, -1);
 						if (getRandom(1000) >= count)
 						{
-							giveAdena(player, count * 60, true);
+							giveAdenaFuzzy(player, count * 60, true);
 							htmltext = event;
 						}
 						else

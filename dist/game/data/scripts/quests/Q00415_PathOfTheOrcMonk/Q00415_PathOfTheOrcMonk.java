@@ -182,21 +182,8 @@ public final class Q00415_PathOfTheOrcMonk extends Quest
 			{
 				if (qs.isMemoState(5))
 				{
-					giveAdena(player, 81900, true);
 					giveItems(player, KHAVATARI_TOTEM, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 12646);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 15995);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 19344);
-					}
+                                        give1stTransferRewardHalf(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -553,21 +540,8 @@ public final class Q00415_PathOfTheOrcMonk extends Quest
 					}
 					else if (hasQuestItems(player, IRON_WILL_SCROLL))
 					{
-						giveAdena(player, 163800, true);
 						giveItems(player, KHAVATARI_TOTEM, 1);
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 320534, 25292);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 456128, 31990);
-						}
-						else
-						{
-							addExpAndSp(player, 591724, 38688);
-						}
+                                                give1stTransferReward(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

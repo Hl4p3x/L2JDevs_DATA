@@ -47,6 +47,7 @@ public final class Q00661_MakingTheHarvestGroundsSafe extends Quest
 	{
 		MONSTER_CHANCES.put(21095, new ItemChanceHolder(BIG_HORNET_STING, 0.508)); // Giant Poison Bee
 		MONSTER_CHANCES.put(21096, new ItemChanceHolder(CLOUD_GEM, 0.5)); // Cloudy Beast
+		MONSTER_CHANCES.put(21099, new ItemChanceHolder(CLOUD_GEM, 0.7)); // Cloudy Beast Turen
 		MONSTER_CHANCES.put(21097, new ItemChanceHolder(YOUNG_ARANEID_CLAW, 0.516)); // Young Araneid
 	}
 	
@@ -93,15 +94,11 @@ public final class Q00661_MakingTheHarvestGroundsSafe extends Quest
 				long stingCount = getQuestItemsCount(player, BIG_HORNET_STING);
 				long gemCount = getQuestItemsCount(player, CLOUD_GEM);
 				long clawCount = getQuestItemsCount(player, YOUNG_ARANEID_CLAW);
-				long reward = (57 * stingCount) + (56 * gemCount) + (60 * clawCount);
-				if ((stingCount + gemCount + clawCount) >= 10)
-				{
-					reward += 5773;
-				}
+				long reward = (57 * stingCount) + (56 * gemCount) + (60 * clawCount) + ((stingCount + gemCount + clawCount) / 10) * 5773;
 				takeItems(player, BIG_HORNET_STING, -1);
 				takeItems(player, CLOUD_GEM, -1);
 				takeItems(player, YOUNG_ARANEID_CLAW, -1);
-				giveAdena(player, reward, true);
+				giveAdenaFuzzy(player, reward, true);
 				htmltext = event;
 				break;
 			}
@@ -122,7 +119,7 @@ public final class Q00661_MakingTheHarvestGroundsSafe extends Quest
 		if (qs != null)
 		{
 			final ItemChanceHolder item = MONSTER_CHANCES.get(npc.getId());
-			giveItemRandomly(qs.getPlayer(), npc, item.getId(), item.getCount(), 0, item.getChance(), true);
+			giveItemRandomly(qs.getPlayer(), npc, item.getId(), item.getCount(), 0, getEffectiveChance(item.getChance()), true);
 		}
 		return super.onKill(npc, killer, isSummon);
 	}

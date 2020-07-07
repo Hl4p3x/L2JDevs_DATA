@@ -18,6 +18,7 @@
  */
 package quests.Q00159_ProtectTheWaterSource;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.Race;
 import org.l2jdevs.gameserver.enums.audio.Sound;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
@@ -42,6 +43,7 @@ public class Q00159_ProtectTheWaterSource extends Quest
 	private static final int HYACINTH_CHARM2 = 1072;
 	// Misc
 	private static final int MIN_LVL = 12;
+        private static final int DUST_DROP_RATE = Integer.max(Config.L2JMOD_QUEST_ITEM_MIN_DROP_RATE_INT, 40);
 	
 	public Q00159_ProtectTheWaterSource()
 	{
@@ -68,14 +70,16 @@ public class Q00159_ProtectTheWaterSource extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null))
+            final QuestState st = getRandomPartyMemberState(killer, -1, 3, npc);
+		if (st != null)
 		{
+                    final boolean dropF = Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS //
+                        || (getRandom(100) < DUST_DROP_RATE);
 			switch (st.getCond())
 			{
 				case 1:
 				{
-					if ((getRandom(100) < 40) && st.hasQuestItems(HYACINTH_CHARM) && !st.hasQuestItems(PLAGUE_DUST))
+					if (dropF && st.hasQuestItems(HYACINTH_CHARM) && !st.hasQuestItems(PLAGUE_DUST))
 					{
 						st.giveItems(PLAGUE_DUST, 1);
 						st.setCond(2, true);
@@ -84,8 +88,8 @@ public class Q00159_ProtectTheWaterSource extends Quest
 				}
 				case 3:
 				{
-					long dust = st.getQuestItemsCount(PLAGUE_DUST);
-					if ((getRandom(100) < 40) && (dust < 5) && st.hasQuestItems(HYACINTH_CHARM2))
+                                    int dust = (int)st.getQuestItemsCount(PLAGUE_DUST);
+					if (dropF && (dust < 5) && st.hasQuestItems(HYACINTH_CHARM2))
 					{
 						st.giveItems(PLAGUE_DUST, 1);
 						if ((++dust) >= 5)
@@ -152,7 +156,7 @@ public class Q00159_ProtectTheWaterSource extends Quest
 					{
 						if (st.hasQuestItems(HYACINTH_CHARM2) && (st.getQuestItemsCount(PLAGUE_DUST) >= 5))
 						{
-							st.giveAdena(18250, true);
+							st.giveAdenaFuzzy(18250, true);
 							st.exitQuest(false, true);
 							htmltext = "30154-08.html";
 						}

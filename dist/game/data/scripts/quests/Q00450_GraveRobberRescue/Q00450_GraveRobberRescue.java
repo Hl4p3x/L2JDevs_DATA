@@ -114,7 +114,7 @@ public class Q00450_GraveRobberRescue extends Quest
 					}
 					else
 					{
-						st.giveAdena(65000, true); // Glory days reward: 6 886 980 exp, 8 116 410 sp, 371 400 Adena
+						st.giveAdenaFuzzy(65000, true); // Glory days reward: 6 886 980 exp, 8 116 410 sp, 371 400 Adena
 						st.exitQuest(QuestType.DAILY, true);
 						htmltext = "32650-10.html";
 					}

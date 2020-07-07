@@ -115,7 +115,7 @@ public final class Q00267_WrathOfVerdure extends Quest
 					st.rewardItems(SILVERY_LEAF, count);
 					if (count >= 10)
 					{
-						st.giveAdena(600, true);
+						st.giveAdenaFuzzy(600, true);
 					}
 					st.takeItems(GOBLIN_CLUB, -1);
 					htmltext = "31853-06.html";

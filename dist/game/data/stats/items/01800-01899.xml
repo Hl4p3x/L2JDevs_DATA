@@ -807,7 +807,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LIQUID" />
 		<set name="weight" val="2" />
-		<set name="price" val="1000" />
+		<set name="price" val="2000" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="1877" type="EtcItem" name="Adamantite Nugget">
@@ -843,7 +843,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LIQUID" />
 		<set name="weight" val="2" />
-		<set name="price" val="2000" />
+		<set name="price" val="1000" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="1881" type="EtcItem" name="Coarse Bone Powder">

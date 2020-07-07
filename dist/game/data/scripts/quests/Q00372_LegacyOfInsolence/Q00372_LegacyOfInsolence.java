@@ -566,7 +566,7 @@ public final class Q00372_LegacyOfInsolence extends Quest
 						}
 						else if (chance < 100)
 						{
-							giveAdena(player, 4000, true);
+							giveAdenaFuzzy(player, 4000, true);
 						}
 						htmltext = "30839-02.html";
 					}
@@ -610,7 +610,7 @@ public final class Q00372_LegacyOfInsolence extends Quest
 						}
 						else if (chance < 100)
 						{
-							giveAdena(player, 4000, true);
+							giveAdenaFuzzy(player, 4000, true);
 						}
 						htmltext = "30855-02.html";
 					}
@@ -650,7 +650,7 @@ public final class Q00372_LegacyOfInsolence extends Quest
 						}
 						else if (chance < 100)
 						{
-							giveAdena(player, 4000, true);
+							giveAdenaFuzzy(player, 4000, true);
 						}
 						htmltext = "30929-02.html";
 					}
@@ -694,7 +694,7 @@ public final class Q00372_LegacyOfInsolence extends Quest
 						}
 						else if (chance < 100)
 						{
-							giveAdena(player, 4000, true);
+							giveAdenaFuzzy(player, 4000, true);
 						}
 						htmltext = "31001-02.html";
 					}

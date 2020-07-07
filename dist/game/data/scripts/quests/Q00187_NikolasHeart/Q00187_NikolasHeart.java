@@ -86,7 +86,7 @@ public final class Q00187_NikolasHeart extends Quest
 			{
 				if (qs.isMemoState(2))
 				{
-					giveAdena(player, 93383, true);
+					giveAdenaFuzzy(player, 93383, true);
 					if (player.getLevel() < MAX_LEVEL_FOR_EXP_SP)
 					{
 						addExpAndSp(player, 285935, 18711);

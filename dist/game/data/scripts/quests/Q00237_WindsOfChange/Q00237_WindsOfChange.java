@@ -133,14 +133,14 @@ public class Q00237_WindsOfChange extends Quest
 				}
 				break;
 			case "32641-02.html":
-				st.giveAdena(213876, true);
+				st.giveAdenaFuzzy(213876, true);
 				st.giveItems(VICINITY_OF_FOS, 1);
 				st.addExpAndSp(892773, 60012);
 				st.exitQuest(false, true);
 				htmltext = event;
 				break;
 			case "32643-02.html":
-				st.giveAdena(213876, true);
+				st.giveAdenaFuzzy(213876, true);
 				st.giveItems(SUPPORT_CERTIFICATE, 1);
 				st.addExpAndSp(892773, 60012);
 				st.exitQuest(false, true);

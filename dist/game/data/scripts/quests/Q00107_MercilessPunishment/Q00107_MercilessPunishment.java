@@ -29,8 +29,6 @@ import org.l2jdevs.gameserver.model.quest.State;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Merciless Punishment (107)
  * @author janiko
@@ -95,7 +93,7 @@ public final class Q00107_MercilessPunishment extends Quest
 			}
 			case "30568-07.html":
 			{
-				giveAdena(player, 200, true);
+				giveAdenaFuzzy(player, 200, true);
 				playSound(player, Sound.ITEMSOUND_QUEST_GIVEUP);
 				qs.exitQuest(true);
 				htmltext = event;
@@ -243,9 +241,9 @@ public final class Q00107_MercilessPunishment extends Quest
 							{
 								if (hasQuestItems(talker, HATOSS_ORDER_3, LETTER_TO_HUMAN, LETTER_TO_DARK_ELF, LETTER_TO_ELF))
 								{
-									Q00281_HeadForTheHills.giveNewbieReward(talker);
+									giveNewbieReward(talker);
 									addExpAndSp(talker, 34565, 2962);
-									giveAdena(talker, 14666, true);
+									giveAdenaFuzzy(talker, 14666, true);
 									for (ItemHolder reward : REWARDS)
 									{
 										giveItems(talker, reward);

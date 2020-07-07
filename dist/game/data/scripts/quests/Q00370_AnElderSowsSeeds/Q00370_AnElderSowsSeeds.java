@@ -178,7 +178,7 @@ public final class Q00370_AnElderSowsSeeds extends Quest
 		final long minCount = Util.min(waterChapters, earthChapters, windChapters, fireChapters);
 		if (minCount > 0)
 		{
-			giveAdena(player, minCount * 3600, true);
+			giveAdenaFuzzy(player, minCount * 3600, true);
 		}
 		final long countToTake = (takeAllItems ? -1 : minCount);
 		takeItems(player, (int) countToTake, CHAPTER_OF_WATER, CHAPTER_OF_EARTH, CHAPTER_OF_WIND, CHAPTER_OF_FIRE);

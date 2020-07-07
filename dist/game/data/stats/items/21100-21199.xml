@@ -47,7 +47,7 @@
 		<set name="is_depositable" val="false" />
 		<set name="is_dropable" val="false" />
 		<set name="is_stackable" val="true" />
-		<set name="reuse_delay" val="86400000" /> <!-- TODO: Manage global (main class <-> subclasses) reuse for skills. -->
+		<set name="reuse_delay" val="86400000" /><!-- TODO: Manage global (main class <-> subclasses) reuse for skills. -->
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="22180-1" />
 	</item>
@@ -66,6 +66,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="71680" />
 	</item>
 	<item id="21109" type="Armor" name="Warm Bear Hat - 7-day limited period">
 		<!-- Description: Polar bear hat that makes you feel cozy just by looking at it. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -90,6 +91,7 @@
 		<set name="weight" val="450" />
 		<set name="soulshots" val="1" />
 		<set name="spiritshots" val="1" />
+                <set name="price" val="31415" />
 		<for>
 			<set stat="pAtk" val="5" />
 			<set stat="mAtk" val="5" />
@@ -128,6 +130,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="71680" />
 	</item>
 	<item id="21113" type="Armor" name="Stag Beetle Hat - 7-day limited period">
 		<!-- Description: Hat shaped like a stag beetle with 2 tough jaws. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -148,6 +151,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="71680" />
 	</item>
 	<item id="21115" type="Armor" name="Beetle Hat - 7-day limited period">
 		<!-- Description: Hat shaped like a beetle with a great horn. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -168,6 +172,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="71680" />
 	</item>
 	<item id="21117" type="Armor" name="Ladybug Hat - 7-day limited period">
 		<!-- Description: Shaped shaped like a ladybug with its black and red pattern. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -188,6 +193,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="71680" />
 	</item>
 	<item id="21119" type="Armor" name="Preying Mantis Hat - 7-day limited period">
 		<!-- Description: Hat shaped like a preying mantis with sharp claws. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -208,6 +214,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="71680" />
 	</item>
 	<item id="21121" type="Armor" name="Grasshopper Hat - 7-day limited period">
 		<!-- Description: Hat shaped like a grasshopper with large eyes. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -228,6 +235,7 @@
 		<set name="bodypart" val="hair" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="40960" />
 	</item>
 	<item id="21123" type="Armor" name="Gold-rimmed Glasses - 7-day limited period">
 		<!-- Description: Expensive-looking gold-rimmed glasses. Uses 1 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -248,6 +256,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="71680" />
 	</item>
 	<item id="21125" type="Armor" name="White Uniform Hat - 7-day limited period">
 		<!-- Description: White uniform hat that makes you feel the energy of a man of the sea. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -268,6 +277,7 @@
 		<set name="bodypart" val="hairall" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
+                <set name="price" val="70960" />
 	</item>
 	<item id="21127" type="Armor" name="Warrior's Helmet - 7-day limited period">
 		<!-- Description: Helmet of a brave ancient warrior. Uses 2 hair accessory slot(s). Cannot be exchanged, dropped, or sold. Can be stored in a private warehouse. -->
@@ -997,38 +1007,26 @@
 		<!-- Description: Dimensional item pack. Gift box containing 50 dimension diamonds. Cannot be exchanged or dropped. Can be shared between characters within an account through the Dimensional Merchant. Can be stored in a private warehouse. -->
 		<set name="icon" val="BranchSys.icon.br_four_leaf_clover_box_i00" />
 		<set name="material" val="STEEL" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_stackable" val="true" />
-		<set name="is_freightable" val="true" />
+		<set name="price" val="75000" />
 	</item>
 	<item id="21193" type="EtcItem" name="Dimension Diamond">
 		<!-- Description: Dimensional item. Magic crystal needed when casting instant moving magic. If you collect them and bring them to the Gatekeeper, you can exchange them for various types of escape scrolls. Cannot be exchanged or dropped. Can be shared between characters within an account through the Dimensional Merchant. Can be stored in a private warehouse. -->
 		<set name="icon" val="icon.etc_gem_clear_i00" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_stackable" val="true" />
-		<set name="is_freightable" val="true" />
+		<set name="price" val="1500" />
 	</item>
 	<item id="21194" type="EtcItem" name="Blessed Scroll of Escape Pack">
 		<!-- Description: Dimensional item pack. Gift box containing 1 blessed scroll of escape. Cannot be exchanged or dropped. Can be shared between characters within an account through the Dimensional Merchant. Can be stored in a private warehouse. -->
 		<set name="icon" val="BranchSys.icon.br_four_leaf_clover_box_i00" />
 		<set name="material" val="STEEL" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_stackable" val="true" />
-		<set name="is_freightable" val="true" />
+		<set name="price" val="150000" />
 	</item>
 	<item id="21195" type="EtcItem" name="Blessed Scroll of Escape">
 		<!-- Description: Dimensional item. Magic scroll that moves you to the nearest village. Cannot be exchanged or dropped. Can be shared between characters within an account through the Dimensional Merchant. Can be stored in a private warehouse. -->
 		<set name="icon" val="icon.etc_scroll_of_return_i01" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_stackable" val="true" />
-		<set name="is_freightable" val="true" />
+		<set name="price" val="150000" />
 	</item>
 	<item id="21196" type="EtcItem" name="Highest Power Temporary Healing Potion Pack">
 		<!-- Description: Dimensional item pack. Gift box containing 5 highest power temporary healing potion(s). Cannot be exchanged or dropped. Can be shared between characters within an account through the Dimensional Merchant. Can be stored in a private warehouse. -->

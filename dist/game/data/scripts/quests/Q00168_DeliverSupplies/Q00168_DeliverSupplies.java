@@ -125,7 +125,7 @@ public class Q00168_DeliverSupplies extends Quest
 							{
 								if (st.getQuestItemsCount(OLD_BRONZE_SWORD) >= 2)
 								{
-									st.giveAdena(820, true);
+									st.giveAdenaFuzzy(820, true);
 									st.exitQuest(false, true);
 									htmltext = "30349-07.html";
 								}

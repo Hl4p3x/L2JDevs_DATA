@@ -28,8 +28,6 @@ import org.l2jdevs.gameserver.model.quest.State;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Forgotten Truth (106)
  * @author janiko
@@ -143,9 +141,9 @@ public final class Q00106_ForgottenTruth extends Quest
 						}
 						else if (st.isCond(4) && st.hasQuestItems(KARTAS_TRANSLATION))
 						{
-							Q00281_HeadForTheHills.giveNewbieReward(talker);
+							giveNewbieReward(talker);
 							talker.sendPacket(new SocialAction(talker.getObjectId(), 3));
-							st.giveAdena(10266, true);
+							st.giveAdenaFuzzy(10266, true);
 							st.addExpAndSp(24195, 2074);
 							st.exitQuest(false, true);
 							htmltext = "30358-07.html";

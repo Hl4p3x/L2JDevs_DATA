@@ -292,21 +292,8 @@ public final class Q00409_PathOfTheElvenOracle extends Quest
 						{
 							if (!hasQuestItems(player, HALF_OF_DAIRY))
 							{
-								giveAdena(player, 163800, true);
 								giveItems(player, LEAF_OF_ORACLE, 1);
-								final int level = player.getLevel();
-								if (level >= 20)
-								{
-									addExpAndSp(player, 320534, 20392);
-								}
-								else if (level == 19)
-								{
-									addExpAndSp(player, 456128, 27090);
-								}
-								else
-								{
-									addExpAndSp(player, 591724, 33788);
-								}
+                                                                give1stTransferReward(player);
 								qs.exitQuest(false, true);
 								player.sendPacket(new SocialAction(player.getObjectId(), 3));
 								qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -401,4 +388,5 @@ public final class Q00409_PathOfTheElvenOracle extends Quest
 		}
 		return htmltext;
 	}
+
 }

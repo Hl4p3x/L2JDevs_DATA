@@ -18,6 +18,7 @@
  */
 package quests.Q00313_CollectSpores;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 import org.l2jdevs.gameserver.model.quest.Quest;
@@ -37,7 +38,9 @@ public final class Q00313_CollectSpores extends Quest
 	private static final int SPORE_SAC = 1118;
 	// Misc
 	private static final int MIN_LEVEL = 8;
-	private static final int REQUIRED_SAC_COUNT = 10;
+        private static final int REQUIRED_SAC_COUNT = 10;
+        private static final double SAC_CHANCE = Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? 1
+            : Double.max(0.4, Config.L2JMOD_QUEST_ITEM_MIN_DROP_RATE);
 	// Monster
 	private static final int SPORE_FUNGUS = 20509;
 	
@@ -82,10 +85,10 @@ public final class Q00313_CollectSpores extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && st.isCond(1) && Util.checkIfInRange(1500, npc, killer, false))
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
+		if ((st != null) && st.isCond(1) && Util.checkIfInRange(1500, npc, st.getPlayer(), false))
 		{
-			if (st.giveItemRandomly(npc, SPORE_SAC, 1, REQUIRED_SAC_COUNT, 0.4, true))
+			if (st.giveItemRandomly(npc, SPORE_SAC, 1, REQUIRED_SAC_COUNT, SAC_CHANCE, true))
 			{
 				st.setCond(2);
 			}
@@ -121,7 +124,7 @@ public final class Q00313_CollectSpores extends Quest
 					{
 						if (st.getQuestItemsCount(SPORE_SAC) >= REQUIRED_SAC_COUNT)
 						{
-							st.giveAdena(3500, true);
+							st.giveAdenaFuzzy(3500, true);
 							st.exitQuest(true, true);
 							htmltext = "30150-07.html";
 						}

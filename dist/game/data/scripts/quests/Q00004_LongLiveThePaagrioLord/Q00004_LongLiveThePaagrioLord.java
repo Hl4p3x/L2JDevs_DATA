@@ -127,7 +127,7 @@ public class Q00004_LongLiveThePaagrioLord extends Quest
 							// Newbie Guide
 							showOnScreenMsg(player, NpcStringId.DELIVERY_DUTY_COMPLETE_N_GO_FIND_THE_NEWBIE_GUIDE, 2, 5000);
 							addExpAndSp(player, 4254, 335);
-							giveAdena(player, 1850, true);
+							giveAdenaFuzzy(player, 1850, true);
 							st.exitQuest(false, true);
 							htmltext = "30578-06.html";
 						}

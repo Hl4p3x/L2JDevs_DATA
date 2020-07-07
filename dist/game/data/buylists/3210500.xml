@@ -4,7 +4,6 @@
 		<npc>32105</npc> <!-- Dinn -->
 	</npcs>
 	<item id="736" /> <!-- Scroll of Escape -->
-	<item id="737" /> <!-- Scroll of Resurrection -->
 	<item id="734" /> <!-- Haste Potion -->
 	<item id="735" /> <!-- Alacrity Potion -->
 	<item id="1831" /> <!-- Antidote -->

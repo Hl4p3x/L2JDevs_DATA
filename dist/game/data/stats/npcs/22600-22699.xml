@@ -5940,7 +5940,7 @@
 			<height normal="14.5" />
 		</collision>
 	</npc>
-	<npc id="22672" level="80" type="L2Monster" name="Cursed Seer">
+	<npc id="22672" level="80" type="L2Monster" name="Cursed Weaver">
 		<!-- Confirmed CT2.5 -->
 		<parameters>
 			<skill name="MagicHeal" id="4065" level="9" /> <!-- NPC Heal -->

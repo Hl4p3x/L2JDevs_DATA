@@ -94,7 +94,7 @@ public class Q00651_RunawayYouth extends Quest
 			case BATIDAE:
 				if (st.isStarted())
 				{
-					st.giveAdena(2883, true);
+					st.giveAdenaFuzzy(2883, true);
 					st.exitQuest(true, true);
 					htmltext = "31989-01.html";
 				}

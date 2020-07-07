@@ -182,7 +182,7 @@ public class Q00143_FallenAngelRequestOfDusk extends Quest
 							htmltext = "30297-06.html";
 							break;
 						case 5:
-							st.giveAdena(89046, true);
+							st.giveAdenaFuzzy(89046, true);
 							if (player.getLevel() <= MAX_REWARD_LEVEL)
 							{
 								st.addExpAndSp(223036, 13901);

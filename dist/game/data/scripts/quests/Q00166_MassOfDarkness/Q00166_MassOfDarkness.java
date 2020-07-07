@@ -98,7 +98,7 @@ public class Q00166_MassOfDarkness extends Quest
 						{
 							showOnScreenMsg(player, NpcStringId.DELIVERY_DUTY_COMPLETE_N_GO_FIND_THE_NEWBIE_GUIDE, 2, 5000); // TODO: Newbie Guide
 							st.addExpAndSp(5672, 466);
-							st.giveAdena(2966, true);
+							st.giveAdenaFuzzy(2966, true);
 							st.exitQuest(false, true);
 							htmltext = "30130-05.html";
 						}

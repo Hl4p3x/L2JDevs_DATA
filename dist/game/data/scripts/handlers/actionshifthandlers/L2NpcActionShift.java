@@ -74,9 +74,26 @@ public class L2NpcActionShift implements IActionShiftHandler
 			html.replace("%lvl%", String.valueOf(((L2Npc) target).getTemplate().getLevel()));
 			html.replace("%name%", String.valueOf(((L2Npc) target).getTemplate().getName()));
 			html.replace("%tmplid%", String.valueOf(((L2Npc) target).getTemplate().getId()));
-			html.replace("%aggro%", String.valueOf((target instanceof L2Attackable) ? ((L2Attackable) target).getAggroRange() : 0));
-			html.replace("%hp%", String.valueOf((int) ((L2Character) target).getCurrentHp()));
-			html.replace("%hpmax%", String.valueOf(((L2Character) target).getMaxHp()));
+                        if(target instanceof L2Attackable) {
+                            final L2Attackable l2a = (L2Attackable) target;
+                            html.replace("%aggro%", String.valueOf(l2a.getAggroRange()));
+                            // ... because damage scaled down by champion's HP rating (see L2Character:reduceCurrentHp)
+                            int maxHp = l2a.getMaxHp(),
+                                curHp = (int)l2a.getCurrentHp(),
+                                pwrCurHp = (int)(curHp * l2a.getMultiplierHP()),
+                                pwrMaxHp = (int)(maxHp * l2a.getMultiplierHP()),
+                                baseHp = (int)(l2a.getTemplate().getBaseHpMax());
+                            html.replace("%hp%", String.format("%d / %d", curHp, maxHp)); // raw
+                            html.replace("%hpinst%", String.format("%d / %d", pwrCurHp, pwrMaxHp)); // power scaled
+                            html.replace("%hptmpl%", String.format("%d", baseHp)); // template
+                        }
+                        else {
+                            html.replace("%aggro%", "0");
+                            final L2Character l2c = (L2Character) target;
+                            html.replace("%hp%", String.valueOf((int) l2c.getCurrentHp()));
+                            html.replace("%hpinst%", String.valueOf((int) l2c.getMaxHp()));
+                            html.replace("%hptmpl%", String.valueOf((int) l2c.getTemplate().getBaseHpMax()));
+                        }
 			html.replace("%mp%", String.valueOf((int) ((L2Character) target).getCurrentMp()));
 			html.replace("%mpmax%", String.valueOf(((L2Character) target).getMaxMp()));
 			
@@ -113,6 +130,23 @@ public class L2NpcActionShift implements IActionShiftHandler
 			html.replace("%ele_dearth%", String.valueOf(((L2Character) target).getDefenseElementValue(Elementals.EARTH)));
 			html.replace("%ele_dholy%", String.valueOf(((L2Character) target).getDefenseElementValue(Elementals.HOLY)));
 			html.replace("%ele_ddark%", String.valueOf(((L2Character) target).getDefenseElementValue(Elementals.DARK)));
+
+			//html.replace("%aggro%", String.valueOf((target instanceof L2Attackable) ? ((L2Attackable) target).getAggroRange() : 0));
+                        if(target instanceof L2Attackable) {
+                            L2Attackable npc = (L2Attackable) target;
+                            html.replace("%l2r_champ%", String.valueOf(npc.isChampion()));
+                            html.replace("%l2r_pwrhp%", String.valueOf((float)npc.getMultiplierHP()));
+                            html.replace("%l2r_pwrxp%", String.valueOf(npc.getPowerXP()));
+                            html.replace("%l2r_pwjit%", String.valueOf(npc.getPowerJitter()));
+                            html.replace("%l2r_aggro%", String.valueOf(npc.getAggroLevel()));
+                        }
+                        else {
+                            html.replace("%l2r_champ%", "NA");
+                            html.replace("%l2r_pwrhp%", "NA");
+                            html.replace("%l2r_pwrxp%", "NA");
+                            html.replace("%l2r_pwjit%", "NA");
+                            html.replace("%l2r_aggro%", "NA");
+                        }
 			
 			if (((L2Npc) target).getSpawn() != null)
 			{

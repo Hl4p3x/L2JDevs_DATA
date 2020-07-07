@@ -66,14 +66,14 @@ public class Q00019_GoToThePastureland extends Quest
 		{
 			if (st.hasQuestItems(YOUNG_WILD_BEAST_MEAT))
 			{
-				st.giveAdena(50000, true);
+				st.giveAdenaFuzzy(50000, true);
 				st.addExpAndSp(136766, 12688);
 				st.exitQuest(false, true);
 				htmltext = "31537-02.html";
 			}
 			else if (st.hasQuestItems(VEAL))
 			{
-				st.giveAdena(147200, true);
+				st.giveAdenaFuzzy(147200, true);
 				st.addExpAndSp(385040, 75250);
 				st.exitQuest(false, true);
 				htmltext = "31537-02.html";

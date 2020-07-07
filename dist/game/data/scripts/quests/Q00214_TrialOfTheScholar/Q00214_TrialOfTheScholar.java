@@ -26,6 +26,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Trial Of The Scholar (214)
@@ -143,6 +144,7 @@ public final class Q00214_TrialOfTheScholar extends Quest
 						giveItems(player, MIRIENS_1ST_SIGIL, 1);
 					}
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 168);
@@ -638,9 +640,11 @@ public final class Q00214_TrialOfTheScholar extends Quest
 						}
 						else
 						{
-							giveAdena(player, 319628, true);
 							giveItems(player, MARK_OF_SCHOLAR, 1);
-							addExpAndSp(player, 1753926, 113754);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 319628, true);
+                                                            addExpAndSp(player, 1753926, 113754);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30461-14.html";

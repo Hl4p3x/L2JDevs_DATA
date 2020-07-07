@@ -44,16 +44,25 @@ public final class Q00292_BrigandsSweep extends Quest
 	private static final int GOBLIN_PENDANT = 1484;
 	private static final int GOBLIN_LORD_PENDANT = 1485;
 	private static final int SUSPICIOUS_MEMO = 1486;
-	private static final int SUSPICIOUS_CONTRACT = 1487;
+        private static final int SUSPICIOUS_CONTRACT = 1487,
+            GOBLIN_BRIGAND = 20322,
+            GOBLIN_BRIGAND_LEADER = 20323,
+            GOBLIN_BRIGAND_LIEUTENANT = 20324,
+            GOBLIN_SNOOPER = 20327,
+            GOBLIN_LORD = 20528,
+            NORTHERN_GOBLIN = 21127, // 21
+            NORTHERN_GOBLIN_LEADER = 21130; // 24
 	// Monsters
 	private static final Map<Integer, Integer> MOB_ITEM_DROP = new HashMap<>();
 	static
 	{
-		MOB_ITEM_DROP.put(20322, GOBLIN_NECKLACE); // Goblin Brigand
-		MOB_ITEM_DROP.put(20323, GOBLIN_PENDANT); // Goblin Brigand Leader
-		MOB_ITEM_DROP.put(20324, GOBLIN_NECKLACE); // Goblin Brigand Lieutenant
-		MOB_ITEM_DROP.put(20327, GOBLIN_NECKLACE); // Goblin Snooper
-		MOB_ITEM_DROP.put(20528, GOBLIN_LORD_PENDANT); // Goblin Lord
+		MOB_ITEM_DROP.put(GOBLIN_SNOOPER, GOBLIN_NECKLACE);
+		MOB_ITEM_DROP.put(GOBLIN_BRIGAND, GOBLIN_NECKLACE);
+		MOB_ITEM_DROP.put(GOBLIN_BRIGAND_LIEUTENANT, GOBLIN_NECKLACE);
+		MOB_ITEM_DROP.put(GOBLIN_BRIGAND_LEADER, GOBLIN_PENDANT);
+		MOB_ITEM_DROP.put(GOBLIN_LORD, GOBLIN_LORD_PENDANT);
+		MOB_ITEM_DROP.put(NORTHERN_GOBLIN, GOBLIN_LORD_PENDANT);
+		MOB_ITEM_DROP.put(NORTHERN_GOBLIN_LEADER, GOBLIN_LORD_PENDANT);
 	}
 	// Misc
 	private static final int MIN_LVL = 5;
@@ -110,17 +119,22 @@ public final class Q00292_BrigandsSweep extends Quest
 	}
 	
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	public String onKill(L2Npc npc, L2PcInstance pc, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
+		QuestState qs = getQuestState(pc, false);
+                if(qs == null)
+                    qs = getRandomPartyMemberState(pc, 1, 3, npc);
+                L2PcInstance killer = null;
+                if(qs != null)
+                    killer = qs.getPlayer();
 		if ((qs != null) && qs.isStarted() && Util.checkIfInRange(1500, npc, killer, true))
 		{
 			final int chance = getRandom(10);
-			if (chance > 5)
+			if (getEffectiveChance(chance) > 5)
 			{
 				giveItemRandomly(killer, npc, MOB_ITEM_DROP.get(npc.getId()), 1, 0, 1.0, true);
 			}
-			else if (qs.isCond(1) && (chance > 4) && !hasQuestItems(killer, SUSPICIOUS_CONTRACT))
+			if (qs.isCond(1) && (chance > 4) && !hasQuestItems(killer, SUSPICIOUS_CONTRACT))
 			{
 				final long memos = getQuestItemsCount(killer, SUSPICIOUS_MEMO);
 				if (memos < 3)
@@ -139,7 +153,7 @@ public final class Q00292_BrigandsSweep extends Quest
 				}
 			}
 		}
-		return super.onKill(npc, killer, isSummon);
+		return super.onKill(npc, pc, isSummon);
 	}
 	
 	@Override
@@ -172,7 +186,8 @@ public final class Q00292_BrigandsSweep extends Quest
 							final long sum = necklaces + pendants + lordPendants;
 							if (sum > 0)
 							{
-								giveAdena(talker, (necklaces * 6) + (pendants * 8) + (lordPendants * 10) + (sum >= 10 ? 1000 : 0), true);
+                                                            final long npl10 = (sum / 10) * 1000;
+								giveAdenaFuzzy(talker, (necklaces * 6) + (pendants * 8) + (lordPendants * 10) + npl10, true);
 								takeItems(talker, -1, GOBLIN_NECKLACE, GOBLIN_PENDANT, GOBLIN_LORD_PENDANT);
 							}
 							if ((sum > 0) && !hasAtLeastOneQuestItem(talker, SUSPICIOUS_MEMO, SUSPICIOUS_CONTRACT))
@@ -184,7 +199,7 @@ public final class Q00292_BrigandsSweep extends Quest
 								final long memos = getQuestItemsCount(talker, SUSPICIOUS_MEMO);
 								if ((memos == 0) && hasQuestItems(talker, SUSPICIOUS_CONTRACT))
 								{
-									giveAdena(talker, 100, true);
+									giveAdenaFuzzy(talker, 100, true);
 									takeItems(talker, 1, SUSPICIOUS_CONTRACT); // Retail like, reward is given in 2 pieces if both conditions are meet.
 									html = "30532-10.html";
 								}
@@ -211,7 +226,7 @@ public final class Q00292_BrigandsSweep extends Quest
 				{
 					if (hasQuestItems(talker, SUSPICIOUS_CONTRACT))
 					{
-						giveAdena(talker, 620, true);
+						giveAdenaFuzzy(talker, 620, true);
 						takeItems(talker, SUSPICIOUS_CONTRACT, 1);
 						html = "30533-02.html";
 					}

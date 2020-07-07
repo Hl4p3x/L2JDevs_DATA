@@ -31,6 +31,7 @@ import org.l2jdevs.gameserver.network.clientpackets.Say2;
 import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of Witchcraft (229)
@@ -135,6 +136,7 @@ public final class Q00229_TestOfWitchcraft extends Quest
 					qs.startQuest();
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
 					giveItems(player, ORIMS_DIAGRAM, 1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						if (player.getClassId() == ClassId.wizard)
@@ -204,9 +206,11 @@ public final class Q00229_TestOfWitchcraft extends Quest
 			{
 				if (hasQuestItems(player, ZERUEL_BIND_CRYSTAL))
 				{
-					giveAdena(player, 372154, true);
 					giveItems(player, MARK_OF_WITCHCRAFT, 1);
-					addExpAndSp(player, 2058244, 141240);
+                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                            giveAdenaFuzzy(player, 372154, true);
+                                            addExpAndSp(player, 2058244, 141240);
+                                        }
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					htmltext = event;

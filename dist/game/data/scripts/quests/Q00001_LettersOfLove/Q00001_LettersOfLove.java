@@ -198,7 +198,7 @@ public class Q00001_LettersOfLove extends Quest
 								showOnScreenMsg(player, NpcStringId.DELIVERY_DUTY_COMPLETE_N_GO_FIND_THE_NEWBIE_GUIDE, 2, 5000);
 								giveItems(player, NECKLACE_OF_KNOWLEDGE, 1);
 								addExpAndSp(player, 5672, 446);
-								giveAdena(player, 2466, false);
+								giveAdenaFuzzy(player, 2466, false);
 								st.exitQuest(false, true);
 								htmltext = "30048-10.html";
 								break;

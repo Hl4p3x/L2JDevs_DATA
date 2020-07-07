@@ -108,7 +108,7 @@ public class Q00158_SeedOfEvil extends Quest
 				{
 					st.giveItems(ENCHANT_ARMOR_D, 1);
 					st.addExpAndSp(17818, 927);
-					st.giveAdena(1495, true);
+					st.giveAdenaFuzzy(1495, true);
 					st.exitQuest(false, true);
 					htmltext = "30031-05.html";
 				}

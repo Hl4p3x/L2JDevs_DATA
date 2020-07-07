@@ -27,6 +27,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Testimony Of Prosperity (221)
@@ -147,6 +148,7 @@ public final class Q00221_TestimonyOfProsperity extends Quest
 						giveItems(player, RING_OF_TESTIMONY_1ST, 1);
 					}
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 50);
@@ -503,9 +505,11 @@ public final class Q00221_TestimonyOfProsperity extends Quest
 						}
 						else if (hasQuestItems(player, MAPHR_TABLET_FRAGMENT))
 						{
-							giveAdena(player, 217682, true);
 							giveItems(player, MARK_OF_PROSPERITY, 1);
-							addExpAndSp(player, 1199958, 80080);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 217682, true);
+                                                            addExpAndSp(player, 1199958, 80080);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30104-13.html";
@@ -540,14 +544,16 @@ public final class Q00221_TestimonyOfProsperity extends Quest
 				{
 					if (hasQuestItems(player, RING_OF_TESTIMONY_1ST))
 					{
-						if (hasQuestItems(player, CRYSTAL_BROOCH) && !hasQuestItems(player, LILITHS_ELVEN_WAFER))
-						{
-							htmltext = "30368-01.html";
-						}
-						else
-						{
-							htmltext = "30368-04.html";
-						}
+                                            if (hasQuestItems(player, LILITHS_ELVEN_WAFER))
+                                                htmltext = "30368-04.html"; // I already gave you an elven wafer
+                                            else {
+						if (hasQuestItems(player, CRYSTAL_BROOCH))
+                                                    // 1st talk in 1-2-3 chain
+                                                    htmltext = "30368-01.html"; // What is a Dwarf doing on this remote island? You have come to see me?
+                                                else
+                                                    // the very 1st talk. Same as -01, but w/o link. PC should talk with Wilford
+                                                    htmltext = "30368-00.html"; // What is a Dwarf doing on this remote island? You have come to see me?
+                                            }
 					}
 					else if (hasQuestItems(player, RING_OF_TESTIMONY_2ND))
 					{

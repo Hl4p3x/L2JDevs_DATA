@@ -108,7 +108,7 @@ public final class Q00347_GoGetTheCalculator extends Quest
 				if (qs.isCond(6))
 				{
 					takeItems(player, STOLEN_CALCULATOR, -1);
-					giveAdena(player, ADENA, true);
+					giveAdenaFuzzy(player, ADENA, true);
 					qs.exitQuest(true, true);
 					htmltext = event;
 				}

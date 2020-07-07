@@ -108,7 +108,7 @@ public final class Q00345_MethodToRaiseTheDead extends Quest
 				
 				if (uselessBonePiecesCount > 0)
 				{
-					giveAdena(player, uselessBonePiecesCount * 104, true);
+					giveAdenaFuzzy(player, uselessBonePiecesCount * 104, true);
 					takeItems(player, USELESS_BONE_PIECES, -1);
 					htmltext = event;
 				}
@@ -327,7 +327,7 @@ public final class Q00345_MethodToRaiseTheDead extends Quest
 							if ((memoStateEx == 1) || (memoStateEx == 2))
 							{
 								giveItems(player, BILL_OF_IASON_HEINE, 3);
-								giveAdena(player, 5390 + (70 * uselessBonePiecesCount), true);
+								giveAdenaFuzzy(player, 5390 + (70 * uselessBonePiecesCount), true);
 								htmltext = "30970-11.html";
 							}
 							else if (memoStateEx == 3)
@@ -341,7 +341,7 @@ public final class Q00345_MethodToRaiseTheDead extends Quest
 									giveItems(player, IMPERIAL_DIAMOND, 1);
 								}
 								
-								giveAdena(player, 3040 + (70 * uselessBonePiecesCount), true);
+								giveAdenaFuzzy(player, 3040 + (70 * uselessBonePiecesCount), true);
 								htmltext = "30970-12.html";
 							}
 							

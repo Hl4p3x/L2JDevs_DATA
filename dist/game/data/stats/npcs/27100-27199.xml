@@ -9,7 +9,7 @@
 		</parameters>
 		<race>UNDEAD</race>
 		<sex>MALE</sex>
-		<equipment rhand="69" /> <!-- rhand: Bastard Sword -->
+		<equipment rhand="127" /> <!-- rhand: crimson Sword -->
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="925.85879" hpRegen="4.5" mp="463.32" mpRegen="1.8" />
 			<attack physical="166.06476" magical="113.4007" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -35,6 +35,10 @@
 			<skill id="4414" level="2" /> <!--Standard Type -->
 			<skill id="4415" level="3" /> <!--One-handed Sword -->
 			<skill id="4416" level="1" /> <!--Undead -->
+			<skill id="4273" level="2" /> <!-- Resist Daggers/Rapier Weapon -->
+			<skill id="4284" level="5" /> <!-- Resist Bleed Attacks -->
+			<skill id="4444" level="2" /> <!-- Higher Resist Bow/Crossbow Weapons -->
+			<skill id="4274" level="1" /> <!-- Blunt Weapon Weak Point -->
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" isAggressive="false">
@@ -1064,7 +1068,8 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="217" /> <!-- rhand: Shining Knife -->
+		<equipment rhand="224" /> <!-- rhand: maingauche -->
+		<acquire expRate="1.74528" sp="146" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="847.31754" hpRegen="4.5" mp="432.72" mpRegen="1.8" />
 			<attack physical="146.82587" magical="100.26304" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -1768,7 +1773,8 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="66" /> <!-- rhand: Gladius -->
+		<equipment rhand="129" /> <!-- rhand: sword of revolution -->
+		<acquire expRate="2.3320428" sp="169" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="809.52639" hpRegen="4.5" mp="417.6" mpRegen="1.8" />
 			<attack physical="137.86467" magical="94.1437" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -1797,6 +1803,33 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="70">
+					<item id="57" min="398" max="795" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="2.3702000379562378">
+					<item id="393" min="1" max="1" chance="1.0427" /> <!-- Mithril Banded Mail -->
+					<item id="1938" min="1" max="1" chance="41.0057" /> <!-- Mithril Banded Mail Material -->
+					<item id="394" min="1" max="1" chance="1.0427" /> <!-- Reinforced Leather Shirt -->
+					<item id="415" min="1" max="1" chance="1.6666" /> <!-- Mithril Banded Gaiters -->
+					<item id="1939" min="1" max="1" chance="53.5758" /> <!-- Mithril Banded Gaiters Material -->
+					<item id="416" min="1" max="1" chance="1.6665" /> <!-- Reinforced Leather Gaiters -->
+				</group>
+				<group chance="76.78670120239258">
+					<item id="1870" min="1" max="1" chance="25.8585" /> <!-- Coal -->
+					<item id="1865" min="1" max="1" chance="25.8585" /> <!-- Varnish -->
+					<item id="1874" min="1" max="1" chance="1.7239" /> <!-- Oriharukon Ore -->
+					<item id="2980" min="1" max="1" chance="3.4616" /> <!-- Recipe: Brigandine Gauntlets -->
+					<item id="1341" min="20" max="60" chance="43.0975" /> <!-- Bone Arrow -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2972" min="1" max="1" chance="10.0438" /> <!-- Recipe: Brigandine Gaiters -->
+				<item id="2976" min="1" max="1" chance="24.6263" /> <!-- Recipe: Manticore Skin Boots -->
+				<item id="1901" min="1" max="1" chance="26.0274" /> <!-- Tiger's Eye Earring Stone -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="12" grown="14.5" />
 			<height normal="24" grown="28.8" />
@@ -1812,7 +1845,8 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="66" /> <!-- rhand: Gladius -->
+		<equipment rhand="129" /> <!-- rhand: sword of revolution -->
+		<acquire expRate="2.3320428" sp="169" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="809.52639" hpRegen="4.5" mp="417.6" mpRegen="1.8" />
 			<attack physical="137.86467" magical="94.1437" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -1841,6 +1875,33 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="70">
+					<item id="57" min="398" max="795" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="2.3702000379562378">
+					<item id="393" min="1" max="1" chance="1.0427" /> <!-- Mithril Banded Mail -->
+					<item id="1938" min="1" max="1" chance="41.0057" /> <!-- Mithril Banded Mail Material -->
+					<item id="394" min="1" max="1" chance="1.0427" /> <!-- Reinforced Leather Shirt -->
+					<item id="415" min="1" max="1" chance="1.6666" /> <!-- Mithril Banded Gaiters -->
+					<item id="1939" min="1" max="1" chance="53.5758" /> <!-- Mithril Banded Gaiters Material -->
+					<item id="416" min="1" max="1" chance="1.6665" /> <!-- Reinforced Leather Gaiters -->
+				</group>
+				<group chance="76.78670120239258">
+					<item id="1870" min="1" max="1" chance="25.8585" /> <!-- Coal -->
+					<item id="1865" min="1" max="1" chance="25.8585" /> <!-- Varnish -->
+					<item id="1874" min="1" max="1" chance="1.7239" /> <!-- Oriharukon Ore -->
+					<item id="2980" min="1" max="1" chance="3.4616" /> <!-- Recipe: Brigandine Gauntlets -->
+					<item id="1341" min="20" max="60" chance="43.0975" /> <!-- Bone Arrow -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2972" min="1" max="1" chance="10.0438" /> <!-- Recipe: Brigandine Gaiters -->
+				<item id="2976" min="1" max="1" chance="24.6263" /> <!-- Recipe: Manticore Skin Boots -->
+				<item id="1901" min="1" max="1" chance="26.0274" /> <!-- Tiger's Eye Earring Stone -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="12" grown="14.5" />
 			<height normal="24" grown="28.8" />
@@ -1856,7 +1917,8 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="66" /> <!-- rhand: Gladius -->
+		<equipment rhand="129" /> <!-- rhand: sword of revolution -->
+		<acquire expRate="2.3320428" sp="169" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="809.52639" hpRegen="4.5" mp="417.6" mpRegen="1.8" />
 			<attack physical="137.86467" magical="94.1437" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -1885,6 +1947,33 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="70">
+					<item id="57" min="398" max="795" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="2.3702000379562378">
+					<item id="393" min="1" max="1" chance="1.0427" /> <!-- Mithril Banded Mail -->
+					<item id="1938" min="1" max="1" chance="41.0057" /> <!-- Mithril Banded Mail Material -->
+					<item id="394" min="1" max="1" chance="1.0427" /> <!-- Reinforced Leather Shirt -->
+					<item id="415" min="1" max="1" chance="1.6666" /> <!-- Mithril Banded Gaiters -->
+					<item id="1939" min="1" max="1" chance="53.5758" /> <!-- Mithril Banded Gaiters Material -->
+					<item id="416" min="1" max="1" chance="1.6665" /> <!-- Reinforced Leather Gaiters -->
+				</group>
+				<group chance="76.78670120239258">
+					<item id="1870" min="1" max="1" chance="25.8585" /> <!-- Coal -->
+					<item id="1865" min="1" max="1" chance="25.8585" /> <!-- Varnish -->
+					<item id="1874" min="1" max="1" chance="1.7239" /> <!-- Oriharukon Ore -->
+					<item id="2980" min="1" max="1" chance="3.4616" /> <!-- Recipe: Brigandine Gauntlets -->
+					<item id="1341" min="20" max="60" chance="43.0975" /> <!-- Bone Arrow -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2972" min="1" max="1" chance="10.0438" /> <!-- Recipe: Brigandine Gaiters -->
+				<item id="2976" min="1" max="1" chance="24.6263" /> <!-- Recipe: Manticore Skin Boots -->
+				<item id="1901" min="1" max="1" chance="26.0274" /> <!-- Tiger's Eye Earring Stone -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="12" grown="14.5" />
 			<height normal="24" grown="28.8" />
@@ -1899,6 +1988,7 @@
 		</parameters>
 		<race>ANIMAL</race>
 		<sex>MALE</sex>
+		<acquire expRate="1.1553408" sp="119" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1050.81652" hpRegen="5.5" mp="531.0" mpRegen="2.1" />
 			<attack physical="198.34591" magical="135.44454" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -1926,6 +2016,30 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="70">
+					<item id="57" min="368" max="733" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.5">
+					<item id="318" min="1" max="1" chance="1.9754" /> <!-- Crucifix of Blood -->
+					<item id="2042" min="1" max="1" chance="98.0246" /> <!-- Crucifix of Blood Piece -->
+				</group>
+				<group chance="35">
+					<item id="1865" min="1" max="1" chance="42.7143" /> <!-- Varnish -->
+					<item id="1870" min="1" max="1" chance="42.7143" /> <!-- Coal -->
+					<item id="1879" min="1" max="1" chance="7.119" /> <!-- Cokes -->
+					<item id="1875" min="1" max="1" chance="2.8476" /> <!-- Stone of Purity -->
+					<item id="2285" min="1" max="1" chance="0.2373" /> <!-- Recipe: Claymore -->
+					<item id="2208" min="1" max="1" chance="4.3675" /> <!-- Recipe: Ogre Power Gauntlets -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2145" min="1" max="1" chance="12" /> <!-- Recipe: Mithril Alloy -->
+				<item id="1904" min="1" max="1" chance="16" /> <!-- Elven Necklace Beads -->
+				<item id="1865" min="1" max="1" chance="100" /> <!-- Varnish -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="35" />
 			<height normal="27" />
@@ -1941,6 +2055,7 @@
 		<race>GIANT</race>
 		<sex>MALE</sex>
 		<equipment rhand="88" /> <!-- rhand: Morning Star -->
+		<acquire expRate="2.0768832" sp="368" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1324.01623" hpRegen="5.5" mp="692.4" mpRegen="2.1" />
 			<attack physical="275.82705" magical="188.35412" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -1968,6 +2083,43 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="599" max="1219" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.42619999945163727">
+					<item id="73" min="1" max="1" chance="0.336" /> <!-- Shamshir -->
+					<item id="2077" min="1" max="1" chance="24.664" /> <!-- Shamshir Blade -->
+					<item id="74" min="1" max="1" chance="0.336" /> <!-- Katana -->
+					<item id="2078" min="1" max="1" chance="24.664" /> <!-- Katana Blade -->
+					<item id="131" min="1" max="1" chance="0.336" /> <!-- Spirit Sword -->
+					<item id="2080" min="1" max="1" chance="24.664" /> <!-- Spirit Sword Blade -->
+					<item id="133" min="1" max="1" chance="0.336" /> <!-- Raid Sword -->
+					<item id="2081" min="1" max="1" chance="24.664" /> <!-- Raid Sword Blade -->
+				</group>
+				<group chance="30.687700271606445">
+					<item id="1866" min="1" max="1" chance="21.9569" /> <!-- Suede -->
+					<item id="1871" min="1" max="1" chance="32.9353" /> <!-- Charcoal -->
+					<item id="5220" min="1" max="1" chance="1.3174" /> <!-- Metal Hardener -->
+					<item id="1885" min="1" max="1" chance="2.7446" /> <!-- High-Grade Suede -->
+					<item id="4041" min="1" max="1" chance="0.2864" /> <!-- Mold Hardener -->
+					<item id="2336" min="1" max="1" chance="0.0766" /> <!-- Recipe: Nirvana Axe -->
+					<item id="2508" min="1" max="1" chance="27.4461" /> <!-- Cursed Bone -->
+					<item id="2351" min="1" max="1" chance="0.0689" /> <!-- Recipe: Scorpion -->
+					<item id="6668" min="1" max="1" chance="11.7626" /> <!-- Deluxe Chest Key - Grade 4 -->
+					<item id="8724" min="1" max="1" chance="1.0978" /> <!-- Life Stone - Level 49 -->
+					<item id="8734" min="1" max="1" chance="0.2745" /> <!-- Mid-Grade Life Stone - Level 49 -->
+					<item id="8744" min="1" max="1" chance="0.0274" /> <!-- High-Grade Life Stone - Level 49 -->
+					<item id="8754" min="1" max="1" chance="0.0055" /> <!-- Top-Grade Life Stone - Level 49 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2335" min="1" max="1" chance="0.7525" /> <!-- Recipe: War Axe -->
+				<item id="2968" min="1" max="1" chance="2.0228" /> <!-- Dwarven War Hammer Head -->
+				<item id="951" min="1" max="1" chance="0.5756" /> <!-- Scroll: Enchant Weapon (C-Grade) -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="15" />
 			<height normal="40" />
@@ -1983,6 +2135,7 @@
 		<race>GIANT</race>
 		<sex>MALE</sex>
 		<equipment rhand="88" /> <!-- rhand: Morning Star -->
+		<acquire expRate="2.0768832" sp="368" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1324.01623" hpRegen="5.5" mp="692.4" mpRegen="2.1" />
 			<attack physical="275.82705" magical="188.35412" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2010,6 +2163,43 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="599" max="1219" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.42619999945163727">
+					<item id="73" min="1" max="1" chance="0.336" /> <!-- Shamshir -->
+					<item id="2077" min="1" max="1" chance="24.664" /> <!-- Shamshir Blade -->
+					<item id="74" min="1" max="1" chance="0.336" /> <!-- Katana -->
+					<item id="2078" min="1" max="1" chance="24.664" /> <!-- Katana Blade -->
+					<item id="131" min="1" max="1" chance="0.336" /> <!-- Spirit Sword -->
+					<item id="2080" min="1" max="1" chance="24.664" /> <!-- Spirit Sword Blade -->
+					<item id="133" min="1" max="1" chance="0.336" /> <!-- Raid Sword -->
+					<item id="2081" min="1" max="1" chance="24.664" /> <!-- Raid Sword Blade -->
+				</group>
+				<group chance="30.687700271606445">
+					<item id="1866" min="1" max="1" chance="21.9569" /> <!-- Suede -->
+					<item id="1871" min="1" max="1" chance="32.9353" /> <!-- Charcoal -->
+					<item id="5220" min="1" max="1" chance="1.3174" /> <!-- Metal Hardener -->
+					<item id="1885" min="1" max="1" chance="2.7446" /> <!-- High-Grade Suede -->
+					<item id="4041" min="1" max="1" chance="0.2864" /> <!-- Mold Hardener -->
+					<item id="2336" min="1" max="1" chance="0.0766" /> <!-- Recipe: Nirvana Axe -->
+					<item id="2508" min="1" max="1" chance="27.4461" /> <!-- Cursed Bone -->
+					<item id="2351" min="1" max="1" chance="0.0689" /> <!-- Recipe: Scorpion -->
+					<item id="6668" min="1" max="1" chance="11.7626" /> <!-- Deluxe Chest Key - Grade 4 -->
+					<item id="8724" min="1" max="1" chance="1.0978" /> <!-- Life Stone - Level 49 -->
+					<item id="8734" min="1" max="1" chance="0.2745" /> <!-- Mid-Grade Life Stone - Level 49 -->
+					<item id="8744" min="1" max="1" chance="0.0274" /> <!-- High-Grade Life Stone - Level 49 -->
+					<item id="8754" min="1" max="1" chance="0.0055" /> <!-- Top-Grade Life Stone - Level 49 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2335" min="1" max="1" chance="0.7525" /> <!-- Recipe: War Axe -->
+				<item id="2968" min="1" max="1" chance="2.0228" /> <!-- Dwarven War Hammer Head -->
+				<item id="951" min="1" max="1" chance="0.5756" /> <!-- Scroll: Enchant Weapon (C-Grade) -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="15" />
 			<height normal="40" />
@@ -2025,6 +2215,7 @@
 		<race>GIANT</race>
 		<sex>MALE</sex>
 		<equipment rhand="88" /> <!-- rhand: Morning Star -->
+		<acquire expRate="2.0768832" sp="368" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1324.01623" hpRegen="5.5" mp="692.4" mpRegen="2.1" />
 			<attack physical="275.82705" magical="188.35412" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2052,6 +2243,43 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="599" max="1219" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.42619999945163727">
+					<item id="73" min="1" max="1" chance="0.336" /> <!-- Shamshir -->
+					<item id="2077" min="1" max="1" chance="24.664" /> <!-- Shamshir Blade -->
+					<item id="74" min="1" max="1" chance="0.336" /> <!-- Katana -->
+					<item id="2078" min="1" max="1" chance="24.664" /> <!-- Katana Blade -->
+					<item id="131" min="1" max="1" chance="0.336" /> <!-- Spirit Sword -->
+					<item id="2080" min="1" max="1" chance="24.664" /> <!-- Spirit Sword Blade -->
+					<item id="133" min="1" max="1" chance="0.336" /> <!-- Raid Sword -->
+					<item id="2081" min="1" max="1" chance="24.664" /> <!-- Raid Sword Blade -->
+				</group>
+				<group chance="30.687700271606445">
+					<item id="1866" min="1" max="1" chance="21.9569" /> <!-- Suede -->
+					<item id="1871" min="1" max="1" chance="32.9353" /> <!-- Charcoal -->
+					<item id="5220" min="1" max="1" chance="1.3174" /> <!-- Metal Hardener -->
+					<item id="1885" min="1" max="1" chance="2.7446" /> <!-- High-Grade Suede -->
+					<item id="4041" min="1" max="1" chance="0.2864" /> <!-- Mold Hardener -->
+					<item id="2336" min="1" max="1" chance="0.0766" /> <!-- Recipe: Nirvana Axe -->
+					<item id="2508" min="1" max="1" chance="27.4461" /> <!-- Cursed Bone -->
+					<item id="2351" min="1" max="1" chance="0.0689" /> <!-- Recipe: Scorpion -->
+					<item id="6668" min="1" max="1" chance="11.7626" /> <!-- Deluxe Chest Key - Grade 4 -->
+					<item id="8724" min="1" max="1" chance="1.0978" /> <!-- Life Stone - Level 49 -->
+					<item id="8734" min="1" max="1" chance="0.2745" /> <!-- Mid-Grade Life Stone - Level 49 -->
+					<item id="8744" min="1" max="1" chance="0.0274" /> <!-- High-Grade Life Stone - Level 49 -->
+					<item id="8754" min="1" max="1" chance="0.0055" /> <!-- Top-Grade Life Stone - Level 49 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2335" min="1" max="1" chance="0.7525" /> <!-- Recipe: War Axe -->
+				<item id="2968" min="1" max="1" chance="2.0228" /> <!-- Dwarven War Hammer Head -->
+				<item id="951" min="1" max="1" chance="0.5756" /> <!-- Scroll: Enchant Weapon (C-Grade) -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="15" />
 			<height normal="40" />
@@ -2067,6 +2295,7 @@
 		<race>GIANT</race>
 		<sex>MALE</sex>
 		<equipment rhand="88" /> <!-- rhand: Morning Star -->
+		<acquire expRate="2.0768832" sp="368" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1324.01623" hpRegen="5.5" mp="692.4" mpRegen="2.1" />
 			<attack physical="275.82705" magical="188.35412" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2094,6 +2323,43 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="599" max="1219" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.42619999945163727">
+					<item id="73" min="1" max="1" chance="0.336" /> <!-- Shamshir -->
+					<item id="2077" min="1" max="1" chance="24.664" /> <!-- Shamshir Blade -->
+					<item id="74" min="1" max="1" chance="0.336" /> <!-- Katana -->
+					<item id="2078" min="1" max="1" chance="24.664" /> <!-- Katana Blade -->
+					<item id="131" min="1" max="1" chance="0.336" /> <!-- Spirit Sword -->
+					<item id="2080" min="1" max="1" chance="24.664" /> <!-- Spirit Sword Blade -->
+					<item id="133" min="1" max="1" chance="0.336" /> <!-- Raid Sword -->
+					<item id="2081" min="1" max="1" chance="24.664" /> <!-- Raid Sword Blade -->
+				</group>
+				<group chance="30.687700271606445">
+					<item id="1866" min="1" max="1" chance="21.9569" /> <!-- Suede -->
+					<item id="1871" min="1" max="1" chance="32.9353" /> <!-- Charcoal -->
+					<item id="5220" min="1" max="1" chance="1.3174" /> <!-- Metal Hardener -->
+					<item id="1885" min="1" max="1" chance="2.7446" /> <!-- High-Grade Suede -->
+					<item id="4041" min="1" max="1" chance="0.2864" /> <!-- Mold Hardener -->
+					<item id="2336" min="1" max="1" chance="0.0766" /> <!-- Recipe: Nirvana Axe -->
+					<item id="2508" min="1" max="1" chance="27.4461" /> <!-- Cursed Bone -->
+					<item id="2351" min="1" max="1" chance="0.0689" /> <!-- Recipe: Scorpion -->
+					<item id="6668" min="1" max="1" chance="11.7626" /> <!-- Deluxe Chest Key - Grade 4 -->
+					<item id="8724" min="1" max="1" chance="1.0978" /> <!-- Life Stone - Level 49 -->
+					<item id="8734" min="1" max="1" chance="0.2745" /> <!-- Mid-Grade Life Stone - Level 49 -->
+					<item id="8744" min="1" max="1" chance="0.0274" /> <!-- High-Grade Life Stone - Level 49 -->
+					<item id="8754" min="1" max="1" chance="0.0055" /> <!-- Top-Grade Life Stone - Level 49 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2335" min="1" max="1" chance="0.7525" /> <!-- Recipe: War Axe -->
+				<item id="2968" min="1" max="1" chance="2.0228" /> <!-- Dwarven War Hammer Head -->
+				<item id="951" min="1" max="1" chance="0.5756" /> <!-- Scroll: Enchant Weapon (C-Grade) -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="15" />
 			<height normal="40" />
@@ -2109,6 +2375,7 @@
 		<race>GIANT</race>
 		<sex>MALE</sex>
 		<equipment rhand="88" /> <!-- rhand: Morning Star -->
+		<acquire expRate="2.0768832" sp="368" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1324.01623" hpRegen="5.5" mp="692.4" mpRegen="2.1" />
 			<attack physical="275.82705" magical="188.35412" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2136,6 +2403,43 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="599" max="1219" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.42619999945163727">
+					<item id="73" min="1" max="1" chance="0.336" /> <!-- Shamshir -->
+					<item id="2077" min="1" max="1" chance="24.664" /> <!-- Shamshir Blade -->
+					<item id="74" min="1" max="1" chance="0.336" /> <!-- Katana -->
+					<item id="2078" min="1" max="1" chance="24.664" /> <!-- Katana Blade -->
+					<item id="131" min="1" max="1" chance="0.336" /> <!-- Spirit Sword -->
+					<item id="2080" min="1" max="1" chance="24.664" /> <!-- Spirit Sword Blade -->
+					<item id="133" min="1" max="1" chance="0.336" /> <!-- Raid Sword -->
+					<item id="2081" min="1" max="1" chance="24.664" /> <!-- Raid Sword Blade -->
+				</group>
+				<group chance="30.687700271606445">
+					<item id="1866" min="1" max="1" chance="21.9569" /> <!-- Suede -->
+					<item id="1871" min="1" max="1" chance="32.9353" /> <!-- Charcoal -->
+					<item id="5220" min="1" max="1" chance="1.3174" /> <!-- Metal Hardener -->
+					<item id="1885" min="1" max="1" chance="2.7446" /> <!-- High-Grade Suede -->
+					<item id="4041" min="1" max="1" chance="0.2864" /> <!-- Mold Hardener -->
+					<item id="2336" min="1" max="1" chance="0.0766" /> <!-- Recipe: Nirvana Axe -->
+					<item id="2508" min="1" max="1" chance="27.4461" /> <!-- Cursed Bone -->
+					<item id="2351" min="1" max="1" chance="0.0689" /> <!-- Recipe: Scorpion -->
+					<item id="6668" min="1" max="1" chance="11.7626" /> <!-- Deluxe Chest Key - Grade 4 -->
+					<item id="8724" min="1" max="1" chance="1.0978" /> <!-- Life Stone - Level 49 -->
+					<item id="8734" min="1" max="1" chance="0.2745" /> <!-- Mid-Grade Life Stone - Level 49 -->
+					<item id="8744" min="1" max="1" chance="0.0274" /> <!-- High-Grade Life Stone - Level 49 -->
+					<item id="8754" min="1" max="1" chance="0.0055" /> <!-- Top-Grade Life Stone - Level 49 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2335" min="1" max="1" chance="0.7525" /> <!-- Recipe: War Axe -->
+				<item id="2968" min="1" max="1" chance="2.0228" /> <!-- Dwarven War Hammer Head -->
+				<item id="951" min="1" max="1" chance="0.5756" /> <!-- Scroll: Enchant Weapon (C-Grade) -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="15" />
 			<height normal="40" />
@@ -2150,6 +2454,7 @@
 		</parameters>
 		<race>FAIRY</race>
 		<sex>MALE</sex>
+		<acquire expRate="2.09676" sp="25" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="199.62322" hpRegen="2.5" mp="124.48" mpRegen="1.2" />
 			<attack physical="22.99606" magical="15.70333" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2177,6 +2482,30 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="120" max="193" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.54199999868869781">
+					<item id="24" min="1" max="1" chance="19.255" /> <!-- Bone Breastplate -->
+					<item id="390" min="1" max="1" chance="19.255" /> <!-- Cotton Shirt -->
+					<item id="31" min="1" max="1" chance="30.745" /> <!-- Bone Gaiters -->
+					<item id="412" min="1" max="1" chance="30.745" /> <!-- Cotton Pants -->
+				</group>
+				<group chance="23.775400161743164">
+					<item id="1864" min="1" max="1" chance="61.7284" /> <!-- Stem -->
+					<item id="1869" min="1" max="1" chance="30.8642" /> <!-- Iron Ore -->
+					<item id="2141" min="1" max="1" chance="6.1728" /> <!-- Recipe: Silver Mold -->
+					<item id="5273" min="1" max="1" chance="1.2346" /> <!-- Recipe: Greater Spiritshot (D) Compressed Package(100%) -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2150" min="1" max="1" chance="23.553" /> <!-- Recipe: Blue Diamond Necklace -->
+				<item id="1924" min="1" max="1" chance="15.938" /> <!-- Leather Helmet Design -->
+				<item id="1864" min="1" max="1" chance="100" /> <!-- Stem -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="10" />
 			<height normal="15" />
@@ -2191,7 +2520,8 @@
 		</parameters>
 		<race>UNDEAD</race>
 		<sex>MALE</sex>
-		<equipment rhand="217" /> <!-- rhand: Shining Knife -->
+		<equipment rhand="242" /> <!-- rhand: soulfire dirk -->
+		<acquire expRate="1.8755364" sp="248" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1094.28943" hpRegen="5.5" mp="557.4" mpRegen="2.1" />
 			<attack physical="210.04832" magical="143.43577" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2220,6 +2550,35 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="475" max="974" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.40520000159740448">
+					<item id="281" min="1" max="1" chance="1.5765" /> <!-- Crystallized Ice Bow -->
+					<item id="2074" min="1" max="1" chance="98.4235" /> <!-- Crystallized Ice Bow Shaft -->
+				</group>
+				<group chance="30.708000183105469">
+					<item id="1872" min="1" max="1" chance="44.018" /> <!-- Animal Bone -->
+					<item id="1867" min="1" max="1" chance="44.018" /> <!-- Animal Skin -->
+					<item id="1881" min="1" max="1" chance="4.4018" /> <!-- Coarse Bone Powder -->
+					<item id="1875" min="1" max="1" chance="2.2009" /> <!-- Stone of Purity -->
+					<item id="2209" min="1" max="1" chance="2.4822" /> <!-- Recipe: Eldarake -->
+					<item id="2205" min="1" max="1" chance="1.0447" /> <!-- Recipe: Chain Gaiters -->
+					<item id="2299" min="1" max="1" chance="0.1442" /> <!-- Recipe: Big Hammer -->
+					<item id="8723" min="1" max="1" chance="1.3205" /> <!-- Life Stone - Level 46 -->
+					<item id="8733" min="1" max="1" chance="0.3301" /> <!-- Mid-Grade Life Stone - Level 46 -->
+					<item id="8743" min="1" max="1" chance="0.033" /> <!-- High-Grade Life Stone - Level 46 -->
+					<item id="8753" min="1" max="1" chance="0.0066" /> <!-- Top-Grade Life Stone - Level 46 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="1874" min="1" max="1" chance="16.0465" /> <!-- Oriharukon Ore -->
+				<item id="1875" min="1" max="1" chance="16.0465" /> <!-- Stone of Purity -->
+				<item id="1905" min="1" max="1" chance="22.741" /> <!-- Omen Beast's Eye Earring Gemstone -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="11" />
 			<height normal="28.5" />
@@ -2234,7 +2593,8 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="2507" /> <!-- rhand: Lizardspear -->
+		<equipment rhand="292" /> <!-- rhand: pike -->
+		<acquire expRate="2.8792176" sp="119" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="543.79576" hpRegen="3.5" mp="300.96" mpRegen="1.5" />
 			<attack physical="80.54056" magical="54.99876" random="10" critical="8" accuracy="0" attackSpeed="253" reuseDelay="1500" type="BOW" range="1100" distance="10" width="0" />
@@ -2262,6 +2622,59 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="332" max="650" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.05759999968111515">
+					<item id="220" min="1" max="1" chance="100" /> <!-- Crafted Dagger -->
+				</group>
+				<group chance="54.76409912109375">
+					<item id="1870" min="1" max="1" chance="31.3155" /> <!-- Coal -->
+					<item id="1865" min="1" max="1" chance="31.3155" /> <!-- Varnish -->
+					<item id="1874" min="1" max="1" chance="2.0877" /> <!-- Oriharukon Ore -->
+					<item id="2263" min="1" max="1" chance="0.4863" /> <!-- Recipe: Dwarven Trident -->
+					<item id="1834" min="1" max="1" chance="34.795" /> <!-- Emergency Dressing -->
+				</group>
+				<group chance="42.0">
+					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
+					<item id="8601" min="1" max="1" chance="38" /> <!-- Greater Herb of Life -->
+					<item id="8602" min="1" max="1" chance="7" /> <!-- Superior Herb of Life -->
+				</group>
+				<group chance="11.0">
+					<item id="8603" min="1" max="1" chance="50" /> <!-- Herb of Mana -->
+					<item id="8604" min="1" max="1" chance="43" /> <!-- Greater Herb of Mana -->
+					<item id="8605" min="1" max="1" chance="7" /> <!-- Superior Herb of Mana -->
+				</group>
+				<group chance="25.0">
+					<item id="8606" min="1" max="1" chance="20" /> <!-- Herb of Power -->
+					<item id="8608" min="1" max="1" chance="20" /> <!-- Herb of Alacrity -->
+					<item id="8610" min="1" max="1" chance="20" /> <!-- Herb of Critical Attack - Probability -->
+					<item id="10655" min="1" max="1" chance="20" /> <!-- Herb of Vampiric Rage -->
+					<item id="10656" min="1" max="1" chance="20" /> <!-- Herb of Critical Attack - Power -->
+				</group>
+				<group chance="10.0">
+					<item id="8607" min="1" max="1" chance="50" /> <!-- Herb of Magic -->
+					<item id="8609" min="1" max="1" chance="50" /> <!-- Herb of Casting Spd. -->
+				</group>
+				<group chance="1.0">
+					<item id="8612" min="1" max="1" chance="33" /> <!-- Herb of the Warrior -->
+					<item id="8613" min="1" max="1" chance="33" /> <!-- Herb of the Mystic -->
+					<item id="8614" min="1" max="1" chance="34" /> <!-- Herb of Recovery -->
+				</group>
+				<group chance="11.0">
+					<item id="8611" min="1" max="1" chance="94" /> <!-- Herb of Speed -->
+					<item id="10657" min="1" max="1" chance="3" /> <!-- Herb of Doubt -->
+					<item id="13028" min="1" max="1" chance="3" /> <!-- Vitality Replenishing Herb -->
+				</group>
+			</death>
+			<corpse>
+				<item id="1869" min="1" max="1" chance="100" /> <!-- Iron Ore -->
+				<item id="1899" min="1" max="1" chance="24.103" /> <!-- Necklace of Devotion Chain -->
+				<item id="2152" min="1" max="1" chance="26.6371" /> <!-- Recipe: Enchanted Necklace -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="10" grown="12" />
 			<height normal="22" grown="27" />
@@ -2276,6 +2689,8 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>FEMALE</sex>
+		<equipment rhand="129" /> <!-- rhand: Sword of revolution -->
+		<acquire expRate="1.8513924" sp="134" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="772.73802" hpRegen="4.5" mp="402.6" mpRegen="1.8" />
 			<attack physical="129.32896" magical="88.31491" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2303,6 +2718,64 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="70">
+					<item id="57" min="316" max="631" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.010700000450015068">
+					<item id="293" min="1" max="1" chance="50" /> <!-- War Hammer -->
+					<item id="296" min="1" max="1" chance="50" /> <!-- Dwarven Pike -->
+				</group>
+				<group chance="22.337200164794922">
+					<item id="1873" min="1" max="1" chance="14.2587" /> <!-- Silver Nugget -->
+					<item id="1868" min="1" max="1" chance="71.2937" /> <!-- Thread -->
+					<item id="1876" min="1" max="1" chance="7.1294" /> <!-- Mithril Ore -->
+					<item id="2979" min="1" max="1" chance="4.772" /> <!-- Recipe: Manticore Skin Gloves -->
+					<item id="2188" min="1" max="1" chance="2.5462" /> <!-- Recipe: Manticore Skin Gaiters -->
+					<item id="1061" min="1" max="4" chance="12" /> <!-- Greater Healing Potion -->
+					<item id="1832" min="1" max="1" chance="19" /> <!-- Greater Antidote -->
+				</group>
+				<group chance="42.0">
+					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
+					<item id="8601" min="1" max="1" chance="38" /> <!-- Greater Herb of Life -->
+					<item id="8602" min="1" max="1" chance="7" /> <!-- Superior Herb of Life -->
+				</group>
+				<group chance="11.0">
+					<item id="8603" min="1" max="1" chance="23" /> <!-- Herb of Mana -->
+					<item id="8604" min="1" max="1" chance="66" /> <!-- Greater Herb of Mana -->
+					<item id="8605" min="1" max="1" chance="11" /> <!-- Superior Herb of Mana -->
+				</group>
+				<group chance="25.0">
+					<item id="8606" min="1" max="1" chance="20" /> <!-- Herb of Power -->
+					<item id="8608" min="1" max="1" chance="20" /> <!-- Herb of Alacrity -->
+					<item id="8610" min="1" max="1" chance="20" /> <!-- Herb of Critical Attack - Probability -->
+					<item id="10655" min="1" max="1" chance="20" /> <!-- Herb of Vampiric Rage -->
+					<item id="10656" min="1" max="1" chance="20" /> <!-- Herb of Critical Attack - Power -->
+				</group>
+				<group chance="10.0">
+					<item id="8607" min="1" max="1" chance="50" /> <!-- Herb of Magic -->
+					<item id="8609" min="1" max="1" chance="50" /> <!-- Herb of Casting Spd. -->
+				</group>
+				<group chance="1.0">
+					<item id="8612" min="1" max="1" chance="33" /> <!-- Herb of the Warrior -->
+					<item id="8613" min="1" max="1" chance="33" /> <!-- Herb of the Mystic -->
+					<item id="8614" min="1" max="1" chance="34" /> <!-- Herb of Recovery -->
+				</group>
+				<group chance="11.0">
+					<item id="8611" min="1" max="1" chance="94" /> <!-- Herb of Speed -->
+					<item id="10657" min="1" max="1" chance="3" /> <!-- Herb of Doubt -->
+					<item id="13028" min="1" max="1" chance="3" /> <!-- Vitality Replenishing Herb -->
+				</group>
+			</death>
+			<corpse>
+				<item id="1879" min="1" max="1" chance="12.4798" /> <!-- Cokes -->
+				<item id="2971" min="1" max="1" chance="4.0042" /> <!-- Recipe: Mithril Scale Gaiters -->
+				<item id="1938" min="1" max="1" chance="5.0339" /> <!-- Mithril Banded Mail Material -->
+				<item id="1061" min="2" max="8" chance="12" /> <!-- Greater Healing Potion -->
+				<item id="1832" min="1" max="1" chance="19" /> <!-- Greater Antidote -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="15" />
 			<height normal="37" />
@@ -2449,6 +2922,7 @@
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
 		<equipment rhand="159" /> <!-- rhand: Bonebreaker -->
+		<acquire expRate="3.3111456" sp="342" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="966.57792" hpRegen="4.5" mp="478.8" mpRegen="1.8" />
 			<attack physical="176.36077" magical="120.43155" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2478,6 +2952,33 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai type="BALANCED" aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="368" max="733" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.56429998874664307">
+					<item id="279" min="1" max="1" chance="1.584" /> <!-- Reinforced Long Bow -->
+					<item id="2040" min="1" max="1" chance="98.416" /> <!-- Reinforced Long Bow Shaft -->
+				</group>
+				<group chance="37.9596004486084">
+					<item id="1875" min="1" max="1" chance="1.7565" /> <!-- Stone of Purity -->
+					<item id="1879" min="1" max="1" chance="4.3913" /> <!-- Cokes -->
+					<item id="1885" min="1" max="1" chance="2.1956" /> <!-- High-Grade Suede -->
+					<item id="5550" min="1" max="1" chance="0.3513" /> <!-- Durable Metal Plate -->
+					<item id="5549" min="1" max="1" chance="2.6348" /> <!-- Metallic Thread -->
+					<item id="2287" min="1" max="1" chance="0.1464" /> <!-- Recipe: Atuba Hammer -->
+					<item id="2293" min="1" max="1" chance="0.1464" /> <!-- Recipe: Glaive -->
+					<item id="2198" min="1" max="1" chance="0.5524" /> <!-- Recipe: Sage's Rag -->
+					<item id="1341" min="10" max="30" chance="87.8253" /> <!-- Bone Arrow -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2202" min="1" max="1" chance="17.893" /> <!-- Recipe: Assault Boots -->
+				<item id="2036" min="1" max="1" chance="1.8804" /> <!-- Skull Breaker Head -->
+				<item id="1902" min="1" max="1" chance="17.8119" /> <!-- Elven Earring Beads -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="13" />
 			<height normal="35" />
@@ -2493,6 +2994,7 @@
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
 		<equipment rhand="221" /> <!-- rhand: Assassin Knife -->
+		<acquire expRate="3.3111456" sp="342" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1008.23781" hpRegen="5.5" mp="504.8" mpRegen="2.1" />
 			<attack physical="187.11878" magical="127.77787" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2520,6 +3022,33 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="368" max="733" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.76429998874664307">
+					<item id="279" min="1" max="1" chance="1.584" /> <!-- Reinforced Long Bow -->
+					<item id="2040" min="1" max="1" chance="98.416" /> <!-- Reinforced Long Bow Shaft -->
+				</group>
+				<group chance="55.9596004486084">
+					<item id="1875" min="1" max="1" chance="1.7565" /> <!-- Stone of Purity -->
+					<item id="1879" min="1" max="1" chance="4.3913" /> <!-- Cokes -->
+					<item id="1885" min="1" max="1" chance="2.1956" /> <!-- High-Grade Suede -->
+					<item id="5550" min="1" max="1" chance="0.3513" /> <!-- Durable Metal Plate -->
+					<item id="5549" min="1" max="1" chance="2.6348" /> <!-- Metallic Thread -->
+					<item id="2287" min="1" max="1" chance="0.1464" /> <!-- Recipe: Atuba Hammer -->
+					<item id="2293" min="1" max="1" chance="0.1464" /> <!-- Recipe: Glaive -->
+					<item id="2198" min="1" max="1" chance="0.5524" /> <!-- Recipe: Sage's Rag -->
+					<item id="1341" min="10" max="30" chance="87.8253" /> <!-- Bone Arrow -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2202" min="1" max="1" chance="26.893" /> <!-- Recipe: Assault Boots -->
+				<item id="2036" min="1" max="1" chance="2.8804" /> <!-- Skull Breaker Head -->
+				<item id="1902" min="1" max="1" chance="26.8119" /> <!-- Elven Earring Beads -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="20" />
 			<height normal="40" />
@@ -2535,6 +3064,7 @@
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
 		<equipment rhand="66" /> <!-- rhand: Gladius -->
+		<acquire expRate="1.9372608" sp="242" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1094.28943" hpRegen="5.5" mp="557.4" mpRegen="2.1" />
 			<attack physical="210.04832" magical="143.43577" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2562,6 +3092,34 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="471" max="957" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.56570001244544983">
+					<item id="70" min="1" max="1" chance="0.8123" /> <!-- Claymore -->
+					<item id="2047" min="1" max="1" chance="49.5227" /> <!-- Claymore Blade -->
+					<item id="2499" min="1" max="1" chance="0.8123" /> <!-- Elven Long Sword -->
+					<item id="2967" min="1" max="1" chance="48.8527" /> <!-- Elven Long Sword Blade -->
+				</group>
+				<group chance="7.5862998962402344">
+					<item id="1895" min="1" max="1" chance="59.6129" /> <!-- Metallic Fiber -->
+					<item id="2164" min="1" max="1" chance="16.0496" /> <!-- Recipe: Ring of Protection -->
+					<item id="5154" min="1" max="1" chance="0.6955" /> <!-- Recipe: Soulshot (C) Compressed Package (100%) -->
+					<item id="2219" min="1" max="1" chance="12.9593" /> <!-- Recipe: Crimson Boots -->
+					<item id="8723" min="1" max="1" chance="8.3458" /> <!-- Life Stone - Level 46 -->
+					<item id="8733" min="1" max="1" chance="2.0865" /> <!-- Mid-Grade Life Stone - Level 46 -->
+					<item id="8743" min="1" max="1" chance="0.2086" /> <!-- High-Grade Life Stone - Level 46 -->
+					<item id="8753" min="1" max="1" chance="0.0418" /> <!-- Top-Grade Life Stone - Level 46 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="3954" min="1" max="1" chance="0.8974" /> <!-- Recipe: Blessed Spiritshot C -->
+				<item id="2314" min="1" max="1" chance="1.0206" /> <!-- Recipe: Body Slasher -->
+				<item id="1884" min="1" max="1" chance="100" /> <!-- Cord -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="9" />
 			<height normal="21.5" />
@@ -2577,6 +3135,7 @@
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
 		<equipment rhand="127" /> <!-- rhand: Crimson Sword -->
+		<acquire expRate="2.1931884" sp="308" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1229.78678" hpRegen="5.5" mp="637.8" mpRegen="2.1" />
 			<attack physical="248.0526" magical="169.38777" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2604,6 +3163,37 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="585" max="1188" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.57250000834465027">
+					<item id="71" min="1" max="1" chance="0.7275" /> <!-- Flamberge -->
+					<item id="2059" min="1" max="1" chance="47.6302" /> <!-- Flamberge Blade -->
+					<item id="72" min="1" max="1" chance="0.7275" /> <!-- Stormbringer -->
+					<item id="2060" min="1" max="1" chance="50.9148" /> <!-- Stormbringer Blade -->
+				</group>
+				<group chance="34.39579963684082">
+					<item id="1868" min="1" max="1" chance="73.0427" /> <!-- Thread -->
+					<item id="1873" min="1" max="1" chance="14.6085" /> <!-- Silver Nugget -->
+					<item id="5549" min="1" max="1" chance="3.6521" /> <!-- Metallic Thread -->
+					<item id="1889" min="1" max="1" chance="2.4348" /> <!-- Compound Braid -->
+					<item id="4044" min="1" max="1" chance="1.2174" /> <!-- Thons -->
+					<item id="3003" min="1" max="1" chance="2.2684" /> <!-- Recipe: Gloves of Seal -->
+					<item id="2214" min="1" max="1" chance="0.9062" /> <!-- Recipe: Dwarven Chain Gaiters -->
+					<item id="8723" min="1" max="1" chance="1.4609" /> <!-- Life Stone - Level 46 -->
+					<item id="8733" min="1" max="1" chance="0.3652" /> <!-- Mid-Grade Life Stone - Level 46 -->
+					<item id="8743" min="1" max="1" chance="0.0365" /> <!-- High-Grade Life Stone - Level 46 -->
+					<item id="8753" min="1" max="1" chance="0.0073" /> <!-- Top-Grade Life Stone - Level 46 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="1959" min="1" max="1" chance="11.9745" /> <!-- Chain Mail Shirt Material -->
+				<item id="1959" min="1" max="1" chance="5.9745" /> <!-- Chain Mail Shirt Material -->
+				<item id="2324" min="1" max="1" chance="1.7728" /> <!-- Recipe: Noble Elven Bow -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="12" grown="14.5" />
 			<height normal="24" grown="28.8" />
@@ -2618,6 +3208,7 @@
 		</parameters>
 		<race>GIANT</race>
 		<sex>MALE</sex>
+		<acquire expRate="1.938816" sp="200" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1094.28943" hpRegen="5.5" mp="557.4" mpRegen="2.1" />
 			<attack physical="210.04832" magical="143.43577" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2645,6 +3236,33 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="425" max="848" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="1">
+					<item id="21731" min="1" max="1" chance="0.866" /> <!-- Maingauche - Event -->
+					<item id="2038" min="1" max="1" chance="49.134" /> <!-- Maingauche Edge -->
+					<item id="1660" min="1" max="1" chance="0.866" /> <!-- Cursed Maingauche -->
+					<item id="2044" min="1" max="1" chance="49.134" /> <!-- Cursed Maingauche Edge -->
+				</group>
+				<group chance="75">
+					<item id="1869" min="1" max="1" chance="30.1174" /> <!-- Iron Ore -->
+					<item id="1864" min="1" max="1" chance="60.2347" /> <!-- Stem -->
+					<item id="1880" min="1" max="1" chance="3.0117" /> <!-- Steel -->
+					<item id="5550" min="1" max="1" chance="0.4016" /> <!-- Durable Metal Plate -->
+					<item id="5473" min="1" max="1" chance="2.1512" /> <!-- Recipe: Durable Metal Plate(100%) -->
+					<item id="2208" min="1" max="1" chance="3.0795" /> <!-- Recipe: Ogre Power Gauntlets -->
+					<item id="6036" min="1" max="1" chance="1.0039" /> <!-- Greater Magic Haste Potion -->
+				</group>
+			</death>
+			<corpse>
+				<item id="1941" min="1" max="1" chance="10.0488" /> <!-- Brigandine Temper -->
+				<item id="2146" min="1" max="1" chance="17.272" /> <!-- Recipe: Artisan's frame -->
+				<item id="1902" min="1" max="1" chance="25.3148" /> <!-- Elven Earring Beads -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="17" grown="20" />
 			<height normal="39" grown="48" />
@@ -2660,6 +3278,7 @@
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
 		<equipment rhand="69" /> <!-- rhand: Bastard Sword -->
+		<acquire expRate="3.64938" sp="484" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1183.80594" hpRegen="5.5" mp="610.8" mpRegen="2.1" />
 			<attack physical="234.89829" magical="160.40508" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2687,6 +3306,38 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="925" max="1895" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="5.3048999309539795">
+					<item id="354" min="1" max="1" chance="0.6196" /> <!-- Chain Mail Shirt -->
+					<item id="1959" min="1" max="1" chance="32.4262" /> <!-- Chain Mail Shirt Material -->
+					<item id="381" min="1" max="1" chance="0.9912" /> <!-- Chain Gaiters -->
+					<item id="1960" min="1" max="1" chance="65.963" /> <!-- Chain Gaiters Part -->
+				</group>
+				<group chance="57.881399154663086">
+					<item id="1872" min="1" max="1" chance="42.7009" /> <!-- Animal Bone -->
+					<item id="1867" min="1" max="1" chance="42.7009" /> <!-- Animal Skin -->
+					<item id="1881" min="1" max="1" chance="4.2701" /> <!-- Coarse Bone Powder -->
+					<item id="1875" min="1" max="1" chance="2.135" /> <!-- Stone of Purity -->
+					<item id="2215" min="1" max="1" chance="0.408" /> <!-- Recipe: Robe of Seal -->
+					<item id="2225" min="1" max="1" chance="0.6962" /> <!-- Recipe: Demon's Stockings -->
+					<item id="2321" min="1" max="1" chance="0.1116" /> <!-- Recipe: Stiletto -->
+					<item id="2251" min="1" max="1" chance="5.3376" /> <!-- Recipe: Steel Arrow -->
+					<item id="8723" min="1" max="1" chance="1.281" /> <!-- Life Stone - Level 46 -->
+					<item id="8733" min="1" max="1" chance="0.3203" /> <!-- Mid-Grade Life Stone - Level 46 -->
+					<item id="8743" min="1" max="1" chance="0.032" /> <!-- High-Grade Life Stone - Level 46 -->
+					<item id="8753" min="1" max="1" chance="0.0064" /> <!-- Top-Grade Life Stone - Level 46 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2213" min="1" max="1" chance="7.6467" /> <!-- Recipe: Dwarven Chain Mail Shirt -->
+				<item id="1880" min="1" max="1" chance="47.485" /> <!-- Steel -->
+				<item id="1908" min="1" max="1" chance="44.2396" /> <!-- Moonstone Earring Wire -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="12" grown="14" />
 			<height normal="24" grown="28.8" />
@@ -2701,6 +3352,7 @@
 		</parameters>
 		<race>BEAST</race>
 		<sex>FEMALE</sex>
+		<acquire expRate="1.74528" sp="310" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1520.38155" hpRegen="6.5" mp="804.0" mpRegen="2.4" />
 			<attack physical="337.18867" magical="230.25615" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2728,6 +3380,39 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="551" max="1124" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="5.550299882888794">
+					<item id="853" min="1" max="1" chance="0.5374" /> <!-- Earring of Protection -->
+					<item id="1911" min="1" max="1" chance="30.08" /> <!-- Earring of Protection Gemstone -->
+					<item id="916" min="1" max="1" chance="0.4032" /> <!-- Necklace of Protection -->
+					<item id="1913" min="1" max="1" chance="24.5926" /> <!-- Necklace of Protection Gemstone -->
+					<item id="884" min="1" max="1" chance="0.8064" /> <!-- Ring of Protection -->
+					<item id="1912" min="1" max="1" chance="43.5804" /> <!-- Ring of Protection Gemstone -->
+				</group>
+				<group chance="20.244999885559082">
+					<item id="1871" min="1" max="1" chance="54.9097" /> <!-- Charcoal -->
+					<item id="1866" min="1" max="1" chance="36.6065" /> <!-- Suede -->
+					<item id="1877" min="1" max="1" chance="2.1964" /> <!-- Adamantite Nugget -->
+					<item id="4041" min="1" max="1" chance="0.4775" /> <!-- Mold Hardener -->
+					<item id="4040" min="1" max="1" chance="1.0982" /> <!-- Mold Lubricant -->
+					<item id="2340" min="1" max="1" chance="0.1277" /> <!-- Recipe: Pa'agrian Hammer -->
+					<item id="3006" min="1" max="1" chance="2.2412" /> <!-- Recipe: Demon's Gloves -->
+					<item id="8724" min="1" max="1" chance="1.8303" /> <!-- Life Stone - Level 49 -->
+					<item id="8734" min="1" max="1" chance="0.4576" /> <!-- Mid-Grade Life Stone - Level 49 -->
+					<item id="8744" min="1" max="1" chance="0.0458" /> <!-- High-Grade Life Stone - Level 49 -->
+					<item id="8754" min="1" max="1" chance="0.0091" /> <!-- Top-Grade Life Stone - Level 49 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="1981" min="1" max="1" chance="16.2154" /> <!-- Mithril Gauntlets Design -->
+				<item id="4123" min="1" max="1" chance="12.2072" /> <!-- Recipe: Maestro Anvil Lock (100%) -->
+				<item id="951" min="1" max="1" chance="0.5539" /> <!-- Scroll: Enchant Weapon (C-Grade) -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="10" />
 			<height normal="25" />
@@ -2743,6 +3428,7 @@
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
 		<equipment rhand="179" /> <!-- rhand: Mace of Prayer -->
+		<acquire expRate="3.4923048" sp="658" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1470.41596" hpRegen="6.5" mp="775.8" mpRegen="2.4" />
 			<attack physical="321.13207" magical="219.29157" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2770,6 +3456,36 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="1152" max="2343" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.7433000147342682">
+					<item id="326" min="1" max="1" chance="1.0623" /> <!-- Heathen's Book -->
+					<item id="2110" min="1" max="1" chance="98.9377" /> <!-- Heathen's Book Page -->
+				</group>
+				<group chance="35.83679962158203">
+					<item id="1871" min="1" max="1" chance="56.2935" /> <!-- Charcoal -->
+					<item id="1866" min="1" max="1" chance="37.529" /> <!-- Suede -->
+					<item id="1877" min="1" max="1" chance="2.2517" /> <!-- Adamantite Nugget -->
+					<item id="4041" min="1" max="1" chance="0.4895" /> <!-- Mold Hardener -->
+					<item id="4040" min="1" max="1" chance="1.1259" /> <!-- Mold Lubricant -->
+					<item id="2354" min="1" max="1" chance="0.0918" /> <!-- Recipe: Deadman's Staff -->
+					<item id="4609" min="1" max="1" chance="0.1251" /> <!-- Greater Dye of MEN <Men+3 Int-3> -->
+					<item id="2358" min="1" max="1" chance="0.0918" /> <!-- Recipe: Great Pata -->
+					<item id="8725" min="1" max="1" chance="1.5637" /> <!-- Life Stone - Level 52 -->
+					<item id="8735" min="1" max="1" chance="0.3909" /> <!-- Mid-Grade Life Stone - Level 52 -->
+					<item id="8745" min="1" max="1" chance="0.0391" /> <!-- High-Grade Life Stone - Level 52 -->
+					<item id="8755" min="1" max="1" chance="0.008" /> <!-- Top-Grade Life Stone - Level 52 -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2231" min="1" max="1" chance="2.2559" /> <!-- Recipe: Full Plate Armor -->
+				<item id="1880" min="1" max="1" chance="58.1368" /> <!-- Steel -->
+				<item id="2169" min="1" max="1" chance="10.157" /> <!-- Recipe: Necklace of Seal -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="13" />
 			<height normal="31.5" />
@@ -2785,6 +3501,7 @@
 		<race>GIANT</race>
 		<sex>MALE</sex>
 		<equipment rhand="88" /> <!-- rhand: Morning Star -->
+		<acquire expRate="2.05632" sp="212" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1094.28943" hpRegen="5.5" mp="557.4" mpRegen="2.1" />
 			<attack physical="210.04832" magical="143.43577" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -2812,6 +3529,34 @@
 		</skillList>
 		<exCrtEffect>true</exCrtEffect>
 		<ai aggroRange="1000" clanHelpRange="300" />
+		<dropLists>
+			<death>
+				<group chance="100">
+					<item id="57" min="451" max="900" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="6.1203999519348145">
+					<item id="629" min="1" max="1" chance="0.9888" /> <!-- Kite Shield -->
+					<item id="1947" min="1" max="1" chance="42.9244" /> <!-- Kite Shield Fragment -->
+					<item id="2493" min="1" max="1" chance="0.9888" /> <!-- Brigandine Shield -->
+					<item id="2929" min="1" max="1" chance="42.9244" /> <!-- Brigandine Shield Fragment -->
+					<item id="2411" min="1" max="1" chance="0.6925" /> <!-- Brigandine Helmet -->
+					<item id="2922" min="1" max="1" chance="11.4811" /> <!-- Brigandine Helmet Design -->
+				</group>
+				<group chance="49.593000411987305">
+					<item id="1868" min="1" max="1" chance="75.653" /> <!-- Thread -->
+					<item id="1873" min="1" max="1" chance="15.1306" /> <!-- Silver Nugget -->
+					<item id="5549" min="1" max="1" chance="3.7826" /> <!-- Metallic Thread -->
+					<item id="1889" min="1" max="1" chance="2.5218" /> <!-- Compound Braid -->
+					<item id="5231" min="1" max="1" chance="2.7019" /> <!-- Recipe: Metal Hardener (100%) -->
+					<item id="2286" min="1" max="1" chance="0.2101" /> <!-- Recipe: Bonebreaker -->
+				</group>
+			</death>
+			<corpse>
+				<item id="1945" min="1" max="1" chance="17.5765" /> <!-- Mithril Stocking Design -->
+				<item id="1873" min="1" max="1" chance="86.191" /> <!-- Silver Nugget -->
+				<item id="1825" min="1" max="1" chance="15.7127" /> <!-- Recipe: Oriharukon -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="17" />
 			<height normal="35" />
@@ -3930,6 +4675,7 @@
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
 		<equipment rhand="69" /> <!-- rhand: Bastard Sword -->
+		<acquire expRate="3.4896876" sp="119" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="487.5704" hpRegen="3.5" mp="273.0" mpRegen="1.5" />
 			<attack physical="69.75926" magical="47.63653" random="30" critical="4" accuracy="4.75" attackSpeed="253" type="SWORD" range="40" distance="80" width="120" />
@@ -3962,6 +4708,59 @@
 				<clan>ORC</clan>
 			</clanList>
 		</ai>
+		<dropLists>
+			<death>
+				<group chance="70">
+					<item id="57" min="357" max="682" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.05930000051856041">
+					<item id="220" min="1" max="1" chance="100" /> <!-- Crafted Dagger -->
+				</group>
+				<group chance="32.237499237060547">
+					<item id="1865" min="1" max="1" chance="41.5043" /> <!-- Varnish -->
+					<item id="1870" min="1" max="1" chance="41.5043" /> <!-- Coal -->
+					<item id="1879" min="1" max="1" chance="6.9174" /> <!-- Cokes -->
+					<item id="1875" min="1" max="1" chance="2.767" /> <!-- Stone of Purity -->
+					<item id="2152" min="1" max="1" chance="7.307" /> <!-- Recipe: Enchanted Necklace -->
+				</group>
+				<group chance="42.0">
+					<item id="8600" min="1" max="1" chance="20" /> <!-- Herb of Life -->
+					<item id="8601" min="1" max="1" chance="45" /> <!-- Greater Herb of Life -->
+					<item id="8602" min="1" max="1" chance="35" /> <!-- Superior Herb of Life -->
+				</group>
+				<group chance="11.0">
+					<item id="8603" min="1" max="1" chance="15" /> <!-- Herb of Mana -->
+					<item id="8604" min="1" max="1" chance="54" /> <!-- Greater Herb of Mana -->
+					<item id="8605" min="1" max="1" chance="31" /> <!-- Superior Herb of Mana -->
+				</group>
+				<group chance="25.0">
+					<item id="8606" min="1" max="1" chance="20" /> <!-- Herb of Power -->
+					<item id="8608" min="1" max="1" chance="20" /> <!-- Herb of Alacrity -->
+					<item id="8610" min="1" max="1" chance="20" /> <!-- Herb of Critical Attack - Probability -->
+					<item id="10655" min="1" max="1" chance="20" /> <!-- Herb of Vampiric Rage -->
+					<item id="10656" min="1" max="1" chance="20" /> <!-- Herb of Critical Attack - Power -->
+				</group>
+				<group chance="10.0">
+					<item id="8607" min="1" max="1" chance="50" /> <!-- Herb of Magic -->
+					<item id="8609" min="1" max="1" chance="50" /> <!-- Herb of Casting Spd. -->
+				</group>
+				<group chance="1.0">
+					<item id="8612" min="1" max="1" chance="33" /> <!-- Herb of the Warrior -->
+					<item id="8613" min="1" max="1" chance="33" /> <!-- Herb of the Mystic -->
+					<item id="8614" min="1" max="1" chance="34" /> <!-- Herb of Recovery -->
+				</group>
+				<group chance="11.0">
+					<item id="8611" min="1" max="1" chance="94" /> <!-- Herb of Speed -->
+					<item id="10657" min="1" max="1" chance="3" /> <!-- Herb of Doubt -->
+					<item id="13028" min="1" max="1" chance="3" /> <!-- Vitality Replenishing Herb -->
+				</group>
+			</death>
+			<corpse>
+				<item id="2263" min="1" max="1" chance="2.2768" /> <!-- Recipe: Dwarven Trident -->
+				<item id="2181" min="1" max="1" chance="16.2308" /> <!-- Recipe: White Tunic -->
+				<item id="2152" min="1" max="1" chance="28.4764" /> <!-- Recipe: Enchanted Necklace -->
+			</corpse>
+		</dropLists>
 		<collision>
 			<radius normal="14" grown="16" />
 			<height normal="27" grown="32" />

@@ -9,7 +9,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="291" /> <!-- rhand: Trident -->
+		<equipment rhand="16" /> <!-- rhand: great spear -->
 		<acquire expRate="0.801738" sp="14" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="342.5127" hpRegen="2.5" mp="192.0" mpRegen="1.2" />
@@ -118,7 +118,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="2507" /> <!-- rhand: Lizardspear -->
+		<equipment rhand="2507" /> <!-- rhand: 2507 Lizardspear -->
 		<acquire expRate="1.4722656" sp="34" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="387.02878" hpRegen="3.5" mp="218.52" mpRegen="1.5" />
@@ -338,7 +338,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="16" /> <!-- rhand: Great Spear -->
+		<equipment rhand="1376" /> <!-- rhand: guard Spear -->
 		<acquire expRate="0.8442792" sp="29" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="487.5704" hpRegen="3.5" mp="273.0" mpRegen="1.5" />
@@ -450,7 +450,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="7" /> <!-- rhand: Apprentice's Rod -->
+		<equipment rhand="180" /> <!-- rhand: mace of judgement -->
 		<acquire expRate="1.0658424" sp="44" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="543.79576" hpRegen="3.5" mp="300.96" mpRegen="1.5" />
@@ -1275,22 +1275,11 @@
 				<group chance="70">
 					<item id="57" min="184" max="367" chance="100" /> <!-- Adena -->
 				</group>
-				<group chance="0.052400000393390656">
-					<item id="83" min="1" max="1" chance="2.676" /> <!-- Sword of Magic -->
-					<item id="144" min="1" max="1" chance="2.676" /> <!-- Sword of Occult -->
-					<item id="124" min="1" max="1" chance="1.9824" /> <!-- Two-Handed Sword -->
-					<item id="2026" min="1" max="1" chance="88.7007" /> <!-- Two-Handed Sword Edge -->
-					<item id="127" min="1" max="1" chance="1.9824" /> <!-- Crimson Sword -->
-					<item id="130" min="1" max="1" chance="1.9825" /> <!-- Elven Sword -->
-				</group>
-				<group chance="10.636199951171875">
-					<item id="1869" min="1" max="1" chance="31.1434" /> <!-- Iron Ore -->
-					<item id="1864" min="1" max="1" chance="62.2868" /> <!-- Stem -->
-					<item id="1880" min="1" max="1" chance="3.1143" /> <!-- Steel -->
-					<item id="5550" min="1" max="1" chance="0.4152" /> <!-- Durable Metal Plate -->
-					<item id="2279" min="1" max="1" chance="0.2225" /> <!-- Recipe: War Pick -->
-					<item id="8317" min="1" max="1" chance="0.2225" /> <!-- Recipe: Titan Hammer (100%) -->
-					<item id="735" min="1" max="1" chance="2.5953" /> <!-- Alacrity Potion -->
+				<group chance="11.0">
+					<item id="1872" min="1" max="3" chance="45" /> <!-- Animal Bone -->
+					<item id="1867" min="1" max="3" chance="45" /> <!-- Animal Skin -->
+					<item id="1867" min="1" max="1" chance="30" /> <!-- Iron Ore -->
+					<item id="1864" min="1" max="1" chance="60" /> <!-- Stem -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -1325,9 +1314,9 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="2028" min="1" max="1" chance="0.5182" /> <!-- Shilen Knife Edge -->
-				<item id="2156" min="1" max="1" chance="3.4888" /> <!-- Recipe: Elven Necklace -->
-				<item id="2154" min="1" max="1" chance="4.6692" /> <!-- Recipe: Elven Earring -->
+				<item id="1872" min="1" max="5" chance="45" /> <!-- Animal Bone -->
+				<item id="1867" min="1" max="5" chance="45" /> <!-- Animal Skin -->
+				<item id="1869" min="1" max="1" chance="10" /> <!-- Iron Ore -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -1723,16 +1712,17 @@
 				<group chance="70">
 					<item id="57" min="138" max="276" chance="100" /> <!-- Adena -->
 				</group>
-				<group chance="0.038600001484155655">
-					<item id="436" min="1" max="1" chance="38.4858" /> <!-- Tunic of Knowledge -->
-					<item id="469" min="1" max="1" chance="61.5142" /> <!-- Stockings of Knowledge -->
-				</group>
 				<group chance="10.315500259399414">
-					<item id="1867" min="1" max="1" chance="44.9558" /> <!-- Animal Skin -->
-					<item id="1872" min="1" max="1" chance="44.9558" /> <!-- Animal Bone -->
-					<item id="1882" min="1" max="1" chance="7.4926" /> <!-- Leather -->
-					<item id="2190" min="1" max="1" chance="2.4083" /> <!-- Recipe: Mithril Stockings -->
-					<item id="3020" min="1" max="1" chance="0.1875" /> <!-- Recipe: Elven Long Sword -->
+					<item id="1867" min="1" max="1" chance="45" /> <!-- Animal Skin -->
+					<item id="1872" min="1" max="1" chance="40" /> <!-- Animal Bone -->
+					<item id="1882" min="1" max="1" chance="7.5" /> <!-- Leather -->
+					<item id="1864" min="1" max="3" chance="32" /> <!-- Stem -->
+					<item id="1869" min="1" max="2" chance="16" /> <!-- Iron Ore -->
+					<item id="1870" min="1" max="2" chance="8" /> <!-- Coal -->
+					<item id="1873" min="1" max="1" chance="4" /> <!-- Silver Nugget -->
+					<item id="1876" min="1" max="1" chance="2" /> <!-- Mithril Ore -->
+					<item id="1877" min="1" max="1" chance="1" /> <!-- Adamantite Nugget -->
+
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -1768,8 +1758,13 @@
 			</death>
 			<corpse>
 				<item id="1868" min="1" max="1" chance="65.4152" /> <!-- Thread -->
-				<item id="2028" min="1" max="1" chance="0.3886" /> <!-- Shilen Knife Edge -->
-				<item id="1938" min="1" max="1" chance="2.1988" /> <!-- Mithril Banded Mail Material -->
+				<item id="1864" min="1" max="3" chance="75" /> <!-- Stem -->
+				<item id="1870" min="1" max="2" chance="50" /> <!-- Coal -->
+				<item id="1869" min="1" max="2" chance="25" /> <!-- Iron Ore -->
+				<item id="1873" min="1" max="1" chance="12" /> <!-- Silver Nugget -->
+				<item id="1876" min="1" max="1" chance="6" /> <!-- Mithril Ore -->
+				<item id="1877" min="1" max="1" chance="3" /> <!-- Adamantite Nugget -->
+				<item id="2040" min="1" max="1" chance="0.4126" /> <!-- Reinforced Long Bow Shaft -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -1828,22 +1823,11 @@
 				<group chance="70">
 					<item id="57" min="151" max="301" chance="100" /> <!-- Adena -->
 				</group>
-				<group chance="1.030500054359436">
-					<item id="629" min="1" max="1" chance="0.9888" /> <!-- Kite Shield -->
-					<item id="1947" min="1" max="1" chance="42.9244" /> <!-- Kite Shield Fragment -->
-					<item id="2493" min="1" max="1" chance="0.9888" /> <!-- Brigandine Shield -->
-					<item id="2929" min="1" max="1" chance="42.9244" /> <!-- Brigandine Shield Fragment -->
-					<item id="2411" min="1" max="1" chance="0.6925" /> <!-- Brigandine Helmet -->
-					<item id="2922" min="1" max="1" chance="11.4811" /> <!-- Brigandine Helmet Design -->
-				</group>
 				<group chance="7.2307000160217285">
 					<item id="1868" min="1" max="1" chance="72.8359" /> <!-- Thread -->
 					<item id="1873" min="1" max="1" chance="14.5672" /> <!-- Silver Nugget -->
 					<item id="5549" min="1" max="1" chance="3.6418" /> <!-- Metallic Thread -->
 					<item id="1889" min="1" max="1" chance="2.4279" /> <!-- Compound Braid -->
-					<item id="2148" min="1" max="1" chance="2.6013" /> <!-- Recipe: Crafted Leather -->
-					<item id="2984" min="1" max="1" chance="3.7237" /> <!-- Recipe: Salamander Skin Boots -->
-					<item id="2288" min="1" max="1" chance="0.2022" /> <!-- Recipe: Ghost Staff -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -1878,9 +1862,10 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="1872" min="1" max="1" chance="47.5451" /> <!-- Animal Bone -->
+				<item id="1872" min="1" max="1" chance="47" /> <!-- Animal Bone -->
 				<item id="2040" min="1" max="1" chance="0.4126" /> <!-- Reinforced Long Bow Shaft -->
-				<item id="1825" min="1" max="1" chance="2.5471" /> <!-- Recipe: Oriharukon -->
+				<item id="5549" min="1" max="1" chance="3.6418" /> <!-- Metallic Thread -->
+				<item id="1889" min="1" max="1" chance="2.4279" /> <!-- Compound Braid -->
 			</corpse>
 		</dropLists>
 		<collision>

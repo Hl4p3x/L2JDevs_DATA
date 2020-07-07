@@ -104,7 +104,7 @@ public final class Q00326_VanquishRemnants extends Quest
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && st.isStarted() && (getRandom(100) < MONSTERS.get(npc.getId())[0]))
+		if ((st != null) && st.isStarted() && (getRandom(100) < getEffectiveChance(MONSTERS.get(npc.getId())[0])))
 		{
 			st.giveItems(MONSTERS.get(npc.getId())[1], 1);
 			st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
@@ -136,7 +136,8 @@ public final class Q00326_VanquishRemnants extends Quest
 					{
 						st.giveItems(BLACK_LION_MARK, 1);
 					}
-					st.giveAdena(((red_badges * 46) + (blue_badges * 52) + (black_badges * 58) + ((sum >= 10) ? 4320 : 0)), true);
+                                        final long bonus = (sum / 10) * 4320;
+					st.giveAdenaFuzzy(((red_badges * 46) + (blue_badges * 52) + (black_badges * 58) + bonus), true);
 					takeItems(player, -1, RED_CROSS_BADGE, BLUE_CROSS_BADGE, BLACK_CROSS_BADGE);
 					htmltext = (sum >= 100) ? (st.hasQuestItems(BLACK_LION_MARK)) ? "30435-09.html" : "30435-06.html" : "30435-05.html";
 				}

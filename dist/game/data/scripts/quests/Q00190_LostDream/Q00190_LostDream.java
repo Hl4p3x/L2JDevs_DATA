@@ -138,7 +138,7 @@ public final class Q00190_LostDream extends Quest
 					else if (memoState == 5)
 					{
 						htmltext = "30512-08.html";
-						giveAdena(player, 109427, true);
+						giveAdenaFuzzy(player, 109427, true);
 						if (player.getLevel() < MAX_LEVEL_FOR_EXP_SP)
 						{
 							addExpAndSp(player, 309467, 20614);

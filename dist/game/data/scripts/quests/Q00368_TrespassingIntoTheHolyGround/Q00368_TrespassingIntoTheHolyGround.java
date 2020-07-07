@@ -132,7 +132,7 @@ public final class Q00368_TrespassingIntoTheHolyGround extends Quest
 			{
 				final long count = getQuestItemsCount(player, BLADE_STAKATO_FANG);
 				final long bonus = (count >= 10 ? 9450 : 2000);
-				giveAdena(player, (count * 250) + bonus, true);
+				giveAdenaFuzzy(player, (count * 250) + bonus, true);
 				takeItems(player, BLADE_STAKATO_FANG, -1);
 				htmltext = "30926-04.html";
 			}

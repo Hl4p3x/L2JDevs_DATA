@@ -118,7 +118,7 @@ public class Q00324_SweetestVenom extends Quest
 			{
 				if (st.isCond(2))
 				{
-					st.giveAdena(ADENA_COUNT, true);
+					st.giveAdenaFuzzy(ADENA_COUNT, true);
 					st.exitQuest(true, true);
 					htmltext = "30351-06.html";
 				}

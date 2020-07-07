@@ -28,8 +28,7 @@ import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
-
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
+import org.l2jdevs.Config;
 
 /**
  * Orc Hunting (260)
@@ -52,6 +51,8 @@ public final class Q00260_OrcHunting extends Quest
 		MONSTERS.put(20471, ORC_NECKLACE); // Kaboo Orc Fighter
 		MONSTERS.put(20472, ORC_NECKLACE); // Kaboo Orc Fighter Leader
 		MONSTERS.put(20473, ORC_NECKLACE); // Kaboo Orc Fighter Lieutenant
+		MONSTERS.put(20372, ORC_NECKLACE); // Baraq Orc Fighter
+		MONSTERS.put(20373, ORC_NECKLACE); // Baraq Orc Fighter Leader
 	}
 	// Misc
 	private static final int MIN_LVL = 6;
@@ -101,8 +102,10 @@ public final class Q00260_OrcHunting extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && (getRandom(10) > 4))
+		QuestState st = getQuestState(killer, false);
+                if(st == null)
+                    st = getRandomPartyMemberState(killer, 1, 3, npc);
+		if ((st != null) && (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS || getRandom(10) > 4))
 		{
 			st.giveItems(MONSTERS.get(npc.getId()), 1);
 			st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
@@ -128,9 +131,10 @@ public final class Q00260_OrcHunting extends Quest
 				{
 					final long amulets = st.getQuestItemsCount(ORC_AMULET);
 					final long necklaces = st.getQuestItemsCount(ORC_NECKLACE);
-					st.giveAdena(((amulets * 12) + (necklaces * 30) + ((amulets + necklaces) >= 10 ? 1000 : 0)), true);
+                                        final long oan10 = ((amulets + necklaces) / 10) * 1000;
+					st.giveAdenaFuzzy(((amulets * 12) + (necklaces * 30) + oan10), true);
 					takeItems(player, -1, getRegisteredItemIds());
-					Q00281_HeadForTheHills.giveNewbieReward(player);
+					giveNewbieReward(player);
 					htmltext = "30221-06.html";
 				}
 				else

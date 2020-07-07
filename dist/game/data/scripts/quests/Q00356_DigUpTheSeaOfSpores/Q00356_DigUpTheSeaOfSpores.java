@@ -127,7 +127,7 @@ public final class Q00356_DigUpTheSeaOfSpores extends Quest
 					adena = 10400;
 					htmltext = "30717-17.html";
 				}
-				giveAdena(player, adena, true);
+				giveAdenaFuzzy(player, adena, true);
 				qs.exitQuest(true, true);
 				break;
 			}

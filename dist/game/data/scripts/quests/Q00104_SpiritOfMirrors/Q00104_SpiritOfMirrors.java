@@ -31,8 +31,6 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Spirit of Mirrors (104)
  * @author xban1x
@@ -133,13 +131,13 @@ public final class Q00104_SpiritOfMirrors extends Quest
 					{
 						if (st.isCond(3) && st.hasQuestItems(SPIRITBOUND_WAND1, SPIRITBOUND_WAND2, SPIRITBOUND_WAND3))
 						{
-							Q00281_HeadForTheHills.giveNewbieReward(player);
+							giveNewbieReward(player);
 							for (ItemHolder reward : REWARDS)
 							{
 								st.giveItems(reward);
 							}
 							st.addExpAndSp(39750, 3407);
-							st.giveAdena(16866, true);
+							st.giveAdenaFuzzy(16866, true);
 							st.exitQuest(false, true);
 							htmltext = "30017-06.html";
 						}

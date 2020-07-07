@@ -113,7 +113,7 @@ public class Q00452_FindingtheLostSoldiers extends Quest
 					{
 						htmltext = "32773-5.html";
 						st.takeItems(TAG_ID, -1);
-						st.giveAdena(95200, true);
+						st.giveAdenaFuzzy(95200, true);
 						st.addExpAndSp(435024, 50366);
 						st.exitQuest(QuestType.DAILY, true);
 					}

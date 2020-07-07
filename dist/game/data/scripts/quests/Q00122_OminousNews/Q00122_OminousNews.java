@@ -57,7 +57,7 @@ public class Q00122_OminousNews extends Quest
 				st.startQuest();
 				break;
 			case "32017-02.html":
-				st.giveAdena(8923, true);
+				st.giveAdenaFuzzy(8923, true);
 				st.addExpAndSp(45151, 2310);
 				st.exitQuest(false, true);
 				break;

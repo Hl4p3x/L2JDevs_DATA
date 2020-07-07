@@ -40,10 +40,10 @@ public class Q00319_ScentOfDeath extends Quest
 	private static final int MARSH_ZOMBIE_LORD = 20020;
 	// Item
 	private static final int ZOMBIES_SKIN = 1045;
-	private static final ItemHolder LESSER_HEALING_POTION = new ItemHolder(1060, 1);
+	private static final int LESSER_HEALING_POTION = 1060;
 	// Misc
 	private static final int MIN_LEVEL = 11;
-	private static final int MIN_CHANCE = 7;
+	private static final int MIN_CHANCE = 2;
 	private static final int REQUIRED_ITEM_COUNT = 5;
 	
 	public Q00319_ScentOfDeath()
@@ -83,22 +83,15 @@ public class Q00319_ScentOfDeath extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && Util.checkIfInRange(1500, npc, killer, false) && (st.getQuestItemsCount(ZOMBIES_SKIN) < REQUIRED_ITEM_COUNT))
-		{
-			if (getRandom(10) > MIN_CHANCE)
-			{
-				st.giveItems(ZOMBIES_SKIN, 1);
-				if (st.getQuestItemsCount(ZOMBIES_SKIN) < REQUIRED_ITEM_COUNT)
-				{
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
-				else
-				{
-					st.setCond(2, true);
-				}
-			}
-		}
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
+		if (st != null //
+                    && Util.checkIfInRange(1500, npc, st.getPlayer(), false) //
+                    && getRandom(10) < MIN_CHANCE) {
+                        st.giveItems(ZOMBIES_SKIN, 1);
+                        st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+                        if (st.getQuestItemsCount(ZOMBIES_SKIN) >= REQUIRED_ITEM_COUNT)
+                            st.setCond(2, true);
+                    }
 		return super.onKill(npc, killer, isSummon);
 	}
 	
@@ -125,9 +118,10 @@ public class Q00319_ScentOfDeath extends Quest
 					}
 					case 2:
 					{
-						st.giveAdena(3350, false);
-						st.giveItems(LESSER_HEALING_POTION);
-						st.takeItems(ZOMBIES_SKIN, -1);
+                                            long n = st.getQuestItemsCount(ZOMBIES_SKIN) / REQUIRED_ITEM_COUNT;
+                                            st.giveAdenaFuzzy(3350 * n, false);
+                                            st.giveItems(LESSER_HEALING_POTION, n);
+                                            st.takeItems(ZOMBIES_SKIN, -1);
 						st.exitQuest(true, true);
 						htmltext = "30138-06.html";
 						break;

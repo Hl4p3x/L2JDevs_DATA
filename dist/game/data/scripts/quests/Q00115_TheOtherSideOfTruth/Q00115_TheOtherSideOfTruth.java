@@ -153,7 +153,7 @@ public class Q00115_TheOtherSideOfTruth extends Quest
 				{
 					if (st.hasQuestItems(PIECE_OF_TABLET))
 					{
-						st.giveAdena(115673, true);
+						st.giveAdenaFuzzy(115673, true);
 						st.addExpAndSp(493595, 40442);
 						st.exitQuest(false, true);
 						htmltext = "32020-25.html";
@@ -173,7 +173,7 @@ public class Q00115_TheOtherSideOfTruth extends Quest
 				{
 					if (st.hasQuestItems(PIECE_OF_TABLET))
 					{
-						st.giveAdena(115673, true);
+						st.giveAdenaFuzzy(115673, true);
 						st.addExpAndSp(493595, 40442);
 						st.exitQuest(false, true);
 						htmltext = "32020-27.html";
@@ -479,7 +479,7 @@ public class Q00115_TheOtherSideOfTruth extends Quest
 								}
 								else
 								{
-									st.giveAdena(115673, true);
+									st.giveAdenaFuzzy(115673, true);
 									st.addExpAndSp(493595, 40442);
 									st.exitQuest(false, true);
 									htmltext = "32020-30.html";

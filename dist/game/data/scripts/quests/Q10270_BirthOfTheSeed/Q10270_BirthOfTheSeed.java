@@ -365,7 +365,7 @@ public final class Q10270_BirthOfTheSeed extends Quest
 						{
 							if (player.getLevel() >= MIN_LEVEL)
 							{
-								giveAdena(player, 133590, true);
+								giveAdenaFuzzy(player, 133590, true);
 								addExpAndSp(player, 625343, 48222);
 								st.exitQuest(false, true);
 								htmltext = "32559-11.html";

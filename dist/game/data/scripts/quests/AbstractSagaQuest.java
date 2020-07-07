@@ -149,7 +149,7 @@ public abstract class AbstractSagaQuest extends Quest
 					{
 						takeItems(player, Items[10], -1);
 						addExpAndSp(player, 2299404, 0);
-						giveAdena(player, 5000000, true);
+						giveAdenaFuzzy(player, 5000000, true);
 						giveItems(player, 6622, 1);
 						int Class = getClassId(player);
 						int prevClass = getPrevClass(player);
@@ -894,7 +894,7 @@ public abstract class AbstractSagaQuest extends Quest
 							{
 								st.exitQuest(false);
 								addExpAndSp(player, 2299404, 0);
-								giveAdena(player, 5000000, true);
+								giveAdenaFuzzy(player, 5000000, true);
 								giveItems(player, 6622, 1); // XXX rewardItems?
 								int classId = getClassId(player);
 								int prevClass = getPrevClass(player);

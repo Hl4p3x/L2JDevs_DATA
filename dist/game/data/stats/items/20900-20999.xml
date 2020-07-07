@@ -339,8 +339,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="price" val="71680" />
 	</item>
 	<item id="20923" type="EtcItem" name="Vesper Slasher">
 		<set name="icon" val="BranchSys2.icon.br_royal_crown_of_vesper_i00" />
@@ -641,13 +640,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="WOOD" />
 		<set name="weight" val="10" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
-		<set name="is_premium" val="true" />
-		<set name="is_oly_restricted" val="true" />
-		<set name="is_freightable" val="true" />
+		<set name="price" val="71680" />
 	</item>
 	<item id="20945" type="Armor" name="Paiwan Hat - Power of Guardian Deity - 7-day limited period">
 		<set name="icon" val="BranchSys2.icon.br_paiwan_cap_i00" />

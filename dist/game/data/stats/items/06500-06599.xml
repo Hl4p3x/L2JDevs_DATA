@@ -789,6 +789,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="15000000" />
@@ -802,6 +803,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="A" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="1800000" />
@@ -815,6 +817,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="B" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="7000000" />
@@ -828,6 +831,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="B" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="750000" />
@@ -841,6 +845,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="C" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="3000000" />
@@ -854,6 +859,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="C" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="350000" />
@@ -867,6 +873,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="D" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="900000" />
@@ -880,6 +887,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="D" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="100000" />
@@ -893,6 +901,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="S" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="30000000" />
@@ -906,6 +915,7 @@
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="BLESS_SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
+		<set name="crystal_type" val="S" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="120" />
 		<set name="price" val="4500000" />

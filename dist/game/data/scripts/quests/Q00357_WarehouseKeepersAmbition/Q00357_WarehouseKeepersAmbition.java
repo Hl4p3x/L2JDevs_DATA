@@ -98,7 +98,7 @@ public final class Q00357_WarehouseKeepersAmbition extends Quest
 							adenaReward += 40500;
 							htmltext = event;
 						}
-						giveAdena(player, adenaReward, true);
+						giveAdenaFuzzy(player, adenaReward, true);
 						takeItems(player, JADE_CRYSTAL, -1);
 					}
 					break;
@@ -108,7 +108,7 @@ public final class Q00357_WarehouseKeepersAmbition extends Quest
 					final long crystalCount = getQuestItemsCount(player, JADE_CRYSTAL);
 					if (crystalCount > 0)
 					{
-						giveAdena(player, (crystalCount * 425) + ((crystalCount >= 100) ? 40500 : 0), true);
+						giveAdenaFuzzy(player, (crystalCount * 425) + ((crystalCount >= 100) ? 40500 : 0), true);
 						takeItems(player, JADE_CRYSTAL, -1);
 					}
 					qs.exitQuest(true, true);

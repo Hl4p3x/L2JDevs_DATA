@@ -35,7 +35,7 @@ public class Q00152_ShardsOfGolem extends Quest
 	private static final int HARRYS = 30035;
 	private static final int ALTRAN = 30283;
 	// Monster
-	private static final int STONE_GOLEM = 20016;
+        private static final int STONE_GOLEM = 20016, CRASHER = 20101;
 	// Items
 	private static final int WOODEN_BREASTPLATE = 23;
 	private static final int HARRYS_1ST_RECIEPT = 1008;
@@ -51,6 +51,7 @@ public class Q00152_ShardsOfGolem extends Quest
 		addStartNpc(HARRYS);
 		addTalkId(HARRYS, ALTRAN);
 		addKillId(STONE_GOLEM);
+		addKillId(CRASHER);
 		registerQuestItems(HARRYS_1ST_RECIEPT, HARRYS_2ND_RECIEPT, GOLEM_SHARD, TOOL_BOX);
 	}
 	
@@ -89,8 +90,8 @@ public class Q00152_ShardsOfGolem extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && st.isCond(2) && (getRandom(100) < 30) && (st.getQuestItemsCount(GOLEM_SHARD) < 5))
+                final QuestState st = getRandomPartyMemberState(killer, 2, 3, npc);
+		if ((st != null) && st.isCond(2) && (getRandom(100) < getEffectiveChance(30)) && (st.getQuestItemsCount(GOLEM_SHARD) < 5))
 		{
 			st.giveItems(GOLEM_SHARD, 1);
 			if (st.getQuestItemsCount(GOLEM_SHARD) >= 5)

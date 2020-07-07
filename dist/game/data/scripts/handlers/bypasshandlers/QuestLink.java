@@ -168,8 +168,10 @@ public class QuestLink implements IBypassHandler
 		String state = "";
 		String color = "";
 		int questId = -1;
+                int i = -1;
 		for (Quest quest : quests)
 		{
+                    ++i;
 			if (quest == null)
 			{
 				continue;
@@ -200,6 +202,18 @@ public class QuestLink implements IBypassHandler
 			}
 			StringUtil.append(sb, "<a action=\"bypass -h npc_", String.valueOf(npc.getObjectId()), "_Quest ", quest.getName(), "\">");
 			StringUtil.append(sb, "<font color=\"" + color + "\">[");
+
+                        // possible bug trap...
+                        if(quest.getDescr() == null //
+                           || quest.getDescr().length() < 4) {
+                            _log.log(Level.WARNING,
+                                     String.format("npc %d  %s",
+                                                   npc.getId(), quest.toString()));
+                            if(qs == null)
+                                _log.log(Level.WARNING, "quest state is NULL");
+                            else
+                            _log.log(Level.WARNING, qs.toString());
+                        }
 			
 			if (quest.isCustomQuest())
 			{

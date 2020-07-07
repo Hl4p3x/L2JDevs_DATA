@@ -206,10 +206,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="S" />
+		<set name="weight" val="120" />
+		<set name="price" val="10000000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -223,10 +222,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="S" />
+		<set name="weight" val="120" />
+		<set name="price" val="1000000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -240,10 +238,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="A" />
+		<set name="weight" val="120" />
+		<set name="price" val="3600000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -257,10 +254,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="A" />
+		<set name="weight" val="120" />
+		<set name="price" val="480000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -274,10 +270,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="B" />
+		<set name="weight" val="120" />
+		<set name="price" val="1000000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -291,10 +286,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="B" />
+		<set name="weight" val="120" />
+		<set name="price" val="160000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -308,10 +302,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="C" />
+		<set name="weight" val="120" />
+		<set name="price" val="30000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -325,10 +318,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="C" />
+		<set name="weight" val="120" />
+		<set name="price" val="220000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -342,10 +334,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="D" />
+		<set name="weight" val="120" />
+		<set name="price" val="12000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />
@@ -359,10 +350,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="crystal_type" val="D" />
+		<set name="weight" val="120" />
+		<set name="price" val="100000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_oly_restricted" val="true" />

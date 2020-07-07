@@ -83,14 +83,14 @@ public class Q00702_ATrapForRevenge extends Quest
 		}
 		else if (event.equalsIgnoreCase("32563-09.html"))
 		{
-			st.giveAdena(st.getQuestItemsCount(DRAKES_FLESH) * 100, false);
+			st.giveAdenaFuzzy(st.getQuestItemsCount(DRAKES_FLESH) * 100, false);
 			st.takeItems(DRAKES_FLESH, -1);
 		}
 		else if (event.equalsIgnoreCase("32563-11.html"))
 		{
 			if (st.hasQuestItems(VARIANT_DRAKE_WING_HORNS))
 			{
-				st.giveAdena(st.getQuestItemsCount(VARIANT_DRAKE_WING_HORNS) * 200000, false);
+				st.giveAdenaFuzzy(st.getQuestItemsCount(VARIANT_DRAKE_WING_HORNS) * 200000, false);
 				st.takeItems(VARIANT_DRAKE_WING_HORNS, -1);
 				htmltext = "32563-12.html";
 			}
@@ -167,7 +167,7 @@ public class Q00702_ATrapForRevenge extends Quest
 			
 			if ((i0 >= 500) && (i1 >= 600))
 			{
-				st.giveAdena(getRandom(49917) + 125000, false);
+				st.giveAdenaFuzzy(getRandom(49917) + 125000, false);
 				if (i1 < 720)
 				{
 					st.giveItems(9628, getRandom(3) + 1);
@@ -193,7 +193,7 @@ public class Q00702_ATrapForRevenge extends Quest
 			}
 			else if ((i0 >= 500) && (i1 < 600))
 			{
-				st.giveAdena(getRandom(49917) + 125000, false);
+				st.giveAdenaFuzzy(getRandom(49917) + 125000, false);
 				if (i1 < 210)
 				{
 				}
@@ -214,7 +214,7 @@ public class Q00702_ATrapForRevenge extends Quest
 			}
 			else if ((i0 < 500) && (i1 >= 600))
 			{
-				st.giveAdena(getRandom(49917) + 25000, false);
+				st.giveAdenaFuzzy(getRandom(49917) + 25000, false);
 				if (i1 < 720)
 				{
 					st.giveItems(9628, getRandom(3) + 1);
@@ -240,7 +240,7 @@ public class Q00702_ATrapForRevenge extends Quest
 			}
 			else if ((i0 < 500) && (i1 < 600))
 			{
-				st.giveAdena(getRandom(49917) + 25000, false);
+				st.giveAdenaFuzzy(getRandom(49917) + 25000, false);
 				if (i1 < 210)
 				{
 				}

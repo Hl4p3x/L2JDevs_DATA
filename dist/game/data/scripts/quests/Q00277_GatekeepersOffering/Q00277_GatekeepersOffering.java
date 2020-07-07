@@ -70,7 +70,7 @@ public class Q00277_GatekeepersOffering extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
 		if ((st != null) && st.isStarted() && (st.getQuestItemsCount(STARSTONE) < STARSTONE_COUT))
 		{
 			st.giveItems(STARSTONE, 1);

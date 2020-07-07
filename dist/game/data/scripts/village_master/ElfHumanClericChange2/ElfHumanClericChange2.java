@@ -18,6 +18,7 @@
  */
 package village_master.ElfHumanClericChange2;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -156,7 +157,8 @@ public final class ElfHumanClericChange2 extends AbstractNpcAI
 				player.setBaseClass(BISHOP);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30120-18.htm"; // fnAfterClassChange11
 			}
 			else
@@ -184,7 +186,8 @@ public final class ElfHumanClericChange2 extends AbstractNpcAI
 				player.setBaseClass(PROPHET);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30120-22.htm"; // fnAfterClassChange12
 			}
 			else
@@ -212,7 +215,8 @@ public final class ElfHumanClericChange2 extends AbstractNpcAI
 				player.setBaseClass(ELDER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30120-26.htm"; // fnAfterClassChange21
 			}
 			else

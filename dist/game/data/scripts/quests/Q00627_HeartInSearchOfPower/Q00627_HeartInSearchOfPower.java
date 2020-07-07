@@ -114,23 +114,23 @@ public class Q00627_HeartInSearchOfPower extends Quest
 				switch (event)
 				{
 					case "Adena":
-						st.giveAdena(100000, true);
+						st.giveAdenaFuzzy(100000, true);
 						break;
 					case "Asofes":
 						st.rewardItems(ASOFE, 13);
-						st.giveAdena(6400, true);
+						st.giveAdenaFuzzy(6400, true);
 						break;
 					case "Thons":
 						st.rewardItems(THONS, 13);
-						st.giveAdena(6400, true);
+						st.giveAdenaFuzzy(6400, true);
 						break;
 					case "Enrias":
 						st.rewardItems(ENRIA, 6);
-						st.giveAdena(13600, true);
+						st.giveAdenaFuzzy(13600, true);
 						break;
 					case "Mold_Hardener":
 						st.rewardItems(MOLD_HARDENER, 3);
-						st.giveAdena(17200, true);
+						st.giveAdenaFuzzy(17200, true);
 						break;
 				}
 				htmltext = "31518-10.html";

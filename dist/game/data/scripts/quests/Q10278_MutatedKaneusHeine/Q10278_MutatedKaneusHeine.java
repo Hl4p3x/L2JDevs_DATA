@@ -68,7 +68,7 @@ public class Q10278_MutatedKaneusHeine extends Quest
 				st.startQuest();
 				break;
 			case "30907-03.htm":
-				st.giveAdena(50000, true);
+				st.giveAdenaFuzzy(50000, true);
 				st.exitQuest(false, true);
 				break;
 		}

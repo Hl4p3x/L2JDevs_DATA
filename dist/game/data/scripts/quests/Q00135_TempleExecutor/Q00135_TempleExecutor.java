@@ -102,7 +102,7 @@ public class Q00135_TempleExecutor extends Quest
 				break;
 			case "30068-11.html":
 				st.giveItems(BADGE_TEMPLE_EXECUTOR, 1);
-				st.giveAdena(16924, true);
+				st.giveAdenaFuzzy(16924, true);
 				if (player.getLevel() < MAX_REWARD_LEVEL)
 				{
 					st.addExpAndSp(30000, 2000);

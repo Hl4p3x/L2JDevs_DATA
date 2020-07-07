@@ -30,6 +30,7 @@ import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.variables.PlayerVariables;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Trial of Duty (212)
@@ -91,8 +92,8 @@ public final class Q00212_TrialOfDuty extends Quest
 	
 	private static boolean rewardDimensionalDiamonds(L2PcInstance player)
 	{
+		if(!Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD) return false;
 		final PlayerVariables vars = player.getVariables();
-		
 		if (vars.getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 		{
 			if (player.getClassId() == ClassId.knight)
@@ -325,8 +326,10 @@ public final class Q00212_TrialOfDuty extends Quest
 							{
 								html = "30109-05.html";
 								takeItems(talker, LETTER_OF_DUSTIN, -1);
-								addExpAndSp(talker, 762576, 49458);
-								giveAdena(talker, 138968, true);
+                                                                if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                                    addExpAndSp(talker, 762576, 49458);
+                                                                    giveAdenaFuzzy(talker, 138968, true);
+                                                                }
 								giveItems(talker, MARK_OF_DUTY, 1);
 								qs.exitQuest(false, true);
 								talker.sendPacket(new SocialAction(talker.getObjectId(), 3));

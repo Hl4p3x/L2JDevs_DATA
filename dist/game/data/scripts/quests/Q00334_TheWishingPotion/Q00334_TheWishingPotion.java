@@ -397,7 +397,7 @@ public final class Q00334_TheWishingPotion extends Quest
 									}
 									case 2:
 									{
-										qs.giveAdena(10000, true);
+										qs.giveAdenaFuzzy(10000, true);
 										qs.set(EXCHANGE, 0);
 										break;
 									}
@@ -422,7 +422,7 @@ public final class Q00334_TheWishingPotion extends Quest
 								{
 									case 2:
 									{
-										qs.giveAdena(10000, true);
+										qs.giveAdenaFuzzy(10000, true);
 										qs.set(EXCHANGE, 0);
 										break;
 									}
@@ -646,11 +646,11 @@ public final class Q00334_TheWishingPotion extends Quest
 						{
 							if (getRandom(1000) == 0)
 							{
-								qs.giveAdena(100_000_000, true);
+								qs.giveAdenaFuzzy(100_000_000, true);
 							}
 							else
 							{
-								qs.giveAdena(900_000, true);
+								qs.giveAdenaFuzzy(900_000, true);
 							}
 							qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
 							qs.set(FLAG, 0);
@@ -672,7 +672,7 @@ public final class Q00334_TheWishingPotion extends Quest
 				{
 					if (qs.isMemoState(2) && (qs.getInt(FLAG) == 3))
 					{
-						qs.giveAdena(1_406_956, true);
+						qs.giveAdenaFuzzy(1_406_956, true);
 						qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
 						qs.set(FLAG, 0);
 					}
@@ -880,7 +880,7 @@ public final class Q00334_TheWishingPotion extends Quest
 			{
 				if (qs.hasQuestItems(Q_FOBBIDEN_LOVE_SCROLL))
 				{
-					qs.giveAdena(500000, true);
+					qs.giveAdenaFuzzy(500000, true);
 					qs.takeItems(Q_FOBBIDEN_LOVE_SCROLL, 1);
 					qs.playSound(Sound.ITEMSOUND_QUEST_MIDDLE);
 					return "30557-01.html";

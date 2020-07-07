@@ -227,20 +227,7 @@ public final class Q00407_PathOfTheElvenScout extends Quest
 					{
 						takeItems(player, HONORARY_GUARD, -1);
 						giveItems(player, REISAS_RECOMMENDATION, 1);
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 320534, 19932);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 456128, 26630);
-						}
-						else
-						{
-							addExpAndSp(player, 591724, 33328);
-						}
-						giveAdena(player, 163800, true);
+                                                give1stTransferReward(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

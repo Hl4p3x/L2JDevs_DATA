@@ -116,7 +116,7 @@ public final class Q00691_MatrasSuspiciousRequest extends Quest
 			case "32245-12.html":
 				if (st.isStarted())
 				{
-					st.giveAdena((st.getInt("submitted_gems") * 10000), true);
+					st.giveAdenaFuzzy((st.getInt("submitted_gems") * 10000), true);
 					st.exitQuest(true, true);
 					htmltext = event;
 				}

@@ -83,7 +83,7 @@ public class Q00250_WatchWhatYouEat extends Quest
 			}
 			else if (event.equalsIgnoreCase("32743-end.htm"))
 			{
-				st.giveAdena(135661, true);
+				st.giveAdenaFuzzy(135661, true);
 				st.addExpAndSp(698334, 76369);
 				st.exitQuest(false, true);
 			}

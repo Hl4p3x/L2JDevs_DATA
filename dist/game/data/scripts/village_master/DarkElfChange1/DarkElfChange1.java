@@ -18,6 +18,7 @@
  */
 package village_master.DarkElfChange1;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.enums.Race;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
@@ -204,7 +205,8 @@ public final class DarkElfChange1 extends AbstractNpcAI
 				player.setBaseClass(PALUS_KNIGHT);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-19.htm";
 			}
 			else
@@ -232,7 +234,8 @@ public final class DarkElfChange1 extends AbstractNpcAI
 				player.setBaseClass(ASSASSIN);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-23.htm";
 			}
 			else
@@ -260,7 +263,8 @@ public final class DarkElfChange1 extends AbstractNpcAI
 				player.setBaseClass(DARK_WIZARD);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-27.htm";
 			}
 			else
@@ -288,7 +292,8 @@ public final class DarkElfChange1 extends AbstractNpcAI
 				player.setBaseClass(SHILLIEN_ORACLE);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-31.htm";
 			}
 			else

@@ -148,7 +148,7 @@ public class Q00464_Oath extends Quest
 				
 				int i = st.getCond() - 1;
 				st.addExpAndSp(NPC[i][1], NPC[i][2]);
-				st.giveAdena(NPC[i][3], true);
+				st.giveAdenaFuzzy(NPC[i][3], true);
 				st.exitQuest(QuestType.DAILY, true);
 				htmltext = npc.getId() + "-02.html";
 				break;

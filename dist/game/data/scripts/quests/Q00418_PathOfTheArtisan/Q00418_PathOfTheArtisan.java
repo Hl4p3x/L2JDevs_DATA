@@ -18,6 +18,7 @@
  */
 package quests.Q00418_PathOfTheArtisan;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.audio.Sound;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -203,21 +204,8 @@ public final class Q00418_PathOfTheArtisan extends Quest
 			{
 				if (hasQuestItems(player, PASS_2ND_CERTIFICATE, SECRET_BOX))
 				{
-					giveAdena(player, 163800, true);
 					giveItems(player, FINAL_PASS_CERTIFICATE, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 320534, 32452);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 456128, 30150);
-					}
-					else
-					{
-						addExpAndSp(player, 591724, 36848);
-					}
+                                        give1stTransferReward(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -229,21 +217,8 @@ public final class Q00418_PathOfTheArtisan extends Quest
 			{
 				if (hasQuestItems(player, PASS_2ND_CERTIFICATE, SECRET_BOX))
 				{
-					giveAdena(player, 81900, true);
 					giveItems(player, FINAL_PASS_CERTIFICATE, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 11726);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 15075);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 18424);
-					}
+                                        give1stTransferRewardHalf(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -255,21 +230,8 @@ public final class Q00418_PathOfTheArtisan extends Quest
 			{
 				if (qs.isMemoState(101))
 				{
-					giveAdena(player, 81900, true);
 					giveItems(player, FINAL_PASS_CERTIFICATE, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 11726);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 15075);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 18424);
-					}
+                                        give1stTransferRewardHalf(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -281,21 +243,8 @@ public final class Q00418_PathOfTheArtisan extends Quest
 			{
 				if (qs.isMemoState(201))
 				{
-					giveAdena(player, 81900, true);
 					giveItems(player, FINAL_PASS_CERTIFICATE, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 11726);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 15075);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 18424);
-					}
+                                        give1stTransferRewardHalf(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -357,19 +306,7 @@ public final class Q00418_PathOfTheArtisan extends Quest
 				{
 					giveAdena(player, 81900, true);
 					giveItems(player, FINAL_PASS_CERTIFICATE, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 11726);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 15075);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 18424);
-					}
+                                        give1stTransferRewardHalf(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -391,21 +328,8 @@ public final class Q00418_PathOfTheArtisan extends Quest
 			{
 				if (qs.isMemoState(102))
 				{
-					giveAdena(player, 81900, true);
+                                        give1stTransferRewardHalf(player);
 					giveItems(player, FINAL_PASS_CERTIFICATE, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 11726);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 15075);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 18424);
-					}
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -429,7 +353,7 @@ public final class Q00418_PathOfTheArtisan extends Quest
 				{
 					if (hasQuestItems(killer, FOOTPRINT_OF_THIEF) && !hasQuestItems(killer, STOLEN_SECRET_BOX))
 					{
-						if (getRandom(10) < 2)
+						if (getRandom(10) < getEffectiveChance(2))
 						{
 							giveItems(killer, STOLEN_SECRET_BOX, 1);
 							qs.setCond(6, true);
@@ -441,7 +365,7 @@ public final class Q00418_PathOfTheArtisan extends Quest
 				{
 					if (hasQuestItems(killer, SILVERYS_RING) && (getQuestItemsCount(killer, BOOGLE_RATMAN_TOOTH) < 10))
 					{
-						if (getRandom(10) < 7)
+						if (getRandom(10) < getEffectiveChance(7))
 						{
 							if (getQuestItemsCount(killer, BOOGLE_RATMAN_TOOTH) == 9)
 							{
@@ -465,7 +389,7 @@ public final class Q00418_PathOfTheArtisan extends Quest
 				{
 					if (hasQuestItems(killer, SILVERYS_RING) && (getQuestItemsCount(killer, BOOGLE_RATMAN_LEADERS_TOOTH) < 2))
 					{
-						if (getRandom(10) < 5)
+                                                if (getRandom(10) < getEffectiveChance(5))
 						{
 							if (getQuestItemsCount(killer, BOOGLE_RATMAN_LEADERS_TOOTH) == 1)
 							{

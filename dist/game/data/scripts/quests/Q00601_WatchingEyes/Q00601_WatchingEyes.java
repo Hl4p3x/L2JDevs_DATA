@@ -109,7 +109,7 @@ public class Q00601_WatchingEyes extends Quest
 					st.giveItems(REWARD[i][0], 5);
 					st.addExpAndSp(120000, 10000);
 				}
-				st.giveAdena(REWARD[i][1], true);
+				st.giveAdenaFuzzy(REWARD[i][1], true);
 				st.exitQuest(true, true);
 				break;
 			default:

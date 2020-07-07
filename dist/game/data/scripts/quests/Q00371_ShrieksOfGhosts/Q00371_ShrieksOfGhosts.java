@@ -91,13 +91,13 @@ public final class Q00371_ShrieksOfGhosts extends Quest
 				}
 				else if (ancientAshUrnCount < 100)
 				{
-					giveAdena(player, (ancientAshUrnCount * 1000) + 15000, true);
+					giveAdenaFuzzy(player, (ancientAshUrnCount * 1000) + 15000, true);
 					takeItems(player, ANCIENT_ASH_URN, -1);
 					htmltext = "30867-06.html";
 				}
 				else
 				{
-					giveAdena(player, (ancientAshUrnCount * 1000) + 37700, true);
+					giveAdenaFuzzy(player, (ancientAshUrnCount * 1000) + 37700, true);
 					takeItems(player, ANCIENT_ASH_URN, -1);
 					htmltext = "30867-07.html";
 				}
@@ -112,7 +112,7 @@ public final class Q00371_ShrieksOfGhosts extends Quest
 			}
 			case "30867-09.html":
 			{
-				giveAdena(player, getQuestItemsCount(player, ANCIENT_ASH_URN) * 1000, true);
+				giveAdenaFuzzy(player, getQuestItemsCount(player, ANCIENT_ASH_URN) * 1000, true);
 				qs.exitQuest(true, true);
 				htmltext = "30867-09.html";
 				break;

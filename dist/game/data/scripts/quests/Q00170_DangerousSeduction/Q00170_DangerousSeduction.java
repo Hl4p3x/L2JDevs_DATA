@@ -103,7 +103,7 @@ public class Q00170_DangerousSeduction extends Quest
 				}
 				else
 				{
-					st.giveAdena(102680, true);
+					st.giveAdenaFuzzy(102680, true);
 					st.addExpAndSp(38607, 4018);
 					st.exitQuest(false, true);
 					htmltext = "30305-06.html";

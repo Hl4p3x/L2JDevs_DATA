@@ -87,7 +87,7 @@ public final class Q00266_PleasOfPixies extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
 		if ((st != null) && st.isCond(1))
 		{
 			final int chance = getRandom(10);

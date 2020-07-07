@@ -81,7 +81,7 @@ public class Q10288_SecretMission extends Quest
 			case "32757-03.html":
 				if (st.isCond(2) && st.hasQuestItems(LETTER))
 				{
-					st.giveAdena(106583, true);
+					st.giveAdenaFuzzy(106583, true);
 					st.addExpAndSp(417788, 46320);
 					st.exitQuest(false, true);
 				}

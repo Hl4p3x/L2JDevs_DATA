@@ -65,7 +65,7 @@ public class Q10267_JourneyToGracia extends Quest
 				st.setCond(2, true);
 				break;
 			case "32548-02.html":
-				st.giveAdena(92500, true);
+				st.giveAdenaFuzzy(92500, true);
 				st.addExpAndSp(75480, 7570);
 				st.exitQuest(false, true);
 				break;

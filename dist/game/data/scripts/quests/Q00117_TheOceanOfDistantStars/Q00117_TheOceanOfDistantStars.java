@@ -114,7 +114,7 @@ public final class Q00117_TheOceanOfDistantStars extends Quest
 			{
 				if (qs.isMemoState(9))
 				{
-					giveAdena(player, 17647, true);
+					giveAdenaFuzzy(player, 17647, true);
 					addExpAndSp(player, 107387, 7369);
 					qs.exitQuest(false, true);
 					htmltext = event;

@@ -31,8 +31,6 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * The Guard is Busy (257)
  * @author xban1x
@@ -62,6 +60,9 @@ public final class Q00257_TheGuardIsBusy extends Quest
 		MONSTERS.put(20132, Arrays.asList(new MobDrop(10, 7, WEREWOLF_FANG, 1))); // Werewolf
 		MONSTERS.put(20342, Arrays.asList(new MobDrop(0, 1, WEREWOLF_FANG, 1))); // Werewolf Chieftain
 		MONSTERS.put(20343, Arrays.asList(new MobDrop(100, 85, WEREWOLF_FANG, 1))); // Werewolf Hunter
+		MONSTERS.put(20450, Arrays.asList(new MobDrop(10, 7, WEREWOLF_FANG, 1))); // relic Werewolf
+		MONSTERS.put(20361, Arrays.asList(new MobDrop(10, 2, ORC_AMULET, 2), new MobDrop(10, 10, ORC_AMULET, 1))); // tunath Orc Archer
+		MONSTERS.put(20362, Arrays.asList(new MobDrop(100, 85, ORC_NECKLACE, 1))); // tunath Orc warrior
 	}
 	
 	public Q00257_TheGuardIsBusy()
@@ -146,9 +147,10 @@ public final class Q00257_TheGuardIsBusy extends Quest
 				{
 					final long amulets = st.getQuestItemsCount(ORC_AMULET);
 					final long common = getQuestItemsCount(player, ORC_NECKLACE, WEREWOLF_FANG);
-					st.giveAdena(((amulets * 10) + (common * 20) + (((amulets + common) >= 10) ? 1000 : 0)), true);
+                                        final long anw10 = ((amulets + common) / 10) * 1000;
+					st.giveAdenaFuzzy((amulets * 10) + (common * 20) + anw10, true);
 					takeItems(player, -1, ORC_AMULET, ORC_NECKLACE, WEREWOLF_FANG);
-					Q00281_HeadForTheHills.giveNewbieReward(player);
+					giveNewbieReward(player);
 					htmltext = "30039-07.html";
 				}
 				else

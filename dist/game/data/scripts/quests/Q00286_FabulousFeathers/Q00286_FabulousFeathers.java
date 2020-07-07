@@ -81,7 +81,7 @@ public final class Q00286_FabulousFeathers extends Quest
 				if (qs.isCond(2) && hasItem(player, COMMANDERS_FEATHER))
 				{
 					takeItem(player, COMMANDERS_FEATHER);
-					giveAdena(player, 4160, true);
+					giveAdenaFuzzy(player, 4160, true);
 					qs.exitQuest(true, true);
 					html = event;
 				}

@@ -119,7 +119,7 @@ public final class Q00632_NecromancersRequest extends Quest
 				if (getQuestItemsCount(player, VAMPIRES_HEART) >= REQUIRED_ITEM_COUNT)
 				{
 					takeItems(player, VAMPIRES_HEART, -1);
-					giveAdena(player, ADENA_REWARD, true);
+					giveAdenaFuzzy(player, ADENA_REWARD, true);
 					qs.setMemoState(11);
 					htmltext = event;
 				}

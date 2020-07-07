@@ -123,7 +123,7 @@ public class Q00240_ImTheOnlyOneYouCanTrust extends Quest
 					case 2:
 						if (st.getQuestItemsCount(STAKATO_FANG) >= 25)
 						{
-							st.giveAdena(147200, true);
+							st.giveAdenaFuzzy(147200, true);
 							st.takeItems(STAKATO_FANG, -1);
 							st.addExpAndSp(589542, 36800);
 							st.exitQuest(false, true);

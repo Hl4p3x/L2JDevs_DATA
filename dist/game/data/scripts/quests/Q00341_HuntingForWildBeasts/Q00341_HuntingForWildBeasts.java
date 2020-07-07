@@ -89,7 +89,7 @@ public class Q00341_HuntingForWildBeasts extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
-		final QuestState qs = getQuestState(killer, false);
+                final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
 		if ((qs != null) && qs.isCond(1))
 		{
 			long skins = qs.getQuestItemsCount(BEAR_SKIN);
@@ -111,7 +111,7 @@ public class Q00341_HuntingForWildBeasts extends Quest
 		}
 		return super.onKill(npc, killer, isPet);
 	}
-	
+
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
@@ -128,7 +128,7 @@ public class Q00341_HuntingForWildBeasts extends Quest
 			{
 				if (qs.isCond(2) && (qs.getQuestItemsCount(BEAR_SKIN) >= REQUIRED_COUNT))
 				{
-					qs.giveAdena(ADENA_COUNT, true);
+					qs.giveAdenaFuzzy(ADENA_COUNT, true);
 					qs.exitQuest(true, true);
 					htmltext = "30078-05.html";
 				}

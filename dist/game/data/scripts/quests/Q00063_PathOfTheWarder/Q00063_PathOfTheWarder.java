@@ -449,22 +449,9 @@ public final class Q00063_PathOfTheWarder extends Quest
 						}
 						else
 						{
-							giveAdena(player, 163800, true);
 							takeItems(player, TAKS_CAPTURED_SOUL, 1);
 							giveItems(player, STEELRAZOR_EVALUTION, 1);
-							final int level = player.getLevel();
-							if (level >= 20)
-							{
-								addExpAndSp(player, 320534, 22046);
-							}
-							else if (level == 19)
-							{
-								addExpAndSp(player, 456128, 28744);
-							}
-							else
-							{
-								addExpAndSp(player, 591724, 35442);
-							}
+                                                        give1stTransferReward(player);
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

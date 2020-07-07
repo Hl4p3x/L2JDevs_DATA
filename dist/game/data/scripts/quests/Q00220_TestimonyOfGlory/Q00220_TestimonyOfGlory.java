@@ -30,6 +30,7 @@ import org.l2jdevs.gameserver.network.clientpackets.Say2;
 import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Testimony Of Glory (220)
@@ -141,6 +142,7 @@ public final class Q00220_TestimonyOfGlory extends Quest
 					qs.startQuest();
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
 					giveItems(player, VOKIANS_ORDER, 1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 109);
@@ -760,9 +762,11 @@ public final class Q00220_TestimonyOfGlory extends Quest
 					}
 					else if (hasQuestItems(player, RITUAL_BOX))
 					{
-						giveAdena(player, 262720, true);
 						giveItems(player, MARK_OF_GLORY, 1);
-						addExpAndSp(player, 1448226, 96648);
+                                                if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                    giveAdenaFuzzy(player, 262720, true);
+                                                    addExpAndSp(player, 1448226, 96648);
+                                                }
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						htmltext = "30565-02.html";

@@ -206,17 +206,17 @@ public final class Q00902_ReclaimOurEra extends Quest
 						if (st.hasQuestItems(SHATTERED_BONES))
 						{
 							st.giveItems(PROOF_OF_CHALLENGE, 1);
-							st.giveAdena(134038, true);
+							st.giveAdenaFuzzy(134038, true);
 						}
 						else if (st.hasQuestItems(CANNIBALISTIC_STAKATO_LDR_CLAW))
 						{
 							st.giveItems(PROOF_OF_CHALLENGE, 3);
-							st.giveAdena(210119, true);
+							st.giveAdenaFuzzy(210119, true);
 						}
 						else if (st.hasQuestItems(ANAIS_SCROLL))
 						{
 							st.giveItems(PROOF_OF_CHALLENGE, 3);
-							st.giveAdena(348155, true);
+							st.giveAdenaFuzzy(348155, true);
 						}
 						st.exitQuest(QuestType.DAILY, true);
 						htmltext = "31340-14.html";

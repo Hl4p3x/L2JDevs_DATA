@@ -96,12 +96,12 @@ public final class Q00162_CurseOfTheUndergroundFortress extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
+                final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
 		if ((qs != null) && qs.isCond(1))
 		{
 			if (MONSTERS_SKULLS.containsKey(npc.getId()))
 			{
-				if (getRandom(100) < MONSTERS_SKULLS.get(npc.getId()))
+				if (getRandom(100) < getEffectiveChance (MONSTERS_SKULLS.get(npc.getId())))
 				{
 					long skulls = qs.getQuestItemsCount(ELF_SKULL);
 					if (skulls < 3)
@@ -120,7 +120,7 @@ public final class Q00162_CurseOfTheUndergroundFortress extends Quest
 			}
 			else if (MONSTERS_BONES.containsKey(npc.getId()))
 			{
-				if (getRandom(100) < MONSTERS_BONES.get(npc.getId()))
+				if (getRandom(100) < getEffectiveChance (MONSTERS_BONES.get(npc.getId())))
 				{
 					long bones = qs.getQuestItemsCount(BONE_FRAGMENT);
 					if (bones < 10)
@@ -135,7 +135,7 @@ public final class Q00162_CurseOfTheUndergroundFortress extends Quest
 							qs.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
 						}
 					}
-				}
+                            }
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
@@ -159,7 +159,7 @@ public final class Q00162_CurseOfTheUndergroundFortress extends Quest
 				{
 					qs.giveItems(BONE_SHIELD, 1);
 					qs.addExpAndSp(22652, 1004);
-					qs.giveAdena(24000, true);
+					qs.giveAdenaFuzzy(24000, true);
 					qs.exitQuest(false, true);
 					htmltext = "30147-06.html";
 				}

@@ -3490,7 +3490,7 @@
 			<height normal="48" />
 		</collision>
 	</npc>
-	<npc id="21638" level="35" type="L2Monster" name="Dread Wolf">
+	<npc id="21638" level="35" type="L2Monster" name="Shread Wolf">
 		<!-- Confirmed CT2.5 -->
 		<parameters>
 			<param name="MoveAroundSocial" value="60" />
@@ -3542,18 +3542,18 @@
 					<item id="57" min="193" max="384" chance="100" /> <!-- Adena -->
 				</group>
 				<group chance="0.09889999777078629">
-					<item id="316" min="1" max="1" chance="2.1988" /> <!-- Sage's Blood -->
-					<item id="317" min="1" max="1" chance="2.1988" /> <!-- Tome of Blood -->
-					<item id="2030" min="1" max="1" chance="95.6024" /> <!-- Tome of Blood Page -->
+					<item id="5079" min="1" max="1" chance="0.1" /> <!-- golden cobol -->
+					<item id="5082" min="1" max="1" chance="2.1988" /> <!-- thorn cobol -->
+					<item id="5077" min="1" max="1" chance="95.6024" /> <!-- blue cobol -->
 				</group>
 				<group chance="5.122099876403809">
-					<item id="1874" min="1" max="1" chance="4.5103" /> <!-- Oriharukon Ore -->
-					<item id="1878" min="1" max="1" chance="27.0616" /> <!-- Braided Hemp -->
-					<item id="1884" min="1" max="1" chance="41.6333" /> <!-- Cord -->
-					<item id="1889" min="1" max="1" chance="4.5103" /> <!-- Compound Braid -->
-					<item id="5220" min="1" max="1" chance="2.7062" /> <!-- Metal Hardener -->
-					<item id="2153" min="1" max="1" chance="10.5216" /> <!-- Recipe: Tiger's Eye Earring -->
-					<item id="2977" min="1" max="1" chance="9.0567" /> <!-- Recipe: Brigandine Boots -->
+					<item id="1864" min="1" max="1" chance="41.6333" /> <!-- Stem -->
+					<item id="1867" min="1" max="1" chance="27.0616" /> <!-- skin -->
+					<item id="1872" min="1" max="1" chance="10.5216" /> <!-- bone -->
+					<item id="5070" min="1" max="1" chance="9.0567" /> <!-- desert coda -->
+					<item id="5078" min="1" max="1" chance="5.5103" /> <!-- red cobol -->
+					<item id="5075" min="1" max="1" chance="3.5103" /> <!-- chilly cobol -->
+					<item id="5077" min="1" max="1" chance="2.7062" /> <!-- blue cobol -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -3588,9 +3588,9 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="2203" min="1" max="1" chance="9.9396" /> <!-- Recipe: Reinforced Mithril Boots -->
-				<item id="1935" min="1" max="1" chance="2.5488" /> <!-- Scale Mail Fragment -->
-				<item id="1900" min="1" max="1" chance="4.9916" /> <!-- Enchanted Necklace Chain -->
+				<item id="1875" min="1" max="1" chance="9.9396" /> <!-- skin -->
+				<item id="1867" min="1" max="1" chance="4.9916" /> <!-- bone -->
+				<item id="5077" min="1" max="1" chance="2.5488" /> <!-- blue cobol -->
 			</corpse>
 		</dropLists>
 		<collision>

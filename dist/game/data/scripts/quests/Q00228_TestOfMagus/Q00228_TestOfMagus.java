@@ -29,6 +29,7 @@ import org.l2jdevs.gameserver.network.clientpackets.Say2;
 import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of Magus (228)
@@ -119,6 +120,7 @@ public final class Q00228_TestOfMagus extends Quest
 					qs.startQuest();
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
 					giveItems(player, RUKALS_LETTER, 1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 122);
@@ -438,9 +440,11 @@ public final class Q00228_TestOfMagus extends Quest
 					{
 						if (hasQuestItems(player, TONE_OF_WATER, TONE_OF_FIRE, TONE_OF_WIND, TONE_OF_EARTH))
 						{
-							giveAdena(player, 372154, true);
 							giveItems(player, MARK_OF_MAGUS, 1);
-							addExpAndSp(player, 2058244, 141240);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 372154, true);
+                                                            addExpAndSp(player, 2058244, 141240);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30629-12.html";

@@ -497,7 +497,7 @@ public final class Q00120_PavelsLastResearch extends Quest
 				{
 					takeItems(player, WENDYS_NECKLACE, -1);
 					rewardItems(player, SEALED_PHOENIX_EARRING, 1);
-					giveAdena(player, 783720, true);
+					giveAdenaFuzzy(player, 783720, true);
 					addExpAndSp(player, 3447315, 272615);
 					qs.exitQuest(false, true);
 					html = event;

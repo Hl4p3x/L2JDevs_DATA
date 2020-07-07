@@ -143,7 +143,7 @@ public class Q00643_RiseAndFallOfTheElrokiTribe extends Quest
 			}
 			case "32106-09.html":
 			{
-				st.giveAdena(1374 * st.getQuestItemsCount(BONES_OF_A_PLAINS_DINOSAUR), true);
+				st.giveAdenaFuzzy(1374 * st.getQuestItemsCount(BONES_OF_A_PLAINS_DINOSAUR), true);
 				st.takeItems(BONES_OF_A_PLAINS_DINOSAUR, -1);
 				htmltext = event;
 				break;
@@ -156,7 +156,7 @@ public class Q00643_RiseAndFallOfTheElrokiTribe extends Quest
 				}
 				else
 				{
-					st.giveAdena(1374 * st.getQuestItemsCount(BONES_OF_A_PLAINS_DINOSAUR), true);
+					st.giveAdenaFuzzy(1374 * st.getQuestItemsCount(BONES_OF_A_PLAINS_DINOSAUR), true);
 					htmltext = "32106-12.html";
 				}
 				st.exitQuest(true, true);

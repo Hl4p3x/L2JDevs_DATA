@@ -84,15 +84,15 @@
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="26005-1" />
 	</item>
-	<item id="22006" type="EtcItem" name="Scroll: Enchant Weapon (C-Grade)">
+	<item id="22006" type="EtcItem" name="Scroll: Enchant Weapon (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_scrl_of_ench_wp_d_i00" />
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="D" />
+		<set name="price" val="60000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -105,9 +105,9 @@
 		<set name="etcitem_type" val="SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="C" />
+		<set name="price" val="220000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -120,9 +120,9 @@
 		<set name="etcitem_type" val="SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="B" />
+		<set name="price" val="600000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -135,24 +135,24 @@
 		<set name="etcitem_type" val="SCRL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="A" />
+		<set name="price" val="2900000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
 		<set name="handler" val="EnchantScrolls" />
 		<set name="item_skill" val="26009-1" />
 	</item>
-	<item id="22010" type="EtcItem" name="Scroll: Enchant Armor (C-Grade)">
+	<item id="22010" type="EtcItem" name="Scroll: Enchant Armor (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_scrl_of_ench_am_d_i00" />
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="D" />
+		<set name="price" val="7000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -165,9 +165,9 @@
 		<set name="etcitem_type" val="SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="C" />
+		<set name="price" val="26000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -180,9 +180,9 @@
 		<set name="etcitem_type" val="SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="B" />
+		<set name="price" val="90000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -195,9 +195,9 @@
 		<set name="etcitem_type" val="SCRL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="A" />
+		<set name="price" val="350000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -210,9 +210,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="B" />
+		<set name="price" val="700000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -225,24 +225,24 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="A" />
+		<set name="price" val="4000000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
 		<set name="handler" val="EnchantScrolls" />
 		<set name="item_skill" val="26015-1" />
 	</item>
-	<item id="22016" type="EtcItem" name="Ancient Weapon Enchant Crystal (B-Grade)">
+	<item id="22016" type="EtcItem" name="Ancient Armor Enchant Crystal (B-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_cry_of_ench_am_b_i00" />
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="B" />
+		<set name="price" val="100000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -255,9 +255,9 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="weight" val="120" />
+		<set name="crystal_type" val="A" />
+		<set name="price" val="460000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -270,9 +270,8 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="price" val="6000000" />
+		<set name="crystal_type" val="B" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -285,9 +284,8 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_WP" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="crystal_type" val="A" />
+		<set name="price" val="18000000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -300,9 +298,8 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="crystal_type" val="B" />
+		<set name="price" val="650000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -315,9 +312,8 @@
 		<set name="etcitem_type" val="ANCIENT_CRYSTAL_ENCHANT_AM" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
-		<set name="is_tradable" val="false" />
-		<set name="is_dropable" val="false" />
-		<set name="is_sellable" val="false" />
+		<set name="crystal_type" val="A" />
+		<set name="price" val="2400000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_premium" val="true" />
 		<set name="is_freightable" val="true" />
@@ -1548,7 +1544,7 @@
 		<set name="item_skill" val="26067-5" />
 		<set name="for_npc" val="true" />
 	</item>
-	<item id="22094" type="EtcItem" name="Blessed Spiritshot Pack (C-Grade)">
+	<item id="22094" type="EtcItem" name="Blessed Spiritshot Pack (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_pack_of_blessed_spiritshot_d_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
@@ -1613,7 +1609,7 @@
 		<set name="item_skill" val="26068-5" />
 		<set name="for_npc" val="true" />
 	</item>
-	<item id="22099" type="EtcItem" name="Spiritshot Pack (C-Grade)">
+	<item id="22099" type="EtcItem" name="Spiritshot Pack (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_pack_of_spiritshot_d_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />

@@ -100,7 +100,7 @@ public class Q00139_ShadowFoxPart1 extends Quest
 				st.set("talk", "1");
 				break;
 			case "30896-19.html":
-				st.giveAdena(14050, true);
+				st.giveAdenaFuzzy(14050, true);
 				if (player.getLevel() <= MAX_REWARD_LEVEL)
 				{
 					st.addExpAndSp(30000, 2000);

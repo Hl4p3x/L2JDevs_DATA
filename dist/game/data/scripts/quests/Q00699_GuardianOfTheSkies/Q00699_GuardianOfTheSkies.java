@@ -155,7 +155,7 @@ public class Q00699_GuardianOfTheSkies extends Quest
 				final long feathers = st.getQuestItemsCount(VULTURES_GOLDEN_FEATHER);
 				if (feathers > 0)
 				{
-					st.giveAdena(((feathers * VULTURES_GOLDEN_FEATHER_ADENA) + (feathers > BONUS_COUNT ? BONUS : 0)), true);
+					st.giveAdenaFuzzy(((feathers * VULTURES_GOLDEN_FEATHER_ADENA) + (feathers > BONUS_COUNT ? BONUS : 0)), true);
 					st.takeItems(VULTURES_GOLDEN_FEATHER, -1);
 					htmltext = (feathers > BONUS_COUNT) ? "32557-07.html" : "32557-06.html";
 				}

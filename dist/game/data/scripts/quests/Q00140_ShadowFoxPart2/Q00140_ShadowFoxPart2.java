@@ -119,7 +119,7 @@ public class Q00140_ShadowFoxPart2 extends Quest
 				st.takeItems(DARK_CRYSTAL, 5);
 				break;
 			case "30895-11.html":
-				st.giveAdena(18775, true);
+				st.giveAdenaFuzzy(18775, true);
 				if (player.getLevel() <= MAX_REWARD_LEVEL)
 				{
 					st.addExpAndSp(30000, 2000);

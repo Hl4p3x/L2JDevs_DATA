@@ -45,7 +45,9 @@ public class Q00153_DeliverGoods extends Quest
 	private static final int SILVIAS_RECEIPT_ID = 1017;
 	private static final int RANTS_RECEIPT_ID = 1018;
 	// Rewards
-	private static final int SOULSHOT_NO_GRADE_ID = 1835; // You get 3 Soulshots no grade.
+        private static final int SOULSHOT_NO_GRADE_ID = 1835, // You get 3 Soulshots no grade.
+            SPIRITSHOT_NO_GRADE_ID = 2509,
+            BLESSED_SPIRITSHOT_NO_GRADE_ID = 3947;
 	private static final int RING_OF_KNOWLEDGE_ID = 875;
 	private static final int XP_REWARD_AMOUNT = 600;
 	
@@ -132,7 +134,14 @@ public class Q00153_DeliverGoods extends Quest
 				{
 					st.takeItems(CLOTH_BUNDLE_ID, -1);
 					st.giveItems(SILVIAS_RECEIPT_ID, 1);
-					st.giveItems(SOULSHOT_NO_GRADE_ID, 3);
+                                        if(player.isMageClass()) {
+                                            if(getRandom(64) < 16)
+                                                st.giveItems(BLESSED_SPIRITSHOT_NO_GRADE_ID, 3);
+                                            else
+                                                st.giveItems(SPIRITSHOT_NO_GRADE_ID, 3);
+                                        }
+                                        else
+                                            st.giveItems(SOULSHOT_NO_GRADE_ID, 3);
 					htmltext = "30003-01.html";
 				}
 				else

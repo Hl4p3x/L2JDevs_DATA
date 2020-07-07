@@ -30,6 +30,7 @@ import org.l2jdevs.gameserver.network.clientpackets.Say2;
 import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Certified Berserker (64)
@@ -94,6 +95,7 @@ public final class Q00064_CertifiedBerserker extends Quest
 				{
 					qs.startQuest();
 					qs.setMemoState(1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 48);
@@ -119,7 +121,7 @@ public final class Q00064_CertifiedBerserker extends Quest
 			{
 				if (qs.isMemoState(11))
 				{
-					giveAdena(player, 63104, true);
+					giveAdenaFuzzy(player, 63104, true);
 					giveItems(player, ORKURUS_RECOMMENDATION, 1);
 					addExpAndSp(player, 349006, 23948);
 					qs.exitQuest(false, true);

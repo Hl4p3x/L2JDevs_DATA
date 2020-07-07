@@ -105,7 +105,7 @@ public final class Q00351_BlackSwan extends Quest
 				else
 				{
 					final long adenaBonus = (lizardFangCount >= 10) ? 3880 : 0;
-					giveAdena(player, adenaBonus + (20 * lizardFangCount), true);
+					giveAdenaFuzzy(player, adenaBonus + (20 * lizardFangCount), true);
 					takeItems(player, LIZARD_FANG, -1);
 					htmltext = "30969-04.html";
 				}
@@ -122,7 +122,7 @@ public final class Q00351_BlackSwan extends Quest
 				else
 				{
 					giveItems(player, BILL_OF_IASON_HEINE, barrelOfLeagueCount);
-					giveAdena(player, 3880, true);
+					giveAdenaFuzzy(player, 3880, true);
 					takeItems(player, BARREL_OF_LEAGUE, -1);
 					qs.setCond(2);
 					htmltext = "30969-06.html";

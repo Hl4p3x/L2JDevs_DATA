@@ -18,6 +18,7 @@
  */
 package village_master.KamaelChange2;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.data.xml.impl.CategoryData;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.enums.Race;
@@ -292,7 +293,8 @@ public final class KamaelChange2 extends AbstractNpcAI
 							player.setBaseClass(127);
 							// SystemMessage and cast skill is done by setClassId
 							player.broadcastUserInfo();
-							giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                                        if(Config.L2JMOD_SHADOW_COUPONS)
+								giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 							htmltext = "32145-23.htm"; // master_all_kamael011ta
 						}
 					}
@@ -321,7 +323,8 @@ public final class KamaelChange2 extends AbstractNpcAI
 							player.setBaseClass(128);
 							// SystemMessage and cast skill is done by setClassId
 							player.broadcastUserInfo();
-							giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                                        if(Config.L2JMOD_SHADOW_COUPONS)
+								giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 							htmltext = "32145-27.htm"; // master_all_kamael011msa
 						}
 					}
@@ -364,7 +367,8 @@ public final class KamaelChange2 extends AbstractNpcAI
 							player.setBaseClass(129);
 							// SystemMessage and cast skill is done by setClassId
 							player.broadcastUserInfo();
-							giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                                        if(Config.L2JMOD_SHADOW_COUPONS)
+								giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 							htmltext = "32145-31.htm"; // master_all_kamael011fsa
 						}
 					}
@@ -393,7 +397,8 @@ public final class KamaelChange2 extends AbstractNpcAI
 							player.setBaseClass(130);
 							// SystemMessage and cast skill is done by setClassId
 							player.broadcastUserInfo();
-							giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                                        if(Config.L2JMOD_SHADOW_COUPONS)
+								giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 							htmltext = "32145-35.htm"; // master_all_kamael011wa
 						}
 					}

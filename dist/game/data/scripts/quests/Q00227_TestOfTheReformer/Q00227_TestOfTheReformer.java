@@ -36,6 +36,7 @@ import org.l2jdevs.gameserver.network.clientpackets.Say2;
 import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of The Reformer (227)
@@ -149,6 +150,7 @@ public final class Q00227_TestOfTheReformer extends Quest
 					qs.setMemoState(1);
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
 					giveItems(player, BOOK_OF_REFORM, 1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 60);
@@ -537,9 +539,11 @@ public final class Q00227_TestOfTheReformer extends Quest
 					{
 						if (hasQuestItems(player, KATARIS_LETTER, KAKANS_LETTER, NYAKURIS_LETTER, RAMUSS_LETTER))
 						{
-							giveAdena(player, 226528, true);
 							giveItems(player, MARK_OF_REFORMER, 1);
-							addExpAndSp(player, 1252844, 85972);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 226528, true);
+                                                            addExpAndSp(player, 1252844, 85972);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30666-07.html";

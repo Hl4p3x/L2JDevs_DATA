@@ -29,8 +29,6 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Bonds of Slavery (265)
  * @author xban1x
@@ -122,9 +120,9 @@ public final class Q00265_BondsOfSlavery extends Quest
 				if (st.hasQuestItems(IMP_SHACKLES))
 				{
 					final long shackles = st.getQuestItemsCount(IMP_SHACKLES);
-					st.giveAdena((shackles * 12) + (shackles >= 10 ? 500 : 0), true);
+					st.giveAdenaFuzzy((shackles * 12) + (shackles >= 10 ? 500 : 0), true);
 					st.takeItems(IMP_SHACKLES, -1);
-					Q00281_HeadForTheHills.giveNewbieReward(player);
+					giveNewbieReward(player);
 					htmltext = "30357-06.html";
 				}
 				else

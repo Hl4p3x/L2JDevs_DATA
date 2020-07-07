@@ -280,7 +280,6 @@ public final class Q00403_PathOfTheRogue extends Quest
 				{
 					if (hasQuestItems(player, STOLEN_JEWELRY, STOLEN_TOMES, STOLEN_RING, STOLEN_NECKLACE))
 					{
-						giveAdena(player, 163800, true);
 						takeItems(player, NETIS_BOW, 1);
 						takeItems(player, NETIS_DAGGER, 1);
 						takeItems(player, MOST_WANTED_LIST, 1);
@@ -289,19 +288,7 @@ public final class Q00403_PathOfTheRogue extends Quest
 						takeItems(player, STOLEN_RING, 1);
 						takeItems(player, STOLEN_NECKLACE, 1);
 						giveItems(player, BEZIQUES_RECOMMENDATION, 1);
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 320534, 20232);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 456128, 26930);
-						}
-						else
-						{
-							addExpAndSp(player, 591724, 33628);
-						}
+                                                give1stTransferReward(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

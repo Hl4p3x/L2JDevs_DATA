@@ -2072,8 +2072,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2124,8 +2124,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2160,8 +2160,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2205,8 +2205,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="52" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2267,8 +2267,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="43" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2301,8 +2301,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="43" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2345,8 +2345,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2392,8 +2392,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2427,8 +2427,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2474,8 +2474,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="40" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2525,8 +2525,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-13" dark="189" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2608,8 +2608,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="60" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2661,8 +2661,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="40" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2699,8 +2699,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="60" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2745,8 +2745,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="15" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2798,8 +2798,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="15" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2837,8 +2837,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="15" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2887,8 +2887,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -2962,8 +2962,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-13" dark="189" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3014,8 +3014,8 @@
 				<defence fire="20" water="20" wind="53" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="60" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3049,8 +3049,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-13" dark="189" />
 			</attribute>
 			<speed>
-				<walk ground="60" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3096,8 +3096,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-83" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="70" />
-				<run ground="160" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3155,8 +3155,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="100" />
-				<run ground="140" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3192,8 +3192,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="15" />
-				<run ground="155" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3239,8 +3239,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="100" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3301,8 +3301,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3341,8 +3341,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="40" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3390,8 +3390,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-13" dark="189" />
 			</attribute>
 			<speed>
-				<walk ground="37" />
-				<run ground="200" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3449,8 +3449,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-13" dark="189" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3488,8 +3488,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="100" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3532,8 +3532,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="70" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3602,8 +3602,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="70" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3659,8 +3659,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3694,8 +3694,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3738,8 +3738,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="33" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3793,8 +3793,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="45" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3828,8 +3828,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="36" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3871,8 +3871,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="100" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3927,8 +3927,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="40" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -3965,8 +3965,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="40" />
-				<run ground="160" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4013,8 +4013,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="15" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4063,8 +4063,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="18" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4098,8 +4098,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="18" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4141,8 +4141,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4186,8 +4186,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="60" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4220,8 +4220,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="40" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4265,8 +4265,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="80" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4335,8 +4335,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="103" />
 			</attribute>
 			<speed>
-				<walk ground="80" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4382,8 +4382,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4430,8 +4430,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="50" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4465,8 +4465,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="30" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4511,8 +4511,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="24" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4558,8 +4558,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="45" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4592,8 +4592,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="45" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4638,8 +4638,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="36" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4690,8 +4690,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="34" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4725,8 +4725,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="44" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4760,8 +4760,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-83" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="60" />
-				<run ground="180" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4833,8 +4833,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-13" dark="189" />
 			</attribute>
 			<speed>
-				<walk ground="37" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4896,8 +4896,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="100" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4934,8 +4934,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-32" dark="53" />
 			</attribute>
 			<speed>
-				<walk ground="27" />
-				<run ground="170" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -4981,8 +4981,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="70" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -5035,8 +5035,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="20" dark="20" />
 			</attribute>
 			<speed>
-				<walk ground="70" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -5071,8 +5071,8 @@
 				<defence fire="20" water="20" wind="20" earth="20" holy="-13" dark="189" />
 			</attribute>
 			<speed>
-				<walk ground="60" />
-				<run ground="190" />
+				<walk ground="1" />
+				<run ground="1" />
 			</speed>
 		</stats>
 		<skillList>
@@ -5098,3 +5098,4 @@
 		</collision>
 	</npc>
 </list>
+

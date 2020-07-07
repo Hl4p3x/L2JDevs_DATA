@@ -246,7 +246,7 @@ public final class Q00410_PathOfThePalusKnight extends Quest
 					}
 					else if (hasQuestItems(player, COFFIN_OF_ETERNAL_REST))
 					{
-						giveAdena(player, 163800, true);
+						giveAdenaFuzzy(player, 163800, true);
 						giveItems(player, GAZE_OF_ABYSS, 1);
 						final int level = player.getLevel();
 						if (level >= 20)

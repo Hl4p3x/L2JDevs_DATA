@@ -703,22 +703,24 @@
 		</for>
 	</item>
 	<item id="5342" type="EtcItem" name="Echo Crystal - Sad Song">
-		<set name="icon" val="icon.etc_recipe_blue_i00" />
+		<set name="icon" val="icon.etc_echo_crystal_i00" />
 		<set name="default_action" val="SKILL_REDUCE" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="10" />
+		<set name="price" val="64" />
 		<set name="reuse_delay" val="44000" />
 		<set name="is_stackable" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2584-1" />
 	</item>
 	<item id="5343" type="EtcItem" name="Echo Crystal - Holy Song">
-		<set name="icon" val="icon.etc_recipe_blue_i00" />
 		<set name="default_action" val="SKILL_REDUCE" />
+		<set name="icon" val="icon.etc_echo_crystal_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="10" />
+		<set name="price" val="64" />
 		<set name="reuse_delay" val="44000" />
 		<set name="is_stackable" val="true" />
 		<set name="handler" val="ItemSkills" />
@@ -728,7 +730,7 @@
 		<set name="icon" val="icon.etc_recipe_blue_i00" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="20" />
-		<set name="price" val="1" />
+		<set name="price" val="9400" />
 		<set name="is_stackable" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2097-1" />
@@ -737,7 +739,7 @@
 		<set name="icon" val="icon.etc_recipe_blue_i00" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="20" />
-		<set name="price" val="1" />
+		<set name="price" val="9400" />
 		<set name="is_stackable" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2097-1" />

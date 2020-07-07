@@ -68,7 +68,7 @@ public class Q10279_MutatedKaneusOren extends Quest
 				st.startQuest();
 				break;
 			case "30189-03.htm":
-				st.giveAdena(100000, true);
+				st.giveAdenaFuzzy(100000, true);
 				st.exitQuest(false, true);
 				break;
 		}

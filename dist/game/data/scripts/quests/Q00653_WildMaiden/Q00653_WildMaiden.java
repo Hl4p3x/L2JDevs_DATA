@@ -94,7 +94,7 @@ public class Q00653_WildMaiden extends Quest
 			case GALIBREDO:
 				if (st.isStarted())
 				{
-					st.giveAdena(2553, true);
+					st.giveAdenaFuzzy(2553, true);
 					st.exitQuest(true, true);
 					htmltext = "30181-01.html";
 				}

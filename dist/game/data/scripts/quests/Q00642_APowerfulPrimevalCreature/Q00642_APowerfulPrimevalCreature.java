@@ -93,7 +93,7 @@ public class Q00642_APowerfulPrimevalCreature extends Quest
 			{
 				if (hasQuestItems(player, DINOSAUR_TISSUE))
 				{
-					giveAdena(player, 5000 * getQuestItemsCount(player, DINOSAUR_TISSUE), true);
+					giveAdenaFuzzy(player, 5000 * getQuestItemsCount(player, DINOSAUR_TISSUE), true);
 					takeItems(player, DINOSAUR_TISSUE, -1);
 				}
 				else
@@ -106,7 +106,7 @@ public class Q00642_APowerfulPrimevalCreature extends Quest
 			{
 				if (hasQuestItems(player, DINOSAUR_TISSUE))
 				{
-					giveAdena(player, 5000 * getQuestItemsCount(player, DINOSAUR_TISSUE), true);
+					giveAdenaFuzzy(player, 5000 * getQuestItemsCount(player, DINOSAUR_TISSUE), true);
 					qs.exitQuest(true, true);
 					htmltext = "32105-12.html";
 				}

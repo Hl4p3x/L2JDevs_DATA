@@ -124,7 +124,7 @@ public final class Q00366_SilverHairedShaman extends Quest
 			if (hasQuestItems(player, SAIRONS_SILVER_HAIR))
 			{
 				final long itemCount = getQuestItemsCount(player, SAIRONS_SILVER_HAIR);
-				giveAdena(player, (itemCount * 500) + 29000, true);
+				giveAdenaFuzzy(player, (itemCount * 500) + 29000, true);
 				takeItems(player, SAIRONS_SILVER_HAIR, -1);
 				htmltext = "30111-04.html";
 			}

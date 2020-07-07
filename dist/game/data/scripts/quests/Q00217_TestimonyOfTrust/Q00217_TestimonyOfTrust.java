@@ -27,6 +27,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Testimony Of Trust (217)
@@ -129,6 +130,7 @@ public final class Q00217_TestimonyOfTrust extends Quest
 					giveItems(player, LETTER_TO_ELF, 1);
 					giveItems(player, LETTER_TO_DARKELF, 1);
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 96);
@@ -539,9 +541,11 @@ public final class Q00217_TestimonyOfTrust extends Quest
 					{
 						if (hasQuestItems(player, RECOMMENDATION_OF_HOLLIN))
 						{
-							giveAdena(player, 252212, true);
 							giveItems(player, MARK_OF_TRUST, 1);
-							addExpAndSp(player, 1390298, 92782);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 252212, true);
+                                                            addExpAndSp(player, 1390298, 92782);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30031-01.html";

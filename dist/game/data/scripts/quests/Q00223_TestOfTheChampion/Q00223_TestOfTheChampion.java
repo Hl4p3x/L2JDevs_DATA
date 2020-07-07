@@ -26,6 +26,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of The Champion (223)
@@ -105,6 +106,7 @@ public final class Q00223_TestOfTheChampion extends Quest
 					qs.startQuest();
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
 					giveItems(player, ASCALONS_1ST_LETTER, 1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						if (player.getClassId() == ClassId.warrior)
@@ -514,9 +516,11 @@ public final class Q00223_TestOfTheChampion extends Quest
 					}
 					else if (hasQuestItems(player, MOUENS_LETTER))
 					{
-						giveAdena(player, 229764, true);
 						giveItems(player, MARK_OF_CHAMPION, 1);
-						addExpAndSp(player, 1270742, 87200);
+                                                if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                    giveAdenaFuzzy(player, 229764, true);
+                                                    addExpAndSp(player, 1270742, 87200);
+                                                }
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						htmltext = "30624-17.html";

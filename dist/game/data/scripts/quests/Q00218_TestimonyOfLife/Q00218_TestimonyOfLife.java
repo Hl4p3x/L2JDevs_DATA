@@ -27,6 +27,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Testimony Of Life (218)
@@ -127,6 +128,7 @@ public final class Q00218_TestimonyOfLife extends Quest
 						giveItems(player, CARDIENS_LETTER, 1);
 					}
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 102);
@@ -472,9 +474,11 @@ public final class Q00218_TestimonyOfLife extends Quest
 					}
 					else if (hasQuestItems(player, CAMOMILE_CHARM))
 					{
-						giveAdena(player, 342288, true);
 						giveItems(player, MARK_OF_LIFE, 1);
-						addExpAndSp(player, 1886832, 125918);
+                                                if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                    giveAdenaFuzzy(player, 342288, true);
+                                                    addExpAndSp(player, 1886832, 125918);
+                                                }
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						htmltext = "30460-07.html";

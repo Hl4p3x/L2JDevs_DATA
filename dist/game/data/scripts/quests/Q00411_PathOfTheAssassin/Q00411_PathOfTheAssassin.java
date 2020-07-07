@@ -211,7 +211,7 @@ public final class Q00411_PathOfTheAssassin extends Quest
 				{
 					if (!hasAtLeastOneQuestItem(player, ARKENIAS_LETTER, LEIKANS_NOTE, SHILENS_TEARS, IRON_HEART) && hasQuestItems(player, ARKENIAS_RECOMMENDATION))
 					{
-						giveAdena(player, 163800, true);
+						giveAdenaFuzzy(player, 163800, true);
 						giveItems(player, IRON_HEART, 1);
 						final int level = player.getLevel();
 						if (level >= 20)

@@ -21,6 +21,7 @@ package quests.Q00380_BringOutTheFlavorOfIngredients;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 import org.l2jdevs.gameserver.model.holders.ItemChanceHolder;
@@ -42,6 +43,16 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 	private static final int RITRON_FRUIT = 5895;
 	private static final int MOON_FLOWER = 5896;
 	private static final int LEECH_FLUIDS = 5897;
+
+    private static final int SRC_ANTIDOTE = 0x0,
+        SRC_RITRON_FRUIT = 20205,
+        SRC_MOON_FLOWER = 20206,
+        SRC_LEECH_FLUIDS = 20225,
+        NUMBER_ANTIDOTE = 2,
+        NUMBER_RITRON_FRUIT = 4,
+        NUMBER_MOON_FLOWER = 20,
+        NUMBER_LEECH_FLUIDS = 10;
+
 	// Monsters
 	private static final Map<Integer, ItemChanceHolder> MONSTER_CHANCES = new HashMap<>();
 	// Rewards
@@ -50,11 +61,11 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 	// Misc
 	private static final int MIN_LVL = 24;
 	{
-		MONSTER_CHANCES.put(20205, new ItemChanceHolder(RITRON_FRUIT, 0.1, 4)); // Dire Wolf
-		MONSTER_CHANCES.put(20206, new ItemChanceHolder(MOON_FLOWER, 0.5, 20)); // Kadif Werewolf
-		MONSTER_CHANCES.put(20225, new ItemChanceHolder(LEECH_FLUIDS, 0.5, 10)); // Giant Mist Leech
+		MONSTER_CHANCES.put(SRC_RITRON_FRUIT, new ItemChanceHolder(RITRON_FRUIT, 0.1, NUMBER_RITRON_FRUIT)); // Dire Wolf
+		MONSTER_CHANCES.put(SRC_MOON_FLOWER, new ItemChanceHolder(MOON_FLOWER, 0.5, NUMBER_MOON_FLOWER)); // Kadif Werewolf
+		MONSTER_CHANCES.put(SRC_LEECH_FLUIDS, new ItemChanceHolder(LEECH_FLUIDS, 0.5, NUMBER_LEECH_FLUIDS)); // Giant Mist Leech
 	}
-	
+
 	public Q00380_BringOutTheFlavorOfIngredients()
 	{
 		super(380, Q00380_BringOutTheFlavorOfIngredients.class.getSimpleName(), "Bring Out the Flavor of Ingredients!");
@@ -103,7 +114,7 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 		}
 		return htmltext;
 	}
-	
+
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -117,12 +128,12 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 			}
 			else
 			{
-				giveItemRandomly(qs.getPlayer(), npc, item.getId(), 1, item.getCount(), item.getChance(), true);
+				giveItemRandomly(qs.getPlayer(), npc, item.getId(), 1, item.getCount(), getEffectiveChance(item.getChance()), true);
 			}
 		}
 		return super.onKill(npc, killer, isSummon);
 	}
-	
+
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
@@ -142,11 +153,12 @@ public final class Q00380_BringOutTheFlavorOfIngredients extends Quest
 					case 1:
 					case 2:
 					case 3:
-					case 4:
-					{
-						if ((getQuestItemsCount(talker, ANTIDOTE) >= 2) && (getQuestItemsCount(talker, RITRON_FRUIT) >= 4) && (getQuestItemsCount(talker, MOON_FLOWER) >= 20) && (getQuestItemsCount(talker, LEECH_FLUIDS) >= 10))
-						{
-							takeItems(talker, ANTIDOTE, 2);
+					case 4: {
+						if ((getQuestItemsCount(talker, ANTIDOTE) >= 2)
+                                                    && (getQuestItemsCount(talker, RITRON_FRUIT) >= NUMBER_RITRON_FRUIT)
+                                                    && (getQuestItemsCount(talker, MOON_FLOWER) >= NUMBER_MOON_FLOWER)
+                                                    && (getQuestItemsCount(talker, LEECH_FLUIDS) >= NUMBER_LEECH_FLUIDS)) {
+							takeItems(talker, ANTIDOTE, NUMBER_ANTIDOTE);
 							takeItems(talker, -1, RITRON_FRUIT, MOON_FLOWER, LEECH_FLUIDS);
 							qs.setCond(5, true);
 							htmltext = "30069-08.html";

@@ -68,7 +68,7 @@ public class Q00109_InSearchOfTheNest extends Quest
 				st.setCond(3, true);
 				break;
 			case "31554-2.html":
-				st.giveAdena(161500, true);
+				st.giveAdenaFuzzy(161500, true);
 				st.addExpAndSp(701500, 50000);
 				st.exitQuest(false, true);
 				break;

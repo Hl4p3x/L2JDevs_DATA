@@ -18,6 +18,7 @@
  */
 package village_master.KamaelChange1;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.data.xml.impl.CategoryData;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.enums.Race;
@@ -167,7 +168,8 @@ public final class KamaelChange1 extends AbstractNpcAI
 					player.setBaseClass(125);
 					// SystemMessage and cast skill is done by setClassId
 					player.broadcastUserInfo();
-					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+                                        if(Config.L2JMOD_SHADOW_COUPONS)
+						giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 					htmltext = "32191-16.htm"; // master_all_kamael011ma
 				}
 			}
@@ -196,7 +198,8 @@ public final class KamaelChange1 extends AbstractNpcAI
 					player.setBaseClass(126);
 					// SystemMessage and cast skill is done by setClassId
 					player.broadcastUserInfo();
-					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+                                        if(Config.L2JMOD_SHADOW_COUPONS)
+						giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 					htmltext = "32191-20.htm"; // master_all_kamael011fa
 				}
 			}

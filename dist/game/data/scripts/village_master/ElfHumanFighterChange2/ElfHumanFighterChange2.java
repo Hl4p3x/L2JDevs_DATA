@@ -18,6 +18,7 @@
  */
 package village_master.ElfHumanFighterChange2;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -215,7 +216,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(GLADIATOR);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-42.htm"; // fnAfterClassChange11
 			}
 			else
@@ -243,7 +245,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(WARLORD);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-46.htm"; // fnAfterClassChange12
 			}
 			else
@@ -271,7 +274,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(PALADIN);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-50.htm"; // fnAfterClassChange21
 			}
 			else
@@ -327,7 +331,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(TREASURE_HUNTER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-58.htm"; // fnAfterClassChange31
 			}
 			else
@@ -355,7 +360,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(HAWKEYE);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-62.htm"; // fnAfterClassChange32
 			}
 			else
@@ -383,7 +389,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(TEMPLE_KNIGHT);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-66.htm"; // fnAfterClassChange41
 			}
 			else
@@ -411,7 +418,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(SWORDSINGER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-70.htm"; // fnAfterClassChange42
 			}
 			else
@@ -439,7 +447,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(PLAINS_WALKER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-74.htm"; // fnAfterClassChange51
 			}
 			else
@@ -467,7 +476,8 @@ public final class ElfHumanFighterChange2 extends AbstractNpcAI
 				player.setBaseClass(SILVER_RANGER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30109-78.htm"; // fnAfterClassChange52
 			}
 			else

@@ -27,6 +27,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of The Duelist (222)
@@ -113,6 +114,7 @@ public final class Q00222_TestOfTheDuelist extends Quest
 					giveItems(player, ORDER_OREN, 1);
 					giveItems(player, ORDER_ADEN, 1);
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						if (player.getClassId() == ClassId.palusKnight)
@@ -498,9 +500,11 @@ public final class Q00222_TestOfTheDuelist extends Quest
 			{
 				if (getQuestItemsCount(player, EXCUROS_SKIN, KRATORS_SHARD, LAKINS_MACE, GRANDIS_SKIN, TIMAK_ORCS_BELT) == 15)
 				{
-					giveAdena(player, 161806, true);
 					giveItems(player, MARK_OF_DUELIST, 1);
-					addExpAndSp(player, 894888, 61408);
+                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                            giveAdenaFuzzy(player, 161806, true);
+                                            addExpAndSp(player, 894888, 61408);
+                                        }
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					htmltext = "30623-18.html";

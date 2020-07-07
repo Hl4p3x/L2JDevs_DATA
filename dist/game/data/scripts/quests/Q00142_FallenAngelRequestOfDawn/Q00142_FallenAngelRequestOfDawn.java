@@ -224,7 +224,7 @@ public class Q00142_FallenAngelRequestOfDawn extends Quest
 							htmltext = "30289-06.html";
 							break;
 						case 6:
-							st.giveAdena(92676, true);
+							st.giveAdenaFuzzy(92676, true);
 							if (player.getLevel() <= MAX_REWARD_LEVEL)
 							{
 								st.addExpAndSp(223036, 13091);

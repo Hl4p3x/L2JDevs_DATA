@@ -86,57 +86,35 @@ public class Q00163_LegacyOfThePoet extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
 		if ((st != null) && st.isCond(1))
 		{
+                    boolean playSoundF = false;
 			if ((getRandom(10) == 0) && !st.hasQuestItems(RUMIELS_1ST_POEM))
 			{
 				st.giveItems(RUMIELS_1ST_POEM, 1);
-				if (st.hasQuestItems(RUMIELS_2ND_POEM, RUMIELS_3RD_POEM, RUMIELS_4TH_POEM))
-				{
-					st.setCond(2, true);
-				}
-				else
-				{
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
+                                playSoundF = true;
 			}
 			if ((getRandom(10) > 7) && !st.hasQuestItems(RUMIELS_2ND_POEM))
 			{
 				st.giveItems(RUMIELS_2ND_POEM, 1);
-				if (st.hasQuestItems(RUMIELS_1ST_POEM, RUMIELS_3RD_POEM, RUMIELS_4TH_POEM))
-				{
-					st.setCond(2, true);
-				}
-				else
-				{
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
+                                playSoundF = true;
 			}
 			if ((getRandom(10) > 7) && !st.hasQuestItems(RUMIELS_3RD_POEM))
 			{
 				st.giveItems(RUMIELS_3RD_POEM, 1);
-				if (st.hasQuestItems(RUMIELS_1ST_POEM, RUMIELS_2ND_POEM, RUMIELS_4TH_POEM))
-				{
-					st.setCond(2, true);
-				}
-				else
-				{
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
+                                playSoundF = true;
 			}
 			if ((getRandom(10) > 5) && !st.hasQuestItems(RUMIELS_4TH_POEM))
 			{
 				st.giveItems(RUMIELS_4TH_POEM, 1);
-				if (st.hasQuestItems(RUMIELS_1ST_POEM, RUMIELS_2ND_POEM, RUMIELS_3RD_POEM))
-				{
-					st.setCond(2, true);
-				}
-				else
-				{
-					st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
-				}
+                                playSoundF = true;
 			}
+                        if(playSoundF) {
+                            st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+                            if (st.hasQuestItems(RUMIELS_1ST_POEM, RUMIELS_2ND_POEM, RUMIELS_3RD_POEM, RUMIELS_4TH_POEM))
+                                st.setCond(2, true);
+                        }
 		}
 		return super.onKill(npc, killer, isSummon);
 	}
@@ -158,7 +136,7 @@ public class Q00163_LegacyOfThePoet extends Quest
 				if (st.hasQuestItems(RUMIELS_1ST_POEM, RUMIELS_2ND_POEM, RUMIELS_3RD_POEM, RUMIELS_4TH_POEM))
 				{
 					st.addExpAndSp(21643, 943);
-					st.giveAdena(13890, true);
+					st.giveAdenaFuzzy(13890, true);
 					st.exitQuest(false, true);
 					htmltext = "30220-07.html";
 				}

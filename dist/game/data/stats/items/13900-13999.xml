@@ -5,228 +5,304 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="1" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13901" type="EtcItem" name="Sealed Magic Pin (S-Grade)">
 		<set name="icon" val="icon.pin_i00" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="1" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13902" type="EtcItem" name="Low-Grade Magic Pin (C-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13903" type="EtcItem" name="Mid-Grade Magic Pin (C-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13904" type="EtcItem" name="High-Grade Magic Pin (C-Grade)">
 		<set name="icon" val="icon.pin_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13905" type="EtcItem" name="Top-Grade Magic Pin (C-Grade)">
 		<set name="icon" val="icon.pin_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13906" type="EtcItem" name="Low-Grade Magic Pin (B-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13907" type="EtcItem" name="Mid-Grade Magic Pin (B-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13908" type="EtcItem" name="High-Grade Magic Pin (B-Grade)">
 		<set name="icon" val="icon.pin_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13909" type="EtcItem" name="Top-Grade Magic Pin (B-Grade)">
 		<set name="icon" val="icon.pin_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13910" type="EtcItem" name="Low-Grade Magic Pin (A-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13911" type="EtcItem" name="Mid-Grade Magic Pin (A-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13912" type="EtcItem" name="High-Grade Magic Pin (A-Grade)">
 		<set name="icon" val="icon.pin_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13913" type="EtcItem" name="Top-Grade Magic Pin (A-Grade)">
 		<set name="icon" val="icon.pin_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13914" type="EtcItem" name="Low-Grade Magic Pin (S-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13915" type="EtcItem" name="Mid-Grade Magic Pin (S-Grade)">
 		<set name="icon" val="icon.pin_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13916" type="EtcItem" name="High-Grade Magic Pin (S-Grade)">
 		<set name="icon" val="icon.pin_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13917" type="EtcItem" name="Top-Grade Magic Pin (S-Grade)">
 		<set name="icon" val="icon.pin_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13918" type="EtcItem" name="Sealed Magic Pouch (C-Grade)">
 		<set name="icon" val="icon.pouch_i00" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="1" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13919" type="EtcItem" name="Sealed Magic Pouch (B-Grade)">
 		<set name="icon" val="icon.pouch_i00" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="1" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13920" type="EtcItem" name="Sealed Magic Pouch (A-Grade)">
 		<set name="icon" val="icon.pouch_i00" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="1" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13921" type="EtcItem" name="Sealed Magic Pouch (S-Grade)">
 		<set name="icon" val="icon.pouch_i00" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="1" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13922" type="EtcItem" name="Low-Grade Magic Pouch (C-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13923" type="EtcItem" name="Mid-Grade Magic Pouch (C-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13924" type="EtcItem" name="High-Grade Magic Pouch (C-Grade)">
 		<set name="icon" val="icon.pouch_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13925" type="EtcItem" name="Top-Grade Magic Pouch (C-Grade)">
 		<set name="icon" val="icon.pouch_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="C" />
 	</item>
 	<item id="13926" type="EtcItem" name="Low-Grade Magic Pouch (B-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13927" type="EtcItem" name="Mid-Grade Magic Pouch (B-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13928" type="EtcItem" name="High-Grade Magic Pouch (B-Grade)">
 		<set name="icon" val="icon.pouch_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13929" type="EtcItem" name="Top-Grade Magic Pouch (B-Grade)">
 		<set name="icon" val="icon.pouch_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="B" />
 	</item>
 	<item id="13930" type="EtcItem" name="Low-Grade Magic Pouch (A-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13931" type="EtcItem" name="Mid-Grade Magic Pouch (A-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13932" type="EtcItem" name="High-Grade Magic Pouch (A-Grade)">
 		<set name="icon" val="icon.pouch_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13933" type="EtcItem" name="Top-Grade Magic Pouch (A-Grade)">
 		<set name="icon" val="icon.pouch_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="A" />
 	</item>
 	<item id="13934" type="EtcItem" name="Low-Grade Magic Pouch (S-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="2" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13935" type="EtcItem" name="Mid-Grade Magic Pouch (S-Grade)">
 		<set name="icon" val="icon.pouch_i01" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="4" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13936" type="EtcItem" name="High-Grade Magic Pouch (S-Grade)">
 		<set name="icon" val="icon.pouch_i02" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="6" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13937" type="EtcItem" name="Top-Grade Magic Pouch (S-Grade)">
 		<set name="icon" val="icon.pouch_i03" />
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="LEATHER" />
 		<set name="weight" val="20" />
+		<set name="crystal_count" val="8" />
+		<set name="crystal_type" val="S" />
 	</item>
 	<item id="13938" type="Armor" name="Low-Grade Magic Pouch Cloth Belt">
 		<set name="icon" val="icon.armor_magic_pouch_belt_i00" />

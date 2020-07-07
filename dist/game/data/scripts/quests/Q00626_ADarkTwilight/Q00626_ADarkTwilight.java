@@ -106,7 +106,7 @@ public class Q00626_ADarkTwilight extends Quest
 				{
 					return "31517-06.html";
 				}
-				st.giveAdena(ADENA_COUNT, true);
+				st.giveAdenaFuzzy(ADENA_COUNT, true);
 				st.exitQuest(true, true);
 				htmltext = "31517-07.html";
 				break;

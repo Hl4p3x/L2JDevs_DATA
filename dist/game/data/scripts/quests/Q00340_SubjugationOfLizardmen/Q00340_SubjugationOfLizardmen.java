@@ -102,7 +102,7 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 			{
 				if (getQuestItemsCount(player, TRADE_CARGO) >= 30)
 				{
-					giveAdena(player, 4090, true);
+					giveAdenaFuzzy(player, 4090, true);
 					takeItems(player, TRADE_CARGO, -1);
 					qs.setMemoState(1);
 					htmltext = event;
@@ -113,7 +113,7 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 			{
 				if (getQuestItemsCount(player, TRADE_CARGO) >= 30)
 				{
-					giveAdena(player, 4090, true);
+					giveAdenaFuzzy(player, 4090, true);
 					takeItems(player, TRADE_CARGO, -1);
 					qs.exitQuest(false, true);
 					htmltext = event;
@@ -156,8 +156,8 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
-		if ((qs != null) && qs.isStarted() && Util.checkIfInRange(1500, npc, killer, true))
+                final QuestState qs = getRandomPartyMemberState(killer, 1, 3, npc);
+		if ((qs != null) && qs.isStarted() && Util.checkIfInRange(1500, npc, qs.getPlayer(), true))
 		{
 			switch (npc.getId())
 			{
@@ -166,7 +166,7 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 				{
 					if (qs.isMemoState(1))
 					{
-						giveItemRandomly(killer, npc, TRADE_CARGO, 1, 30, 0.63, true);
+                                            giveItemRandomly(qs.getPlayer(), npc, TRADE_CARGO, 1, 30, getEffectiveChance(0.63), true);
 					}
 					break;
 				}
@@ -174,7 +174,7 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 				{
 					if (qs.isMemoState(1))
 					{
-						giveItemRandomly(killer, npc, TRADE_CARGO, 1, 30, 0.68, true);
+						giveItemRandomly(qs.getPlayer(), npc, TRADE_CARGO, 1, 30, getEffectiveChance(0.68), true);
 					}
 					break;
 				}
@@ -182,15 +182,15 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 				{
 					if (qs.isMemoState(3))
 					{
-						if (!hasQuestItems(killer, AGNESS_HOLY_SYMBOL) && (getRandom(100) <= 19))
+						if (!hasQuestItems(qs.getPlayer(), AGNESS_HOLY_SYMBOL) && (getRandom(100) <= 19))
 						{
-							giveItems(killer, AGNESS_HOLY_SYMBOL, 1);
-							playSound(killer, Sound.ITEMSOUND_QUEST_ITEMGET);
+							giveItems(qs.getPlayer(), AGNESS_HOLY_SYMBOL, 1);
+							playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_ITEMGET);
 						}
-						else if (hasQuestItems(killer, AGNESS_HOLY_SYMBOL) && !hasQuestItems(killer, AGNESS_ROSARY) && (getRandom(100) <= 18))
+						else if (hasQuestItems(qs.getPlayer(), AGNESS_HOLY_SYMBOL) && !hasQuestItems(qs.getPlayer(), AGNESS_ROSARY) && (getRandom(100) <= 18))
 						{
-							giveItems(killer, AGNESS_ROSARY, 1);
-							playSound(killer, Sound.ITEMSOUND_QUEST_ITEMGET);
+							giveItems(qs.getPlayer(), AGNESS_ROSARY, 1);
+							playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_ITEMGET);
 						}
 					}
 					break;
@@ -200,15 +200,15 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 				{
 					if (qs.isMemoState(3))
 					{
-						if (!hasQuestItems(killer, AGNESS_HOLY_SYMBOL) && (getRandom(100) <= 18))
+						if (!hasQuestItems(qs.getPlayer(), AGNESS_HOLY_SYMBOL) && (getRandom(100) <= 18))
 						{
-							giveItems(killer, AGNESS_HOLY_SYMBOL, 1);
-							playSound(killer, Sound.ITEMSOUND_QUEST_ITEMGET);
+							giveItems(qs.getPlayer(), AGNESS_HOLY_SYMBOL, 1);
+							playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_ITEMGET);
 						}
-						else if (hasQuestItems(killer, AGNESS_HOLY_SYMBOL) && !hasQuestItems(killer, AGNESS_ROSARY) && (getRandom(100) <= 18))
+						else if (hasQuestItems(qs.getPlayer(), AGNESS_HOLY_SYMBOL) && !hasQuestItems(qs.getPlayer(), AGNESS_ROSARY) && (getRandom(100) <= 18))
 						{
-							giveItems(killer, AGNESS_ROSARY, 1);
-							playSound(killer, Sound.ITEMSOUND_QUEST_ITEMGET);
+							giveItems(qs.getPlayer(), AGNESS_ROSARY, 1);
+							playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_ITEMGET);
 						}
 					}
 					break;
@@ -263,7 +263,7 @@ public final class Q00340_SubjugationOfLizardmen extends Quest
 					}
 					else if (memoState == 7)
 					{
-						giveAdena(player, 14700, true);
+						giveAdenaFuzzy(player, 14700, true);
 						qs.exitQuest(false, true);
 						htmltext = "30385-13.html";
 					}

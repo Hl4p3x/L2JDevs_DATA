@@ -67,6 +67,9 @@ public class Unstuck implements IUserCommandHandler
 	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
+                if(Config.L2JMOD_UNSTUCK_INFIGHT && activeChar.isInCombat())
+                    return false;
+		
 		if (!TvTEvent.onEscapeUse(activeChar.getObjectId()))
 		{
 			activeChar.sendPacket(STATIC_PACKET);
@@ -90,7 +93,7 @@ public class Unstuck implements IUserCommandHandler
 		{
 			return false;
 		}
-		
+
 		final int unstuckTimer = (activeChar.isGM() ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		activeChar.forceIsCasting(GameTimeController.getInstance().getGameTicks() + (unstuckTimer / MILLIS_IN_TICK));
 		

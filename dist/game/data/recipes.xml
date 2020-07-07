@@ -10847,4 +10847,10 @@
 		<production id="20195" count="1" />
 		<statUse name="MP" value="50" />
 	</item>
+	<item id="3001" recipeId="20192" name="mk_thief_key_d1" craftLevel="1" type="common" successRate="95">
+		<ingredient id="6672" count="1" /> <!-- Deluxe Chest Key Grade 1 -->
+		<ingredient id="1869" count="1" /> <!-- Iron Ore -->
+		<production id="1661" count="1" /> <!-- Thief Key -->
+		<statUse name="MP" value="10" />
+	</item>
 </list>

@@ -325,7 +325,7 @@ public class Q00126_TheNameOfEvil2 extends Quest
 				break;
 			case "32114-3.html":
 				st.rewardItems(ENCHANT_WEAPON_A, 1);
-				st.giveAdena(460483, true);
+				st.giveAdenaFuzzy(460483, true);
 				st.addExpAndSp(1015973, 102802);
 				st.exitQuest(false, true);
 				break;

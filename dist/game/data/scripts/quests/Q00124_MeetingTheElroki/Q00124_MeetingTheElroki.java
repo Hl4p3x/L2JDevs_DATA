@@ -170,7 +170,7 @@ public class Q00124_MeetingTheElroki extends Quest
 							if (st.hasQuestItems(MANTARASA_EGG))
 							{
 								htmltext = "32115-09.html";
-								st.giveAdena(100013, true);
+								st.giveAdenaFuzzy(100013, true);
 								st.addExpAndSp(301922, 30294);
 								st.exitQuest(false, true);
 							}

@@ -1,14 +1,14 @@
 /*
- * Copyright © 2004-2019 L2JDevs
+ * Copyright © 2004-2019 L2J DataPack
  * 
- * This file is part of L2JDevs.
+ * This file is part of L2J DataPack.
  * 
- * L2JDevs is free software: you can redistribute it and/or modify
+ * L2J DataPack is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * L2JDevs is distributed in the hope that it will be useful,
+ * L2J DataPack is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
@@ -21,17 +21,13 @@ package quests.Q00281_HeadForTheHills;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.audio.Sound;
-import org.l2jdevs.gameserver.enums.audio.Voice;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
-import org.l2jdevs.gameserver.model.holders.ItemHolder;
 import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
-import org.l2jdevs.gameserver.model.variables.PlayerVariables;
-import org.l2jdevs.gameserver.network.NpcStringId;
-import org.l2jdevs.gameserver.network.serverpackets.ExShowScreenMessage;
 
 /**
  * Head for the Hills! (281)
@@ -43,8 +39,6 @@ public final class Q00281_HeadForTheHills extends Quest
 	private static final int CLAWS = 9796;
 	// NPC
 	private static final int MERCELA = 32173;
-	// Message
-	private static final ExShowScreenMessage MESSAGE = new ExShowScreenMessage(NpcStringId.ACQUISITION_OF_SOULSHOT_FOR_BEGINNERS_COMPLETE_N_GO_FIND_THE_NEWBIE_GUIDE, 2, 5000);
 	// Misc
 	private static final int MIN_LVL = 6;
 	// Monsters
@@ -63,8 +57,6 @@ public final class Q00281_HeadForTheHills extends Quest
 		1103, // Cotton Stockings
 		736, // Scroll of Escape
 	};
-	private static final ItemHolder SOULSHOTS_NO_GRADE_FOR_ROOKIES = new ItemHolder(5789, 6000);
-	private static final ItemHolder SPIRITSHOTS_NO_GRADE_FOR_ROOKIES = new ItemHolder(5790, 3000);
 	
 	static
 	{
@@ -83,39 +75,6 @@ public final class Q00281_HeadForTheHills extends Quest
 		addTalkId(MERCELA);
 		addKillId(MONSTERS.keySet());
 		registerQuestItems(CLAWS);
-	}
-	
-	/**
-	 * Give basic newbie reward.
-	 * @param player the player to reward
-	 */
-	public static void giveNewbieReward(L2PcInstance player)
-	{
-		final PlayerVariables vars = player.getVariables();
-		if ((player.getLevel() < 25) && !vars.getBoolean("NEWBIE_SHOTS", false))
-		{
-			if (player.isMageClass())
-			{
-				giveItems(player, SPIRITSHOTS_NO_GRADE_FOR_ROOKIES);
-				playSound(player, Voice.TUTORIAL_VOICE_027_1000);
-			}
-			else
-			{
-				giveItems(player, SOULSHOTS_NO_GRADE_FOR_ROOKIES);
-				playSound(player, Voice.TUTORIAL_VOICE_026_1000);
-			}
-			vars.set("NEWBIE_SHOTS", true);
-		}
-		if (vars.getString("GUIDE_MISSION", null) == null)
-		{
-			vars.set("GUIDE_MISSION", 1000);
-			player.sendPacket(MESSAGE);
-		}
-		else if (((vars.getInt("GUIDE_MISSION") % 10000) / 1000) != 1)
-		{
-			vars.set("GUIDE_MISSION", vars.getInt("GUIDE_MISSION") + 1000);
-			player.sendPacket(MESSAGE);
-		}
 	}
 	
 	@Override
@@ -193,7 +152,7 @@ public final class Q00281_HeadForTheHills extends Quest
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
 		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && (getRandom(1000) <= MONSTERS.get(npc.getId())))
+		if ((st != null) && (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS || getRandom(1000) <= MONSTERS.get(npc.getId())))
 		{
 			st.giveItems(CLAWS, 1);
 			st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);

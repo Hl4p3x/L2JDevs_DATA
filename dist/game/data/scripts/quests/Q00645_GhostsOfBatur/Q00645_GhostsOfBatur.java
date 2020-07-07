@@ -137,7 +137,7 @@ public class Q00645_GhostsOfBatur extends Quest
 				final long count = st.getQuestItemsCount(CURSED_GRAVE_GOODS);
 				if ((count > 0) && (count < 180))
 				{
-					st.giveAdena(56000 + (count * 64), false);
+					st.giveAdenaFuzzy(56000 + (count * 64), false);
 					st.addExpAndSp(138000, 7997);
 					st.exitQuest(true, true);
 					htmltext = "32017-07.html";

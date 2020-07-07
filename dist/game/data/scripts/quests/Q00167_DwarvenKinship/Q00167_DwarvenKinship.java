@@ -61,7 +61,7 @@ public class Q00167_DwarvenKinship extends Quest
 				{
 					if (st.isCond(2) && st.hasQuestItems(NORMANS_LETTER))
 					{
-						st.giveAdena(20000, true);
+						st.giveAdenaFuzzy(20000, true);
 						st.exitQuest(false, true);
 						htmltext = event;
 					}
@@ -78,7 +78,7 @@ public class Q00167_DwarvenKinship extends Quest
 					{
 						st.takeItems(CARLONS_LETTER, -1);
 						st.giveItems(NORMANS_LETTER, 1);
-						st.giveAdena(2000, true);
+						st.giveAdenaFuzzy(2000, true);
 						st.setCond(2);
 						htmltext = event;
 					}
@@ -88,7 +88,7 @@ public class Q00167_DwarvenKinship extends Quest
 				{
 					if (st.isCond(1) && st.hasQuestItems(CARLONS_LETTER))
 					{
-						st.giveAdena(15000, true);
+						st.giveAdenaFuzzy(15000, true);
 						st.exitQuest(false, true);
 						htmltext = event;
 					}

@@ -150,14 +150,14 @@ public class Q00701_ProofOfExistence extends Quest
 			case State.STARTED:
 				if (st.hasQuestItems(BANSHEE_QUEENS_EYE))
 				{
-					st.giveAdena((st.getQuestItemsCount(DEADMANS_REMAINS) * 2500) + (st.getQuestItemsCount(BANSHEE_QUEENS_EYE) * 50000) + 23835, true);
+					st.giveAdenaFuzzy((st.getQuestItemsCount(DEADMANS_REMAINS) * 2500) + (st.getQuestItemsCount(BANSHEE_QUEENS_EYE) * 50000) + 23835, true);
 					st.takeItems(BANSHEE_QUEENS_EYE, -1);
 					st.takeItems(DEADMANS_REMAINS, -1);
 					htmltext = "32559-07.html";
 				}
 				else if (st.hasQuestItems(DEADMANS_REMAINS))
 				{
-					st.giveAdena(st.getQuestItemsCount(DEADMANS_REMAINS) * 2500, true);
+					st.giveAdenaFuzzy(st.getQuestItemsCount(DEADMANS_REMAINS) * 2500, true);
 					st.takeItems(DEADMANS_REMAINS, -1);
 					htmltext = "32559-06.html";
 				}

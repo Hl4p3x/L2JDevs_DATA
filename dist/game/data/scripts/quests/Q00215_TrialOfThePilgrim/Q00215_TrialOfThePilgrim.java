@@ -26,6 +26,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Trial Of The Pilgrim (215)
@@ -98,6 +99,7 @@ public final class Q00215_TrialOfThePilgrim extends Quest
 					qs.setMemoState(1);
 					giveItems(player, VOUCHER_OF_TRIAL, 1);
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 49);
@@ -275,9 +277,11 @@ public final class Q00215_TrialOfThePilgrim extends Quest
 						}
 						else
 						{
-							giveAdena(player, 229298, true);
 							giveItems(player, MARK_OF_PILGRIM, 1);
-							addExpAndSp(player, 1258250, 81606);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 229298, true);
+                                                            addExpAndSp(player, 1258250, 81606);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30648-10.html";
@@ -476,7 +480,7 @@ public final class Q00215_TrialOfThePilgrim extends Quest
 					}
 					else if (hasQuestItems(player, GREY_BADGE, BOOK_OF_GERALD))
 					{
-						giveAdena(player, 100000, true);
+						giveAdenaFuzzy(player, 100000, true);
 						takeItems(player, BOOK_OF_GERALD, 1);
 						htmltext = "30650-04.html";
 					}

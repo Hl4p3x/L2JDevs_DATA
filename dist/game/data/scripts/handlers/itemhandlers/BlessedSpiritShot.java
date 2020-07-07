@@ -20,6 +20,7 @@ package handlers.itemhandlers;
 
 import java.util.logging.Level;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.ShotType;
 import org.l2jdevs.gameserver.handler.IItemHandler;
 import org.l2jdevs.gameserver.model.actor.L2Playable;
@@ -85,9 +86,17 @@ public class BlessedSpiritShot implements IItemHandler
 			
 			return false;
 		}
-		
+
+		int sscount = weaponItem.getSpiritShotCount();
+                int mpcost = evalMPCostBSS(activeChar.getLevel(),
+                                           weaponInst.getItem().getItemGradeSPlus().getId(), sscount);
+                if (Config.L2JMOD_BSSHOT_USE_MP > 0
+                    && mpcost > 0
+                    && activeChar.getStatus().getCurrentMp() < mpcost)
+                    return false;
+
 		// Consume Blessed SpiritShot if player has enough of them
-		if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), weaponItem.getSpiritShotCount(), null, false))
+		if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), sscount, null, false))
 		{
 			if (!activeChar.disableAutoShot(itemId))
 			{
@@ -96,6 +105,8 @@ public class BlessedSpiritShot implements IItemHandler
 			return false;
 		}
 		
+                if(Config.L2JMOD_BSSHOT_USE_MP > 0)
+                    activeChar.getStatus().reduceMp(mpcost);
 		activeChar.setChargedShot(ShotType.BLESSED_SPIRITSHOTS, true);
 		
 		SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.USE_S1_);

@@ -150,7 +150,7 @@ public final class Q00406_PathOfTheElvenKnight extends Quest
 		
 		if ((qs != null) && qs.isStarted() && Util.checkIfInRange(1500, npc, killer, false))
 		{
-			if (check && (getQuestItemsCount(killer, reward.getId()) < 20) && (getRandom(100) < reward.getChance()))
+                        if (check && (getQuestItemsCount(killer, reward.getId()) < 20) && (getRandom(100) < getEffectiveChance((int)reward.getChance())))
 			{
 				giveItems(killer, reward);
 				if (getQuestItemsCount(killer, reward.getId()) == 20)
@@ -210,24 +210,8 @@ public final class Q00406_PathOfTheElvenKnight extends Quest
 					}
 					else
 					{
-						giveAdena(player, 163800, true);
-						if (!hasQuestItems(player, ELVEN_KNIGHT_BROOCH))
-						{
-							giveItems(player, ELVEN_KNIGHT_BROOCH, 1);
-						}
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 320534, 23152);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 456128, 29850);
-						}
-						else
-						{
-							addExpAndSp(player, 591724, 33328);
-						}
+                                                giveItems(player, ELVEN_KNIGHT_BROOCH, 1);
+                                                give1stTransferReward(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

@@ -208,17 +208,17 @@ public class Q00348_AnArrogantSearch extends Quest
 					{
 						case 1:
 						{
-							giveAdena(player, 43000, true);
+							giveAdenaFuzzy(player, 43000, true);
 							break;
 						}
 						case 2:
 						{
-							giveAdena(player, 4000, true);
+							giveAdenaFuzzy(player, 4000, true);
 							break;
 						}
 						case 3:
 						{
-							giveAdena(player, 13000, true);
+							giveAdenaFuzzy(player, 13000, true);
 							break;
 						}
 					}
@@ -238,7 +238,7 @@ public class Q00348_AnArrogantSearch extends Quest
 			{
 				if (st.isMemoState(11) && (st.getMemoStateEx(1) == 0) && (getQuestItemsCount(player, WHITE_FABRIC_1) == 1))
 				{
-					giveAdena(player, 49000, true);
+					giveAdenaFuzzy(player, 49000, true);
 					st.setMemoState(12); // Custom line
 					st.setMemoStateEx(0, 12);
 					st.setMemoStateEx(1, 20000);
@@ -881,17 +881,17 @@ public class Q00348_AnArrogantSearch extends Quest
 									{
 										case 1:
 										{
-											giveAdena(player, 43000, true);
+											giveAdenaFuzzy(player, 43000, true);
 											break;
 										}
 										case 2:
 										{
-											giveAdena(player, 4000, true);
+											giveAdenaFuzzy(player, 4000, true);
 											break;
 										}
 										case 3:
 										{
-											giveAdena(player, 13000, true);
+											giveAdenaFuzzy(player, 13000, true);
 											break;
 										}
 									}
@@ -969,7 +969,7 @@ public class Q00348_AnArrogantSearch extends Quest
 								}
 								else
 								{
-									giveAdena(player, (bloodedFabricCount * 1000) + 4000, true);
+									giveAdenaFuzzy(player, (bloodedFabricCount * 1000) + 4000, true);
 									takeItems(player, BLOODED_FABRIC, -1);
 									st.exitQuest(true, true);
 									htmltext = "30864-48.html";
@@ -1018,11 +1018,11 @@ public class Q00348_AnArrogantSearch extends Quest
 										htmltext = "30864-53.html";
 										if (i2 == 2)
 										{
-											giveAdena(player, 24000, true);
+											giveAdenaFuzzy(player, 24000, true);
 										}
 										else if (i2 == 1)
 										{
-											giveAdena(player, 12000, true);
+											giveAdenaFuzzy(player, 12000, true);
 										}
 										
 										st.exitQuest(true, true);
@@ -1563,7 +1563,7 @@ public class Q00348_AnArrogantSearch extends Quest
 		}
 		else
 		{
-			giveAdena(player, 49000, true);
+			giveAdenaFuzzy(player, 49000, true);
 		}
 	}
 }

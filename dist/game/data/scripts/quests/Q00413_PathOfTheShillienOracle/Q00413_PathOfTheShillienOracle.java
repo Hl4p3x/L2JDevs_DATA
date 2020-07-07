@@ -232,7 +232,7 @@ public final class Q00413_PathOfTheShillienOracle extends Quest
 					}
 					else if (hasAtLeastOneQuestItem(player, ANDARIEL_BOOK, GARMIELS_BOOK))
 					{
-						giveAdena(player, 163800, true);
+						giveAdenaFuzzy(player, 163800, true);
 						giveItems(player, ORB_OF_ABYSS, 1);
 						final int level = player.getLevel();
 						if (level >= 20)

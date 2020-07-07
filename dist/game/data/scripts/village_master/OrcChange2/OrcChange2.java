@@ -18,6 +18,7 @@
  */
 package village_master.OrcChange2;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -169,7 +170,8 @@ public final class OrcChange2 extends AbstractNpcAI
 				player.setBaseClass(DESTROYER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30513-22.htm"; // fnAfterClassChange11
 			}
 			else
@@ -197,7 +199,8 @@ public final class OrcChange2 extends AbstractNpcAI
 				player.setBaseClass(TYRANT);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30513-26.htm"; // fnAfterClassChange21
 			}
 			else
@@ -225,7 +228,8 @@ public final class OrcChange2 extends AbstractNpcAI
 				player.setBaseClass(OVERLORD);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30513-30.htm"; // fnAfterClassChange31
 			}
 			else
@@ -253,7 +257,8 @@ public final class OrcChange2 extends AbstractNpcAI
 				player.setBaseClass(WARCRYER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+                                if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30513-34.htm"; // fnAfterClassChange32
 			}
 			else

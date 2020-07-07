@@ -65,7 +65,7 @@ public class Q00112_WalkOfFate extends Quest
 			}
 			case "32017-02.html":
 			{
-				st.giveAdena(22308, true);
+				st.giveAdenaFuzzy(22308, true);
 				st.addExpAndSp(112876, 5774);
 				st.giveItems(SCROLL_ENCHANT_ARMOR_D_GRADE, 1);
 				st.exitQuest(false, true);

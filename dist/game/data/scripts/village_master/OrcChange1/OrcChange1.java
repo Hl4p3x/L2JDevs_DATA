@@ -18,6 +18,7 @@
  */
 package village_master.OrcChange1;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.enums.Race;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
@@ -169,7 +170,8 @@ public final class OrcChange1 extends AbstractNpcAI
 				player.setBaseClass(45);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+                                if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-14.htm"; // fnAfterClassChange11
 			}
 			else
@@ -197,7 +199,8 @@ public final class OrcChange1 extends AbstractNpcAI
 				player.setBaseClass(47);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+                                if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-18.htm"; // fnAfterClassChange12
 			}
 			else
@@ -225,7 +228,8 @@ public final class OrcChange1 extends AbstractNpcAI
 				player.setBaseClass(50);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
+                                if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_D_GRADE, 15);
 				htmltext = npc.getId() + "-22.htm"; // fnAfterClassChange21
 			}
 			else

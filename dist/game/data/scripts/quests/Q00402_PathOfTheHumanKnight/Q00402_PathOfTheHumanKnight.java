@@ -153,22 +153,8 @@ public final class Q00402_PathOfTheHumanKnight extends Quest
 			{
 				if (hasQuestItems(player, SQUIRES_MARK) && ((CoinCount) == 3))
 				{
-					giveAdena(player, 81900, true);
 					giveItems(player, SWORD_OF_RITUAL, 1);
-					
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 11576);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 14925);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 18274);
-					}
+					give1stTransferRewardHalf(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -180,22 +166,8 @@ public final class Q00402_PathOfTheHumanKnight extends Quest
 			{
 				if (hasQuestItems(player, SQUIRES_MARK) && ((CoinCount) > 3) && ((CoinCount) < 6))
 				{
-					giveAdena(player, 81900, true);
 					giveItems(player, SWORD_OF_RITUAL, 1);
-					
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 160267, 11576);
-					}
-					else if (level == 19)
-					{
-						addExpAndSp(player, 228064, 14925);
-					}
-					else
-					{
-						addExpAndSp(player, 295862, 18274);
-					}
+					give1stTransferRewardHalf(player);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -393,22 +365,8 @@ public final class Q00402_PathOfTheHumanKnight extends Quest
 						}
 						else
 						{
-							giveAdena(player, 163800, true);
 							giveItems(player, SWORD_OF_RITUAL, 1);
-							
-							final int level = player.getLevel();
-							if (level >= 20)
-							{
-								addExpAndSp(player, 320534, 23152);
-							}
-							else if (level == 19)
-							{
-								addExpAndSp(player, 456128, 29850);
-							}
-							else
-							{
-								addExpAndSp(player, 591724, 36542);
-							}
+							give1stTransferReward(player);
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

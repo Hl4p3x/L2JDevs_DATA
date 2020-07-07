@@ -26,8 +26,6 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.model.quest.State;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * The Hidden Veins (293)
  * @author xban1x
@@ -108,24 +106,25 @@ public final class Q00293_TheHiddenVeins extends Quest
 	}
 	
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	public String onKill(L2Npc npc, L2PcInstance pc, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
+		QuestState st = getQuestState(pc, false);
+                if(st == null)
+                    st = getRandomPartyMemberState(pc, 1, 3, npc);
 		if (st != null)
 		{
 			final int chance = getRandom(100);
-			if (chance > 50)
-			{
+                        if (chance < getEffectiveChance(50)) {
 				st.giveItems(CHRYSOLITE_ORE, 1);
 				st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
 			}
-			else if (chance < 5)
+			if (chance < 5)
 			{
 				st.giveItems(TORN_MAP_FRAGMENT, 1);
 				st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
 			}
 		}
-		return super.onKill(npc, killer, isSummon);
+		return super.onKill(npc, pc, isSummon);
 	}
 	
 	@Override
@@ -150,9 +149,10 @@ public final class Q00293_TheHiddenVeins extends Quest
 						{
 							final long ores = st.getQuestItemsCount(CHRYSOLITE_ORE);
 							final long maps = st.getQuestItemsCount(HIDDEN_ORE_MAP);
-							st.giveAdena((ores * 5) + (maps * 500) + (((ores + maps) >= 10) ? 2000 : 0), true);
+                                                        final long om10 = ((ores + maps) / 10) * 2000;
+							st.giveAdenaFuzzy((ores * 5) + (maps * 500) + om10, true);
 							takeItems(player, -1, CHRYSOLITE_ORE, HIDDEN_ORE_MAP);
-							Q00281_HeadForTheHills.giveNewbieReward(player);
+							giveNewbieReward(player);
 							htmltext = (ores > 0) ? (maps > 0) ? "30535-10.html" : "30535-06.html" : "30535-09.html";
 						}
 						else

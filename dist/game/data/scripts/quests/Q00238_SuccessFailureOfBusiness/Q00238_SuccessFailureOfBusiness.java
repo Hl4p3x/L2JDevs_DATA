@@ -179,7 +179,7 @@ public class Q00238_SuccessFailureOfBusiness extends Quest
 						if (st.getQuestItemsCount(GUARDIAN_SPIRIT_FRAGMENT) == GUARDIAN_SPIRIT_FRAGMENT_NEEDED)
 						{
 							htmltext = "32461-08.html";
-							st.giveAdena(283346, true);
+							st.giveAdenaFuzzy(283346, true);
 							st.takeItems(VICINITY_OF_FOS, 1);
 							st.addExpAndSp(1319736, 103553);
 							st.exitQuest(false, true);

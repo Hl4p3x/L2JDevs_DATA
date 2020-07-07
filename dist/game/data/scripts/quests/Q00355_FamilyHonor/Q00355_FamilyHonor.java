@@ -100,13 +100,13 @@ public final class Q00355_FamilyHonor extends Quest
 				}
 				else if (galfredoRomersBustCount >= 100)
 				{
-					giveAdena(player, (galfredoRomersBustCount * 120) + 7800, true);
+					giveAdenaFuzzy(player, (galfredoRomersBustCount * 120) + 7800, true);
 					takeItems(player, GALFREDO_ROMERS_BUST, -1);
 					htmltext = "30181-07.html";
 				}
 				else
 				{
-					giveAdena(player, (galfredoRomersBustCount * 120) + 2800, true);
+					giveAdenaFuzzy(player, (galfredoRomersBustCount * 120) + 2800, true);
 					takeItems(player, GALFREDO_ROMERS_BUST, -1);
 					htmltext = "30181-08.html";
 				}
@@ -118,7 +118,7 @@ public final class Q00355_FamilyHonor extends Quest
 				
 				if (galfredoRomersBustCount > 0)
 				{
-					giveAdena(player, galfredoRomersBustCount * 120, true);
+					giveAdenaFuzzy(player, galfredoRomersBustCount * 120, true);
 				}
 				
 				takeItems(player, GALFREDO_ROMERS_BUST, -1);

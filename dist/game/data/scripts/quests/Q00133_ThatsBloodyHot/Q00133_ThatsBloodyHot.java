@@ -128,7 +128,7 @@ public class Q00133_ThatsBloodyHot extends Quest
 				{
 					if (!HellboundEngine.getInstance().isLocked())
 					{
-						st.giveAdena(254247, true);
+						st.giveAdenaFuzzy(254247, true);
 						st.addExpAndSp(331457, 32524);
 						st.exitQuest(false, true);
 						htmltext = event;
@@ -136,7 +136,7 @@ public class Q00133_ThatsBloodyHot extends Quest
 					else
 					{
 						HellboundEngine.getInstance().setLevel(1);
-						st.giveAdena(254247, true);
+						st.giveAdenaFuzzy(254247, true);
 						st.addExpAndSp(325881, 32524);
 						st.exitQuest(false, true);
 						htmltext = "32292-07.html";

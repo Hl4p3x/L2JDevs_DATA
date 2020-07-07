@@ -20,6 +20,7 @@ package handlers.itemhandlers;
 
 import java.util.logging.Level;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.ShotType;
 import org.l2jdevs.gameserver.handler.IItemHandler;
 import org.l2jdevs.gameserver.model.actor.L2Playable;
@@ -51,7 +52,7 @@ public class SoulShots implements IItemHandler
 		final SkillHolder[] skills = item.getItem().getSkills();
 		
 		int itemId = item.getId();
-		
+
 		if (skills == null)
 		{
 			_log.log(Level.WARNING, getClass().getSimpleName() + ": is missing skills!");
@@ -60,7 +61,7 @@ public class SoulShots implements IItemHandler
 		
 		// Check if Soul shot can be used
 		if ((weaponInst == null) || (weaponItem.getSoulShotCount() == 0))
-		{
+                {
 			if (!activeChar.getAutoSoulShot().contains(itemId))
 			{
 				activeChar.sendPacket(SystemMessageId.CANNOT_USE_SOULSHOTS);
@@ -78,7 +79,7 @@ public class SoulShots implements IItemHandler
 			}
 			return false;
 		}
-		
+
 		activeChar.soulShotLock.lock();
 		try
 		{
@@ -90,11 +91,18 @@ public class SoulShots implements IItemHandler
 			
 			// Consume Soul shots if player has enough of them
 			int SSCount = weaponItem.getSoulShotCount();
+
 			if ((weaponItem.getReducedSoulShot() > 0) && (Rnd.get(100) < weaponItem.getReducedSoulShotChance()))
 			{
 				SSCount = weaponItem.getReducedSoulShot();
 			}
-			
+
+			int mpcost = evalMPCostSS(activeChar.getLevel(),
+						  weaponInst.getItem().getItemGradeSPlus().getId(),
+						  SSCount);
+                        if (Config.L2JMOD_SSHOT_USE_MP > 0 && mpcost > 0 && activeChar.getStatus().getCurrentMp() < mpcost)
+                            return false;
+
 			if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), SSCount, null, false))
 			{
 				if (!activeChar.disableAutoShot(itemId))
@@ -104,6 +112,8 @@ public class SoulShots implements IItemHandler
 				return false;
 			}
 			// Charge soul shot
+                        if (Config.L2JMOD_SSHOT_USE_MP > 0)
+                            activeChar.getStatus().reduceMp(mpcost);
 			weaponInst.setChargedShot(ShotType.SOULSHOTS, true);
 		}
 		finally

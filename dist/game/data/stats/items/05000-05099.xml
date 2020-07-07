@@ -719,6 +719,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="500" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5067" type="EtcItem" name="Blue Coda">
@@ -766,6 +767,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="400" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5073" type="EtcItem" name="Dark Coda">
@@ -780,6 +782,7 @@
 		<set name="icon" val="icon.etc_coda_i09" />
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
+		<set name="price" val="650" />
 		<set name="weight" val="2" />
 		<set name="is_stackable" val="true" />
 	</item>
@@ -796,6 +799,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="750" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5077" type="EtcItem" name="Blue Cobol">
@@ -827,6 +831,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="850" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5081" type="EtcItem" name="Sea Cobol">
@@ -834,6 +839,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="950" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5082" type="EtcItem" name="Thorn Cobol">
@@ -849,6 +855,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="1050" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5084" type="EtcItem" name="Great Cobol">
@@ -872,6 +879,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="1150" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5087" type="EtcItem" name="Blue Codran">
@@ -895,6 +903,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="1250" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5090" type="EtcItem" name="Desert Codran">
@@ -926,6 +935,7 @@
 		<set name="etcitem_type" val="CROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="2" />
+		<set name="price" val="1350" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5094" type="EtcItem" name="Great Codran">
@@ -949,6 +959,7 @@
 		<set name="etcitem_type" val="MATURECROP" />
 		<set name="material" val="PAPER" />
 		<set name="weight" val="1" />
+		<set name="price" val="1450" />
 		<set name="is_stackable" val="true" />
 	</item>
 	<item id="5097" type="EtcItem" name="Mature Blue Coda">

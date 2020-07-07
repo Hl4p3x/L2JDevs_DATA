@@ -61,7 +61,7 @@ public class Q00110_ToThePrimevalIsle extends Quest
 				break;
 			case "32113-2.html":
 			case "32113-2a.html":
-				st.giveAdena(191678, true);
+				st.giveAdenaFuzzy(191678, true);
 				st.addExpAndSp(251602, 25245);
 				st.exitQuest(false, true);
 				break;

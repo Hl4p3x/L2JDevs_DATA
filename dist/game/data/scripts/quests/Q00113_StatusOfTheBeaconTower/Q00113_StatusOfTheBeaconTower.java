@@ -66,12 +66,12 @@ public class Q00113_StatusOfTheBeaconTower extends Quest
 			case "32016-02.html":
 				if (st.hasQuestItems(FIRE_BOX))
 				{
-					st.giveAdena(21578, true);
+					st.giveAdenaFuzzy(21578, true);
 					st.addExpAndSp(76665, 5333);
 				}
 				else
 				{
-					st.giveAdena(154800, true);
+					st.giveAdenaFuzzy(154800, true);
 					st.addExpAndSp(619300, 44200);
 				}
 				st.exitQuest(false, true);

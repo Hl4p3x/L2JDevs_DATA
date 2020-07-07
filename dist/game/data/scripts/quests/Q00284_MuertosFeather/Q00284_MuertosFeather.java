@@ -85,7 +85,9 @@ public final class Q00284_MuertosFeather extends Quest
 			{
 				if (hasQuestItems(player, MUERTOS_FEATHER))
 				{
-					giveAdena(player, getQuestItemsCount(player, MUERTOS_FEATHER) * 45, true);
+                                    final long feathers = getQuestItemsCount(player, MUERTOS_FEATHER);
+                                    final long bonus = feathers / 10;
+					giveAdenaFuzzy(player, feathers * 45 + bonus * 800, true);
 					takeItems(player, MUERTOS_FEATHER, -1);
 					html = event;
 				}

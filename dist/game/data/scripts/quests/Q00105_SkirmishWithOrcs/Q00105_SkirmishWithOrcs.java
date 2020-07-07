@@ -30,8 +30,6 @@ import org.l2jdevs.gameserver.model.quest.State;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Skimirish with Orcs (105)
  * @author janiko
@@ -75,7 +73,9 @@ public final class Q00105_SkirmishWithOrcs extends Quest
 		KENDELLS_8TH_ORDER
 	};
 	private static final int RED_SUNSET_STAFF = 754;
-	private static final int RED_SUNSET_SWORD = 981;
+        private static final int RED_SUNSET_SWORD2H = 981,
+            RSS_DAGGER = 2374, RSS_BOW = 271,
+            SKILL_PWRSTRIKE = 3, SKILL_MRTBLOW = 16, SKILL_PWRSHOT = 56;
 	// Misc
 	private static final int MIN_LVL = 10;
 	
@@ -197,18 +197,11 @@ public final class Q00105_SkirmishWithOrcs extends Quest
 				}
 				if (st.isCond(4) && st.hasQuestItems(KABOO_CHIEFS_2ST_TORQUE))
 				{
-					Q00281_HeadForTheHills.giveNewbieReward(talker);
+					giveNewbieReward(talker);
 					talker.sendPacket(new SocialAction(talker.getObjectId(), 3));
-					st.giveAdena(17599, true);
+					st.giveAdenaFuzzy(17599, true);
 					st.addExpAndSp(41478, 3555);
-					if (st.getPlayer().getClassId().isMage())
-					{
-						st.giveItems(RED_SUNSET_STAFF, 1);
-					}
-					else
-					{
-						st.giveItems(RED_SUNSET_SWORD, 1);
-					}
+                                        st.giveItems(get_weapon(st.getPlayer()), 1);
 					st.takeItems(KABOO_CHIEFS_2ST_TORQUE, 1);
 					st.exitQuest(false, true);
 					htmltext = "30218-09.html";
@@ -223,4 +216,53 @@ public final class Q00105_SkirmishWithOrcs extends Quest
 		}
 		return htmltext;
 	}
+
+    private static int get_weapon(final L2PcInstance pc) {
+        // return pc.getClassId().isMage() ? RED_SUNSET_STAFF : RED_SUNSET_SWORD2H;
+        if(pc.getClassId().isMage())
+            return RED_SUNSET_STAFF;
+        int rw = RED_SUNSET_SWORD2H;
+        switch(get_max_skill(pc)) {
+        case SKILL_PWRSHOT:
+            rw = RSS_BOW;
+            break;
+        case SKILL_MRTBLOW:
+            rw = RSS_DAGGER;
+            break;
+        // case SKILL_PWRSTRIKE:
+        default:
+            rw = RED_SUNSET_SWORD2H;
+        }
+        return rw;
+    }
+
+    private static int get_max_skill(final L2PcInstance pc) {
+        int ps, mb, pb, sid = -1, slv = 0;
+        ps = pc.getSkillLevel(SKILL_PWRSTRIKE); // L2Character
+        pb = pc.getSkillLevel(SKILL_PWRSHOT);
+        mb = pc.getSkillLevel(SKILL_MRTBLOW);
+        if(ps == pb) {
+            if(getRandom(1024) < 512) {
+                sid = SKILL_PWRSTRIKE;
+                slv = ps;
+            }
+            else {
+                sid = SKILL_PWRSHOT;
+                slv = pb;
+            }
+        }
+        else if(ps > pb) {
+            sid = SKILL_PWRSTRIKE;
+            slv = ps;
+        }
+        else {
+            sid = SKILL_PWRSHOT;
+            slv = pb;
+        }
+        if(slv < mb || slv == mb && getRandom(1024) < 512) {
+            sid = SKILL_MRTBLOW;
+            // slv = mb;
+        }
+        return sid;
+    }
 }

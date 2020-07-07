@@ -927,7 +927,25 @@
 					<item id="6523" min="1" max="1" chance="17.1429" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="1" max="1" chance="21.4285" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="30" max="42" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="1.9842000007629395">
+					<item id="4" min="1" max="1" chance="50" /> <!-- Club -->
+					<item id="7" min="1" max="1" chance="50" /> <!-- Apprentice's Rod -->
+				</group>
+				<group chance="10.92609977722168">
+					<item id="1872" min="1" max="1" chance="13.3929" /> <!-- skin -->
+					<item id="1866" min="1" max="1" chance="8.9286" /> <!-- Suede -->
+					<item id="1867" min="1" max="1" chance="10.7143" /> <!-- bone -->
+					<item id="6535" min="10" max="30" chance="6.9642" /> <!-- f-shot -->
+				</group>
 			</death>
+			<corpse>
+				<item id="1803" min="1" max="1" chance="19.8526" /> <!-- Recipe: Necklace of Wisdom -->
+				<item id="1871" min="1" max="1" chance="23.6245" /> <!-- Charcoal -->
+				<item id="1921" min="1" max="1" chance="15.2416" /> <!-- Leather Shoes Texture -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="20" />
@@ -987,7 +1005,29 @@
 					<item id="6523" min="1" max="1" chance="20" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="1" max="1" chance="25" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="194" max="330" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="5.956399917602539">
+					<item id="38" min="1" max="1" chance="5.2405" /> <!-- Low Boots -->
+					<item id="50" min="1" max="1" chance="5.2405" /> <!-- Leather Gloves -->
+					<item id="1925" min="1" max="1" chance="89.519" /> <!-- Leather Gloves Lining -->
+				</group>
+				<group chance="20.583999633789062">
+					<item id="1869" min="1" max="1" chance="16.93" /> <!-- Iron Ore -->
+					<item id="1870" min="1" max="1" chance="16.93" /> <!-- Coal -->
+					<item id="1871" min="1" max="1" chance="16.93" /> <!-- Charcoal -->
+					<item id="1872" min="1" max="1" chance="22.5734" /> <!-- Animal Bone -->
+					<item id="1867" min="1" max="1" chance="22.5734" /> <!-- Animal Skin -->
+					<item id="2139" min="1" max="1" chance="3.386" /> <!-- Recipe: Steel Mold -->
+					<item id="5158" min="1" max="1" chance="0.6772" /> <!-- Recipe: Spiritshot (D) Compressed Package (100%) -->
+				</group>
 			</death>
+			<corpse>
+				<item id="2012" min="1" max="1" chance="0.8603" /> <!-- Sword of Reflection Blade -->
+				<item id="2139" min="1" max="1" chance="8.2584" /> <!-- Recipe: Steel Mold -->
+				<item id="2013" min="1" max="1" chance="0.8912" /> <!-- Forest Bow Shaft -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="12" />
@@ -1048,7 +1088,28 @@
 					<item id="6523" min="1" max="1" chance="28" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="1" max="1" chance="33.6" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="355" max="708" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.012000000104308128">
+					<item id="260" min="1" max="1" chance="100" /> <!-- Triple-Edged Jamadhr -->
+				</group>
+				<group chance="6.956299781799316">
+					<item id="1874" min="1" max="1" chance="5.3502" /> <!-- Oriharukon Ore -->
+					<item id="1878" min="1" max="1" chance="32.1012" /> <!-- Braided Hemp -->
+					<item id="1884" min="1" max="1" chance="49.3865" /> <!-- Cord -->
+					<item id="1889" min="1" max="1" chance="5.3502" /> <!-- Compound Braid -->
+					<item id="5220" min="1" max="1" chance="3.2101" /> <!-- Metal Hardener -->
+					<item id="2189" min="1" max="1" chance="3.5827" /> <!-- Recipe: Mithril Tunic -->
+					<item id="2293" min="1" max="1" chance="0.4459" /> <!-- Recipe: Glaive -->
+					<item id="2275" min="1" max="1" chance="0.5732" /> <!-- Recipe: Heavy Bone Club -->
+				</group>
 			</death>
+			<corpse>
+				<item id="2186" min="1" max="1" chance="2.8093" /> <!-- Recipe: Brigandine Tunic -->
+				<item id="1901" min="1" max="1" chance="11.602" /> <!-- Tiger's Eye Earring Stone -->
+				<item id="1901" min="1" max="1" chance="11.602" /> <!-- Tiger's Eye Earring Stone -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="30" />
@@ -1109,7 +1170,34 @@
 					<item id="6523" min="1" max="1" chance="55.0964" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="3" max="9" chance="11.0193" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="826" max="1677" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.3846000134944916">
+					<item id="71" min="1" max="1" chance="0.7275" /> <!-- Flamberge -->
+					<item id="2059" min="1" max="1" chance="47.6302" /> <!-- Flamberge Blade -->
+					<item id="72" min="1" max="1" chance="0.7275" /> <!-- Stormbringer -->
+					<item id="2060" min="1" max="1" chance="50.9148" /> <!-- Stormbringer Blade -->
+				</group>
+				<group chance="28.795900344848633">
+					<item id="1869" min="1" max="1" chance="31.1482" /> <!-- Iron Ore -->
+					<item id="1864" min="1" max="1" chance="62.2964" /> <!-- Stem -->
+					<item id="1880" min="1" max="1" chance="3.1148" /> <!-- Steel -->
+					<item id="5550" min="1" max="1" chance="0.4153" /> <!-- Durable Metal Plate -->
+					<item id="2220" min="1" max="1" chance="0.6449" /> <!-- Recipe: Rind Leather Armor -->
+					<item id="2225" min="1" max="1" chance="0.6771" /> <!-- Recipe: Demon's Stockings -->
+					<item id="2321" min="1" max="1" chance="0.1085" /> <!-- Recipe: Stiletto -->
+					<item id="8723" min="1" max="1" chance="1.2459" /> <!-- Life Stone - Level 46 -->
+					<item id="8733" min="1" max="1" chance="0.3115" /> <!-- Mid-Grade Life Stone - Level 46 -->
+					<item id="8743" min="1" max="1" chance="0.0311" /> <!-- High-Grade Life Stone - Level 46 -->
+					<item id="8753" min="1" max="1" chance="0.0063" /> <!-- Top-Grade Life Stone - Level 46 -->
+				</group>
 			</death>
+			<corpse>
+				<item id="4042" min="1" max="1" chance="3.4793" /> <!-- Enria -->
+				<item id="4043" min="1" max="1" chance="6.9587" /> <!-- Asofe -->
+				<item id="1908" min="1" max="1" chance="19.769" /> <!-- Moonstone Earring Wire -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="13" />
@@ -1170,7 +1258,42 @@
 					<item id="6523" min="1" max="1" chance="41.8605" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="2" max="6" chance="9.3023" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="1812" max="3683" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.5217999815940857">
+					<item id="75" min="1" max="1" chance="0.1831" /> <!-- Caliburs -->
+					<item id="2089" min="1" max="1" chance="16.4836" /> <!-- Caliburs Edge -->
+					<item id="76" min="1" max="1" chance="0.1831" /> <!-- Sword of Delusion -->
+					<item id="2090" min="1" max="1" chance="16.4836" /> <!-- Delusional Blade -->
+					<item id="77" min="1" max="1" chance="0.1831" /> <!-- Tsurugi -->
+					<item id="2091" min="1" max="1" chance="16.4836" /> <!-- Tsurugi Blade -->
+					<item id="84" min="1" max="1" chance="0.1831" /> <!-- Homunkulus's Sword -->
+					<item id="2092" min="1" max="1" chance="16.4836" /> <!-- Homunkulus's Sword Blade -->
+					<item id="134" min="1" max="1" chance="0.1831" /> <!-- Sword of Nightmare -->
+					<item id="2095" min="1" max="1" chance="16.4836" /> <!-- Sword of Nightmare Blade -->
+					<item id="145" min="1" max="1" chance="0.1831" /> <!-- Sword of Whispering Death -->
+					<item id="2096" min="1" max="1" chance="16.4834" /> <!-- Sword of Whispering Death Blade -->
+				</group>
+				<group chance="37.97840118408203">
+					<item id="1869" min="1" max="1" chance="45.3377" /> <!-- Iron Ore -->
+					<item id="1864" min="1" max="3" chance="45.3377" /> <!-- Stem -->
+					<item id="1880" min="1" max="1" chance="4.5338" /> <!-- Steel -->
+					<item id="5550" min="1" max="1" chance="0.6045" /> <!-- Durable Metal Plate -->
+					<item id="4043" min="1" max="1" chance="1.5113" /> <!-- Asofe -->
+					<item id="2169" min="1" max="1" chance="0.8024" /> <!-- Recipe: Necklace of Seal -->
+					<item id="2232" min="1" max="1" chance="0.2606" /> <!-- Recipe: Drake Leather Armor -->
+					<item id="8725" min="1" max="1" chance="1.2594" /> <!-- Life Stone - Level 52 -->
+					<item id="8735" min="1" max="1" chance="0.3148" /> <!-- Mid-Grade Life Stone - Level 52 -->
+					<item id="8745" min="1" max="1" chance="0.0315" /> <!-- High-Grade Life Stone - Level 52 -->
+					<item id="8755" min="1" max="1" chance="0.0063" /> <!-- Top-Grade Life Stone - Level 52 -->
+				</group>
 			</death>
+			<corpse>
+				<item id="1914" min="1" max="1" chance="25.7308" /> <!-- Earring of Seal Gemstone -->
+				<item id="4601" min="1" max="1" chance="1.0178" /> <!-- Greater Dye of STR <Str+3 Con-3> -->
+				<item id="1539" min="1" max="3" chance="50.8898" /> <!-- Greater Healing Potion -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="9" />
@@ -1230,7 +1353,39 @@
 					<item id="6523" min="1" max="1" chance="41.8605" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="2" max="6" chance="9.3023" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="3592" max="7313" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.49070000648498535">
+					<item id="11946" min="1" max="1" chance="1.8833" /> <!-- Common Item - Dasparion's Staff -->
+					<item id="5543" min="1" max="1" chance="23.2872" /> <!-- Dasparion's Staff Head -->
+					<item id="11949" min="1" max="1" chance="1.8833" /> <!-- Common Item - Meteor Shower -->
+					<item id="5532" min="1" max="1" chance="23.0697" /> <!-- Meteor Shower Head -->
+					<item id="11953" min="1" max="1" chance="1.8833" /> <!-- Common Item - Spiritual Eye -->
+					<item id="8341" min="1" max="1" chance="23.0402" /> <!-- Spiritual Eye Piece -->
+					<item id="11958" min="1" max="1" chance="1.8833" /> <!-- Common Item - Destroyer Hammer -->
+					<item id="8346" min="1" max="1" chance="23.0697" /> <!-- Hammer Piece of Destroyer -->
+				</group>
+				<group chance="36.936100006103516">
+					<item id="1872" min="1" max="3" chance="40.3971" /> <!-- Animal Bone -->
+					<item id="1867" min="1" max="3" chance="26.9314" /> <!-- Animal Skin -->
+					<item id="1881" min="1" max="1" chance="8.0794" /> <!-- Coarse Bone Powder -->
+					<item id="1875" min="1" max="1" chance="4.0397" /> <!-- Stone of Purity -->
+					<item id="4041" min="1" max="1" chance="0.5269" /> <!-- Mold Hardener -->
+					<item id="5167" min="1" max="1" chance="0.0269" /> <!-- Recipe: Blessed Spiritshot (S) Compressed Package (100%) -->
+					<item id="5406" min="1" max="1" chance="0.3443" /> <!-- Recipe: Sealed Majestic Gauntlets(60%) -->
+					<item id="8731" min="1" max="1" chance="0.5611" /> <!-- Life Stone - Level 70 -->
+					<item id="8741" min="1" max="1" chance="0.1403" /> <!-- Mid-Grade Life Stone - Level 70 -->
+					<item id="8751" min="1" max="1" chance="0.014" /> <!-- High-Grade Life Stone - Level 70 -->
+					<item id="8761" min="1" max="1" chance="0.0028" /> <!-- Top-Grade Life Stone - Level 70 -->
+					<item id="1344" min="40" max="120" chance="18.9361" /> <!-- Mithril Arrow -->
+				</group>
 			</death>
+			<corpse>
+				<item id="5547" min="1" max="1" chance="2.4748" /> <!-- Elemental Sword Edge -->
+				<item id="5466" min="1" max="1" chance="0.2694" /> <!-- Recipe: Sword of Miracles(60%) -->
+				<item id="5548" min="1" max="1" chance="2.4748" /> <!-- Tallum Blade Edge -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="12" />
@@ -1290,7 +1445,32 @@
 					<item id="6523" min="1" max="1" chance="45" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="2" max="6" chance="10" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="3124" max="6369" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.42989999055862427">
+					<item id="11951" min="1" max="1" chance="7.4858" /> <!-- Common Item - Bloody Orchid -->
+					<item id="5536" min="1" max="1" chance="92.5142" /> <!-- Bloody Orchid Head -->
+				</group>
+				<group chance="38.798301696777344">
+					<item id="1869" min="2" max="6" chance="13.6939" /> <!-- Iron Ore -->
+					<item id="1864" min="1" max="3" chance="54.7756" /> <!-- Stem -->
+					<item id="1880" min="1" max="1" chance="5.4776" /> <!-- Steel -->
+					<item id="5550" min="1" max="1" chance="0.7303" /> <!-- Durable Metal Plate -->
+					<item id="4043" min="1" max="1" chance="1.8259" /> <!-- Asofe -->
+					<item id="3036" min="1" max="1" chance="0.0243" /> <!-- Recipe: Spiritshot S -->
+					<item id="8731" min="1" max="1" chance="0.5072" /> <!-- Life Stone - Level 70 -->
+					<item id="8741" min="1" max="1" chance="0.1268" /> <!-- Mid-Grade Life Stone - Level 70 -->
+					<item id="8751" min="1" max="1" chance="0.0127" /> <!-- High-Grade Life Stone - Level 70 -->
+					<item id="8761" min="1" max="1" chance="0.0025" /> <!-- Top-Grade Life Stone - Level 70 -->
+					<item id="1344" min="30" max="90" chance="22.8232" /> <!-- Mithril Arrow -->
+				</group>
 			</death>
+			<corpse>
+				<item id="5550" min="1" max="1" chance="8.4418" /> <!-- Durable Metal Plate -->
+				<item id="4043" min="1" max="1" chance="21.1044" /> <!-- Asofe -->
+				<item id="6343" min="1" max="1" chance="13.5372" /> <!-- Sealed Phoenix Necklace Beads -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="18" />
@@ -1350,7 +1530,31 @@
 					<item id="6523" min="1" max="1" chance="45" /> <!-- Purple Colored Lure -->
 					<item id="6526" min="2" max="6" chance="10" /> <!-- Yellow Colored Lure -->
 				</group>
+				<group chance="70">
+					<item id="57" min="5384" max="10974" chance="100" /> <!-- Adena -->
+				</group>
+				<group chance="0.7426999807357788">
+					<item id="11955" min="1" max="1" chance="7.4658" /> <!-- Common Item - Carnage Bow -->
+					<item id="5535" min="1" max="1" chance="92.5342" /> <!-- Carnage Bow Stave -->
+				</group>
+				<group chance="34.907901763916016">
+					<item id="1866" min="1" max="3" chance="25.6446" /> <!-- Suede -->
+					<item id="1871" min="1" max="3" chance="57.7002" /> <!-- Charcoal -->
+					<item id="5220" min="1" max="1" chance="4.616" /> <!-- Metal Hardener -->
+					<item id="1885" min="1" max="1" chance="9.6167" /> <!-- High-Grade Suede -->
+					<item id="4041" min="1" max="1" chance="1.0035" /> <!-- Mold Hardener -->
+					<item id="1808" min="1" max="1" chance="0.0513" /> <!-- Recipe: Soulshot (S-Grade) -->
+					<item id="8731" min="1" max="1" chance="1.0685" /> <!-- Life Stone - Level 70 -->
+					<item id="8741" min="1" max="1" chance="0.2671" /> <!-- Mid-Grade Life Stone - Level 70 -->
+					<item id="8751" min="1" max="1" chance="0.0267" /> <!-- High-Grade Life Stone - Level 70 -->
+					<item id="8761" min="1" max="1" chance="0.0054" /> <!-- Top-Grade Life Stone - Level 70 -->
+				</group>
 			</death>
+			<corpse>
+				<item id="5448" min="1" max="1" chance="0.4041" /> <!-- Recipe: Soul Separator(60%) -->
+				<item id="6341" min="1" max="1" chance="30.1763" /> <!-- Sealed Phoenix Earring Gemstone -->
+				<item id="729" min="1" max="1" chance="0.1212" /> <!-- Scroll: Enchant Weapon (A-Grade) -->
+			</corpse>
 		</dropLists>
 		<collision>
 			<radius normal="21" />

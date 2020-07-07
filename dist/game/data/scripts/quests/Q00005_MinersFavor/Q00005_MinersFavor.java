@@ -136,7 +136,7 @@ public class Q00005_MinersFavor extends Quest
 						}
 						else
 						{
-							giveAdena(player, 2466, true);
+							giveAdenaFuzzy(player, 2466, true);
 							addExpAndSp(player, 5672, 446);
 							giveItems(player, NECKLACE, 1);
 							st.exitQuest(false, true);

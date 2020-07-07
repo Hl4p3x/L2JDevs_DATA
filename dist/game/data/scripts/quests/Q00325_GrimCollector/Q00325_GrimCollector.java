@@ -161,7 +161,7 @@ public final class Q00325_GrimCollector extends Quest
 							sum += 543 + (complete * 341);
 						}
 						
-						st.giveAdena(sum, true);
+						st.giveAdenaFuzzy(sum, true);
 					}
 					
 					takeItems(player, -1, getRegisteredItemIds());
@@ -180,7 +180,7 @@ public final class Q00325_GrimCollector extends Quest
 				final long complete = st.getQuestItemsCount(COMPLETE_SKELETON);
 				if (complete > 0)
 				{
-					st.giveAdena(((complete * 341) + 543), true);
+					st.giveAdenaFuzzy(((complete * 341) + 543), true);
 					st.takeItems(COMPLETE_SKELETON, -1);
 				}
 				break;

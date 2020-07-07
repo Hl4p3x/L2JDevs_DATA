@@ -90,7 +90,7 @@ public final class Q00649_ALooterAndARailroadMan extends Quest
 			{
 				if (st.isCond(2) && st.hasQuestItems(THIEF_GUILD_MARK))
 				{
-					st.giveAdena(21698, true);
+					st.giveAdenaFuzzy(21698, true);
 					st.exitQuest(true, true);
 					htmltext = event;
 				}

@@ -147,22 +147,22 @@ public final class Q00038_DragonFangs extends Quest
 						if (chance < 250)
 						{
 							rewardItems(player, BONE_HELMET, 1);
-							giveAdena(player, 5200, true);
+							giveAdenaFuzzy(player, 5200, true);
 						}
 						else if (chance < 500)
 						{
 							rewardItems(player, ASPIS, 1);
-							giveAdena(player, 1500, true);
+							giveAdenaFuzzy(player, 1500, true);
 						}
 						else if (chance < 750)
 						{
 							rewardItems(player, BLUE_BUCKSKIN_BOOTS, 1);
-							giveAdena(player, 3200, true);
+							giveAdenaFuzzy(player, 3200, true);
 						}
 						else if (chance < 1000)
 						{
 							rewardItems(player, LEATHER_GAUNTLET, 1);
-							giveAdena(player, 3200, true);
+							giveAdenaFuzzy(player, 3200, true);
 						}
 						qs.exitQuest(false, true);
 						htmltext = event;
@@ -195,7 +195,7 @@ public final class Q00038_DragonFangs extends Quest
 		}
 		return htmltext;
 	}
-	
+
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
@@ -215,7 +215,7 @@ public final class Q00038_DragonFangs extends Quest
 			case LIZARDMAN_SHAMAN:
 			{
 				final QuestState qs = getRandomPartyMemberState(killer, 6, 3, npc);
-				if ((qs != null) && giveItemRandomly(qs.getPlayer(), npc, TOTEM_TOOTH_2ND.getId(), 1, TOTEM_TOOTH_2ND.getCount(), 0.5, true))
+				if ((qs != null) && giveItemRandomly(qs.getPlayer(), npc, TOTEM_TOOTH_2ND.getId(), 1, TOTEM_TOOTH_2ND.getCount(), getEffectiveChance(0.5), true))
 				{
 					qs.setCond(7);
 				}

@@ -119,7 +119,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="6" /> <!-- rhand: Apprentice's Wand -->
+		<equipment rhand="182" /> <!-- rhand: doom hammer -->
 		<acquire expRate="1.948896" sp="55" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="435.34437" hpRegen="3.5" mp="245.52" mpRegen="1.5" />
@@ -571,7 +571,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="2507" /> <!-- rhand: Lizardspear -->
+		<equipment rhand="296" /> <!-- rhand: Lizardspear -->
 		<acquire expRate="2.2283592" sp="139" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="702.20463" hpRegen="4.5" mp="372.96" mpRegen="1.8" />
@@ -797,7 +797,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="21738" /> <!-- rhand: Winged Spear - Event -->
+		<equipment rhand="93" /> <!-- rhand: Winged Spear - Event -->
 		<acquire expRate="3.554496" sp="258" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="772.73802" hpRegen="4.5" mp="402.6" mpRegen="1.8" />
@@ -837,6 +837,10 @@
 				<group chance="0.020600000396370888">
 					<item id="260" min="1" max="1" chance="100" /> <!-- Triple-Edged Jamadhr -->
 				</group>
+				<group chance="0.038600001484155655">
+					<item id="436" min="1" max="1" chance="38.4858" /> <!-- Tunic of Knowledge -->
+					<item id="469" min="1" max="1" chance="61.5142" /> <!-- Stockings of Knowledge -->
+				</group>
 				<group chance="9.77079963684082">
 					<item id="1876" min="1" max="1" chance="26.0762" /> <!-- Mithril Ore -->
 					<item id="1880" min="1" max="1" chance="13.0381" /> <!-- Steel -->
@@ -844,6 +848,8 @@
 					<item id="1881" min="1" max="1" chance="17.3841" /> <!-- Coarse Bone Powder -->
 					<item id="1882" min="1" max="1" chance="28.9735" /> <!-- Leather -->
 					<item id="2188" min="1" max="1" chance="9.3129" /> <!-- Recipe: Manticore Skin Gaiters -->
+					<item id="2190" min="1" max="1" chance="2.5" /> <!-- Recipe: Mithril Stockings -->
+					<item id="3020" min="1" max="1" chance="0.3" /> <!-- Recipe: Elven Long Sword -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="20" /> <!-- Herb of Life -->
@@ -881,6 +887,8 @@
 				<item id="1939" min="1" max="1" chance="12.6271" /> <!-- Mithril Banded Gaiters Material -->
 				<item id="2156" min="1" max="1" chance="11.5008" /> <!-- Recipe: Elven Necklace -->
 				<item id="1940" min="1" max="1" chance="21.4567" /> <!-- Iron Boots Design -->
+				<item id="2028" min="1" max="1" chance="0.3886" /> <!-- Shilen Knife Edge -->
+				<item id="1938" min="1" max="1" chance="2.1988" /> <!-- Mithril Banded Mail Material -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -2179,7 +2187,7 @@
 			<height normal="36" />
 		</collision>
 	</npc>
-	<npc id="21119" level="21" type="L2Monster" name="Hobgoblin">
+	<npc id="21119" level="21" type="L2Monster" name="Kasha Hobgoblin">
 		<!-- Confirmed CT2.5 -->
 		<parameters>
 			<param name="MoveAroundSocial" value="0" />
@@ -2447,13 +2455,13 @@
 					<item id="57" min="177" max="312" chance="100" /> <!-- Adena -->
 				</group>
 				<group chance="0.02419999986886978">
-					<item id="257" min="1" max="1" chance="100" /> <!-- Viper Fang -->
+					<item id="5071" min="1" max="1" chance="100" /> <!-- lute coda -->
 				</group>
 				<group chance="16.089799880981445">
 					<item id="1872" min="1" max="1" chance="47.2068" /> <!-- Animal Bone -->
 					<item id="1867" min="1" max="1" chance="47.2068" /> <!-- Animal Skin -->
-					<item id="1881" min="1" max="1" chance="4.7207" /> <!-- Coarse Bone Powder -->
-					<item id="2258" min="1" max="1" chance="0.8657" /> <!-- Recipe: Temptation of Abyss -->
+					<item id="1864" min="1" max="1" chance="4.7207" /> <!-- stem -->
+					<item id="5069" min="1" max="1" chance="0.8657" /> <!-- golden coda -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -2488,8 +2496,8 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="1927" min="1" max="1" chance="3.077" /> <!-- Hard Leather Shirt Pattern -->
-				<item id="1881" min="1" max="1" chance="5.1428" /> <!-- Coarse Bone Powder -->
+				<item id="1864" min="1" max="1" chance="3.077" /> <!-- stem -->
+				<item id="1867" min="1" max="1" chance="5.1428" /> <!-- skin -->
 				<item id="1875" min="1" max="1" chance="2.5714" /> <!-- Stone of Purity -->
 			</corpse>
 		</dropLists>
@@ -2512,7 +2520,7 @@
 		</parameters>
 		<race>GIANT</race>
 		<sex>MALE</sex>
-		<equipment rhand="169" /> <!-- rhand: Skull Breaker -->
+		<equipment rhand="166" /> <!-- rhand: heavy mace -->
 		<acquire expRate="1.9878744" sp="56" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="435.34437" hpRegen="3.5" mp="245.52" mpRegen="1.5" />
@@ -2551,6 +2559,9 @@
 				<group chance="70">
 					<item id="57" min="181" max="334" chance="100" /> <!-- Adena -->
 				</group>
+				<group chance="0.02419999986886978">
+					<item id="257" min="1" max="1" chance="100" /> <!-- Viper Fang -->
+				</group>
 				<group chance="0.15379999577999115">
 					<item id="273" min="1" max="1" chance="8.3226" /> <!-- Composite Bow -->
 					<item id="2016" min="1" max="1" chance="91.6774" /> <!-- Composite Bow Shaft -->
@@ -2559,6 +2570,8 @@
 					<item id="1873" min="1" max="1" chance="16.3934" /> <!-- Silver Nugget -->
 					<item id="1868" min="1" max="1" chance="81.9672" /> <!-- Thread -->
 					<item id="5268" min="1" max="1" chance="1.6394" /> <!-- Recipe: Greater Soulshot (D) Compressed Package (100%) -->
+					<item id="1881" min="1" max="1" chance="4.7207" /> <!-- Coarse Bone Powder -->
+					<item id="2258" min="1" max="1" chance="0.8657" /> <!-- Recipe: Temptation of Abyss -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -2593,6 +2606,8 @@
 				</group>
 			</death>
 			<corpse>
+				<item id="1927" min="1" max="1" chance="3.077" /> <!-- Hard Leather Shirt Pattern -->
+				<item id="1881" min="1" max="1" chance="5.1428" /> <!-- Coarse Bone Powder -->
 				<item id="1928" min="1" max="1" chance="5.9341" /> <!-- Piece Bone Gaiters Fragment -->
 				<item id="2176" min="1" max="1" chance="19.4917" /> <!-- Recipe: Leather Boots -->
 				<item id="1929" min="1" max="1" chance="5.2565" /> <!-- Hard Leather Gaiters Material -->

@@ -18,6 +18,7 @@
  */
 package village_master.DarkElfChange2;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.CategoryType;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -201,7 +202,8 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				player.setBaseClass(SHILLIEN_KNIGHT);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30195-32.htm";
 			}
 			else
@@ -229,7 +231,8 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				player.setBaseClass(BLADEDANCER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30195-36.htm";
 			}
 			else
@@ -257,7 +260,8 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				player.setBaseClass(ABYSS_WALKER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30195-40.htm";
 			}
 			else
@@ -285,7 +289,8 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				player.setBaseClass(PHANTOM_RANGER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30195-44.htm";
 			}
 			else
@@ -313,7 +318,8 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				player.setBaseClass(SPELLHOWLER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30195-48.htm";
 			}
 			else
@@ -341,7 +347,8 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				player.setBaseClass(PHANTOM_SUMMONER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30195-52.htm";
 			}
 			else
@@ -369,7 +376,8 @@ public final class DarkElfChange2 extends AbstractNpcAI
 				player.setBaseClass(SHILLIEN_ELDER);
 				// SystemMessage and cast skill is done by setClassId
 				player.broadcastUserInfo();
-				giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
+				if(Config.L2JMOD_SHADOW_COUPONS)
+					giveItems(player, SHADOW_ITEM_EXCHANGE_COUPON_C_GRADE, 15);
 				htmltext = "30195-56.htm";
 			}
 			else

@@ -52,7 +52,7 @@
 		<set name="item_skill" val="26069-5" />
 		<set name="for_npc" val="true" />
 	</item>
-	<item id="22104" type="EtcItem" name="Soulshot Pack (C-Grade)">
+	<item id="22104" type="EtcItem" name="Soulshot Pack (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_pack_of_soulshot_d_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
@@ -117,7 +117,7 @@
 		<set name="item_skill" val="26070-5" />
 		<set name="for_npc" val="true" />
 	</item>
-	<item id="22109" type="EtcItem" name="Blessed Spiritshot Large Pack (C-Grade)">
+	<item id="22109" type="EtcItem" name="Blessed Spiritshot Large Pack (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_large_pack_of_blessed_spiritshot_d_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
@@ -182,7 +182,7 @@
 		<set name="item_skill" val="26068-10" />
 		<set name="for_npc" val="true" />
 	</item>
-	<item id="22114" type="EtcItem" name="Spiritshot Large Pack (C-Grade)">
+	<item id="22114" type="EtcItem" name="Spiritshot Large Pack (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_large_pack_of_spiritshot_d_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />
@@ -247,7 +247,7 @@
 		<set name="item_skill" val="26069-10" />
 		<set name="for_npc" val="true" />
 	</item>
-	<item id="22119" type="EtcItem" name="Soulshot Large Pack (C-Grade)">
+	<item id="22119" type="EtcItem" name="Soulshot Large Pack (D-Grade)">
 		<set name="icon" val="br_cashtex.item.br_cash_large_pack_of_soulshot_d_i00" />
 		<set name="default_action" val="CAPSULE" />
 		<set name="immediate_effect" val="true" />

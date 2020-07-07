@@ -131,7 +131,7 @@ public class Q10283_RequestOfIceMerchant extends Quest
 			{
 				if (st.isMemoState(2))
 				{
-					giveAdena(player, 190000, true);
+					giveAdenaFuzzy(player, 190000, true);
 					addExpAndSp(player, 627000, 50300);
 					st.exitQuest(false, true);
 					htmltext = event;

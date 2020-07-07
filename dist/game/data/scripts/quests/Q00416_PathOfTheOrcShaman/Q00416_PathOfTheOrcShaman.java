@@ -175,20 +175,7 @@ public final class Q00416_PathOfTheOrcShaman extends Quest
 				{
 					takeItems(player, TOTEM_SPIRIT_BLOOD, -1);
 					giveItems(player, MASK_OF_MEDIUM, 1);
-					final int level = player.getLevel();
-					if (level >= 20)
-					{
-						addExpAndSp(player, 320534, 22992);
-					}
-					else if (level >= 19)
-					{
-						addExpAndSp(player, 456128, 29690);
-					}
-					else
-					{
-						addExpAndSp(player, 591724, 36388);
-					}
-					giveAdena(player, 163800, true);
+                                        give1stTransferReward(player);
 					st.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					st.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -489,20 +476,7 @@ public final class Q00416_PathOfTheOrcShaman extends Quest
 					else if (memoState == 110)
 					{
 						giveItems(player, MASK_OF_MEDIUM, 1);
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 160267, 11496);
-						}
-						else if (level >= 19)
-						{
-							addExpAndSp(player, 228064, 14845);
-						}
-						else
-						{
-							addExpAndSp(player, 295862, 18194);
-						}
-						giveAdena(player, 81900, true);
+                                                give1stTransferRewardHalf(player);
 						st.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						st.saveGlobalQuestVar("1ClassQuestFinished", "1");

@@ -100,7 +100,7 @@ public class Q00252_ItSmellsDelicious extends Quest
 			case "30200-08.html":
 				if (qs.isCond(2))
 				{
-					giveAdena(player, 147656, true);
+					giveAdenaFuzzy(player, 147656, true);
 					addExpAndSp(player, 716238, 78324);
 					qs.exitQuest(false, true);
 					htmltext = event;

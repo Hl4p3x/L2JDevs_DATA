@@ -294,21 +294,8 @@ public final class Q00414_PathOfTheOrcRaider extends Quest
 					}
 					else if (getQuestItemsCount(player, HEAD_OF_BETRAYER) == 2)
 					{
-						giveAdena(player, 163800, true);
 						giveItems(player, MARK_OF_RAIDER, 1);
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 320534, 21312);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 456128, 28010);
-						}
-						else
-						{
-							addExpAndSp(player, 591724, 34708);
-						}
+                                                give1stTransferReward(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
@@ -330,21 +317,8 @@ public final class Q00414_PathOfTheOrcRaider extends Quest
 						}
 						else
 						{
-							giveAdena(player, 81900, true);
 							giveItems(player, MARK_OF_RAIDER, 1);
-							final int level = player.getLevel();
-							if (level >= 20)
-							{
-								addExpAndSp(player, 160267, 10656);
-							}
-							else if (level == 19)
-							{
-								addExpAndSp(player, 228064, 14005);
-							}
-							else
-							{
-								addExpAndSp(player, 295862, 17354);
-							}
+                                                        give1stTransferRewardHalf(player);
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

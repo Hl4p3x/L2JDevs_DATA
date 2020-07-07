@@ -68,7 +68,7 @@ public final class Q00303_CollectArrowheads extends Quest
 		if (partyMember != null)
 		{
 			final QuestState st = getQuestState(partyMember, false);
-			if (st.giveItemRandomly(npc, ORCISH_ARROWHEAD, 1, REQUIRED_ITEM_COUNT, 0.4, true))
+			if (st.giveItemRandomly(npc, ORCISH_ARROWHEAD, 1, REQUIRED_ITEM_COUNT, getEffectiveChance(0.4), true))
 			{
 				st.setCond(2);
 			}
@@ -104,7 +104,7 @@ public final class Q00303_CollectArrowheads extends Quest
 					{
 						if (st.getQuestItemsCount(ORCISH_ARROWHEAD) >= REQUIRED_ITEM_COUNT)
 						{
-							st.giveAdena(1000, true);
+							st.giveAdenaFuzzy(1000, true);
 							st.addExpAndSp(2000, 0);
 							st.exitQuest(true, true);
 							htmltext = "30029-06.html";

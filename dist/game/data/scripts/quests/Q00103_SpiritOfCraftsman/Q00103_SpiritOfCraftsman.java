@@ -27,8 +27,6 @@ import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
 
-import quests.Q00281_HeadForTheHills.Q00281_HeadForTheHills;
-
 /**
  * Spirit of Craftsman (103)
  * @author janiko
@@ -173,9 +171,9 @@ public final class Q00103_SpiritOfCraftsman extends Quest
 					}
 					else if (hasQuestItems(talker, STEELBENDERS_HEAD))
 					{
-						Q00281_HeadForTheHills.giveNewbieReward(talker);
+						giveNewbieReward(talker);
 						addExpAndSp(talker, 46663, 3999);
-						giveAdena(talker, 19799, true);
+						giveAdenaFuzzy(talker, 19799, true);
 						for (ItemHolder reward : REWARDS)
 						{
 							rewardItems(talker, reward);

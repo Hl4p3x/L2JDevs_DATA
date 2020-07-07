@@ -66,7 +66,7 @@ public class Q10281_MutatedKaneusRune extends Quest
 				st.startQuest();
 				break;
 			case "31335-03.htm":
-				st.giveAdena(360000, true);
+				st.giveAdenaFuzzy(360000, true);
 				st.exitQuest(false, true);
 				break;
 		}

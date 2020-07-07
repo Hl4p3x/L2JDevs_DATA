@@ -36,7 +36,8 @@ public class Q00156_MillenniumLove extends Quest
 	// Items
 	private static final int LILITHS_LETTER = 1022;
 	private static final int THEONS_DIARY = 1023;
-	private static final int GREATER_COMP_SOULSHOUT_PACKAGE_NO_GRADE = 5250;
+        private static final int GREATER_COMP_SOULSHOUT_PACKAGE_NO_GRADE = 5250,
+            GREATER_COMP_SPIRITSHOUT_PACKAGE_NO_GRADE = 5256;
 	// Misc
 	private static final int MIN_LVL = 15;
 	
@@ -127,7 +128,10 @@ public class Q00156_MillenniumLove extends Quest
 						}
 						else if (st.isCond(2) && st.hasQuestItems(THEONS_DIARY))
 						{
-							st.giveItems(GREATER_COMP_SOULSHOUT_PACKAGE_NO_GRADE, 1);
+                                                        final int reward = player.isMageClass() //
+                                                            ? GREATER_COMP_SPIRITSHOUT_PACKAGE_NO_GRADE //
+                                                            : GREATER_COMP_SOULSHOUT_PACKAGE_NO_GRADE;
+							st.giveItems(reward, 1);
 							st.addExpAndSp(3000, 0);
 							st.exitQuest(false, true);
 							htmltext = "30368-07.html";

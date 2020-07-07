@@ -27,50 +27,50 @@
 	<enchant id="6576" targetGrade="D" />
 	<enchant id="6578" targetGrade="S" />
 
-	<!-- Not used anymore. -->
+	<!-- Not used anymore. (will be used again - RK) -->
 	<!-- Crystal Scrolls: Enchant Weapon -->
-	<!-- <enchant id="731" targetGrade="A" bonusRate="100" /> -->
-	<!-- <enchant id="949" targetGrade="B" bonusRate="100" /> -->
-	<!-- <enchant id="953" targetGrade="C" bonusRate="100" /> -->
-	<!-- <enchant id="957" targetGrade="D" bonusRate="100" /> -->
-	<!-- <enchant id="961" targetGrade="S" bonusRate="100" /> -->
+	<enchant id="961" targetGrade="S" bonusRate="8" />
+	<enchant id="731" targetGrade="A" bonusRate="16" />
+	<enchant id="949" targetGrade="B" bonusRate="24" />
+	<enchant id="953" targetGrade="C" bonusRate="32" />
+	<enchant id="957" targetGrade="D" bonusRate="40" />
 	<!-- Crystal Scrolls: Enchant Armor -->
-	<!-- <enchant id="732" targetGrade="A" bonusRate="100" /> -->
-	<!-- <enchant id="950" targetGrade="B" bonusRate="100" /> -->
-	<!-- <enchant id="954" targetGrade="C" bonusRate="100" /> -->
-	<!-- <enchant id="958" targetGrade="D" bonusRate="100" /> -->
-	<!-- <enchant id="962" targetGrade="S" bonusRate="100" /> -->
+	<enchant id="962" targetGrade="S" bonusRate="8" />
+	<enchant id="732" targetGrade="A" bonusRate="16" />
+	<enchant id="950" targetGrade="B" bonusRate="24" />
+	<enchant id="954" targetGrade="C" bonusRate="32" />
+	<enchant id="958" targetGrade="D" bonusRate="40" />
 
 	<!-- Weapon Enchant Scrolls -->
-	<enchant id="22006" targetGrade="D" bonusRate="10" />
-	<enchant id="22007" targetGrade="C" bonusRate="10" />
-	<enchant id="22008" targetGrade="B" bonusRate="10" />
-	<enchant id="22009" targetGrade="A" bonusRate="10" />
-	<enchant id="20517" targetGrade="S" bonusRate="10" />
+	<enchant id="22006" targetGrade="D" bonusRate="20" />
+	<enchant id="22007" targetGrade="C" bonusRate="18" />
+	<enchant id="22008" targetGrade="B" bonusRate="16" />
+	<enchant id="22009" targetGrade="A" bonusRate="14" />
+	<enchant id="20517" targetGrade="S" bonusRate="12" />
 	<!-- Armor Enchant Scrolls -->
-	<enchant id="22010" targetGrade="D" bonusRate="10" />
-	<enchant id="22011" targetGrade="C" bonusRate="10" />
-	<enchant id="22012" targetGrade="B" bonusRate="10" />
-	<enchant id="22013" targetGrade="A" bonusRate="10" />
-	<enchant id="20518" targetGrade="S" bonusRate="10" />
+	<enchant id="22010" targetGrade="D" bonusRate="20" />
+	<enchant id="22011" targetGrade="C" bonusRate="18" />
+	<enchant id="22012" targetGrade="B" bonusRate="16" />
+	<enchant id="22013" targetGrade="A" bonusRate="14" />
+	<enchant id="20518" targetGrade="S" bonusRate="12" />
 
 	<!-- Ancient Weapon Enchant Crystal -->
-	<enchant id="22014" targetGrade="B" maxEnchant="16" bonusRate="10" />
-	<enchant id="22015" targetGrade="A" maxEnchant="16" bonusRate="10" />
-	<enchant id="20519" targetGrade="S" maxEnchant="16" bonusRate="10" />
+	<enchant id="22014" targetGrade="B" maxEnchant="16" bonusRate="22" />
+	<enchant id="22015" targetGrade="A" maxEnchant="16" bonusRate="18" />
+	<enchant id="20519" targetGrade="S" maxEnchant="16" bonusRate="14" />
 	<!-- Ancient Armor Enchant Crystal -->
-	<enchant id="22016" targetGrade="B" maxEnchant="16" bonusRate="10" />
-	<enchant id="22017" targetGrade="A" maxEnchant="16" bonusRate="10" />
-	<enchant id="20520" targetGrade="S" maxEnchant="16" bonusRate="10" />
+	<enchant id="22016" targetGrade="B" maxEnchant="16" bonusRate="22" />
+	<enchant id="22017" targetGrade="A" maxEnchant="16" bonusRate="18" />
+	<enchant id="20520" targetGrade="S" maxEnchant="16" bonusRate="14" />
 
 	<!-- Divine Weapon Enchant Crystal -->
-	<enchant id="22018" targetGrade="B" bonusRate="100" />
-	<enchant id="22019" targetGrade="A" bonusRate="100" />
-	<enchant id="20521" targetGrade="S" bonusRate="100" />
+	<enchant id="22018" targetGrade="B" bonusRate="90" />
+	<enchant id="22019" targetGrade="A" bonusRate="80" />
+	<enchant id="20521" targetGrade="S" bonusRate="70" />
 	<!-- Divine Armor Enchant Crystal -->
-	<enchant id="22020" targetGrade="B" bonusRate="100" />
-	<enchant id="22021" targetGrade="A" bonusRate="100" />
-	<enchant id="20522" targetGrade="S" bonusRate="100" />
+	<enchant id="22020" targetGrade="B" bonusRate="90" />
+	<enchant id="22021" targetGrade="A" bonusRate="80" />
+	<enchant id="20522" targetGrade="S" bonusRate="70" />
 
 	<!-- Scroll: Enchant Weapon of Destruction -->
 	<enchant id="22221" targetGrade="S" maxEnchant="15" />

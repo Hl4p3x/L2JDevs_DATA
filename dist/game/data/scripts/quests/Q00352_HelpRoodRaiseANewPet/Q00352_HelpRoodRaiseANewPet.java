@@ -141,11 +141,11 @@ public final class Q00352_HelpRoodRaiseANewPet extends Quest
 			{
 				if (LienrikEgg1Count >= 10)
 				{
-					giveAdena(player, (LienrikEgg1Count * 34) + 4000, true);
+					giveAdenaFuzzy(player, (LienrikEgg1Count * 34) + 4000, true);
 				}
 				else
 				{
-					giveAdena(player, (LienrikEgg1Count * 34) + 2000, true);
+					giveAdenaFuzzy(player, (LienrikEgg1Count * 34) + 2000, true);
 				}
 				
 				takeItems(player, LIENRIK_EGG1, -1);
@@ -153,7 +153,7 @@ public final class Q00352_HelpRoodRaiseANewPet extends Quest
 			}
 			else if (LienrikEgg1Count >= 1)
 			{
-				giveAdena(player, 4000 + ((LienrikEgg1Count * 34) + (LienrikEgg2Count * 1025)), true);
+				giveAdenaFuzzy(player, 4000 + ((LienrikEgg1Count * 34) + (LienrikEgg2Count * 1025)), true);
 				takeItems(player, LIENRIK_EGG1, -1);
 				takeItems(player, LIENRIK_EGG2, -1);
 				htmltext = "31067-11.html";

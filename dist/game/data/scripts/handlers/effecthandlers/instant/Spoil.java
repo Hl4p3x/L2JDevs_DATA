@@ -41,7 +41,10 @@ public final class Spoil extends AbstractEffect
 	@Override
 	public boolean calcSuccess(BuffInfo info)
 	{
-		return Formulas.calcMagicSuccess(info.getEffector(), info.getEffected(), info.getSkill());
+            // not the best place, but, afaiu, it needed only here -- and it called once
+		final boolean f = Formulas.calcMagicSuccess(info.getEffector(), info.getEffected(), info.getSkill());
+                if(!f) info.getEffector().sendPacket(SystemMessageId.GETTING_READY_TO_SHOOT_AN_ARROW);
+                return f;
 	}
 	
 	@Override

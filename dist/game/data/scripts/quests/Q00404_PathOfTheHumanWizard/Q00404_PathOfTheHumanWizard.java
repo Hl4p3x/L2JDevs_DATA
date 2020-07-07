@@ -202,28 +202,12 @@ public final class Q00404_PathOfTheHumanWizard extends Quest
 					}
 					else
 					{
-						giveAdena(player, 163800, true);
 						takeItems(player, FLAME_EARING, 1);
 						takeItems(player, WIND_BANGLE, 1);
 						takeItems(player, WATER_NECKLACE, 1);
 						takeItems(player, EARTH_RING, 1);
-						if (!hasQuestItems(player, BEAD_OF_SEASON))
-						{
-							giveItems(player, BEAD_OF_SEASON, 1);
-						}
-						final int level = player.getLevel();
-						if (level >= 20)
-						{
-							addExpAndSp(player, 320534, 23152);
-						}
-						else if (level == 19)
-						{
-							addExpAndSp(player, 456128, 29850);
-						}
-						else
-						{
-							addExpAndSp(player, 591724, 36548);
-						}
+                                                giveItems(player, BEAD_OF_SEASON, 1);
+                                                give1stTransferReward(player);
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

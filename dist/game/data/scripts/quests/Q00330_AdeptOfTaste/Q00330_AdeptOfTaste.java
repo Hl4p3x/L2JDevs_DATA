@@ -18,6 +18,7 @@
  */
 package quests.Q00330_AdeptOfTaste;
 
+import org.l2jdevs.Config;
 import org.l2jdevs.gameserver.enums.audio.Sound;
 import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
@@ -28,6 +29,25 @@ import org.l2jdevs.gameserver.util.Util;
 /**
  * Adept Of Taste (330)
  * @author ivantotov
+ *
+ * Mandragora Sapling
+ * [0,77) red root
+ * [77,85) white root
+ * [77,100] nothing
+ *
+ * Mandragora Sprout
+ * [0,70) red root
+ * [70,77) white root
+ * [77,100] nothing
+ *
+ * Mandragora Blossom
+ * [0,87) red root
+ * [87,96) white root
+ * [96,100] nothing
+ *
+ * NB! if (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS) then red-white
+ * boundary is set on 17:11:07 (RED_WHITE_EDGE).
+ * Affected: root, honey, moss.
  */
 public final class Q00330_AdeptOfTaste extends Quest
 {
@@ -90,6 +110,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 	private static final int MONSTER_EYE_GAZER = 20266;
 	// Misc
 	private static final int MIN_LEVEL = 24;
+	private static final int RED_WHITE_EDGE = 41;
 	
 	public Q00330_AdeptOfTaste()
 	{
@@ -182,9 +203,10 @@ public final class Q00330_AdeptOfTaste extends Quest
 	}
 	
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isSummon)
 	{
-		final QuestState qs = getQuestState(killer, false);
+                final QuestState qs = getRandomPartyMemberState(player, 1, 3, npc);
+                final L2PcInstance killer = qs == null ? player : qs.getPlayer();
 		if ((qs != null) && qs.isStarted() && Util.checkIfInRange(1500, npc, killer, true))
 		{
 			switch (npc.getId())
@@ -218,7 +240,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 						if (hasQuestItems(killer, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && !hasAtLeastOneQuestItem(killer, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 						{
 							final int i0 = getRandom(100);
-							if (i0 < 70)
+							if (i0 < (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? RED_WHITE_EDGE : 70))
 							{
 								if (getQuestItemsCount(killer, RED_MANDRAGORA_ROOT) < 40)
 								{
@@ -260,7 +282,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 						if (hasQuestItems(killer, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && !hasAtLeastOneQuestItem(killer, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 						{
 							final int i0 = getRandom(100);
-							if (i0 < 77)
+							if (i0 < (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? RED_WHITE_EDGE : 77))
 							{
 								if (getQuestItemsCount(killer, RED_MANDRAGORA_ROOT) < 40)
 								{
@@ -302,7 +324,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 						if (hasQuestItems(killer, INGREDIENT_LIST, SONIAS_BOTANY_BOOK) && !hasAtLeastOneQuestItem(killer, RED_MANDRAGORA_SAP, WHITE_MANDRAGORA_SAP))
 						{
 							final int i0 = getRandom(100);
-							if (i0 < 87)
+							if (i0 < (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? RED_WHITE_EDGE : 87))
 							{
 								if (getQuestItemsCount(killer, RED_MANDRAGORA_ROOT) < 40)
 								{
@@ -344,7 +366,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 						if (hasQuestItems(killer, INGREDIENT_LIST, JACOBS_INSECT_BOOK))
 						{
 							final int i0 = getRandom(100);
-							if (i0 < 80)
+							if (i0 < (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? RED_WHITE_EDGE : 80))
 							{
 								if (getQuestItemsCount(killer, NECTAR) < 20)
 								{
@@ -386,7 +408,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 						if (hasQuestItems(killer, INGREDIENT_LIST, GLYVKAS_BOTANY_BOOK))
 						{
 							final int i0 = getRandom(100);
-							if (i0 < 87)
+							if (i0 < (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? RED_WHITE_EDGE : 87))
 							{
 								if (getQuestItemsCount(killer, GREEN_MARSH_MOSS) < 20)
 								{
@@ -428,7 +450,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 						if (hasQuestItems(killer, INGREDIENT_LIST, GLYVKAS_BOTANY_BOOK))
 						{
 							final int i0 = getRandom(100);
-							if (i0 < 90)
+							if (i0 < (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? RED_WHITE_EDGE : 90))
 							{
 								if (getQuestItemsCount(killer, GREEN_MARSH_MOSS) < 20)
 								{
@@ -470,7 +492,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 						if (hasQuestItems(killer, INGREDIENT_LIST, JACOBS_INSECT_BOOK))
 						{
 							final int i0 = getRandom(100);
-							if (i0 < 92)
+							if (i0 < (Config.L2JMOD_QUEST_ITEM_ALWAYS_DROPS ? RED_WHITE_EDGE : 92))
 							{
 								if (getQuestItemsCount(killer, NECTAR) < 20)
 								{
@@ -588,7 +610,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 				}
 			}
 		}
-		return super.onKill(npc, killer, isSummon);
+		return super.onKill(npc, player, isSummon);
 	}
 	
 	@Override
@@ -774,21 +796,21 @@ public final class Q00330_AdeptOfTaste extends Quest
 									if (hasQuestItems(player, MIRIENS_REVIEW_1))
 									{
 										takeItems(player, MIRIENS_REVIEW_1, 1);
-										giveAdena(player, 10000, true);
+										giveAdenaFuzzy(player, 10000, true);
 										htmltext = "30469-06t1.html";
 									}
 									
 									if (hasQuestItems(player, MIRIENS_REVIEW_2))
 									{
 										takeItems(player, MIRIENS_REVIEW_2, 1);
-										giveAdena(player, 14870, true);
+										giveAdenaFuzzy(player, 14870, true);
 										htmltext = "30469-06t2.html";
 									}
 									
 									if (hasQuestItems(player, MIRIENS_REVIEW_3))
 									{
 										takeItems(player, MIRIENS_REVIEW_3, 1);
-										giveAdena(player, 6490, true);
+										giveAdenaFuzzy(player, 6490, true);
 										giveItems(player, JONASS_SALAD_RECIPE, 1);
 										htmltext = "30469-06t3.html";
 									}
@@ -796,7 +818,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 									if (hasQuestItems(player, MIRIENS_REVIEW_4))
 									{
 										takeItems(player, MIRIENS_REVIEW_4, 1);
-										giveAdena(player, 12220, true);
+										giveAdenaFuzzy(player, 12220, true);
 										giveItems(player, JONASS_SAUCE_RECIPE, 1);
 										htmltext = "30469-06t4.html";
 									}
@@ -804,7 +826,7 @@ public final class Q00330_AdeptOfTaste extends Quest
 									if (hasQuestItems(player, MIRIENS_REVIEW_5))
 									{
 										takeItems(player, MIRIENS_REVIEW_5, 1);
-										giveAdena(player, 16540, true);
+										giveAdenaFuzzy(player, 16540, true);
 										giveItems(player, JONASS_STEAK_RECIPE, 1);
 										htmltext = "30469-06t5.html";
 									}

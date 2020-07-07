@@ -1,14 +1,14 @@
 /*
- * Copyright © 2004-2019 L2JDevs
+ * Copyright © 2004-2019 L2J DataPack
  * 
- * This file is part of L2JDevs.
+ * This file is part of L2J DataPack.
  * 
- * L2JDevs is free software: you can redistribute it and/or modify
+ * L2J DataPack is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * L2JDevs is distributed in the hope that it will be useful,
+ * L2J DataPack is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
@@ -27,6 +27,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Trial Of The Guildsman (216)
@@ -160,14 +161,12 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 				{
 					qs.startQuest();
 					takeItems(player, Inventory.ADENA_ID, 2000);
-					
 					if (!hasQuestItems(player, VALKONS_RECOMMENDATION))
 					{
 						giveItems(player, VALKONS_RECOMMENDATION, 1);
 					}
-					
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
-					
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 85);
@@ -212,9 +211,11 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			{
 				if (hasQuestItems(player, ALLTRANS_INSTRUCTIONS) && (getQuestItemsCount(player, JOURNEYMAN_RING) >= 7))
 				{
-					giveAdena(player, 187606, true);
-					giveItems(player, MARK_OF_GUILDSMAN, 1);
+                                    if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+					giveAdenaFuzzy(player, 187606, true);
 					addExpAndSp(player, 1029478, 66768);
+                                    }
+					giveItems(player, MARK_OF_GUILDSMAN, 1);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					htmltext = event;
@@ -225,9 +226,11 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			{
 				if (hasQuestItems(player, ALLTRANS_INSTRUCTIONS) && (getQuestItemsCount(player, JOURNEYMAN_RING) >= 7))
 				{
-					giveAdena(player, 93803, true);
-					giveItems(player, MARK_OF_GUILDSMAN, 1);
+                                    if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+					giveAdenaFuzzy(player, 93803, true);
 					addExpAndSp(player, 514739, 33384);
+                                    }
+					giveItems(player, MARK_OF_GUILDSMAN, 1);
 					qs.exitQuest(false, true);
 					player.sendPacket(new SocialAction(player.getObjectId(), 3));
 					htmltext = event;
@@ -344,10 +347,10 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			case GRANITE_GOLEM:
 			{
 				final QuestState qs = getRandomPartyMemberState(killer, -1, 2, npc);
-				if (qs != null)
+				if (qs != null && getQuestItemsCount(qs.getPlayer(), GRANITE_WHETSTONE) < 70)
 				{
 					giveItems(qs.getPlayer(), GRANITE_WHETSTONE, 7);
-					if (getQuestItemsCount(qs.getPlayer(), GRANITE_WHETSTONE) == 70)
+					if (getQuestItemsCount(qs.getPlayer(), GRANITE_WHETSTONE) >= 70)
 					{
 						playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_MIDDLE);
 					}
@@ -377,10 +380,10 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			case SILENOS:
 			{
 				final QuestState qs = getRandomPartyMemberState(killer, -1, 2, npc);
-				if (qs != null)
+				if (qs != null && getQuestItemsCount(qs.getPlayer(), BRAIDED_YARN) < 70)
 				{
-					giveItems(qs.getPlayer(), BRAIDED_YARN, 10);
-					if (getQuestItemsCount(qs.getPlayer(), BRAIDED_YARN) == 70)
+                                        giveItems(qs.getPlayer(), BRAIDED_YARN, 10);
+					if (getQuestItemsCount(qs.getPlayer(), BRAIDED_YARN) >= 70)
 					{
 						playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_MIDDLE);
 					}
@@ -395,10 +398,10 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			case GHOUL:
 			{
 				final QuestState qs = getRandomPartyMemberState(killer, -1, 2, npc);
-				if (qs != null)
+				if (qs != null && getQuestItemsCount(qs.getPlayer(), GRAY_BONE_POWDER) < 70)
 				{
 					giveItems(qs.getPlayer(), GRAY_BONE_POWDER, 5);
-					if (getQuestItemsCount(qs.getPlayer(), GRAY_BONE_POWDER) == 70)
+					if (getQuestItemsCount(qs.getPlayer(), GRAY_BONE_POWDER) >= 70)
 					{
 						playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_MIDDLE);
 					}
@@ -412,10 +415,10 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			case DEAD_SEEKER:
 			{
 				final QuestState qs = getRandomPartyMemberState(killer, -1, 2, npc);
-				if (qs != null)
+				if (qs != null && getQuestItemsCount(qs.getPlayer(), RED_PIGMENT) < 70)
 				{
 					giveItems(qs.getPlayer(), RED_PIGMENT, 7);
-					if (getQuestItemsCount(qs.getPlayer(), RED_PIGMENT) == 70)
+					if (getQuestItemsCount(qs.getPlayer(), RED_PIGMENT) >= 70)
 					{
 						playSound(qs.getPlayer(), Sound.ITEMSOUND_QUEST_MIDDLE);
 					}
@@ -433,9 +436,10 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 			case BREKA_ORC_WARRIOR:
 			{
 				final QuestState qs = getRandomPartyMemberState(killer, -1, 2, npc);
-				if (qs != null)
+				if (qs != null && getQuestItemsCount(qs.getPlayer(), DUNINGS_KEY) < 30)
 				{
-					if (getQuestItemsCount(qs.getPlayer(), DUNINGS_KEY) >= 29)
+					giveItems(qs.getPlayer(), DUNINGS_KEY, 1);
+					if (getQuestItemsCount(qs.getPlayer(), DUNINGS_KEY) >= 30)
 					{
 						giveItems(qs.getPlayer(), DUNINGS_KEY, 1);
 						takeItems(qs.getPlayer(), DUNINGS_INSTRUCTIONS, 1);
@@ -599,7 +603,6 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 								takeItems(player, AMBER_BEAD, -1);
 								takeItems(player, AMBER_LUMP, -1);
 								giveItems(player, JOURNEYMAN_DECO_BEADS, 7);
-								
 								if (getQuestItemsCount(player, JOURNEYMAN_GEM) >= 7)
 								{
 									qs.setCond(6, true);
@@ -622,7 +625,6 @@ public final class Q00216_TrialOfTheGuildsman extends Quest
 						{
 							htmltext = "30688-01.html";
 						}
-						
 						if (hasQuestItems(player, DUNINGS_INSTRUCTIONS) && !hasQuestItems(player, NORMANS_RECEIPT))
 						{
 							htmltext = "30688-03.html";

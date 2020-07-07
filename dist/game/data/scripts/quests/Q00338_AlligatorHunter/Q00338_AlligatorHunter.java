@@ -72,7 +72,7 @@ public class Q00338_AlligatorHunter extends Quest
 				}
 				int amount = (st.getQuestItemsCount(ALLIGATOR_LEATHER) >= 10) ? 3430 : 0;
 				amount += 60 * st.getQuestItemsCount(ALLIGATOR_LEATHER);
-				st.giveAdena(amount, true);
+				st.giveAdenaFuzzy(amount, true);
 				st.takeItems(ALLIGATOR_LEATHER, -1);
 				break;
 			case "30892-10.html":

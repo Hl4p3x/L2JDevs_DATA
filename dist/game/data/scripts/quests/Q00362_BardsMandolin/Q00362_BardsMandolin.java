@@ -74,7 +74,7 @@ public final class Q00362_BardsMandolin extends Quest
 			{
 				if (st.isMemoState(5))
 				{
-					st.giveAdena(10000, true);
+					st.giveAdenaFuzzy(10000, true);
 					st.rewardItems(THEME_OF_JOURNEY, 1);
 					st.exitQuest(true, true);
 					htmltext = event;

@@ -297,7 +297,7 @@ public final class Q00378_GrandFeast extends Quest
 							}
 						}
 						giveItems(player, item, quantity);
-						giveAdena(player, adena, true);
+						giveAdenaFuzzy(player, adena, true);
 						qs.exitQuest(true, true);
 						htmltext = "30594-20.html";
 					}

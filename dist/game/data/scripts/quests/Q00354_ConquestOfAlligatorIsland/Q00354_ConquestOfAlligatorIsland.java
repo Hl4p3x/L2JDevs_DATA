@@ -93,13 +93,13 @@ public final class Q00354_ConquestOfAlligatorIsland extends Quest
 				final long count = st.getQuestItemsCount(ALLIGATOR_TOOTH);
 				if (count >= 100)
 				{
-					st.giveAdena((count * 220) + 10700, true);
+					st.giveAdenaFuzzy((count * 220) + 10700, true);
 					st.takeItems(ALLIGATOR_TOOTH, -1);
 					htmltext = "30895-06.html";
 				}
 				else if (count > 0)
 				{
-					st.giveAdena((count * 220) + 3100, true);
+					st.giveAdenaFuzzy((count * 220) + 3100, true);
 					st.takeItems(ALLIGATOR_TOOTH, -1);
 					htmltext = "30895-07.html";
 				}

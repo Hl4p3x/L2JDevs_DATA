@@ -100,8 +100,8 @@ public final class Q00329_CuriosityOfADwarf extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && Util.checkIfInRange(1500, npc, killer, true))
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
+		if ((st != null) && Util.checkIfInRange(1500, npc, st.getPlayer(), true))
 		{
 			final int rnd = getRandom(100);
 			for (ItemHolder drop : MONSTER_DROPS.get(npc.getId()))
@@ -134,7 +134,8 @@ public final class Q00329_CuriosityOfADwarf extends Quest
 				{
 					final long broken = st.getQuestItemsCount(BROKEN_HEARTSTONE);
 					final long golem = st.getQuestItemsCount(GOLEM_HEARTSTONE);
-					st.giveAdena(((broken * 50) + (golem * 1000) + ((broken + golem) >= 10 ? 1183 : 0)), true);
+					final long heartx10 = (broken + golem) / 10;
+					st.giveAdenaFuzzy(broken * 50 + golem * 1000 + heartx10 * 1183, true);
 					takeItems(player, -1, getRegisteredItemIds());
 					htmltext = "30437-05.html";
 				}

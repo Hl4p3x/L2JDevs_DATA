@@ -329,24 +329,8 @@ public final class Q00408_PathOfTheElvenWizard extends Quest
 					{
 						if (!hasAtLeastOneQuestItem(player, ROSELLAS_LETTER, APPETIZING_APPLE, IMMORTAL_LOVE, GREENISS_CHARM, SAP_OF_THE_MOTHER_TREE, LUCKY_POTPOURRI) && hasQuestItems(player, FERTILITY_PERIDOT, MAGICAL_POWERS_RUBY, NOBILITY_AMETHYST, PURE_AQUAMARINE))
 						{
-							giveAdena(player, 163800, true);
-							if (!hasQuestItems(player, ETERNITY_DIAMOND))
-							{
-								giveItems(player, ETERNITY_DIAMOND, 1);
-							}
-							final int level = player.getLevel();
-							if (level >= 20)
-							{
-								addExpAndSp(player, 320534, 22532);
-							}
-							else if (level == 19)
-							{
-								addExpAndSp(player, 456128, 29230);
-							}
-							else
-							{
-								addExpAndSp(player, 591724, 35928);
-							}
+                                                        giveItems(player, ETERNITY_DIAMOND, 1);
+                                                        give1stTransferReward(player);
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

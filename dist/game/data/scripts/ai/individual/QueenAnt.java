@@ -247,7 +247,7 @@ public final class QueenAnt extends AbstractNpcAI
 			return null;
 		}
 		
-		if (!Config.RAID_DISABLE_CURSE && ((character.getLevel() - npc.getLevel()) > 8))
+		if (!Config.RAID_DISABLE_CURSE && ((character.getLevel() - npc.getLevel()) > Config.L2JMOD_RAID_CURSE_LEVEL_DIFF))
 		{
 			Skill curse = null;
 			if (isMage)

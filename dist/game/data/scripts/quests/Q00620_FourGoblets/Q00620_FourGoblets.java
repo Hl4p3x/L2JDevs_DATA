@@ -626,7 +626,7 @@ public class Q00620_FourGoblets extends Quest
 			case 0:
 			{
 				i2 = true;
-				giveAdena(player, 10000, true);
+				giveAdenaFuzzy(player, 10000, true);
 				break;
 			}
 			case 1:

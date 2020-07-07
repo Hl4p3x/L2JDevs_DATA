@@ -102,8 +102,8 @@ public class Q00102_SeaOfSporesFever extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && st.isCond(2) && (getRandom(10) < 3))
+                final QuestState st = getRandomPartyMemberState(killer, 2, 3, npc);
+		if ((st != null) && st.isCond(2) && (getRandom(10) < getEffectiveChance(3)))
 		{
 			st.giveItems(DRYADS_TEAR, 1);
 			if (st.getQuestItemsCount(DRYADS_TEAR) < 10)
@@ -194,7 +194,7 @@ public class Q00102_SeaOfSporesFever extends Quest
 										st.giveItems(SOULSHOT_NO_GRADE, 500);
 									}
 									st.addExpAndSp(30202, 1339);
-									st.giveAdena(6331, true);
+									st.giveAdenaFuzzy(6331, true);
 									st.exitQuest(false, true);
 									htmltext = "30284-06.html";
 								}

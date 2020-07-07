@@ -60,7 +60,7 @@ public final class Q00261_CollectorsDream extends Quest
 		registerQuestItems(SPIDER_LEG);
 	}
 	
-	public static void giveNewbieReward(L2PcInstance player)
+	public static void giveNewbieRewardNSS(L2PcInstance player)
 	{
 		final PlayerVariables vars = player.getVariables();
 		if (vars.getString("GUIDE_MISSION", null) == null)
@@ -90,8 +90,8 @@ public final class Q00261_CollectorsDream extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
-		if ((st != null) && st.isCond(1) && Util.checkIfInRange(1500, npc, killer, true))
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
+		if ((st != null) && st.isCond(1) && Util.checkIfInRange(1500, npc, st.getPlayer(), true))
 		{
 			if (st.giveItemRandomly(SPIDER_LEG, 1, MAX_LEG_COUNT, 1, true))
 			{
@@ -126,8 +126,8 @@ public final class Q00261_CollectorsDream extends Quest
 					{
 						if (st.getQuestItemsCount(SPIDER_LEG) >= MAX_LEG_COUNT)
 						{
-							giveNewbieReward(player);
-							st.giveAdena(1000, true);
+							giveNewbieRewardNSS(player);
+							st.giveAdenaFuzzy(1000, true);
 							st.addExpAndSp(2000, 0);
 							st.exitQuest(true, true);
 							htmltext = "30222-05.html";

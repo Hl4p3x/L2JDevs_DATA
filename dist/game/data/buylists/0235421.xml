@@ -13,7 +13,5 @@
 	<item id="730" count="1" restock_delay="1500" /> <!-- Scroll: Enchant Armor (A-Grade) -->
 	<item id="7134" count="1" restock_delay="60" /> <!-- Scroll of Escape: Rune Township -->
 	<item id="7135" count="1" restock_delay="60" /> <!-- Scroll of Escape: Town of Schuttgart -->
-	<item id="8645" count="1" restock_delay="120" /> <!-- Recipe: Elixir of Life (S-Grade) (100%) -->
-	<item id="8651" count="1" restock_delay="120" /> <!-- Recipe: Elixir of Mental Strength (S-Grade) (100%) -->
 	<item id="8751" count="1" restock_delay="120" /> <!-- High-Grade Life Stone - Level 70 -->
 </list>

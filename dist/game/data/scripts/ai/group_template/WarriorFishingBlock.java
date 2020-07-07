@@ -25,6 +25,7 @@ import org.l2jdevs.gameserver.model.actor.L2Npc;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
 import org.l2jdevs.gameserver.network.NpcStringId;
 import org.l2jdevs.gameserver.network.clientpackets.Say2;
+import org.l2jdevs.Config;
 
 import ai.npc.AbstractNpcAI;
 
@@ -67,7 +68,7 @@ public final class WarriorFishingBlock extends AbstractNpcAI
 	};
 	// Misc
 	private static final int CHANCE_TO_SHOUT_ON_ATTACK = 33;
-	private static final int DESPAWN_TIME = 50; // 50 seconds to despawn
+	private static final int DESPAWN_TIME = Config.L2JMOD_FISHMONSTER_DESPAWN_TIME; // 50 seconds to despawn
 	
 	public WarriorFishingBlock()
 	{

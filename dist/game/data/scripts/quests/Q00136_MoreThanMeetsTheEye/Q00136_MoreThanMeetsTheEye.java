@@ -110,7 +110,7 @@ public class Q00136_MoreThanMeetsTheEye extends Quest
 				break;
 			case "30832-19.html":
 				st.giveItems(TRANSFORM_BOOK, 1);
-				st.giveAdena(67550, true);
+				st.giveAdenaFuzzy(67550, true);
 				st.exitQuest(false, true);
 				break;
 			case "30701-03.html":

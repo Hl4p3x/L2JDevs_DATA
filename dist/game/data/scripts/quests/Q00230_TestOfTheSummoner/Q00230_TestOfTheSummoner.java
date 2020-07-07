@@ -35,6 +35,7 @@ import org.l2jdevs.gameserver.network.serverpackets.NpcSay;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Broadcast;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of The Summoner (230)
@@ -211,6 +212,7 @@ public final class Q00230_TestOfTheSummoner extends Quest
 					qs.startQuest();
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
 					giveItems(player, GALATEAS_LETTER, 1);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 122);
@@ -892,9 +894,11 @@ public final class Q00230_TestOfTheSummoner extends Quest
 						}
 						else if (hasQuestItems(player, ALMORS_ARCANA, BASILLIA_ARCANA, CAMONIELL_ARCANA, CELESTIEL_ARCANA, BELTHUS_ARCANA, BRYNTHEA_ARCANA))
 						{
-							giveAdena(player, 300960, true);
 							giveItems(player, MARK_OF_SUMMONER, 1);
-							addExpAndSp(player, 1664494, 114220);
+                                                        if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                            giveAdenaFuzzy(player, 300960, true);
+                                                            addExpAndSp(player, 1664494, 114220);
+                                                        }
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							htmltext = "30634-12.html";

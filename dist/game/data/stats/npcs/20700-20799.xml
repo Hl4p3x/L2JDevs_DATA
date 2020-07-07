@@ -739,7 +739,7 @@
 		</parameters>
 		<race>UNDEAD</race>
 		<sex>MALE</sex>
-		<equipment rhand="14" /> <!-- rhand: Bow -->
+		<equipment rhand="275" /> <!-- rhand: long Bow -->
 		<acquire expRate="3.9885516" sp="180" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="573.42917" hpRegen="3.5" mp="315.12" mpRegen="1.5" />
@@ -871,31 +871,9 @@
 				<group chance="70">
 					<item id="57" min="1716" max="3517" chance="100" /> <!-- Adena -->
 				</group>
-				<group chance="9.47249984741211">
-					<item id="62" min="1" max="1" chance="0.2489" /> <!-- Reinforced Mithril Boots -->
-					<item id="1958" min="1" max="1" chance="10.8622" /> <!-- Reinforced Mithril Boots Design -->
-					<item id="2429" min="1" max="1" chance="0.2489" /> <!-- Chain Boots -->
-					<item id="2937" min="1" max="1" chance="10.8622" /> <!-- Chain Boots Part -->
-					<item id="2430" min="1" max="1" chance="0.2489" /> <!-- Karmian Boots -->
-					<item id="2938" min="1" max="1" chance="10.8622" /> <!-- Karmian Boots Fabric -->
-					<item id="2431" min="1" max="1" chance="0.2489" /> <!-- Plated Leather Boots -->
-					<item id="2939" min="1" max="1" chance="10.8622" /> <!-- Plate Leather Boots Lining -->
-					<item id="2432" min="1" max="1" chance="0.2489" /> <!-- Dwarven Chain Boots -->
-					<item id="2940" min="1" max="1" chance="10.8622" /> <!-- Dwarven Chain Boots Part -->
-					<item id="2433" min="1" max="1" chance="0.2489" /> <!-- Boots of Seal -->
-					<item id="2941" min="1" max="1" chance="10.8622" /> <!-- Boots of Seal Pattern -->
-					<item id="2452" min="1" max="1" chance="0.2489" /> <!-- Reinforced Mithril Gloves -->
-					<item id="2942" min="1" max="1" chance="10.8622" /> <!-- Reinforced Mithril Gloves Design -->
-					<item id="2453" min="1" max="1" chance="0.2489" /> <!-- Chain Gloves -->
-					<item id="2943" min="1" max="1" chance="10.8622" /> <!-- Chain Gloves Design -->
-					<item id="2454" min="1" max="1" chance="0.2489" /> <!-- Karmian Gloves -->
-					<item id="2944" min="1" max="1" chance="10.8623" /> <!-- Karmian Gloves Fabric -->
-				</group>
 				<group chance="3.936199903488159">
-					<item id="1894" min="1" max="1" chance="22.9581" /> <!-- Crafted Leather -->
-					<item id="2216" min="1" max="1" chance="27.0375" /> <!-- Recipe: Great Helmet -->
-					<item id="2225" min="1" max="1" chance="14.2241" /> <!-- Recipe: Demon's Stockings -->
-					<item id="2321" min="1" max="1" chance="2.2798" /> <!-- Recipe: Stiletto -->
+					<item id="1867" min="1" max="3" chance="29.4333" /> <!-- Animal Skin -->
+					<item id="1872" min="1" max="1" chance="58.8666" /> <!-- Animal Bone -->
 					<item id="8723" min="1" max="1" chance="26.1723" /> <!-- Life Stone - Level 46 -->
 					<item id="8733" min="1" max="1" chance="6.5431" /> <!-- Mid-Grade Life Stone - Level 46 -->
 					<item id="8743" min="1" max="1" chance="0.6543" /> <!-- High-Grade Life Stone - Level 46 -->
@@ -934,9 +912,9 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="2161" min="1" max="1" chance="42.3261" /> <!-- Recipe: Aquastone Ring -->
-				<item id="1949" min="1" max="1" chance="48.6561" /> <!-- Mithril Gloves Design -->
-				<item id="1894" min="1" max="1" chance="15.2968" /> <!-- Crafted Leather -->
+				<item id="1905" min="1" max="1" chance="21.8797" /> <!-- Omen Beast's Eye Earring Gemstone -->
+				<item id="1867" min="1" max="3" chance="29.4333" /> <!-- Animal Skin -->
+				<item id="1872" min="1" max="1" chance="58.8666" /> <!-- Animal Bone -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -996,20 +974,12 @@
 				<group chance="70">
 					<item id="57" min="932" max="1883" chance="100" /> <!-- Adena -->
 				</group>
-				<group chance="2.458899974822998">
-					<item id="353" min="1" max="1" chance="0.7853" /> <!-- Half Plate Armor -->
-					<item id="1950" min="1" max="1" chance="38.3357" /> <!-- Half Plate Temper -->
-					<item id="380" min="1" max="1" chance="1.2565" /> <!-- Plate Gaiters -->
-					<item id="1951" min="1" max="1" chance="59.6225" /> <!-- Plate Gaiters Part -->
-				</group>
 				<group chance="43.79290008544922">
+					<item id="1867" min="1" max="3" chance="29.4333" /> <!-- Animal Skin -->
+					<item id="1872" min="1" max="1" chance="58.8666" /> <!-- Animal Bone -->
 					<item id="1868" min="1" max="1" chance="75.7896" /> <!-- Thread -->
 					<item id="1873" min="1" max="1" chance="15.1579" /> <!-- Silver Nugget -->
 					<item id="5549" min="1" max="1" chance="3.7895" /> <!-- Metallic Thread -->
-					<item id="1889" min="1" max="1" chance="2.5263" /> <!-- Compound Braid -->
-					<item id="2160" min="1" max="1" chance="2.4448" /> <!-- Recipe: Moonstone Earring -->
-					<item id="5159" min="1" max="1" chance="0.1263" /> <!-- Recipe: Spiritshot (C) Compressed Package (100%) -->
-					<item id="2312" min="1" max="1" chance="0.1656" /> <!-- Recipe: Crystallized Ice Bow -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -1044,7 +1014,8 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="1805" min="1" max="1" chance="0.7711" /> <!-- Recipe: Soulshot (C-Grade) -->
+				<item id="1867" min="1" max="3" chance="29.4333" /> <!-- Animal Skin -->
+				<item id="1872" min="1" max="1" chance="58.8666" /> <!-- Animal Bone -->
 				<item id="1905" min="1" max="1" chance="22.5036" /> <!-- Omen Beast's Eye Earring Gemstone -->
 				<item id="5549" min="1" max="1" chance="23.1337" /> <!-- Metallic Thread -->
 			</corpse>
@@ -1414,7 +1385,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="14" /> <!-- rhand: Bow -->
+		<equipment rhand="275" /> <!-- rhand: long Bow -->
 		<acquire expRate="2.8838244" sp="119" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="543.79576" hpRegen="3.5" mp="300.96" mpRegen="1.5" />
@@ -2353,7 +2324,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="79" /> <!-- rhand: Sword of Damascus -->
+		<equipment rhand="74" /> <!-- rhand: katana -->
 		<acquire expRate="2.8453296" sp="401" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1183.80594" hpRegen="5.5" mp="610.8" mpRegen="2.1" />
@@ -2439,7 +2410,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="7" /> <!-- rhand: Apprentice's Rod -->
+		<equipment rhand="179" /> <!-- rhand: mace of prayer -->
 		<acquire expRate="2.8716312" sp="380" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1138.62924" hpRegen="5.5" mp="584.0" mpRegen="2.1" />
@@ -2529,7 +2500,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="123" lhand="19" /> <!-- rhand: Saber lhand: Small Shield -->
+		<equipment rhand="73" lhand="630" /> <!-- rhand: shamshir lhand: Small Shield -->
 		<acquire expRate="2.3910336" sp="299" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1094.28943" hpRegen="5.5" mp="557.4" mpRegen="2.1" />
@@ -2610,7 +2581,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="13" /> <!-- rhand: Short Bow -->
+		<equipment rhand="280" /> <!-- rhand: light crossbow -->
 		<acquire expRate="3.0833808" sp="340" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="1008.23781" hpRegen="5.5" mp="504.8" mpRegen="2.1" />
@@ -3616,7 +3587,7 @@
 		</parameters>
 		<race>HUMANOID</race>
 		<sex>MALE</sex>
-		<equipment rhand="7" /> <!-- rhand: Apprentice's Rod -->
+		<equipment rhand="181" /> <!-- rhand: mace of miracle -->
 		<acquire expRate="1.74528" sp="126" />
 		<stats str="40" int="21" dex="30" wit="20" con="43" men="20">
 			<vitals hp="772.73802" hpRegen="4.5" mp="402.6" mpRegen="1.8" />
@@ -3869,19 +3840,15 @@
 					<item id="57" min="137" max="273" chance="100" /> <!-- Adena -->
 				</group>
 				<group chance="0.07020000368356705">
-					<item id="316" min="1" max="1" chance="2.1988" /> <!-- Sage's Blood -->
-					<item id="317" min="1" max="1" chance="2.1988" /> <!-- Tome of Blood -->
-					<item id="2030" min="1" max="1" chance="95.6024" /> <!-- Tome of Blood Page -->
+					<item id="5077" min="1" max="1" chance="0.1988" /> <!-- blue cobol -->
+					<item id="5075" min="1" max="1" chance="2.1988" /> <!-- chilly cobol -->
+					<item id="5078" min="1" max="1" chance="95.6024" /> <!-- red cobol -->
 				</group>
 				<group chance="3.198199987411499">
-					<item id="1874" min="1" max="1" chance="4.4886" /> <!-- Oriharukon Ore -->
-					<item id="1878" min="1" max="1" chance="26.9315" /> <!-- Braided Hemp -->
-					<item id="1884" min="1" max="1" chance="41.433" /> <!-- Cord -->
-					<item id="1889" min="1" max="1" chance="4.4886" /> <!-- Compound Braid -->
-					<item id="5220" min="1" max="1" chance="2.6931" /> <!-- Metal Hardener -->
-					<item id="2153" min="1" max="1" chance="10.471" /> <!-- Recipe: Tiger's Eye Earring -->
-					<item id="2977" min="1" max="1" chance="9.0132" /> <!-- Recipe: Brigandine Boots -->
-					<item id="8307" min="1" max="1" chance="0.481" /> <!-- Recipe: Priest Mace (100%) -->
+					<item id="1864" min="1" max="1" chance="41.433" /> <!-- stem -->
+					<item id="1867" min="1" max="1" chance="26.9315" /> <!-- skin -->
+					<item id="1872" min="1" max="1" chance="10.471" /> <!-- bone -->
+					<item id="5075" min="1" max="1" chance="4.4886" /> <!-- chilly cobol -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -3916,9 +3883,9 @@
 				</group>
 			</death>
 			<corpse>
-				<item id="2203" min="1" max="1" chance="7.0587" /> <!-- Recipe: Reinforced Mithril Boots -->
-				<item id="1935" min="1" max="1" chance="1.81" /> <!-- Scale Mail Fragment -->
-				<item id="1900" min="1" max="1" chance="3.5448" /> <!-- Enchanted Necklace Chain -->
+				<item id="5078" min="1" max="1" chance="7.0587" /> <!-- red cobol -->
+				<item id="5075" min="1" max="1" chance="3.5448" /> <!-- chilly cobol -->
+				<item id="5077" min="1" max="1" chance="1.81" /> <!-- blue cobol -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -3980,6 +3947,11 @@
 				<group chance="70">
 					<item id="57" min="154" max="309" chance="100" /> <!-- Adena -->
 				</group>
+				<group chance="0.07020000368356705">
+					<item id="316" min="1" max="1" chance="2.1988" /> <!-- Sage's Blood -->
+					<item id="317" min="1" max="1" chance="2.1988" /> <!-- Tome of Blood -->
+					<item id="2030" min="1" max="1" chance="95.6024" /> <!-- Tome of Blood Page -->
+				</group>
 				<group chance="0.04399999976158142">
 					<item id="83" min="1" max="1" chance="2.676" /> <!-- Sword of Magic -->
 					<item id="144" min="1" max="1" chance="2.676" /> <!-- Sword of Occult -->
@@ -3987,6 +3959,16 @@
 					<item id="2026" min="1" max="1" chance="88.7007" /> <!-- Two-Handed Sword Edge -->
 					<item id="127" min="1" max="1" chance="1.9824" /> <!-- Crimson Sword -->
 					<item id="130" min="1" max="1" chance="1.9825" /> <!-- Elven Sword -->
+				</group>
+				<group chance="3.198199987411499">
+					<item id="1874" min="1" max="1" chance="4.4886" /> <!-- Oriharukon Ore -->
+					<item id="1878" min="1" max="1" chance="26.9315" /> <!-- Braided Hemp -->
+					<item id="1884" min="1" max="1" chance="41.433" /> <!-- Cord -->
+					<item id="1889" min="1" max="1" chance="4.4886" /> <!-- Compound Braid -->
+					<item id="5220" min="1" max="1" chance="2.6931" /> <!-- Metal Hardener -->
+					<item id="2153" min="1" max="1" chance="10.471" /> <!-- Recipe: Tiger's Eye Earring -->
+					<item id="2977" min="1" max="1" chance="9.0132" /> <!-- Recipe: Brigandine Boots -->
+					<item id="8307" min="1" max="1" chance="0.481" /> <!-- Recipe: Priest Mace (100%) -->
 				</group>
 				<group chance="2.206399917602539">
 					<item id="1875" min="1" max="1" chance="9.8039" /> <!-- Stone of Purity -->
@@ -4032,6 +4014,9 @@
 				<item id="2021" min="1" max="1" chance="0.4623" /> <!-- Spinebone Sword Blade -->
 				<item id="2184" min="1" max="1" chance="3.8461" /> <!-- Recipe: Mithril Banded Gaiters -->
 				<item id="2153" min="1" max="1" chance="5.6945" /> <!-- Recipe: Tiger's Eye Earring -->
+				<item id="2203" min="1" max="1" chance="7.0587" /> <!-- Recipe: Reinforced Mithril Boots -->
+				<item id="1935" min="1" max="1" chance="1.81" /> <!-- Scale Mail Fragment -->
+				<item id="1900" min="1" max="1" chance="3.5448" /> <!-- Enchanted Necklace Chain -->
 			</corpse>
 		</dropLists>
 		<collision>
@@ -4113,6 +4098,11 @@
 					<item id="2450" min="1" max="1" chance="0.3142" /> <!-- Mithril Gloves -->
 					<item id="2928" min="1" max="1" chance="12.1858" /> <!-- Mithril Gloves Design -->
 				</group>
+				<group chance="0.1">
+					<item id="316" min="1" max="1" chance="2.1988" /> <!-- Sage's Blood -->
+					<item id="317" min="1" max="1" chance="2.1988" /> <!-- Tome of Blood -->
+					<item id="2030" min="1" max="1" chance="95.6024" /> <!-- Tome of Blood Page -->
+				</group>
 				<group chance="9.557499885559082">
 					<item id="1875" min="1" max="1" chance="1.4146" /> <!-- Stone of Purity -->
 					<item id="1879" min="1" max="1" chance="3.5365" /> <!-- Cokes -->
@@ -4123,6 +4113,15 @@
 					<item id="2982" min="1" max="1" chance="2.7065" /> <!-- Recipe: Brigandine Shield -->
 					<item id="6667" min="1" max="1" chance="13.2619" /> <!-- Deluxe Chest Key - Grade 3 -->
 					<item id="1341" min="10" max="30" chance="70.7304" /> <!-- Bone Arrow -->
+				</group>
+				<group chance="5.122099876403809">
+					<item id="1884" min="1" max="1" chance="41.6333" /> <!-- Cord -->
+					<item id="1878" min="1" max="1" chance="27.0616" /> <!-- Braided Hemp -->
+					<item id="2153" min="1" max="1" chance="10.5216" /> <!-- Recipe: Tiger's Eye Earring -->
+					<item id="2977" min="1" max="1" chance="9.0567" /> <!-- Recipe: Brigandine Boots -->
+					<item id="1889" min="1" max="1" chance="4.5103" /> <!-- Compound Braid -->
+					<item id="1874" min="1" max="1" chance="4.5103" /> <!-- Oriharukon Ore -->
+					<item id="5220" min="1" max="1" chance="2.7062" /> <!-- Metal Hardener -->
 				</group>
 				<group chance="42.0">
 					<item id="8600" min="1" max="1" chance="55" /> <!-- Herb of Life -->
@@ -4157,6 +4156,9 @@
 				</group>
 			</death>
 			<corpse>
+				<item id="2203" min="1" max="1" chance="9.9396" /> <!-- Recipe: Reinforced Mithril Boots -->
+				<item id="1935" min="1" max="1" chance="2.5488" /> <!-- Scale Mail Fragment -->
+				<item id="1900" min="1" max="1" chance="4.9916" /> <!-- Enchanted Necklace Chain -->
 				<item id="2022" min="1" max="1" chance="0.55" /> <!-- Mace of Judgment Head -->
 				<item id="1933" min="1" max="1" chance="4.154" /> <!-- Dark Stockings Fabric -->
 				<item id="1875" min="1" max="1" chance="2.3539" /> <!-- Stone of Purity -->

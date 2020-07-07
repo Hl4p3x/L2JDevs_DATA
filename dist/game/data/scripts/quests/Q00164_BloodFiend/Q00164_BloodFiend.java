@@ -93,7 +93,7 @@ public class Q00164_BloodFiend extends Quest
 			{
 				if (st.isCond(2) && st.hasQuestItems(KIRUNAK_SKULL))
 				{
-					st.giveAdena(42130, true);
+					st.giveAdenaFuzzy(42130, true);
 					st.addExpAndSp(35637, 1854);
 					st.exitQuest(false, true);
 					htmltext = "30149-06.html";

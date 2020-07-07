@@ -96,22 +96,22 @@ public final class Q00623_TheFinestFood extends Quest
 						int random = getRandom(1000);
 						if (random < 120)
 						{
-							giveAdena(player, 25000, true);
+							giveAdenaFuzzy(player, 25000, true);
 							rewardItems(player, RING_OF_AURAKYRA);
 						}
 						else if (random < 240)
 						{
-							giveAdena(player, 65000, true);
+							giveAdenaFuzzy(player, 65000, true);
 							rewardItems(player, SEALED_SANDDRAGONS_EARING);
 						}
 						else if (random < 340)
 						{
-							giveAdena(player, 25000, true);
+							giveAdenaFuzzy(player, 25000, true);
 							rewardItems(player, DRAGON_NECKLACE);
 						}
 						else if (random < 940)
 						{
-							giveAdena(player, 73000, true);
+							giveAdenaFuzzy(player, 73000, true);
 							addExpAndSp(player, 230000, 18200);
 						}
 						qs.exitQuest(true, true);

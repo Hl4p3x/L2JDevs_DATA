@@ -282,21 +282,8 @@ public final class Q00401_PathOfTheWarrior extends Quest
 						}
 						else
 						{
-							giveAdena(player, 163800, true);
 							giveItems(player, MEDALLION_OF_WARRIOR, 1);
-							final int level = player.getLevel();
-							if (level >= 20)
-							{
-								addExpAndSp(player, 320534, 21012);
-							}
-							else if (level == 19)
-							{
-								addExpAndSp(player, 456128, 27710);
-							}
-							else
-							{
-								addExpAndSp(player, 160267, 34408);
-							}
+                                                        give1stTransferReward(player);
 							qs.exitQuest(false, true);
 							player.sendPacket(new SocialAction(player.getObjectId(), 3));
 							qs.saveGlobalQuestVar("1ClassQuestFinished", "1");

@@ -26,6 +26,7 @@ import org.l2jdevs.gameserver.model.quest.Quest;
 import org.l2jdevs.gameserver.model.quest.QuestState;
 import org.l2jdevs.gameserver.network.serverpackets.SocialAction;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.Config;
 
 /**
  * Test Of The Maestro (231)
@@ -101,6 +102,7 @@ public final class Q00231_TestOfTheMaestro extends Quest
 					qs.startQuest();
 					qs.setMemoState(1);
 					playSound(player, Sound.ITEMSOUND_QUEST_MIDDLE);
+                                        if(Config.L2JMOD_2ND_CLASS_DIAMOND_REWARD)
 					if (player.getVariables().getInt("2ND_CLASS_DIAMOND_REWARD", 0) == 0)
 					{
 						giveItems(player, DIMENSIONAL_DIAMOND, 23);
@@ -278,9 +280,11 @@ public final class Q00231_TestOfTheMaestro extends Quest
 					}
 					else if (hasQuestItems(player, RECOMMENDATION_OF_BALANKI, RECOMMENDATION_OF_FILAUR, RECOMMENDATION_OF_ARIN))
 					{
-						giveAdena(player, 372154, true);
 						giveItems(player, MARK_OF_MAESTRO, 1);
-						addExpAndSp(player, 2085244, 141240);
+                                                if(Config.L2JMOD_CLASS_TRANSFER_REWARDS) {
+                                                    giveAdenaFuzzy(player, 372154, true);
+                                                    addExpAndSp(player, 2085244, 141240);
+                                                }
 						qs.exitQuest(false, true);
 						player.sendPacket(new SocialAction(player.getObjectId(), 3));
 						htmltext = "30531-06.html";
@@ -324,6 +328,10 @@ public final class Q00231_TestOfTheMaestro extends Quest
 					{
 						htmltext = "30533-01.html";
 					}
+					else
+					{
+						htmltext = "30533-01.html";
+					}
 					break;
 				}
 				case BRONZE_KEYS_KEEF:
@@ -361,6 +369,10 @@ public final class Q00231_TestOfTheMaestro extends Quest
 					{
 						htmltext = "30535-04.html";
 					}
+					else
+					{
+						htmltext = "30535-01.html";
+					}
 					break;
 				}
 				case BLACK_ANVILS_ARIN:
@@ -392,6 +404,10 @@ public final class Q00231_TestOfTheMaestro extends Quest
 					else if (hasQuestItems(player, RECOMMENDATION_OF_ARIN))
 					{
 						htmltext = "30536-04.html";
+					}
+					else
+					{
+						htmltext = "30536-01.html";
 					}
 					else
 					{

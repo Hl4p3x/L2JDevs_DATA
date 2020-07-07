@@ -1615,8 +1615,8 @@
 		<set name="spiritshots" val="2" />
 		<set name="enchant_enabled" val="1" />
 		<for>
-			<set stat="pAtk" val="49" />
-			<set stat="mAtk" val="26" />
+			<set stat="pAtk" val="45" />
+			<set stat="mAtk" val="28" />
 			<set stat="critRate" val="8" />
 			<set stat="pAtkSpd" val="325" />
 			<enchant val="0" stat="pAtk" />

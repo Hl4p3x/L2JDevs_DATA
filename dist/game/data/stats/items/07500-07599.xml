@@ -717,6 +717,7 @@
 		<set name="immediate_effect" val="true" />
 		<set name="material" val="PAPER" />
 		<set name="is_stackable" val="true" />
+		<set name="price" val="10000" />
 	</item>
 	<item id="7563" type="EtcItem" name="Galladucci's Order (Document)">
 		<set name="icon" val="icon.etc_piece_of_paper_white_i00" />

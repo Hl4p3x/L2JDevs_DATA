@@ -34,20 +34,28 @@ public class Q00297_GatekeepersFavor extends Quest
 	// NPC
 	private static final int WIRPHY = 30540;
 	// Monster
-	private static final int WHINSTONE_GOLEM = 20521;
+        private static final int[] GOLEMS = {
+            20521, // whinstone golem
+            20526, // obsidian golem
+            20346, // darkstone golem
+            20511, // pitchstone golem
+            21128, // spine golem
+            21131 // enchanted spine golem
+        };
 	// Items
 	private static final int STARSTONE = 1573;
 	private static final int GATEKEEPER_TOKEN = 1659;
 	// Misc
 	private static final int MIN_LEVEL = 15;
 	private static final int STARSTONE_COUT = 20;
+        private static final boolean __UNLIMITED = false;
 	
 	public Q00297_GatekeepersFavor()
 	{
 		super(297, Q00297_GatekeepersFavor.class.getSimpleName(), "Gatekeeper's Favor");
 		addStartNpc(WIRPHY);
 		addTalkId(WIRPHY);
-		addKillId(WHINSTONE_GOLEM);
+		addKillId(GOLEMS);
 		registerQuestItems(STARSTONE);
 	}
 	
@@ -70,7 +78,17 @@ public class Q00297_GatekeepersFavor extends Quest
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isSummon)
 	{
-		final QuestState st = getQuestState(killer, false);
+                final QuestState st = getRandomPartyMemberState(killer, 1, 3, npc);
+                if(__UNLIMITED) {
+                    if ((st != null) && st.isStarted()) {
+			st.giveItems(STARSTONE, 1);
+			if (!st.isCond(2) && st.getQuestItemsCount(STARSTONE) >= STARSTONE_COUT)
+                            st.setCond(2, true);
+			else
+                            st.playSound(Sound.ITEMSOUND_QUEST_ITEMGET);
+                    }
+                }
+                else
 		if ((st != null) && st.isStarted() && (st.getQuestItemsCount(STARSTONE) < STARSTONE_COUT))
 		{
 			st.giveItems(STARSTONE, 1);
@@ -103,7 +121,7 @@ public class Q00297_GatekeepersFavor extends Quest
 				}
 				else if (st.isCond(2) && (st.getQuestItemsCount(STARSTONE) >= STARSTONE_COUT))
 				{
-					st.giveItems(GATEKEEPER_TOKEN, 2);
+					st.giveItems(GATEKEEPER_TOKEN, st.getQuestItemsCount(STARSTONE) / 10);
 					st.exitQuest(true, true);
 					htmltext = "30540-05.html";
 				}

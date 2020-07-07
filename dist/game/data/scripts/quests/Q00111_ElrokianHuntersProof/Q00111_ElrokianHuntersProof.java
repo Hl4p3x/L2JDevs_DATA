@@ -205,7 +205,7 @@ public final class Q00111_ElrokianHuntersProof extends Quest
 					takeItems(player, PRACTICE_ELROKIAN_TRAP, -1);
 					giveItems(player, ELROKIAN_TRAP, 1);
 					giveItems(player, TRAP_STONE, 100);
-					giveAdena(player, 1071691, true);
+					giveAdenaFuzzy(player, 1071691, true);
 					addExpAndSp(player, 553524, 55538);
 					qs.exitQuest(false, true);
 					htmltext = event;
