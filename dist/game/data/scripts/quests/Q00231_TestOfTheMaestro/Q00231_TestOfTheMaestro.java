@@ -328,10 +328,6 @@ public final class Q00231_TestOfTheMaestro extends Quest
 					{
 						htmltext = "30533-01.html";
 					}
-					else
-					{
-						htmltext = "30533-01.html";
-					}
 					break;
 				}
 				case BRONZE_KEYS_KEEF:
@@ -404,10 +400,6 @@ public final class Q00231_TestOfTheMaestro extends Quest
 					else if (hasQuestItems(player, RECOMMENDATION_OF_ARIN))
 					{
 						htmltext = "30536-04.html";
-					}
-					else
-					{
-						htmltext = "30536-01.html";
 					}
 					else
 					{
