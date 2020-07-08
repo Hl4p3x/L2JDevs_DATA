@@ -22,20 +22,19 @@ import org.l2jdevs.gameserver.handler.IBypassHandler;
 import org.l2jdevs.gameserver.model.L2Object;
 import org.l2jdevs.gameserver.model.L2World;
 import org.l2jdevs.gameserver.model.actor.L2Character;
-import org.l2jdevs.gameserver.model.actor.L2Npc;
-// import org.l2jdevs.gameserver.model.actor.instance.L2ChestInstance;
 import org.l2jdevs.gameserver.model.actor.instance.L2ChestInstance;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.network.serverpackets.ActionFailed;
 import org.l2jdevs.gameserver.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.StringTokenizer;
+// import org.l2jdevs.gameserver.model.actor.L2Npc;
 
 public class L2Chest implements IBypassHandler {
     private static final Logger LOG = LoggerFactory.getLogger(L2Chest.class);
     private static final String[] COMMANDS = {
-        "L2Chest"
+            "L2Chest"
     };
 
     @Override
@@ -51,53 +50,129 @@ public class L2Chest implements IBypassHandler {
     public boolean useBypass(final String cmd, final L2PcInstance pc, final L2Character _target) {
         //final StringTokenizer st = new StringTokenizer(command);
         String[] vals = cmd.trim().split("\\s+");
-        LOG.error("chest useBypass cmd = " + cmd);
+        if (vals.length < 3) {
+            LOG.error("L2Chest malformed useBypass cmd : " + cmd);
+            return false;
+        }
+        final String cId = vals[1];
+        final String action = vals[2];
+        LOG.error("L2Chest useBypass cmd : " + cmd);
         final L2ChestInstance target;
         {
             L2Object t;
             try {
-                t = L2World.getInstance().findObject(Integer.parseInt(vals[1]));
+                LOG.error("L2Chest useBypass : id = " + cId);
+                LOG.error("L2Chest useBypass : cmd = " + action);
+                t = L2World.getInstance().findObject(Integer.parseInt(cId)); // template id!
             } catch (Exception ex) {
                 t = null;
             }
-            if(t instanceof L2ChestInstance)
-                target = (L2ChestInstance)t;
-            else
-                    return false;
+            if (t instanceof L2ChestInstance)
+                target = (L2ChestInstance) t;
+            else {
+                LOG.error("L2Chest useBypass : L2Object not found by id in L2World, id = " + cId);
+                return false;
+            }
         }
-        showL2ChestWindow(pc, vals, target);
+        if (target.isDead()) {
+            LOG.error("L2Chest useBypass : chest is dead, objectId = " + cId);
+            return false;
+        }
+        boolean res = true;
+        switch (action) {
+            case "open":
+                res = evalChestLockOpen(pc, target);
+                break;
+            case "force":
+                res = evalChestLockForce(pc, target);
+                break;
+            case "pick":
+                res = evalChestLockPick(pc, target);
+                break;
+            case "untrap": // ? always repeat
+                res = evalChestUntrap(pc, target);
+                break;
+            case "check": // ? always repeat
+                res = evalChestCheck(pc, target);
+                break;
+            case "leave": // always leave
+                evalChestLeave(pc, target);
+                res = true;
+                break;
+            default:
+                LOG.error("L2Chest useBypass : bad action : " + action);
+                return false;
+        }
+        if (res)
+            Util.sendHtml(pc, "<body>Ciao.</body>");
+        else
+            L2ChestInstance.openChestDialog(pc, target);
+        pc.sendPacket(ActionFailed.STATIC_PACKET);
+        return true;
+    }
+
+    /**
+     * unset busy flags and so.
+     * ... and close dialog window
+     * ... or|and set delay?
+     *
+     * @param pc
+     * @param target
+     */
+    private static void evalChestLeave(L2PcInstance pc, L2ChestInstance target) {
+        LOG.error("L2Chest : leave");
+        target.leave();
+        //Util.sendHtml(pc, "<body>Ciao.</body>");
+        //pc.sendPacket(ActionFailed.STATIC_PACKET);
+    }
+
+    /**
+     * check for traps ... but trap(s) may spring
+     * @param pc
+     * @param target
+     * @return true if trap springed
+     */
+    private static boolean evalChestCheck(L2PcInstance pc, L2ChestInstance target) {
+        // fixme : stub
+        LOG.error("L2Chest : trap check");
+        if (target.isTrapped())
+            target.setTrapKnown(true);
         return false;
     }
 
     /**
-     * Open a L2Chest window on client with the text of the L2NpcInstance.<BR>
-     * <BR>
-     * <B><U> Actions</U> :</B><BR>
-     * <BR>
-     * <li>Get the text of the selected HTML file in function of the npcId and of the page number</li>
-     * <li>Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance</li>
-     * <li>Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet</li><BR>
-     *
-     * @param pc     The L2PcInstance that talk with the L2NpcInstance
-     * @param cmd    command split by tokens
-     * @param chest  affected L2World object
+     * untrap trap(s) ... but trap(s) may spring
+     * @param pc
+     * @param target
+     * @return true if trap springed
      */
-    public static final void showL2ChestWindow(final L2PcInstance pc, final String[] cmd, final L2ChestInstance chest) {
-        // fixme: test stub
-        StringBuilder msg = new StringBuilder("<html><title>L2Chest handler</title><body>");
-        msg.append("Object ID ");
-        msg.append(chest.getId());
-        msg.append("<br1/>");
-        msg.append("Actions:<br1/><table>");
-        msg.append("<tr><td align=\"center\"><button value=\"Open\" width=120 height=25 action=\"bypass L2Chest ");
-        msg.append(" open\"/></td></tr>");
-        msg.append("<tr><td align=\"center\"><button value=\"Check for traps\" width=120 height=25 action=\"bypass L2Chest ");
-        msg.append(" untrap\"/></td></tr>");
-        msg.append("<tr><td align=\"center\"><button value=\"Leave\" width=120 height=25 action=\"bypass L2Chest ");
-        msg.append(" leave\"/></td></tr>");
-        msg.append("</table><br1/>Server command was: <br>");
-        msg.append(cmd);
-        msg.append("</body></html>");
-        Util.sendHtml(pc, msg.toString());
+    private static boolean evalChestUntrap(L2PcInstance pc, L2ChestInstance target) {
+        // fixme : stub
+        LOG.error("L2Chest : trap untrap");
+        target.setTrapped(false);
+        return false;
     }
+
+    /**
+     * use skill Unlock / deluxe key
+     *
+     * @param pc
+     * @param target
+     */
+    private static boolean evalChestLockOpen(L2PcInstance pc, L2ChestInstance target) {
+        LOG.error("L2Chest : lock open");
+        return target.lockOpen(pc);
+    }
+
+    private static boolean evalChestLockPick(L2PcInstance pc, L2ChestInstance target) {
+        // fixme : stub
+        LOG.error("L2Chest : lock pick");
+        return target.lockOpen(pc);
+    }
+
+    private static boolean evalChestLockForce(L2PcInstance pc, L2ChestInstance target) {
+        LOG.error("L2Chest : lock force");
+        return target.lockForce(pc);
+    }
+
 }
