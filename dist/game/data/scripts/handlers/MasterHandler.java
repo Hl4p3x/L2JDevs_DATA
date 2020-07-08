@@ -133,6 +133,7 @@ import handlers.bypasshandlers.EventEngine;
 import handlers.bypasshandlers.Festival;
 import handlers.bypasshandlers.Freight;
 import handlers.bypasshandlers.ItemAuctionLink;
+import handlers.bypasshandlers.L2Chest;
 import handlers.bypasshandlers.Link;
 import handlers.bypasshandlers.Loto;
 import handlers.bypasshandlers.Multisell;
@@ -399,6 +400,7 @@ public class MasterHandler
 		Festival.class,
 		Freight.class,
 		ItemAuctionLink.class,
+		L2Chest.class,
 		Link.class,
 		Loto.class,
 		Multisell.class,
