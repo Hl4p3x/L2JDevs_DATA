@@ -80,8 +80,12 @@ public class L2Chest implements IBypassHandler {
         }
         boolean res = true;
         switch (action) {
+            case "unlock":
+                res = evalChestLockOpenUnlock(pc, target);
+                break;
             case "open":
-                res = evalChestLockOpen(pc, target);
+            case "deluxe_key":
+                res = evalChestLockOpenKey(pc, target);
                 break;
             case "force":
                 res = evalChestLockForce(pc, target);
@@ -135,8 +139,7 @@ public class L2Chest implements IBypassHandler {
     private static boolean evalChestCheck(L2PcInstance pc, L2ChestInstance target) {
         // fixme : stub
         LOG.error("L2Chest : trap check");
-        if (target.isTrapped())
-            target.setTrapKnown(true);
+        target.setTrapKnown();
         return false;
     }
 
@@ -149,19 +152,33 @@ public class L2Chest implements IBypassHandler {
     private static boolean evalChestUntrap(L2PcInstance pc, L2ChestInstance target) {
         // fixme : stub
         LOG.error("L2Chest : trap untrap");
-        target.setTrapped(false);
+        if(target.isTrapKnown() && target.isTrapped())
+            target.setTrapped(false);
         return false;
     }
 
     /**
-     * use skill Unlock / deluxe key
+     * use deluxe key
      *
      * @param pc
      * @param target
      */
-    private static boolean evalChestLockOpen(L2PcInstance pc, L2ChestInstance target) {
-        LOG.error("L2Chest : lock open");
-        return target.lockOpen(pc);
+    private boolean evalChestLockOpenKey(L2PcInstance pc, L2ChestInstance target) {
+        // fixme : stub
+        LOG.error("L2Chest : deluxe_key");
+        return true;
+    }
+
+    /**
+     * use skill Unlock
+     *
+     * @param pc
+     * @param target
+     */
+    private boolean evalChestLockOpenUnlock(L2PcInstance pc, L2ChestInstance target) {
+        // fixme : stub
+        LOG.error("L2Chest : unlock");
+        return true;
     }
 
     private static boolean evalChestLockPick(L2PcInstance pc, L2ChestInstance target) {
