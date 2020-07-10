@@ -24,8 +24,10 @@ import org.l2jdevs.gameserver.model.L2World;
 import org.l2jdevs.gameserver.model.actor.L2Character;
 import org.l2jdevs.gameserver.model.actor.instance.L2ChestInstance;
 import org.l2jdevs.gameserver.model.actor.instance.L2PcInstance;
+import org.l2jdevs.gameserver.model.items.instance.L2ItemInstance;
 import org.l2jdevs.gameserver.network.serverpackets.ActionFailed;
 import org.l2jdevs.gameserver.util.Util;
+import org.l2jdevs.roguelike.DeluxeKeyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -158,15 +160,42 @@ public class L2Chest implements IBypassHandler {
     }
 
     /**
-     * use deluxe key
+     * use deluxe key to open chest
      *
      * @param pc
-     * @param target
+     * @param chest
      */
-    private boolean evalChestLockOpenKey(L2PcInstance pc, L2ChestInstance target) {
+    private boolean evalChestLockOpenKey(L2PcInstance pc, L2ChestInstance chest) {
         // fixme : stub
         LOG.error("L2Chest : deluxe_key");
-        return true;
+        /* find optimal delux chest key:
+         * 1. key grade lower or equal to current "best" key,
+         * 2. number of keys lower or equal to current "best" key.
+         * 3. key grade not less then level of chest,
+         */
+        L2ItemInstance[] deluxeKeys = DeluxeKeyUtils.getDeluxeKeys(pc);
+        if(deluxeKeys.length < 1) return false;
+        L2ItemInstance key = deluxeKeys[0];
+        int keyLevel = DeluxeKeyUtils.getKeyLevel(key);
+        // fixme: ? here check key.getCount() > 1
+        if(deluxeKeys.length > 1)
+            for(L2ItemInstance k : deluxeKeys) {
+                // find first key for chest grade's range
+                int kLvl = DeluxeKeyUtils.getKeyLevel(k); // keyLevel = keyGrade*10+9
+                if(kLvl < 1 || k.getCount() < 1) continue;
+                if(kLvl < chest.getEffectiveLevel()) {
+                    if(kLvl > keyLevel) {
+                        key = k;
+                        keyLevel = kLvl;
+                    }
+                }
+                else if(keyLevel < DeluxeKeyUtils.getKeyLevel(key)) {
+                    key = k;
+                    keyLevel = kLvl;
+                }
+            }
+        if(key.getCount() < 1) return false; // oops...
+        return chest.lockOpen(pc, key);
     }
 
     /**
